@@ -1,8 +1,6 @@
 # gateway-tsclient
 
+## Developer Notes
 
-
-#  Developer Notes
-
-Any developer using vscode must install plugin `EditorConfig plugin` for consistent code quality
-In case of intellij, make sure you enable editorconfig plugin in the bundled plugins.
+Visual Studio Code users must install `EditorConfig plugin` for consistent code quality.
+IntellIJ users should make sure editorconfig plugin is enabled in the bundled plugins.
