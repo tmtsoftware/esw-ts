@@ -4,6 +4,7 @@
   "description": "Gateway clients using typescript",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "audit": "npm audit",
     "clean": "rm -rf ./dist && mkdir dist",
     "prebuild": "npm run audit && npm run clean && npm run fix",
@@ -14,7 +15,7 @@
     "test:coverage": "jest --coverage",
     "fix": "npm run fix:lint && npm run fix:prettier",
     "fix:lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.{ts}'"
+    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts'"
   },
   "scripts-info": {
     "build": "Clean and rebuild the project",

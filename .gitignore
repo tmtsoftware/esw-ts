@@ -8,3 +8,4 @@ dist
 .vscode/*
 yarn.lock
 *.tsbuildinfo
+*.iml
