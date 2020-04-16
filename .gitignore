@@ -7,3 +7,4 @@ src/**.js
 dist
 .vscode/*
 yarn.lock
+*.tsbuildinfo
