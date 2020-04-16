@@ -4,10 +4,14 @@
   "description": "Gateway clients using typescript",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ./dist && mkdir dist",
-    "prebuild": "npm run clean && npm run fix",
+    "audit": "npm audit",
+    "clean": "rm -rf ./dist && mkdir dist",
+    "prebuild": "npm run audit && npm run clean && npm run fix",
     "build": "tsc",
-    "watch-ts": "tsc -w",
+    "build:watch": "tsc -w",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
     "fix": "npm run fix:lint && npm run fix:prettier",
     "fix:lint": "tslint -c tslint.json 'src/**/*.ts'",
     "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.{ts}'"
@@ -18,8 +22,9 @@
     "test": "Lint and unit test the project"
   },
   "devDependencies": {
+    "jest": "^25.3.0",
     "prettier": "^2.0.4",
-    "rimraf": "^3.0.2",
+    "ts-jest": "^25.3.1",
     "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
