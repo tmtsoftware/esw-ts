@@ -1,0 +1,82 @@
+{
+  "UTCTimeKey": {
+    "keyName": "utcTimeKey",
+    "values": [
+      "2017-09-04T16:28:00.123456789Z"
+    ],
+    "units": "second"
+  },
+  "TAITimeKey": {
+    "keyName": "taiTime",
+    "values": [
+      "2017-09-04T16:28:00.123456789Z"
+    ],
+    "units": "second"
+  },
+  "StringKey": {
+    "keyName": "days",
+    "values": [
+      "monday",
+      "tuesday"
+    ],
+    "units": "NoUnits"
+  },
+  "IntKey": {
+    "keyName": "numbers",
+    "values": [
+      1,
+      2,
+      3
+    ],
+    "units": "NoUnits"
+  },
+  "IntArrayKey": {
+    "keyName": "arrayOfNumbers",
+    "values": [
+      [
+        1,
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    "units": "NoUnits"
+  },
+  "StructKey": {
+    "keyName": "structKey",
+    "values": [
+      {
+        "paramSet": [
+          {
+            "IntKey": {
+              "keyName": "numbers",
+              "values": [
+                1,
+                2,
+                3
+              ],
+              "units": "NoUnits"
+            }
+          },
+          {
+            "StringKey": {
+              "keyName": "days",
+              "values": [
+                "monday",
+                "tuesday"
+              ],
+              "units": "NoUnits"
+            }
+          }
+        ]
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "ChoiceKey" : {
+    "keyName" : "mode-reset",
+    "values" : [ "c" ],
+    "units" : "NoUnits"
+  }
+}
