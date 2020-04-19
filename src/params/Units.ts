@@ -1,4 +1,5 @@
-export type Units = 'angstrom'
+export type Units =
+  | 'angstrom'
   | 'arcmin'
   | 'arcsec'
   | 'day'
