@@ -1,13 +1,19 @@
 import * as Keys from '../jsons/keys.json'
 import {
+  altAzCoordKey,
+  AltAzCoordKey,
   byteArrayKey,
   byteKey,
   byteMatrixKey,
   charKey,
   choiceKey,
+  cometCoordKey,
+  CometCoordKey,
+  coordKey,
   doubleArrayKey,
   doubleKey,
   doubleMatrixKey,
+  eqCoordKey,
   floatArrayKey,
   floatKey,
   floatMatrixKey,
@@ -17,15 +23,26 @@ import {
   longArrayKey,
   longKey,
   longMatrixKey,
+  minorPlanetCoordKey,
+  raDecKey,
   shortArrayKey,
   shortKey,
   shortMatrixKey,
+  solarSystemCoordKey,
   stringKey,
   structKey,
   taiTimeKey,
   utcTimeKey,
 } from '../../src/params/Key'
 import { MatrixData } from '../../src/params/MatrixData'
+import {
+  AltAzCoord,
+  CometCoord,
+  Coord,
+  EqCoord,
+  MinorPlanetCoord,
+  SolarSystemCoord,
+} from '../../src/params/Coord'
 
 test('utc time key', () => {
   const timeParam = utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])
@@ -193,4 +210,100 @@ test('double key', () => {
   const doubleParam = doubleKey('numbers').set([1, 2, 3])
 
   expect(Keys.GeneralKey).toEqual(doubleParam.toJSON().DoubleKey)
+})
+
+test('RaDec key', () => {
+  const raDecParam = raDecKey('RaDecKey').set([{ ra: 7.3, dec: 12.1 }])
+
+  expect(Keys.RaDecKey).toEqual(raDecParam.toJSON().RaDecKey)
+})
+
+test('EqCoord key', () => {
+  const value: EqCoord = {
+    tag: 'BASE',
+    ra: 659912250000,
+    dec: -109892300000,
+    frame: 'ICRS',
+    catalogName: 'none',
+    pm: {
+      pmx: 0.5,
+      pmy: 2.33,
+    },
+  }
+  const eqCoordParam = eqCoordKey('EqCoordKey').set([value])
+
+  expect(Keys.EqCoordKey).toEqual(eqCoordParam.toJSON().EqCoordKey)
+})
+
+test('SolarSystemCoord key', () => {
+  const value: SolarSystemCoord = {
+    tag: 'BASE',
+    body: 'Venus',
+  }
+  const solarSystemCoordParam = solarSystemCoordKey('SolarSystemCoordKey').set([value])
+
+  expect(Keys.SolarSystemCoordKey).toEqual(solarSystemCoordParam.toJSON().SolarSystemCoordKey)
+})
+
+test('MinorPlanetCoord key', () => {
+  const value: MinorPlanetCoord = {
+    tag: 'GUIDER1',
+    epoch: 2000.0,
+    inclination: 324000000000,
+    longAscendingNode: 7200000000,
+    argOfPerihelion: 360000000000,
+    meanDistance: 1.4,
+    eccentricity: 0.234,
+    meanAnomaly: 792000000000,
+  }
+  const minorPlanetCoordParam = minorPlanetCoordKey('MinorPlanetCoordKey').set([value])
+
+  expect(Keys.MinorPlanetCoordKey).toEqual(minorPlanetCoordParam.toJSON().MinorPlanetCoordKey)
+})
+
+test('CometCoord key', () => {
+  const value: CometCoord = {
+    tag: 'BASE',
+    epochOfPerihelion: 2000.0,
+    inclination: 324000000000,
+    longAscendingNode: 7200000000,
+    argOfPerihelion: 360000000000,
+    perihelionDistance: 1.4,
+    eccentricity: 0.234,
+  }
+  const cometCoordParam = cometCoordKey('CometCoordKey').set([value])
+
+  expect(Keys.CometCoordKey).toEqual(cometCoordParam.toJSON().CometCoordKey)
+})
+
+test('AltAzCoord key', () => {
+  const value: AltAzCoord = {
+    tag: 'BASE',
+    alt: 1083600000000,
+    az: 153000000000,
+  }
+  const altAzCoordParam = altAzCoordKey('AltAzCoordKey').set([value])
+
+  expect(Keys.AltAzCoordKey).toEqual(altAzCoordParam.toJSON().AltAzCoordKey)
+})
+
+test('Coord key', () => {
+  const eqCoord: EqCoord = {
+    tag: 'BASE',
+    ra: 659912250000,
+    dec: -109892300000,
+    frame: 'ICRS',
+    catalogName: 'none',
+    pm: {
+      pmx: 0.5,
+      pmy: 2.33,
+    },
+  }
+  const solarSystemCoord: SolarSystemCoord = {
+    tag: 'BASE',
+    body: 'Venus',
+  }
+  const coordParam = coordKey('CoordKey').set([eqCoord, solarSystemCoord])
+
+  expect(Keys.CoordKey).toEqual(coordParam.toJSON().CoordKey)
 })
