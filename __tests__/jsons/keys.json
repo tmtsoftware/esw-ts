@@ -129,5 +129,105 @@
       ]
     ],
     "units": "NoUnits"
+  },
+  "RaDecKey": {
+    "keyName": "RaDecKey",
+    "values": [
+      {
+        "ra": 7.3,
+        "dec": 12.1
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "EqCoordKey": {
+    "keyName": "EqCoordKey",
+    "values": [
+      {
+        "tag": "BASE",
+        "ra": 659912250000,
+        "dec": -109892300000,
+        "frame": "ICRS",
+        "catalogName": "none",
+        "pm": {
+          "pmx": 0.5,
+          "pmy": 2.33
+        }
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "SolarSystemCoordKey": {
+    "keyName": "SolarSystemCoordKey",
+    "values": [
+      {
+        "tag": "BASE",
+        "body": "Venus"
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "MinorPlanetCoordKey": {
+    "keyName": "MinorPlanetCoordKey",
+    "values": [
+      {
+        "tag": "GUIDER1",
+        "epoch": 2000.0,
+        "inclination": 324000000000,
+        "longAscendingNode": 7200000000,
+        "argOfPerihelion": 360000000000,
+        "meanDistance": 1.4,
+        "eccentricity": 0.234,
+        "meanAnomaly": 792000000000
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "CometCoordKey": {
+    "keyName": "CometCoordKey",
+    "values": [
+      {
+        "tag": "BASE",
+        "epochOfPerihelion": 2000.0,
+        "inclination": 324000000000,
+        "longAscendingNode": 7200000000,
+        "argOfPerihelion": 360000000000,
+        "perihelionDistance": 1.4,
+        "eccentricity": 0.234
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "AltAzCoordKey": {
+    "keyName": "AltAzCoordKey",
+    "values": [
+      {
+        "tag": "BASE",
+        "alt": 1083600000000,
+        "az": 153000000000
+      }
+    ],
+    "units": "NoUnits"
+  },
+  "CoordKey": {
+    "keyName": "CoordKey",
+    "values": [
+      {
+        "tag": "BASE",
+        "ra": 659912250000,
+        "dec": -109892300000,
+        "frame": "ICRS",
+        "catalogName": "none",
+        "pm": {
+          "pmx": 0.5,
+          "pmy": 2.33
+        }
+      },
+      {
+        "tag": "BASE",
+        "body": "Venus"
+      }
+    ],
+    "units": "NoUnits"
   }
 }

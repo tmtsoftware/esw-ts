@@ -35,14 +35,10 @@ export interface ProperMotion {
   pmy: number
 }
 
-export interface Angle {
-  uas: number
-}
-
 export interface EqCoord {
   tag: Tag
-  ra: Angle
-  dec: Angle
+  ra: number
+  dec: number
   frame: EqFrame
   catalogName: string
   pm: ProperMotion
@@ -51,12 +47,12 @@ export interface EqCoord {
 export interface MinorPlanetCoord {
   tag: Tag
   epoch: number
-  inclination: Angle
-  longAscendingNode: Angle
-  argOfPerihelion: Angle
+  inclination: number
+  longAscendingNode: number
+  argOfPerihelion: number
   meanDistance: number
   eccentricity: number
-  meanAnomaly: Angle
+  meanAnomaly: number
 }
 
 export interface SolarSystemCoord {
@@ -67,17 +63,17 @@ export interface SolarSystemCoord {
 export interface CometCoord {
   tag: Tag
   epochOfPerihelion: number
-  inclination: Angle
-  longAscendingNode: Angle
-  argOfPerihelion: Angle
+  inclination: number
+  longAscendingNode: number
+  argOfPerihelion: number
   perihelionDistance: number
   eccentricity: number
 }
 
 export interface AltAzCoord {
   tag: Tag
-  alt: Angle
-  az: Angle
+  alt: number
+  az: number
 }
 
 export interface Coord {
