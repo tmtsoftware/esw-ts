@@ -2,6 +2,16 @@ import { Units } from './Units'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import { Parameter } from './Parameter'
+import {
+  AltAzCoord,
+  CometCoord,
+  Coord,
+  EqCoord,
+  MinorPlanetCoord,
+  RaDec,
+  SolarSystemCoord,
+  TimeTag,
+} from './Coord'
 
 export interface Struct {
   paramSet: Parameter<Key>[]
@@ -18,8 +28,14 @@ export type Key =
   | StructKey
   | ChoiceKey<any>
   | TimeKey
+  | RaDecKey
+  | EqCoordKey
+  | SolarSystemCoordKey
+  | MinorPlanetCoordKey
+  | CometCoordKey
+  | AltAzCoordKey
+  | CoordKey
 
-export type TimeTag = 'UTCTimeKey' | 'TAITimeKey'
 // Keys
 export type IntKey = { KeyTag: 'IntKey'; KeyType: number }
 export type StringKey = { KeyTag: 'StringKey'; KeyType: string }
@@ -27,6 +43,14 @@ export type IntArrayKey = { KeyTag: 'IntArrayKey'; KeyType: number[] }
 export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
 export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
 export type TimeKey = { KeyTag: TimeTag; KeyType: string } // TBD
+
+export type RaDecKey = { KeyTag: 'RaDecKey'; KeyType: RaDec }
+export type EqCoordKey = { KeyTag: 'EqCoordKey'; KeyType: EqCoord }
+export type SolarSystemCoordKey = { KeyTag: 'SolarSystemCoordKey'; KeyType: SolarSystemCoord }
+export type MinorPlanetCoordKey = { KeyTag: 'MinorPlanetCoordKey'; KeyType: MinorPlanetCoord }
+export type CometCoordKey = { KeyTag: 'CometCoordKey'; KeyType: CometCoord }
+export type AltAzCoordKey = { KeyTag: 'AltAzCoordKey'; KeyType: AltAzCoord }
+export type CoordKey = { KeyTag: 'CoordKey'; KeyType: Coord }
 
 // Key Api
 export const intKey = (name: string, units: Units = 'NoUnits') =>
@@ -49,3 +73,24 @@ export const taiTimeKey = (name: string, units: Units = 'second') =>
 
 export const choiceKey = (name: string, units: Units = 'NoUnits') =>
   new ChoiceKeyFactory<ChoiceKey<string>>(name, 'ChoiceKey', units)
+
+export const raDecKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<RaDecKey>(name, 'RaDecKey', units)
+
+export const eqCoordKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<EqCoordKey>(name, 'EqCoordKey', units)
+
+export const solarSystemCoordKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<SolarSystemCoordKey>(name, 'SolarSystemCoordKey', units)
+
+export const minorPlanetCoordKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<MinorPlanetCoordKey>(name, 'MinorPlanetCoordKey', units)
+
+export const cometCoordKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<CometCoordKey>(name, 'CometCoordKey', units)
+
+export const altAzCoordKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<AltAzCoordKey>(name, 'AltAzCoordKey', units)
+
+export const coordKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<CoordKey>(name, 'CoordKey', units)
