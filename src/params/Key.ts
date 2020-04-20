@@ -10,7 +10,6 @@ import {
   MinorPlanetCoord,
   RaDec,
   SolarSystemCoord,
-  TimeTag,
 } from './Coord'
 import { MatrixData } from './MatrixData'
 
@@ -72,7 +71,9 @@ export type Key =
   | ShortArrayKey
   | FloatArrayKey
   | DoubleArrayKey
+  | BooleanKey
 
+export type TimeTag = 'UTCTimeKey' | 'TAITimeKey'
 // Keys
 export type IntKey = NumberType<'IntKey'>
 export type LongKey = NumberType<'LongKey'>
@@ -110,7 +111,8 @@ export type CometCoordKey = { KeyTag: 'CometCoordKey'; KeyType: CometCoord }
 export type AltAzCoordKey = { KeyTag: 'AltAzCoordKey'; KeyType: AltAzCoord }
 export type CoordKey = { KeyTag: 'CoordKey'; KeyType: Coord }
 
-// Key Api
+export type BooleanKey = { KeyTag: 'BooleanKey'; KeyType: boolean }
+// simple key's
 export const intKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<IntKey>(name, 'IntKey', units)
 
@@ -132,6 +134,13 @@ export const byteKey = (name: string, units: Units = 'NoUnits') =>
 export const stringKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<StringKey>(name, 'StringKey', units)
 
+export const charKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<CharKey>(name, 'CharKey', units)
+
+export const booleanKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<BooleanKey>(name, 'BooleanKey', units)
+
+// time , choice and struct keys
 export const structKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<StructKey>(name, 'StructKey', units)
 
@@ -144,6 +153,7 @@ export const taiTimeKey = (name: string, units: Units = 'second') =>
 export const choiceKey = (name: string, units: Units = 'NoUnits') =>
   new ChoiceKeyFactory<ChoiceKey<string>>(name, 'ChoiceKey', units)
 
+// co-ord keys
 export const raDecKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<RaDecKey>(name, 'RaDecKey', units)
 
@@ -165,6 +175,7 @@ export const altAzCoordKey = (name: string, units: Units = 'NoUnits') =>
 export const coordKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<CoordKey>(name, 'CoordKey', units)
 
+// matrix keys
 export const byteMatrixKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<ByteMatrixKey>(name, 'ByteMatrixKey', units)
 
@@ -183,6 +194,7 @@ export const floatMatrixKey = (name: string, units: Units = 'NoUnits') =>
 export const doubleMatrixKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<DoubleMatrixKey>(name, 'DoubleMatrixKey', units)
 
+// array keys
 export const byteArrayKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<ByteArrayKey>(name, 'ByteArrayKey', units)
 
@@ -200,6 +212,3 @@ export const floatArrayKey = (name: string, units: Units = 'NoUnits') =>
 
 export const doubleArrayKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<DoubleArrayKey>(name, 'DoubleArrayKey', units)
-
-export const charKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<CharKey>(name, 'CharKey', units)

@@ -209,6 +209,13 @@
     ],
     "units": "NoUnits"
   },
+  "BooleanKey": {
+    "keyName": "BooleanKey",
+    "values": [
+       true
+    ],
+    "units": "NoUnits"
+  },
   "CoordKey": {
     "keyName": "CoordKey",
     "values": [

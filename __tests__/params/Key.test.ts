@@ -1,14 +1,13 @@
 import * as Keys from '../jsons/keys.json'
 import {
   altAzCoordKey,
-  AltAzCoordKey,
+  booleanKey,
   byteArrayKey,
   byteKey,
   byteMatrixKey,
   charKey,
   choiceKey,
   cometCoordKey,
-  CometCoordKey,
   coordKey,
   doubleArrayKey,
   doubleKey,
@@ -38,7 +37,6 @@ import { MatrixData } from '../../src/params/MatrixData'
 import {
   AltAzCoord,
   CometCoord,
-  Coord,
   EqCoord,
   MinorPlanetCoord,
   SolarSystemCoord,
@@ -306,4 +304,10 @@ test('Coord key', () => {
   const coordParam = coordKey('CoordKey').set([eqCoord, solarSystemCoord])
 
   expect(Keys.CoordKey).toEqual(coordParam.toJSON().CoordKey)
+})
+
+test('Boolean key', () => {
+  const booleanParam = booleanKey('BooleanKey').set([true])
+
+  expect(Keys.BooleanKey).toEqual(booleanParam.toJSON().BooleanKey)
 })

@@ -22,7 +22,6 @@ export type SolarSystemObject =
   | 'Uranus'
   | 'Pluto'
 
-export type TimeTag = 'UTCTimeKey' | 'TAITimeKey'
 export type EqFrame = 'ICRS' | 'FK5'
 
 export interface RaDec {
