@@ -18,6 +18,25 @@ export interface Struct {
   paramSet: Parameter<Key>[]
 }
 
+type MatrixDataNumberType<KTag> = {
+  KeyTag: KTag
+  KeyType: MatrixData<number>
+}
+
+type ArrayNumberType<KTag> = {
+  KeyTag: KTag
+  KeyType: number[]
+}
+
+type NumberType<KTag> = {
+  KeyTag: KTag
+  KeyType: number
+}
+type StringType<KTag> = {
+  KeyTag: KTag
+  KeyType: string
+}
+
 export type KeyType<T extends Key> = T['KeyType']
 
 export type KeyTag<T extends Key> = T['KeyTag']
@@ -55,48 +74,33 @@ export type Key =
   | DoubleArrayKey
 
 // Keys
-export type IntKey = { KeyTag: 'IntKey'; KeyType: number }
-export type LongKey = { KeyTag: 'LongKey'; KeyType: number }
-export type ShortKey = { KeyTag: 'ShortKey'; KeyType: number }
-export type FloatKey = { KeyTag: 'FloatKey'; KeyType: number }
-export type DoubleKey = { KeyTag: 'DoubleKey'; KeyType: number }
-export type ByteKey = { KeyTag: 'ByteKey'; KeyType: number }
-export type StringKey = { KeyTag: 'StringKey'; KeyType: string }
-export type CharKey = { KeyTag: 'CharKey'; KeyType: string }
-export type IntArrayKey = { KeyTag: 'IntArrayKey'; KeyType: number[] }
-export type ByteArrayKey = { KeyTag: 'ByteArrayKey'; KeyType: number[] }
-export type LongArrayKey = { KeyTag: 'LongArrayKey'; KeyType: number[] }
-export type ShortArrayKey = { KeyTag: 'ShortArrayKey'; KeyType: number[] }
-export type FloatArrayKey = { KeyTag: 'FloatArrayKey'; KeyType: number[] }
-export type DoubleArrayKey = { KeyTag: 'DoubleArrayKey'; KeyType: number[] }
+export type IntKey = NumberType<'IntKey'>
+export type LongKey = NumberType<'LongKey'>
+export type ShortKey = NumberType<'ShortKey'>
+export type FloatKey = NumberType<'FloatKey'>
+export type DoubleKey = NumberType<'DoubleKey'>
+export type ByteKey = NumberType<'ByteKey'>
+
+export type StringKey = StringType<'StringKey'>
+export type CharKey = StringType<'CharKey'>
+export type TimeKey = StringType<TimeTag>
+
+export type ByteMatrixKey = MatrixDataNumberType<'ByteMatrixKey'>
+export type IntMatrixKey = MatrixDataNumberType<'IntMatrixKey'>
+export type LongMatrixKey = MatrixDataNumberType<'LongMatrixKey'>
+export type ShortMatrixKey = MatrixDataNumberType<'ShortMatrixKey'>
+export type FloatMatrixKey = MatrixDataNumberType<'FloatMatrixKey'>
+export type DoubleMatrixKey = MatrixDataNumberType<'DoubleMatrixKey'>
+
+export type IntArrayKey = ArrayNumberType<'IntArrayKey'>
+export type ByteArrayKey = ArrayNumberType<'ByteArrayKey'>
+export type LongArrayKey = ArrayNumberType<'LongArrayKey'>
+export type ShortArrayKey = ArrayNumberType<'ShortArrayKey'>
+export type FloatArrayKey = ArrayNumberType<'FloatArrayKey'>
+export type DoubleArrayKey = ArrayNumberType<'DoubleArrayKey'>
+
 export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
 export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
-export type TimeKey = { KeyTag: TimeTag; KeyType: string } // TBD
-
-export type ByteMatrixKey = {
-  KeyTag: 'ByteMatrixKey'
-  KeyType: MatrixData<number>
-}
-export type IntMatrixKey = {
-  KeyTag: 'IntMatrixKey'
-  KeyType: MatrixData<number>
-}
-export type LongMatrixKey = {
-  KeyTag: 'LongMatrixKey'
-  KeyType: MatrixData<number>
-}
-export type ShortMatrixKey = {
-  KeyTag: 'ShortMatrixKey'
-  KeyType: MatrixData<number>
-}
-export type FloatMatrixKey = {
-  KeyTag: 'FloatMatrixKey'
-  KeyType: MatrixData<number>
-}
-export type DoubleMatrixKey = {
-  KeyTag: 'DoubleMatrixKey'
-  KeyType: MatrixData<number>
-}
 
 export type RaDecKey = { KeyTag: 'RaDecKey'; KeyType: RaDec }
 export type EqCoordKey = { KeyTag: 'EqCoordKey'; KeyType: EqCoord }
