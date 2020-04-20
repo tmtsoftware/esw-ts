@@ -1,4 +1,5 @@
 export type Units =
+  // SI units
   | 'angstrom'
   | 'arcmin'
   | 'arcsec'
@@ -31,13 +32,19 @@ export type Units =
   | 'watt'
   | 'week'
   | 'year'
+
+  // CGS units
   | 'coulomb'
   | 'centimeter'
   | 'erg'
+
+  // Astropyhsics units
   | 'au'
   | 'jansky'
   | 'lightyear'
   | 'mag'
+
+  // Imperial units
   | 'cal'
   | 'foot'
   | 'inch'
@@ -45,6 +52,8 @@ export type Units =
   | 'mile'
   | 'ounce'
   | 'yard'
+
+  // Others - engineering
   | 'NoUnits'
   | 'encoder'
   | 'count'

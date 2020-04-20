@@ -12,6 +12,7 @@ import {
   SolarSystemCoord,
   TimeTag,
 } from './Coord'
+import { MatrixData } from './MatrixData'
 
 export interface Struct {
   paramSet: Parameter<Key>[]
@@ -35,6 +36,7 @@ export type Key =
   | CometCoordKey
   | AltAzCoordKey
   | CoordKey
+  | MatrixKey
 
 // Keys
 export type IntKey = { KeyTag: 'IntKey'; KeyType: number }
@@ -43,6 +45,37 @@ export type IntArrayKey = { KeyTag: 'IntArrayKey'; KeyType: number[] }
 export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
 export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
 export type TimeKey = { KeyTag: TimeTag; KeyType: string } // TBD
+export type MatrixKey =
+  | IntMatrixKey
+  | ByteMatrixKey
+  | LongMatrixKey
+  | ShortMatrixKey
+  | FloatMatrixKey
+  | DoubleMatrixKey
+export type ByteMatrixKey = {
+  KeyTag: 'ByteMatrixKey'
+  KeyType: MatrixData<number>
+}
+export type IntMatrixKey = {
+  KeyTag: 'IntMatrixKey'
+  KeyType: MatrixData<number>
+}
+export type LongMatrixKey = {
+  KeyTag: 'LongMatrixKey'
+  KeyType: MatrixData<number>
+}
+export type ShortMatrixKey = {
+  KeyTag: 'ShortMatrixKey'
+  KeyType: MatrixData<number>
+}
+export type FloatMatrixKey = {
+  KeyTag: 'FloatMatrixKey'
+  KeyType: MatrixData<number>
+}
+export type DoubleMatrixKey = {
+  KeyTag: 'DoubleMatrixKey'
+  KeyType: MatrixData<number>
+}
 
 export type RaDecKey = { KeyTag: 'RaDecKey'; KeyType: RaDec }
 export type EqCoordKey = { KeyTag: 'EqCoordKey'; KeyType: EqCoord }
@@ -94,3 +127,21 @@ export const altAzCoordKey = (name: string, units: Units = 'NoUnits') =>
 
 export const coordKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<CoordKey>(name, 'CoordKey', units)
+
+export const byteMatrixKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<ByteMatrixKey>(name, 'ByteMatrixKey', units)
+
+export const intMatrixKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<IntMatrixKey>(name, 'IntMatrixKey', units)
+
+export const longMatrixKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<LongMatrixKey>(name, 'LongMatrixKey', units)
+
+export const shortMatrixKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<ShortMatrixKey>(name, 'ShortMatrixKey', units)
+
+export const floatMatrixKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<FloatMatrixKey>(name, 'FloatMatrixKey', units)
+
+export const doubleMatrixKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<DoubleMatrixKey>(name, 'DoubleMatrixKey', units)
