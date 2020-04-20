@@ -1,27 +1,59 @@
 {
   "UTCTimeKey": {
     "keyName": "utcTimeKey",
-    "values": ["2017-09-04T16:28:00.123456789Z"],
+    "values": [
+      "2017-09-04T16:28:00.123456789Z"
+    ],
     "units": "second"
   },
   "TAITimeKey": {
     "keyName": "taiTime",
-    "values": ["2017-09-04T16:28:00.123456789Z"],
+    "values": [
+      "2017-09-04T16:28:00.123456789Z"
+    ],
     "units": "second"
   },
   "StringKey": {
     "keyName": "days",
-    "values": ["monday", "tuesday"],
+    "values": [
+      "monday",
+      "tuesday"
+    ],
     "units": "NoUnits"
   },
-  "IntKey": {
+  "GeneralKey": {
     "keyName": "numbers",
-    "values": [1, 2, 3],
+    "values": [
+      1,
+      2,
+      3
+    ],
     "units": "NoUnits"
   },
-  "IntArrayKey": {
+  "ArrayKey": {
     "keyName": "arrayOfNumbers",
-    "values": [[1, 2], [3]],
+    "values": [
+      [
+        1,
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    "units": "NoUnits"
+  },
+  "GeneralArrayKey": {
+    "keyName": "arrayOfNumbers",
+    "values": [
+      [
+        1.2,
+        2.4243
+      ],
+      [
+        3.3
+      ]
+    ],
     "units": "NoUnits"
   },
   "StructKey": {
@@ -32,14 +64,21 @@
           {
             "IntKey": {
               "keyName": "numbers",
-              "values": [1, 2, 3],
+              "values": [
+                1,
+                2,
+                3
+              ],
               "units": "NoUnits"
             }
           },
           {
             "StringKey": {
               "keyName": "days",
-              "values": ["monday", "tuesday"],
+              "values": [
+                "monday",
+                "tuesday"
+              ],
               "units": "NoUnits"
             }
           }
@@ -50,17 +89,45 @@
   },
   "ChoiceKey": {
     "keyName": "mode-reset",
-    "values": ["c"],
+    "values": [
+      "c"
+    ],
     "units": "NoUnits"
   },
   "GeneralMatrixKey": {
     "keyName": "test matrix",
-    "values": [[[1, 2, 3], [4, 5, 6]]],
+    "values": [
+      [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6
+        ]
+      ]
+    ],
     "units": "NoUnits"
   },
   "FractionMatrixKey": {
     "keyName": "test matrix",
-    "values": [[[1, 2.2, 3.3], [4.444, 5.34, 6.77]]],
+    "values": [
+      [
+        [
+          1,
+          2.2,
+          3.3
+        ],
+        [
+          4.444,
+          5.34,
+          6.77
+        ]
+      ]
+    ],
     "units": "NoUnits"
   }
 }

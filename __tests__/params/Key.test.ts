@@ -1,13 +1,24 @@
 import * as Keys from '../jsons/keys.json'
 import {
+  byteArrayKey,
+  byteKey,
   byteMatrixKey,
+  charKey,
   choiceKey,
+  doubleArrayKey,
+  doubleKey,
   doubleMatrixKey,
+  floatArrayKey,
+  floatKey,
   floatMatrixKey,
   intArrayKey,
   intKey,
   intMatrixKey,
+  longArrayKey,
+  longKey,
   longMatrixKey,
+  shortArrayKey,
+  shortKey,
   shortMatrixKey,
   stringKey,
   structKey,
@@ -28,22 +39,18 @@ test('tai time key', () => {
   expect(Keys.TAITimeKey).toEqual(timeParam.toJSON().TAITimeKey)
 })
 
-test('string key', () => {
+test('string and char key', () => {
   const stringParam = stringKey('days').set(['monday', 'tuesday'])
+  const charParam = charKey('days').set(['monday', 'tuesday'])
 
   expect(Keys.StringKey).toEqual(stringParam.toJSON().StringKey)
+  expect(Keys.StringKey).toEqual(charParam.toJSON().CharKey)
 })
 
 test('int key', () => {
   const intParam = intKey('numbers').set([1, 2, 3])
 
-  expect(Keys.IntKey).toEqual(intParam.toJSON().IntKey)
-})
-
-test('int array key', () => {
-  const intArrayParam = intArrayKey('arrayOfNumbers').set([[1, 2], [3]])
-
-  expect(Keys.IntArrayKey).toEqual(intArrayParam.toJSON().IntArrayKey)
+  expect(Keys.GeneralKey).toEqual(intParam.toJSON().IntKey)
 })
 
 test('struct key', () => {
@@ -120,4 +127,70 @@ test('double matrix key', () => {
 
   const { DoubleMatrixKey } = matrixParam.toJSON()
   expect(Keys.FractionMatrixKey).toEqual(JSON.parse(JSON.stringify(DoubleMatrixKey)))
+})
+
+test('int array key', () => {
+  const intArrayParam = intArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+
+  expect(Keys.ArrayKey).toEqual(intArrayParam.toJSON().IntArrayKey)
+})
+
+test('byte array key', () => {
+  const byteArrayParam = byteArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+
+  expect(Keys.ArrayKey).toEqual(byteArrayParam.toJSON().ByteArrayKey)
+})
+
+test('short array key', () => {
+  const shortArrayParam = shortArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+
+  expect(Keys.ArrayKey).toEqual(shortArrayParam.toJSON().ShortArrayKey)
+})
+
+test('long array key', () => {
+  const longArrayParam = longArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+
+  expect(Keys.ArrayKey).toEqual(longArrayParam.toJSON().LongArrayKey)
+})
+
+test('float array key', () => {
+  const floatArrayParam = floatArrayKey('arrayOfNumbers').set([[1.2, 2.4243], [3.3]])
+
+  expect(Keys.GeneralArrayKey).toEqual(floatArrayParam.toJSON().FloatArrayKey)
+})
+
+test('double array key', () => {
+  const doubleArrayParam = doubleArrayKey('arrayOfNumbers').set([[1.2, 2.4243], [3.3]])
+
+  expect(Keys.GeneralArrayKey).toEqual(doubleArrayParam.toJSON().DoubleArrayKey)
+})
+
+test('byte key', () => {
+  const byteParam = byteKey('numbers').set([1, 2, 3])
+
+  expect(Keys.GeneralKey).toEqual(byteParam.toJSON().ByteKey)
+})
+
+test('short key', () => {
+  const shortParam = shortKey('numbers').set([1, 2, 3])
+
+  expect(Keys.GeneralKey).toEqual(shortParam.toJSON().ShortKey)
+})
+
+test('long key', () => {
+  const longParam = longKey('numbers').set([1, 2, 3])
+
+  expect(Keys.GeneralKey).toEqual(longParam.toJSON().LongKey)
+})
+
+test('float key', () => {
+  const floatParam = floatKey('numbers').set([1, 2, 3])
+
+  expect(Keys.GeneralKey).toEqual(floatParam.toJSON().FloatKey)
+})
+
+test('double key', () => {
+  const doubleParam = doubleKey('numbers').set([1, 2, 3])
+
+  expect(Keys.GeneralKey).toEqual(doubleParam.toJSON().DoubleKey)
 })

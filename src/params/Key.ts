@@ -24,8 +24,13 @@ export type KeyTag<T extends Key> = T['KeyTag']
 
 export type Key =
   | IntKey
+  | LongKey
+  | ShortKey
+  | FloatKey
+  | DoubleKey
+  | ByteKey
   | StringKey
-  | IntArrayKey
+  | CharKey
   | StructKey
   | ChoiceKey<any>
   | TimeKey
@@ -36,22 +41,38 @@ export type Key =
   | CometCoordKey
   | AltAzCoordKey
   | CoordKey
-  | MatrixKey
-
-// Keys
-export type IntKey = { KeyTag: 'IntKey'; KeyType: number }
-export type StringKey = { KeyTag: 'StringKey'; KeyType: string }
-export type IntArrayKey = { KeyTag: 'IntArrayKey'; KeyType: number[] }
-export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
-export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
-export type TimeKey = { KeyTag: TimeTag; KeyType: string } // TBD
-export type MatrixKey =
   | IntMatrixKey
   | ByteMatrixKey
   | LongMatrixKey
   | ShortMatrixKey
   | FloatMatrixKey
   | DoubleMatrixKey
+  | IntArrayKey
+  | ByteArrayKey
+  | LongArrayKey
+  | ShortArrayKey
+  | FloatArrayKey
+  | DoubleArrayKey
+
+// Keys
+export type IntKey = { KeyTag: 'IntKey'; KeyType: number }
+export type LongKey = { KeyTag: 'LongKey'; KeyType: number }
+export type ShortKey = { KeyTag: 'ShortKey'; KeyType: number }
+export type FloatKey = { KeyTag: 'FloatKey'; KeyType: number }
+export type DoubleKey = { KeyTag: 'DoubleKey'; KeyType: number }
+export type ByteKey = { KeyTag: 'ByteKey'; KeyType: number }
+export type StringKey = { KeyTag: 'StringKey'; KeyType: string }
+export type CharKey = { KeyTag: 'CharKey'; KeyType: string }
+export type IntArrayKey = { KeyTag: 'IntArrayKey'; KeyType: number[] }
+export type ByteArrayKey = { KeyTag: 'ByteArrayKey'; KeyType: number[] }
+export type LongArrayKey = { KeyTag: 'LongArrayKey'; KeyType: number[] }
+export type ShortArrayKey = { KeyTag: 'ShortArrayKey'; KeyType: number[] }
+export type FloatArrayKey = { KeyTag: 'FloatArrayKey'; KeyType: number[] }
+export type DoubleArrayKey = { KeyTag: 'DoubleArrayKey'; KeyType: number[] }
+export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
+export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
+export type TimeKey = { KeyTag: TimeTag; KeyType: string } // TBD
+
 export type ByteMatrixKey = {
   KeyTag: 'ByteMatrixKey'
   KeyType: MatrixData<number>
@@ -89,11 +110,23 @@ export type CoordKey = { KeyTag: 'CoordKey'; KeyType: Coord }
 export const intKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<IntKey>(name, 'IntKey', units)
 
+export const longKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<LongKey>(name, 'LongKey', units)
+
+export const shortKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<ShortKey>(name, 'ShortKey', units)
+
+export const floatKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<FloatKey>(name, 'FloatKey', units)
+
+export const doubleKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<DoubleKey>(name, 'DoubleKey', units)
+
+export const byteKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<ByteKey>(name, 'ByteKey', units)
+
 export const stringKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<StringKey>(name, 'StringKey', units)
-
-export const intArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<IntArrayKey>(name, 'IntArrayKey', units)
 
 export const structKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<StructKey>(name, 'StructKey', units)
@@ -145,3 +178,24 @@ export const floatMatrixKey = (name: string, units: Units = 'NoUnits') =>
 
 export const doubleMatrixKey = (name: string, units: Units = 'NoUnits') =>
   new BaseKey<DoubleMatrixKey>(name, 'DoubleMatrixKey', units)
+
+export const byteArrayKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<ByteArrayKey>(name, 'ByteArrayKey', units)
+
+export const intArrayKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<IntArrayKey>(name, 'IntArrayKey', units)
+
+export const longArrayKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<LongArrayKey>(name, 'LongArrayKey', units)
+
+export const shortArrayKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<ShortArrayKey>(name, 'ShortArrayKey', units)
+
+export const floatArrayKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<FloatArrayKey>(name, 'FloatArrayKey', units)
+
+export const doubleArrayKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<DoubleArrayKey>(name, 'DoubleArrayKey', units)
+
+export const charKey = (name: string, units: Units = 'NoUnits') =>
+  new BaseKey<CharKey>(name, 'CharKey', units)
