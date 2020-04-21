@@ -1,5 +1,5 @@
-import { Parameter } from '../../../params/Parameter'
-import { Key } from '../../../params/Key'
+import { Parameter } from '../../../models/params/Parameter'
+import { Key } from '../../../models/params/Key'
 
 enum responseType {
   Accepted = 'Accepted',

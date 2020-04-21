@@ -32,15 +32,15 @@ import {
   structKey,
   taiTimeKey,
   utcTimeKey,
-} from '../../src/params/Key'
-import { MatrixData } from '../../src/params/MatrixData'
+} from '../../src/models/params/Key'
+import { MatrixData } from '../../src/models/params/MatrixData'
 import {
   AltAzCoord,
   CometCoord,
   EqCoord,
   MinorPlanetCoord,
   SolarSystemCoord,
-} from '../../src/params/Coord'
+} from '../../src/models/params/Coord'
 
 test('utc time key', () => {
   const timeParam = utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])
