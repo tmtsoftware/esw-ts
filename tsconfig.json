@@ -20,7 +20,8 @@
     "moduleResolution": "node",
     /* Specify library files to be included in the compilation. */
     "lib": [
-      "ES2015"
+      "ES2015",
+      "DOM", "DOM.Iterable"
     ],
     "resolveJsonModule" : true,
     /* Strict Type-Checking Options */

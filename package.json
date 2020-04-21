@@ -14,8 +14,8 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "fix": "npm-run-all --parallel fix:lint fix:prettier",
-    "fix:lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts'"
+    "fix:lint": "tslint -c tslint.json 'src/**/*.ts' '__tests__/**/*.ts'",
+    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts' '__tests__/**/*.ts'"
   },
   "scripts-info": {
     "build": "Clean and rebuild the project",
@@ -33,7 +33,9 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fetch-ponyfill": "^6.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tmtsoftware/gateway-tsclient.git"
