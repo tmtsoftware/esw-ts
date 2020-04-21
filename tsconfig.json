@@ -19,13 +19,17 @@
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     "moduleResolution": "node",
     /* Specify library files to be included in the compilation. */
-    "lib": [
-      "ES2015",
-      "DOM", "DOM.Iterable"
-    ],
-    "resolveJsonModule" : true,
+    "lib": ["ES2015", "DOM", "DOM.Iterable"],
+    "resolveJsonModule": true,
     /* Strict Type-Checking Options */
-    "strict": true
+    "strict": true,
+    "baseUrl": "src",
+
+    /* Additional Checks from jest*/
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

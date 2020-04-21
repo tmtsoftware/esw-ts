@@ -15,7 +15,7 @@ const post = async <T>(hostname: string, port: number, payload: any): Promise<T>
 
 const headers = new Headers([['Content-Type', 'application/json']])
 
-const setHeaders = (_headers: Headers) => {
+export const setHeaders = (_headers: Headers) => {
   _headers.forEach((k: string, v: string) => headers.set(k, v))
 }
 
