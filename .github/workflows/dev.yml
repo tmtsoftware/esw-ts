@@ -25,11 +25,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Build
-        run: npm run build
-
-      - name: Test
-        run: npm test
+      - run: npm install
+      - run: npm run build
+      - run: npm test
 
       - name: Notify slack
         if: always()
