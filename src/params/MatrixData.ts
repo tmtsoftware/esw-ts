@@ -1,5 +1,6 @@
 export class MatrixData<T> {
   constructor(readonly data: T[][]) {}
+
   toJSON() {
     return this.data
   }

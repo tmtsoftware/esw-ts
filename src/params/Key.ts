@@ -1,7 +1,5 @@
-import { Units } from './Units'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
-import { Parameter } from './Parameter'
 import {
   AltAzCoord,
   CometCoord,
@@ -12,33 +10,13 @@ import {
   SolarSystemCoord,
 } from './Coord'
 import { MatrixData } from './MatrixData'
-
-export interface Struct {
-  paramSet: Parameter<Key>[]
-}
-
-type MatrixDataNumberType<KTag> = {
-  KeyTag: KTag
-  KeyType: MatrixData<number>
-}
-
-type ArrayNumberType<KTag> = {
-  KeyTag: KTag
-  KeyType: number[]
-}
-
-type NumberType<KTag> = {
-  KeyTag: KTag
-  KeyType: number
-}
-type StringType<KTag> = {
-  KeyTag: KTag
-  KeyType: string
-}
+import { Parameter } from './Parameter'
+import { Units } from './Units'
 
 export type KeyType<T extends Key> = T['KeyType']
-
 export type KeyTag<T extends Key> = T['KeyTag']
+
+type RawKey<KTag, KType> = { KeyTag: KTag; KeyType: KType }
 
 export type Key =
   | IntKey
@@ -50,7 +28,7 @@ export type Key =
   | StringKey
   | CharKey
   | StructKey
-  | ChoiceKey<any>
+  | ChoiceKey
   | TimeKey
   | RaDecKey
   | EqCoordKey
@@ -74,141 +52,100 @@ export type Key =
   | BooleanKey
 
 export type TimeTag = 'UTCTimeKey' | 'TAITimeKey'
-// Keys
-export type IntKey = NumberType<'IntKey'>
-export type LongKey = NumberType<'LongKey'>
-export type ShortKey = NumberType<'ShortKey'>
-export type FloatKey = NumberType<'FloatKey'>
-export type DoubleKey = NumberType<'DoubleKey'>
-export type ByteKey = NumberType<'ByteKey'>
 
-export type StringKey = StringType<'StringKey'>
-export type CharKey = StringType<'CharKey'>
-export type TimeKey = StringType<TimeTag>
+// Simple keys
+type NumberKey<KTag> = RawKey<KTag, number>
+export type IntKey = NumberKey<'IntKey'>
+export type LongKey = NumberKey<'LongKey'>
+export type ShortKey = NumberKey<'ShortKey'>
+export type FloatKey = NumberKey<'FloatKey'>
+export type DoubleKey = NumberKey<'DoubleKey'>
+export type ByteKey = NumberKey<'ByteKey'>
 
-export type ByteMatrixKey = MatrixDataNumberType<'ByteMatrixKey'>
-export type IntMatrixKey = MatrixDataNumberType<'IntMatrixKey'>
-export type LongMatrixKey = MatrixDataNumberType<'LongMatrixKey'>
-export type ShortMatrixKey = MatrixDataNumberType<'ShortMatrixKey'>
-export type FloatMatrixKey = MatrixDataNumberType<'FloatMatrixKey'>
-export type DoubleMatrixKey = MatrixDataNumberType<'DoubleMatrixKey'>
+export type BooleanKey = RawKey<'BooleanKey', boolean>
 
-export type IntArrayKey = ArrayNumberType<'IntArrayKey'>
-export type ByteArrayKey = ArrayNumberType<'ByteArrayKey'>
-export type LongArrayKey = ArrayNumberType<'LongArrayKey'>
-export type ShortArrayKey = ArrayNumberType<'ShortArrayKey'>
-export type FloatArrayKey = ArrayNumberType<'FloatArrayKey'>
-export type DoubleArrayKey = ArrayNumberType<'DoubleArrayKey'>
+type RawStringKey<KTag> = RawKey<KTag, string>
+export type StringKey = RawStringKey<'StringKey'>
+export type CharKey = RawStringKey<'CharKey'>
+export type TimeKey = RawStringKey<TimeTag> // todo: Maybe in future if we implement Time models, use those here
 
-export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
-export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
+// Array keys
+type ArrayNumberKey<KTag> = RawKey<KTag, number[]>
+export type IntArrayKey = ArrayNumberKey<'IntArrayKey'>
+export type ByteArrayKey = ArrayNumberKey<'ByteArrayKey'>
+export type LongArrayKey = ArrayNumberKey<'LongArrayKey'>
+export type ShortArrayKey = ArrayNumberKey<'ShortArrayKey'>
+export type FloatArrayKey = ArrayNumberKey<'FloatArrayKey'>
+export type DoubleArrayKey = ArrayNumberKey<'DoubleArrayKey'>
 
-export type RaDecKey = { KeyTag: 'RaDecKey'; KeyType: RaDec }
-export type EqCoordKey = { KeyTag: 'EqCoordKey'; KeyType: EqCoord }
-export type SolarSystemCoordKey = { KeyTag: 'SolarSystemCoordKey'; KeyType: SolarSystemCoord }
-export type MinorPlanetCoordKey = { KeyTag: 'MinorPlanetCoordKey'; KeyType: MinorPlanetCoord }
-export type CometCoordKey = { KeyTag: 'CometCoordKey'; KeyType: CometCoord }
-export type AltAzCoordKey = { KeyTag: 'AltAzCoordKey'; KeyType: AltAzCoord }
-export type CoordKey = { KeyTag: 'CoordKey'; KeyType: Coord }
+// Matrix keys
+type MatrixDataNumberKey<KTag> = RawKey<KTag, MatrixData<number>>
+export type ByteMatrixKey = MatrixDataNumberKey<'ByteMatrixKey'>
+export type IntMatrixKey = MatrixDataNumberKey<'IntMatrixKey'>
+export type LongMatrixKey = MatrixDataNumberKey<'LongMatrixKey'>
+export type ShortMatrixKey = MatrixDataNumberKey<'ShortMatrixKey'>
+export type FloatMatrixKey = MatrixDataNumberKey<'FloatMatrixKey'>
+export type DoubleMatrixKey = MatrixDataNumberKey<'DoubleMatrixKey'>
 
-export type BooleanKey = { KeyTag: 'BooleanKey'; KeyType: boolean }
+export interface Struct {
+  paramSet: Parameter<Key>[]
+}
+export type StructKey = RawKey<'StructKey', Struct>
+
+export type ChoiceKey = RawKey<'ChoiceKey', string>
+export type RaDecKey = RawKey<'RaDecKey', RaDec>
+export type EqCoordKey = RawKey<'EqCoordKey', EqCoord>
+export type SolarSystemCoordKey = RawKey<'SolarSystemCoordKey', SolarSystemCoord>
+export type MinorPlanetCoordKey = RawKey<'MinorPlanetCoordKey', MinorPlanetCoord>
+export type CometCoordKey = RawKey<'CometCoordKey', CometCoord>
+export type AltAzCoordKey = RawKey<'AltAzCoordKey', AltAzCoord>
+export type CoordKey = RawKey<'CoordKey', Coord>
+
+const keyFactory = <KType extends Key>(keyTag: KeyTag<KType>, defaultUnit: Units = 'NoUnits') => (
+  name: string,
+  units: Units = defaultUnit,
+) => new BaseKey<KType>(name, keyTag, units)
+
 // simple key's
-export const intKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<IntKey>(name, 'IntKey', units)
-
-export const longKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<LongKey>(name, 'LongKey', units)
-
-export const shortKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<ShortKey>(name, 'ShortKey', units)
-
-export const floatKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<FloatKey>(name, 'FloatKey', units)
-
-export const doubleKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<DoubleKey>(name, 'DoubleKey', units)
-
-export const byteKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<ByteKey>(name, 'ByteKey', units)
-
-export const stringKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<StringKey>(name, 'StringKey', units)
-
-export const charKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<CharKey>(name, 'CharKey', units)
-
-export const booleanKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<BooleanKey>(name, 'BooleanKey', units)
-
-// time , choice and struct keys
-export const structKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<StructKey>(name, 'StructKey', units)
-
-export const utcTimeKey = (name: string, units: Units = 'second') =>
-  new BaseKey<TimeKey>(name, 'UTCTimeKey', units)
-
-export const taiTimeKey = (name: string, units: Units = 'second') =>
-  new BaseKey<TimeKey>(name, 'TAITimeKey', units)
-
-export const choiceKey = (name: string, units: Units = 'NoUnits') =>
-  new ChoiceKeyFactory<ChoiceKey<string>>(name, 'ChoiceKey', units)
-
-// co-ord keys
-export const raDecKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<RaDecKey>(name, 'RaDecKey', units)
-
-export const eqCoordKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<EqCoordKey>(name, 'EqCoordKey', units)
-
-export const solarSystemCoordKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<SolarSystemCoordKey>(name, 'SolarSystemCoordKey', units)
-
-export const minorPlanetCoordKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<MinorPlanetCoordKey>(name, 'MinorPlanetCoordKey', units)
-
-export const cometCoordKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<CometCoordKey>(name, 'CometCoordKey', units)
-
-export const altAzCoordKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<AltAzCoordKey>(name, 'AltAzCoordKey', units)
-
-export const coordKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<CoordKey>(name, 'CoordKey', units)
+export const intKey = keyFactory<IntKey>('IntKey')
+export const longKey = keyFactory<LongKey>('LongKey')
+export const shortKey = keyFactory<ShortKey>('ShortKey')
+export const floatKey = keyFactory<FloatKey>('FloatKey')
+export const doubleKey = keyFactory<DoubleKey>('DoubleKey')
+export const byteKey = keyFactory<ByteKey>('ByteKey')
+export const stringKey = keyFactory<StringKey>('StringKey')
+export const charKey = keyFactory<CharKey>('CharKey')
+export const booleanKey = keyFactory<BooleanKey>('BooleanKey')
 
 // matrix keys
-export const byteMatrixKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<ByteMatrixKey>(name, 'ByteMatrixKey', units)
-
-export const intMatrixKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<IntMatrixKey>(name, 'IntMatrixKey', units)
-
-export const longMatrixKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<LongMatrixKey>(name, 'LongMatrixKey', units)
-
-export const shortMatrixKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<ShortMatrixKey>(name, 'ShortMatrixKey', units)
-
-export const floatMatrixKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<FloatMatrixKey>(name, 'FloatMatrixKey', units)
-
-export const doubleMatrixKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<DoubleMatrixKey>(name, 'DoubleMatrixKey', units)
+export const byteMatrixKey = keyFactory<ByteMatrixKey>('ByteMatrixKey')
+export const intMatrixKey = keyFactory<IntMatrixKey>('IntMatrixKey')
+export const longMatrixKey = keyFactory<LongMatrixKey>('LongMatrixKey')
+export const shortMatrixKey = keyFactory<ShortMatrixKey>('ShortMatrixKey')
+export const floatMatrixKey = keyFactory<FloatMatrixKey>('FloatMatrixKey')
+export const doubleMatrixKey = keyFactory<DoubleMatrixKey>('DoubleMatrixKey')
 
 // array keys
-export const byteArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<ByteArrayKey>(name, 'ByteArrayKey', units)
+export const byteArrayKey = keyFactory<ByteArrayKey>('ByteArrayKey')
+export const intArrayKey = keyFactory<IntArrayKey>('IntArrayKey')
+export const longArrayKey = keyFactory<LongArrayKey>('LongArrayKey')
+export const shortArrayKey = keyFactory<ShortArrayKey>('ShortArrayKey')
+export const floatArrayKey = keyFactory<FloatArrayKey>('FloatArrayKey')
+export const doubleArrayKey = keyFactory<DoubleArrayKey>('DoubleArrayKey')
 
-export const intArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<IntArrayKey>(name, 'IntArrayKey', units)
+// time, choice and struct keys
+export const structKey = keyFactory<StructKey>('StructKey')
+export const utcTimeKey = keyFactory<TimeKey>('UTCTimeKey', 'second')
+export const taiTimeKey = keyFactory<TimeKey>('TAITimeKey', 'second')
 
-export const longArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<LongArrayKey>(name, 'LongArrayKey', units)
+export const choiceKey = (name: string, units: Units = 'NoUnits') =>
+  new ChoiceKeyFactory<ChoiceKey>(name, 'ChoiceKey', units)
 
-export const shortArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<ShortArrayKey>(name, 'ShortArrayKey', units)
-
-export const floatArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<FloatArrayKey>(name, 'FloatArrayKey', units)
-
-export const doubleArrayKey = (name: string, units: Units = 'NoUnits') =>
-  new BaseKey<DoubleArrayKey>(name, 'DoubleArrayKey', units)
+// co-ord keys
+export const raDecKey = keyFactory<RaDecKey>('RaDecKey')
+export const eqCoordKey = keyFactory<EqCoordKey>('EqCoordKey')
+export const solarSystemCoordKey = keyFactory<SolarSystemCoordKey>('SolarSystemCoordKey')
+export const minorPlanetCoordKey = keyFactory<MinorPlanetCoordKey>('MinorPlanetCoordKey')
+export const cometCoordKey = keyFactory<CometCoordKey>('CometCoordKey')
+export const altAzCoordKey = keyFactory<AltAzCoordKey>('AltAzCoordKey')
+export const coordKey = keyFactory<CoordKey>('CoordKey')
