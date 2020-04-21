@@ -1,4 +1,4 @@
-export interface WebsocketCommandMessage {
+export interface WebsocketCommand {
   _type: 'QueryFinal' | 'SubscribeCurrentState'
   controlCommand: WebSocketCommandMessage
 }
