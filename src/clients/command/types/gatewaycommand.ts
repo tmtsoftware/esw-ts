@@ -1,6 +1,6 @@
 import { ComponentId } from '../../common/componentId'
-import { HttpCommandMessage } from './httpCommand'
-import { WebsocketCommandMessage } from './websocketcommand'
+import { HttpCommand } from './httpCommand'
+import { WebsocketCommand } from './websocketcommand'
 
 export enum GatewayCommandType {
   ComponentCommand = 'ComponentCommand',
@@ -9,5 +9,5 @@ export enum GatewayCommandType {
 export interface GatewayCommand {
   _type: GatewayCommandType
   componentId: ComponentId
-  command: HttpCommandMessage | WebsocketCommandMessage
+  command: HttpCommand | WebsocketCommand
 }

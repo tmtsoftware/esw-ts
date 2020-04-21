@@ -7,21 +7,18 @@ export interface QueryCommand {
 }
 
 export interface Command {
+  _type: 'Setup' | 'Observe'
   source: string
   commandName: string
   maybeObsId?: string[]
   paramSet: Parameter<Key>[]
 }
 
-export interface HttpMessageControlCommand extends Command {
-  _type: 'Setup' | 'Observe'
-}
+export type ControlCommand = Command | QueryCommand
 
-export type ControlCommand = HttpMessageControlCommand | QueryCommand
+export type ControlCommandType = 'Submit' | 'Validate' | 'Oneway' | 'Query'
 
-export type CommandType = 'Submit' | 'Validate' | 'Oneway' | 'Query'
-
-export interface HttpCommandMessage {
-  _type: CommandType
+export interface HttpCommand {
+  _type: ControlCommandType
   controlCommand: ControlCommand
 }

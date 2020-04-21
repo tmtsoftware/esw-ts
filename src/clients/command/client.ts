@@ -1,4 +1,4 @@
-import { CommandType, ControlCommand, HttpCommandMessage } from './types/httpCommand'
+import { ControlCommandType, ControlCommand, HttpCommand } from './types/httpCommand'
 import { Http } from '../../utils/Http'
 import { GatewayCommand, GatewayCommandType } from './types/gatewaycommand'
 import { ComponentId } from '../common/componentId'
@@ -8,7 +8,7 @@ export interface CommandClient {
   validate(controlCommand: ControlCommand): Promise<ValidateResponse>
 }
 
-const getHttpCommand = (type: CommandType, controlCommand: ControlCommand): HttpCommandMessage => {
+const getHttpCommand = (type: ControlCommandType, controlCommand: ControlCommand): HttpCommand => {
   return {
     _type: type,
     controlCommand,
@@ -16,7 +16,7 @@ const getHttpCommand = (type: CommandType, controlCommand: ControlCommand): Http
 }
 
 const getGatewayCommand = (
-  commandType: CommandType,
+  commandType: ControlCommandType,
   componentId: ComponentId,
   controlCommand: ControlCommand,
 ): GatewayCommand => {
