@@ -78,7 +78,7 @@ test('struct key', () => {
 
 test('choice key', () => {
   const resetKey = choiceKey('mode-reset', 'NoUnits')
-  const choices = resetKey.makeChoices('c', 'x')
+  const choices = resetKey.makeChoices('c', 'x', 'v', 'y')
   const choiceParam = resetKey.setChoice(choices, ['c'])
 
   expect(Keys.ChoiceKey).toEqual(choiceParam.toJSON().ChoiceKey)
@@ -218,6 +218,7 @@ test('RaDec key', () => {
 
 test('EqCoord key', () => {
   const value: EqCoord = {
+    _type: 'EqCoord',
     tag: 'BASE',
     ra: 659912250000,
     dec: -109892300000,
@@ -235,6 +236,7 @@ test('EqCoord key', () => {
 
 test('SolarSystemCoord key', () => {
   const value: SolarSystemCoord = {
+    _type: 'SolarSystemCoord',
     tag: 'BASE',
     body: 'Venus',
   }
@@ -245,6 +247,7 @@ test('SolarSystemCoord key', () => {
 
 test('MinorPlanetCoord key', () => {
   const value: MinorPlanetCoord = {
+    _type: 'MinorPlanetCoord',
     tag: 'GUIDER1',
     epoch: 2000.0,
     inclination: 324000000000,
@@ -261,6 +264,7 @@ test('MinorPlanetCoord key', () => {
 
 test('CometCoord key', () => {
   const value: CometCoord = {
+    _type: 'CometCoord',
     tag: 'BASE',
     epochOfPerihelion: 2000.0,
     inclination: 324000000000,
@@ -276,6 +280,7 @@ test('CometCoord key', () => {
 
 test('AltAzCoord key', () => {
   const value: AltAzCoord = {
+    _type: 'AltAzCoord',
     tag: 'BASE',
     alt: 1083600000000,
     az: 153000000000,
@@ -287,6 +292,7 @@ test('AltAzCoord key', () => {
 
 test('Coord key', () => {
   const eqCoord: EqCoord = {
+    _type: 'EqCoord',
     tag: 'BASE',
     ra: 659912250000,
     dec: -109892300000,
@@ -298,6 +304,7 @@ test('Coord key', () => {
     },
   }
   const solarSystemCoord: SolarSystemCoord = {
+    _type: 'SolarSystemCoord',
     tag: 'BASE',
     body: 'Venus',
   }
