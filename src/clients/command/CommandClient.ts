@@ -1,8 +1,8 @@
-import { ControlCommandType, ControlCommand, HttpCommand } from './types/httpCommand'
+import { ControlCommandType, ControlCommand, HttpCommand } from './models/PostCommand'
 import { Http } from '../../utils/Http'
-import { GatewayCommand, GatewayCommandType } from './types/gatewaycommand'
-import { ComponentId } from '../common/componentId'
-import { ValidateResponse } from './types/response'
+import { GatewayCommand, GatewayCommandType } from './models/GatewayCommand'
+import { ComponentId } from '../../models/ComponentId'
+import { ValidateResponse } from './models/CommandResponse'
 
 export interface CommandClient {
   validate(controlCommand: ControlCommand): Promise<ValidateResponse>

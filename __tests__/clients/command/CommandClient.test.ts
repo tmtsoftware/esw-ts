@@ -1,16 +1,19 @@
-import { CommandClient } from '../../../src/clients/command/client'
-import { ComponentId } from '../../../src/clients/common/componentId'
+import { CommandClient } from '../../../src/clients/command/CommandClient'
+import { ComponentId } from '../../../src/models/componentId'
 import { Http } from '../../../src/utils/Http'
-import { ControlCommand } from '../../../src/clients/command/types/httpCommand'
-import { ValidateResponse } from '../../../src/clients/command/types/response'
+import { ControlCommand } from '../../../src/clients/command/models/PostCommand'
+import { ValidateResponse } from '../../../src/clients/command/models/CommandResponse'
+import { Prefix } from '../../../src/models/params/Prefix'
+
 const mockFn = jest.fn()
+
 beforeAll(() => {
   Http.post = mockFn
 })
 
 test('it should post validate command', async () => {
   const compId: ComponentId = {
-    prefix: 'esw.test',
+    prefix: new Prefix('ESW', 'test'),
     componentType: 'Assembly',
   }
   const acceptedResponse = {
