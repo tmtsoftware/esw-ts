@@ -3,9 +3,8 @@ import { ComponentId } from '../../../src/clients/common/componentId'
 import { Http } from '../../../src/utils/Http'
 import { ControlCommand } from '../../../src/clients/command/types/httpCommand'
 import { ValidateResponse } from '../../../src/clients/command/types/response'
-let mockFn
+const mockFn = jest.fn()
 beforeAll(() => {
-  mockFn = jest.fn()
   Http.post = mockFn
 })
 
