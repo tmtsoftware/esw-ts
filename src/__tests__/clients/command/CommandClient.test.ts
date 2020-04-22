@@ -1,7 +1,7 @@
 import { CommandClient } from 'clients/command/CommandClient'
 import { ComponentId } from 'models/ComponentId'
 import { Http } from 'utils/Http'
-import { ControlCommand, QueryCommand } from 'clients/command/models/PostCommand'
+import { ControlCommand } from 'clients/command/models/PostCommand'
 import {
   OneWayResponse,
   SubmitResponse,
@@ -13,8 +13,8 @@ import { CurrentState } from '../../../models/params/CurrentState'
 import DoneCallback = jest.DoneCallback
 
 const postMockFn = jest.fn()
-const mockServer = new Server('ws://localhost:8080/websocket-endpoint')
-jest.setTimeout(100000)
+//fixme refactor mock server code
+let mockServer: Server
 
 const compId: ComponentId = {
   prefix: new Prefix('ESW', 'test'),
@@ -72,24 +72,21 @@ test('it should post oneway command', async () => {
 })
 
 test('it should post query command', async () => {
-  const completedResponse = {
+  const completedResponse: SubmitResponse = {
     _type: 'Completed',
     runId: '1234124',
   }
 
   postMockFn.mockReturnValueOnce(completedResponse)
 
-  const queryCommand: QueryCommand = {
-    _type: 'Query',
-    runId: '1234124',
-  }
-  const data: SubmitResponse = await client.query(queryCommand)
+  const data: SubmitResponse = await client.query('1234124')
 
   expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(completedResponse)
 })
 
 test('it should subscribe to current state using websocket', async (done: DoneCallback) => {
+  mockServer = new Server('ws://localhost:8080/websocket-endpoint')
   const expectedState: CurrentState = {
     prefix: 'CSW.ncc.trombone',
     stateName: 'stateName1',
@@ -97,11 +94,29 @@ test('it should subscribe to current state using websocket', async (done: DoneCa
 
   const checkExpectedMessages = (currentState: CurrentState) => {
     expect(currentState).toEqual(expectedState)
+    mockServer.close()
     done()
   }
 
-  wsMockWithResolved(expectedState).then(() => {
+  wsMockWithResolved(expectedState, mockServer).then(() => {
     client.subscribeCurrentState(new Set(['stateName1', 'stateName2']), checkExpectedMessages)
+  })
+})
+
+test('it should recieve submit response on query final using websocket', async (done: DoneCallback) => {
+  mockServer = new Server('ws://localhost:8080/websocket-endpoint')
+  const completedResponse: SubmitResponse = {
+    _type: 'Completed',
+    runId: '1234124',
+  }
+  const checkExpectedMessages = (submitResponse: SubmitResponse) => {
+    expect(submitResponse).toEqual(completedResponse)
+    mockServer.close()
+    done()
+  }
+
+  wsMockWithResolved(completedResponse, mockServer).then(() => {
+    client.queryFinal('12345', 1000).then(checkExpectedMessages)
   })
 })
 
@@ -115,12 +130,12 @@ function getControlCommand(): ControlCommand {
   }
 }
 
-const wsMockWithResolved = async (data: any) => {
+const wsMockWithResolved = async (data: any, mockServer: Server) => {
   mockServer.on('connection', (socket) => {
     socket.on('message', () => socket.send(JSON.stringify(data)))
   })
 }
 
-afterEach(() => jest.clearAllMocks())
-
-afterAll(() => mockServer.close())
+afterEach(() => {
+  jest.clearAllMocks()
+})

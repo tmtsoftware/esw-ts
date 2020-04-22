@@ -13,7 +13,11 @@ import {
   ValidateResponse,
 } from 'clients/command/models/CommandResponse'
 import { Subscription, Ws } from '../../utils/Ws'
-import { SubscribeCurrentStateCommand, WebsocketCommand } from './models/WsCommand'
+import {
+  QueryFinalCommand,
+  SubscribeCurrentStateCommand,
+  WebsocketCommand,
+} from './models/WsCommand'
 import { CurrentState } from '../../models/params/CurrentState'
 
 export interface CommandClient {
@@ -23,7 +27,9 @@ export interface CommandClient {
 
   oneway(controlCommand: ControlCommand): Promise<OneWayResponse>
 
-  query(queryCommand: QueryCommand): Promise<SubmitResponse>
+  query(runId: string): Promise<SubmitResponse>
+
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 
   subscribeCurrentState(
     stateNames: Set<string>,
@@ -95,7 +101,11 @@ export const CommandClient = (
     return Http.post<OneWayResponse>(host, port, gatewayCommand)
   }
 
-  const query = async (queryCommand: QueryCommand) => {
+  const query = async (runId: string) => {
+    const queryCommand: QueryCommand = {
+      _type: 'Query',
+      runId,
+    }
     const gatewayCommand: GatewayCommand = getPostGatewayCommand(
       'Oneway',
       componentId,
@@ -119,5 +129,20 @@ export const CommandClient = (
     return websocket.subscribe<CurrentState>(onStateChange)
   }
 
-  return { validate, submit, oneway, query, subscribeCurrentState }
+  const queryFinal = async (runId: string, timeoutInSeconds: number) => {
+    const websocket = new Ws(host, port)
+    const queryFinalCommand: QueryFinalCommand = {
+      _type: 'QueryFinal',
+      runId,
+      timeoutInSeconds,
+    }
+    const gatewayCommand: GatewayCommand = getWsGatewayCommand(componentId, queryFinalCommand)
+    websocket.send(gatewayCommand)
+    return new Promise<SubmitResponse>((resolve) => {
+      websocket.subscribe<SubmitResponse>((submitResponse: SubmitResponse) => {
+        resolve(submitResponse)
+      })
+    })
+  }
+  return { validate, submit, oneway, query, queryFinal, subscribeCurrentState }
 }
