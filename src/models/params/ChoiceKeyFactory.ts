@@ -1,6 +1,6 @@
-import { Parameter } from './Parameter'
-import { Units } from './Units'
-import { Key, KeyTag } from './Key'
+import { Parameter } from 'models/params/Parameter'
+import { Units } from 'models/params/Units'
+import { Key, KeyTag } from 'models/params/Key'
 
 export class ChoiceKeyFactory<T extends Key> {
   constructor(readonly keyName: string, readonly keyTag: KeyTag<T>, readonly units: Units) {}

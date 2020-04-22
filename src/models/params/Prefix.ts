@@ -1,5 +1,5 @@
-import { Subsystem } from './Subsystem'
-import { requirement } from '../../utils/Utils'
+import { Subsystem } from 'models/params/Subsystem'
+import { requirement } from 'utils/Utils'
 
 const SEPARATOR = '.'
 

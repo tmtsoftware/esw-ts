@@ -1,5 +1,5 @@
-import { BaseKey } from './BaseKey'
-import { ChoiceKeyFactory } from './ChoiceKeyFactory'
+import { BaseKey } from 'models/params/BaseKey'
+import { ChoiceKeyFactory } from 'models/params/ChoiceKeyFactory'
 import {
   AltAzCoord,
   CometCoord,
@@ -8,10 +8,10 @@ import {
   MinorPlanetCoord,
   RaDec,
   SolarSystemCoord,
-} from './Coord'
-import { MatrixData } from './MatrixData'
-import { Parameter } from './Parameter'
-import { Units } from './Units'
+} from 'models/params/Coord'
+import { MatrixData } from 'models/params/MatrixData'
+import { Parameter } from 'models/params/Parameter'
+import { Units } from 'models/params/Units'
 
 export type KeyType<T extends Key> = T['KeyType']
 export type KeyTag<T extends Key> = T['KeyTag']

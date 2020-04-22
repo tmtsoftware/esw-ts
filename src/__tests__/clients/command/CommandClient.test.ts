@@ -1,9 +1,9 @@
-import { CommandClient } from '../../../src/clients/command/CommandClient'
-import { ComponentId } from '../../../src/models/componentId'
-import { Http } from '../../../src/utils/Http'
-import { ControlCommand } from '../../../src/clients/command/models/PostCommand'
-import { ValidateResponse } from '../../../src/clients/command/models/CommandResponse'
-import { Prefix } from '../../../src/models/params/Prefix'
+import { CommandClient } from 'clients/command/CommandClient'
+import { ComponentId } from 'models/componentId'
+import { Http } from 'utils/Http'
+import { ControlCommand } from 'clients/command/models/PostCommand'
+import { ValidateResponse } from 'clients/command/models/CommandResponse'
+import { Prefix } from 'models/params/Prefix'
 
 const mockFn = jest.fn()
 
