@@ -1,4 +1,4 @@
-import { GatewayCommand } from '../clients/command/models/GatewayCommand'
+import { GatewayCommand } from 'clients/command/models/GatewayCommand'
 
 const createWebsocket = (host: string, port: number) =>
   new WebSocket(`ws://${host}:${port}/websocket-endpoint`)
@@ -28,11 +28,11 @@ export class Ws {
         (wss.onmessage = (event) => {
           const data: T = JSON.parse(event.data)
           cb(data)
-        }),
+        })
     )
 
     return {
-      cancel: () => this.socket.then((wss) => wss.close),
+      cancel: () => this.socket.then((wss) => wss.close)
     }
   }
 }
