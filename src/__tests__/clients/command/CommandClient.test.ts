@@ -8,17 +8,22 @@ import {
   ValidateResponse,
 } from 'clients/command/models/CommandResponse'
 import { Prefix } from 'models/params/Prefix'
+import { Server } from 'mock-socket'
+import { CurrentState } from '../../../models/params/CurrentState'
+import DoneCallback = jest.DoneCallback
 
-const mockFn = jest.fn()
+const postMockFn = jest.fn()
+const mockServer = new Server('ws://localhost:8080/websocket-endpoint')
+jest.setTimeout(100000)
 
 const compId: ComponentId = {
   prefix: new Prefix('ESW', 'test'),
   componentType: 'Assembly',
 }
-const client = CommandClient('localhost', 1234, compId)
+const client = CommandClient('localhost', 8080, compId)
 
 beforeAll(() => {
-  Http.post = mockFn
+  Http.post = postMockFn
 })
 
 test('it should post validate command', async () => {
@@ -27,12 +32,12 @@ test('it should post validate command', async () => {
     runId: '1234124',
   }
 
-  mockFn.mockReturnValueOnce(acceptedResponse)
+  postMockFn.mockReturnValueOnce(acceptedResponse)
 
   const controlCommand: ControlCommand = getControlCommand()
   const data: ValidateResponse = await client.validate(controlCommand)
 
-  expect(mockFn).toBeCalledTimes(1)
+  expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(acceptedResponse)
 })
 
@@ -42,12 +47,12 @@ test('it should post submit command', async () => {
     runId: '1234124',
   }
 
-  mockFn.mockReturnValueOnce(startedResponse)
+  postMockFn.mockReturnValueOnce(startedResponse)
 
   const controlCommand: ControlCommand = getControlCommand()
   const data: SubmitResponse = await client.submit(controlCommand)
 
-  expect(mockFn).toBeCalledTimes(1)
+  expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(startedResponse)
 })
 
@@ -57,12 +62,12 @@ test('it should post oneway command', async () => {
     runId: '1234124',
   }
 
-  mockFn.mockReturnValueOnce(acceptedResponse)
+  postMockFn.mockReturnValueOnce(acceptedResponse)
 
   const controlCommand: ControlCommand = getControlCommand()
   const data: OneWayResponse = await client.oneway(controlCommand)
 
-  expect(mockFn).toBeCalledTimes(1)
+  expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(acceptedResponse)
 })
 
@@ -72,7 +77,7 @@ test('it should post query command', async () => {
     runId: '1234124',
   }
 
-  mockFn.mockReturnValueOnce(completedResponse)
+  postMockFn.mockReturnValueOnce(completedResponse)
 
   const queryCommand: QueryCommand = {
     _type: 'Query',
@@ -80,8 +85,24 @@ test('it should post query command', async () => {
   }
   const data: SubmitResponse = await client.query(queryCommand)
 
-  expect(mockFn).toBeCalledTimes(1)
+  expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(completedResponse)
+})
+
+test('it should subscribe to current state using websocket', async (done: DoneCallback) => {
+  const expectedState: CurrentState = {
+    prefix: 'CSW.ncc.trombone',
+    stateName: 'stateName1',
+  }
+
+  const checkExpectedMessages = (currentState: CurrentState) => {
+    expect(currentState).toEqual(expectedState)
+    done()
+  }
+
+  wsMockWithResolved(expectedState).then(() => {
+    client.subscribeCurrentState(new Set(['stateName1', 'stateName2']), checkExpectedMessages)
+  })
 })
 
 function getControlCommand(): ControlCommand {
@@ -94,4 +115,12 @@ function getControlCommand(): ControlCommand {
   }
 }
 
+const wsMockWithResolved = async (data: any) => {
+  mockServer.on('connection', (socket) => {
+    socket.on('message', () => socket.send(JSON.stringify(data)))
+  })
+}
+
 afterEach(() => jest.clearAllMocks())
+
+afterAll(() => mockServer.close())

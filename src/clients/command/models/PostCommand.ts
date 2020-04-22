@@ -18,7 +18,7 @@ export type ControlCommand = Command | QueryCommand
 
 export type ControlCommandType = 'Submit' | 'Validate' | 'Oneway' | 'Query'
 
-export interface HttpCommand {
+export interface CommandMessage {
   _type: ControlCommandType
   controlCommand: ControlCommand
 }

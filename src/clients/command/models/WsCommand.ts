@@ -1,17 +1,14 @@
-export interface WebsocketCommand {
-  _type: 'QueryFinal' | 'SubscribeCurrentState'
-  controlCommand: WebSocketCommandMessage
-}
+export type WsCommandType = 'QueryFinal' | 'SubscribeCurrentState'
 
-export type WebSocketCommandMessage = QueryFinalMessage | SubscribeCurrentStateMessage
+export type WebsocketCommand = QueryFinalCommand | SubscribeCurrentStateCommand
 
-interface QueryFinalMessage {
+export interface QueryFinalCommand {
   _type: 'QueryFinal'
   runId: string
   timeoutInSeconds: number
 }
 
-interface SubscribeCurrentStateMessage {
+export interface SubscribeCurrentStateCommand {
   _type: 'SubscribeCurrentState'
   names: string[]
 }
