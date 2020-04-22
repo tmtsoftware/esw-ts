@@ -3,7 +3,7 @@ import { CommandHttpMessage } from 'clients/command/models/PostCommand'
 import { WebsocketCommand } from 'clients/command/models/WsCommand'
 
 export enum GatewayCommandType {
-  ComponentCommand = 'ComponentCommand',
+  ComponentCommand = 'ComponentCommand'
 }
 
 export interface GatewayCommand {

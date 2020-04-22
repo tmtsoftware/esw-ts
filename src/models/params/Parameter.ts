@@ -6,7 +6,7 @@ export class Parameter<T extends Key> {
     readonly keyName: string,
     readonly keyTag: KeyTag<T>,
     readonly values: KeyType<T>[],
-    readonly units: Units,
+    readonly units: Units
   ) {}
 
   toJSON() {
@@ -14,8 +14,8 @@ export class Parameter<T extends Key> {
       [this.keyTag]: {
         keyName: this.keyName,
         values: this.values,
-        units: this.units,
-      },
+        units: this.units
+      }
     }
   }
 }

@@ -31,7 +31,7 @@ import {
   stringKey,
   structKey,
   taiTimeKey,
-  utcTimeKey,
+  utcTimeKey
 } from 'models/params/Key'
 import { MatrixData } from 'models/params/MatrixData'
 import {
@@ -39,7 +39,7 @@ import {
   CometCoord,
   EqCoord,
   MinorPlanetCoord,
-  SolarSystemCoord,
+  SolarSystemCoord
 } from 'models/params/Coord'
 
 test('utc time key', () => {
@@ -226,8 +226,8 @@ test('EqCoord key', () => {
     catalogName: 'none',
     pm: {
       pmx: 0.5,
-      pmy: 2.33,
-    },
+      pmy: 2.33
+    }
   }
   const eqCoordParam = eqCoordKey('EqCoordKey').set([value])
 
@@ -238,7 +238,7 @@ test('SolarSystemCoord key', () => {
   const value: SolarSystemCoord = {
     _type: 'SolarSystemCoord',
     tag: 'BASE',
-    body: 'Venus',
+    body: 'Venus'
   }
   const solarSystemCoordParam = solarSystemCoordKey('SolarSystemCoordKey').set([value])
 
@@ -255,7 +255,7 @@ test('MinorPlanetCoord key', () => {
     argOfPerihelion: 360000000000,
     meanDistance: 1.4,
     eccentricity: 0.234,
-    meanAnomaly: 792000000000,
+    meanAnomaly: 792000000000
   }
   const minorPlanetCoordParam = minorPlanetCoordKey('MinorPlanetCoordKey').set([value])
 
@@ -271,7 +271,7 @@ test('CometCoord key', () => {
     longAscendingNode: 7200000000,
     argOfPerihelion: 360000000000,
     perihelionDistance: 1.4,
-    eccentricity: 0.234,
+    eccentricity: 0.234
   }
   const cometCoordParam = cometCoordKey('CometCoordKey').set([value])
 
@@ -283,7 +283,7 @@ test('AltAzCoord key', () => {
     _type: 'AltAzCoord',
     tag: 'BASE',
     alt: 1083600000000,
-    az: 153000000000,
+    az: 153000000000
   }
   const altAzCoordParam = altAzCoordKey('AltAzCoordKey').set([value])
 
@@ -300,13 +300,13 @@ test('Coord key', () => {
     catalogName: 'none',
     pm: {
       pmx: 0.5,
-      pmy: 2.33,
-    },
+      pmy: 2.33
+    }
   }
   const solarSystemCoord: SolarSystemCoord = {
     _type: 'SolarSystemCoord',
     tag: 'BASE',
-    body: 'Venus',
+    body: 'Venus'
   }
   const coordParam = coordKey('CoordKey').set([eqCoord, solarSystemCoord])
 

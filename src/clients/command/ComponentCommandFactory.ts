@@ -2,35 +2,35 @@ import { ComponentId } from 'models/ComponentId'
 import {
   CommandHttpMessage,
   ControlCommand,
-  QueryCommand,
+  QueryCommand
 } from 'clients/command/models/PostCommand'
 import { GatewayCommand, GatewayCommandType } from 'clients/command/models/GatewayCommand'
 
 const GatewayComponentCommand = (
   componentId: ComponentId,
-  commandHttpMsg: CommandHttpMessage,
+  commandHttpMsg: CommandHttpMessage
 ): GatewayCommand => {
   return {
     _type: GatewayCommandType.ComponentCommand,
     componentId,
-    command: commandHttpMsg,
+    command: commandHttpMsg
   }
 }
 
 const controlCmd = (
   _type: 'Validate' | 'Submit' | 'Oneway',
-  command: ControlCommand,
+  command: ControlCommand
 ): CommandHttpMessage => {
   return {
     _type,
-    command,
+    command
   }
 }
 
 const queryCmd = (runId: string): QueryCommand => {
   return {
     _type: 'Query',
-    runId,
+    runId
   }
 }
 

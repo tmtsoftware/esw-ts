@@ -7,7 +7,7 @@ import {
   EqCoord,
   MinorPlanetCoord,
   RaDec,
-  SolarSystemCoord,
+  SolarSystemCoord
 } from 'models/params/Coord'
 import { MatrixData } from 'models/params/MatrixData'
 import { Parameter } from 'models/params/Parameter'
@@ -103,7 +103,7 @@ export type CoordKey = RawKey<'CoordKey', Coord>
 
 const keyFactory = <KType extends Key>(keyTag: KeyTag<KType>, defaultUnit: Units = 'NoUnits') => (
   name: string,
-  units: Units = defaultUnit,
+  units: Units = defaultUnit
 ) => new BaseKey<KType>(name, keyTag, units)
 
 // simple key's

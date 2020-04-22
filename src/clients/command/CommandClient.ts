@@ -5,15 +5,15 @@ import { ComponentId } from 'models/ComponentId'
 import {
   OneWayResponse,
   SubmitResponse,
-  ValidateResponse,
+  ValidateResponse
 } from 'clients/command/models/CommandResponse'
-import { Subscription, Ws } from '../../utils/Ws'
+import { Subscription, Ws } from 'utils/Ws'
 import {
   QueryFinalCommand,
   SubscribeCurrentStateCommand,
-  WebsocketCommand,
+  WebsocketCommand
 } from './models/WsCommand'
-import { CurrentState } from '../../models/params/CurrentState'
+import { CurrentState } from 'models/params/CurrentState'
 import { ComponentCommandFactory } from 'clients/command/ComponentCommandFactory'
 
 export interface CommandClient {
@@ -25,25 +25,25 @@ export interface CommandClient {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
   subscribeCurrentState(
     stateNames: Set<string>,
-    onStateChange: (state: CurrentState) => void,
+    onStateChange: (state: CurrentState) => void
   ): Subscription
 }
 
 const getWsGatewayCommand = (
   componentId: ComponentId,
-  controlCommand: WebsocketCommand,
+  controlCommand: WebsocketCommand
 ): GatewayCommand => {
   return {
     _type: GatewayCommandType.ComponentCommand,
     componentId,
-    command: controlCommand,
+    command: controlCommand
   }
 }
 
 export const CommandClient = (
   host: string,
   port: number,
-  componentId: ComponentId,
+  componentId: ComponentId
 ): CommandClient => {
   const commandFactory = new ComponentCommandFactory(componentId)
   const post = <T>(gatewayCommand: GatewayCommand) => Http.post<T>(host, port, gatewayCommand)
@@ -61,13 +61,13 @@ export const CommandClient = (
 
   const subscribeCurrentState = (
     stateNames: Set<string>,
-    onStateChange: (state: CurrentState) => void,
+    onStateChange: (state: CurrentState) => void
   ): Subscription => {
     const websocket = new Ws(host, port)
 
     const command: SubscribeCurrentStateCommand = {
       _type: 'SubscribeCurrentState',
-      names: Array.from(stateNames.values()),
+      names: Array.from(stateNames.values())
     }
     const gatewayCommand: GatewayCommand = getWsGatewayCommand(componentId, command)
     websocket.send(gatewayCommand)
@@ -79,7 +79,7 @@ export const CommandClient = (
     const queryFinalCommand: QueryFinalCommand = {
       _type: 'QueryFinal',
       runId,
-      timeoutInSeconds,
+      timeoutInSeconds
     }
     const gatewayCommand: GatewayCommand = getWsGatewayCommand(componentId, queryFinalCommand)
     websocket.send(gatewayCommand)
