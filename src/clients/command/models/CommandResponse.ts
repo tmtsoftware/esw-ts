@@ -1,7 +1,7 @@
 import { Parameter } from 'models/params/Parameter'
 import { Key } from 'models/params/Key'
 
-enum responseType {
+enum ResponseType {
   Accepted = 'Accepted',
   Invalid = 'Invalid',
   Locked = 'Locked',
@@ -18,21 +18,21 @@ export type CommandResponse = {
 }
 
 export interface ValidateResponse extends CommandResponse {
-  _type: responseType.Accepted | responseType.Invalid | responseType.Locked
+  _type: ResponseType.Accepted | ResponseType.Invalid | ResponseType.Locked
 }
 
 export interface SubmitResponse extends CommandResponse {
   _type:
-    | responseType.Error
-    | responseType.Invalid
-    | responseType.Locked
-    | responseType.Started
-    | responseType.Completed
-    | responseType.Cancelled
+    | ResponseType.Error
+    | ResponseType.Invalid
+    | ResponseType.Locked
+    | ResponseType.Started
+    | ResponseType.Completed
+    | ResponseType.Cancelled
 }
 
 export interface OneWayResponse extends CommandResponse {
-  _type: responseType.Accepted | responseType.Invalid | responseType.Locked
+  _type: ResponseType.Accepted | ResponseType.Invalid | ResponseType.Locked
 }
 
 type IssueTypes =
