@@ -1,7 +1,7 @@
 import {
-  ControlCommandType,
+  CommandMessage,
   ControlCommand,
-  HttpCommand,
+  ControlCommandType,
   QueryCommand,
 } from 'clients/command/models/PostCommand'
 import { Http } from 'utils/Http'
@@ -12,6 +12,9 @@ import {
   SubmitResponse,
   ValidateResponse,
 } from 'clients/command/models/CommandResponse'
+import { Subscription, Ws } from '../../utils/Ws'
+import { SubscribeCurrentStateCommand, WebsocketCommand } from './models/WsCommand'
+import { CurrentState } from '../../models/params/CurrentState'
 
 export interface CommandClient {
   validate(controlCommand: ControlCommand): Promise<ValidateResponse>
@@ -21,16 +24,24 @@ export interface CommandClient {
   oneway(controlCommand: ControlCommand): Promise<OneWayResponse>
 
   query(queryCommand: QueryCommand): Promise<SubmitResponse>
+
+  subscribeCurrentState(
+    stateNames: Set<string>,
+    onStateChange: (state: CurrentState) => void,
+  ): Subscription
 }
 
-const getHttpCommand = (type: ControlCommandType, controlCommand: ControlCommand): HttpCommand => {
+const getHttpCommand = (
+  type: ControlCommandType,
+  controlCommand: ControlCommand,
+): CommandMessage => {
   return {
     _type: type,
     controlCommand,
   }
 }
 
-const getGatewayCommand = (
+const getPostGatewayCommand = (
   commandType: ControlCommandType,
   componentId: ComponentId,
   controlCommand: ControlCommand,
@@ -42,13 +53,24 @@ const getGatewayCommand = (
   }
 }
 
+const getWsGatewayCommand = (
+  componentId: ComponentId,
+  controlCommand: WebsocketCommand,
+): GatewayCommand => {
+  return {
+    _type: GatewayCommandType.ComponentCommand,
+    componentId,
+    command: controlCommand,
+  }
+}
+
 export const CommandClient = (
   host: string,
   port: number,
   componentId: ComponentId,
 ): CommandClient => {
   const validate = async (controlCommand: ControlCommand) => {
-    const gatewayCommand: GatewayCommand = getGatewayCommand(
+    const gatewayCommand: GatewayCommand = getPostGatewayCommand(
       'Validate',
       componentId,
       controlCommand,
@@ -56,19 +78,46 @@ export const CommandClient = (
     return Http.post<ValidateResponse>(host, port, gatewayCommand)
   }
   const submit = async (controlCommand: ControlCommand) => {
-    const gatewayCommand: GatewayCommand = getGatewayCommand('Submit', componentId, controlCommand)
+    const gatewayCommand: GatewayCommand = getPostGatewayCommand(
+      'Submit',
+      componentId,
+      controlCommand,
+    )
     return Http.post<SubmitResponse>(host, port, gatewayCommand)
   }
 
   const oneway = async (controlCommand: ControlCommand) => {
-    const gatewayCommand: GatewayCommand = getGatewayCommand('Oneway', componentId, controlCommand)
+    const gatewayCommand: GatewayCommand = getPostGatewayCommand(
+      'Oneway',
+      componentId,
+      controlCommand,
+    )
     return Http.post<OneWayResponse>(host, port, gatewayCommand)
   }
 
   const query = async (queryCommand: QueryCommand) => {
-    const gatewayCommand: GatewayCommand = getGatewayCommand('Oneway', componentId, queryCommand)
+    const gatewayCommand: GatewayCommand = getPostGatewayCommand(
+      'Oneway',
+      componentId,
+      queryCommand,
+    )
     return Http.post<SubmitResponse>(host, port, gatewayCommand)
   }
 
-  return { validate, submit, oneway, query }
+  const subscribeCurrentState = (
+    stateNames: Set<string>,
+    onStateChange: (state: CurrentState) => void,
+  ): Subscription => {
+    const websocket = new Ws(host, port)
+
+    const command: SubscribeCurrentStateCommand = {
+      _type: 'SubscribeCurrentState',
+      names: Array.from(stateNames.values()),
+    }
+    const gatewayCommand: GatewayCommand = getWsGatewayCommand(componentId, command)
+    websocket.send(gatewayCommand)
+    return websocket.subscribe<CurrentState>(onStateChange)
+  }
+
+  return { validate, submit, oneway, query, subscribeCurrentState }
 }

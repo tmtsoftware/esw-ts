@@ -12,5 +12,5 @@ export class Prefix {
     requirement(!componentName.includes('-'), `component name ${componentName} has '-'`)
   }
 
-  prefix: string = this.subsystem + SEPARATOR + this.componentName
+  toJSON = () => this.subsystem + SEPARATOR + this.componentName
 }
