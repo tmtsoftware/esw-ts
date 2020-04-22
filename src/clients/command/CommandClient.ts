@@ -2,10 +2,11 @@ import { ControlCommandType, ControlCommand, HttpCommand } from 'clients/command
 import { Http } from 'utils/Http'
 import { GatewayCommand, GatewayCommandType } from 'clients/command/models/GatewayCommand'
 import { ComponentId } from 'models/ComponentId'
-import { ValidateResponse } from 'clients/command/models/CommandResponse'
+import { SubmitResponse, ValidateResponse } from 'clients/command/models/CommandResponse'
 
 export interface CommandClient {
   validate(controlCommand: ControlCommand): Promise<ValidateResponse>
+  submit(controlCommand: ControlCommand): Promise<SubmitResponse>
 }
 
 const getHttpCommand = (type: ControlCommandType, controlCommand: ControlCommand): HttpCommand => {
@@ -40,6 +41,10 @@ export const CommandClient = (
     )
     return Http.post<ValidateResponse>(host, port, gatewayCommand)
   }
+  const submit = async (controlCommand: ControlCommand) => {
+    const gatewayCommand: GatewayCommand = getGatewayCommand('Submit', componentId, controlCommand)
+    return Http.post<SubmitResponse>(host, port, gatewayCommand)
+  }
 
-  return { validate }
+  return { validate, submit }
 }
