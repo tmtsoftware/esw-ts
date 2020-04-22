@@ -1,6 +1,6 @@
-import { ComponentId } from '../../../models/ComponentId'
-import { HttpCommand } from './PostCommand'
-import { WebsocketCommand } from './WsCommand'
+import { ComponentId } from 'models/ComponentId'
+import { HttpCommand } from 'clients/command/models/PostCommand'
+import { WebsocketCommand } from 'clients/command/models/WsCommand'
 
 export enum GatewayCommandType {
   ComponentCommand = 'ComponentCommand',

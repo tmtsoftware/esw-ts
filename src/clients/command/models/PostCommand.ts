@@ -1,5 +1,5 @@
-import { Parameter } from '../../../models/params/Parameter'
-import { Key } from '../../../models/params/Key'
+import { Parameter } from 'models/params/Parameter'
+import { Key } from 'models/params/Key'
 
 export interface QueryCommand {
   _type: 'Query'

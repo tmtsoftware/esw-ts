@@ -32,4 +32,5 @@ module.exports = {
   // coverageReporters: ['json', 'lcov', 'text', 'clover'],
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+  moduleDirectories: ['node_modules', 'src'],
 }

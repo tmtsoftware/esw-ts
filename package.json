@@ -14,8 +14,8 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "fix": "npm-run-all --parallel fix:lint fix:prettier",
-    "fix:lint": "tslint -c tslint.json 'src/**/*.ts' '__tests__/**/*.ts'",
-    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts' '__tests__/**/*.ts'"
+    "fix:lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts'"
   },
   "scripts-info": {
     "build": "Clean and rebuild the project",
@@ -34,7 +34,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "fetch-ponyfill": "^6.1.0"
+    "whatwg-fetch": "^3.0.0"
   },
   "repository": {
     "type": "git",

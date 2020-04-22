@@ -1,5 +1,4 @@
-import * as fetchPonyfill from 'fetch-ponyfill'
-const { fetch, Headers } = fetchPonyfill()
+import 'whatwg-fetch'
 
 type RequestConfig = {
   url: string

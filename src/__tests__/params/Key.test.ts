@@ -1,4 +1,4 @@
-import * as Keys from '../jsons/keys.json'
+import * as Keys from '__tests__/jsons/keys.json'
 import {
   altAzCoordKey,
   booleanKey,
@@ -32,15 +32,15 @@ import {
   structKey,
   taiTimeKey,
   utcTimeKey,
-} from '../../src/models/params/Key'
-import { MatrixData } from '../../src/models/params/MatrixData'
+} from 'models/params/Key'
+import { MatrixData } from 'models/params/MatrixData'
 import {
   AltAzCoord,
   CometCoord,
   EqCoord,
   MinorPlanetCoord,
   SolarSystemCoord,
-} from '../../src/models/params/Coord'
+} from 'models/params/Coord'
 
 test('utc time key', () => {
   const timeParam = utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])
