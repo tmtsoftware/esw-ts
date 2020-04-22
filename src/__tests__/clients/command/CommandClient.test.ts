@@ -1,5 +1,5 @@
 import { CommandClient } from 'clients/command/CommandClient'
-import { ComponentId } from 'models/componentId'
+import { ComponentId } from 'models/ComponentId'
 import { Http } from 'utils/Http'
 import { ControlCommand } from 'clients/command/models/PostCommand'
 import { ValidateResponse } from 'clients/command/models/CommandResponse'
