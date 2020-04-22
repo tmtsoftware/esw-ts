@@ -1,12 +1,26 @@
-import { ControlCommandType, ControlCommand, HttpCommand } from 'clients/command/models/PostCommand'
+import {
+  ControlCommandType,
+  ControlCommand,
+  HttpCommand,
+  QueryCommand,
+} from 'clients/command/models/PostCommand'
 import { Http } from 'utils/Http'
 import { GatewayCommand, GatewayCommandType } from 'clients/command/models/GatewayCommand'
 import { ComponentId } from 'models/ComponentId'
-import { SubmitResponse, ValidateResponse } from 'clients/command/models/CommandResponse'
+import {
+  OneWayResponse,
+  SubmitResponse,
+  ValidateResponse,
+} from 'clients/command/models/CommandResponse'
 
 export interface CommandClient {
   validate(controlCommand: ControlCommand): Promise<ValidateResponse>
+
   submit(controlCommand: ControlCommand): Promise<SubmitResponse>
+
+  oneway(controlCommand: ControlCommand): Promise<OneWayResponse>
+
+  query(queryCommand: QueryCommand): Promise<SubmitResponse>
 }
 
 const getHttpCommand = (type: ControlCommandType, controlCommand: ControlCommand): HttpCommand => {
@@ -46,5 +60,15 @@ export const CommandClient = (
     return Http.post<SubmitResponse>(host, port, gatewayCommand)
   }
 
-  return { validate, submit }
+  const oneway = async (controlCommand: ControlCommand) => {
+    const gatewayCommand: GatewayCommand = getGatewayCommand('Oneway', componentId, controlCommand)
+    return Http.post<OneWayResponse>(host, port, gatewayCommand)
+  }
+
+  const query = async (queryCommand: QueryCommand) => {
+    const gatewayCommand: GatewayCommand = getGatewayCommand('Oneway', componentId, queryCommand)
+    return Http.post<SubmitResponse>(host, port, gatewayCommand)
+  }
+
+  return { validate, submit, oneway, query }
 }
