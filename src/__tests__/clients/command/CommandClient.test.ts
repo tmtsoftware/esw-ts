@@ -2,7 +2,7 @@ import { CommandClient } from 'clients/command/CommandClient'
 import { ComponentId } from 'models/ComponentId'
 import { Http } from 'utils/Http'
 import { ControlCommand } from 'clients/command/models/PostCommand'
-import { ValidateResponse } from 'clients/command/models/CommandResponse'
+import { SubmitResponse, ValidateResponse } from 'clients/command/models/CommandResponse'
 import { Prefix } from 'models/params/Prefix'
 
 const mockFn = jest.fn()
@@ -31,6 +31,26 @@ test('it should post validate command', async () => {
   expect(data).toBe(acceptedResponse)
 })
 
+test('it should post submit command', async () => {
+  const compId: ComponentId = {
+    prefix: new Prefix('ESW', 'test'),
+    componentType: 'Assembly',
+  }
+  const acceptedResponse = {
+    _type: 'Started',
+    runId: '1234124',
+  }
+
+  mockFn.mockReturnValueOnce(acceptedResponse)
+
+  const client = CommandClient('localhost', 1234, compId)
+  const controlCommand: ControlCommand = getControlCommand()
+  const data: SubmitResponse = await client.submit(controlCommand)
+
+  expect(mockFn).toBeCalledTimes(1)
+  expect(data).toBe(acceptedResponse)
+})
+
 function getControlCommand(): ControlCommand {
   return {
     _type: 'Setup',
@@ -41,4 +61,4 @@ function getControlCommand(): ControlCommand {
   }
 }
 
-afterAll(() => jest.clearAllMocks())
+afterEach(() => jest.clearAllMocks())
