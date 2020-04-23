@@ -17,15 +17,15 @@ export interface ControlCommand {
 export type CommandServiceHttpMessage =
   | {
       _type: 'Submit' | 'Validate' | 'Oneway'
-      command: ControlCommand
+      controlCommand: ControlCommand
     }
   | QueryCommand
 
 const Command = (
   _type: 'Validate' | 'Submit' | 'Oneway',
-  command: ControlCommand
+  controlCommand: ControlCommand
 ): CommandServiceHttpMessage => {
-  return { _type, command }
+  return { _type, controlCommand }
 }
 
 export const Validate = (command: ControlCommand) => Command('Validate', command)
