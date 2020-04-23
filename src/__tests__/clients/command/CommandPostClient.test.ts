@@ -78,7 +78,7 @@ test('it should post query command', async () => {
   expect(data).toBe(completedResponse)
 })
 
-function getControlCommand(): ControlCommand {
+const getControlCommand = (): ControlCommand => {
   return {
     _type: 'Setup',
     source: 'esw.test',
