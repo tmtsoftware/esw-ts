@@ -1,6 +1,6 @@
 import { ControlCommand } from 'clients/command/models/PostCommand'
 
-import { GatewayCommand, GatewayCommandType } from 'clients/command/models/GatewayCommand'
+import { GatewayCommand } from 'clients/command/models/GatewayCommand'
 import { ComponentId } from 'models/ComponentId'
 import {
   OneWayResponse,
@@ -8,11 +8,6 @@ import {
   ValidateResponse
 } from 'clients/command/models/CommandResponse'
 import { Subscription, Ws } from 'utils/Ws'
-import {
-  QueryFinalCommand,
-  SubscribeCurrentStateCommand,
-  CommandServiceWsMessage
-} from './models/WsCommand'
 import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'
 import { ComponentCommandFactory } from 'clients/command/ComponentCommandFactory'
@@ -28,17 +23,6 @@ export interface CommandClient {
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
   ): Subscription
-}
-
-const getWsGatewayCommand = (
-  componentId: ComponentId,
-  controlCommand: CommandServiceWsMessage
-): GatewayCommand => {
-  return {
-    _type: GatewayCommandType.ComponentCommand,
-    componentId,
-    command: controlCommand
-  }
 }
 
 export const CommandClient = (
@@ -66,25 +50,13 @@ export const CommandClient = (
     onStateChange: (state: CurrentState) => void
   ): Subscription => {
     const websocket = new Ws(host, port)
-
-    const command: SubscribeCurrentStateCommand = {
-      _type: 'SubscribeCurrentState',
-      names: Array.from(stateNames.values())
-    }
-    const gatewayCommand: GatewayCommand = getWsGatewayCommand(componentId, command)
-    websocket.send(gatewayCommand)
+    websocket.send(commandFactory.subscribeCurrentState(stateNames))
     return websocket.subscribe<CurrentState>(onStateChange)
   }
 
   const queryFinal = async (runId: string, timeoutInSeconds: number) => {
     const websocket = new Ws(host, port)
-    const queryFinalCommand: QueryFinalCommand = {
-      _type: 'QueryFinal',
-      runId,
-      timeoutInSeconds
-    }
-    const gatewayCommand: GatewayCommand = getWsGatewayCommand(componentId, queryFinalCommand)
-    websocket.send(gatewayCommand)
+    websocket.send(commandFactory.queryFinal(runId, timeoutInSeconds))
     return new Promise<SubmitResponse>((resolve) => {
       websocket.subscribe<SubmitResponse>((submitResponse: SubmitResponse) => {
         resolve(submitResponse)

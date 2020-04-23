@@ -20,3 +20,17 @@ export type CommandServiceHttpMessage =
       command: ControlCommand
     }
   | QueryCommand
+
+const Command = (
+  _type: 'Validate' | 'Submit' | 'Oneway',
+  command: ControlCommand
+): CommandServiceHttpMessage => {
+  return { _type, command }
+}
+
+export const Validate = (command: ControlCommand) => Command('Validate', command)
+export const Submit = (command: ControlCommand) => Command('Submit', command)
+export const Oneway = (command: ControlCommand) => Command('Oneway', command)
+export const Query = (runId: string): QueryCommand => {
+  return { _type: 'Query', runId }
+}
