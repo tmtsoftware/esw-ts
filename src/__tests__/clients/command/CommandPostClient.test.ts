@@ -7,16 +7,11 @@ import {
   ValidateResponse
 } from 'clients/command/models/CommandResponse'
 import { Prefix } from 'models/params/Prefix'
-import { Server } from 'mock-socket'
-import { CurrentState } from 'models/params/CurrentState'
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
 
 jest.mock('utils/Http')
-
 const postMockFn = mocked(post, true)
-//fixme refactor mock server code
-let mockServer: Server
 
 const compId: ComponentId = {
   prefix: new Prefix('ESW', 'test'),
@@ -83,39 +78,6 @@ test('it should post query command', async () => {
   expect(data).toBe(completedResponse)
 })
 
-test('it should subscribe to current state using websocket', async () => {
-  mockServer = new Server('ws://localhost:8080/websocket-endpoint')
-  const expectedState: CurrentState = {
-    prefix: 'CSW.ncc.trombone',
-    stateName: 'stateName1'
-  }
-
-  const checkExpectedMessages = (currentState: CurrentState) => {
-    mockServer.close()
-    expect(currentState).toEqual(expectedState)
-  }
-
-  await wsMockWithResolved(expectedState, mockServer)
-  client.subscribeCurrentState(new Set(['stateName1', 'stateName2']), checkExpectedMessages)
-})
-
-test('it should recieve submit response on query final using websocket', async () => {
-  mockServer.close()
-  mockServer = new Server('ws://localhost:8080/websocket-endpoint')
-  const completedResponse: SubmitResponse = {
-    _type: 'Completed',
-    runId: '1234124'
-  }
-  const checkExpectedMessages = (submitResponse: SubmitResponse) => {
-    expect(submitResponse).toEqual(completedResponse)
-    mockServer.close()
-  }
-
-  await wsMockWithResolved(completedResponse, mockServer)
-  const response = await client.queryFinal('12345', 1000)
-  checkExpectedMessages(response)
-})
-
 function getControlCommand(): ControlCommand {
   return {
     _type: 'Setup',
@@ -124,13 +86,6 @@ function getControlCommand(): ControlCommand {
     maybeObsId: ['obsId'],
     paramSet: []
   }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const wsMockWithResolved = async (data: any, mockServer: Server) => {
-  mockServer.on('connection', (socket) => {
-    socket.on('message', () => socket.send(JSON.stringify(data)))
-  })
 }
 
 afterEach(() => {
