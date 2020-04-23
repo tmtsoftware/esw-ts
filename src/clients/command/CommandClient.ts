@@ -48,20 +48,21 @@ export const CommandClient = (
   const subscribeCurrentState = (
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
-  ): Subscription => {
-    const websocket = new Ws(host, port)
-    websocket.send(commandFactory.subscribeCurrentState(stateNames))
-    return websocket.subscribe<CurrentState>(onStateChange)
-  }
+  ): Subscription =>
+    new Ws(host, port).sendThenSubscribe(
+      commandFactory.subscribeCurrentState(stateNames),
+      onStateChange
+    )
 
-  const queryFinal = async (runId: string, timeoutInSeconds: number) => {
-    const websocket = new Ws(host, port)
-    websocket.send(commandFactory.queryFinal(runId, timeoutInSeconds))
-    return new Promise<SubmitResponse>((resolve) => {
-      websocket.subscribe<SubmitResponse>((submitResponse: SubmitResponse) => {
-        resolve(submitResponse)
-      })
+  const queryFinal = async (runId: string, timeoutInSeconds: number) =>
+    new Promise<SubmitResponse>((resolve) => {
+      new Ws(host, port).sendThenSubscribe(
+        commandFactory.queryFinal(runId, timeoutInSeconds),
+        (submitResponse: SubmitResponse) => {
+          resolve(submitResponse)
+        }
+      )
     })
-  }
+
   return { validate, submit, oneway, query, queryFinal, subscribeCurrentState }
 }

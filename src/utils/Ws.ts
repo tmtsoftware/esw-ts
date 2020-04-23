@@ -4,7 +4,7 @@ const createWebsocket = (host: string, port: number) =>
   new WebSocket(`ws://${host}:${port}/websocket-endpoint`)
 
 export class Ws {
-  public socket: Promise<WebSocket>
+  private socket: Promise<WebSocket>
 
   constructor(host: string, port: number) {
     this.socket = new Promise((resolve, reject) => {
@@ -18,8 +18,8 @@ export class Ws {
     })
   }
 
-  send(msg: GatewayCommand) {
-    this.socket.then((wss) => wss.send(JSON.stringify(msg)))
+  send(msg: GatewayCommand): Promise<void> {
+    return this.socket.then((wss) => wss.send(JSON.stringify(msg)))
   }
 
   subscribe<T>(cb: (msg: T) => void): Subscription {
@@ -31,9 +31,16 @@ export class Ws {
         })
     )
 
-    return {
-      cancel: () => this.socket.then((wss) => wss.close)
-    }
+    return this.subscription
+  }
+
+  sendThenSubscribe<T>(msg: GatewayCommand, cb: (msg: T) => void): Subscription {
+    this.send(msg).then(() => this.subscribe(cb))
+    return this.subscription
+  }
+
+  private readonly subscription: Subscription = {
+    cancel: () => this.socket.then((wss) => wss.close)
   }
 }
 
