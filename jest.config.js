@@ -3,7 +3,7 @@ module.exports = {
 
   // Jest transformations -- this adds support for TypeScript using ts-jest
   transform: {
-    '^.+\\.ts?$': 'ts-jest',
+    '^.+\\.ts?$': 'ts-jest'
   },
 
   testRegex: '(/src/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
@@ -16,7 +16,7 @@ module.exports = {
   //   }
   // },
   // coverageReporters: ['json', 'lcov', 'text', 'clover'],
-  
+
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-  moduleDirectories: ['node_modules', 'src'],
+  moduleDirectories: ['node_modules', 'src']
 }
