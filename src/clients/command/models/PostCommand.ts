@@ -6,7 +6,7 @@ export interface QueryCommand {
   runId: string
 }
 
-export interface Command {
+export interface ControlCommand {
   _type: 'Setup' | 'Observe'
   source: string
   commandName: string
@@ -14,11 +14,9 @@ export interface Command {
   paramSet: Parameter<Key>[]
 }
 
-export type ControlCommand = Command | QueryCommand
-
-export type ControlCommandType = 'Submit' | 'Validate' | 'Oneway' | 'Query'
-
-export interface CommandMessage {
-  _type: ControlCommandType
-  controlCommand: ControlCommand
-}
+export type CommandHttpMessage =
+  | {
+      _type: 'Submit' | 'Validate' | 'Oneway'
+      command: ControlCommand
+    }
+  | QueryCommand
