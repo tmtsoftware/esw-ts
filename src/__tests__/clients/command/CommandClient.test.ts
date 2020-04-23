@@ -34,7 +34,7 @@ test('it should post validate command', async () => {
 
   postMockFn.mockReturnValueOnce(acceptedResponse)
 
-  const controlCommand: ControlCommand = getControlCommand()
+  const controlCommand = getControlCommand()
   const data: ValidateResponse = await client.validate(controlCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
@@ -49,7 +49,7 @@ test('it should post submit command', async () => {
 
   postMockFn.mockReturnValueOnce(startedResponse)
 
-  const controlCommand: ControlCommand = getControlCommand()
+  const controlCommand = getControlCommand()
   const data: SubmitResponse = await client.submit(controlCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
@@ -64,7 +64,7 @@ test('it should post oneway command', async () => {
 
   postMockFn.mockReturnValueOnce(acceptedResponse)
 
-  const controlCommand: ControlCommand = getControlCommand()
+  const controlCommand = getControlCommand()
   const data: OneWayResponse = await client.oneway(controlCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
