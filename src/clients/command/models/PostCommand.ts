@@ -14,7 +14,7 @@ export interface ControlCommand {
   paramSet: Parameter<Key>[]
 }
 
-export type CommandHttpMessage =
+export type CommandServiceHttpMessage =
   | {
       _type: 'Submit' | 'Validate' | 'Oneway'
       command: ControlCommand

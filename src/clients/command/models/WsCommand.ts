@@ -1,6 +1,4 @@
-export type WsCommandType = 'QueryFinal' | 'SubscribeCurrentState'
-
-export type WebsocketCommand = QueryFinalCommand | SubscribeCurrentStateCommand
+export type CommandServiceWsMessage = QueryFinalCommand | SubscribeCurrentStateCommand
 
 export interface QueryFinalCommand {
   _type: 'QueryFinal'

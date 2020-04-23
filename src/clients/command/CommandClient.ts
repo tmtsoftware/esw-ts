@@ -11,7 +11,7 @@ import { Subscription, Ws } from 'utils/Ws'
 import {
   QueryFinalCommand,
   SubscribeCurrentStateCommand,
-  WebsocketCommand
+  CommandServiceWsMessage
 } from './models/WsCommand'
 import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'
@@ -32,7 +32,7 @@ export interface CommandClient {
 
 const getWsGatewayCommand = (
   componentId: ComponentId,
-  controlCommand: WebsocketCommand
+  controlCommand: CommandServiceWsMessage
 ): GatewayCommand => {
   return {
     _type: GatewayCommandType.ComponentCommand,
@@ -47,7 +47,8 @@ export const CommandClient = (
   componentId: ComponentId
 ): CommandClient => {
   const commandFactory = new ComponentCommandFactory(componentId)
-  const httpPost = <T>(gatewayCommand: GatewayCommand) => post<T>(host, port, gatewayCommand)
+  const httpPost = <T>(gatewayCommand: GatewayCommand) =>
+    post<GatewayCommand, T>(host, port, gatewayCommand)
 
   const validate = async (command: ControlCommand) =>
     httpPost<ValidateResponse>(commandFactory.validate(command))

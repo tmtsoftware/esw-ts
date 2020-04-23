@@ -1,5 +1,4 @@
 import 'whatwg-fetch'
-import { GatewayCommand } from 'clients/command/models/GatewayCommand'
 type RequestConfig = {
   url: string
   method: string
@@ -7,11 +6,11 @@ type RequestConfig = {
   body: string
 }
 
-export const post = async <T>(
+export const post = async <Req, Res>(
   hostname: string,
   port: number,
-  payload: GatewayCommand
-): Promise<T> => {
+  payload: Req
+): Promise<Res> => {
   const url = `http://${hostname}:${port}/post-endpoint`
   return clientFetch(url, payload, 'POST')
 }
@@ -29,11 +28,7 @@ const handleErrors = (res: Response) => {
   return res
 }
 
-const clientFetch = async <T>(
-  url: string,
-  payload: GatewayCommand,
-  method: 'POST' | 'GET'
-): Promise<T> => {
+const clientFetch = async <S, T>(url: string, payload: S, method: 'POST' | 'GET'): Promise<T> => {
   const request: RequestConfig = {
     url,
     method,
