@@ -1,6 +1,5 @@
 import { CommandClient } from 'clients/command/CommandClient'
 import { ComponentId } from 'models/ComponentId'
-import { Http } from 'utils/Http'
 import { ControlCommand } from 'clients/command/models/PostCommand'
 import {
   OneWayResponse,
@@ -10,8 +9,12 @@ import {
 import { Prefix } from 'models/params/Prefix'
 import { Server } from 'mock-socket'
 import { CurrentState } from 'models/params/CurrentState'
+import { mocked } from 'ts-jest/utils'
+import { post } from 'utils/Http'
 
-const postMockFn = jest.fn()
+jest.mock('utils/Http')
+
+const postMockFn = mocked(post, true)
 //fixme refactor mock server code
 let mockServer: Server
 
@@ -21,17 +24,13 @@ const compId: ComponentId = {
 }
 const client = CommandClient('localhost', 8080, compId)
 
-beforeAll(() => {
-  Http.post = postMockFn
-})
-
 test('it should post validate command', async () => {
   const acceptedResponse = {
     _type: 'Accepted',
     runId: '1234124'
   }
 
-  postMockFn.mockReturnValueOnce(acceptedResponse)
+  postMockFn.mockResolvedValue(acceptedResponse)
 
   const controlCommand = getControlCommand()
   const data: ValidateResponse = await client.validate(controlCommand)
@@ -41,12 +40,12 @@ test('it should post validate command', async () => {
 })
 
 test('it should post submit command', async () => {
-  const startedResponse = {
+  const startedResponse: SubmitResponse = {
     _type: 'Started',
     runId: '1234124'
   }
 
-  postMockFn.mockReturnValueOnce(startedResponse)
+  postMockFn.mockResolvedValue(startedResponse)
 
   const controlCommand = getControlCommand()
   const data: SubmitResponse = await client.submit(controlCommand)
@@ -61,7 +60,7 @@ test('it should post oneway command', async () => {
     runId: '1234124'
   }
 
-  postMockFn.mockReturnValueOnce(acceptedResponse)
+  postMockFn.mockResolvedValue(acceptedResponse)
 
   const controlCommand = getControlCommand()
   const data: OneWayResponse = await client.oneway(controlCommand)
@@ -76,7 +75,7 @@ test('it should post query command', async () => {
     runId: '1234124'
   }
 
-  postMockFn.mockReturnValueOnce(completedResponse)
+  postMockFn.mockResolvedValue(completedResponse)
 
   const data: SubmitResponse = await client.query('1234124')
 
@@ -92,8 +91,8 @@ test('it should subscribe to current state using websocket', async () => {
   }
 
   const checkExpectedMessages = (currentState: CurrentState) => {
-    expect(currentState).toEqual(expectedState)
     mockServer.close()
+    expect(currentState).toEqual(expectedState)
   }
 
   await wsMockWithResolved(expectedState, mockServer)

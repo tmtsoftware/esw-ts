@@ -7,7 +7,11 @@ type RequestConfig = {
   body: string
 }
 
-const post = async <T>(hostname: string, port: number, payload: GatewayCommand): Promise<T> => {
+export const post = async <T>(
+  hostname: string,
+  port: number,
+  payload: GatewayCommand
+): Promise<T> => {
   const url = `http://${hostname}:${port}/post-endpoint`
   return clientFetch(url, payload, 'POST')
 }
@@ -44,5 +48,3 @@ const clientFetch = async <T>(
       .catch((e) => reject(new Error(e.message)))
   )
 }
-
-export const Http = { post }
