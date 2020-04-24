@@ -12,7 +12,7 @@ import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'
 import { ComponentCommandFactory } from 'clients/command/ComponentCommandFactory'
 
-export interface CommandClient {
+export interface CommandService {
   validate(command: ControlCommand): Promise<ValidateResponse>
   submit(command: ControlCommand): Promise<SubmitResponse>
   oneway(command: ControlCommand): Promise<OneWayResponse>
@@ -25,11 +25,11 @@ export interface CommandClient {
   ): Subscription
 }
 
-export const CommandClient = (
+export const CommandService = (
   host: string,
   port: number,
   componentId: ComponentId
-): CommandClient => {
+): CommandService => {
   const commandFactory = new ComponentCommandFactory(componentId)
   const httpPost = <T>(gatewayCommand: GatewayCommand) =>
     post<GatewayCommand, T>(host, port, gatewayCommand)

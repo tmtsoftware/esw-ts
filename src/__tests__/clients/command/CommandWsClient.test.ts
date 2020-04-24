@@ -1,15 +1,13 @@
 import { Server } from 'mock-socket'
 import { CurrentState } from 'models/params/CurrentState'
 import { SubmitResponse } from 'clients/command/models/CommandResponse'
-import { CommandClient } from 'clients'
+import { CommandService } from 'clients'
 import { ComponentId } from 'models/ComponentId'
 import { Prefix } from 'models/params/Prefix'
 
-const compId: ComponentId = {
-  prefix: new Prefix('ESW', 'test'),
-  componentType: 'Assembly'
-}
-const client = CommandClient('localhost', 8080, compId)
+const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+
+const client = CommandService('localhost', 8080, compId)
 let mockServer: Server
 
 beforeEach(() => {
