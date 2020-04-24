@@ -1,0 +1,36 @@
+{
+  "Validate" : {
+    "_type" : "Validate",
+    "controlCommand" : {
+      "_type" : "Observe",
+      "source" : "CSW.ncc.trombone",
+      "commandName" : "move",
+      "maybeObsId" : [ "obs001" ],
+      "paramSet" : [ ]
+    }
+  },
+  "Submit" : {
+    "_type" : "Submit",
+    "controlCommand" : {
+      "_type" : "Observe",
+      "source" : "CSW.ncc.trombone",
+      "commandName" : "move",
+      "maybeObsId" : [ "obs001" ],
+      "paramSet" : [ ]
+    }
+  } ,
+  "Query" : {
+    "_type" : "Query",
+    "runId" : "33b4515c-b226-491b-9626-898244490151"
+  } ,
+  "Oneway" : {
+    "_type" : "Oneway",
+    "controlCommand" : {
+      "_type" : "Setup",
+      "source" : "CSW.ncc.trombone",
+      "commandName" : "move",
+      "maybeObsId" : [ "obs001" ],
+      "paramSet" : [ ]
+    }
+  }
+}
