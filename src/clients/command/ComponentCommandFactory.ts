@@ -1,29 +1,7 @@
 import { ComponentId } from 'models/ComponentId'
-import {
-  CommandServiceHttpMessage,
-  ControlCommand,
-  Validate,
-  Submit,
-  Oneway,
-  Query
-} from 'clients/command/models/PostCommand'
-import { GatewayCommand, GatewayCommandType } from 'clients/command/models/GatewayCommand'
-import {
-  QueryFinal,
-  CommandServiceWsMessage,
-  SubscribeCurrentState
-} from 'clients/command/models/WsCommand'
-
-const GatewayComponentCommand = (
-  componentId: ComponentId,
-  commandHttpMsg: CommandServiceHttpMessage | CommandServiceWsMessage
-): GatewayCommand => {
-  return {
-    _type: GatewayCommandType.ComponentCommand,
-    componentId,
-    command: commandHttpMsg
-  }
-}
+import { ControlCommand, Oneway, Query, Submit, Validate } from 'clients/command/models/PostCommand'
+import { GatewayCommand, GatewayComponentCommand } from 'clients/command/models/GatewayCommand'
+import { QueryFinal, SubscribeCurrentState } from 'clients/command/models/WsCommand'
 
 export class ComponentCommandFactory {
   constructor(readonly componentId: ComponentId) {}
