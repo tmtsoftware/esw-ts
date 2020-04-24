@@ -1,4 +1,4 @@
-import { CommandClient } from 'clients/command/CommandClient'
+import { CommandService } from 'clients'
 import { ComponentId } from 'models/ComponentId'
 import { Setup, Observe } from 'clients/command/models/PostCommand'
 import {
@@ -15,7 +15,7 @@ const postMockFn = mocked(post, true)
 
 const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = CommandClient('localhost', 8080, compId)
+const client = CommandService('localhost', 8080, compId)
 
 test('it should post validate command', async () => {
   const acceptedResponse = {
