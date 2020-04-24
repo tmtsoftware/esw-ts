@@ -1,6 +1,6 @@
 import { CommandClient } from 'clients/command/CommandClient'
 import { ComponentId } from 'models/ComponentId'
-import { ControlCommand } from 'clients/command/models/PostCommand'
+import { Setup, Observe } from 'clients/command/models/PostCommand'
 import {
   OneWayResponse,
   SubmitResponse,
@@ -13,10 +13,8 @@ import { post } from 'utils/Http'
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
 
-const compId: ComponentId = {
-  prefix: new Prefix('ESW', 'test'),
-  componentType: 'Assembly'
-}
+const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+
 const client = CommandClient('localhost', 8080, compId)
 
 test('it should post validate command', async () => {
@@ -27,8 +25,8 @@ test('it should post validate command', async () => {
 
   postMockFn.mockResolvedValue(acceptedResponse)
 
-  const controlCommand = getControlCommand()
-  const data: ValidateResponse = await client.validate(controlCommand)
+  const setupCommand = Setup('esw.test', 'c1', [], ['obsId'])
+  const data: ValidateResponse = await client.validate(setupCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(acceptedResponse)
@@ -42,8 +40,8 @@ test('it should post submit command', async () => {
 
   postMockFn.mockResolvedValue(startedResponse)
 
-  const controlCommand = getControlCommand()
-  const data: SubmitResponse = await client.submit(controlCommand)
+  const setupCommand = Setup('esw.test', 'c1', [], ['obsId'])
+  const data: SubmitResponse = await client.submit(setupCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(startedResponse)
@@ -56,9 +54,8 @@ test('it should post oneway command', async () => {
   }
 
   postMockFn.mockResolvedValue(acceptedResponse)
-
-  const controlCommand = getControlCommand()
-  const data: OneWayResponse = await client.oneway(controlCommand)
+  const observeCommand = Observe('esw.test', 'c1', [], ['obsId'])
+  const data: OneWayResponse = await client.oneway(observeCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(acceptedResponse)
@@ -77,16 +74,6 @@ test('it should post query command', async () => {
   expect(postMockFn).toBeCalledTimes(1)
   expect(data).toBe(completedResponse)
 })
-
-const getControlCommand = (): ControlCommand => {
-  return {
-    _type: 'Setup',
-    source: 'esw.test',
-    commandName: 'c1',
-    maybeObsId: ['obsId'],
-    paramSet: []
-  }
-}
 
 afterEach(() => {
   jest.clearAllMocks()
