@@ -12,7 +12,10 @@ import {
   CommandServiceWsMessage,
   QueryFinal,
   SubscribeCurrentState
-} from '../../../../clients/command/models/WsCommand'
+} from 'clients/command/models/WsCommand'
+import { GatewayCommand, GatewayComponentCommand } from 'clients/command/models/GatewayCommand'
+import { ComponentId } from 'models/ComponentId'
+import { Prefix } from 'models/params/Prefix'
 
 const setupCommand = Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
 const observeCommand = Observe('CSW.ncc.trombone', 'move', [], ['obs001'])
@@ -56,4 +59,11 @@ test('SubscribeCurrentState command', () => {
   )
 
   expect(Commands.SubscribeCurrentState).toEqual(subscribeCurrentState)
+})
+
+test('GatewayCommand', () => {
+  const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+  const gatewayCommand: GatewayCommand = GatewayComponentCommand(compId, Submit(observeCommand))
+
+  expect(Commands.GatewayCommand).toEqual(JSON.parse(JSON.stringify(gatewayCommand)))
 })

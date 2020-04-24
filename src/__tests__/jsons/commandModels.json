@@ -50,5 +50,24 @@
       "temp",
       "position"
     ]
+  },
+  "GatewayCommand": {
+    "_type": "ComponentCommand",
+    "componentId": {
+      "prefix": "ESW.test",
+      "componentType": "Assembly"
+    },
+    "command": {
+      "_type": "Submit",
+      "controlCommand": {
+        "_type": "Observe",
+        "source": "CSW.ncc.trombone",
+        "commandName": "move",
+        "maybeObsId": [
+          "obs001"
+        ],
+        "paramSet": []
+      }
+    }
   }
 }
