@@ -1,4 +1,4 @@
-import { Parameter } from './Parameter'
+import { Parameter } from 'models/params/Parameter'
 
 export interface CurrentState {
   prefix: string

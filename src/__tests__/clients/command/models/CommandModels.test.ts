@@ -7,7 +7,7 @@ import {
   Submit,
   Validate
 } from 'clients/command/models/PostCommand'
-import * as Commands from '../../../jsons/commandModels.json'
+import * as Commands from '__tests__/jsons/commandModels.json'
 import {
   CommandServiceWsMessage,
   QueryFinal,
