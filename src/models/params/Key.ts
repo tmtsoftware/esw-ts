@@ -9,7 +9,6 @@ import {
   RaDec,
   SolarSystemCoord
 } from 'models/params/Coord'
-import { MatrixData } from 'models/params/MatrixData'
 import { Parameter } from 'models/params/Parameter'
 import { Units } from 'models/params/Units'
 
@@ -79,7 +78,7 @@ export type FloatArrayKey = ArrayNumberKey<'FloatArrayKey'>
 export type DoubleArrayKey = ArrayNumberKey<'DoubleArrayKey'>
 
 // Matrix keys
-type MatrixDataNumberKey<KTag> = RawKey<KTag, MatrixData<number>>
+type MatrixDataNumberKey<KTag> = RawKey<KTag, number[][]>
 export type ByteMatrixKey = MatrixDataNumberKey<'ByteMatrixKey'>
 export type IntMatrixKey = MatrixDataNumberKey<'IntMatrixKey'>
 export type LongMatrixKey = MatrixDataNumberKey<'LongMatrixKey'>

@@ -39,7 +39,6 @@ import {
   taiTimeKey,
   utcTimeKey
 } from 'models/params/Key'
-import { MatrixData } from 'models/params/MatrixData'
 import * as Keys from '__tests__/jsons/keys.json'
 
 test('utc time key', () => {
@@ -86,7 +85,10 @@ test('choice key', () => {
 
 test('int matrix key', () => {
   const intMatrixKey1 = intMatrixKey('test matrix')
-  const data = MatrixData<number>([1, 2, 3], [4, 5, 6])
+  const data = [
+    [1, 2, 3],
+    [4, 5, 6]
+  ]
 
   const matrixParam = intMatrixKey1.set([data])
 
@@ -96,7 +98,10 @@ test('int matrix key', () => {
 
 test('byte matrix key', () => {
   const byteMatrixKey1 = byteMatrixKey('test matrix')
-  const data = MatrixData<number>([1, 2, 3], [4, 5, 6])
+  const data = [
+    [1, 2, 3],
+    [4, 5, 6]
+  ]
 
   const matrixParam = byteMatrixKey1.set([data])
 
@@ -106,7 +111,10 @@ test('byte matrix key', () => {
 
 test('long matrix key', () => {
   const longMatrixKey1 = longMatrixKey('test matrix')
-  const data = MatrixData<number>([1, 2, 3], [4, 5, 6])
+  const data = [
+    [1, 2, 3],
+    [4, 5, 6]
+  ]
 
   const matrixParam = longMatrixKey1.set([data])
 
@@ -116,7 +124,10 @@ test('long matrix key', () => {
 
 test('short matrix key', () => {
   const shortMatrixKey1 = shortMatrixKey('test matrix')
-  const data = MatrixData<number>([1, 2, 3], [4, 5, 6])
+  const data = [
+    [1, 2, 3],
+    [4, 5, 6]
+  ]
 
   const matrixParam = shortMatrixKey1.set([data])
 
@@ -126,7 +137,10 @@ test('short matrix key', () => {
 
 test('float matrix key', () => {
   const floatMatrixKey1 = floatMatrixKey('test matrix')
-  const data = MatrixData<number>([1.0, 2.2, 3.3], [4.444, 5.34, 6.77])
+  const data = [
+    [1.0, 2.2, 3.3],
+    [4.444, 5.34, 6.77]
+  ]
 
   const matrixParam = floatMatrixKey1.set([data])
 
@@ -136,7 +150,10 @@ test('float matrix key', () => {
 
 test('double matrix key', () => {
   const doubleMatrixKey1 = doubleMatrixKey('test matrix')
-  const data = MatrixData<number>([1.0, 2.2, 3.3], [4.444, 5.34, 6.77])
+  const data = [
+    [1.0, 2.2, 3.3],
+    [4.444, 5.34, 6.77]
+  ]
 
   const matrixParam = doubleMatrixKey1.set([data])
 
