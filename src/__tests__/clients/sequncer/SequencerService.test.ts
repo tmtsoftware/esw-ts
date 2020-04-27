@@ -69,6 +69,41 @@ describe('SequencerService', () => {
     const res = await sequencer.delete('id-123')
     expect(res).toEqual(Ok)
   })
+
+  test('should add a breakPoint on the given command from sequence', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.addBreakpoint('id-123')
+    expect(res).toEqual(Ok)
+  })
+
+  test('should remove the breakPoint on the given command from sequence', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.removeBreakpoint('id-123')
+    expect(res).toEqual(Ok)
+  })
+
+  test('should reset the sequence in given sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.reset()
+    expect(res).toEqual(Ok)
+  })
+
+  test('should resume the sequence in given sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.resume()
+    expect(res).toEqual(Ok)
+  })
+
+  test('should pause the sequence in given sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.pause()
+    expect(res).toEqual(Ok)
+  })
 })
 
 afterEach(() => {
