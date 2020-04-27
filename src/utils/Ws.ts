@@ -7,12 +7,8 @@ export class Ws<Req> {
   constructor(host: string, port: number) {
     this.socket = new Promise((resolve, reject) => {
       const wss = createWebsocket(host, port)
-      wss.onopen = () => {
-        resolve(wss)
-      }
-      wss.onerror = (event: Event) => {
-        reject({ message: 'error', ...event })
-      }
+      wss.onopen = () => resolve(wss)
+      wss.onerror = (event: Event) => reject({ message: 'error', ...event })
     })
   }
 

@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+
 type RequestConfig = {
   url: string
   method: string
@@ -22,9 +23,7 @@ export const setHeaders = (_headers: Headers) => {
 }
 
 const handleErrors = (res: Response) => {
-  if (!res.ok) {
-    throw new Error(res.statusText)
-  }
+  if (!res.ok) throw new Error(res.statusText)
   return res
 }
 

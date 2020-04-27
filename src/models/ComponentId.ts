@@ -6,6 +6,7 @@ export interface ComponentId {
   componentType: ComponentType
 }
 
-export const ComponentId = (prefix: Prefix, componentType: ComponentType) => {
-  return { prefix, componentType }
-}
+export const ComponentId = (prefix: Prefix, componentType: ComponentType): ComponentId => ({
+  prefix,
+  componentType
+})
