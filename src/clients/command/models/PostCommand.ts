@@ -1,16 +1,8 @@
 import { Parameter } from 'models/params/Parameter'
 import { Key } from 'models/params/Key'
+import { ControlCommand, ControlCommandType } from 'models/params/Command'
 
-export type ControlCommandType = 'Setup' | 'Observe'
 export type CommandServiceHttpMessageType = 'Submit' | 'Validate' | 'Oneway'
-
-export interface ControlCommand {
-  _type: ControlCommandType
-  source: string
-  commandName: string
-  maybeObsId?: string[]
-  paramSet: Parameter<Key>[]
-}
 
 export interface QueryCommand {
   _type: 'Query'

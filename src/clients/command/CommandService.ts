@@ -1,6 +1,3 @@
-import { ControlCommand } from 'clients/command/models/PostCommand'
-
-import { GatewayCommand } from 'clients/command/models/GatewayCommand'
 import { ComponentId } from 'models/ComponentId'
 import {
   OneWayResponse,
@@ -11,6 +8,8 @@ import { Subscription, Ws } from 'utils/Ws'
 import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'
 import { ComponentCommandFactory } from 'clients/command/ComponentCommandFactory'
+import { ControlCommand } from 'models/params/Command'
+import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
 
 export interface CommandService {
   validate(command: ControlCommand): Promise<ValidateResponse>
@@ -31,8 +30,8 @@ export const CommandService = (
   componentId: ComponentId
 ): CommandService => {
   const commandFactory = new ComponentCommandFactory(componentId)
-  const httpPost = <T>(gatewayCommand: GatewayCommand) =>
-    post<GatewayCommand, T>(host, port, gatewayCommand)
+  const httpPost = <T>(gatewayCommand: GatewayComponentCommand) =>
+    post<GatewayComponentCommand, T>(host, port, gatewayCommand)
 
   const validate = async (command: ControlCommand) =>
     httpPost<ValidateResponse>(commandFactory.validate(command))
