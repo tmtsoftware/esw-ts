@@ -23,11 +23,6 @@ export type SolarSystemObject =
   | 'Pluto'
 
 export type EqFrame = 'ICRS' | 'FK5'
-export type EqCoordType = 'EqCoord'
-export type MinorPlanetCoordType = 'MinorPlanetCoord'
-export type SolarSystemCoordType = 'SolarSystemCoord'
-export type CometCoordType = 'CometCoord'
-export type AltAzCoordType = 'AltAzCoord'
 
 export interface RaDec {
   ra: number
@@ -39,8 +34,8 @@ export interface ProperMotion {
   pmy: number
 }
 
-export interface EqCoord {
-  _type: EqCoordType
+export interface EqCoord extends Coord {
+  _type: 'EqCoord'
   tag: Tag
   ra: number
   dec: number
@@ -49,8 +44,8 @@ export interface EqCoord {
   pm: ProperMotion
 }
 
-export interface MinorPlanetCoord {
-  _type: MinorPlanetCoordType
+export interface MinorPlanetCoord extends Coord {
+  _type: 'MinorPlanetCoord'
   tag: Tag
   epoch: number
   inclination: number
@@ -61,14 +56,14 @@ export interface MinorPlanetCoord {
   meanAnomaly: number
 }
 
-export interface SolarSystemCoord {
-  _type: SolarSystemCoordType
+export interface SolarSystemCoord extends Coord {
+  _type: 'SolarSystemCoord'
   tag: Tag
   body: SolarSystemObject
 }
 
-export interface CometCoord {
-  _type: CometCoordType
+export interface CometCoord extends Coord {
+  _type: 'CometCoord'
   tag: Tag
   epochOfPerihelion: number
   inclination: number
@@ -78,8 +73,8 @@ export interface CometCoord {
   eccentricity: number
 }
 
-export interface AltAzCoord {
-  _type: AltAzCoordType
+export interface AltAzCoord extends Coord {
+  _type: 'AltAzCoord'
   tag: Tag
   alt: number
   az: number
