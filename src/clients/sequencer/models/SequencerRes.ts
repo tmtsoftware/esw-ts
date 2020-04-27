@@ -37,8 +37,6 @@ export const Unhandled = (state: string, messageType: string, msg: string): Unha
 })
 
 export type OkOrUnhandledResponse = Ok | Unhandled
-
-export type GenericResponse =
-  | OkOrUnhandledResponse
-  | IdDoesNotExist
-  | CannotOperateOnAnInFlightOrFinishedStep
+export type RemoveBreakpointResponse = OkOrUnhandledResponse | IdDoesNotExist
+export type PauseResponse = OkOrUnhandledResponse | CannotOperateOnAnInFlightOrFinishedStep
+export type GenericResponse = RemoveBreakpointResponse | CannotOperateOnAnInFlightOrFinishedStep

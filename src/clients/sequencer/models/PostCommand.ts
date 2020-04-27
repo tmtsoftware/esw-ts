@@ -36,12 +36,37 @@ export interface Delete {
   id: string
 }
 
+export interface AddBreakpoint {
+  _type: 'AddBreakpoint'
+  id: string
+}
+
+export interface RemoveBreakpoint {
+  _type: 'RemoveBreakpoint'
+  id: string
+}
+
+export interface Reset {
+  _type: 'Reset'
+}
+
+export interface Pause {
+  _type: 'Pause'
+}
+
+export interface Resume {
+  _type: 'Resume'
+}
+
 export const LoadSequence = (sequence: SequenceCommand[]): LoadSequence => ({
   _type: 'LoadSequence',
   sequence
 })
 
 export const StartSequence: StartSequence = { _type: 'StartSequence' }
+export const Resume: Resume = { _type: 'Resume' }
+export const Pause: Pause = { _type: 'Pause' }
+export const Reset: Reset = { _type: 'Reset' }
 
 export const Add = (commands: SequenceCommand[]): Add => ({
   _type: 'Add',
@@ -70,6 +95,16 @@ export const Delete = (id: string): Delete => ({
   id
 })
 
+export const AddBreakpoint = (id: string): AddBreakpoint => ({
+  _type: 'AddBreakpoint',
+  id
+})
+
+export const RemoveBreakpoint = (id: string): RemoveBreakpoint => ({
+  _type: 'RemoveBreakpoint',
+  id
+})
+
 export type SequencerPostRequest =
   | LoadSequence
   | StartSequence
@@ -78,3 +113,8 @@ export type SequencerPostRequest =
   | Replace
   | InsertAfter
   | Delete
+  | AddBreakpoint
+  | RemoveBreakpoint
+  | Reset
+  | Resume
+  | Pause

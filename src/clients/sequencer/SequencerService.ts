@@ -1,14 +1,24 @@
 import { ComponentId } from 'models/ComponentId'
 import { post } from 'utils/Http'
-import { GenericResponse, OkOrUnhandledResponse } from 'clients/sequencer/models/SequencerRes'
+import {
+  GenericResponse,
+  OkOrUnhandledResponse,
+  PauseResponse,
+  RemoveBreakpointResponse
+} from 'clients/sequencer/models/SequencerRes'
 import { GatewaySequencerCommand } from 'clients/gateway/models/Gateway'
 import {
   Add,
+  AddBreakpoint,
   Delete,
   InsertAfter,
   LoadSequence,
+  Pause,
   Prepend,
+  RemoveBreakpoint,
   Replace,
+  Reset,
+  Resume,
   StartSequence
 } from 'clients/sequencer/models/PostCommand'
 import { SequenceCommand } from 'models/params/Command'
@@ -57,5 +67,29 @@ export class SequencerService {
 
   delete(id: string): Promise<GenericResponse> {
     return this.httpPost<GenericResponse>(GatewaySequencerCommand(this.componentId, Delete(id)))
+  }
+
+  addBreakpoint(id: string): Promise<GenericResponse> {
+    return this.httpPost<GenericResponse>(
+      GatewaySequencerCommand(this.componentId, AddBreakpoint(id))
+    )
+  }
+
+  removeBreakpoint(id: string): Promise<RemoveBreakpointResponse> {
+    return this.httpPost<RemoveBreakpointResponse>(
+      GatewaySequencerCommand(this.componentId, RemoveBreakpoint(id))
+    )
+  }
+
+  reset(): Promise<OkOrUnhandledResponse> {
+    return this.httpPost<OkOrUnhandledResponse>(GatewaySequencerCommand(this.componentId, Reset))
+  }
+
+  resume(): Promise<OkOrUnhandledResponse> {
+    return this.httpPost<OkOrUnhandledResponse>(GatewaySequencerCommand(this.componentId, Resume))
+  }
+
+  pause(): Promise<PauseResponse> {
+    return this.httpPost<PauseResponse>(GatewaySequencerCommand(this.componentId, Pause))
   }
 }
