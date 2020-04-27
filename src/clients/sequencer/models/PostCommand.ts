@@ -1,21 +1,11 @@
 import { SequenceCommand } from 'models/params/Command'
 
-export interface Sequence {
-  _type: 'Sequence'
-  commands: SequenceCommand[]
-}
-
-export const Sequence = (...commands: SequenceCommand[]): Sequence => ({
-  _type: 'Sequence',
-  commands: commands
-})
-
 export interface LoadSequence {
   _type: 'LoadSequence'
-  sequence: Sequence
+  sequence: SequenceCommand[]
 }
 
-export const LoadSequence = (sequence: Sequence): LoadSequence => ({
+export const LoadSequence = (sequence: SequenceCommand[]): LoadSequence => ({
   _type: 'LoadSequence',
   sequence
 })
