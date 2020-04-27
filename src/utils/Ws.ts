@@ -1,9 +1,7 @@
-import { GatewayCommand } from 'clients/command/models/GatewayCommand'
-
 const createWebsocket = (host: string, port: number) =>
   new WebSocket(`ws://${host}:${port}/websocket-endpoint`)
 
-export class Ws {
+export class Ws<Req> {
   private socket: Promise<WebSocket>
 
   constructor(host: string, port: number) {
@@ -18,7 +16,7 @@ export class Ws {
     })
   }
 
-  send(msg: GatewayCommand): Promise<void> {
+  send(msg: Req): Promise<void> {
     return this.socket.then((wss) => wss.send(JSON.stringify(msg)))
   }
 
@@ -34,7 +32,7 @@ export class Ws {
     return this.subscription
   }
 
-  sendThenSubscribe<T>(msg: GatewayCommand, cb: (msg: T) => void): Subscription {
+  sendThenSubscribe<T>(msg: Req, cb: (msg: T) => void): Subscription {
     this.send(msg).then(() => this.subscribe(cb))
     return this.subscription
   }
