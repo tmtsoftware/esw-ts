@@ -1,9 +1,5 @@
 import { ComponentId } from 'models/ComponentId'
-import {
-  OneWayResponse,
-  SubmitResponse,
-  ValidateResponse
-} from 'clients/command/models/CommandResponse'
+import { OneWayResponse, SubmitResponse, ValidateResponse } from 'models/params/CommandResponse'
 import { Subscription, Ws } from 'utils/Ws'
 import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'

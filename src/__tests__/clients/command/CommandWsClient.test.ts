@@ -1,6 +1,6 @@
 import { Server } from 'mock-socket'
 import { CurrentState } from 'models/params/CurrentState'
-import { SubmitResponse } from 'clients/command/models/CommandResponse'
+import { SubmitResponse } from 'models/params/CommandResponse'
 import { CommandService } from 'clients'
 import { ComponentId } from 'models/ComponentId'
 import { Prefix } from 'models/params/Prefix'
