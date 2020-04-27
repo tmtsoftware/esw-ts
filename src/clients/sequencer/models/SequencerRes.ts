@@ -4,6 +4,24 @@ export interface Ok {
 
 export const Ok: Ok = { _type: 'Ok' }
 
+export interface CannotOperateOnAnInFlightOrFinishedStep {
+  _type: 'CannotOperateOnAnInFlightOrFinishedStep'
+}
+
+export const CannotOperateOnAnInFlightOrFinishedStep: CannotOperateOnAnInFlightOrFinishedStep = {
+  _type: 'CannotOperateOnAnInFlightOrFinishedStep'
+}
+
+export interface IdDoesNotExist {
+  _type: 'IdDoesNotExist'
+  id: string
+}
+
+export const IdDoesNotExist = (id: string): IdDoesNotExist => ({
+  _type: 'IdDoesNotExist',
+  id
+})
+
 export interface Unhandled {
   _type: 'Unhandled'
   state: string
@@ -19,3 +37,8 @@ export const Unhandled = (state: string, messageType: string, msg: string): Unha
 })
 
 export type OkOrUnhandledResponse = Ok | Unhandled
+
+export type GenericResponse =
+  | OkOrUnhandledResponse
+  | IdDoesNotExist
+  | CannotOperateOnAnInFlightOrFinishedStep
