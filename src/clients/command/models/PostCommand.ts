@@ -20,7 +20,7 @@ const controlCommandFactory = (_type: ControlCommandType) => (
   source: string,
   commandName: string,
   paramSet: Parameter<Key>[],
-  maybeObsId?: string[]
+  maybeObsId: string[] = []
 ) => {
   return { _type, source, commandName, maybeObsId, paramSet }
 }
