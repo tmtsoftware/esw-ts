@@ -38,7 +38,31 @@ import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
 import { StepList } from 'clients/sequencer/models/StepList'
 
-export class SequencerService {
+export interface SequencerService {
+  loadSequence(...sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
+  startSequence(): Promise<SubmitResponse>
+  add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
+  prepend(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
+  replace(id: string, commands: SequenceCommand[]): Promise<GenericResponse>
+  insertAfter(id: string, commands: SequenceCommand[]): Promise<GenericResponse>
+  delete(id: string): Promise<GenericResponse>
+  addBreakpoint(id: string): Promise<GenericResponse>
+  removeBreakpoint(id: string): Promise<RemoveBreakpointResponse>
+  reset(): Promise<OkOrUnhandledResponse>
+  resume(): Promise<OkOrUnhandledResponse>
+  pause(): Promise<PauseResponse>
+  getSequence(): Promise<StepList[]>
+  isAvailable(): Promise<boolean>
+  isOnline(): Promise<boolean>
+  goOnline(): Promise<GoOnlineResponse>
+  goOffline(): Promise<GoOfflineResponse>
+  abortSequence(): Promise<OkOrUnhandledResponse>
+  stop(): Promise<OkOrUnhandledResponse>
+  diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse>
+  operationsMode(): Promise<OperationsModeResponse>
+}
+
+export class SequencerService implements SequencerService {
   constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
 
   private httpPost<T>(gatewayCommand: GatewaySequencerCommand) {

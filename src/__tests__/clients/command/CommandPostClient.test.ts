@@ -11,7 +11,7 @@ const postMockFn = mocked(post, true)
 
 const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = CommandService('localhost', 8080, compId)
+const client = new CommandService('localhost', 8080, compId)
 
 test('it should post validate command', async () => {
   const acceptedResponse = {

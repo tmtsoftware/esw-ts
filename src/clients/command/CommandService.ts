@@ -21,44 +21,49 @@ export interface CommandService {
   ): Subscription
 }
 
-export const CommandService = (
-  host: string,
-  port: number,
-  componentId: ComponentId
-): CommandService => {
-  const httpPost = <T>(gatewayCommand: GatewayComponentCommand) =>
-    post<GatewayComponentCommand, T>(host, port, gatewayCommand)
+export class CommandService implements CommandService {
+  constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
 
-  const validate = async (command: ControlCommand) =>
-    httpPost<ValidateResponse>(GatewayComponentCommand(componentId, Validate(command)))
+  httpPost<T>(gatewayCommand: GatewayComponentCommand): Promise<T> {
+    return post<GatewayComponentCommand, T>(this.host, this.port, gatewayCommand)
+  }
 
-  const submit = async (command: ControlCommand) =>
-    httpPost<SubmitResponse>(GatewayComponentCommand(componentId, Submit(command)))
+  async validate(command: ControlCommand): Promise<ValidateResponse> {
+    return this.httpPost<ValidateResponse>(
+      GatewayComponentCommand(this.componentId, Validate(command))
+    )
+  }
 
-  const oneway = async (command: ControlCommand) =>
-    httpPost<OneWayResponse>(GatewayComponentCommand(componentId, Oneway(command)))
+  async submit(command: ControlCommand): Promise<SubmitResponse> {
+    return this.httpPost<SubmitResponse>(GatewayComponentCommand(this.componentId, Submit(command)))
+  }
 
-  const query = async (runId: string) =>
-    httpPost<SubmitResponse>(GatewayComponentCommand(componentId, Query(runId)))
+  async oneway(command: ControlCommand): Promise<OneWayResponse> {
+    return this.httpPost<OneWayResponse>(GatewayComponentCommand(this.componentId, Oneway(command)))
+  }
 
-  const subscribeCurrentState = (
+  async query(runId: string): Promise<SubmitResponse> {
+    return this.httpPost<SubmitResponse>(GatewayComponentCommand(this.componentId, Query(runId)))
+  }
+
+  subscribeCurrentState(
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
-  ): Subscription =>
-    new Ws(host, port).sendThenSubscribe(
-      GatewayComponentCommand(componentId, SubscribeCurrentState(stateNames)),
+  ): Subscription {
+    return new Ws(this.host, this.port).sendThenSubscribe(
+      GatewayComponentCommand(this.componentId, SubscribeCurrentState(stateNames)),
       onStateChange
     )
+  }
 
-  const queryFinal = async (runId: string, timeoutInSeconds: number) =>
-    new Promise<SubmitResponse>((resolve) => {
-      new Ws(host, port).sendThenSubscribe(
-        GatewayComponentCommand(componentId, QueryFinal(runId, timeoutInSeconds)),
+  async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
+    return new Promise<SubmitResponse>((resolve) => {
+      new Ws(this.host, this.port).sendThenSubscribe(
+        GatewayComponentCommand(this.componentId, QueryFinal(runId, timeoutInSeconds)),
         (submitResponse: SubmitResponse) => {
           resolve(submitResponse)
         }
       )
     })
-
-  return { validate, submit, oneway, query, queryFinal, subscribeCurrentState }
+  }
 }
