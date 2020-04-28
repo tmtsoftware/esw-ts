@@ -148,6 +148,34 @@ describe('SequencerService', () => {
     const res = await sequencer.goOffline()
     expect(res).toEqual(Ok)
   })
+
+  test('should abort a sequence from sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.abortSequence()
+    expect(res).toEqual(Ok)
+  })
+
+  test('should stop a sequence from sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.stop()
+    expect(res).toEqual(Ok)
+  })
+
+  test('should send diagnostic mode to sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.diagnosticMode(new Date('2020-10-08'), 'hint for diagnostic mode')
+    expect(res).toEqual(Ok)
+  })
+
+  test('should send operations mode to sequencer', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.operationsMode()
+    expect(res).toEqual(Ok)
+  })
 })
 
 afterEach(() => {
