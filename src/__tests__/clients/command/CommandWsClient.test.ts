@@ -7,7 +7,7 @@ import { Prefix } from 'models/params/Prefix'
 
 const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = CommandService('localhost', 8080, compId)
+const client = new CommandService('localhost', 8080, compId)
 let mockServer: Server
 
 beforeEach(() => {
