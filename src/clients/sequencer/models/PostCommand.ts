@@ -58,6 +58,26 @@ export interface Resume {
   _type: 'Resume'
 }
 
+export interface GetSequence {
+  _type: 'GetSequence'
+}
+
+export interface IsAvailable {
+  _type: 'IsAvailable'
+}
+
+export interface IsOnline {
+  _type: 'IsOnline'
+}
+
+export interface GoOnline {
+  _type: 'GoOnline'
+}
+
+export interface GoOffline {
+  _type: 'GoOffline'
+}
+
 export const LoadSequence = (sequence: SequenceCommand[]): LoadSequence => ({
   _type: 'LoadSequence',
   sequence
@@ -67,6 +87,11 @@ export const StartSequence: StartSequence = { _type: 'StartSequence' }
 export const Resume: Resume = { _type: 'Resume' }
 export const Pause: Pause = { _type: 'Pause' }
 export const Reset: Reset = { _type: 'Reset' }
+export const GetSequence: GetSequence = { _type: 'GetSequence' }
+export const IsAvailable: IsAvailable = { _type: 'IsAvailable' }
+export const IsOnline: IsOnline = { _type: 'IsOnline' }
+export const GoOnline: GoOnline = { _type: 'GoOnline' }
+export const GoOffline: GoOffline = { _type: 'GoOffline' }
 
 export const Add = (commands: SequenceCommand[]): Add => ({
   _type: 'Add',
@@ -118,3 +143,8 @@ export type SequencerPostRequest =
   | Reset
   | Resume
   | Pause
+  | GetSequence
+  | IsAvailable
+  | IsOnline
+  | GoOnline
+  | GoOffline

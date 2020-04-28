@@ -7,6 +7,7 @@ import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
 import { SubmitResponse } from 'models/params/CommandResponse'
 import { SequenceCommand } from 'models/params/Command'
+import { Pending, Step, StepList } from 'clients/sequencer/models/StepList'
 
 const componentId = ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService('localhost', 59623, componentId)
@@ -102,6 +103,49 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValue(Ok)
 
     const res = await sequencer.pause()
+    expect(res).toEqual(Ok)
+  })
+
+  test('should get a step list from sequencer', async () => {
+    const step: Step = {
+      id: 'bfec413e-e377-4e3a-8737-3e625d694bd1',
+      command: commands[0],
+      status: Pending,
+      hasBreakpoint: false
+    }
+    const stepList: StepList = [step]
+
+    postMockFn.mockResolvedValue(stepList)
+
+    const res = await sequencer.getSequence()
+    expect(res).toEqual(stepList)
+  })
+
+  test('should return whether a sequencer is available', async () => {
+    postMockFn.mockResolvedValue(true)
+
+    const res = await sequencer.isAvailable()
+    expect(res).toEqual(true)
+  })
+
+  test('should return whether a sequencer is online', async () => {
+    postMockFn.mockResolvedValue(true)
+
+    const res = await sequencer.isOnline()
+    expect(res).toEqual(true)
+  })
+
+  test('should get a go online response from sequencer on GoOnline', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.goOnline()
+    expect(res).toEqual(Ok)
+  })
+
+  test('should get a go offline response from sequencer on GoOffline', async () => {
+    postMockFn.mockResolvedValue(Ok)
+
+    const res = await sequencer.goOffline()
     expect(res).toEqual(Ok)
   })
 })

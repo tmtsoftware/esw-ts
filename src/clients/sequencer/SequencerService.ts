@@ -2,6 +2,8 @@ import { ComponentId } from 'models/ComponentId'
 import { post } from 'utils/Http'
 import {
   GenericResponse,
+  GoOfflineResponse,
+  GoOnlineResponse,
   OkOrUnhandledResponse,
   PauseResponse,
   RemoveBreakpointResponse
@@ -11,7 +13,12 @@ import {
   Add,
   AddBreakpoint,
   Delete,
+  GetSequence,
+  GoOffline,
+  GoOnline,
   InsertAfter,
+  IsAvailable,
+  IsOnline,
   LoadSequence,
   Pause,
   Prepend,
@@ -23,6 +30,7 @@ import {
 } from 'clients/sequencer/models/PostCommand'
 import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
+import { StepList } from 'clients/sequencer/models/StepList'
 
 export class SequencerService {
   constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
@@ -91,5 +99,25 @@ export class SequencerService {
 
   pause(): Promise<PauseResponse> {
     return this.httpPost<PauseResponse>(GatewaySequencerCommand(this.componentId, Pause))
+  }
+
+  getSequence(): Promise<StepList[]> {
+    return this.httpPost<StepList[]>(GatewaySequencerCommand(this.componentId, GetSequence))
+  }
+
+  isAvailable(): Promise<boolean> {
+    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, IsAvailable))
+  }
+
+  isOnline(): Promise<boolean> {
+    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, IsOnline))
+  }
+
+  goOnline(): Promise<GoOnlineResponse> {
+    return this.httpPost<GoOnlineResponse>(GatewaySequencerCommand(this.componentId, GoOnline))
+  }
+
+  goOffline(): Promise<GoOfflineResponse> {
+    return this.httpPost<GoOfflineResponse>(GatewaySequencerCommand(this.componentId, GoOffline))
   }
 }
