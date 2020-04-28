@@ -1,18 +1,22 @@
 import { ComponentId } from 'models/ComponentId'
 import { post } from 'utils/Http'
 import {
+  DiagnosticModeResponse,
   GenericResponse,
   GoOfflineResponse,
   GoOnlineResponse,
   OkOrUnhandledResponse,
+  OperationsModeResponse,
   PauseResponse,
   RemoveBreakpointResponse
 } from 'clients/sequencer/models/SequencerRes'
 import { GatewaySequencerCommand } from 'clients/gateway/models/Gateway'
 import {
+  AbortSequence,
   Add,
   AddBreakpoint,
   Delete,
+  DiagnosticMode,
   GetSequence,
   GoOffline,
   GoOnline,
@@ -20,13 +24,15 @@ import {
   IsAvailable,
   IsOnline,
   LoadSequence,
+  OperationsMode,
   Pause,
   Prepend,
   RemoveBreakpoint,
   Replace,
   Reset,
   Resume,
-  StartSequence
+  StartSequence,
+  Stop
 } from 'clients/sequencer/models/PostCommand'
 import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
@@ -119,5 +125,27 @@ export class SequencerService {
 
   goOffline(): Promise<GoOfflineResponse> {
     return this.httpPost<GoOfflineResponse>(GatewaySequencerCommand(this.componentId, GoOffline))
+  }
+
+  abortSequence(): Promise<OkOrUnhandledResponse> {
+    return this.httpPost<OkOrUnhandledResponse>(
+      GatewaySequencerCommand(this.componentId, AbortSequence)
+    )
+  }
+
+  stop(): Promise<OkOrUnhandledResponse> {
+    return this.httpPost<OkOrUnhandledResponse>(GatewaySequencerCommand(this.componentId, Stop))
+  }
+
+  diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse> {
+    return this.httpPost<DiagnosticModeResponse>(
+      GatewaySequencerCommand(this.componentId, DiagnosticMode(startTime, hint))
+    )
+  }
+
+  operationsMode(): Promise<OperationsModeResponse> {
+    return this.httpPost<OperationsModeResponse>(
+      GatewaySequencerCommand(this.componentId, OperationsMode)
+    )
   }
 }

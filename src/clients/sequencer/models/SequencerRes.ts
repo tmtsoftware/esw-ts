@@ -56,9 +56,31 @@ export const GoOfflineHookFailed = (msg: string): GoOfflineHookFailed => ({
   msg
 })
 
+export interface DiagnosticHookFailed {
+  _type: 'DiagnosticHookFailed'
+  msg: string
+}
+
+export const DiagnosticHookFailed = (msg: string): DiagnosticHookFailed => ({
+  _type: 'DiagnosticHookFailed',
+  msg
+})
+
+export interface OperationsHookFailed {
+  _type: 'OperationsHookFailed'
+  msg: string
+}
+
+export const OperationsHookFailed = (msg: string): OperationsHookFailed => ({
+  _type: 'OperationsHookFailed',
+  msg
+})
+
 export type OkOrUnhandledResponse = Ok | Unhandled
 export type RemoveBreakpointResponse = OkOrUnhandledResponse | IdDoesNotExist
 export type PauseResponse = OkOrUnhandledResponse | CannotOperateOnAnInFlightOrFinishedStep
 export type GenericResponse = RemoveBreakpointResponse | CannotOperateOnAnInFlightOrFinishedStep
 export type GoOnlineResponse = OkOrUnhandledResponse | GoOnlineHookFailed
 export type GoOfflineResponse = OkOrUnhandledResponse | GoOfflineHookFailed
+export type DiagnosticModeResponse = Ok | DiagnosticHookFailed
+export type OperationsModeResponse = Ok | OperationsHookFailed

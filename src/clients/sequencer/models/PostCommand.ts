@@ -78,6 +78,24 @@ export interface GoOffline {
   _type: 'GoOffline'
 }
 
+export interface AbortSequence {
+  _type: 'AbortSequence'
+}
+
+export interface Stop {
+  _type: 'Stop'
+}
+
+export interface DiagnosticMode {
+  _type: 'DiagnosticMode'
+  startTime: Date
+  hint: string
+}
+
+export interface OperationsMode {
+  _type: 'OperationsMode'
+}
+
 export const LoadSequence = (sequence: SequenceCommand[]): LoadSequence => ({
   _type: 'LoadSequence',
   sequence
@@ -92,6 +110,9 @@ export const IsAvailable: IsAvailable = { _type: 'IsAvailable' }
 export const IsOnline: IsOnline = { _type: 'IsOnline' }
 export const GoOnline: GoOnline = { _type: 'GoOnline' }
 export const GoOffline: GoOffline = { _type: 'GoOffline' }
+export const AbortSequence: AbortSequence = { _type: 'AbortSequence' }
+export const Stop: Stop = { _type: 'Stop' }
+export const OperationsMode: OperationsMode = { _type: 'OperationsMode' }
 
 export const Add = (commands: SequenceCommand[]): Add => ({
   _type: 'Add',
@@ -130,6 +151,12 @@ export const RemoveBreakpoint = (id: string): RemoveBreakpoint => ({
   id
 })
 
+export const DiagnosticMode = (startTime: Date, hint: string): DiagnosticMode => ({
+  _type: 'DiagnosticMode',
+  startTime,
+  hint
+})
+
 export type SequencerPostRequest =
   | LoadSequence
   | StartSequence
@@ -148,3 +175,7 @@ export type SequencerPostRequest =
   | IsOnline
   | GoOnline
   | GoOffline
+  | AbortSequence
+  | Stop
+  | DiagnosticMode
+  | OperationsMode
