@@ -36,7 +36,29 @@ export const Unhandled = (state: string, messageType: string, msg: string): Unha
   msg
 })
 
+export interface GoOnlineHookFailed {
+  _type: 'GoOnlineHookFailed'
+  msg: string
+}
+
+export const GoOnlineHookFailed = (msg: string): GoOnlineHookFailed => ({
+  _type: 'GoOnlineHookFailed',
+  msg
+})
+
+export interface GoOfflineHookFailed {
+  _type: 'GoOfflineHookFailed'
+  msg: string
+}
+
+export const GoOfflineHookFailed = (msg: string): GoOfflineHookFailed => ({
+  _type: 'GoOfflineHookFailed',
+  msg
+})
+
 export type OkOrUnhandledResponse = Ok | Unhandled
 export type RemoveBreakpointResponse = OkOrUnhandledResponse | IdDoesNotExist
 export type PauseResponse = OkOrUnhandledResponse | CannotOperateOnAnInFlightOrFinishedStep
 export type GenericResponse = RemoveBreakpointResponse | CannotOperateOnAnInFlightOrFinishedStep
+export type GoOnlineResponse = OkOrUnhandledResponse | GoOnlineHookFailed
+export type GoOfflineResponse = OkOrUnhandledResponse | GoOfflineHookFailed
