@@ -1,8 +1,6 @@
 import { Key } from 'models/params/Key'
 import { Parameter } from 'models/params/Parameter'
 
-export type ControlCommandType = 'Setup' | 'Observe'
-
 interface Command {
   source: string
   commandName: string
@@ -11,9 +9,9 @@ interface Command {
 }
 
 export interface ControlCommand extends Command {
-  _type: ControlCommandType
+  _type: 'Setup' | 'Observe'
 }
 
 export interface SequenceCommand extends Command {
-  _type: ControlCommandType | 'Wait'
+  _type: 'Setup' | 'Observe' | 'Wait'
 }

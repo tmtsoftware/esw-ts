@@ -21,7 +21,7 @@ test('it should post validate command', async () => {
 
   postMockFn.mockResolvedValue(acceptedResponse)
 
-  const setupCommand = Setup('esw.test', 'c1', [], ['obsId'])
+  const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
   const data: ValidateResponse = await client.validate(setupCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
@@ -36,7 +36,7 @@ test('it should post submit command', async () => {
 
   postMockFn.mockResolvedValue(startedResponse)
 
-  const setupCommand = Setup('esw.test', 'c1', [], ['obsId'])
+  const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
   const data: SubmitResponse = await client.submit(setupCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
@@ -50,7 +50,7 @@ test('it should post oneway command', async () => {
   }
 
   postMockFn.mockResolvedValue(acceptedResponse)
-  const observeCommand = Observe('esw.test', 'c1', [], ['obsId'])
+  const observeCommand = new Observe('esw.test', 'c1', [], ['obsId'])
   const data: OneWayResponse = await client.oneway(observeCommand)
 
   expect(postMockFn).toBeCalledTimes(1)
