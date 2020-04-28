@@ -11,7 +11,9 @@ import { Pending, Step, StepList } from 'clients/sequencer/models/StepList'
 
 const componentId = ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService('localhost', 59623, componentId)
-const commands: SequenceCommand[] = [Setup('ESW.test', 'command-1', [])]
+
+const setupCommand = new Setup('ESW.test', 'command-1', [])
+const commands: SequenceCommand[] = [setupCommand]
 
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
@@ -20,7 +22,7 @@ describe('SequencerService', () => {
   test('should load a sequence in given sequencer', async () => {
     postMockFn.mockResolvedValue(Ok)
 
-    const res = await sequencer.loadSequence(Setup('ESW.test', 'command-1', []))
+    const res = await sequencer.loadSequence(setupCommand)
     expect(res).toEqual(Ok)
   })
 
@@ -109,7 +111,7 @@ describe('SequencerService', () => {
   test('should get a step list from sequencer', async () => {
     const step: Step = {
       id: 'bfec413e-e377-4e3a-8737-3e625d694bd1',
-      command: commands[0],
+      command: setupCommand,
       status: Pending,
       hasBreakpoint: false
     }

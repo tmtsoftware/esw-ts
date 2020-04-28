@@ -1,42 +1,45 @@
 import { Parameter } from 'models/params/Parameter'
 import { Key } from 'models/params/Key'
-import { ControlCommand, ControlCommandType } from 'models/params/Command'
+import { ControlCommand } from 'models/params/Command'
 
-export type CommandServiceHttpMessageType = 'Submit' | 'Validate' | 'Oneway'
+export type CommandServiceHttpMessage = Submit | Validate | Oneway | Query
 
-export interface QueryCommand {
-  _type: 'Query'
-  runId: string
+export class Validate {
+  readonly _type: 'Validate' = 'Validate'
+  constructor(readonly controlCommand: ControlCommand) {}
 }
 
-export type CommandServiceHttpMessage =
-  | {
-      _type: CommandServiceHttpMessageType
-      controlCommand: ControlCommand
-    }
-  | QueryCommand
-
-const controlCommandFactory = (_type: ControlCommandType) => (
-  source: string,
-  commandName: string,
-  paramSet: Parameter<Key>[],
-  maybeObsId: string[] = []
-) => {
-  return { _type, source, commandName, maybeObsId, paramSet }
+export class Submit {
+  readonly _type: 'Submit' = 'Submit'
+  constructor(readonly controlCommand: ControlCommand) {}
 }
 
-const commandHttpMsgFactory = (_type: CommandServiceHttpMessageType) => (
-  controlCommand: ControlCommand
-) => {
-  return { _type, controlCommand }
+export class Oneway {
+  readonly _type: 'Oneway' = 'Oneway'
+  constructor(readonly controlCommand: ControlCommand) {}
 }
 
-export const Validate = commandHttpMsgFactory('Validate')
-export const Submit = commandHttpMsgFactory('Submit')
-export const Oneway = commandHttpMsgFactory('Oneway')
-export const Query = (runId: string): QueryCommand => {
-  return { _type: 'Query', runId }
+export class Query {
+  readonly _type: 'Query' = 'Query'
+  constructor(readonly runId: string) {}
 }
 
-export const Setup = controlCommandFactory('Setup')
-export const Observe = controlCommandFactory('Observe')
+export class Setup implements ControlCommand {
+  readonly _type: 'Setup' = 'Setup'
+  constructor(
+    readonly source: string,
+    readonly commandName: string,
+    readonly paramSet: Parameter<Key>[],
+    readonly maybeObsId: string[] = []
+  ) {}
+}
+
+export class Observe implements ControlCommand {
+  readonly _type: 'Observe' = 'Observe'
+  constructor(
+    readonly source: string,
+    readonly commandName: string,
+    readonly paramSet: Parameter<Key>[],
+    readonly maybeObsId: string[] = []
+  ) {}
+}

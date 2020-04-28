@@ -30,20 +30,26 @@ export class CommandService implements CommandService {
 
   async validate(command: ControlCommand): Promise<ValidateResponse> {
     return this.httpPost<ValidateResponse>(
-      GatewayComponentCommand(this.componentId, Validate(command))
+      GatewayComponentCommand(this.componentId, new Validate(command))
     )
   }
 
   async submit(command: ControlCommand): Promise<SubmitResponse> {
-    return this.httpPost<SubmitResponse>(GatewayComponentCommand(this.componentId, Submit(command)))
+    return this.httpPost<SubmitResponse>(
+      GatewayComponentCommand(this.componentId, new Submit(command))
+    )
   }
 
   async oneway(command: ControlCommand): Promise<OneWayResponse> {
-    return this.httpPost<OneWayResponse>(GatewayComponentCommand(this.componentId, Oneway(command)))
+    return this.httpPost<OneWayResponse>(
+      GatewayComponentCommand(this.componentId, new Oneway(command))
+    )
   }
 
   async query(runId: string): Promise<SubmitResponse> {
-    return this.httpPost<SubmitResponse>(GatewayComponentCommand(this.componentId, Query(runId)))
+    return this.httpPost<SubmitResponse>(
+      GatewayComponentCommand(this.componentId, new Query(runId))
+    )
   }
 
   subscribeCurrentState(
@@ -51,7 +57,7 @@ export class CommandService implements CommandService {
     onStateChange: (state: CurrentState) => void
   ): Subscription {
     return new Ws(this.host, this.port).sendThenSubscribe(
-      GatewayComponentCommand(this.componentId, SubscribeCurrentState(stateNames)),
+      GatewayComponentCommand(this.componentId, new SubscribeCurrentState(stateNames)),
       onStateChange
     )
   }
@@ -59,7 +65,7 @@ export class CommandService implements CommandService {
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
     return new Promise<SubmitResponse>((resolve) => {
       new Ws(this.host, this.port).sendThenSubscribe(
-        GatewayComponentCommand(this.componentId, QueryFinal(runId, timeoutInSeconds)),
+        GatewayComponentCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
         (submitResponse: SubmitResponse) => {
           resolve(submitResponse)
         }
