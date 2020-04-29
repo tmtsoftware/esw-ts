@@ -17,7 +17,7 @@ afterEach(() => {
   mockServer.close()
 })
 
-test('it should recieve submit response on query final using websocket', async () => {
+test('SequencerService should recieve submit response on query final using websocket', async () => {
   const completedResponse: SubmitResponse = {
     _type: 'Completed',
     runId: '1234124'

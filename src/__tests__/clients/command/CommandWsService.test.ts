@@ -18,30 +18,31 @@ beforeEach(() => {
 afterEach(() => {
   mockServer.close()
 })
-
-test('it should subscribe to current state using websocket', async () => {
-  const expectedState: CurrentState = {
-    prefix: 'CSW.ncc.trombone',
-    stateName: 'stateName1'
-  }
-
-  await wsMockWithResolved(expectedState, mockServer)
-  client.subscribeCurrentState(
-    new Set(['stateName1', 'stateName2']),
-    (currentState: CurrentState) => {
-      expect(currentState).toEqual(expectedState)
+describe('CommandService', () => {
+  test('should subscribe to current state using websocket', async () => {
+    const expectedState: CurrentState = {
+      prefix: 'CSW.ncc.trombone',
+      stateName: 'stateName1'
     }
-  )
-})
 
-test('it should recieve submit response on query final using websocket', async () => {
-  const completedResponse: SubmitResponse = {
-    _type: 'Completed',
-    runId: '1234124'
-  }
+    await wsMockWithResolved(expectedState, mockServer)
+    client.subscribeCurrentState(
+      new Set(['stateName1', 'stateName2']),
+      (currentState: CurrentState) => {
+        expect(currentState).toEqual(expectedState)
+      }
+    )
+  })
 
-  await wsMockWithResolved(completedResponse, mockServer)
-  const submitResponse = await client.queryFinal('12345', 1000)
+  test('should recieve submit response on query final using websocket', async () => {
+    const completedResponse: SubmitResponse = {
+      _type: 'Completed',
+      runId: '1234124'
+    }
 
-  expect(submitResponse).toEqual(completedResponse)
+    await wsMockWithResolved(completedResponse, mockServer)
+    const submitResponse = await client.queryFinal('12345', 1000)
+
+    expect(submitResponse).toEqual(completedResponse)
+  })
 })
