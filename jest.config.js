@@ -16,7 +16,7 @@ module.exports = {
   //   }
   // },
   // coverageReporters: ['json', 'lcov', 'text', 'clover'],
-
+  testPathIgnorePatterns: ['__tests__/utils/'],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   moduleDirectories: ['node_modules', 'src']
 }

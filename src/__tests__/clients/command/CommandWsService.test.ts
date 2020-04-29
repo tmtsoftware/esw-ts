@@ -4,6 +4,7 @@ import { SubmitResponse } from 'models/params/CommandResponse'
 import { CommandService } from 'clients'
 import { ComponentId } from 'models/ComponentId'
 import { Prefix } from 'models/params/Prefix'
+import { wsMockWithResolved } from '__tests__/utils/MockHelpers'
 
 const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
@@ -44,10 +45,3 @@ test('it should recieve submit response on query final using websocket', async (
 
   expect(submitResponse).toEqual(completedResponse)
 })
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const wsMockWithResolved = async (data: any, mockServer: Server) => {
-  mockServer.on('connection', (socket) => {
-    socket.on('message', () => socket.send(JSON.stringify(data)))
-  })
-}
