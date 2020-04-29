@@ -12,63 +12,64 @@ const postMockFn = mocked(post, true)
 const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
 const client = new CommandService('localhost', 8080, compId)
+describe('CommandService', () => {
+  test('should post validate command', async () => {
+    const acceptedResponse = {
+      _type: 'Accepted',
+      runId: '1234124'
+    }
 
-test('it should post validate command', async () => {
-  const acceptedResponse = {
-    _type: 'Accepted',
-    runId: '1234124'
-  }
+    postMockFn.mockResolvedValue(acceptedResponse)
 
-  postMockFn.mockResolvedValue(acceptedResponse)
+    const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
+    const data: ValidateResponse = await client.validate(setupCommand)
 
-  const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
-  const data: ValidateResponse = await client.validate(setupCommand)
+    expect(postMockFn).toBeCalledTimes(1)
+    expect(data).toBe(acceptedResponse)
+  })
 
-  expect(postMockFn).toBeCalledTimes(1)
-  expect(data).toBe(acceptedResponse)
-})
+  test('should post submit command', async () => {
+    const startedResponse: SubmitResponse = {
+      _type: 'Started',
+      runId: '1234124'
+    }
 
-test('it should post submit command', async () => {
-  const startedResponse: SubmitResponse = {
-    _type: 'Started',
-    runId: '1234124'
-  }
+    postMockFn.mockResolvedValue(startedResponse)
 
-  postMockFn.mockResolvedValue(startedResponse)
+    const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
+    const data: SubmitResponse = await client.submit(setupCommand)
 
-  const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
-  const data: SubmitResponse = await client.submit(setupCommand)
+    expect(postMockFn).toBeCalledTimes(1)
+    expect(data).toBe(startedResponse)
+  })
 
-  expect(postMockFn).toBeCalledTimes(1)
-  expect(data).toBe(startedResponse)
-})
+  test('should post oneway command', async () => {
+    const acceptedResponse = {
+      _type: 'Accepted',
+      runId: '1234124'
+    }
 
-test('it should post oneway command', async () => {
-  const acceptedResponse = {
-    _type: 'Accepted',
-    runId: '1234124'
-  }
+    postMockFn.mockResolvedValue(acceptedResponse)
+    const observeCommand = new Observe('esw.test', 'c1', [], ['obsId'])
+    const data: OneWayResponse = await client.oneway(observeCommand)
 
-  postMockFn.mockResolvedValue(acceptedResponse)
-  const observeCommand = new Observe('esw.test', 'c1', [], ['obsId'])
-  const data: OneWayResponse = await client.oneway(observeCommand)
+    expect(postMockFn).toBeCalledTimes(1)
+    expect(data).toBe(acceptedResponse)
+  })
 
-  expect(postMockFn).toBeCalledTimes(1)
-  expect(data).toBe(acceptedResponse)
-})
+  test('should post query command', async () => {
+    const completedResponse: SubmitResponse = {
+      _type: 'Completed',
+      runId: '1234124'
+    }
 
-test('it should post query command', async () => {
-  const completedResponse: SubmitResponse = {
-    _type: 'Completed',
-    runId: '1234124'
-  }
+    postMockFn.mockResolvedValue(completedResponse)
 
-  postMockFn.mockResolvedValue(completedResponse)
+    const data: SubmitResponse = await client.query('1234124')
 
-  const data: SubmitResponse = await client.query('1234124')
-
-  expect(postMockFn).toBeCalledTimes(1)
-  expect(data).toBe(completedResponse)
+    expect(postMockFn).toBeCalledTimes(1)
+    expect(data).toBe(completedResponse)
+  })
 })
 
 afterEach(() => {

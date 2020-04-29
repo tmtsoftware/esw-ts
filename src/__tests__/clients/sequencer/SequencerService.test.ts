@@ -14,6 +14,7 @@ const sequencer = new SequencerService('localhost', 59623, componentId)
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand]
+const sequence: SequenceCommand[] = [setupCommand]
 
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
@@ -22,7 +23,7 @@ describe('SequencerService', () => {
   test('should load a sequence in given sequencer', async () => {
     postMockFn.mockResolvedValue(Ok)
 
-    const res = await sequencer.loadSequence(setupCommand)
+    const res = await sequencer.loadSequence(sequence)
     expect(res).toEqual(Ok)
   })
 

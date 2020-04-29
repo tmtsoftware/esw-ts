@@ -41,7 +41,7 @@ import { Ws } from 'utils/Ws'
 import { QueryFinal } from 'clients/command/models/WsCommand'
 
 export interface SequencerServiceApi {
-  loadSequence(...sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
+  loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
   startSequence(): Promise<SubmitResponse>
   add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
   prepend(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
@@ -74,7 +74,7 @@ export class SequencerService implements SequencerServiceApi {
     return post<GatewaySequencerCommand, T>(this.host, this.port, gatewayCommand)
   }
 
-  loadSequence(...sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
+  loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
     return this.httpPost<OkOrUnhandledResponse>(
       GatewaySequencerCommand(this.componentId, new LoadSequence(sequence))
     )

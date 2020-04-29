@@ -1,0 +1,21 @@
+{
+  "LoadSequence" : {
+    "_type" : "LoadSequence",
+    "sequence" : [ {
+      "_type" : "Setup",
+      "source" : "ESW.test",
+      "commandName" : "command-1",
+      "maybeObsId" : [ ],
+      "paramSet" : [ ]
+    }]
+  },
+  "StartSequence" : {
+    "_type": "StartSequence"
+  },
+  "Resume" : {
+    "_type": "Resume"
+  },
+  "Pause" : {
+    "_type": "Pause"
+  }
+}
