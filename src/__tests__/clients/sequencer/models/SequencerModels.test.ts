@@ -18,7 +18,8 @@ import {
   OperationsMode,
   Stop,
   AbortSequence,
-  StartSequence
+  StartSequence,
+  DiagnosticMode
 } from 'clients/sequencer/models/PostCommand'
 import { Setup } from 'clients/command/models/PostCommand'
 import { SequenceCommand } from 'models/params/Command'
@@ -146,4 +147,10 @@ test('OperationsMode', () => {
   const operationsMode: OperationsMode = new OperationsMode()
 
   expect(SequencerCommands.OperationsMode).toEqual(operationsMode)
+})
+
+test('DiagnosticMode', () => {
+  const diagnosticMode: DiagnosticMode = new DiagnosticMode(new Date('2020-10-08'), 'start')
+
+  expect(SequencerCommands.DiagnosticMode).toEqual(diagnosticMode.toJSON())
 })

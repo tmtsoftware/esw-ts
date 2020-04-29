@@ -91,6 +91,11 @@ export class RemoveBreakpoint {
 export class DiagnosticMode {
   readonly _type: 'DiagnosticMode' = 'DiagnosticMode'
   constructor(readonly startTime: Date, readonly hint: string) {}
+
+  //Fixme: try to remove toJSON() from the startTime
+  toJSON() {
+    return { _type: this._type, startTime: this.startTime.toJSON(), hint: this.hint }
+  }
 }
 
 export type SequencerPostRequest =
