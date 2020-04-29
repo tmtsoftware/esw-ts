@@ -76,105 +76,117 @@ export class SequencerService implements SequencerServiceApi {
 
   loadSequence(...sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
     return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, LoadSequence(sequence))
+      GatewaySequencerCommand(this.componentId, new LoadSequence(sequence))
     )
   }
 
   startSequence(): Promise<SubmitResponse> {
-    return this.httpPost<SubmitResponse>(GatewaySequencerCommand(this.componentId, StartSequence))
+    return this.httpPost<SubmitResponse>(
+      GatewaySequencerCommand(this.componentId, new StartSequence())
+    )
   }
 
   add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
     return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, Add(commands))
+      GatewaySequencerCommand(this.componentId, new Add(commands))
     )
   }
 
   prepend(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
     return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, Prepend(commands))
+      GatewaySequencerCommand(this.componentId, new Prepend(commands))
     )
   }
 
   replace(id: string, commands: SequenceCommand[]): Promise<GenericResponse> {
     return this.httpPost<GenericResponse>(
-      GatewaySequencerCommand(this.componentId, Replace(id, commands))
+      GatewaySequencerCommand(this.componentId, new Replace(id, commands))
     )
   }
 
   insertAfter(id: string, commands: SequenceCommand[]): Promise<GenericResponse> {
     return this.httpPost<GenericResponse>(
-      GatewaySequencerCommand(this.componentId, InsertAfter(id, commands))
+      GatewaySequencerCommand(this.componentId, new InsertAfter(id, commands))
     )
   }
 
   delete(id: string): Promise<GenericResponse> {
-    return this.httpPost<GenericResponse>(GatewaySequencerCommand(this.componentId, Delete(id)))
+    return this.httpPost<GenericResponse>(GatewaySequencerCommand(this.componentId, new Delete(id)))
   }
 
   addBreakpoint(id: string): Promise<GenericResponse> {
     return this.httpPost<GenericResponse>(
-      GatewaySequencerCommand(this.componentId, AddBreakpoint(id))
+      GatewaySequencerCommand(this.componentId, new AddBreakpoint(id))
     )
   }
 
   removeBreakpoint(id: string): Promise<RemoveBreakpointResponse> {
     return this.httpPost<RemoveBreakpointResponse>(
-      GatewaySequencerCommand(this.componentId, RemoveBreakpoint(id))
+      GatewaySequencerCommand(this.componentId, new RemoveBreakpoint(id))
     )
   }
 
   reset(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(GatewaySequencerCommand(this.componentId, Reset))
+    return this.httpPost<OkOrUnhandledResponse>(
+      GatewaySequencerCommand(this.componentId, new Reset())
+    )
   }
 
   resume(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(GatewaySequencerCommand(this.componentId, Resume))
+    return this.httpPost<OkOrUnhandledResponse>(
+      GatewaySequencerCommand(this.componentId, new Resume())
+    )
   }
 
   pause(): Promise<PauseResponse> {
-    return this.httpPost<PauseResponse>(GatewaySequencerCommand(this.componentId, Pause))
+    return this.httpPost<PauseResponse>(GatewaySequencerCommand(this.componentId, new Pause()))
   }
 
   getSequence(): Promise<StepList[]> {
-    return this.httpPost<StepList[]>(GatewaySequencerCommand(this.componentId, GetSequence))
+    return this.httpPost<StepList[]>(GatewaySequencerCommand(this.componentId, new GetSequence()))
   }
 
   isAvailable(): Promise<boolean> {
-    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, IsAvailable))
+    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, new IsAvailable()))
   }
 
   isOnline(): Promise<boolean> {
-    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, IsOnline))
+    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, new IsOnline()))
   }
 
   goOnline(): Promise<GoOnlineResponse> {
-    return this.httpPost<GoOnlineResponse>(GatewaySequencerCommand(this.componentId, GoOnline))
+    return this.httpPost<GoOnlineResponse>(
+      GatewaySequencerCommand(this.componentId, new GoOnline())
+    )
   }
 
   goOffline(): Promise<GoOfflineResponse> {
-    return this.httpPost<GoOfflineResponse>(GatewaySequencerCommand(this.componentId, GoOffline))
+    return this.httpPost<GoOfflineResponse>(
+      GatewaySequencerCommand(this.componentId, new GoOffline())
+    )
   }
 
   abortSequence(): Promise<OkOrUnhandledResponse> {
     return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, AbortSequence)
+      GatewaySequencerCommand(this.componentId, new AbortSequence())
     )
   }
 
   stop(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(GatewaySequencerCommand(this.componentId, Stop))
+    return this.httpPost<OkOrUnhandledResponse>(
+      GatewaySequencerCommand(this.componentId, new Stop())
+    )
   }
 
   diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse> {
     return this.httpPost<DiagnosticModeResponse>(
-      GatewaySequencerCommand(this.componentId, DiagnosticMode(startTime, hint))
+      GatewaySequencerCommand(this.componentId, new DiagnosticMode(startTime, hint))
     )
   }
 
   operationsMode(): Promise<OperationsModeResponse> {
     return this.httpPost<OperationsModeResponse>(
-      GatewaySequencerCommand(this.componentId, OperationsMode)
+      GatewaySequencerCommand(this.componentId, new OperationsMode())
     )
   }
 

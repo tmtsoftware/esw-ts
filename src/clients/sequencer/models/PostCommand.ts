@@ -1,161 +1,97 @@
 import { SequenceCommand } from 'models/params/Command'
 
-export interface LoadSequence {
-  _type: 'LoadSequence'
-  sequence: SequenceCommand[]
+export class LoadSequence {
+  readonly _type: 'LoadSequence' = 'LoadSequence'
+  constructor(readonly sequence: SequenceCommand[]) {}
 }
 
-export interface StartSequence {
-  _type: 'StartSequence'
+export class StartSequence {
+  readonly _type: 'StartSequence' = 'StartSequence'
 }
 
-export interface Add {
-  _type: 'Add'
-  commands: SequenceCommand[]
+export class Resume {
+  readonly _type: 'Resume' = 'Resume'
 }
 
-export interface Prepend {
-  _type: 'Prepend'
-  commands: SequenceCommand[]
+export class Pause {
+  readonly _type: 'Pause' = 'Pause'
 }
 
-export interface Replace {
-  _type: 'Replace'
-  id: string
-  commands: SequenceCommand[]
+export class Reset {
+  readonly _type: 'Reset' = 'Reset'
 }
 
-export interface InsertAfter {
-  _type: 'InsertAfter'
-  id: string
-  commands: SequenceCommand[]
+export class GetSequence {
+  readonly _type: 'GetSequence' = 'GetSequence'
 }
 
-export interface Delete {
-  _type: 'Delete'
-  id: string
+export class IsAvailable {
+  readonly _type: 'IsAvailable' = 'IsAvailable'
 }
 
-export interface AddBreakpoint {
-  _type: 'AddBreakpoint'
-  id: string
+export class IsOnline {
+  readonly _type: 'IsOnline' = 'IsOnline'
 }
 
-export interface RemoveBreakpoint {
-  _type: 'RemoveBreakpoint'
-  id: string
+export class GoOnline {
+  readonly _type: 'GoOnline' = 'GoOnline'
 }
 
-export interface Reset {
-  _type: 'Reset'
+export class GoOffline {
+  readonly _type: 'GoOffline' = 'GoOffline'
 }
 
-export interface Pause {
-  _type: 'Pause'
+export class AbortSequence {
+  readonly _type: 'AbortSequence' = 'AbortSequence'
 }
 
-export interface Resume {
-  _type: 'Resume'
+export class Stop {
+  readonly _type: 'Stop' = 'Stop'
 }
 
-export interface GetSequence {
-  _type: 'GetSequence'
+export class OperationsMode {
+  readonly _type: 'OperationsMode' = 'OperationsMode'
 }
 
-export interface IsAvailable {
-  _type: 'IsAvailable'
+export class Add {
+  readonly _type: 'Add' = 'Add'
+  constructor(readonly commands: SequenceCommand[]) {}
 }
 
-export interface IsOnline {
-  _type: 'IsOnline'
+export class Prepend {
+  readonly _type: 'Prepend' = 'Prepend'
+  constructor(readonly commands: SequenceCommand[]) {}
 }
 
-export interface GoOnline {
-  _type: 'GoOnline'
+export class Replace {
+  readonly _type: 'Replace' = 'Replace'
+  constructor(readonly id: string, readonly commands: SequenceCommand[]) {}
 }
 
-export interface GoOffline {
-  _type: 'GoOffline'
+export class InsertAfter {
+  readonly _type: 'InsertAfter' = 'InsertAfter'
+  constructor(readonly id: string, readonly commands: SequenceCommand[]) {}
 }
 
-export interface AbortSequence {
-  _type: 'AbortSequence'
+export class Delete {
+  readonly _type: 'Delete' = 'Delete'
+  constructor(readonly id: string) {}
 }
 
-export interface Stop {
-  _type: 'Stop'
+export class AddBreakpoint {
+  readonly _type: 'AddBreakpoint' = 'AddBreakpoint'
+  constructor(readonly id: string) {}
 }
 
-export interface DiagnosticMode {
-  _type: 'DiagnosticMode'
-  startTime: Date
-  hint: string
+export class RemoveBreakpoint {
+  readonly _type: 'RemoveBreakpoint' = 'RemoveBreakpoint'
+  constructor(readonly id: string) {}
 }
 
-export interface OperationsMode {
-  _type: 'OperationsMode'
+export class DiagnosticMode {
+  readonly _type: 'DiagnosticMode' = 'DiagnosticMode'
+  constructor(readonly startTime: Date, readonly hint: string) {}
 }
-
-export const LoadSequence = (sequence: SequenceCommand[]): LoadSequence => ({
-  _type: 'LoadSequence',
-  sequence
-})
-
-export const StartSequence: StartSequence = { _type: 'StartSequence' }
-export const Resume: Resume = { _type: 'Resume' }
-export const Pause: Pause = { _type: 'Pause' }
-export const Reset: Reset = { _type: 'Reset' }
-export const GetSequence: GetSequence = { _type: 'GetSequence' }
-export const IsAvailable: IsAvailable = { _type: 'IsAvailable' }
-export const IsOnline: IsOnline = { _type: 'IsOnline' }
-export const GoOnline: GoOnline = { _type: 'GoOnline' }
-export const GoOffline: GoOffline = { _type: 'GoOffline' }
-export const AbortSequence: AbortSequence = { _type: 'AbortSequence' }
-export const Stop: Stop = { _type: 'Stop' }
-export const OperationsMode: OperationsMode = { _type: 'OperationsMode' }
-
-export const Add = (commands: SequenceCommand[]): Add => ({
-  _type: 'Add',
-  commands
-})
-
-export const Prepend = (commands: SequenceCommand[]): Prepend => ({
-  _type: 'Prepend',
-  commands
-})
-
-export const Replace = (id: string, commands: SequenceCommand[]): Replace => ({
-  _type: 'Replace',
-  id,
-  commands
-})
-
-export const InsertAfter = (id: string, commands: SequenceCommand[]): InsertAfter => ({
-  _type: 'InsertAfter',
-  id,
-  commands
-})
-
-export const Delete = (id: string): Delete => ({
-  _type: 'Delete',
-  id
-})
-
-export const AddBreakpoint = (id: string): AddBreakpoint => ({
-  _type: 'AddBreakpoint',
-  id
-})
-
-export const RemoveBreakpoint = (id: string): RemoveBreakpoint => ({
-  _type: 'RemoveBreakpoint',
-  id
-})
-
-export const DiagnosticMode = (startTime: Date, hint: string): DiagnosticMode => ({
-  _type: 'DiagnosticMode',
-  startTime,
-  hint
-})
 
 export type SequencerPostRequest =
   | LoadSequence
