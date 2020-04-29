@@ -1,6 +1,6 @@
 import { Server } from 'mock-socket'
 import { CurrentState } from 'models/params/CurrentState'
-import { SubmitResponse } from 'models/params/CommandResponse'
+import { Completed } from 'models/params/CommandResponse'
 import { CommandService } from 'clients'
 import { ComponentId } from 'models/ComponentId'
 import { Prefix } from 'models/params/Prefix'
@@ -35,9 +35,10 @@ describe('CommandService', () => {
   })
 
   test('should recieve submit response on query final using websocket', async () => {
-    const completedResponse: SubmitResponse = {
+    const completedResponse: Completed = {
       _type: 'Completed',
-      runId: '1234124'
+      runId: '1234124',
+      result: { paramSet: [] }
     }
 
     await wsMockWithResolved(completedResponse, mockServer)

@@ -3,21 +3,44 @@ import { Parameter } from 'models/params/Parameter'
 
 export type CommandResponse = {
   runId: string
-  result?: Set<Parameter<Key>>
-  issue?: Issue
 }
 
-export interface ValidateResponse extends CommandResponse {
-  _type: 'Accepted' | 'Invalid' | 'Locked'
+export interface Error extends CommandResponse {
+  _type: 'Error'
+  message: string
 }
 
-export interface SubmitResponse extends CommandResponse {
-  _type: 'Error' | 'Invalid' | 'Locked' | 'Started' | 'Completed' | 'Cancelled'
+export interface Invalid extends CommandResponse {
+  _type: 'Invalid'
+  issue: CommandIssue
 }
 
-export interface OneWayResponse extends CommandResponse {
-  _type: 'Accepted' | 'Invalid' | 'Locked'
+export interface Locked extends CommandResponse {
+  _type: 'Locked'
 }
+
+export interface Started extends CommandResponse {
+  _type: 'Started'
+}
+
+export interface Completed extends CommandResponse {
+  _type: 'Completed'
+  result?: { paramSet: Parameter<Key>[] }
+}
+
+export interface Cancelled extends CommandResponse {
+  _type: 'Cancelled'
+}
+
+export interface Accepted extends CommandResponse {
+  _type: 'Accepted'
+}
+
+export type ValidateResponse = Accepted | Invalid | Locked
+
+export type SubmitResponse = Error | Invalid | Locked | Started | Completed | Cancelled
+
+export type OneWayResponse = Accepted | Invalid | Locked
 
 type IssueTypes =
   | 'AssemblyBusyIssue'
@@ -39,7 +62,7 @@ type IssueTypes =
   | 'WrongPrefixIssue'
   | 'WrongUnitsIssue'
 
-interface Issue {
+export interface CommandIssue {
   _type: IssueTypes
   reason: string
 }

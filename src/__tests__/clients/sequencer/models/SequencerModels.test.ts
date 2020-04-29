@@ -32,125 +32,125 @@ const commands: SequenceCommand[] = [setupCommand]
 test('LoadSequence', () => {
   const loadSequence = new LoadSequence(sequence)
 
-  expect(SequencerCommands.LoadSequence).toEqual(loadSequence)
+  expect(loadSequence).toEqual(SequencerCommands.LoadSequence)
 })
 
 test('StartSequence', () => {
   const startSequence = new StartSequence()
 
-  expect(SequencerCommands.StartSequence).toEqual(startSequence)
+  expect(startSequence).toEqual(SequencerCommands.StartSequence)
 })
 
 test('Resume', () => {
   const resume: Resume = new Resume()
 
-  expect(SequencerCommands.Resume).toEqual(resume)
+  expect(resume).toEqual(SequencerCommands.Resume)
 })
 
 test('Reset', () => {
   const reset: Reset = new Reset()
 
-  expect(SequencerCommands.Reset).toEqual(reset)
+  expect(reset).toEqual(SequencerCommands.Reset)
 })
 
 test('Pause', () => {
   const pause: Pause = new Pause()
 
-  expect(SequencerCommands.Pause).toEqual(pause)
+  expect(pause).toEqual(SequencerCommands.Pause)
 })
 
 test('Add', () => {
   const add: Add = new Add(commands)
 
-  expect(SequencerCommands.Add).toEqual(add)
+  expect(add).toEqual(SequencerCommands.Add)
 })
 
 test('Prepend', () => {
   const prepend: Prepend = new Prepend(commands)
 
-  expect(SequencerCommands.Prepend).toEqual(prepend)
+  expect(prepend).toEqual(SequencerCommands.Prepend)
 })
 
 test('Replace', () => {
   const replace: Replace = new Replace('id-1234', commands)
 
-  expect(SequencerCommands.Replace).toEqual(replace)
+  expect(replace).toEqual(SequencerCommands.Replace)
 })
 
 test('InsertAfter', () => {
   const insertAfter: InsertAfter = new InsertAfter('id-1234', commands)
 
-  expect(SequencerCommands.InsertAfter).toEqual(insertAfter)
+  expect(insertAfter).toEqual(SequencerCommands.InsertAfter)
 })
 
 test('Delete', () => {
   const deleteCommand: Delete = new Delete('id-1234')
 
-  expect(SequencerCommands.Delete).toEqual(deleteCommand)
+  expect(deleteCommand).toEqual(SequencerCommands.Delete)
 })
 
 test('AddBreakpoint', () => {
   const addBreakpoint: AddBreakpoint = new AddBreakpoint('id-1234')
 
-  expect(SequencerCommands.AddBreakpoint).toEqual(addBreakpoint)
+  expect(addBreakpoint).toEqual(SequencerCommands.AddBreakpoint)
 })
 
 test('RemoveBreakpoint', () => {
   const removeBreakpoint: RemoveBreakpoint = new RemoveBreakpoint('id-1234')
 
-  expect(SequencerCommands.RemoveBreakpoint).toEqual(removeBreakpoint)
+  expect(removeBreakpoint).toEqual(SequencerCommands.RemoveBreakpoint)
 })
 
 test('GetSequence', () => {
   const getSequence: GetSequence = new GetSequence()
 
-  expect(SequencerCommands.GetSequence).toEqual(getSequence)
+  expect(getSequence).toEqual(SequencerCommands.GetSequence)
 })
 
 test('IsAvailable', () => {
   const isAvailable: IsAvailable = new IsAvailable()
 
-  expect(SequencerCommands.IsAvailable).toEqual(isAvailable)
+  expect(isAvailable).toEqual(SequencerCommands.IsAvailable)
 })
 
 test('IsOnline', () => {
   const isOnline: IsOnline = new IsOnline()
 
-  expect(SequencerCommands.IsOnline).toEqual(isOnline)
+  expect(isOnline).toEqual(SequencerCommands.IsOnline)
 })
 
 test('GoOnline', () => {
   const goOnline: GoOnline = new GoOnline()
 
-  expect(SequencerCommands.GoOnline).toEqual(goOnline)
+  expect(goOnline).toEqual(SequencerCommands.GoOnline)
 })
 
 test('GoOffline', () => {
   const goOffline: GoOffline = new GoOffline()
 
-  expect(SequencerCommands.GoOffline).toEqual(goOffline)
+  expect(goOffline).toEqual(SequencerCommands.GoOffline)
 })
 
 test('AbortSequence', () => {
   const abortSequence: AbortSequence = new AbortSequence()
 
-  expect(SequencerCommands.AbortSequence).toEqual(abortSequence)
+  expect(abortSequence).toEqual(SequencerCommands.AbortSequence)
 })
 
 test('Stop', () => {
   const stop: Stop = new Stop()
 
-  expect(SequencerCommands.Stop).toEqual(stop)
+  expect(stop).toEqual(SequencerCommands.Stop)
 })
 
 test('OperationsMode', () => {
   const operationsMode: OperationsMode = new OperationsMode()
 
-  expect(SequencerCommands.OperationsMode).toEqual(operationsMode)
+  expect(operationsMode).toEqual(SequencerCommands.OperationsMode)
 })
 
 test('DiagnosticMode', () => {
   const diagnosticMode: DiagnosticMode = new DiagnosticMode(new Date('2020-10-08'), 'start')
 
-  expect(SequencerCommands.DiagnosticMode).toEqual(diagnosticMode.toJSON())
+  expect(diagnosticMode.toJSON()).toEqual(SequencerCommands.DiagnosticMode)
 })
