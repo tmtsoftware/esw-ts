@@ -10,6 +10,14 @@ import {
   Replace,
   Reset,
   Resume,
+  GetSequence,
+  GoOffline,
+  GoOnline,
+  IsAvailable,
+  IsOnline,
+  OperationsMode,
+  Stop,
+  AbortSequence,
   StartSequence
 } from 'clients/sequencer/models/PostCommand'
 import { Setup } from 'clients/command/models/PostCommand'
@@ -90,4 +98,52 @@ test('RemoveBreakpoint', () => {
   const removeBreakpoint: RemoveBreakpoint = new RemoveBreakpoint('id-1234')
 
   expect(SequencerCommands.RemoveBreakpoint).toEqual(removeBreakpoint)
+})
+
+test('GetSequence', () => {
+  const getSequence: GetSequence = new GetSequence()
+
+  expect(SequencerCommands.GetSequence).toEqual(getSequence)
+})
+
+test('IsAvailable', () => {
+  const isAvailable: IsAvailable = new IsAvailable()
+
+  expect(SequencerCommands.IsAvailable).toEqual(isAvailable)
+})
+
+test('IsOnline', () => {
+  const isOnline: IsOnline = new IsOnline()
+
+  expect(SequencerCommands.IsOnline).toEqual(isOnline)
+})
+
+test('GoOnline', () => {
+  const goOnline: GoOnline = new GoOnline()
+
+  expect(SequencerCommands.GoOnline).toEqual(goOnline)
+})
+
+test('GoOffline', () => {
+  const goOffline: GoOffline = new GoOffline()
+
+  expect(SequencerCommands.GoOffline).toEqual(goOffline)
+})
+
+test('AbortSequence', () => {
+  const abortSequence: AbortSequence = new AbortSequence()
+
+  expect(SequencerCommands.AbortSequence).toEqual(abortSequence)
+})
+
+test('Stop', () => {
+  const stop: Stop = new Stop()
+
+  expect(SequencerCommands.Stop).toEqual(stop)
+})
+
+test('OperationsMode', () => {
+  const operationsMode: OperationsMode = new OperationsMode()
+
+  expect(SequencerCommands.OperationsMode).toEqual(operationsMode)
 })
