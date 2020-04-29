@@ -66,13 +66,42 @@
   "StartSequence" : {
     "_type": "StartSequence"
   },
-  "Resume" : {
+  "Resume": {
     "_type": "Resume"
   },
-  "Pause" : {
+  "Pause": {
     "_type": "Pause"
   },
   "Reset" : {
     "_type": "Reset"
+  },
+  "GetSequence": {
+    "_type": "GetSequence"
+  },
+  "IsAvailable": {
+    "_type": "IsAvailable"
+  },
+  "IsOnline": {
+    "_type": "IsOnline"
+  },
+  "GoOnline": {
+    "_type": "GoOnline"
+  },
+  "GoOffline": {
+    "_type": "GoOffline"
+  },
+  "AbortSequence": {
+    "_type": "AbortSequence"
+  },
+  "Stop": {
+    "_type": "Stop"
+  },
+  "OperationsMode": {
+    "_type": "OperationsMode"
+  },
+  "DiagnosticMode": {
+    "_type": "DiagnosticMode",
+    "startTime": "2020-10-08T00:00:00.000Z",
+    "hint": "start"
   }
 }
