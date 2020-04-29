@@ -1,6 +1,11 @@
 import { ComponentId } from 'models/ComponentId'
 import { Setup, Observe } from 'clients/command/models/PostCommand'
-import { OneWayResponse, SubmitResponse, ValidateResponse } from 'models/params/CommandResponse'
+import {
+  Completed,
+  OneWayResponse,
+  SubmitResponse,
+  ValidateResponse
+} from 'models/params/CommandResponse'
 import { Prefix } from 'models/params/Prefix'
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
@@ -58,9 +63,10 @@ describe('CommandService', () => {
   })
 
   test('should post query command', async () => {
-    const completedResponse: SubmitResponse = {
+    const completedResponse: Completed = {
       _type: 'Completed',
-      runId: '1234124'
+      runId: '1234124',
+      result: new Set([])
     }
 
     postMockFn.mockResolvedValue(completedResponse)

@@ -23,25 +23,25 @@ const observeCommand = new Observe('CSW.ncc.trombone', 'move', [], ['obs001'])
 test('Submit command', () => {
   const observeSubmit: CommandServiceHttpMessage = new Submit(observeCommand)
 
-  expect(Commands.Submit).toEqual(observeSubmit)
+  expect(observeSubmit).toEqual(Commands.Submit)
 })
 
 test('Oneway command', () => {
   const setupOneway: CommandServiceHttpMessage = new Oneway(setupCommand)
 
-  expect(Commands.Oneway).toEqual(setupOneway)
+  expect(setupOneway).toEqual(Commands.Oneway)
 })
 
 test('Validate command', () => {
   const observeValidate: CommandServiceHttpMessage = new Validate(observeCommand)
 
-  expect(Commands.Validate).toEqual(observeValidate)
+  expect(observeValidate).toEqual(Commands.Validate)
 })
 
 test('Query command', () => {
   const queryCommand: CommandServiceHttpMessage = new Query('33b4515c-b226-491b-9626-898244490151')
 
-  expect(Commands.Query).toEqual(queryCommand)
+  expect(queryCommand).toEqual(Commands.Query)
 })
 
 test('QueryFinal command', () => {
@@ -50,7 +50,7 @@ test('QueryFinal command', () => {
     10000
   )
 
-  expect(Commands.QueryFinal).toEqual(queryFinalCommand)
+  expect(queryFinalCommand).toEqual(Commands.QueryFinal)
 })
 
 test('SubscribeCurrentState command', () => {
@@ -58,7 +58,7 @@ test('SubscribeCurrentState command', () => {
     new Set(['temp', 'position'])
   )
 
-  expect(Commands.SubscribeCurrentState).toEqual(subscribeCurrentState)
+  expect(subscribeCurrentState).toEqual(Commands.SubscribeCurrentState)
 })
 
 test('GatewayCommand', () => {
@@ -68,5 +68,5 @@ test('GatewayCommand', () => {
     new Submit(observeCommand)
   )
 
-  expect(Commands.GatewayCommand).toEqual(JSON.parse(JSON.stringify(gatewayCommand)))
+  expect(JSON.parse(JSON.stringify(gatewayCommand))).toEqual(Commands.GatewayCommand)
 })
