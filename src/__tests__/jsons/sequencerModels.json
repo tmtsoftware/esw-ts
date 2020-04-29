@@ -9,6 +9,60 @@
       "paramSet" : [ ]
     }]
   },
+  "Add" : {
+    "_type" : "Add",
+    "commands" : [ {
+      "_type" : "Setup",
+      "source" : "ESW.test",
+      "commandName" : "command-1",
+      "maybeObsId" : [ ],
+      "paramSet" : [ ]
+    }]
+  },
+  "Prepend" : {
+    "_type" : "Prepend",
+    "commands" : [ {
+      "_type" : "Setup",
+      "source" : "ESW.test",
+      "commandName" : "command-1",
+      "maybeObsId" : [ ],
+      "paramSet" : [ ]
+    }]
+  },
+  "Replace" : {
+    "_type" : "Replace",
+    "id": "id-1234",
+    "commands" : [ {
+      "_type" : "Setup",
+      "source" : "ESW.test",
+      "commandName" : "command-1",
+      "maybeObsId" : [ ],
+      "paramSet" : [ ]
+    }]
+  },
+  "InsertAfter" : {
+    "_type" : "InsertAfter",
+    "id": "id-1234",
+    "commands" : [ {
+      "_type" : "Setup",
+      "source" : "ESW.test",
+      "commandName" : "command-1",
+      "maybeObsId" : [ ],
+      "paramSet" : [ ]
+    }]
+  },
+  "Delete" : {
+    "_type" : "Delete",
+    "id": "id-1234"
+  },
+  "AddBreakpoint" : {
+    "_type" : "AddBreakpoint",
+    "id": "id-1234"
+  },
+  "RemoveBreakpoint" : {
+    "_type" : "RemoveBreakpoint",
+    "id": "id-1234"
+  },
   "StartSequence" : {
     "_type": "StartSequence"
   },
@@ -17,5 +71,8 @@
   },
   "Pause" : {
     "_type": "Pause"
+  },
+  "Reset" : {
+    "_type": "Reset"
   }
 }
