@@ -37,8 +37,10 @@ import {
 import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
 import { StepList } from 'clients/sequencer/models/StepList'
+import { Ws } from 'utils/Ws'
+import { QueryFinal } from 'clients/command/models/WsCommand'
 
-export interface SequencerService {
+export interface SequencerServiceApi {
   loadSequence(...sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
   startSequence(): Promise<SubmitResponse>
   add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
@@ -60,9 +62,12 @@ export interface SequencerService {
   stop(): Promise<OkOrUnhandledResponse>
   diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse>
   operationsMode(): Promise<OperationsModeResponse>
+
+  // websocket api
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 }
 
-export class SequencerService implements SequencerService {
+export class SequencerService implements SequencerServiceApi {
   constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
 
   private httpPost<T>(gatewayCommand: GatewaySequencerCommand) {
@@ -171,5 +176,16 @@ export class SequencerService implements SequencerService {
     return this.httpPost<OperationsModeResponse>(
       GatewaySequencerCommand(this.componentId, OperationsMode)
     )
+  }
+
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
+    return new Promise<SubmitResponse>((resolve) => {
+      new Ws(this.host, this.port).sendThenSubscribe(
+        GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
+        (submitResponse: SubmitResponse) => {
+          resolve(submitResponse)
+        }
+      )
+    })
   }
 }
