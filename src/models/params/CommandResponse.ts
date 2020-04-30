@@ -2,38 +2,38 @@ import { Key } from 'models/params/Key'
 import { Parameter } from 'models/params/Parameter'
 
 export type CommandResponse = {
-  runId: string
+  readonly runId: string
 }
 
 export interface Error extends CommandResponse {
-  _type: 'Error'
-  message: string
+  readonly _type: 'Error'
+  readonly message: string
 }
 
 export interface Invalid extends CommandResponse {
-  _type: 'Invalid'
-  issue: CommandIssue
+  readonly _type: 'Invalid'
+  readonly issue: CommandIssue
 }
 
 export interface Locked extends CommandResponse {
-  _type: 'Locked'
+  readonly _type: 'Locked'
 }
 
 export interface Started extends CommandResponse {
-  _type: 'Started'
+  readonly _type: 'Started'
 }
 
 export interface Completed extends CommandResponse {
-  _type: 'Completed'
-  result?: { paramSet: Parameter<Key>[] }
+  readonly _type: 'Completed'
+  readonly result?: { paramSet: Parameter<Key>[] }
 }
 
 export interface Cancelled extends CommandResponse {
-  _type: 'Cancelled'
+  readonly _type: 'Cancelled'
 }
 
 export interface Accepted extends CommandResponse {
-  _type: 'Accepted'
+  readonly _type: 'Accepted'
 }
 
 export type ValidateResponse = Accepted | Invalid | Locked
@@ -63,8 +63,8 @@ type IssueTypes =
   | 'WrongUnitsIssue'
 
 export interface CommandIssue {
-  _type: IssueTypes
-  reason: string
+  readonly _type: IssueTypes
+  readonly reason: string
 }
 
 export type CommandServiceResponses = SubmitResponse | OneWayResponse | ValidateResponse

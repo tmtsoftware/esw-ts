@@ -1,19 +1,19 @@
 import { CommandServiceHttpMessage } from 'clients/command/models/PostCommand'
 import { CommandServiceWsMessage } from 'clients/command/models/WsCommand'
 import { SequencerPostRequest } from 'clients/sequencer/models/PostCommand'
-import { ComponentId } from 'models/ComponentId'
 import { SequencerWebsocketRequest } from 'clients/sequencer/models/WsCommand'
+import { ComponentId } from 'models/ComponentId'
 
 export interface GatewayComponentCommand {
-  _type: 'ComponentCommand'
-  componentId: ComponentId
-  command: CommandServiceHttpMessage | CommandServiceWsMessage
+  readonly _type: 'ComponentCommand'
+  readonly componentId: ComponentId
+  readonly command: CommandServiceHttpMessage | CommandServiceWsMessage
 }
 
 export interface GatewaySequencerCommand {
-  _type: 'SequencerCommand'
-  componentId: ComponentId
-  command: SequencerPostRequest | SequencerWebsocketRequest
+  readonly _type: 'SequencerCommand'
+  readonly componentId: ComponentId
+  readonly command: SequencerPostRequest | SequencerWebsocketRequest
 }
 
 export const GatewayComponentCommand = (
