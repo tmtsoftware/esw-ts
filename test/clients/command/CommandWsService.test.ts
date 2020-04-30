@@ -6,7 +6,7 @@ import { CurrentState } from 'models/params/CurrentState'
 import { Prefix } from 'models/params/Prefix'
 import { wsMockWithResolved } from 'utils/MockHelpers'
 
-const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
 const client = new CommandService('localhost', 8080, compId)
 let mockServer: Server
@@ -34,7 +34,7 @@ describe('CommandService', () => {
     )
   })
 
-  test('should recieve submit response on query final using websocket', async () => {
+  test('should receive submit response on query final using websocket', async () => {
     const completedResponse: Completed = {
       _type: 'Completed',
       runId: '1234124',

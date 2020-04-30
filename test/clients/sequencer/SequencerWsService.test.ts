@@ -6,7 +6,7 @@ import { Prefix } from 'models/params/Prefix'
 import { wsMockWithResolved } from 'utils/MockHelpers'
 
 let mockServer: Server
-const componentId = ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
+const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService('localhost', 8080, componentId)
 
 beforeEach(() => {
@@ -17,7 +17,7 @@ afterEach(() => {
   mockServer.close()
 })
 
-test('SequencerService should recieve submit response on query final using websocket', async () => {
+test('SequencerService should receive submit response on query final using websocket', async () => {
   const completedResponse: SubmitResponse = {
     _type: 'Completed',
     runId: '1234124'
