@@ -1,3 +1,4 @@
+import * as Keys from 'jsons/keys.json'
 import {
   AltAzCoord,
   CometCoord,
@@ -39,7 +40,6 @@ import {
   taiTimeKey,
   utcTimeKey
 } from 'models/params/Key'
-import * as Keys from '__tests__/jsons/keys.json'
 
 test('utc time key', () => {
   const timeParam = utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])

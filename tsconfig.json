@@ -15,7 +15,7 @@
     /* Generates corresponding '.map' file. */
     "outDir": "./dist",
     /* Redirect output structure to the directory. */
-    "rootDir": "./src",
+    "rootDir": ".",
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     "moduleResolution": "node",
     /* Specify library files to be included in the compilation. */
@@ -23,7 +23,10 @@
     "resolveJsonModule": true,
     /* Strict Type-Checking Options */
     "strict": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*", "test/*"]
+    },
 
     /* Additional Checks from jest*/
     "noUnusedLocals": true,
@@ -31,6 +34,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "src/__tests__/*"]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

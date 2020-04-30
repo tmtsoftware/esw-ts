@@ -1,9 +1,9 @@
-import { Server } from 'mock-socket'
-import { SubmitResponse } from 'models/params/CommandResponse'
-import { wsMockWithResolved } from '__tests__/utils/MockHelpers'
 import { SequencerService } from 'clients'
+import { Server } from 'mock-socket'
 import { ComponentId } from 'models/ComponentId'
+import { SubmitResponse } from 'models/params/CommandResponse'
 import { Prefix } from 'models/params/Prefix'
+import { wsMockWithResolved } from 'utils/MockHelpers'
 
 let mockServer: Server
 const componentId = ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
