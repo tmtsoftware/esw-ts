@@ -1,9 +1,7 @@
 import {
   CommandServiceHttpMessage,
-  Observe,
   Oneway,
   Query,
-  Setup,
   Submit,
   Validate
 } from 'clients/command/models/PostCommand'
@@ -15,6 +13,7 @@ import {
 import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
 import * as Commands from 'jsons/commandModels.json'
 import { ComponentId } from 'models/ComponentId'
+import { Observe, Setup } from 'models/params/Command'
 import { Prefix } from 'models/params/Prefix'
 
 const setupCommand = new Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
