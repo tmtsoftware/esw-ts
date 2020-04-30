@@ -1,0 +1,29 @@
+{
+  "AkkaLocation": {
+    "_type": "AkkaLocation",
+    "connection": {
+      "prefix": "ESW.test",
+      "componentType": "Assembly",
+      "connectionType": "akka"
+    },
+    "uri": "some uri"
+  },
+  "HttpLocation": {
+    "_type": "HttpLocation",
+    "connection": {
+      "prefix": "ESW.test",
+      "componentType": "Assembly",
+      "connectionType": "http"
+    },
+    "uri": "some uri"
+  },
+  "TcpLocation": {
+    "_type": "TcpLocation",
+    "connection": {
+      "prefix": "ESW.test",
+      "componentType": "Assembly",
+      "connectionType": "tcp"
+    },
+    "uri": "some uri"
+  }
+}
