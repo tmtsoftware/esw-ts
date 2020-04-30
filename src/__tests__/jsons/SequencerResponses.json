@@ -1,0 +1,34 @@
+{
+  "Ok": {
+    "_type": "Ok"
+  },
+  "CannotOperateOnAnInFlightOrFinishedStep": {
+    "_type": "CannotOperateOnAnInFlightOrFinishedStep"
+  },
+  "IdDoesNotExist": {
+    "_type": "IdDoesNotExist",
+    "id": "id-1234"
+  },
+  "Unhandled": {
+    "_type": "Unhandled",
+    "state": "offline",
+    "messageType": "StartSequence",
+    "msg": "Sequencer can not accept 'StartSequence' message in 'offline' state"
+  },
+  "GoOnlineHookFailed": {
+    "_type": "GoOnlineHookFailed",
+    "msg": ""
+  },
+  "GoOfflineHookFailed": {
+    "_type": "GoOfflineHookFailed",
+    "msg": ""
+  },
+  "DiagnosticHookFailed": {
+    "_type": "DiagnosticHookFailed",
+    "msg": ""
+  },
+  "OperationsHookFailed": {
+    "_type": "OperationsHookFailed",
+    "msg": ""
+  }
+}
