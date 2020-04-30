@@ -1,7 +1,7 @@
 import { Key } from 'models/params/Key'
 import { Parameter } from 'models/params/Parameter'
 
-export type CommandResponse = {
+interface CommandResponse {
   readonly runId: string
 }
 

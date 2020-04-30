@@ -1,5 +1,4 @@
-import { Ok } from 'clients/sequencer/models/SequencerRes'
-import { Pending, Step, StepList } from 'clients/sequencer/models/StepList'
+import { Step, StepList, StepStatus } from 'clients/sequencer/models/StepList'
 import { SequencerService } from 'clients/sequencer/SequencerService'
 import { ComponentId } from 'models/ComponentId'
 import { SequenceCommand, Setup } from 'models/params/Command'
@@ -17,6 +16,8 @@ const sequence: SequenceCommand[] = [setupCommand]
 
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
+
+const Ok = { _type: 'Ok' }
 
 describe('SequencerService', () => {
   test('should load a sequence in given sequencer', async () => {
@@ -109,6 +110,7 @@ describe('SequencerService', () => {
   })
 
   test('should get a step list from sequencer', async () => {
+    const Pending: StepStatus = { _type: 'Pending' }
     const step: Step = {
       id: 'bfec413e-e377-4e3a-8737-3e625d694bd1',
       command: setupCommand,
