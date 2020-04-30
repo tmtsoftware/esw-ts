@@ -1,29 +1,29 @@
+import { Setup } from 'clients/command/models/PostCommand'
 import {
+  AbortSequence,
   Add,
   AddBreakpoint,
   Delete,
+  DiagnosticMode,
+  GetSequence,
+  GoOffline,
+  GoOnline,
   InsertAfter,
+  IsAvailable,
+  IsOnline,
   LoadSequence,
+  OperationsMode,
   Pause,
   Prepend,
   RemoveBreakpoint,
   Replace,
   Reset,
   Resume,
-  GetSequence,
-  GoOffline,
-  GoOnline,
-  IsAvailable,
-  IsOnline,
-  OperationsMode,
-  Stop,
-  AbortSequence,
   StartSequence,
-  DiagnosticMode
+  Stop
 } from 'clients/sequencer/models/PostCommand'
-import { Setup } from 'clients/command/models/PostCommand'
+import * as SequencerCommands from 'jsons/sequencerModels.json'
 import { SequenceCommand } from 'models/params/Command'
-import * as SequencerCommands from '__tests__/jsons/sequencerModels.json'
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
 const sequence: SequenceCommand[] = [setupCommand]

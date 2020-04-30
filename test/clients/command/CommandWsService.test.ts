@@ -1,10 +1,10 @@
-import { Server } from 'mock-socket'
-import { CurrentState } from 'models/params/CurrentState'
-import { Completed } from 'models/params/CommandResponse'
 import { CommandService } from 'clients'
+import { Server } from 'mock-socket'
 import { ComponentId } from 'models/ComponentId'
+import { Completed } from 'models/params/CommandResponse'
+import { CurrentState } from 'models/params/CurrentState'
 import { Prefix } from 'models/params/Prefix'
-import { wsMockWithResolved } from '__tests__/utils/MockHelpers'
+import { wsMockWithResolved } from 'utils/MockHelpers'
 
 const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 

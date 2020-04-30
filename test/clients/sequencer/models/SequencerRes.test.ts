@@ -8,7 +8,7 @@ import {
   OperationsHookFailed,
   Unhandled
 } from 'clients/sequencer/models/SequencerRes'
-import * as SequencerRes from '__tests__/jsons/SequencerResponses.json'
+import * as SequencerRes from 'jsons/SequencerResponses.json'
 
 test('Ok response', () => {
   const actualRes: Ok = { _type: 'Ok' }

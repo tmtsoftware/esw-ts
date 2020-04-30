@@ -7,15 +7,15 @@ import {
   Submit,
   Validate
 } from 'clients/command/models/PostCommand'
-import * as Commands from '__tests__/jsons/commandModels.json'
 import {
   CommandServiceWsMessage,
   QueryFinal,
   SubscribeCurrentState
 } from 'clients/command/models/WsCommand'
+import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
+import * as Commands from 'jsons/commandModels.json'
 import { ComponentId } from 'models/ComponentId'
 import { Prefix } from 'models/params/Prefix'
-import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
 
 const setupCommand = new Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
 const observeCommand = new Observe('CSW.ncc.trombone', 'move', [], ['obs001'])
