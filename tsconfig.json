@@ -13,7 +13,6 @@
     /* Report errors in .js files. */
     "sourceMap": true,
     /* Generates corresponding '.map' file. */
-    "declaration": true,
     "outDir": "./dist",
     /* Redirect output structure to the directory. */
     "rootDir": ".",
