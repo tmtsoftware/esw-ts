@@ -1,15 +1,4 @@
-import { ComponentId } from 'models/ComponentId'
-import { post } from 'utils/Http'
-import {
-  DiagnosticModeResponse,
-  GenericResponse,
-  GoOfflineResponse,
-  GoOnlineResponse,
-  OkOrUnhandledResponse,
-  OperationsModeResponse,
-  PauseResponse,
-  RemoveBreakpointResponse
-} from 'clients/sequencer/models/SequencerRes'
+import { QueryFinal } from 'clients/command/models/WsCommand'
 import { GatewaySequencerCommand } from 'clients/gateway/models/Gateway'
 import {
   AbortSequence,
@@ -31,14 +20,27 @@ import {
   Replace,
   Reset,
   Resume,
+  SequencerPostRequest,
   StartSequence,
   Stop
 } from 'clients/sequencer/models/PostCommand'
+import {
+  DiagnosticModeResponse,
+  GenericResponse,
+  GoOfflineResponse,
+  GoOnlineResponse,
+  OkOrUnhandledResponse,
+  OperationsModeResponse,
+  PauseResponse,
+  RemoveBreakpointResponse
+} from 'clients/sequencer/models/SequencerRes'
+import { StepList } from 'clients/sequencer/models/StepList'
+import { SequencerWebsocketRequest } from 'clients/sequencer/models/WsCommand'
+import { ComponentId } from 'models/ComponentId'
 import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
-import { StepList } from 'clients/sequencer/models/StepList'
+import { post } from 'utils/Http'
 import { Ws } from 'utils/Ws'
-import { QueryFinal } from 'clients/command/models/WsCommand'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
@@ -70,134 +72,101 @@ export interface SequencerServiceApi {
 export class SequencerService implements SequencerServiceApi {
   constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
 
-  private httpPost<T>(gatewayCommand: GatewaySequencerCommand) {
-    return post<GatewaySequencerCommand, T>(this.host, this.port, gatewayCommand)
-  }
+  private sequencerCommand = (request: SequencerPostRequest | SequencerWebsocketRequest) =>
+    new GatewaySequencerCommand(this.componentId, request)
+
+  private httpPost = <T>(gatewayCommand: GatewaySequencerCommand) =>
+    post<GatewaySequencerCommand, T>(this.host, this.port, gatewayCommand)
 
   loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new LoadSequence(sequence))
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new LoadSequence(sequence)))
   }
 
   startSequence(): Promise<SubmitResponse> {
-    return this.httpPost<SubmitResponse>(
-      GatewaySequencerCommand(this.componentId, new StartSequence())
-    )
+    return this.httpPost<SubmitResponse>(this.sequencerCommand(new StartSequence()))
   }
 
   add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new Add(commands))
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new Add(commands)))
   }
 
   prepend(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new Prepend(commands))
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new Prepend(commands)))
   }
 
   replace(id: string, commands: SequenceCommand[]): Promise<GenericResponse> {
-    return this.httpPost<GenericResponse>(
-      GatewaySequencerCommand(this.componentId, new Replace(id, commands))
-    )
+    return this.httpPost<GenericResponse>(this.sequencerCommand(new Replace(id, commands)))
   }
 
   insertAfter(id: string, commands: SequenceCommand[]): Promise<GenericResponse> {
-    return this.httpPost<GenericResponse>(
-      GatewaySequencerCommand(this.componentId, new InsertAfter(id, commands))
-    )
+    return this.httpPost<GenericResponse>(this.sequencerCommand(new InsertAfter(id, commands)))
   }
 
   delete(id: string): Promise<GenericResponse> {
-    return this.httpPost<GenericResponse>(GatewaySequencerCommand(this.componentId, new Delete(id)))
+    return this.httpPost<GenericResponse>(this.sequencerCommand(new Delete(id)))
   }
 
   addBreakpoint(id: string): Promise<GenericResponse> {
-    return this.httpPost<GenericResponse>(
-      GatewaySequencerCommand(this.componentId, new AddBreakpoint(id))
-    )
+    return this.httpPost<GenericResponse>(this.sequencerCommand(new AddBreakpoint(id)))
   }
 
   removeBreakpoint(id: string): Promise<RemoveBreakpointResponse> {
-    return this.httpPost<RemoveBreakpointResponse>(
-      GatewaySequencerCommand(this.componentId, new RemoveBreakpoint(id))
-    )
+    return this.httpPost<RemoveBreakpointResponse>(this.sequencerCommand(new RemoveBreakpoint(id)))
   }
 
   reset(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new Reset())
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new Reset()))
   }
 
   resume(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new Resume())
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new Resume()))
   }
 
   pause(): Promise<PauseResponse> {
-    return this.httpPost<PauseResponse>(GatewaySequencerCommand(this.componentId, new Pause()))
+    return this.httpPost<PauseResponse>(this.sequencerCommand(new Pause()))
   }
 
   getSequence(): Promise<StepList[]> {
-    return this.httpPost<StepList[]>(GatewaySequencerCommand(this.componentId, new GetSequence()))
+    return this.httpPost<StepList[]>(this.sequencerCommand(new GetSequence()))
   }
 
   isAvailable(): Promise<boolean> {
-    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, new IsAvailable()))
+    return this.httpPost<boolean>(this.sequencerCommand(new IsAvailable()))
   }
 
   isOnline(): Promise<boolean> {
-    return this.httpPost<boolean>(GatewaySequencerCommand(this.componentId, new IsOnline()))
+    return this.httpPost<boolean>(this.sequencerCommand(new IsOnline()))
   }
 
   goOnline(): Promise<GoOnlineResponse> {
-    return this.httpPost<GoOnlineResponse>(
-      GatewaySequencerCommand(this.componentId, new GoOnline())
-    )
+    return this.httpPost<GoOnlineResponse>(this.sequencerCommand(new GoOnline()))
   }
 
   goOffline(): Promise<GoOfflineResponse> {
-    return this.httpPost<GoOfflineResponse>(
-      GatewaySequencerCommand(this.componentId, new GoOffline())
-    )
+    return this.httpPost<GoOfflineResponse>(this.sequencerCommand(new GoOffline()))
   }
 
   abortSequence(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new AbortSequence())
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new AbortSequence()))
   }
 
   stop(): Promise<OkOrUnhandledResponse> {
-    return this.httpPost<OkOrUnhandledResponse>(
-      GatewaySequencerCommand(this.componentId, new Stop())
-    )
+    return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new Stop()))
   }
 
   diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse> {
     return this.httpPost<DiagnosticModeResponse>(
-      GatewaySequencerCommand(this.componentId, new DiagnosticMode(startTime, hint))
+      this.sequencerCommand(new DiagnosticMode(startTime, hint))
     )
   }
 
   operationsMode(): Promise<OperationsModeResponse> {
-    return this.httpPost<OperationsModeResponse>(
-      GatewaySequencerCommand(this.componentId, new OperationsMode())
-    )
+    return this.httpPost<OperationsModeResponse>(this.sequencerCommand(new OperationsMode()))
   }
 
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
-    return new Promise<SubmitResponse>((resolve) => {
-      new Ws(this.host, this.port).sendThenSubscribe(
-        GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
-        (submitResponse: SubmitResponse) => {
-          resolve(submitResponse)
-        }
-      )
-    })
+    return new Ws(this.host, this.port).singleResponse(
+      this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds))
+    )
   }
 }
