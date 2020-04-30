@@ -66,7 +66,7 @@ describe('CommandService', () => {
     const completedResponse: Completed = {
       _type: 'Completed',
       runId: '1234124',
-      result: new Set([])
+      result: { paramSet: [] }
     }
 
     postMockFn.mockResolvedValue(completedResponse)
