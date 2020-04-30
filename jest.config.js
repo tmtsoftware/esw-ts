@@ -1,8 +1,8 @@
 module.exports = {
-  roots: ['<rootDir>'],
+  roots: ['<rootDir>/src', '<rootDir>/test'],
   preset: 'ts-jest',
   testRegex: '(/test/.*|(\\.|/)(test|spec))\\.ts?$',
-  testPathIgnorePatterns: ['test/utils/', 'dist/'],
+  testPathIgnorePatterns: ['test/utils/'],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   moduleDirectories: ['node_modules', 'src', 'test']
 }
