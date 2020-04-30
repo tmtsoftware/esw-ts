@@ -62,7 +62,7 @@ test('SubscribeCurrentState command', () => {
 
 test('GatewayCommand', () => {
   const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
-  const gatewayCommand: GatewayComponentCommand = GatewayComponentCommand(
+  const gatewayCommand: GatewayComponentCommand = new GatewayComponentCommand(
     compId,
     new Submit(observeCommand)
   )
