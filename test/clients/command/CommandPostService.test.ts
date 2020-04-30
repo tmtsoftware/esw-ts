@@ -1,6 +1,6 @@
 import { CommandService } from 'clients'
-import { Observe, Setup } from 'clients/command/models/PostCommand'
 import { ComponentId } from 'models/ComponentId'
+import { Observe, Setup } from 'models/params/Command'
 import {
   Completed,
   OneWayResponse,

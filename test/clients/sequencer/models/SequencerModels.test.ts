@@ -1,4 +1,3 @@
-import { Setup } from 'clients/command/models/PostCommand'
 import {
   AbortSequence,
   Add,
@@ -23,7 +22,7 @@ import {
   Stop
 } from 'clients/sequencer/models/PostCommand'
 import * as SequencerCommands from 'jsons/sequencerModels.json'
-import { SequenceCommand } from 'models/params/Command'
+import { SequenceCommand, Setup } from 'models/params/Command'
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
 const sequence: SequenceCommand[] = [setupCommand]
