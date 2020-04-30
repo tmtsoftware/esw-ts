@@ -1,26 +1,24 @@
 import { Prefix } from 'models/params/Prefix'
 import { ComponentType } from 'models/ComponentType'
 
-type ConnectionType = 'http' | 'tcp' | 'akka'
-
 interface Connection {
   readonly prefix: Prefix
   readonly componentType: ComponentType
-  readonly connectionType: ConnectionType
+  readonly connectionType: 'http' | 'tcp' | 'akka'
 }
 
 export class AkkaConnection implements Connection {
-  readonly connectionType: ConnectionType = 'akka'
+  readonly connectionType: 'akka' = 'akka'
   constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
 }
 
 export class HttpConnection implements Connection {
-  readonly connectionType: ConnectionType = 'http'
+  readonly connectionType: 'http' = 'http'
   constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
 }
 
 export class TcpConnection implements Connection {
-  readonly connectionType: ConnectionType = 'tcp'
+  readonly connectionType: 'tcp' = 'tcp'
   constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
 }
 
