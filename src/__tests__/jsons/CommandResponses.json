@@ -11,6 +11,27 @@
       "_type": "OtherIssue",
       "reason": "issue"
     }
+  },
+  "Locked": {
+    "_type": "Locked",
+    "runId": "id-1234"
+  },
+  "Started": {
+    "_type": "Started",
+    "runId": "id-1234"
+  },
+  "Completed": {
+    "_type": "Completed",
+    "runId": "id-1234",
+    "result": { "paramSet" : []}
+  },
+  "Cancelled": {
+    "_type": "Cancelled",
+    "runId": "id-1234"
+  },
+  "Accepted": {
+    "_type": "Accepted",
+    "runId": "id-1234"
   }
 }
 
