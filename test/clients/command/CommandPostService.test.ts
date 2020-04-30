@@ -14,7 +14,7 @@ import { post } from 'utils/Http'
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
 
-const compId: ComponentId = ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
 const client = new CommandService('localhost', 8080, compId)
 describe('CommandService', () => {

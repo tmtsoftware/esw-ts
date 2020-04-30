@@ -1,15 +1,15 @@
-import { SequencerService } from 'clients/sequencer/SequencerService'
-import { ComponentId } from 'models/ComponentId'
-import { Prefix } from 'models/params/Prefix'
 import { Setup } from 'clients/command/models/PostCommand'
 import { Ok } from 'clients/sequencer/models/SequencerRes'
+import { Pending, Step, StepList } from 'clients/sequencer/models/StepList'
+import { SequencerService } from 'clients/sequencer/SequencerService'
+import { ComponentId } from 'models/ComponentId'
+import { SequenceCommand } from 'models/params/Command'
+import { SubmitResponse } from 'models/params/CommandResponse'
+import { Prefix } from 'models/params/Prefix'
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
-import { SubmitResponse } from 'models/params/CommandResponse'
-import { SequenceCommand } from 'models/params/Command'
-import { Pending, Step, StepList } from 'clients/sequencer/models/StepList'
 
-const componentId = ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
+const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService('localhost', 59623, componentId)
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
