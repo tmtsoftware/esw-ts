@@ -1,4 +1,4 @@
-import * as Keys from 'jsons/keys.json'
+import * as TestData from 'jsons/keys.json'
 import {
   AltAzCoord,
   CometCoord,
@@ -6,85 +6,52 @@ import {
   MinorPlanetCoord,
   SolarSystemCoord
 } from 'models/params/Coord'
-import {
-  altAzCoordKey,
-  booleanKey,
-  byteArrayKey,
-  byteKey,
-  byteMatrixKey,
-  charKey,
-  choiceKey,
-  cometCoordKey,
-  coordKey,
-  doubleArrayKey,
-  doubleKey,
-  doubleMatrixKey,
-  eqCoordKey,
-  floatArrayKey,
-  floatKey,
-  floatMatrixKey,
-  intArrayKey,
-  intKey,
-  intMatrixKey,
-  longArrayKey,
-  longKey,
-  longMatrixKey,
-  minorPlanetCoordKey,
-  raDecKey,
-  shortArrayKey,
-  shortKey,
-  shortMatrixKey,
-  solarSystemCoordKey,
-  stringKey,
-  structKey,
-  taiTimeKey,
-  utcTimeKey
-} from 'models/params/Key'
+import * as Keys from 'models/params/Key'
 
 test('utc time key', () => {
-  const timeParam = utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])
+  const timeParam = Keys.utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])
 
-  expect(Keys.UTCTimeKey).toEqual(timeParam.toJSON().UTCTimeKey)
+  expect(timeParam.toJSON().UTCTimeKey).toEqual(TestData.UTCTimeKey)
 })
 
 test('tai time key', () => {
-  const timeParam = taiTimeKey('taiTime').set(['2017-09-04T16:28:00.123456789Z'])
+  const timeParam = Keys.taiTimeKey('taiTime').set(['2017-09-04T16:28:00.123456789Z'])
 
-  expect(Keys.TAITimeKey).toEqual(timeParam.toJSON().TAITimeKey)
+  expect(timeParam.toJSON().TAITimeKey).toEqual(TestData.TAITimeKey)
 })
 
 test('string and char key', () => {
-  const stringParam = stringKey('days').set(['monday', 'tuesday'])
-  const charParam = charKey('days').set(['monday', 'tuesday'])
+  const stringParam = Keys.stringKey('days').set(['monday', 'tuesday'])
+  const charParam = Keys.charKey('days').set(['monday', 'tuesday'])
 
-  expect(Keys.StringKey).toEqual(stringParam.toJSON().StringKey)
-  expect(Keys.StringKey).toEqual(charParam.toJSON().CharKey)
+  expect(stringParam.toJSON().StringKey).toEqual(TestData.StringKey)
+  expect(charParam.toJSON().CharKey).toEqual(TestData.StringKey)
 })
 
 test('int key', () => {
-  const intParam = intKey('numbers').set([1, 2, 3])
+  const intParam = Keys.intKey('numbers').set([1, 2, 3])
 
-  expect(Keys.GeneralKey).toEqual(intParam.toJSON().IntKey)
+  expect(intParam.toJSON().IntKey).toEqual(TestData.GeneralKey)
 })
 
 test('struct key', () => {
-  const intParam = intKey('numbers').set([1, 2, 3])
-  const stringParam = stringKey('days').set(['monday', 'tuesday'])
-  const structParam = structKey('structKey').set([{ paramSet: [intParam, stringParam] }])
+  const intParam = Keys.intKey('numbers').set([1, 2, 3])
+  const stringParam = Keys.stringKey('days').set(['monday', 'tuesday'])
+  const structParam = Keys.structKey('structKey').set([{ paramSet: [intParam, stringParam] }])
 
-  expect(Keys.StructKey).toEqual(JSON.parse(JSON.stringify(structParam)).StructKey)
+  expect(JSON.parse(JSON.stringify(structParam)).StructKey).toEqual(TestData.StructKey)
 })
 
 test('choice key', () => {
-  const resetKey = choiceKey('mode-reset', 'NoUnits')
+  const resetKey = Keys.choiceKey('mode-reset', 'NoUnits')
   const choices = resetKey.makeChoices('c', 'x', 'v', 'y')
   const choiceParam = resetKey.setChoice(choices, ['c'])
 
-  expect(Keys.ChoiceKey).toEqual(choiceParam.toJSON().ChoiceKey)
+  expect(choiceParam.toJSON().ChoiceKey).toEqual(TestData.ChoiceKey)
 })
 
 test('int matrix key', () => {
-  const intMatrixKey1 = intMatrixKey('test matrix')
+  const intMatrixKey1 = Keys.intMatrixKey('test matrix')
   const data = [
     [1, 2, 3],
     [4, 5, 6]
@@ -93,11 +60,11 @@ test('int matrix key', () => {
   const matrixParam = intMatrixKey1.set([data])
 
   const { IntMatrixKey } = matrixParam.toJSON()
-  expect(Keys.GeneralMatrixKey).toEqual(JSON.parse(JSON.stringify(IntMatrixKey)))
+  expect(JSON.parse(JSON.stringify(IntMatrixKey))).toEqual(TestData.GeneralMatrixKey)
 })
 
 test('byte matrix key', () => {
-  const byteMatrixKey1 = byteMatrixKey('test matrix')
+  const byteMatrixKey1 = Keys.byteMatrixKey('test matrix')
   const data = [
     [1, 2, 3],
     [4, 5, 6]
@@ -106,11 +73,11 @@ test('byte matrix key', () => {
   const matrixParam = byteMatrixKey1.set([data])
 
   const { ByteMatrixKey } = matrixParam.toJSON()
-  expect(Keys.GeneralMatrixKey).toEqual(JSON.parse(JSON.stringify(ByteMatrixKey)))
+  expect(JSON.parse(JSON.stringify(ByteMatrixKey))).toEqual(TestData.GeneralMatrixKey)
 })
 
 test('long matrix key', () => {
-  const longMatrixKey1 = longMatrixKey('test matrix')
+  const longMatrixKey1 = Keys.longMatrixKey('test matrix')
   const data = [
     [1, 2, 3],
     [4, 5, 6]
@@ -119,11 +86,11 @@ test('long matrix key', () => {
   const matrixParam = longMatrixKey1.set([data])
 
   const { LongMatrixKey } = matrixParam.toJSON()
-  expect(Keys.GeneralMatrixKey).toEqual(JSON.parse(JSON.stringify(LongMatrixKey)))
+  expect(JSON.parse(JSON.stringify(LongMatrixKey))).toEqual(TestData.GeneralMatrixKey)
 })
 
 test('short matrix key', () => {
-  const shortMatrixKey1 = shortMatrixKey('test matrix')
+  const shortMatrixKey1 = Keys.shortMatrixKey('test matrix')
   const data = [
     [1, 2, 3],
     [4, 5, 6]
@@ -132,11 +99,11 @@ test('short matrix key', () => {
   const matrixParam = shortMatrixKey1.set([data])
 
   const { ShortMatrixKey } = matrixParam.toJSON()
-  expect(Keys.GeneralMatrixKey).toEqual(JSON.parse(JSON.stringify(ShortMatrixKey)))
+  expect(JSON.parse(JSON.stringify(ShortMatrixKey))).toEqual(TestData.GeneralMatrixKey)
 })
 
 test('float matrix key', () => {
-  const floatMatrixKey1 = floatMatrixKey('test matrix')
+  const floatMatrixKey1 = Keys.floatMatrixKey('test matrix')
   const data = [
     [1.0, 2.2, 3.3],
     [4.444, 5.34, 6.77]
@@ -145,11 +112,11 @@ test('float matrix key', () => {
   const matrixParam = floatMatrixKey1.set([data])
 
   const { FloatMatrixKey } = matrixParam.toJSON()
-  expect(Keys.FractionMatrixKey).toEqual(JSON.parse(JSON.stringify(FloatMatrixKey)))
+  expect(JSON.parse(JSON.stringify(FloatMatrixKey))).toEqual(TestData.FractionMatrixKey)
 })
 
 test('double matrix key', () => {
-  const doubleMatrixKey1 = doubleMatrixKey('test matrix')
+  const doubleMatrixKey1 = Keys.doubleMatrixKey('test matrix')
   const data = [
     [1.0, 2.2, 3.3],
     [4.444, 5.34, 6.77]
@@ -158,79 +125,79 @@ test('double matrix key', () => {
   const matrixParam = doubleMatrixKey1.set([data])
 
   const { DoubleMatrixKey } = matrixParam.toJSON()
-  expect(Keys.FractionMatrixKey).toEqual(JSON.parse(JSON.stringify(DoubleMatrixKey)))
+  expect(JSON.parse(JSON.stringify(DoubleMatrixKey))).toEqual(TestData.FractionMatrixKey)
 })
 
 test('int array key', () => {
-  const intArrayParam = intArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+  const intArrayParam = Keys.intArrayKey('arrayOfNumbers').set([[1, 2], [3]])
 
-  expect(Keys.ArrayKey).toEqual(intArrayParam.toJSON().IntArrayKey)
+  expect(intArrayParam.toJSON().IntArrayKey).toEqual(TestData.ArrayKey)
 })
 
 test('byte array key', () => {
-  const byteArrayParam = byteArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+  const byteArrayParam = Keys.byteArrayKey('arrayOfNumbers').set([[1, 2], [3]])
 
-  expect(Keys.ArrayKey).toEqual(byteArrayParam.toJSON().ByteArrayKey)
+  expect(byteArrayParam.toJSON().ByteArrayKey).toEqual(TestData.ArrayKey)
 })
 
 test('short array key', () => {
-  const shortArrayParam = shortArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+  const shortArrayParam = Keys.shortArrayKey('arrayOfNumbers').set([[1, 2], [3]])
 
-  expect(Keys.ArrayKey).toEqual(shortArrayParam.toJSON().ShortArrayKey)
+  expect(shortArrayParam.toJSON().ShortArrayKey).toEqual(TestData.ArrayKey)
 })
 
 test('long array key', () => {
-  const longArrayParam = longArrayKey('arrayOfNumbers').set([[1, 2], [3]])
+  const longArrayParam = Keys.longArrayKey('arrayOfNumbers').set([[1, 2], [3]])
 
-  expect(Keys.ArrayKey).toEqual(longArrayParam.toJSON().LongArrayKey)
+  expect(longArrayParam.toJSON().LongArrayKey).toEqual(TestData.ArrayKey)
 })
 
 test('float array key', () => {
-  const floatArrayParam = floatArrayKey('arrayOfNumbers').set([[1.2, 2.4243], [3.3]])
+  const floatArrayParam = Keys.floatArrayKey('arrayOfNumbers').set([[1.2, 2.4243], [3.3]])
 
-  expect(Keys.GeneralArrayKey).toEqual(floatArrayParam.toJSON().FloatArrayKey)
+  expect(floatArrayParam.toJSON().FloatArrayKey).toEqual(TestData.GeneralArrayKey)
 })
 
 test('double array key', () => {
-  const doubleArrayParam = doubleArrayKey('arrayOfNumbers').set([[1.2, 2.4243], [3.3]])
+  const doubleArrayParam = Keys.doubleArrayKey('arrayOfNumbers').set([[1.2, 2.4243], [3.3]])
 
-  expect(Keys.GeneralArrayKey).toEqual(doubleArrayParam.toJSON().DoubleArrayKey)
+  expect(doubleArrayParam.toJSON().DoubleArrayKey).toEqual(TestData.GeneralArrayKey)
 })
 
 test('byte key', () => {
-  const byteParam = byteKey('numbers').set([1, 2, 3])
+  const byteParam = Keys.byteKey('numbers').set([1, 2, 3])
 
-  expect(Keys.GeneralKey).toEqual(byteParam.toJSON().ByteKey)
+  expect(byteParam.toJSON().ByteKey).toEqual(TestData.GeneralKey)
 })
 
 test('short key', () => {
-  const shortParam = shortKey('numbers').set([1, 2, 3])
+  const shortParam = Keys.shortKey('numbers').set([1, 2, 3])
 
-  expect(Keys.GeneralKey).toEqual(shortParam.toJSON().ShortKey)
+  expect(shortParam.toJSON().ShortKey).toEqual(TestData.GeneralKey)
 })
 
 test('long key', () => {
-  const longParam = longKey('numbers').set([1, 2, 3])
+  const longParam = Keys.longKey('numbers').set([1, 2, 3])
 
-  expect(Keys.GeneralKey).toEqual(longParam.toJSON().LongKey)
+  expect(longParam.toJSON().LongKey).toEqual(TestData.GeneralKey)
 })
 
 test('float key', () => {
-  const floatParam = floatKey('numbers').set([1, 2, 3])
+  const floatParam = Keys.floatKey('numbers').set([1, 2, 3])
 
-  expect(Keys.GeneralKey).toEqual(floatParam.toJSON().FloatKey)
+  expect(floatParam.toJSON().FloatKey).toEqual(TestData.GeneralKey)
 })
 
 test('double key', () => {
-  const doubleParam = doubleKey('numbers').set([1, 2, 3])
+  const doubleParam = Keys.doubleKey('numbers').set([1, 2, 3])
 
-  expect(Keys.GeneralKey).toEqual(doubleParam.toJSON().DoubleKey)
+  expect(doubleParam.toJSON().DoubleKey).toEqual(TestData.GeneralKey)
 })
 
 test('RaDec key', () => {
-  const raDecParam = raDecKey('RaDecKey').set([{ ra: 7.3, dec: 12.1 }])
+  const raDecParam = Keys.raDecKey('RaDecKey').set([{ ra: 7.3, dec: 12.1 }])
 
-  expect(Keys.RaDecKey).toEqual(raDecParam.toJSON().RaDecKey)
+  expect(raDecParam.toJSON().RaDecKey).toEqual(TestData.RaDecKey)
 })
 
 test('EqCoord key', () => {
@@ -246,9 +213,9 @@ test('EqCoord key', () => {
       pmy: 2.33
     }
   }
-  const eqCoordParam = eqCoordKey('EqCoordKey').set([value])
+  const eqCoordParam = Keys.eqCoordKey('EqCoordKey').set([value])
 
-  expect(Keys.EqCoordKey).toEqual(eqCoordParam.toJSON().EqCoordKey)
+  expect(eqCoordParam.toJSON().EqCoordKey).toEqual(TestData.EqCoordKey)
 })
 
 test('SolarSystemCoord key', () => {
@@ -257,9 +224,9 @@ test('SolarSystemCoord key', () => {
     tag: 'BASE',
     body: 'Venus'
   }
-  const solarSystemCoordParam = solarSystemCoordKey('SolarSystemCoordKey').set([value])
+  const solarSystemCoordParam = Keys.solarSystemCoordKey('SolarSystemCoordKey').set([value])
 
-  expect(Keys.SolarSystemCoordKey).toEqual(solarSystemCoordParam.toJSON().SolarSystemCoordKey)
+  expect(solarSystemCoordParam.toJSON().SolarSystemCoordKey).toEqual(TestData.SolarSystemCoordKey)
 })
 
 test('MinorPlanetCoord key', () => {
@@ -274,9 +241,9 @@ test('MinorPlanetCoord key', () => {
     eccentricity: 0.234,
     meanAnomaly: 792000000000
   }
-  const minorPlanetCoordParam = minorPlanetCoordKey('MinorPlanetCoordKey').set([value])
+  const minorPlanetCoordParam = Keys.minorPlanetCoordKey('MinorPlanetCoordKey').set([value])
 
-  expect(Keys.MinorPlanetCoordKey).toEqual(minorPlanetCoordParam.toJSON().MinorPlanetCoordKey)
+  expect(minorPlanetCoordParam.toJSON().MinorPlanetCoordKey).toEqual(TestData.MinorPlanetCoordKey)
 })
 
 test('CometCoord key', () => {
@@ -290,9 +257,9 @@ test('CometCoord key', () => {
     perihelionDistance: 1.4,
     eccentricity: 0.234
   }
-  const cometCoordParam = cometCoordKey('CometCoordKey').set([value])
+  const cometCoordParam = Keys.cometCoordKey('CometCoordKey').set([value])
 
-  expect(Keys.CometCoordKey).toEqual(cometCoordParam.toJSON().CometCoordKey)
+  expect(cometCoordParam.toJSON().CometCoordKey).toEqual(TestData.CometCoordKey)
 })
 
 test('AltAzCoord key', () => {
@@ -302,9 +269,9 @@ test('AltAzCoord key', () => {
     alt: 1083600000000,
     az: 153000000000
   }
-  const altAzCoordParam = altAzCoordKey('AltAzCoordKey').set([value])
+  const altAzCoordParam = Keys.altAzCoordKey('AltAzCoordKey').set([value])
 
-  expect(Keys.AltAzCoordKey).toEqual(altAzCoordParam.toJSON().AltAzCoordKey)
+  expect(altAzCoordParam.toJSON().AltAzCoordKey).toEqual(TestData.AltAzCoordKey)
 })
 
 test('Coord key', () => {
@@ -325,13 +292,13 @@ test('Coord key', () => {
     tag: 'BASE',
     body: 'Venus'
   }
-  const coordParam = coordKey('CoordKey').set([eqCoord, solarSystemCoord])
+  const coordParam = Keys.coordKey('CoordKey').set([eqCoord, solarSystemCoord])
 
-  expect(Keys.CoordKey).toEqual(coordParam.toJSON().CoordKey)
+  expect(coordParam.toJSON().CoordKey).toEqual(TestData.CoordKey)
 })
 
 test('Boolean key', () => {
-  const booleanParam = booleanKey('BooleanKey').set([true])
+  const booleanParam = Keys.booleanKey('BooleanKey').set([true])
 
-  expect(Keys.BooleanKey).toEqual(booleanParam.toJSON().BooleanKey)
+  expect(booleanParam.toJSON().BooleanKey).toEqual(TestData.BooleanKey)
 })
