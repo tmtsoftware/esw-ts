@@ -31,5 +31,5 @@ describe('Sequencer Models Contract', () => {
     ['Stop', new Sequencer.Stop(), TestData.Stop],
     ['OperationsMode', new Sequencer.OperationsMode(), TestData.OperationsMode],
     ['DiagnosticMode', new Sequencer.DiagnosticMode(date, 'start'), TestData.DiagnosticMode]
-  ])('%s', (_, actual, expected) => expect(JSON.parse(JSON.stringify(actual))).toEqual(expected))
+  ])('%s', (_, actual, expected) => expect(actual).toEqual(expected))
 })

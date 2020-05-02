@@ -114,42 +114,44 @@ const cometParam = Keys.cometCoordKey('CometCoordKey').set([cometCoord])
 const altAzParam = Keys.altAzCoordKey('AltAzCoordKey').set([altAzCoord])
 const coordParam = Keys.coordKey('CoordKey').set([eqCoord, solarSystemCoord])
 
-test.each([
-  ['IntKey', intParam, TestData.GeneralKey],
-  ['LongKey', longParam, TestData.GeneralKey],
-  ['ShortKey', shortParam, TestData.GeneralKey],
-  ['FloatKey', floatParam, TestData.GeneralKey],
-  ['DoubleKey', doubleParam, TestData.GeneralKey],
-  ['ByteKey', byteParam, TestData.GeneralKey],
-  ['BooleanKey', booleanParam, TestData.BooleanKey],
+describe('Key-Parameter Contract', () => {
+  test.each([
+    ['IntKey', intParam, TestData.GeneralKey],
+    ['LongKey', longParam, TestData.GeneralKey],
+    ['ShortKey', shortParam, TestData.GeneralKey],
+    ['FloatKey', floatParam, TestData.GeneralKey],
+    ['DoubleKey', doubleParam, TestData.GeneralKey],
+    ['ByteKey', byteParam, TestData.GeneralKey],
+    ['BooleanKey', booleanParam, TestData.BooleanKey],
 
-  ['StringKey', stringParam, TestData.StringKey],
-  ['CharKey', charParam, TestData.StringKey],
-  ['UTCTimeKey', utcTimeParam, TestData.UTCTimeKey],
-  ['TAITimeKey', taiTimeParam, TestData.TAITimeKey],
+    ['StringKey', stringParam, TestData.StringKey],
+    ['CharKey', charParam, TestData.StringKey],
+    ['UTCTimeKey', utcTimeParam, TestData.UTCTimeKey],
+    ['TAITimeKey', taiTimeParam, TestData.TAITimeKey],
 
-  ['IntArrayKey', intArrayParam, TestData.ArrayKey],
-  ['LongArrayKey', longArrayParam, TestData.ArrayKey],
-  ['ShortArrayKey', shortArrayParam, TestData.ArrayKey],
-  ['FloatArrayKey', floatArrayParam, TestData.GeneralArrayKey],
-  ['DoubleArrayKey', doubleArrayParam, TestData.GeneralArrayKey],
-  ['ByteArrayKey', byteArrayParam, TestData.ArrayKey],
+    ['IntArrayKey', intArrayParam, TestData.ArrayKey],
+    ['LongArrayKey', longArrayParam, TestData.ArrayKey],
+    ['ShortArrayKey', shortArrayParam, TestData.ArrayKey],
+    ['FloatArrayKey', floatArrayParam, TestData.GeneralArrayKey],
+    ['DoubleArrayKey', doubleArrayParam, TestData.GeneralArrayKey],
+    ['ByteArrayKey', byteArrayParam, TestData.ArrayKey],
 
-  ['IntMatrixKey', intMatrixParam, TestData.GeneralMatrixKey],
-  ['LongMatrixKey', longMatrixParam, TestData.GeneralMatrixKey],
-  ['ShortMatrixKey', shortMatrixParam, TestData.GeneralMatrixKey],
-  ['FloatMatrixKey', floatMatrixParam, TestData.FractionMatrixKey],
-  ['DoubleMatrixKey', doubleMatrixParam, TestData.FractionMatrixKey],
-  ['ByteMatrixKey', byteMatrixParam, TestData.GeneralMatrixKey],
+    ['IntMatrixKey', intMatrixParam, TestData.GeneralMatrixKey],
+    ['LongMatrixKey', longMatrixParam, TestData.GeneralMatrixKey],
+    ['ShortMatrixKey', shortMatrixParam, TestData.GeneralMatrixKey],
+    ['FloatMatrixKey', floatMatrixParam, TestData.FractionMatrixKey],
+    ['DoubleMatrixKey', doubleMatrixParam, TestData.FractionMatrixKey],
+    ['ByteMatrixKey', byteMatrixParam, TestData.GeneralMatrixKey],
 
-  ['StructKey', structParam, TestData.StructKey],
-  ['ChoiceKey', choiceParam, TestData.ChoiceKey],
-  ['RaDecKey', raDecParam, TestData.RaDecKey],
+    ['StructKey', structParam, TestData.StructKey],
+    ['ChoiceKey', choiceParam, TestData.ChoiceKey],
+    ['RaDecKey', raDecParam, TestData.RaDecKey],
 
-  ['EqCoordKey', eqParam, TestData.EqCoordKey],
-  ['SolarSystemCoordKey', solarSystemParam, TestData.SolarSystemCoordKey],
-  ['MinorPlaneCoordKey', minorPlanetParam, TestData.MinorPlanetCoordKey],
-  ['CometCoordKey', cometParam, TestData.CometCoordKey],
-  ['AltAzCoordKey', altAzParam, TestData.AltAzCoordKey],
-  ['CoordKey', coordParam, TestData.CoordKey]
-])('%s', (_, actual, expected) => expect(stringify(actual)).toEqual(JSON.stringify(expected)))
+    ['EqCoordKey', eqParam, TestData.EqCoordKey],
+    ['SolarSystemCoordKey', solarSystemParam, TestData.SolarSystemCoordKey],
+    ['MinorPlaneCoordKey', minorPlanetParam, TestData.MinorPlanetCoordKey],
+    ['CometCoordKey', cometParam, TestData.CometCoordKey],
+    ['AltAzCoordKey', altAzParam, TestData.AltAzCoordKey],
+    ['CoordKey', coordParam, TestData.CoordKey]
+  ])('%s', (_, actual, expected) => expect(stringify(actual)).toEqual(JSON.stringify(expected)))
+})
