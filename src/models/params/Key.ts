@@ -71,20 +71,20 @@ export type TimeKey = RawStringKey<TimeTag> // todo: Maybe in future if we imple
 // Array keys
 type ArrayNumberKey<KTag> = RawKey<KTag, number[]>
 export type IntArrayKey = ArrayNumberKey<'IntArrayKey'>
-export type ByteArrayKey = ArrayNumberKey<'ByteArrayKey'>
 export type LongArrayKey = ArrayNumberKey<'LongArrayKey'>
 export type ShortArrayKey = ArrayNumberKey<'ShortArrayKey'>
 export type FloatArrayKey = ArrayNumberKey<'FloatArrayKey'>
 export type DoubleArrayKey = ArrayNumberKey<'DoubleArrayKey'>
+export type ByteArrayKey = ArrayNumberKey<'ByteArrayKey'>
 
 // Matrix keys
 type MatrixDataNumberKey<KTag> = RawKey<KTag, number[][]>
-export type ByteMatrixKey = MatrixDataNumberKey<'ByteMatrixKey'>
 export type IntMatrixKey = MatrixDataNumberKey<'IntMatrixKey'>
 export type LongMatrixKey = MatrixDataNumberKey<'LongMatrixKey'>
 export type ShortMatrixKey = MatrixDataNumberKey<'ShortMatrixKey'>
 export type FloatMatrixKey = MatrixDataNumberKey<'FloatMatrixKey'>
 export type DoubleMatrixKey = MatrixDataNumberKey<'DoubleMatrixKey'>
+export type ByteMatrixKey = MatrixDataNumberKey<'ByteMatrixKey'>
 
 export interface Struct {
   paramSet: Parameter<Key>[]
