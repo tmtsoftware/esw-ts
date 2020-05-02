@@ -1,41 +1,41 @@
 export interface Ok {
-  _type: 'Ok'
+  readonly _type: 'Ok'
 }
 
 export interface CannotOperateOnAnInFlightOrFinishedStep {
-  _type: 'CannotOperateOnAnInFlightOrFinishedStep'
+  readonly _type: 'CannotOperateOnAnInFlightOrFinishedStep'
 }
 
 export interface IdDoesNotExist {
-  _type: 'IdDoesNotExist'
-  id: string
+  readonly _type: 'IdDoesNotExist'
+  readonly id: string
 }
 
 export interface Unhandled {
-  _type: 'Unhandled'
-  state: string
-  messageType: string
-  msg: string
+  readonly _type: 'Unhandled'
+  readonly state: string
+  readonly messageType: string
+  readonly msg: string
 }
 
 export interface GoOnlineHookFailed {
-  _type: 'GoOnlineHookFailed'
-  msg: string
+  readonly _type: 'GoOnlineHookFailed'
+  readonly msg: string
 }
 
 export interface GoOfflineHookFailed {
-  _type: 'GoOfflineHookFailed'
-  msg: string
+  readonly _type: 'GoOfflineHookFailed'
+  readonly msg: string
 }
 
 export interface DiagnosticHookFailed {
-  _type: 'DiagnosticHookFailed'
-  msg: string
+  readonly _type: 'DiagnosticHookFailed'
+  readonly msg: string
 }
 
 export interface OperationsHookFailed {
-  _type: 'OperationsHookFailed'
-  msg: string
+  readonly _type: 'OperationsHookFailed'
+  readonly msg: string
 }
 
 export type OkOrUnhandledResponse = Ok | Unhandled

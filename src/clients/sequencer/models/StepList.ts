@@ -1,16 +1,14 @@
 import { SequenceCommand } from 'models/params/Command'
 
 export interface Step {
-  id: string
-  command: SequenceCommand
-  status: StepStatus
-  hasBreakpoint: boolean
+  readonly id: string
+  readonly command: SequenceCommand
+  readonly status: StepStatus
+  readonly hasBreakpoint: boolean
 }
 
-type Finished = 'Success' | 'Failure'
-
 export interface StepStatus {
-  _type: Finished | 'InFlight' | 'Pending'
+  readonly _type: 'Pending' | 'InFlight' | 'Success' | 'Failure'
 }
 
 export type StepList = Step[]

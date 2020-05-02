@@ -8,67 +8,59 @@ import {
   OperationsHookFailed,
   Unhandled
 } from 'clients/sequencer/models/SequencerRes'
-import * as SequencerRes from 'jsons/SequencerResponses.json'
+import * as TestData from 'jsons/SequencerResponses.json'
 
-test('Ok response', () => {
-  const actualRes: Ok = { _type: 'Ok' }
-  expect(actualRes).toEqual(SequencerRes.Ok)
-})
+const ok: Ok = { _type: 'Ok' }
 
-test('CannotOperateOnAnInFlightOrFinishedStep response', () => {
-  const actualRes: CannotOperateOnAnInFlightOrFinishedStep = {
-    _type: 'CannotOperateOnAnInFlightOrFinishedStep'
-  }
-  expect(actualRes).toEqual(SequencerRes.CannotOperateOnAnInFlightOrFinishedStep)
-})
+const cannotOperateOnAnInFlightOrFinishedStep: CannotOperateOnAnInFlightOrFinishedStep = {
+  _type: 'CannotOperateOnAnInFlightOrFinishedStep'
+}
 
-test('IdDoesNotExist response', () => {
-  const actualRes: IdDoesNotExist = {
-    _type: 'IdDoesNotExist',
-    id: 'id-1234'
-  }
-  expect(actualRes).toEqual(SequencerRes.IdDoesNotExist)
-})
+const idDoesNotExist: IdDoesNotExist = {
+  _type: 'IdDoesNotExist',
+  id: 'id-1234'
+}
 
-test('Unhandled response', () => {
-  const actualRes: Unhandled = {
-    _type: 'Unhandled',
-    state: 'offline',
-    messageType: 'StartSequence',
-    msg: "Sequencer can not accept 'StartSequence' message in 'offline' state"
-  }
+const unhandled: Unhandled = {
+  _type: 'Unhandled',
+  state: 'offline',
+  messageType: 'StartSequence',
+  msg: "Sequencer can not accept 'StartSequence' message in 'offline' state"
+}
 
-  expect(actualRes).toEqual(SequencerRes.Unhandled)
-})
+const goOnlineHookFailed: GoOnlineHookFailed = {
+  _type: 'GoOnlineHookFailed',
+  msg: ''
+}
 
-test('GoOnlineHookFailed response', () => {
-  const actualRes: GoOnlineHookFailed = {
-    _type: 'GoOnlineHookFailed',
-    msg: ''
-  }
-  expect(actualRes).toEqual(SequencerRes.GoOnlineHookFailed)
-})
+const goOfflineHookFailed: GoOfflineHookFailed = {
+  _type: 'GoOfflineHookFailed',
+  msg: ''
+}
 
-test('GoOfflineHookFailed response', () => {
-  const actualRes: GoOfflineHookFailed = {
-    _type: 'GoOfflineHookFailed',
-    msg: ''
-  }
-  expect(actualRes).toEqual(SequencerRes.GoOfflineHookFailed)
-})
+const diagnosticHookFailed: DiagnosticHookFailed = {
+  _type: 'DiagnosticHookFailed',
+  msg: ''
+}
 
-test('DiagnosticHookFailed response', () => {
-  const actualRes: DiagnosticHookFailed = {
-    _type: 'DiagnosticHookFailed',
-    msg: ''
-  }
-  expect(actualRes).toEqual(SequencerRes.DiagnosticHookFailed)
-})
+const operationsHookFailed: OperationsHookFailed = {
+  _type: 'OperationsHookFailed',
+  msg: ''
+}
 
-test('OperationsHookFailed response', () => {
-  const actualRes: OperationsHookFailed = {
-    _type: 'OperationsHookFailed',
-    msg: ''
-  }
-  expect(actualRes).toEqual(SequencerRes.OperationsHookFailed)
+describe('Sequencer Response Contract', () => {
+  test.each([
+    ['Ok', ok, TestData.Ok],
+    ['IdDoesNotExist', idDoesNotExist, TestData.IdDoesNotExist],
+    ['Unhandled', unhandled, TestData.Unhandled],
+    ['GoOnlineHookFailed', goOnlineHookFailed, TestData.GoOnlineHookFailed],
+    ['GoOfflineHookFailed', goOfflineHookFailed, TestData.GoOfflineHookFailed],
+    ['DiagnosticHookFailed', diagnosticHookFailed, TestData.DiagnosticHookFailed],
+    ['OperationsHookFailed', operationsHookFailed, TestData.OperationsHookFailed],
+    [
+      'CannotOperateOnAnInFlightOrFinishedStep',
+      cannotOperateOnAnInFlightOrFinishedStep,
+      TestData.CannotOperateOnAnInFlightOrFinishedStep
+    ]
+  ])('%s', (_, actual, expected) => expect(actual).toEqual(expected))
 })
