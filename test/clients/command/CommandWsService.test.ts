@@ -1,4 +1,4 @@
-import { CommandService } from 'clients'
+import { CommandService } from 'clients/command/CommandService'
 import { Server } from 'mock-socket'
 import { ComponentId } from 'models/ComponentId'
 import { Completed } from 'models/params/CommandResponse'

@@ -1,4 +1,4 @@
-import { SequencerService } from 'clients'
+import { SequencerService } from 'clients/sequencer/SequencerService'
 import { Server } from 'mock-socket'
 import { ComponentId } from 'models/ComponentId'
 import { SubmitResponse } from 'models/params/CommandResponse'

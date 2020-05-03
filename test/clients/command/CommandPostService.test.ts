@@ -1,4 +1,4 @@
-import { CommandService } from 'clients'
+import { CommandService } from 'clients/command'
 import { ComponentId } from 'models/ComponentId'
 import { Observe, Setup } from 'models/params/Command'
 import {
