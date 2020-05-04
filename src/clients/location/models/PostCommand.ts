@@ -14,4 +14,10 @@ export class Unregister {
   readonly _type: 'Unregister' = 'Unregister'
   constructor(readonly connection: Connection) {}
 }
-export type LocationHttpMessage = ListEntries | Register | Unregister
+
+export class Resolve {
+  readonly _type: 'Resolve' = 'Resolve'
+  constructor(readonly connection: Connection, readonly within: string) {}
+}
+
+export type LocationHttpMessage = ListEntries | Register | Unregister | Resolve
