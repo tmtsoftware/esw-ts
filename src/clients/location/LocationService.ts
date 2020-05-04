@@ -11,12 +11,12 @@ import {
   Resolve,
   Unregister
 } from 'clients/location/models/PostCommand'
-import { post } from 'utils/Http'
-import { ComponentType } from 'models/ComponentType'
-import { Prefix } from 'models/params/Prefix'
-import { Subscription, Ws } from 'utils/Ws'
 import { TrackingEvent } from 'clients/location/models/TrackingEvent'
 import { Track } from 'clients/location/models/WsCommand'
+import { ComponentType } from 'models/ComponentType'
+import { Prefix } from 'models/params/Prefix'
+import { post } from 'utils/Http'
+import { Subscription, Ws } from 'utils/Ws'
 
 export interface LocationServiceApi {
   list(): Promise<Location[]>
@@ -57,8 +57,8 @@ export class LocationService implements LocationServiceApi {
   }
 
   //todo: decide on within parameter to be in seconds or custom time interval
-  resolve(connection: Connection, within: number): Promise<Location[]> {
-    return this.httpPost<Location[]>(new Resolve(connection, `${within} seconds`))
+  resolve(connection: Connection, withinSeconds: number): Promise<Location[]> {
+    return this.httpPost<Location[]>(new Resolve(connection, `${withinSeconds} seconds`))
   }
 
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {

@@ -1,10 +1,11 @@
-import { Server } from 'mock-socket'
-import { wsMockWithResolved } from 'utils/MockHelpers'
 import { CommandService } from 'clients/command'
+import { GatewayConnection } from 'clients/gateway/resolveGateway'
+import { HttpLocation } from 'clients/location'
+import { Server } from 'mock-socket'
 import { Completed, ComponentId, CurrentState, Prefix } from 'models'
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
-import { HttpConnection, HttpLocation } from 'clients/location'
+import { wsMockWithResolved } from 'utils/MockHelpers'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
@@ -15,9 +16,7 @@ jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'
-const prefix = new Prefix('ESW', 'Gateway')
-const httpConnection = new HttpConnection(prefix, 'Service')
-const gatewayLocation = new HttpLocation(httpConnection, uri)
+const gatewayLocation = new HttpLocation(GatewayConnection, uri)
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:8080/websocket-endpoint')

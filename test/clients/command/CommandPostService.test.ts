@@ -1,6 +1,6 @@
-import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/Http'
 import { CommandService } from 'clients/command'
+import { GatewayConnection } from 'clients/gateway/resolveGateway'
+import { HttpLocation } from 'clients/location'
 import {
   Completed,
   ComponentId,
@@ -11,15 +11,14 @@ import {
   SubmitResponse,
   ValidateResponse
 } from 'models'
-import { HttpConnection, HttpLocation } from 'clients/location'
+import { mocked } from 'ts-jest/utils'
+import { post } from 'utils/Http'
 
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'
-const prefix = new Prefix('ESW', 'Gateway')
-const httpConnection = new HttpConnection(prefix, 'Service')
-const gatewayLocation = new HttpLocation(httpConnection, uri)
+const gatewayLocation = new HttpLocation(GatewayConnection, uri)
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
