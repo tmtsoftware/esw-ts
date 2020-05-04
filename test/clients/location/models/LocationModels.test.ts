@@ -5,6 +5,7 @@ import { Prefix } from 'models/params/Prefix'
 
 const prefix = new Prefix('ESW', 'test')
 const uri = 'some uri'
+
 describe('Typed Locations', () => {
   test('Akka Location', () => {
     const akkaConnection = new AkkaConnection(prefix, 'Assembly')

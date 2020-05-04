@@ -1,4 +1,3 @@
-import { Registration } from 'clients/location/models/Registration'
 import { Connection, ConnectionType } from 'clients/location/models/Connection'
 import { ComponentType } from 'models/ComponentType'
 import { Prefix } from 'models/params/Prefix'
@@ -27,11 +26,6 @@ export class ListByPrefix {
   constructor(readonly prefix: Prefix) {}
 }
 
-export class Register {
-  readonly _type: 'Register' = 'Register'
-  constructor(readonly registration: Registration) {}
-}
-
 export class Unregister {
   readonly _type: 'Unregister' = 'Unregister'
   constructor(readonly connection: Connection) {}
@@ -44,7 +38,6 @@ export class Resolve {
 
 export type LocationHttpMessage =
   | ListEntries
-  | Register
   | Unregister
   | Resolve
   | ListByComponentType
