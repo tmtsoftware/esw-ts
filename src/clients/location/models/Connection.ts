@@ -1,10 +1,12 @@
 import { ComponentType } from 'models/ComponentType'
 import { Prefix } from 'models/params/Prefix'
 
+export type ConnectionType = 'akka' | 'http' | 'tcp'
+
 export interface Connection {
   readonly prefix: Prefix
   readonly componentType: ComponentType
-  readonly connectionType: 'akka' | 'http' | 'tcp'
+  readonly connectionType: ConnectionType
 }
 
 export class AkkaConnection implements Connection {

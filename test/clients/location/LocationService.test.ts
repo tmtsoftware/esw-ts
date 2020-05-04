@@ -38,6 +38,42 @@ describe('LocationService', () => {
     const actualLocation = await locationService.resolve(httpConnection, 5)
     expect(actualLocation).toEqual(expectLocation)
   })
+
+  test('should fetch list all locations for given componentType | ESW-308', async () => {
+    const expectLocations = [httpLocation]
+
+    postMockFn.mockResolvedValue(expectLocations)
+
+    const locations: Location[] = await locationService.listByComponentType('Sequencer')
+    expect(locations).toEqual(expectLocations)
+  })
+
+  test('should fetch list all locations for given hostname | ESW-308', async () => {
+    const expectLocations = [httpLocation]
+
+    postMockFn.mockResolvedValue(expectLocations)
+
+    const locations: Location[] = await locationService.listByHostname('someuri')
+    expect(locations).toEqual(expectLocations)
+  })
+
+  test('should fetch list all locations for given connectionType | ESW-308', async () => {
+    const expectLocations = [httpLocation]
+
+    postMockFn.mockResolvedValue(expectLocations)
+
+    const locations: Location[] = await locationService.listByConnectionType('http')
+    expect(locations).toEqual(expectLocations)
+  })
+
+  test('should fetch list all locations for given prefix | ESW-308', async () => {
+    const expectLocations = [httpLocation]
+
+    postMockFn.mockResolvedValue(expectLocations)
+
+    const locations: Location[] = await locationService.listByPrefix(prefix)
+    expect(locations).toEqual(expectLocations)
+  })
 })
 
 afterEach(() => {
