@@ -1,10 +1,9 @@
-import { LocationService, HttpConnection, HttpLocation, Location, Done } from 'clients/location'
+import { Done, HttpConnection, HttpLocation, Location, LocationService } from 'clients/location'
 import { Prefix } from 'models'
-
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
 
-const locationService = new LocationService('localhost', 7654)
+const locationService = new LocationService()
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
 const uri = 'http://someuri'

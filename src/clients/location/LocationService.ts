@@ -13,6 +13,7 @@ import {
 } from 'clients/location/models/PostCommand'
 import { TrackingEvent } from 'clients/location/models/TrackingEvent'
 import { Track } from 'clients/location/models/WsCommand'
+import { LocationConfig } from 'config/LocationConfig'
 import { ComponentType } from 'models/ComponentType'
 import { Prefix } from 'models/params/Prefix'
 import { post } from 'utils/Http'
@@ -26,7 +27,10 @@ export interface LocationServiceApi {
 }
 
 export class LocationService implements LocationServiceApi {
-  constructor(readonly host: string, readonly port: number) {}
+  constructor(
+    readonly host: string = LocationConfig.hostName,
+    readonly port: number = LocationConfig.port
+  ) {}
 
   httpPost<T>(request: LocationHttpMessage): Promise<T> {
     return post<LocationHttpMessage, T>(this.host, this.port, request)

@@ -1,7 +1,7 @@
+import { HttpConnection, HttpLocation, LocationService, LocationUpdated } from 'clients/location'
 import { Server } from 'mock-socket'
-import { wsMockWithResolved } from 'utils/MockHelpers'
-import { LocationUpdated, HttpConnection, HttpLocation, LocationService } from 'clients/location'
 import { Prefix } from 'models'
+import { wsMockWithResolved } from 'utils/MockHelpers'
 
 let mockServer: Server
 const uri = 'http://someuri'
@@ -9,7 +9,7 @@ const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = new HttpConnection(prefix, 'Sequencer')
 const httpLocation = new HttpLocation(httpConnection, uri)
 
-const locationService = new LocationService('localhost', 7654)
+const locationService = new LocationService()
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:7654/websocket-endpoint')

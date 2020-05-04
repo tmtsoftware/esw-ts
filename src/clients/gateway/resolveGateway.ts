@@ -1,6 +1,5 @@
 import { HttpConnection, Location, LocationService } from 'clients/location'
 import { GatewayConfig } from 'config/GatewayConfig'
-import { LocationConfig } from 'config/LocationConfig'
 import { Prefix } from 'models'
 
 const ResolveTimeout = 5
@@ -17,7 +16,7 @@ export const GatewayConnection = new HttpConnection(
 )
 
 export const resolveGateway = () => {
-  const locationService = new LocationService(LocationConfig.hostName, LocationConfig.port)
+  const locationService = new LocationService()
   return locationService.resolve(GatewayConnection, ResolveTimeout).then(([location]) => {
     if (!location) throw Error(`Gateway Server not found for connection: ${GatewayConnection}`)
     return extractHostPort(location)
