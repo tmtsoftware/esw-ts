@@ -17,6 +17,8 @@ import { OneWayResponse, SubmitResponse, ValidateResponse } from 'models/params/
 import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'
 import { Subscription, Ws } from 'utils/Ws'
+import { Prefix } from 'models'
+import { HttpConnection, LocationService } from 'clients/location'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>
@@ -28,17 +30,29 @@ export interface CommandServiceApi {
   subscribeCurrentState(
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
-  ): Subscription
+  ): Promise<Subscription>
 }
 
 export class CommandService implements CommandServiceApi {
-  constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
+  constructor(readonly componentId: ComponentId) {}
 
   private componentCommand = (msg: CommandServiceHttpMessage | CommandServiceWsMessage) =>
     new GatewayComponentCommand(this.componentId, msg)
 
+  private resolveGateway = (prefix: Prefix = new Prefix('ESW', 'Gateway')) => {
+    const connection: HttpConnection = new HttpConnection(prefix, 'Service')
+    const locationService = new LocationService('localhost', 7654)
+    return locationService.resolve(connection, 5).then(([location]) => {
+      if (!location) throw Error('Gateway Server not found')
+      const [host, port] = location.uri.split('/')[2].split(':')
+      return { host, port: parseInt(port) }
+    })
+  }
+
   private httpPost = <T>(gatewayCommand: GatewayComponentCommand): Promise<T> =>
-    post<GatewayComponentCommand, T>(this.host, this.port, gatewayCommand)
+    this.resolveGateway().then(({ host, port }) =>
+      post<GatewayComponentCommand, T>(host, port, gatewayCommand)
+    )
 
   async validate(command: ControlCommand): Promise<ValidateResponse> {
     return this.httpPost<ValidateResponse>(this.componentCommand(new Validate(command)))
@@ -56,18 +70,20 @@ export class CommandService implements CommandServiceApi {
     return this.httpPost<SubmitResponse>(this.componentCommand(new Query(runId)))
   }
 
-  subscribeCurrentState(
+  async subscribeCurrentState(
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
-  ): Subscription {
-    return new Ws(this.host, this.port).subscribe(
+  ): Promise<Subscription> {
+    const { host, port } = await this.resolveGateway()
+    return new Ws(host, port).subscribe(
       this.componentCommand(new SubscribeCurrentState(stateNames)),
       onStateChange
     )
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
-    return new Ws(this.host, this.port).singleResponse(
+    const { host, port } = await this.resolveGateway()
+    return new Ws(host, port).singleResponse(
       this.componentCommand(new QueryFinal(runId, timeoutInSeconds))
     )
   }

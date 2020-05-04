@@ -11,13 +11,19 @@ import {
   SubmitResponse,
   ValidateResponse
 } from 'models'
+import { HttpConnection, HttpLocation } from 'clients/location'
 
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)
 
+const uri = 'http://localhost:8080'
+const prefix = new Prefix('ESW', 'Gateway')
+const httpConnection = new HttpConnection(prefix, 'Service')
+const gatewayLocation = new HttpLocation(httpConnection, uri)
+
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = new CommandService('localhost', 8080, compId)
+const client = new CommandService(compId)
 describe('CommandService', () => {
   test('should post validate command', async () => {
     const acceptedResponse = {
@@ -25,12 +31,13 @@ describe('CommandService', () => {
       runId: '1234124'
     }
 
-    postMockFn.mockResolvedValue(acceptedResponse)
+    postMockFn.mockResolvedValueOnce([gatewayLocation])
+    postMockFn.mockResolvedValueOnce(acceptedResponse)
 
     const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
     const data: ValidateResponse = await client.validate(setupCommand)
 
-    expect(postMockFn).toBeCalledTimes(1)
+    expect(postMockFn).toBeCalledTimes(2)
     expect(data).toBe(acceptedResponse)
   })
 
@@ -40,12 +47,13 @@ describe('CommandService', () => {
       runId: '1234124'
     }
 
-    postMockFn.mockResolvedValue(startedResponse)
+    postMockFn.mockResolvedValueOnce([gatewayLocation])
+    postMockFn.mockResolvedValueOnce(startedResponse)
 
     const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
     const data: SubmitResponse = await client.submit(setupCommand)
 
-    expect(postMockFn).toBeCalledTimes(1)
+    expect(postMockFn).toBeCalledTimes(2)
     expect(data).toBe(startedResponse)
   })
 
@@ -55,11 +63,13 @@ describe('CommandService', () => {
       runId: '1234124'
     }
 
-    postMockFn.mockResolvedValue(acceptedResponse)
+    postMockFn.mockResolvedValueOnce([gatewayLocation])
+    postMockFn.mockResolvedValueOnce(acceptedResponse)
+
     const observeCommand = new Observe('esw.test', 'c1', [], ['obsId'])
     const data: OneWayResponse = await client.oneway(observeCommand)
 
-    expect(postMockFn).toBeCalledTimes(1)
+    expect(postMockFn).toBeCalledTimes(2)
     expect(data).toBe(acceptedResponse)
   })
 
@@ -70,11 +80,12 @@ describe('CommandService', () => {
       result: { paramSet: [] }
     }
 
-    postMockFn.mockResolvedValue(completedResponse)
+    postMockFn.mockResolvedValueOnce([gatewayLocation])
+    postMockFn.mockResolvedValueOnce(completedResponse)
 
     const data: SubmitResponse = await client.query('1234124')
 
-    expect(postMockFn).toBeCalledTimes(1)
+    expect(postMockFn).toBeCalledTimes(2)
     expect(data).toBe(completedResponse)
   })
 })
