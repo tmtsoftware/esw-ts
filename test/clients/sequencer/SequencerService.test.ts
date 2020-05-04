@@ -1,9 +1,6 @@
-import { Step, StepList, StepStatus } from 'clients/sequencer/models/StepList'
-import { SequencerService } from 'clients/sequencer/SequencerService'
-import { ComponentId } from 'models/ComponentId'
-import { SequenceCommand, Setup } from 'models/params/Command'
-import { SubmitResponse } from 'models/params/CommandResponse'
-import { Prefix } from 'models/params/Prefix'
+import { Step, StepList, StepStatus, SequencerService } from 'clients/sequencer'
+import { ComponentId, SequenceCommand, Setup, SubmitResponse, Prefix } from 'models'
+
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
 

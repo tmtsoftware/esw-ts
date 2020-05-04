@@ -1,8 +1,6 @@
-import { LocationService } from 'clients/location/LocationService'
-import { HttpConnection } from 'clients/location/models/Connection'
-import { HttpLocation, Location } from 'clients/location/models/Location'
-import { Done } from 'clients/location/models/LocationResponses'
-import { Prefix } from 'models/params/Prefix'
+import { LocationService, HttpConnection, HttpLocation, Location, Done } from 'clients/location'
+import { Prefix } from 'models'
+
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
 

@@ -1,8 +1,7 @@
-import { SequencerService } from 'clients'
+import { SequencerService } from 'clients/sequencer'
+import { ComponentId, SubmitResponse, Prefix } from 'models'
+
 import { Server } from 'mock-socket'
-import { ComponentId } from 'models/ComponentId'
-import { SubmitResponse } from 'models/params/CommandResponse'
-import { Prefix } from 'models/params/Prefix'
 import { wsMockWithResolved } from 'utils/MockHelpers'
 
 let mockServer: Server

@@ -18,7 +18,7 @@ import { CurrentState } from 'models/params/CurrentState'
 import { post } from 'utils/Http'
 import { Subscription, Ws } from 'utils/Ws'
 
-export interface CommandService {
+export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>
   submit(command: ControlCommand): Promise<SubmitResponse>
   oneway(command: ControlCommand): Promise<OneWayResponse>
@@ -31,7 +31,7 @@ export interface CommandService {
   ): Subscription
 }
 
-export class CommandService implements CommandService {
+export class CommandService implements CommandServiceApi {
   constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
 
   private componentCommand = (msg: CommandServiceHttpMessage | CommandServiceWsMessage) =>

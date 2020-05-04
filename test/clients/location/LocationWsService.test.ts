@@ -1,10 +1,7 @@
 import { Server } from 'mock-socket'
 import { wsMockWithResolved } from 'utils/MockHelpers'
-import { LocationUpdated } from 'clients/location/models/TrackingEvent'
-import { Prefix } from 'models/params/Prefix'
-import { HttpConnection } from 'clients/location/models/Connection'
-import { HttpLocation } from 'clients/location/models/Location'
-import { LocationService } from 'clients/location/LocationService'
+import { LocationUpdated, HttpConnection, HttpLocation, LocationService } from 'clients/location'
+import { Prefix } from 'models'
 
 let mockServer: Server
 const uri = 'http://someuri'

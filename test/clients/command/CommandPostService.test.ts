@@ -1,15 +1,16 @@
-import { CommandService } from 'clients'
-import { ComponentId } from 'models/ComponentId'
-import { Observe, Setup } from 'models/params/Command'
-import {
-  Completed,
-  OneWayResponse,
-  SubmitResponse,
-  ValidateResponse
-} from 'models/params/CommandResponse'
-import { Prefix } from 'models/params/Prefix'
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/Http'
+import { CommandService } from 'clients/command'
+import {
+  Completed,
+  ComponentId,
+  Observe,
+  OneWayResponse,
+  Prefix,
+  Setup,
+  SubmitResponse,
+  ValidateResponse
+} from 'models'
 
 jest.mock('utils/Http')
 const postMockFn = mocked(post, true)

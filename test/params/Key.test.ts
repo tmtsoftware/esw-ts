@@ -4,11 +4,11 @@ import {
   CometCoord,
   EqCoord,
   MinorPlanetCoord,
-  SolarSystemCoord
-} from 'models/params/Coord'
+  SolarSystemCoord,
+  Key,
+  Parameter
+} from 'models'
 import * as Keys from 'models/params/Key'
-import { Key } from 'models/params/Key'
-import { Parameter } from 'models/params/Parameter'
 
 const stringify = (param: Parameter<Key>) => JSON.stringify(param.toJSON()[param.keyTag])
 

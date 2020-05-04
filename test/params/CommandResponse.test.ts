@@ -1,13 +1,5 @@
 import * as Responses from 'jsons/CommandResponses.json'
-import {
-  Accepted,
-  Cancelled,
-  Completed,
-  Error,
-  Invalid,
-  Locked,
-  Started
-} from 'models/params/CommandResponse'
+import { Accepted, Cancelled, Completed, Error, Invalid, Locked, Started } from 'models'
 
 describe('Submit response', () => {
   test('Error', () => {
