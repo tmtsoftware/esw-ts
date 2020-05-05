@@ -88,3 +88,5 @@ describe('CommandService', () => {
     expect(data).toBe(completedResponse)
   })
 })
+
+afterEach(() => jest.clearAllMocks())

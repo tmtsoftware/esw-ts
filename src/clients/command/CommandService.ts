@@ -29,7 +29,7 @@ export interface CommandServiceApi {
   subscribeCurrentState(
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
-  ): Promise<Subscription>
+  ): Subscription
 }
 
 export class CommandService implements CommandServiceApi {
@@ -59,15 +59,18 @@ export class CommandService implements CommandServiceApi {
     return this.httpPost<SubmitResponse>(this.componentCommand(new Query(runId)))
   }
 
-  async subscribeCurrentState(
+  subscribeCurrentState(
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
-  ): Promise<Subscription> {
-    const { host, port } = await resolveGateway()
-    return new Ws(host, port).subscribe(
-      this.componentCommand(new SubscribeCurrentState(stateNames)),
-      onStateChange
-    )
+  ): Subscription {
+    return {
+      cancel: async () => {
+        const { host, port } = await resolveGateway()
+        return new Ws(host, port)
+          .subscribe(this.componentCommand(new SubscribeCurrentState(stateNames)), onStateChange)
+          .cancel()
+      }
+    }
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
