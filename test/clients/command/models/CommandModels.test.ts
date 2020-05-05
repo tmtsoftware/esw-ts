@@ -11,7 +11,7 @@ import {
   SubscribeCurrentState
 } from 'clients/command/models/WsCommand'
 import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
-import * as TestData from 'jsons/CommandModels.json'
+import * as TestData from 'jsons/CommandRequests.json'
 import { ComponentId } from 'models/ComponentId'
 import { Observe, Setup } from 'models/params/Command'
 import { Prefix } from 'models/params/Prefix'
