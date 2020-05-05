@@ -16,7 +16,7 @@ import { Track } from 'clients/location/models/WsCommand'
 import { LocationConfig } from 'config/LocationConfig'
 import { ComponentType } from 'models/ComponentType'
 import { Prefix } from 'models/params/Prefix'
-import { post } from 'utils/Http'
+import { post } from 'utils/post'
 import { Subscription, Ws } from 'utils/Ws'
 
 export interface LocationServiceApi {

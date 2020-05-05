@@ -12,9 +12,9 @@ import {
   ValidateResponse
 } from 'models'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/Http'
+import { post } from 'utils/post'
 
-jest.mock('utils/Http')
+jest.mock('utils/post')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

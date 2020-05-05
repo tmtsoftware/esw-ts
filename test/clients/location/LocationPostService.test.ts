@@ -1,10 +1,10 @@
 import { Done, HttpConnection, HttpLocation, Location, LocationService } from 'clients/location'
 import { Prefix } from 'models'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/Http'
+import { post } from 'utils/post'
 
 const locationService = new LocationService()
-jest.mock('utils/Http')
+jest.mock('utils/post')
 const postMockFn = mocked(post, true)
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')

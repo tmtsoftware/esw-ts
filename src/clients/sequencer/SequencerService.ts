@@ -1,5 +1,6 @@
 import { QueryFinal } from 'clients/command/models/WsCommand'
 import { GatewaySequencerCommand } from 'clients/gateway/models/Gateway'
+import { resolveGateway } from 'clients/gateway/resolveGateway'
 import {
   AbortSequence,
   Add,
@@ -39,9 +40,8 @@ import { SequencerWebsocketRequest } from 'clients/sequencer/models/WsCommand'
 import { ComponentId } from 'models/ComponentId'
 import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
-import { post } from 'utils/Http'
+import { post } from 'utils/post'
 import { Ws } from 'utils/Ws'
-import { resolveGateway } from 'clients/gateway/resolveGateway'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>

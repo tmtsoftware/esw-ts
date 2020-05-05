@@ -4,15 +4,15 @@ import { HttpLocation } from 'clients/location'
 import { Server } from 'mock-socket'
 import { Completed, ComponentId, CurrentState, Prefix } from 'models'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/Http'
 import { wsMockWithResolved } from 'utils/MockHelpers'
+import { post } from 'utils/post'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
 const client = new CommandService(compId)
 let mockServer: Server
 
-jest.mock('utils/Http')
+jest.mock('utils/post')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

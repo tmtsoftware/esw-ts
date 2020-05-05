@@ -1,4 +1,4 @@
-import { post } from 'utils/Http'
+import { post } from 'utils/post'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM

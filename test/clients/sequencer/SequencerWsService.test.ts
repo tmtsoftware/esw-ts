@@ -1,14 +1,13 @@
-import { SequencerService } from 'clients/sequencer'
-import { ComponentId, SubmitResponse, Prefix } from 'models'
-
-import { Server } from 'mock-socket'
-import { wsMockWithResolved } from 'utils/MockHelpers'
-import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/Http'
-import { HttpLocation } from 'clients/location'
 import { GatewayConnection } from 'clients/gateway/resolveGateway'
+import { HttpLocation } from 'clients/location'
+import { SequencerService } from 'clients/sequencer'
+import { Server } from 'mock-socket'
+import { ComponentId, Prefix, SubmitResponse } from 'models'
+import { mocked } from 'ts-jest/utils'
+import { wsMockWithResolved } from 'utils/MockHelpers'
+import { post } from 'utils/post'
 
-jest.mock('utils/Http')
+jest.mock('utils/post')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

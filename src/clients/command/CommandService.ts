@@ -16,7 +16,7 @@ import { ComponentId } from 'models/ComponentId'
 import { ControlCommand } from 'models/params/Command'
 import { OneWayResponse, SubmitResponse, ValidateResponse } from 'models/params/CommandResponse'
 import { CurrentState } from 'models/params/CurrentState'
-import { post } from 'utils/Http'
+import { post } from 'utils/post'
 import { Subscription, Ws } from 'utils/Ws'
 
 export interface CommandServiceApi {
