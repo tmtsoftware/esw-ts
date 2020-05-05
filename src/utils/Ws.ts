@@ -1,5 +1,5 @@
-const createWebsocket = (host: string, port: number) =>
-  new WebSocket(`ws://${host}:${port}/websocket-endpoint`)
+const createWebsocket = (host: string, port: number, path = 'websocket-endpoint') =>
+  new WebSocket(`ws://${host}:${port}/${path}`)
 
 export class Ws<Req> {
   private socket: Promise<WebSocket>

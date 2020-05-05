@@ -1,7 +1,6 @@
 import 'whatwg-fetch'
 
 type RequestConfig = {
-  url: string
   method: string
   headers: Headers
   body: string
@@ -10,17 +9,14 @@ type RequestConfig = {
 export const post = async <Req, Res>(
   hostname: string,
   port: number,
-  payload: Req
+  payload: Req,
+  path = 'post-endpoint'
 ): Promise<Res> => {
-  const url = `http://${hostname}:${port}/post-endpoint`
+  const url = `http://${hostname}:${port}/${path}`
   return clientFetch(url, payload, 'POST')
 }
 
 const headers = new Headers([['Content-Type', 'application/json']])
-
-export const setHeaders = (_headers: Headers) => {
-  _headers.forEach((k: string, v: string) => headers.set(k, v))
-}
 
 const handleErrors = (res: Response) => {
   if (!res.ok) throw new Error(res.statusText)
@@ -29,7 +25,6 @@ const handleErrors = (res: Response) => {
 
 const clientFetch = async <S, T>(url: string, payload: S, method: 'POST' | 'GET'): Promise<T> => {
   const request: RequestConfig = {
-    url,
     method,
     headers,
     body: JSON.stringify(payload)
