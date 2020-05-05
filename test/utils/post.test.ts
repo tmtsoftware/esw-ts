@@ -18,7 +18,7 @@ describe('Http util', () => {
   })
 })
 
-function makeResponse(obj: any): Response {
+function makeResponse<T>(obj: T): Response {
   return new Response(JSON.stringify(obj))
 }
 

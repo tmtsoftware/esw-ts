@@ -14,8 +14,8 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "fix": "npm-run-all --parallel fix:eslint fix:prettier",
-    "fix:eslint": "eslint --fix --config .eslintrc.js './src/**/*.ts' --max-warnings 0",
-    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts'",
+    "fix:eslint": "eslint --fix --config .eslintrc.js './src/**/*.ts' './test/**/*.ts' --max-warnings 0",
+    "fix:prettier": "prettier --write --config ./.prettierrc './src/**/*.ts' './test/**/*.ts'",
     "all": "npm-run-all --parallel fix build test"
   },
   "scripts-info": {
