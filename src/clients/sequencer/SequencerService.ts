@@ -41,6 +41,7 @@ import { SequenceCommand } from 'models/params/Command'
 import { SubmitResponse } from 'models/params/CommandResponse'
 import { post } from 'utils/Http'
 import { Ws } from 'utils/Ws'
+import { resolveGateway } from 'clients/gateway/resolveGateway'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
@@ -70,13 +71,15 @@ export interface SequencerServiceApi {
 }
 
 export class SequencerService implements SequencerServiceApi {
-  constructor(readonly host: string, readonly port: number, readonly componentId: ComponentId) {}
+  constructor(readonly componentId: ComponentId) {}
 
   private sequencerCommand = (request: SequencerPostRequest | SequencerWebsocketRequest) =>
     new GatewaySequencerCommand(this.componentId, request)
 
-  private httpPost = <T>(gatewayCommand: GatewaySequencerCommand) =>
-    post<GatewaySequencerCommand, T>(this.host, this.port, gatewayCommand)
+  private httpPost = async <T>(gatewayCommand: GatewaySequencerCommand) => {
+    const { host, port } = await resolveGateway()
+    return post<GatewaySequencerCommand, T>(host, port, gatewayCommand)
+  }
 
   loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
     return this.httpPost<OkOrUnhandledResponse>(this.sequencerCommand(new LoadSequence(sequence)))
@@ -164,8 +167,9 @@ export class SequencerService implements SequencerServiceApi {
     return this.httpPost<OperationsModeResponse>(this.sequencerCommand(new OperationsMode()))
   }
 
-  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
-    return new Ws(this.host, this.port).singleResponse(
+  async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
+    const { host, port } = await resolveGateway()
+    return new Ws(host, port).singleResponse(
       this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds))
     )
   }

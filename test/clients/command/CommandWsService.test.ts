@@ -26,20 +26,24 @@ afterEach(() => {
   mockServer.close()
 })
 describe('CommandService', () => {
-  test('should subscribe to current state using websocket', async () => {
+  test('should subscribe to current state using websocket', () => {
     const expectedState: CurrentState = {
       prefix: 'CSW.ncc.trombone',
       stateName: 'stateName1'
     }
 
     postMockFn.mockResolvedValueOnce([gatewayLocation])
-    await wsMockWithResolved(expectedState, mockServer)
-    await client.subscribeCurrentState(
-      new Set(['stateName1', 'stateName2']),
-      (currentState: CurrentState) => {
-        expect(currentState).toEqual(expectedState)
-      }
-    )
+    wsMockWithResolved(expectedState, mockServer)
+
+    return new Promise((done) => {
+      client.subscribeCurrentState(
+        new Set(['stateName1', 'stateName2']),
+        (currentState: CurrentState) => {
+          expect(currentState).toEqual(expectedState)
+          done()
+        }
+      )
+    })
   })
 
   test('should receive submit response on query final using websocket', async () => {
@@ -50,7 +54,7 @@ describe('CommandService', () => {
     }
 
     postMockFn.mockResolvedValueOnce([gatewayLocation])
-    await wsMockWithResolved(completedResponse, mockServer)
+    wsMockWithResolved(completedResponse, mockServer)
 
     const submitResponse = await client.queryFinal('12345', 1000)
 

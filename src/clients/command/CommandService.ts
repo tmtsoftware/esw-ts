@@ -63,12 +63,15 @@ export class CommandService implements CommandServiceApi {
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void
   ): Subscription {
+    const subscriptionResponse = resolveGateway().then(({ host, port }) =>
+      new Ws(host, port).subscribe(
+        this.componentCommand(new SubscribeCurrentState(stateNames)),
+        onStateChange
+      )
+    )
     return {
-      cancel: async () => {
-        const { host, port } = await resolveGateway()
-        return new Ws(host, port)
-          .subscribe(this.componentCommand(new SubscribeCurrentState(stateNames)), onStateChange)
-          .cancel()
+      cancel: () => {
+        return subscriptionResponse.then((response) => response.cancel())
       }
     }
   }

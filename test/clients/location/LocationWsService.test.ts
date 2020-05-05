@@ -7,7 +7,7 @@ let mockServer: Server
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = new HttpConnection(prefix, 'Sequencer')
-const httpLocation = new HttpLocation(httpConnection, uri)
+const httpLocation: HttpLocation = new HttpLocation(httpConnection, uri)
 
 const locationService = new LocationService()
 
@@ -19,14 +19,17 @@ afterEach(() => {
   mockServer.close()
 })
 
-test('location service must track a location for given connection| ESW-308', async () => {
+test('location service must track a location for given connection| ESW-308', () => {
   const expectedTrackingEvent: LocationUpdated = {
     _type: 'LocationUpdated',
     location: httpLocation
   }
-  await wsMockWithResolved(expectedTrackingEvent, mockServer)
+  wsMockWithResolved(expectedTrackingEvent, mockServer)
 
-  locationService.track(httpConnection, (trackingEvent) => {
-    expect(trackingEvent).toEqual(expectedTrackingEvent)
+  return new Promise((done) => {
+    locationService.track(httpConnection, (trackingEvent) => {
+      expect(trackingEvent).toEqual(JSON.parse(JSON.stringify(expectedTrackingEvent)))
+      done()
+    })
   })
 })
