@@ -18,14 +18,14 @@ describe('Http util', () => {
   })
 })
 
-function makeResponse<T>(obj: T): Response {
-  return new Response(JSON.stringify(obj))
+function makeResponse<T>(response: T): Response {
+  return new Response(JSON.stringify(response))
 }
 
-function makeRequest(msg: string) {
+function makeRequest(request: string) {
   return {
     method: 'POST',
     headers: new Headers([['Content-Type', 'application/json']]),
-    body: JSON.stringify(msg)
+    body: JSON.stringify(request)
   }
 }
