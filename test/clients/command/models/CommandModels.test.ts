@@ -11,7 +11,7 @@ import {
   SubscribeCurrentState
 } from 'clients/command/models/WsCommand'
 import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
-import * as Commands from 'jsons/commandModels.json'
+import * as TestData from 'jsons/commandModels.json'
 import { ComponentId } from 'models/ComponentId'
 import { Observe, Setup } from 'models/params/Command'
 import { Prefix } from 'models/params/Prefix'
@@ -19,53 +19,31 @@ import { Prefix } from 'models/params/Prefix'
 const setupCommand = new Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
 const observeCommand = new Observe('CSW.ncc.trombone', 'move', [], ['obs001'])
 
-test('Submit command', () => {
-  const observeSubmit: CommandServiceHttpMessage = new Submit(observeCommand)
+const observeSubmit: CommandServiceHttpMessage = new Submit(observeCommand)
+const setupOneway: CommandServiceHttpMessage = new Oneway(setupCommand)
+const observeValidate: CommandServiceHttpMessage = new Validate(observeCommand)
+const queryCommand: CommandServiceHttpMessage = new Query('33b4515c-b226-491b-9626-898244490151')
+const queryFinalCommand: CommandServiceWsMessage = new QueryFinal(
+  '382aec51-928d-4a8d-8f16-8880c3f35d31',
+  10000
+)
+const subscribeCurrentState: CommandServiceWsMessage = new SubscribeCurrentState(
+  new Set(['temp', 'position'])
+)
+const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+const gatewayCommand: GatewayComponentCommand = new GatewayComponentCommand(
+  compId,
+  new Submit(observeCommand)
+)
 
-  expect(observeSubmit).toEqual(Commands.Submit)
-})
-
-test('Oneway command', () => {
-  const setupOneway: CommandServiceHttpMessage = new Oneway(setupCommand)
-
-  expect(setupOneway).toEqual(Commands.Oneway)
-})
-
-test('Validate command', () => {
-  const observeValidate: CommandServiceHttpMessage = new Validate(observeCommand)
-
-  expect(observeValidate).toEqual(Commands.Validate)
-})
-
-test('Query command', () => {
-  const queryCommand: CommandServiceHttpMessage = new Query('33b4515c-b226-491b-9626-898244490151')
-
-  expect(queryCommand).toEqual(Commands.Query)
-})
-
-test('QueryFinal command', () => {
-  const queryFinalCommand: CommandServiceWsMessage = new QueryFinal(
-    '382aec51-928d-4a8d-8f16-8880c3f35d31',
-    10000
-  )
-
-  expect(queryFinalCommand).toEqual(Commands.QueryFinal)
-})
-
-test('SubscribeCurrentState command', () => {
-  const subscribeCurrentState: CommandServiceWsMessage = new SubscribeCurrentState(
-    new Set(['temp', 'position'])
-  )
-
-  expect(subscribeCurrentState).toEqual(Commands.SubscribeCurrentState)
-})
-
-test('GatewayCommand', () => {
-  const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
-  const gatewayCommand: GatewayComponentCommand = new GatewayComponentCommand(
-    compId,
-    new Submit(observeCommand)
-  )
-
-  expect(JSON.parse(JSON.stringify(gatewayCommand))).toEqual(Commands.GatewayCommand)
+describe('Commands ', () => {
+  test.each([
+    ['Submit', observeSubmit, TestData.Submit],
+    ['Oneway', setupOneway, TestData.Oneway],
+    ['Validate', observeValidate, TestData.Validate],
+    ['Query', queryCommand, TestData.Query],
+    ['Query Final', queryFinalCommand, TestData.QueryFinal],
+    ['Query Final', subscribeCurrentState, TestData.SubscribeCurrentState],
+    ['Gateway', gatewayCommand, TestData.GatewayCommand]
+  ])('%s', (_, actual, expected) => expect(JSON.parse(JSON.stringify(actual))).toEqual(expected))
 })
