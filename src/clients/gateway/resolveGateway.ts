@@ -15,10 +15,9 @@ export const GatewayConnection = new HttpConnection(
   GatewayConfig.componentType
 )
 
-export const resolveGateway = () => {
+export const resolveGateway = async () => {
   const locationService = new LocationService()
-  return locationService.resolve(GatewayConnection, ResolveTimeout).then(([location]) => {
-    if (!location) throw Error(`Gateway Server not found for connection: ${GatewayConnection}`)
-    return extractHostPort(location)
-  })
+  const [location] = await locationService.resolve(GatewayConnection, ResolveTimeout)
+  if (!location) throw Error(`Gateway Server not found for connection: ${GatewayConnection}`)
+  return extractHostPort(location)
 }

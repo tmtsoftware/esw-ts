@@ -52,7 +52,7 @@ const doubleMatrixParam = Keys.doubleMatrixKey('test matrix').set([fractionMatri
 
 const structParam = Keys.structKey('structKey').set([{ paramSet: [intParam, stringParam] }])
 
-const resetKey = Keys.choiceKey('mode-reset', 'NoUnits')
+const resetKey = Keys.choiceKey('mode-reset')
 const choices = resetKey.makeChoices('c', 'x', 'v', 'y')
 const choiceParam = resetKey.setChoice(choices, ['c'])
 

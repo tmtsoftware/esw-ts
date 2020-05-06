@@ -1,7 +1,7 @@
 import { GatewayConnection } from 'clients/gateway/resolveGateway'
 import { HttpLocation } from 'clients/location'
 import { SequencerService, Step, StepList, StepStatus } from 'clients/sequencer'
-import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from 'models'
+import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse, Wait } from 'models'
 import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/post'
 
@@ -9,7 +9,8 @@ const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService(componentId)
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
-const commands: SequenceCommand[] = [setupCommand]
+const waitCommand = new Wait('ESW.test', 'command-1', [])
+const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
 jest.mock('utils/post')

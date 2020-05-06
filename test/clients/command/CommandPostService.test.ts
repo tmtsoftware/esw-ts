@@ -65,7 +65,7 @@ describe('CommandService', () => {
     postMockFn.mockResolvedValueOnce([gatewayLocation])
     postMockFn.mockResolvedValueOnce(acceptedResponse)
 
-    const observeCommand = new Observe('esw.test', 'c1', [], ['obsId'])
+    const observeCommand = new Observe('esw.test', 'c1', [])
     const data: OneWayResponse = await client.oneway(observeCommand)
 
     expect(postMockFn).toBeCalledTimes(2)

@@ -30,10 +30,5 @@ const clientFetch = async <S, T>(url: string, payload: S, method: 'POST' | 'GET'
     body: JSON.stringify(payload)
   }
 
-  return new Promise((resolve, reject) =>
-    fetch(url, request)
-      .then(handleErrors)
-      .then(async (response) => resolve(await response.json()))
-      .catch((e) => reject(new Error(e.message)))
-  )
+  return await handleErrors(await fetch(url, request)).json()
 }

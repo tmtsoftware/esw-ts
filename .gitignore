@@ -7,3 +7,4 @@ dist
 yarn.lock
 *.tsbuildinfo
 *.iml
+coverage

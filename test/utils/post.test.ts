@@ -16,10 +16,22 @@ describe('Http util', () => {
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     expect(response).toEqual(expectedValue)
   })
+
+  test('Post throws error', async () => {
+    postMockFn.mockResolvedValueOnce(makeErrorResponse())
+    const payload = 'hello'
+
+    await expect(post(host, port, payload)).rejects.toThrow(Error)
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+  })
 })
 
 function makeResponse<T>(response: T): Response {
   return new Response(JSON.stringify(response))
+}
+
+function makeErrorResponse(): Response {
+  return new Response('', { status: 404, statusText: 'bad request' })
 }
 
 function makeRequest(request: string) {

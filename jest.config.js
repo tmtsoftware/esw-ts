@@ -5,5 +5,13 @@ module.exports = {
   testPathIgnorePatterns: ['test/utils/MockHelpers.ts'],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   moduleDirectories: ['node_modules', 'src', 'test'],
-  verbose: true
+  verbose: true,
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90
+    }
+  }
 }

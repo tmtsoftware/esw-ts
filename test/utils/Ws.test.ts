@@ -11,6 +11,7 @@ beforeEach(() => {
 afterEach(() => {
   mockServer.close()
 })
+
 describe('Web socket util', () => {
   test('subscribe', () => {
     return new Promise((done) => {
