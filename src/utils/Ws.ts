@@ -34,7 +34,7 @@ export class Ws<Req> {
   }
 
   private readonly subscription: Subscription = {
-    cancel: () => this.socket.then((wss) => wss.close)
+    cancel: () => this.socket.then((wss) => wss.close())
   }
 }
 

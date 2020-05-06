@@ -13,5 +13,6 @@ module.exports = {
       lines: 90,
       statements: 90
     }
-  }
+  },
+  coveragePathIgnorePatterns: ['/node_modules/', 'test/utils/MockHelpers.ts']
 }
