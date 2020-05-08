@@ -8,3 +8,7 @@ yarn.lock
 *.tsbuildinfo
 *.iml
 coverage
+tmt-backend/.idea/*
+tmt-backend/target/*
+tmt-backend/project/project/*
+tmt-backend/project/target/*
