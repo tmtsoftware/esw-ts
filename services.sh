@@ -9,5 +9,3 @@ for i in "$@" ; do
     args="${args} ${i}"
 done
 sbt "~run ${args}"
-
-#kill -9 $(ps aux | grep "Backend" | awk '{print $2}' | head -1 )

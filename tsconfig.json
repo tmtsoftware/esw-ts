@@ -27,7 +27,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*", "test/*"]
+      "*": ["src/*", "test/*", "integration/*"]
     },
 
     /* Additional Checks from jest*/
@@ -36,6 +36,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src/**/*", "test/**/*", "integration/**/*"],
   "exclude": ["node_modules", "dist"]
 }
