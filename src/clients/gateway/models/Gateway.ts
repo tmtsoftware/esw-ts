@@ -16,6 +16,6 @@ export class GatewaySequencerCommand {
   readonly _type: 'SequencerCommand' = 'SequencerCommand'
   constructor(
     readonly componentId: ComponentId,
-    readonly sequencerCommand: SequencerPostRequest | SequencerWebsocketRequest
+    readonly command: SequencerPostRequest | SequencerWebsocketRequest
   ) {}
 }

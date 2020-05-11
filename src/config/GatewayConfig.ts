@@ -7,6 +7,6 @@ export interface GatewayConfig {
 
 export const GatewayConfig: GatewayConfig = {
   subsystem: 'ESW',
-  componentName: 'Gateway',
+  componentName: 'EswGateway',
   componentType: 'Service'
 }
