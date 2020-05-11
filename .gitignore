@@ -11,3 +11,5 @@ coverage
 tmt-backend/.idea/*
 tmt-backend/project/project/*
 */**/target
+.metals
+.bloop
