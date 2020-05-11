@@ -27,6 +27,7 @@ lazy val `tmt-backend` = (project in file("."))
     libraryDependencies ++= Seq(
       CSW.`csw-services`,
       CSW.`csw-framework`,
-      ESW.`esw-gateway-server`
+      ESW.`esw-gateway-server`,
+      ESW.`esw-testkit`
     )
   )
