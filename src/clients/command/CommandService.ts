@@ -35,13 +35,14 @@ export interface CommandServiceApi {
 export class CommandService implements CommandServiceApi {
   constructor(readonly componentId: ComponentId) {}
 
-  private componentCommand = (msg: CommandServiceHttpMessage | CommandServiceWsMessage) =>
-    new GatewayComponentCommand(this.componentId, msg)
+  private componentCommand(msg: CommandServiceHttpMessage | CommandServiceWsMessage) {
+    return new GatewayComponentCommand(this.componentId, msg)
+  }
 
-  private httpPost = <T>(gatewayCommand: GatewayComponentCommand): Promise<T> =>
-    resolveGateway().then(({ host, port }) =>
-      post<GatewayComponentCommand, T>(host, port, gatewayCommand)
-    )
+  private async httpPost<T>(gatewayCommand: GatewayComponentCommand): Promise<T> {
+    const { host, port } = await resolveGateway()
+    return post<GatewayComponentCommand, T>(host, port, gatewayCommand)
+  }
 
   async validate(command: ControlCommand): Promise<ValidateResponse> {
     return this.httpPost<ValidateResponse>(this.componentCommand(new Validate(command)))
