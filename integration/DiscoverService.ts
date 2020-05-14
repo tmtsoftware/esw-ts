@@ -1,26 +1,30 @@
-import { post } from 'utils/post'
-import { ListEntries } from 'clients/location/models/PostCommand'
 import { Location } from 'clients/location/models/Location'
+import { ListEntries } from 'clients/location/models/PostCommand'
 import { Prefix } from 'models'
-
-let timer: NodeJS.Timeout
+import { post } from 'utils/post'
 
 const fetchLocation = (prefix: Prefix) => {
-  post<ListEntries, Location[]>('localhost', 7654, new ListEntries())
-    .catch((_: Error) => {
+  return post<ListEntries, Location[]>('localhost', 7654, new ListEntries())
+    .catch(() => {
       console.log(`${prefix.componentName} service not found`)
       return []
     })
     .then(getOnfulfilled(prefix))
 }
 
-function getOnfulfilled(prefix: Prefix) {
+const match = (prefix: Prefix) => {
+  return (location: Location) => {
+    const prefix1 = location.connection.prefix.toString()
+    const prefix2 = prefix.toJSON().toString()
+
+    return prefix1 === prefix2
+  }
+}
+
+const getOnfulfilled = (prefix: Prefix) => {
   return async (result: Location[]) => {
-    if (result.length > 0) {
-      console.log('connection', result[0].connection)
-      if (result[0].connection.prefix === prefix) {
-        await callUntil(prefix, true)
-      }
+    if (result.length > 0 && result.some(match(prefix))) {
+      await callUntil(prefix, true)
     } else {
       await callUntil(prefix)
     }
@@ -30,10 +34,10 @@ function getOnfulfilled(prefix: Prefix) {
 export const callUntil = (prefix: Prefix, resolved = false) => {
   return new Promise((resolve) => {
     if (resolved) {
-      clearTimeout(timer)
+      console.log(`${prefix.componentName} is resolved`)
       resolve()
     } else {
-      timer = setTimeout(() => fetchLocation(prefix), 1000)
+      setTimeout(() => fetchLocation(prefix).then(resolve), 1000)
     }
   })
 }

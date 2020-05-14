@@ -15,7 +15,7 @@ import csw.params.commands.CommandResponse
 class TestHcdHandlers(ctx: ActorContext[TopLevelActorMessage], cswCtx: CswContext)
     extends ComponentHandlers(ctx, cswCtx) {
 
-  override def initialize(): Future[Unit] = ???
+  override def initialize(): Future[Unit] = Future.unit
 
   override def onLocationTrackingEvent(trackingEvent: TrackingEvent): Unit = ???
 

@@ -19,16 +19,14 @@ object TSCommands {
       case "Config"   => Right(WrappedCSWService(ConfigServer))
     }
   }
+
   @CommandName("startServices")
   final case class StartServices(
       @HelpMessage("Service name e.g., Location, Gateway etc")
       @ExtraName("s")
-      services: List[Service]
-  ) extends TSCommands
-
-  @CommandName("startComponent")
-  final case class StartComponent(
+      services: List[Service],
       @HelpMessage("Config(contains prefix, componentType, handler etc) name to start component e.g. testHCD.conf")
-      conf: String
+      @ExtraName("c")
+      conf: Option[String]
   ) extends TSCommands
 }
