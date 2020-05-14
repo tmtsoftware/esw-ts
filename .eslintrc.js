@@ -7,7 +7,7 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:import/typescript',
+    'plugin:import/typescript'
   ],
   plugins: ['@typescript-eslint', 'prettier', 'jest', 'import'],
   rules: {
@@ -17,13 +17,13 @@ module.exports = {
     'import/no-absolute-path': 2,
     'import/first': 2,
     'import/order': 0,
-    'jest/expect-expect': 0,
+    'jest/expect-expect': 0
   },
   settings: {
     'import/resolver': {
       typescript: {
-        directory: './src',
-      },
-    },
-  },
+        directory: './src'
+      }
+    }
+  }
 }

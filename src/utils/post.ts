@@ -18,7 +18,7 @@ export const post = async <Req, Res>(
 
 const headers = new Headers([['Content-Type', 'application/json']])
 
-const handleErrors = (res: Response) => {
+const handleErrors = async (res: Response) => {
   if (!res.ok) throw new Error(res.statusText)
   return res
 }
@@ -29,6 +29,10 @@ const clientFetch = async <S, T>(url: string, payload: S, method: 'POST' | 'GET'
     headers,
     body: JSON.stringify(payload)
   }
-
-  return await handleErrors(await fetch(url, request)).json()
+  try {
+    const res = await fetch(url, request)
+    return (await handleErrors(res)).json()
+  } catch (e) {
+    throw new Error(e)
+  }
 }
