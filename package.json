@@ -12,6 +12,8 @@
     "build:clean": "npm-run-all clean tsc",
     "build:watch": "tsc -w",
     "test": "jest",
+    "test:unit": "jest unit",
+    "test:integration": "jest int",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "fix": "npm-run-all --parallel fix:eslint fix:prettier",
