@@ -5,7 +5,11 @@ module.exports = {
     '(/test/.*|(\\.|/)(test|spec))\\.ts?$',
     '(/integration/.*|(\\.|/)(test|spec))\\.ts?$'
   ],
-  testPathIgnorePatterns: ['test/utils/MockHelpers.ts'],
+  testPathIgnorePatterns: [
+    'test/utils/MockHelpers.ts',
+    'integration/DiscoverService.ts',
+    'integration/ScriptHelper.ts'
+  ],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   moduleDirectories: ['node_modules', 'src', 'test', 'integration'],
   verbose: true,
@@ -17,5 +21,5 @@ module.exports = {
       statements: 90
     }
   },
-  coveragePathIgnorePatterns: ['/node_modules/', 'test/utils/MockHelpers.ts']
+  coveragePathIgnorePatterns: ['/node_modules/', 'test/utils/MockHelpers.ts', '/integration/']
 }

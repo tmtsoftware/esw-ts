@@ -8,14 +8,7 @@ export const spawnServices = (serviceNames: ServiceName[], componentConf?: strin
   if (!!componentConf) {
     args = args.concat(['-c', componentConf])
   }
-  const process = spawn('sh', [path.resolve(__dirname, '../services.sh'), 'startServices', ...args])
-
-  process.stdout.on('data', (data) => console.log(data.toString()))
-  process.stdout.on('', (data) => console.log(data.toString()))
+  spawn('sh', [path.resolve(__dirname, '../services.sh'), 'startServices', ...args])
 }
 
-export const stopServices = () => {
-  const process = spawn('sh', [path.resolve(__dirname, '../stopServices.sh')])
-
-  process.stdout.on('data', (data) => console.log(data.toString()))
-}
+export const stopServices = () => spawn('sh', [path.resolve(__dirname, '../stopServices.sh')])
