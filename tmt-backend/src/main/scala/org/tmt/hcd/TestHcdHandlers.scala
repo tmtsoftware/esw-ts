@@ -13,8 +13,7 @@ import scala.concurrent.Future
 import csw.params.commands.CommandResponse
 import csw.params.commands.CommandResponse.{Accepted, Completed}
 
-class TestHcdHandlers(ctx: ActorContext[TopLevelActorMessage], cswCtx: CswContext)
-    extends ComponentHandlers(ctx, cswCtx) {
+class TestHcdHandlers(ctx: ActorContext[TopLevelActorMessage], cswCtx: CswContext) extends ComponentHandlers(ctx, cswCtx) {
 
   override def initialize(): Future[Unit] = Future.unit
 

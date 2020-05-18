@@ -26,5 +26,6 @@ lazy val `tmt-backend` = (project in file("."))
   .settings(
     libraryDependencies ++= Seq(
       ESW.`esw-testkit`
-    )
+    ),
+    fork := true
   )

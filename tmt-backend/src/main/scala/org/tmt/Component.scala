@@ -18,4 +18,9 @@ object Component extends EswCommandApp[TSComponentCommands] {
       case StartComponent(conf) => frameworkTestKit.spawnStandalone(config(conf))
     }
   }
+
+  override def exit(code: Int): Nothing = {
+    eswTestKit.afterAll()
+    super.exit(code)
+  }
 }
