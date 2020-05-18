@@ -2,14 +2,14 @@ package org.tmt
 
 import java.nio.file.{Path, Paths}
 
+import caseapp.core.argparser.SimpleArgParser
+import caseapp.{ExtraName, HelpMessage, _}
 import csw.testkit.scaladsl.CSWService.{AlarmServer, ConfigServer, EventServer, LocationServer}
 import esw.ocs.testkit.Service
 import esw.ocs.testkit.Service.{Gateway, WrappedCSWService}
-import caseapp.{ExtraName, HelpMessage, _}
-import caseapp.core.argparser.SimpleArgParser
 
-sealed trait TSCommands
-object TSCommands {
+sealed trait TSServicesCommands
+object TSServicesCommands {
   private lazy val getCommandRolesPath =
     Paths.get("tmt-backend", "src", "main", "resources").resolve("commandRoles.conf").toAbsolutePath
 
@@ -28,11 +28,8 @@ object TSCommands {
       @HelpMessage("Service name e.g., Location, Gateway etc")
       @ExtraName("s")
       services: List[Service],
-      @HelpMessage("Config(contains prefix, componentType, handler etc) name to start component e.g. testHCD.conf")
-      @ExtraName("c")
-      conf: Option[String],
       @HelpMessage("path to command role from root directory")
       @ExtraName("r")
       commandRoles: Path = getCommandRolesPath
-  ) extends TSCommands
+  ) extends TSServicesCommands
 }

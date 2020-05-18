@@ -3,16 +3,12 @@ package org.tmt
 import java.nio.file.Path
 
 import caseapp.RemainingArgs
-import com.typesafe.config.ConfigFactory
-import csw.logging.client.scaladsl.LoggingSystemFactory
 import esw.http.core.commons.EswCommandApp
 import esw.ocs.testkit.Service.Gateway
 import esw.ocs.testkit.{EswTestKit, Service}
-import org.tmt.TSCommands._
+import org.tmt.TSServicesCommands._
 
-object Backend extends EswCommandApp[TSCommands] {
-
-  private def config(name: String) = ConfigFactory.parseResources(name)
+object BackendService extends EswCommandApp[TSServicesCommands] {
 
   private val eswTestKit: EswTestKit = new EswTestKit() {}
 
@@ -23,12 +19,9 @@ object Backend extends EswCommandApp[TSCommands] {
     if (services.contains(Gateway)) spawnGateway(commandRoles)
   }
 
-  override def run(options: TSCommands, remainingArgs: RemainingArgs): Unit = {
+  override def run(options: TSServicesCommands, remainingArgs: RemainingArgs): Unit = {
     options match {
-      case StartServices(services, None, commandRoles)       => startServices(services, commandRoles)
-      case StartServices(services, Some(conf), commandRoles) =>
-        startServices(services, commandRoles)
-        frameworkTestKit.spawnStandalone(config(conf))
+      case StartServices(services, commandRoles) => startServices(services, commandRoles)
     }
   }
 
