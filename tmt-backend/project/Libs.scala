@@ -20,8 +20,7 @@ object CSW {
 }
 
 object ESW {
-  val Version: String = "42d4d3ba41"
+  val Version: String = "a202a1e38b"
 
-  val `esw-gateway-server` = "com.github.tmtsoftware.esw" %% "esw-gateway-server" % Version
   val `esw-testkit` = "com.github.tmtsoftware.esw" %% "esw-testkit" % Version
 }

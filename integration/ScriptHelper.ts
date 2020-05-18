@@ -4,7 +4,10 @@ import * as path from 'path'
 export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config'
 
 export const spawnServices = (serviceNames: ServiceName[], componentConf?: string) => {
-  let args = serviceNames.map((x) => `-s ${x}`)
+  let args: string[] = []
+  serviceNames.forEach((x) => {
+    args = args.concat(['-s', x])
+  })
   if (!!componentConf) {
     args = args.concat(['-c', componentConf])
   }

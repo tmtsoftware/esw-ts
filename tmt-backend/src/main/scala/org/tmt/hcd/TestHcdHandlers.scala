@@ -11,6 +11,7 @@ import csw.time.core.models.UTCTime
 
 import scala.concurrent.Future
 import csw.params.commands.CommandResponse
+import csw.params.commands.CommandResponse.{Accepted, Completed}
 
 class TestHcdHandlers(ctx: ActorContext[TopLevelActorMessage], cswCtx: CswContext)
     extends ComponentHandlers(ctx, cswCtx) {
@@ -19,13 +20,14 @@ class TestHcdHandlers(ctx: ActorContext[TopLevelActorMessage], cswCtx: CswContex
 
   override def onLocationTrackingEvent(trackingEvent: TrackingEvent): Unit = ???
 
-  override def validateCommand(runId: Id, controlCommand: ControlCommand): CommandResponse.ValidateCommandResponse = ???
+  override def validateCommand(runId: Id, controlCommand: ControlCommand): CommandResponse.ValidateCommandResponse =
+    Accepted(runId)
 
-  override def onSubmit(runId: Id, controlCommand: ControlCommand): CommandResponse.SubmitResponse = ???
+  override def onSubmit(runId: Id, controlCommand: ControlCommand): CommandResponse.SubmitResponse = Completed(runId)
 
-  override def onOneway(runId: Id, controlCommand: ControlCommand): Unit = ???
+  override def onOneway(runId: Id, controlCommand: ControlCommand): Unit = {}
 
-  override def onDiagnosticMode(startTime: UTCTime, hint: String): Unit = ???
+  override def onDiagnosticMode(startTime: UTCTime, hint: String): Unit = {}
 
   override def onOperationsMode(): Unit = ???
 
