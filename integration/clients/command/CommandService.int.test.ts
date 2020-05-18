@@ -1,6 +1,6 @@
-import { Prefix, ComponentId, Setup } from 'models'
-import { spawnComponent, spawnServices, stopServices } from 'ScriptHelper'
 import { CommandService } from 'clients/command'
+import { ComponentId, Prefix, Setup } from 'models'
+import { spawnComponent, spawnServices, stopServices } from 'ScriptHelper'
 
 jest.setTimeout(20000)
 
@@ -19,7 +19,6 @@ afterAll(() => {
 })
 
 test('command client integration test', async () => {
-  console.log('test is started')
   const componentId = new ComponentId(new Prefix('CSW', 'testHcd'), 'HCD')
   const commandService = new CommandService(componentId)
   const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
