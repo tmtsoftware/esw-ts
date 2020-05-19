@@ -28,7 +28,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: cd tmt-backend && sbt publishLocal && cd ..
+      - run: cd tmt-backend && sbt publishLocal
         shell: bash
 
       - run: npm install
