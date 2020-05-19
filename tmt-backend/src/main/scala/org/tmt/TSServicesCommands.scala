@@ -12,7 +12,7 @@ import esw.ocs.testkit.Service.Gateway
 sealed trait TSServicesCommands
 object TSServicesCommands {
 
-  private lazy val commandRolesPath = Paths.get("src/main/resources/commandRoles.conf").toAbsolutePath
+  private lazy val commandRolesPath = Paths.get("tmt-backend/src/main/resources/commandRoles.conf").toAbsolutePath
 
   implicit val serviceParser: SimpleArgParser[Service] = {
     SimpleArgParser.from[Service]("service") {

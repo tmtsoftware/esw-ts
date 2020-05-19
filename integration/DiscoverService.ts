@@ -1,11 +1,10 @@
-import { HttpConnection, LocationService } from 'clients/location'
-import { ComponentType, Prefix } from 'models'
+import { Connection, LocationService } from 'clients/location'
 
-export const isResolved = async (prefix: Prefix, componentType: ComponentType) => {
-  const locationService = new LocationService()
-  const connection: HttpConnection = new HttpConnection(prefix, componentType)
+const locationService = new LocationService()
 
+export const isResolved = async (connection: Connection) => {
   const [location] = await locationService.resolve(connection, 10)
-  if (!location) throw new Error(`prefix ${prefix} not found`)
+  if (!location) throw new Error(`${connection.prefix.toJSON()} not found`)
+  console.log(`${connection.prefix.toJSON()} is resolved`)
   return true
 }
