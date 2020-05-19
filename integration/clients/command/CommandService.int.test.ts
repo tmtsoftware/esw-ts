@@ -1,6 +1,6 @@
 import { CommandService } from 'clients/command'
 import { ComponentId, Prefix, Setup } from 'models'
-import { spawnComponent, spawnServices, stopServices } from 'ScriptHelper'
+import { spawnComponent, spawnServices, stopServices } from 'utils/ScriptHelper'
 
 jest.setTimeout(30000)
 

@@ -1,10 +1,8 @@
-import { spawn } from 'child_process'
 import { Connection, HttpConnection, LocationService } from 'clients/location'
-import { isResolved } from 'DiscoverService'
 import { ComponentType, Prefix } from 'models'
-import * as path from 'path'
-
-const RESOURCE_PATH = path.resolve(__dirname, '../tmt-backend/src/main/resources')
+import { isResolved } from 'utils/DiscoverService'
+import { eventually } from 'utils/eventually'
+import { compConfAbsolutePath, executeComponentScript, executeServicesScript } from 'utils/shell'
 
 export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config'
 const connections: Map<ServiceName, Connection> = new Map()
@@ -23,17 +21,7 @@ const connectionFor = (serviceName: ServiceName): Connection =>
 
 const locationService = new LocationService()
 
-const waitForLocationToUp = () => {
-  return new Promise((resolve) =>
-    locationService
-      .list()
-      .catch(() => false)
-      .then((res) => {
-        if (res) resolve()
-        setTimeout(() => waitForLocationToUp().then(resolve), 1000)
-      })
-  )
-}
+const waitForLocationToUp = () => eventually(() => locationService.list())
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
@@ -43,10 +31,9 @@ const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
 }
 
 export const spawnServices = async (serviceNames: ServiceName[]) => {
-  const args = joinWithPrefix(serviceNames)
-  spawn('sh', [path.resolve(__dirname, '../services.sh'), 'start', ...args])
-
-  return await waitForServicesToUp(serviceNames)
+  const args = ['start', ...joinWithPrefix(serviceNames)]
+  executeServicesScript(args)
+  return waitForServicesToUp(serviceNames)
 }
 
 export const spawnComponent = async (
@@ -54,13 +41,9 @@ export const spawnComponent = async (
   componentType: ComponentType,
   componentConf: string
 ) => {
-  spawn('sh', [
-    path.resolve(__dirname, '../component.sh'),
-    '--local',
-    '--standalone',
-    path.resolve(RESOURCE_PATH, componentConf)
-  ])
+  const compConfAbsPath = compConfAbsolutePath(componentConf)
+  executeComponentScript(['--local', '--standalone', compConfAbsPath])
   return await isResolved(new HttpConnection(prefix, componentType))
 }
 
-export const stopServices = () => spawn('sh', [path.resolve(__dirname, '../stopServices.sh')])
+export const stopServices = () => executeServicesScript([])
