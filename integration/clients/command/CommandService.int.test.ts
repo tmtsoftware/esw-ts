@@ -1,6 +1,6 @@
 import { CommandService } from 'clients/command'
 import { ComponentId, Prefix, Setup } from 'models'
-import { spawnComponent, spawnServices, stopServices } from 'utils/ScriptHelper'
+import { startComponent, startServices, stopServices } from 'utils/backend'
 
 jest.setTimeout(30000)
 
@@ -9,8 +9,8 @@ const hcdPrefix = new Prefix('CSW', 'testHcd')
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  await spawnServices(['Gateway'])
-  await spawnComponent(hcdPrefix, 'HCD', 'testHcd.conf')
+  await startServices(['Gateway'])
+  await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
 })
 
 afterAll(() => {

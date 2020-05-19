@@ -1,7 +1,7 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
-import { resolve } from 'utils/DiscoverService'
 import { eventually } from 'utils/eventually'
+import { resolve } from 'utils/resolve'
 import {
   compConfAbsolutePath,
   executeComponentScript,
@@ -34,12 +34,12 @@ const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   return servicesResolveStatus
 }
 
-export const spawnServices = (serviceNames: ServiceName[]) => {
+export const startServices = (serviceNames: ServiceName[]) => {
   executeServicesScript(['start', ...joinWithPrefix(serviceNames)])
   return waitForServicesToUp(['Gateway'])
 }
 
-export const spawnComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
+export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
   executeComponentScript(['--local', '--standalone', compConfAbsolutePath(componentConf)])
   return resolve(new HttpConnection(prefix, compType))
 }
