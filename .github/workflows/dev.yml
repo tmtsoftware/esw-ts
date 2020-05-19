@@ -29,12 +29,12 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Cache ~/.sbt
-          uses: actions/cache@v1
-          with:
-            path: ~/.sbt
-            key: ${{ runner.os }}-sbt-${{ hashFiles('tmt-backend/project/build.properties') }}
-            restore-keys: |
-              ${{ runner.os }}-sbt-
+        uses: actions/cache@v1
+        with:
+          path: ~/.sbt
+          key: ${{ runner.os }}-sbt-${{ hashFiles('tmt-backend/project/build.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-sbt-
 
       - run: cd tmt-backend && sbt publishLocal
       - run: npm install
