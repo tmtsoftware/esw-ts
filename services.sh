@@ -11,4 +11,4 @@ LONELYPLANET_RESOLVER=bintray:lonelyplanet/maven
 AKKA_HTTP_SPRAY_JSON=com.typesafe.akka:akka-http-spray-json_2.13:10.2.0-M1
 
 COURSIER_BIN=$SCRIPTPATH/tmt-backend/scripts/coursier
-cs launch -r $LONELYPLANET_RESOLVER -r jitpack -r https://jcenter.bintray.com $TMT_BACKEND_LIB:$TMT_BACKEND_VERSION $AKKA_HTTP_SPRAY_JSON -M org.tmt.BackendService -- "$@"
+$COURSIER_BIN launch -r $LONELYPLANET_RESOLVER -r jitpack -r https://jcenter.bintray.com $TMT_BACKEND_LIB:$TMT_BACKEND_VERSION $AKKA_HTTP_SPRAY_JSON -M org.tmt.BackendService -- "$@"
