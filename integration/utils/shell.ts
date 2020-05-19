@@ -1,4 +1,4 @@
-import { spawn } from 'child_process'
+import { exec } from 'child_process'
 import * as path from 'path'
 
 const scriptDir = path.resolve(__dirname, '../..')
@@ -12,11 +12,15 @@ const executeScript = (script: string) => (args: string[]) => {
   const cmd = [script, ...args]
   console.log(`Executing cmd : ${cmd.join(' ')}`)
 
-  return spawn('sh', cmd)
+  const child = exec(cmd.join(' '))
+
+  if (child.stdout != null) child.stdout.pipe(process.stdout)
+
+  return child
 }
 
 export const compConfAbsolutePath = (name: string) => path.resolve(resourcesPath, name)
 
 export const executeServicesScript = executeScript(servicesScript)
 export const executeComponentScript = executeScript(componentScript)
-export const executeStopServices = executeScript(stopServicesScript)
+export const executeStopServicesScript = executeScript(stopServicesScript)

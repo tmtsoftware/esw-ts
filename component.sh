@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 SCRIPTPATH="$(
-  cd "$(dirname "$0")" >/dev/null 2>&1 || exit
-  pwd -P
+    cd "$(dirname "$0")" >/dev/null 2>&1 || exit
+    pwd -P
 )"
 
 TMT_BACKEND_LIB=com.github.tmtsoftware.tmt-backend:tmt-backend_2.13

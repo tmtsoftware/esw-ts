@@ -9,7 +9,7 @@ export const eventually = async <T>(task: Task<T>): Promise<T> => {
   }
 
   const loop = async (currentRetryCount: number): Promise<T> => {
-    if (currentRetryCount >= retries) return Promise.reject('Task failed after eventually')
+    if (currentRetryCount == retries - 1) return await task()
     else {
       try {
         return await task()
