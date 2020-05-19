@@ -1,6 +1,6 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
-import { isResolved } from 'utils/DiscoverService'
+import { resolve } from 'utils/DiscoverService'
 import { eventually } from 'utils/eventually'
 import {
   compConfAbsolutePath,
@@ -30,9 +30,8 @@ const waitForLocationToUp = () => eventually(() => locationService.list())
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
-  const servicesResolveStatus = await Promise.all(serviceNames.map(connectionFor).map(isResolved))
-
-  return servicesResolveStatus.every((resolved) => resolved)
+  const servicesResolveStatus = await Promise.all(serviceNames.map(connectionFor).map(resolve))
+  return servicesResolveStatus
 }
 
 export const spawnServices = (serviceNames: ServiceName[]) => {
@@ -42,7 +41,7 @@ export const spawnServices = (serviceNames: ServiceName[]) => {
 
 export const spawnComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
   executeComponentScript(['--local', '--standalone', compConfAbsolutePath(componentConf)])
-  return isResolved(new HttpConnection(prefix, compType))
+  return resolve(new HttpConnection(prefix, compType))
 }
 
 export const stopServices = () => executeStopServicesScript([])
