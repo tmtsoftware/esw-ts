@@ -13,10 +13,9 @@ beforeAll(async () => {
   await spawnComponent(hcdPrefix, 'HCD', 'testHcd.conf')
 })
 
-afterAll((done) => {
+afterAll(() => {
   stopServices()
   jest.clearAllMocks()
-  done()
 })
 
 test('command client integration test', async () => {

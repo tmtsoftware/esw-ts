@@ -40,6 +40,8 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test:coverage
+        env:       
+          CI: true
 
       - name: Notify slack
         if: always()
