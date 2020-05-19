@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: olafurpg/setup-scala@v7
+        with:
+          java-version: adopt@1.11
 
       - uses: actions/setup-node@v1
         with:
@@ -24,6 +27,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      - uses: ./
+      - run: cd tmt-backend && sbt publishLocal && cd ..
+        shell: bash
 
       - run: npm install
       - run: npm run build
