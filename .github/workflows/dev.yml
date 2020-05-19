@@ -28,7 +28,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - uses: ./
       - run: cd tmt-backend && sbt publishLocal && cd ..
         shell: bash
 
