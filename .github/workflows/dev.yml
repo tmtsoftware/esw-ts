@@ -28,9 +28,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: cd tmt-backend && sbt publishLocal
-        shell: bash
+      - name: Cache ~/.sbt
+          uses: actions/cache@v1
+          with:
+            path: ~/.sbt
+            key: ${{ runner.os }}-sbt-${{ hashFiles('tmt-backend/project/build.properties') }}
+            restore-keys: |
+              ${{ runner.os }}-sbt-
 
+      - run: cd tmt-backend && sbt publishLocal
       - run: npm install
       - run: npm run build
       - run: npm run test:coverage

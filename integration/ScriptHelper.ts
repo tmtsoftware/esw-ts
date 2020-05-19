@@ -1,11 +1,10 @@
 import { spawn } from 'child_process'
-import { Connection, HttpConnection } from 'clients/location'
+import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { isResolved } from 'DiscoverService'
 import { ComponentType, Prefix } from 'models'
 import * as path from 'path'
 
 const RESOURCE_PATH = path.resolve(__dirname, '../tmt-backend/src/main/resources')
-const sleep = (millis: number) => new Promise((resolve) => setTimeout(resolve, millis))
 
 export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config'
 const connections: Map<ServiceName, Connection> = new Map()
@@ -22,7 +21,19 @@ const joinWithPrefix = (serviceNames: ServiceName[]) => {
 const connectionFor = (serviceName: ServiceName): Connection =>
   connections.get(serviceName) || gatewayConnection
 
-const waitForLocationToUp = () => sleep(10000)
+const locationService = new LocationService()
+
+const waitForLocationToUp = () => {
+  return new Promise((resolve) =>
+    locationService
+      .list()
+      .catch(() => false)
+      .then((res) => {
+        if (res) resolve()
+        setTimeout(() => waitForLocationToUp().then(resolve), 1000)
+      })
+  )
+}
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
