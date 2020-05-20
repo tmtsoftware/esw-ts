@@ -28,19 +28,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Cache ~/.sbt
-        uses: actions/cache@v1
-        with:
-          path: ~/.sbt
-          key: ${{ runner.os }}-sbt-${{ hashFiles('tmt-backend/project/build.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-sbt-
-
-      - run: cd tmt-backend && sbt publishLocal
       - run: npm install
       - run: npm run build
       - run: npm run test:coverage
-        env:       
+        env:
           CI: true
 
       - name: Notify slack
