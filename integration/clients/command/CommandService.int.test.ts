@@ -13,13 +13,13 @@ beforeAll(async () => {
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
 })
 
-afterAll(() => {
-  stopServices()
+afterAll(async () => {
+  await stopServices()
   jest.clearAllMocks()
 })
 
 test('command client integration test', async () => {
-  const componentId = new ComponentId(new Prefix('CSW', 'testHcd'), 'HCD')
+  const componentId = new ComponentId(hcdPrefix, 'HCD')
   const commandService = new CommandService(componentId)
   const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
 

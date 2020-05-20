@@ -1,9 +1,8 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
-import { eventually } from 'utils/eventually'
+import { delay, eventually } from 'utils/eventually'
 import { resolve } from 'utils/resolve'
 import {
-  compConfAbsolutePath,
   executeComponentScript,
   executeServicesScript,
   executeStopServicesScript
@@ -30,18 +29,20 @@ const waitForLocationToUp = () => eventually(() => locationService.list())
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
-  const servicesResolveStatus = await Promise.all(serviceNames.map(connectionFor).map(resolve))
-  return servicesResolveStatus
+  return await Promise.all(serviceNames.map(connectionFor).map(resolve))
 }
 
 export const startServices = (serviceNames: ServiceName[]) => {
   executeServicesScript(['start', ...joinWithPrefix(serviceNames)])
-  return waitForServicesToUp(['Gateway'])
+  return waitForServicesToUp(serviceNames)
 }
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
-  executeComponentScript(['--local', '--standalone', compConfAbsolutePath(componentConf)])
+  executeComponentScript(['--local', '--standalone', componentConf])
   return resolve(new HttpConnection(prefix, compType))
 }
 
-export const stopServices = () => executeStopServicesScript([])
+export const stopServices = async () => {
+  executeStopServicesScript([])
+  await delay(50)
+}

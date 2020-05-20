@@ -13,3 +13,4 @@ tmt-backend/project/project/*
 */**/target
 .metals
 .bloop
+.DS_Store
