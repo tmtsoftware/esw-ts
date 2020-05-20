@@ -17,8 +17,8 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: "13.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: '13.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Cache ~/.npm
         uses: actions/cache@v1
@@ -27,18 +27,23 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      
+
       - name: Fetch cs
-        run: curl -fLo cs https://git.io/coursier-cli-linux && chmod +x cs 
-      
+        run: |
+          curl -fLo cs https://git.io/coursier-cli-linux && chmod +x cs
+          cs setup
+
       - name: Install node dependencies
         run: npm install
 
       - name: Build
         run: npm run build
 
-      - name: run tests
-        run: npm run test:coverage
+      - name: run unit tests
+        run: npm run test:unit:coverage
+
+      - name: run integration tests
+        run: npm run test:integration
 
       - name: Notify slack
         if: always()
