@@ -6,7 +6,7 @@ SCRIPTPATH="$(
 )"
 
 TMT_BACKEND_LIB=com.github.tmtsoftware:backend-testkit_2.13
-TMT_BACKEND_VERSION="87a7cf58c2"
+TMT_BACKEND_VERSION="4573e3fe60"
 LONELYPLANET_RESOLVER=bintray:lonelyplanet/maven
 AKKA_HTTP_SPRAY_JSON=com.typesafe.akka:akka-http-spray-json_2.13:10.2.0-M1
 
