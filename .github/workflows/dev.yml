@@ -15,7 +15,6 @@ jobs:
         with:
           java-version: adopt@1.11
 
-
       - uses: actions/setup-node@v1
         with:
           node-version: "13.x"
@@ -28,12 +27,18 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      
+      - name: Fetch cs
+        run: curl -fLo cs https://git.io/coursier-cli-linux && chmod +x cs 
+      
+      - name: Install node dependencies
+        run: npm install
 
-      - run: npm install
-      - run: npm run build
-      - run: npm run test:coverage
-        env:
-          CI: true
+      - name: Build
+        run: npm run build
+
+      - name: run tests
+        run: npm run test:coverage
 
       - name: Notify slack
         if: always()
