@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import * as path from 'path'
 
-const scriptDir = path.resolve(__dirname, '../..')
+const scriptDir = path.resolve(__dirname, '../../scripts')
 
 export const servicesScript = path.resolve(scriptDir, 'services.sh')
 export const componentScript = path.resolve(scriptDir, 'component.sh')
