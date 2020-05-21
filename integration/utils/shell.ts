@@ -6,7 +6,7 @@ const scriptDir = path.resolve(__dirname, '../../scripts')
 export const appsLauncherScript = path.resolve(scriptDir, 'appLauncher.sh')
 export const stopServicesScript = path.resolve(scriptDir, 'stopServices.sh')
 
-const executeScript = (script: string, appName: string = '') => (args: string[]) => {
+const executeScript = (script: string, appName = '') => (args: string[]) => {
   const cmd = [script, appName, ...args]
   console.log(`Executing cmd : ${cmd.join(' ')}`)
 

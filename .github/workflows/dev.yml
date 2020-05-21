@@ -15,7 +15,36 @@ jobs:
         with:
           java-version: adopt@1.11
 
-      - name: Test
-        run: |
-          java -version
-          ./scripts/appLauncher.sh backend-testkit-services start -s Gateway
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Cache ~/.npm
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit tests
+        run: npm run test:unit:coverage
+
+      - name: Integration tests
+        run: npm run test:integration
+
+      - name: Notify slack
+        if: always()
+        continue-on-error: true
+        uses: kpritam/slack-job-status-action@v1
+        with:
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: ci-dev
