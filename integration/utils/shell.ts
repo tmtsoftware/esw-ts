@@ -3,12 +3,11 @@ import * as path from 'path'
 
 const scriptDir = path.resolve(__dirname, '../../scripts')
 
-export const servicesScript = path.resolve(scriptDir, 'services.sh')
-export const componentScript = path.resolve(scriptDir, 'component.sh')
+export const appsLauncherScript = path.resolve(scriptDir, 'launchApp.sh')
 export const stopServicesScript = path.resolve(scriptDir, 'stopServices.sh')
 
-const executeScript = (script: string) => (args: string[]) => {
-  const cmd = [script, ...args]
+const executeScript = (script: string, appName: string = '') => (args: string[]) => {
+  const cmd = [script, appName, ...args]
   console.log(`Executing cmd : ${cmd.join(' ')}`)
 
   const child = exec(cmd.join(' '))
@@ -18,6 +17,6 @@ const executeScript = (script: string) => (args: string[]) => {
   return child
 }
 
-export const executeServicesScript = executeScript(servicesScript)
-export const executeComponentScript = executeScript(componentScript)
+export const executeServicesScript = executeScript(appsLauncherScript, 'backend-testkit-services')
+export const executeComponentScript = executeScript(appsLauncherScript, 'backend-testkit-component')
 export const executeStopServicesScript = executeScript(stopServicesScript)
