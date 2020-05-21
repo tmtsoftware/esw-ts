@@ -1,6 +1,6 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
-import { delay, eventually } from 'utils/eventually'
+import { eventually } from 'utils/eventually'
 import { resolve } from 'utils/resolve'
 import {
   executeComponentScript,
@@ -42,7 +42,4 @@ export const startComponent = (prefix: Prefix, compType: ComponentType, componen
   return resolve(new HttpConnection(prefix, compType))
 }
 
-export const stopServices = async () => {
-  executeStopServicesScript([])
-  await delay(50)
-}
+export const stopServices = async () => executeStopServicesScript([])

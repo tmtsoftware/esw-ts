@@ -15,8 +15,8 @@ beforeAll(async () => {
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
 })
 
-afterAll(async () => {
-  await stopServices()
+afterAll(() => {
+  stopServices()
   jest.clearAllMocks()
 })
 
