@@ -2,7 +2,7 @@ import { CommandService } from 'clients/command'
 import { ComponentId, Prefix, Setup } from 'models'
 import { startComponent, startServices, stopServices } from 'utils/backend'
 
-jest.setTimeout(100000)
+jest.setTimeout(30000)
 
 const hcdPrefix = new Prefix('CSW', 'testHcd')
 
