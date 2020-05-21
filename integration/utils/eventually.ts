@@ -1,7 +1,7 @@
 export type Task<T> = () => Promise<T>
 
 export const eventually = async <T>(task: Task<T>): Promise<T> => {
-  const retries = 50
+  const retries = 200
 
   const delayedLoop = async (currentRetryCount: number, pollIntervalMillis: number) => {
     await delay(pollIntervalMillis)
