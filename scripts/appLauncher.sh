@@ -7,7 +7,7 @@ SCRIPTPATH="$(
 
 TMT_BACKEND_VERSION="4573e3fe60"
 
-COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/scripts/coursier"
+COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/coursier"
 
 APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/apps/master/apps.json"
 
