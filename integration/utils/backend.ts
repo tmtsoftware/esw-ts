@@ -1,18 +1,20 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
-import { eventually } from 'utils/eventually'
+import { delay, eventually } from 'utils/eventually'
 import { resolve } from 'utils/resolve'
 import {
   executeComponentScript,
   executeServicesScript,
   executeStopServicesScript
 } from 'utils/shell'
+import { authConnection } from 'utils/auth'
 
-export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config'
+export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config' | 'AAS'
 const connections: Map<ServiceName, Connection> = new Map()
 
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
 connections.set('Gateway', gatewayConnection)
+connections.set('AAS', authConnection)
 
 const joinWithPrefix = (serviceNames: ServiceName[]) => {
   let args: string[] = []
@@ -26,10 +28,21 @@ const connectionFor = (serviceName: ServiceName): Connection =>
 const locationService = new LocationService()
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
+const waitForAASToUp = async () => {
+  await delay(30000)
+  return await locationService.resolve(authConnection, 10)
+}
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
-  return await Promise.all(serviceNames.map(connectionFor).map(resolve))
+  await waitForAASToUp()
+
+  return await Promise.all(
+    serviceNames
+      .filter((name) => name != 'AAS')
+      .map(connectionFor)
+      .map(resolve)
+  )
 }
 
 export const startServices = (serviceNames: ServiceName[]) => {
@@ -38,8 +51,9 @@ export const startServices = (serviceNames: ServiceName[]) => {
 }
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
+  console.log('starting component')
   executeComponentScript(['--local', '--standalone', componentConf])
   return resolve(new HttpConnection(prefix, compType))
 }
 
-export const stopServices = async () => executeStopServicesScript([])
+export const stopServices = () => executeStopServicesScript([])

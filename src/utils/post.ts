@@ -18,6 +18,10 @@ export const post = async <Req, Res>(
 
 const headers = new Headers([['Content-Type', 'application/json']])
 
+export const addAuthToken = (key: 'Authorization', value: string) => {
+  headers.append(key, value)
+}
+
 const handleErrors = (res: Response) => {
   if (!res.ok) throw new Error(res.statusText)
   return res
