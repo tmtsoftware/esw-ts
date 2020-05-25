@@ -1,5 +1,6 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
+import { authConnection } from 'utils/auth'
 import { delay, eventually } from 'utils/eventually'
 import { resolve } from 'utils/resolve'
 import {
@@ -7,7 +8,6 @@ import {
   executeServicesScript,
   executeStopServicesScript
 } from 'utils/shell'
-import { authConnection } from 'utils/auth'
 
 export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config' | 'AAS'
 const connections: Map<ServiceName, Connection> = new Map()
@@ -28,21 +28,18 @@ const connectionFor = (serviceName: ServiceName): Connection =>
 const locationService = new LocationService()
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
+
 const waitForAASToUp = async () => {
-  await delay(30000)
-  return await locationService.resolve(authConnection, 10)
+  await delay(20000)
+  return await resolve(authConnection)
 }
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
-  await waitForAASToUp()
+  if (serviceNames.includes('AAS')) await waitForAASToUp()
 
-  return await Promise.all(
-    serviceNames
-      .filter((name) => name != 'AAS')
-      .map(connectionFor)
-      .map(resolve)
-  )
+  const servicesExceptAAS = serviceNames.filter((name) => name != 'AAS')
+  return await Promise.all(servicesExceptAAS.map(connectionFor).map(resolve))
 }
 
 export const startServices = (serviceNames: ServiceName[]) => {

@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 
-type RequestConfig = {
+export type RequestConfig = {
   method: string
   headers: Headers
   body: string
@@ -10,16 +10,17 @@ export const post = async <Req, Res>(
   hostname: string,
   port: number,
   payload: Req,
-  path = 'post-endpoint'
+  path = 'post-endpoint',
+  headers: Headers = defaultHeaders
 ): Promise<Res> => {
   const url = `http://${hostname}:${port}/${path}`
-  return clientFetch(url, payload, 'POST')
+  return clientFetch(url, payload, 'POST', headers)
 }
 
-const headers = new Headers([['Content-Type', 'application/json']])
+const defaultHeaders = new Headers([['Content-Type', 'application/json']])
 
-export const addAuthToken = (key: 'Authorization', value: string) => {
-  headers.append(key, value)
+export const addBearerToken = (token: string) => {
+  defaultHeaders.append('Authorization', `Bearer ${token}`)
 }
 
 const handleErrors = (res: Response) => {
@@ -27,11 +28,17 @@ const handleErrors = (res: Response) => {
   return res
 }
 
-const clientFetch = async <S, T>(url: string, payload: S, method: 'POST' | 'GET'): Promise<T> => {
+const clientFetch = async <S, T>(
+  url: string,
+  payload: S,
+  method: 'POST' | 'GET',
+  headers: Headers
+): Promise<T> => {
   const request: RequestConfig = {
     method,
     headers,
     body: JSON.stringify(payload)
   }
+
   return handleErrors(await fetch(url, request)).json()
 }
