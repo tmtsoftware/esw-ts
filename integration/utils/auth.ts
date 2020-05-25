@@ -1,40 +1,31 @@
-import { post } from 'utils/post'
 import { HttpConnection } from 'clients/location'
 import { Prefix } from 'models'
-import { extractHostPort } from 'utils/Utils'
+import { RequestConfig } from 'utils/post'
 import { resolve } from 'utils/resolve'
-import { delay } from 'utils/eventually'
-
-interface AuthToken {
-  access_token: string
-  expires_in: number
-  refresh_expires_in: number
-  refresh_token: string
-  token_type: string
-  'not-before-policy': number
-  session_state: string
-  scope: string
-}
-
-interface AuthRequest {
-  client_id: string
-  grant_type: string
-  username: string
-  password: string
-}
+import { extractHostPort } from 'utils/Utils'
 
 export const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
 
-export const getToken = async (client: string, user: string, password: string) => {
+export const getToken = async (client: string, user: string, password: string, realm: string) => {
   const authLocation = await resolve(authConnection)
-  await delay(20000)
   const { host, port } = extractHostPort(authLocation.uri)
 
-  const payload = {
+  const payload = new URLSearchParams({
     client_id: client,
     grant_type: 'password',
     username: user,
     password: password
+  })
+
+  const tokenPath = `auth/realms/${realm}/protocol/openid-connect/token`
+
+  const request: RequestConfig = {
+    method: 'POST',
+    headers: new Headers([['Content-Type', 'application/x-www-form-urlencoded']]),
+    body: payload.toString()
   }
-  return post<AuthRequest, AuthToken>(host, port, payload).then((value) => value.access_token)
+
+  return await fetch(`http://${host}:${port}/${tokenPath}`, request)
+    .then((res) => res.json())
+    .then((value) => value.access_token)
 }
