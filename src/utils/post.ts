@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 
-export type RequestConfig = {
+type RequestConfig = {
   method: string
   headers: Headers
   body: string
@@ -28,6 +28,19 @@ const handleErrors = (res: Response) => {
   return res
 }
 
+const serializers = new Map()
+serializers.set('application/json', JSON.stringify)
+serializers.set(
+  'application/x-www-form-urlencoded',
+  (payload: string[][] | Record<string, string> | string | URLSearchParams) => {
+    return new URLSearchParams(payload).toString()
+  }
+)
+
+const bodySerializer = (headers: Headers) => {
+  return serializers.get(headers.get('Content-Type'))
+}
+
 const clientFetch = async <S, T>(
   url: string,
   payload: S,
@@ -37,8 +50,10 @@ const clientFetch = async <S, T>(
   const request: RequestConfig = {
     method,
     headers,
-    body: JSON.stringify(payload)
+    body: bodySerializer(headers)(payload)
   }
+
+  console.log(request, url)
 
   return handleErrors(await fetch(url, request)).json()
 }
