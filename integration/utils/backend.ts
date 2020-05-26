@@ -1,7 +1,7 @@
 import { Connection, HttpConnection, LocationService } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
 import { authConnection } from 'utils/auth'
-import { delay, eventually } from 'utils/eventually'
+import { eventually } from 'utils/eventually'
 import { resolve } from 'utils/resolve'
 import {
   executeComponentScript,
@@ -9,12 +9,18 @@ import {
   executeStopServicesScript
 } from 'utils/shell'
 
-export type ServiceName = 'Gateway' | 'Location' | 'Alarm' | 'Event' | 'Config' | 'AAS'
-const connections: Map<ServiceName, Connection> = new Map()
-
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
-connections.set('Gateway', gatewayConnection)
-connections.set('AAS', authConnection)
+
+const ServiceRecord = {
+  Gateway: gatewayConnection,
+  AAS: authConnection,
+  Location: gatewayConnection,
+  Alarm: gatewayConnection,
+  Event: gatewayConnection,
+  Config: gatewayConnection
+}
+
+export type ServiceName = keyof typeof ServiceRecord
 
 const joinWithPrefix = (serviceNames: ServiceName[]) => {
   let args: string[] = []
@@ -23,23 +29,22 @@ const joinWithPrefix = (serviceNames: ServiceName[]) => {
 }
 
 const connectionFor = (serviceName: ServiceName): Connection =>
-  connections.get(serviceName) || gatewayConnection
+  ServiceRecord[serviceName] || gatewayConnection
 
 const locationService = new LocationService()
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
 
-const waitForAASToUp = async () => {
-  await delay(20000)
-  return await resolve(authConnection)
-}
+const waitForAASToUp = () => eventually(() => resolve(authConnection))
 
 const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
   if (serviceNames.includes('AAS')) await waitForAASToUp()
 
   const servicesExceptAAS = serviceNames.filter((name) => name != 'AAS')
-  return await Promise.all(servicesExceptAAS.map(connectionFor).map(resolve))
+  return await Promise.all(
+    servicesExceptAAS.map(connectionFor).map((connection) => resolve(connection))
+  )
 }
 
 export const startServices = (serviceNames: ServiceName[]) => {
