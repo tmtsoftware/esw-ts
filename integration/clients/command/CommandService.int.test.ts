@@ -3,7 +3,7 @@ import { ComponentId, Prefix, Setup } from 'models'
 import { getToken } from 'utils/auth'
 import { startComponent, startServices, stopServices } from 'utils/backend'
 
-jest.setTimeout(50000)
+jest.setTimeout(80000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
