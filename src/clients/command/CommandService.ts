@@ -16,7 +16,7 @@ import { ComponentId } from 'models/ComponentId'
 import { ControlCommand } from 'models/params/Command'
 import { OneWayResponse, SubmitResponse, ValidateResponse } from 'models/params/CommandResponse'
 import { CurrentState } from 'models/params/CurrentState'
-import { post } from 'utils/post'
+import { HttpTransport, TokenFactory } from 'utils/HttpTransport'
 import { Subscription, Ws } from 'utils/Ws'
 
 export interface CommandServiceApi {
@@ -33,31 +33,32 @@ export interface CommandServiceApi {
 }
 
 export class CommandService implements CommandServiceApi {
-  constructor(readonly componentId: ComponentId) {}
+  private readonly httpTransport: HttpTransport<GatewayComponentCommand>
+
+  constructor(readonly componentId: ComponentId, readonly tokenFactory: TokenFactory) {
+    this.httpTransport = new HttpTransport(resolveGateway, this.tokenFactory)
+  }
 
   private componentCommand(msg: CommandServiceHttpMessage | CommandServiceWsMessage) {
     return new GatewayComponentCommand(this.componentId, msg)
   }
 
-  private async httpPost<T>(gatewayCommand: GatewayComponentCommand): Promise<T> {
-    const { host, port } = await resolveGateway()
-    return post<GatewayComponentCommand, T>(host, port, gatewayCommand)
-  }
-
   async validate(command: ControlCommand): Promise<ValidateResponse> {
-    return this.httpPost<ValidateResponse>(this.componentCommand(new Validate(command)))
+    return this.httpTransport.requestRes<ValidateResponse>(
+      this.componentCommand(new Validate(command))
+    )
   }
 
   async submit(command: ControlCommand): Promise<SubmitResponse> {
-    return this.httpPost<SubmitResponse>(this.componentCommand(new Submit(command)))
+    return this.httpTransport.requestRes<SubmitResponse>(this.componentCommand(new Submit(command)))
   }
 
   async oneway(command: ControlCommand): Promise<OneWayResponse> {
-    return this.httpPost<OneWayResponse>(this.componentCommand(new Oneway(command)))
+    return this.httpTransport.requestRes<OneWayResponse>(this.componentCommand(new Oneway(command)))
   }
 
   async query(runId: string): Promise<SubmitResponse> {
-    return this.httpPost<SubmitResponse>(this.componentCommand(new Query(runId)))
+    return this.httpTransport.requestRes<SubmitResponse>(this.componentCommand(new Query(runId)))
   }
 
   subscribeCurrentState(

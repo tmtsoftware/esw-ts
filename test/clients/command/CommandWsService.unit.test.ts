@@ -9,7 +9,7 @@ import { post } from 'utils/post'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = new CommandService(compId)
+const client = new CommandService(compId, () => Promise.resolve(''))
 let mockServer: Server
 
 jest.mock('utils/post')

@@ -16,7 +16,7 @@ import { Track } from 'clients/location/models/WsCommand'
 import { LocationConfig } from 'config/LocationConfig'
 import { ComponentType } from 'models/ComponentType'
 import { Prefix } from 'models/params/Prefix'
-import { post } from 'utils/post'
+import { HttpTransport } from 'utils/HttpTransport'
 import { Subscription, Ws } from 'utils/Ws'
 
 export interface LocationServiceApi {
@@ -27,42 +27,47 @@ export interface LocationServiceApi {
 }
 
 export class LocationService implements LocationServiceApi {
+  private readonly httpTransport: HttpTransport<LocationHttpMessage>
+
   constructor(
     readonly host: string = LocationConfig.hostName,
     readonly port: number = LocationConfig.port
-  ) {}
-
-  httpPost<T>(request: LocationHttpMessage): Promise<T> {
-    return post<LocationHttpMessage, T>(this.host, this.port, request)
+  ) {
+    this.httpTransport = new HttpTransport(
+      () => Promise.resolve({ host, port }),
+      () => Promise.resolve('')
+    )
   }
 
   list(): Promise<Location[]> {
-    return this.httpPost<Location[]>(new ListEntries())
+    return this.httpTransport.requestRes<Location[]>(new ListEntries())
   }
 
   listByComponentType(componentType: ComponentType): Promise<Location[]> {
-    return this.httpPost<Location[]>(new ListByComponentType(componentType))
+    return this.httpTransport.requestRes<Location[]>(new ListByComponentType(componentType))
   }
 
   listByHostname(hostname: string): Promise<Location[]> {
-    return this.httpPost<Location[]>(new ListByHostname(hostname))
+    return this.httpTransport.requestRes<Location[]>(new ListByHostname(hostname))
   }
 
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]> {
-    return this.httpPost<Location[]>(new ListByConnectionType(connectionType))
+    return this.httpTransport.requestRes<Location[]>(new ListByConnectionType(connectionType))
   }
 
   listByPrefix(prefix: Prefix): Promise<Location[]> {
-    return this.httpPost<Location[]>(new ListByPrefix(prefix))
+    return this.httpTransport.requestRes<Location[]>(new ListByPrefix(prefix))
   }
 
   unregister(connection: Connection): Promise<Done> {
-    return this.httpPost<Done>(new Unregister(connection))
+    return this.httpTransport.requestRes<Done>(new Unregister(connection))
   }
 
   //todo: decide on within parameter to be in seconds or custom time interval
   resolve(connection: Connection, withinSeconds: number): Promise<Location[]> {
-    return this.httpPost<Location[]>(new Resolve(connection, `${withinSeconds} seconds`))
+    return this.httpTransport.requestRes<Location[]>(
+      new Resolve(connection, `${withinSeconds} seconds`)
+    )
   }
 
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {

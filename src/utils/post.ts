@@ -10,17 +10,18 @@ export const post = async <Req, Res>(
   hostname: string,
   port: number,
   payload: Req,
-  path = 'post-endpoint',
-  headers: Headers = defaultHeaders
+  path = '',
+  headers: Headers = getDefaultHeaders()
 ): Promise<Res> => {
   const url = `http://${hostname}:${port}/${path}`
   return clientFetch(url, payload, 'POST', headers)
 }
 
-const defaultHeaders = new Headers([['Content-Type', 'application/json']])
+export const getDefaultHeaders = () => new Headers([['Content-Type', 'application/json']])
 
-export const addBearerToken = (token: string) => {
-  defaultHeaders.append('Authorization', `Bearer ${token}`)
+export const addBearerToken = (token: string, headers: Headers = getDefaultHeaders()) => {
+  headers.append('Authorization', `Bearer ${token}`)
+  return headers
 }
 
 const handleErrors = (res: Response) => {
@@ -38,7 +39,7 @@ serializers.set(
 )
 
 const bodySerializer = (headers: Headers) => {
-  return serializers.get(headers.get('Content-Type'))
+  return serializers.get(headers.get('Content-Type')) || JSON.stringify
 }
 
 const clientFetch = async <S, T>(
@@ -52,8 +53,6 @@ const clientFetch = async <S, T>(
     headers,
     body: bodySerializer(headers)(payload)
   }
-
-  console.log(request, url)
 
   return handleErrors(await fetch(url, request)).json()
 }
