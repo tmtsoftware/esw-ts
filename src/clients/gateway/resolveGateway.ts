@@ -1,8 +1,8 @@
 import { HttpConnection } from 'clients/location'
 import { GatewayConfig } from 'config/GatewayConfig'
 import { Prefix } from 'models'
-import { resolve } from 'utils/healthCheck'
 import { extractHostPort } from 'utils/Utils'
+import { resolve } from 'utils/resolve'
 
 export const GatewayConnection = new HttpConnection(
   new Prefix(GatewayConfig.subsystem, GatewayConfig.componentName),

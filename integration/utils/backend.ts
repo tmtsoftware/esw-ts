@@ -1,12 +1,13 @@
 import { HttpConnection } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
 import { authConnection } from 'utils/auth'
-import { resolve, waitForServicesToUp } from 'utils/healthCheck'
+import { waitForServicesToUp } from 'utils/healthCheck'
 import {
   executeComponentScript,
   executeServicesScript,
   executeStopServicesScript
 } from 'utils/shell'
+import { resolve } from 'utils/resolve'
 
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
 
