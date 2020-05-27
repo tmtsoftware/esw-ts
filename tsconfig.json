@@ -21,7 +21,7 @@
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     "moduleResolution": "node",
     /* Specify library files to be included in the compilation. */
-    "lib": ["ES2015", "DOM", "DOM.Iterable"],
+    "lib": ["ES2019", "DOM", "DOM.Iterable"],
     "resolveJsonModule": true,
     /* Strict Type-Checking Options */
     "strict": true,

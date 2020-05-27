@@ -1,8 +1,7 @@
-import { Connection, HttpConnection, LocationService } from 'clients/location'
+import { HttpConnection } from 'clients/location'
 import { ComponentType, Prefix } from 'models'
 import { authConnection } from 'utils/auth'
-import { eventually } from 'utils/eventually'
-import { resolve } from 'utils/resolve'
+import { resolve, waitForServicesToUp } from 'utils/healthCheck'
 import {
   executeComponentScript,
   executeServicesScript,
@@ -11,7 +10,7 @@ import {
 
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
 
-const ServiceRecord = {
+export const BackendServices = {
   Gateway: gatewayConnection,
   AAS: authConnection,
   Location: gatewayConnection,
@@ -20,32 +19,9 @@ const ServiceRecord = {
   Config: gatewayConnection
 }
 
-export type ServiceName = keyof typeof ServiceRecord
+export type ServiceName = keyof typeof BackendServices
 
-const joinWithPrefix = (serviceNames: ServiceName[]) => {
-  let args: string[] = []
-  serviceNames.forEach((name) => (args = args.concat(['-s', name])))
-  return args
-}
-
-const connectionFor = (serviceName: ServiceName): Connection =>
-  ServiceRecord[serviceName] || gatewayConnection
-
-const locationService = new LocationService()
-
-const waitForLocationToUp = () => eventually(() => locationService.list())
-
-const waitForAASToUp = () => eventually(() => resolve(authConnection))
-
-const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
-  await waitForLocationToUp()
-  if (serviceNames.includes('AAS')) await waitForAASToUp()
-
-  const servicesExceptAAS = serviceNames.filter((name) => name != 'AAS')
-  return await Promise.all(
-    servicesExceptAAS.map(connectionFor).map((connection) => resolve(connection))
-  )
-}
+const joinWithPrefix = (serviceNames: ServiceName[]) => serviceNames.flatMap((name) => ['-s', name])
 
 export const startServices = (serviceNames: ServiceName[]) => {
   executeServicesScript(['start', ...joinWithPrefix(serviceNames)])
@@ -53,7 +29,6 @@ export const startServices = (serviceNames: ServiceName[]) => {
 }
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
-  console.log('starting component')
   executeComponentScript(['--local', '--standalone', componentConf])
   return resolve(new HttpConnection(prefix, compType))
 }
