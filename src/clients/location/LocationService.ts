@@ -35,7 +35,7 @@ export class LocationService implements LocationServiceApi {
   ) {
     this.httpTransport = new HttpTransport(
       () => Promise.resolve({ host, port }),
-      () => Promise.resolve('')
+      () => undefined
     )
   }
 

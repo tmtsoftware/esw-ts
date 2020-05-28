@@ -1,6 +1,6 @@
 import { addBearerToken, post } from 'utils/post'
 
-export type TokenFactory = () => Promise<string>
+export type TokenFactory = () => string | undefined
 
 export class HttpTransport<Req> {
   private readonly path = 'post-endpoint'
@@ -13,7 +13,11 @@ export class HttpTransport<Req> {
   async requestRes<Res>(request: Req): Promise<Res> {
     const { host, port } = await this.resolver()
     const token = await this.tokenFactory()
-    const headers = addBearerToken(token)
-    return post<Req, Res>(host, port, request, this.path, headers)
+    if (token) {
+      const headers = addBearerToken(token)
+      return post<Req, Res>(host, port, request, this.path, headers)
+    } else {
+      return post<Req, Res>(host, port, request, this.path)
+    }
   }
 }

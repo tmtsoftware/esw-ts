@@ -5,7 +5,7 @@ SCRIPTPATH="$(
     pwd -P
 )"
 
-TMT_BACKEND_VERSION="ff26aead68"
+TMT_BACKEND_VERSION="2859cd115f"
 
 COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/coursier"
 

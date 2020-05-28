@@ -22,7 +22,7 @@ const gatewayLocation = new HttpLocation(GatewayConnection, uri)
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = new CommandService(compId, () => Promise.resolve(''))
+const client = new CommandService(compId, () => '')
 describe('CommandService', () => {
   test('should post validate command', async () => {
     const acceptedResponse = {

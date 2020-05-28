@@ -6,7 +6,7 @@ import { mocked } from 'ts-jest/utils'
 import { post } from 'utils/post'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-const sequencer = new SequencerService(componentId, () => Promise.resolve(''))
+const sequencer = new SequencerService(componentId, () => '')
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
 const waitCommand = new Wait('ESW.test', 'command-1', [])

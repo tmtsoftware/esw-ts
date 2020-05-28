@@ -14,7 +14,7 @@ const uri = 'http://localhost:8080'
 const gatewayLocation = new HttpLocation(GatewayConnection, uri)
 let mockServer: Server
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-const sequencer = new SequencerService(componentId, () => Promise.resolve(''))
+const sequencer = new SequencerService(componentId, () => '')
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:8080/websocket-endpoint')
