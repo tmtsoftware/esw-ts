@@ -33,10 +33,7 @@ export class LocationService implements LocationServiceApi {
     readonly host: string = LocationConfig.hostName,
     readonly port: number = LocationConfig.port
   ) {
-    this.httpTransport = new HttpTransport(
-      () => Promise.resolve({ host, port }),
-      () => undefined
-    )
+    this.httpTransport = new HttpTransport(() => Promise.resolve({ host, port }))
   }
 
   list(): Promise<Location[]> {

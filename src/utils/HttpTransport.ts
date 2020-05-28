@@ -7,7 +7,7 @@ export class HttpTransport<Req> {
 
   constructor(
     readonly resolver: () => Promise<{ host: string; port: number }>,
-    readonly tokenFactory: TokenFactory
+    readonly tokenFactory: TokenFactory = () => undefined
   ) {}
 
   async requestRes<Res>(request: Req): Promise<Res> {

@@ -12,6 +12,8 @@ const makeResponse = <T>(response: T): Response => {
 
 const expectedValue = { ok: true, status: 200 }
 
+afterEach(() => jest.clearAllMocks())
+
 describe('Http transport', () => {
   test('sends request with auth headers on providing token', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
@@ -37,10 +39,7 @@ describe('Http transport', () => {
   test('sends request without auth headers when no token is provided', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
 
-    const httpTransport = new HttpTransport(
-      () => Promise.resolve({ host, port }),
-      () => undefined
-    )
+    const httpTransport = new HttpTransport(() => Promise.resolve({ host, port }))
 
     await httpTransport.requestRes<string>('hello')
 
@@ -52,5 +51,3 @@ describe('Http transport', () => {
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
 })
-
-afterEach(() => jest.clearAllMocks())

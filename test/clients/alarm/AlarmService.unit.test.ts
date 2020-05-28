@@ -1,0 +1,25 @@
+import { AlarmKey, AlarmService } from 'clients/alarm'
+import { Prefix } from 'models'
+import { Done, HttpLocation } from 'clients/location'
+import { mocked } from 'ts-jest/utils'
+import { post } from 'utils/post'
+import { GatewayConnection } from 'clients/gateway/resolveGateway'
+
+jest.mock('utils/post')
+const postMockFn = mocked(post, true)
+
+const uri = 'http://localhost:8080'
+const gatewayLocation = new HttpLocation(GatewayConnection, uri)
+
+describe('Alarm service', () => {
+  test('should set alarm severity for a given prefix', async () => {
+    const alarmService = new AlarmService()
+    const alarmKey = new AlarmKey(new Prefix('ESW', 'Comp1'), 'alarm1')
+    postMockFn.mockResolvedValueOnce([gatewayLocation])
+    postMockFn.mockResolvedValueOnce('Done')
+
+    const done: Done = await alarmService.setSeverity(alarmKey, 'Okay')
+
+    expect(done).toEqual('Done')
+  })
+})
