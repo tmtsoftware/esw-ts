@@ -2,13 +2,13 @@ import { HttpConnection } from 'clients/location'
 import { ComponentType, Prefix, Subsystem } from 'models'
 import { authConnection } from 'utils/auth'
 import { waitForLocationServiceToStop, waitForServicesToUp } from 'utils/healthCheck'
+import { resolve } from 'utils/resolve'
 import {
   executeComponentScript,
   executeSequencerScript,
   executeServicesScript,
   executeStopServicesScript
 } from 'utils/shell'
-import { resolve } from 'utils/resolve'
 
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
 
@@ -31,7 +31,7 @@ export const startServices = (serviceNames: ServiceName[]) => {
 }
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
-  executeComponentScript(['--local', '--standalone', componentConf])
+  executeComponentScript(['--local', componentConf, '--standalone'])
   return resolve(new HttpConnection(prefix, compType))
 }
 
