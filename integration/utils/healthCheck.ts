@@ -19,3 +19,12 @@ export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
     servicesExceptAAS.map((name) => BackendServices[name]).map((connection) => resolve(connection))
   )
 }
+
+export const waitForLocationServiceToStop = () => {
+  return new Promise((resolve) => {
+    locationService
+      .list()
+      .catch(resolve)
+      .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 1000))
+  })
+}

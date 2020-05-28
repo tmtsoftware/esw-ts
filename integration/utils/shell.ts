@@ -19,4 +19,5 @@ const executeScript = (script: string, appName = '') => (args: string[]) => {
 
 export const executeServicesScript = executeScript(appsLauncherScript, 'backend-testkit-services')
 export const executeComponentScript = executeScript(appsLauncherScript, 'backend-testkit-component')
+export const executeSequencerScript = executeScript(appsLauncherScript, 'backend-testkit-sequencer')
 export const executeStopServicesScript = executeScript(stopServicesScript)

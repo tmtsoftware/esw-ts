@@ -43,15 +43,15 @@ describe('Http util', () => {
   })
 })
 
-function makeResponse<T>(response: T): Response {
+const makeResponse = <T>(response: T): Response => {
   return new Response(JSON.stringify(response))
 }
 
-function makeErrorResponse(): Response {
+const makeErrorResponse = (): Response => {
   return new Response('', { status: 404, statusText: 'bad request' })
 }
 
-function makeRequest(request: string) {
+const makeRequest = (request: string) => {
   return {
     method: 'POST',
     headers: new Headers([['Content-Type', 'application/json']]),

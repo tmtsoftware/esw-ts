@@ -1,9 +1,10 @@
 import { HttpConnection } from 'clients/location'
-import { ComponentType, Prefix } from 'models'
+import { ComponentType, Prefix, Subsystem } from 'models'
 import { authConnection } from 'utils/auth'
-import { waitForServicesToUp } from 'utils/healthCheck'
+import { waitForLocationServiceToStop, waitForServicesToUp } from 'utils/healthCheck'
 import {
   executeComponentScript,
+  executeSequencerScript,
   executeServicesScript,
   executeStopServicesScript
 } from 'utils/shell'
@@ -34,4 +35,12 @@ export const startComponent = (prefix: Prefix, compType: ComponentType, componen
   return resolve(new HttpConnection(prefix, compType))
 }
 
-export const stopServices = () => executeStopServicesScript([])
+export const startSequencer = async (subsystem: Subsystem, observingMode: string) => {
+  executeSequencerScript(['start', '-s', subsystem, '-m', observingMode])
+  return await resolve(new HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
+}
+
+export const stopServices = async () => {
+  executeStopServicesScript([])
+  await waitForLocationServiceToStop()
+}
