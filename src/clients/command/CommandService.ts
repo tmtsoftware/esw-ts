@@ -43,21 +43,21 @@ export class CommandService implements CommandServiceApi {
     return new GatewayComponentCommand(this.componentId, msg)
   }
 
-  async validate(command: ControlCommand): Promise<ValidateResponse> {
+  validate(command: ControlCommand): Promise<ValidateResponse> {
     return this.httpTransport.requestRes<ValidateResponse>(
       this.componentCommand(new Validate(command))
     )
   }
 
-  async submit(command: ControlCommand): Promise<SubmitResponse> {
+  submit(command: ControlCommand): Promise<SubmitResponse> {
     return this.httpTransport.requestRes<SubmitResponse>(this.componentCommand(new Submit(command)))
   }
 
-  async oneway(command: ControlCommand): Promise<OneWayResponse> {
+  oneway(command: ControlCommand): Promise<OneWayResponse> {
     return this.httpTransport.requestRes<OneWayResponse>(this.componentCommand(new Oneway(command)))
   }
 
-  async query(runId: string): Promise<SubmitResponse> {
+  query(runId: string): Promise<SubmitResponse> {
     return this.httpTransport.requestRes<SubmitResponse>(this.componentCommand(new Query(runId)))
   }
 
