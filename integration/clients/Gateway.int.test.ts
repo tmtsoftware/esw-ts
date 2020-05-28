@@ -1,7 +1,10 @@
+import { AlarmKey, AlarmService } from 'clients/alarm'
 import { CommandService } from 'clients/command'
+import { Done } from 'clients/location'
+import { SequencerService } from 'clients/sequencer'
 import { ComponentId, Prefix, Setup } from 'models'
 import { getToken } from 'utils/auth'
-import { startComponent, startServices, stopServices } from 'utils/backend'
+import { startComponent, startSequencer, startServices, stopServices } from 'utils/backend'
 
 jest.setTimeout(80000)
 
@@ -12,9 +15,10 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  await startServices(['AAS', 'Gateway'])
+  await startServices(['AAS', 'Gateway', 'Alarm'])
   // setup test hcd
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
+  await startSequencer('ESW', 'MoonNight')
 })
 
 afterAll(async () => {
@@ -56,5 +60,46 @@ describe('Command Client', () => {
     const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Forbidden'))
+  })
+})
+
+describe('Alarm Client', () => {
+  const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
+  test('set severity for the given component', async () => {
+    const alarmService = new AlarmService()
+    const alarmKey = new AlarmKey(trombonePrefix, 'tromboneAxisHighLimitAlarm')
+
+    const response: Done = await alarmService.setSeverity(alarmKey, 'Okay')
+
+    expect(response).toEqual('done')
+  })
+})
+
+describe('Sequencer Client', () => {
+  test('is up and available', async () => {
+    const validToken: string = await getToken(
+      'esw-gateway-client',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT-test'
+    )
+
+    const sequencerService = new SequencerService(
+      new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer'),
+      () => validToken
+    )
+
+    const available = await sequencerService.isAvailable()
+
+    expect(available).toBeTruthy()
+  })
+
+  test('should get unauthorized error when invalid token is provided', async () => {
+    const sequencerService = new SequencerService(
+      new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer'),
+      () => undefined
+    )
+
+    await expect(() => sequencerService.goOffline()).rejects.toThrow('Unauthorized')
   })
 })
