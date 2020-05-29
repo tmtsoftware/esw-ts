@@ -33,6 +33,7 @@ const serializers = new Map([
 ])
 
 const getContentType = (headers: Headers) => headers.get('Content-Type') || 'application/json'
+
 const bodySerializer = (headers: Headers) =>
   serializers.get(getContentType(headers)) || JSON.stringify
 

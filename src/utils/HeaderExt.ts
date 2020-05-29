@@ -1,5 +1,3 @@
-import 'whatwg-fetch'
-
 export class HeaderExt extends Headers {
   constructor(values?: HeadersInit) {
     super(values)
@@ -7,7 +5,7 @@ export class HeaderExt extends Headers {
 
   withHeader(headerName: string, value: string) {
     super.set(headerName, value)
-    return this
+    return new HeaderExt(this)
   }
 
   withContentType(value: string) {
