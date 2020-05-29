@@ -1,0 +1,20 @@
+import 'whatwg-fetch'
+
+export class HeaderExt extends Headers {
+  constructor(values?: HeadersInit) {
+    super(values)
+  }
+
+  withHeader(headerName: string, value: string) {
+    super.set(headerName, value)
+    return this
+  }
+
+  withContentType(value: string) {
+    return this.withHeader('Content-Type', value)
+  }
+
+  withAuthorization(token: string) {
+    return this.withHeader('Authorization', `Bearer ${token}`)
+  }
+}

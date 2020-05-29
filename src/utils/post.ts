@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import { HeaderExt } from 'utils/HeaderExt'
 
 type RequestConfig = {
   method: string
@@ -11,17 +12,10 @@ export const post = async <Req, Res>(
   port: number,
   payload: Req,
   path = '',
-  headers: Headers = getDefaultHeaders()
+  headers: Headers = new HeaderExt().withContentType('application/json')
 ): Promise<Res> => {
   const url = `http://${hostname}:${port}/${path}`
   return clientFetch(url, payload, 'POST', headers)
-}
-
-export const getDefaultHeaders = () => new Headers([['Content-Type', 'application/json']])
-
-export const addBearerToken = (token: string, headers: Headers = getDefaultHeaders()) => {
-  headers.append('Authorization', `Bearer ${token}`)
-  return headers
 }
 
 const handleErrors = (res: Response) => {

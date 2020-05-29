@@ -1,4 +1,5 @@
-import { addBearerToken, post } from 'utils/post'
+import { post } from 'utils/post'
+import { HeaderExt } from 'utils/HeaderExt'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM
@@ -26,7 +27,7 @@ describe('Http util', () => {
   })
 
   test('should be able to add Bearer token to Auth header', () => {
-    const headers = addBearerToken('1234')
+    const headers = new HeaderExt().withAuthorization('1234')
 
     expect(headers.get('Authorization')).toEqual('Bearer 1234')
   })
@@ -54,7 +55,7 @@ const makeErrorResponse = (): Response => {
 const makeRequest = (request: string) => {
   return {
     method: 'POST',
-    headers: new Headers([['Content-Type', 'application/json']]),
+    headers: new HeaderExt({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(request)
   }
 }
