@@ -7,6 +7,7 @@ export class HttpTransport<Req> {
   private readonly path = 'post-endpoint'
 
   constructor(
+    // todo: should this resolve on every request, msocket takes uri?
     readonly resolver: () => Promise<{ host: string; port: number }>,
     readonly tokenFactory: TokenFactory = () => undefined
   ) {}

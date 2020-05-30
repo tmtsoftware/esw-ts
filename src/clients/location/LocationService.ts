@@ -10,6 +10,7 @@ import { Prefix } from 'models/params/Prefix'
 import { HttpTransport } from 'utils/HttpTransport'
 import { Subscription, Ws } from 'utils/Ws'
 
+// fixme: find API missing?
 export interface LocationServiceApi {
   list(): Promise<Location[]>
   listByComponentType(componentType: ComponentType): Promise<Location[]>
@@ -55,8 +56,10 @@ export class LocationService implements LocationServiceApi {
     return this.httpTransport.requestRes(new Req.Unregister(connection))
   }
 
-  //todo: decide on within parameter to be in seconds or custom time interval
-  // add threshold check, take into consideration of http connection timeout at os/network layer
+  // todo:
+  // 1. decide on within withinSeconds to be in seconds or custom time interval
+  // 2. see if it can return Promise<Location>?
+  // 3. add threshold check, take into consideration of http connection timeout at os/network layer
   resolve(connection: Connection, withinSeconds: number): Promise<Location[]> {
     return this.httpTransport.requestRes(new Req.Resolve(connection, `${withinSeconds} seconds`))
   }
