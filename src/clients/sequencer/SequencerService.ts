@@ -1,40 +1,8 @@
 import { QueryFinal } from 'clients/command/models/WsCommand'
 import { GatewaySequencerCommand } from 'clients/gateway/models/Gateway'
 import { resolveGateway } from 'clients/gateway/resolveGateway'
-import {
-  AbortSequence,
-  Add,
-  AddBreakpoint,
-  Delete,
-  DiagnosticMode,
-  GetSequence,
-  GoOffline,
-  GoOnline,
-  InsertAfter,
-  IsAvailable,
-  IsOnline,
-  LoadSequence,
-  OperationsMode,
-  Pause,
-  Prepend,
-  RemoveBreakpoint,
-  Replace,
-  Reset,
-  Resume,
-  SequencerPostRequest,
-  StartSequence,
-  Stop
-} from 'clients/sequencer/models/PostCommand'
-import {
-  DiagnosticModeResponse,
-  GenericResponse,
-  GoOfflineResponse,
-  GoOnlineResponse,
-  OkOrUnhandledResponse,
-  OperationsModeResponse,
-  PauseResponse,
-  RemoveBreakpointResponse
-} from 'clients/sequencer/models/SequencerRes'
+import * as Req from 'clients/sequencer/models/PostCommand'
+import * as Res from 'clients/sequencer/models/SequencerRes'
 import { StepList } from 'clients/sequencer/models/StepList'
 import { SequencerWebsocketRequest } from 'clients/sequencer/models/WsCommand'
 import { ComponentId } from 'models/ComponentId'
@@ -44,27 +12,27 @@ import { HttpTransport, TokenFactory } from 'utils/HttpTransport'
 import { Ws } from 'utils/Ws'
 
 export interface SequencerServiceApi {
-  loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
+  loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
   startSequence(): Promise<SubmitResponse>
-  add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
-  prepend(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse>
-  replace(id: string, commands: SequenceCommand[]): Promise<GenericResponse>
-  insertAfter(id: string, commands: SequenceCommand[]): Promise<GenericResponse>
-  delete(id: string): Promise<GenericResponse>
-  addBreakpoint(id: string): Promise<GenericResponse>
-  removeBreakpoint(id: string): Promise<RemoveBreakpointResponse>
-  reset(): Promise<OkOrUnhandledResponse>
-  resume(): Promise<OkOrUnhandledResponse>
-  pause(): Promise<PauseResponse>
+  add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
+  prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
+  replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
+  insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
+  delete(id: string): Promise<Res.GenericResponse>
+  addBreakpoint(id: string): Promise<Res.GenericResponse>
+  removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse>
+  reset(): Promise<Res.OkOrUnhandledResponse>
+  resume(): Promise<Res.OkOrUnhandledResponse>
+  pause(): Promise<Res.PauseResponse>
   getSequence(): Promise<StepList[]>
   isAvailable(): Promise<boolean>
   isOnline(): Promise<boolean>
-  goOnline(): Promise<GoOnlineResponse>
-  goOffline(): Promise<GoOfflineResponse>
-  abortSequence(): Promise<OkOrUnhandledResponse>
-  stop(): Promise<OkOrUnhandledResponse>
-  diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse>
-  operationsMode(): Promise<OperationsModeResponse>
+  goOnline(): Promise<Res.GoOnlineResponse>
+  goOffline(): Promise<Res.GoOfflineResponse>
+  abortSequence(): Promise<Res.OkOrUnhandledResponse>
+  stop(): Promise<Res.OkOrUnhandledResponse>
+  diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse>
+  operationsMode(): Promise<Res.OperationsModeResponse>
 
   // websocket api
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
@@ -77,112 +45,96 @@ export class SequencerService implements SequencerServiceApi {
     this.httpTransport = new HttpTransport(resolveGateway, this.tokenFactory)
   }
 
-  private sequencerCommand(request: SequencerPostRequest | SequencerWebsocketRequest) {
+  private sequencerCommand(request: Req.SequencerPostRequest | SequencerWebsocketRequest) {
     return new GatewaySequencerCommand(this.componentId, request)
   }
 
-  loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(
-      this.sequencerCommand(new LoadSequence(sequence))
-    )
+  private postSequencerCmd<Res>(request: Req.SequencerPostRequest): Promise<Res> {
+    return this.httpTransport.requestRes(this.sequencerCommand(request))
+  }
+
+  loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.LoadSequence(sequence))
   }
 
   startSequence(): Promise<SubmitResponse> {
-    return this.httpTransport.requestRes<SubmitResponse>(this.sequencerCommand(new StartSequence()))
+    return this.postSequencerCmd(new Req.StartSequence())
   }
 
-  add(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(
-      this.sequencerCommand(new Add(commands))
-    )
+  add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.Add(commands))
   }
 
-  prepend(commands: SequenceCommand[]): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(
-      this.sequencerCommand(new Prepend(commands))
-    )
+  prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.Prepend(commands))
   }
 
-  replace(id: string, commands: SequenceCommand[]): Promise<GenericResponse> {
-    return this.httpTransport.requestRes<GenericResponse>(
-      this.sequencerCommand(new Replace(id, commands))
-    )
+  replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse> {
+    return this.postSequencerCmd(new Req.Replace(id, commands))
   }
 
-  insertAfter(id: string, commands: SequenceCommand[]): Promise<GenericResponse> {
-    return this.httpTransport.requestRes<GenericResponse>(
-      this.sequencerCommand(new InsertAfter(id, commands))
-    )
+  insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse> {
+    return this.postSequencerCmd(new Req.InsertAfter(id, commands))
   }
 
-  delete(id: string): Promise<GenericResponse> {
-    return this.httpTransport.requestRes<GenericResponse>(this.sequencerCommand(new Delete(id)))
+  delete(id: string): Promise<Res.GenericResponse> {
+    return this.postSequencerCmd(new Req.Delete(id))
   }
 
-  addBreakpoint(id: string): Promise<GenericResponse> {
-    return this.httpTransport.requestRes<GenericResponse>(
-      this.sequencerCommand(new AddBreakpoint(id))
-    )
+  addBreakpoint(id: string): Promise<Res.GenericResponse> {
+    return this.postSequencerCmd(new Req.AddBreakpoint(id))
   }
 
-  removeBreakpoint(id: string): Promise<RemoveBreakpointResponse> {
-    return this.httpTransport.requestRes<RemoveBreakpointResponse>(
-      this.sequencerCommand(new RemoveBreakpoint(id))
-    )
+  removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse> {
+    return this.postSequencerCmd(new Req.RemoveBreakpoint(id))
   }
 
-  reset(): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(this.sequencerCommand(new Reset()))
+  reset(): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.Reset())
   }
 
-  resume(): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(this.sequencerCommand(new Resume()))
+  resume(): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.Resume())
   }
 
-  pause(): Promise<PauseResponse> {
-    return this.httpTransport.requestRes<PauseResponse>(this.sequencerCommand(new Pause()))
+  pause(): Promise<Res.PauseResponse> {
+    return this.postSequencerCmd(new Req.Pause())
   }
 
   getSequence(): Promise<StepList[]> {
-    return this.httpTransport.requestRes<StepList[]>(this.sequencerCommand(new GetSequence()))
+    return this.postSequencerCmd(new Req.GetSequence())
   }
 
   isAvailable(): Promise<boolean> {
-    return this.httpTransport.requestRes<boolean>(this.sequencerCommand(new IsAvailable()))
+    return this.postSequencerCmd(new Req.IsAvailable())
   }
 
   isOnline(): Promise<boolean> {
-    return this.httpTransport.requestRes<boolean>(this.sequencerCommand(new IsOnline()))
+    return this.postSequencerCmd(new Req.IsOnline())
   }
 
-  goOnline(): Promise<GoOnlineResponse> {
-    return this.httpTransport.requestRes<GoOnlineResponse>(this.sequencerCommand(new GoOnline()))
+  goOnline(): Promise<Res.GoOnlineResponse> {
+    return this.postSequencerCmd(new Req.GoOnline())
   }
 
-  goOffline(): Promise<GoOfflineResponse> {
-    return this.httpTransport.requestRes<GoOfflineResponse>(this.sequencerCommand(new GoOffline()))
+  goOffline(): Promise<Res.GoOfflineResponse> {
+    return this.postSequencerCmd(new Req.GoOffline())
   }
 
-  abortSequence(): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(
-      this.sequencerCommand(new AbortSequence())
-    )
+  abortSequence(): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.AbortSequence())
   }
 
-  stop(): Promise<OkOrUnhandledResponse> {
-    return this.httpTransport.requestRes<OkOrUnhandledResponse>(this.sequencerCommand(new Stop()))
+  stop(): Promise<Res.OkOrUnhandledResponse> {
+    return this.postSequencerCmd(new Req.Stop())
   }
 
-  diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse> {
-    return this.httpTransport.requestRes<DiagnosticModeResponse>(
-      this.sequencerCommand(new DiagnosticMode(startTime, hint))
-    )
+  diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse> {
+    return this.postSequencerCmd(new Req.DiagnosticMode(startTime, hint))
   }
 
-  operationsMode(): Promise<OperationsModeResponse> {
-    return this.httpTransport.requestRes<OperationsModeResponse>(
-      this.sequencerCommand(new OperationsMode())
-    )
+  operationsMode(): Promise<Res.OperationsModeResponse> {
+    return this.postSequencerCmd(new Req.OperationsMode())
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {

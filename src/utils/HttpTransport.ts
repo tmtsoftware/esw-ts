@@ -13,7 +13,7 @@ export class HttpTransport<Req> {
 
   async requestRes<Res>(request: Req): Promise<Res> {
     const { host, port } = await this.resolver()
-    const token = await this.tokenFactory()
+    const token = this.tokenFactory()
     if (token) {
       const headers = new HeaderExt().withContentType('application/json').withAuthorization(token)
       return post<Req, Res>(host, port, request, this.path, headers)
