@@ -35,9 +35,9 @@ export const startComponent = (prefix: Prefix, compType: ComponentType, componen
   return resolve(new HttpConnection(prefix, compType))
 }
 
-export const startSequencer = async (subsystem: Subsystem, observingMode: string) => {
+export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
   executeSequencerScript(['start', '-s', subsystem, '-m', observingMode])
-  return await resolve(new HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
+  return resolve(new HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
 }
 
 export const stopServices = async () => {

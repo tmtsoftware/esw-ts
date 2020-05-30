@@ -7,7 +7,6 @@ import { resolve } from 'utils/resolve'
 const locationService = new LocationService()
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
-
 const waitForAASToUp = () => eventually(() => resolve(authConnection))
 
 export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
@@ -20,11 +19,10 @@ export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   )
 }
 
-export const waitForLocationServiceToStop = () => {
-  return new Promise((resolve) => {
+export const waitForLocationServiceToStop = () =>
+  new Promise((resolve) => {
     locationService
       .list()
       .catch(resolve)
-      .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 1000))
+      .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 100))
   })
-}
