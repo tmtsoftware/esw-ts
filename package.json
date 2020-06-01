@@ -46,6 +46,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "keycloak-js": "^10.0.1",
     "whatwg-fetch": "^3.0.0"
   },
   "files": [
