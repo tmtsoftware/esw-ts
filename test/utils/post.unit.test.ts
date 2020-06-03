@@ -1,5 +1,5 @@
-import { post } from 'utils/post'
-import { HeaderExt } from 'utils/HeaderExt'
+import { post } from '../../src/utils/Post'
+import { HeaderExt } from '../../src/utils/HeaderExt'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM

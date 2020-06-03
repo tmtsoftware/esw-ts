@@ -27,9 +27,8 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*", "test/*", "integration/*"]
+      "*": ["*"]
     },
-
     /* Additional Checks from jest*/
 
     "noUnusedParameters": true,

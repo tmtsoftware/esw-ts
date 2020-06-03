@@ -1,6 +1,6 @@
-import { Parameter } from 'models/params/Parameter'
-import { Units } from 'models/params/Units'
-import { Key, KeyTag, KeyType } from 'models/params/Key'
+import { Parameter } from './Parameter'
+import { Units } from './Units'
+import { Key, KeyTag, KeyType } from './Key'
 
 export class BaseKey<T extends Key> {
   constructor(readonly keyName: string, readonly keyTag: KeyTag<T>, readonly units: Units) {}

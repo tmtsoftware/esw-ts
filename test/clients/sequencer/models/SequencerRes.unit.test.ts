@@ -7,8 +7,8 @@ import {
   Ok,
   OperationsHookFailed,
   Unhandled
-} from 'clients/sequencer/models/SequencerRes'
-import * as TestData from 'jsons/SequencerResponses.json'
+} from '../../../../src/clients/sequencer'
+import * as TestData from '../../../jsons/SequencerResponses.json'
 
 const ok: Ok = { _type: 'Ok' }
 

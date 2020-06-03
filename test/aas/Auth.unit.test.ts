@@ -1,34 +1,60 @@
-import { TMTAuth } from 'aas/Auth'
+import { TMTAuth } from '../../src/aas'
 import { mocked } from 'ts-jest/utils'
 import * as Keycloak from 'keycloak-js'
-import { AASConfig } from 'config/AASConfig'
-import { KeycloakInstance } from 'keycloak-js'
-import { mockedKeyCloakInstance } from 'aas/MockHelper'
-//
+import { AASConfig } from '../../src/config'
+import { resolve } from '../../src/utils/Resolve'
+import { HttpConnection, HttpLocation } from '../../src/clients/location'
+import { Prefix } from '../../src/models'
+import { mockedKeyCloakInstance } from '../utils/MockHelpers'
+
+const conf = {
+  realm: 'TMT-test',
+  clientId: 'config-app'
+}
+
+const url = 'http://localhost:8081'
+jest.mock('utils/resolve')
 jest.mock('keycloak-js')
-const postMockFn = mocked(Keycloak, true)
-
+afterEach(() => jest.clearAllMocks())
+jest.setTimeout(5 * 60000 + 10000)
 describe('Auth', () => {
-  test('Initialise auth handler', async () => {
-    const mockInitHandler = jest.fn()
-    postMockFn.mockReturnValue(mockedKeyCloakInstance(mockInitHandler))
-    const conf = {
-      realm: 'TMT-test',
-      clientId: 'config-app'
-    }
-    const url = 'http://localhost:8081'
+  test('Initialise keycloak on authenticate', async () => {
+    const mockFn = mocked(Keycloak, true)
+    const keycloakInstance = mockedKeyCloakInstance()
+    mockFn.mockReturnValue(keycloakInstance)
 
-    await TMTAuth.authenticate(conf, url)
+    const { authenticatedPromise } = await TMTAuth.authenticate(conf, url, true)
 
     const expectedConfig = {
       ...AASConfig,
       ...conf,
       url
     }
-    expect(mockInitHandler).toBeCalledWith({
+
+    expect(keycloakInstance.init).toBeCalledWith({
       onLoad: 'login-required',
       flow: 'implicit'
     })
-    expect(postMockFn).toBeCalledWith(expectedConfig)
+    expect(mockFn).toBeCalledWith(expectedConfig)
+    expect(await authenticatedPromise).toEqual(true)
+  })
+
+  test('fetch AAS url', async () => {
+    const mockedResolve = mocked(resolve, true)
+    const authLocation = new HttpLocation(
+      new HttpConnection(new Prefix('CSW', 'AAS'), 'Service'),
+      'http://localhost:8081/auth'
+    )
+    mockedResolve.mockResolvedValueOnce(authLocation)
+    // mockedResolve.mockRejectedValueOnce(Error('aas not found'))
+    const uri = await TMTAuth.getAASUrl()
+    expect(uri).toEqual('http://localhost:8081/auth')
+  })
+
+  test('fail to fetch AAS url', async () => {
+    const mockedResolve = mocked(resolve, true)
+    mockedResolve.mockRejectedValueOnce(Error('CSW.AAS not found'))
+
+    await expect(() => TMTAuth.getAASUrl()).rejects.toThrow('CSW.AAS not found')
   })
 })

@@ -1,1 +1,1 @@
-export { CommandService } from 'clients/command/CommandService'
+export { CommandService } from './CommandService'

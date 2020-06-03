@@ -4,17 +4,15 @@ import {
   Query,
   Submit,
   Validate
-} from 'clients/command/models/PostCommand'
+} from '../../../../src/clients/command/models/PostCommand'
 import {
   CommandServiceWsMessage,
   QueryFinal,
   SubscribeCurrentState
-} from 'clients/command/models/WsCommand'
-import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
-import * as TestData from 'jsons/CommandRequests.json'
-import { ComponentId } from 'models/ComponentId'
-import { Observe, Setup } from 'models/params/Command'
-import { Prefix } from 'models/params/Prefix'
+} from '../../../../src/clients/command/models/WsCommand'
+import { GatewayComponentCommand } from '../../../../src/clients/gateway/models/Gateway'
+import * as TestData from '../../../jsons/CommandRequests.json'
+import { ComponentId, Observe, Setup, Prefix } from '../../../../src/models'
 
 const setupCommand = new Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
 const observeCommand = new Observe('CSW.ncc.trombone', 'move', [], ['obs001'])

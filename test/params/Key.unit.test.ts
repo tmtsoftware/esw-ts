@@ -1,4 +1,4 @@
-import * as TestData from 'jsons/keys.json'
+import * as TestData from '../jsons/keys.json'
 import {
   AltAzCoord,
   CometCoord,
@@ -7,8 +7,8 @@ import {
   SolarSystemCoord,
   Key,
   Parameter
-} from 'models'
-import * as Keys from 'models/params/Key'
+} from '../../src/models'
+import * as Keys from '../../src/models/params/Key'
 
 const stringify = (param: Parameter<Key>) => JSON.stringify(param.toJSON()[param.keyTag])
 

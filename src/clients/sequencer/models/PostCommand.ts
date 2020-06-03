@@ -1,4 +1,4 @@
-import { SequenceCommand } from 'models/params/Command'
+import { SequenceCommand } from '../../../models'
 
 export class LoadSequence {
   readonly _type: 'LoadSequence' = 'LoadSequence'

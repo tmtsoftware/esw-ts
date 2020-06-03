@@ -23,7 +23,7 @@ export interface Auth {
 
 export interface AuthenticateResult {
   keycloak: KeycloakInstance
-  authenticated: KeycloakPromise<boolean, KeycloakError>
+  authenticatedPromise: KeycloakPromise<boolean, KeycloakError>
 }
 
 export interface AuthContextConfig {

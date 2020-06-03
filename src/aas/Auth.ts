@@ -1,9 +1,10 @@
 import * as Keycloak from 'keycloak-js'
 import { KeycloakInstance } from 'keycloak-js'
-import { resolve } from 'utils/resolve'
-import { authConnection } from 'utils/auth'
-import { AASConfig } from 'config/AASConfig'
-import { Auth, AuthContextConfig, AuthenticateResult } from 'aas/Models'
+import { resolve } from '../utils/Resolve'
+import { AASConfig } from '../config/AASConfig'
+import { Auth, AuthContextConfig, AuthenticateResult } from './Models'
+import { HttpConnection } from '../clients/location'
+import { Prefix } from '../models'
 
 /**
  * Adapter for authentication and authorization service
@@ -46,18 +47,25 @@ class AuthStore {
    * @return {{ keycloak, authenticated }} json which contains keycloak instance and authenticated which is promise after
    * initializing keycloak
    */
-  public authenticate = (config: AuthContextConfig, url: string): AuthenticateResult => {
+
+  // fixme: this function name is confusing . it is doing instantiation of keycloak and returning authentication promise ?
+  //  it doing too many things at once?
+  public authenticate = (
+    config: AuthContextConfig,
+    url: string,
+    redirect: boolean
+  ): AuthenticateResult => {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
     const keycloak: KeycloakInstance = Keycloak(keycloakConfig)
 
     keycloak.onTokenExpired = () => this.onTokenExpired(keycloak)
 
-    const authenticated = keycloak.init({
-      onLoad: 'login-required',
+    const authenticatedPromise = keycloak.init({
+      onLoad: redirect ? 'login-required' : 'check-sso',
       flow: 'implicit'
     })
-    return { keycloak, authenticated }
+    return { keycloak, authenticatedPromise }
   }
 
   /**
@@ -67,6 +75,7 @@ class AuthStore {
    * @return url string which is AAS server url
    */
   public getAASUrl: () => Promise<string> = async () => {
+    const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
     const location = await resolve(authConnection)
     return location.uri
   }

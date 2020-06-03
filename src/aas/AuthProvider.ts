@@ -2,24 +2,29 @@
  * Responsible for instantiating keycloak and provide context value to consumers
  * config json specific to UI application e.g. realm and clientId
  */
-import { TMTAuth } from 'aas/Auth'
-import { Auth, AuthContextConfig } from 'aas/Models.ts'
+import { TMTAuth } from './Auth'
+import { Auth, AuthContextConfig } from './Models'
 
+// do we need this in main scope?
+// we can have this in example folder showing how to use the auth layer
 export class AuthProvider {
   constructor(readonly config: AuthContextConfig) {}
   /**
    * Instantiate keycloak and sets TMTAuthStore instance in state. This state can be provided
    * as a context
    */
-  async instantiateAAS(url: string) {
-    const { keycloak, authenticated } = await TMTAuth.authenticate(this.config, url)
-    authenticated
-      .then(() => {
-        return TMTAuth.from(keycloak)
-      })
-      .catch(() => {
-        throw new Error('AAS initialization failed')
-      })
+  private async instantiateAAS(url: string, redirect: boolean) {
+    const { keycloak, authenticatedPromise } = await TMTAuth.authenticate(
+      this.config,
+      url,
+      redirect
+    )
+    const authenticated = await authenticatedPromise
+    if (!authenticated)
+      throw new Error(
+        `Authentication failed for Realm ${this.config.realm} & clientId ${this.config.clientId}.Please make sure it is configured in AAS`
+      )
+    return TMTAuth.from(keycloak)
   }
 
   /**
@@ -27,7 +32,7 @@ export class AuthProvider {
    */
   async loginWithoutRedirect() {
     const url = await TMTAuth.getAASUrl()
-    await this.instantiateAAS(url)
+    await this.instantiateAAS(url, false)
   }
 
   /**
@@ -35,15 +40,11 @@ export class AuthProvider {
    */
   async login() {
     const url = await TMTAuth.getAASUrl()
-    await this.instantiateAAS(url)
+    await this.instantiateAAS(url, true)
   }
 
   async logout(auth: Auth) {
     if (auth && auth.logout) {
-      const logoutPromise = auth.logout()
-      logoutPromise.success(() => {
-        // setauth(null)
-      })
       await auth.logout()
     }
   }

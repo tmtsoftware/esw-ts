@@ -1,5 +1,4 @@
-import { ComponentType } from 'models/ComponentType'
-import { Prefix } from 'models/params/Prefix'
+import { ComponentType, Prefix } from '../../../models'
 
 export type ConnectionType = 'akka' | 'http' | 'tcp'
 

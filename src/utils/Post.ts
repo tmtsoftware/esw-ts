@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { HeaderExt } from 'utils/HeaderExt'
+import { HeaderExt } from './HeaderExt'
 
 export const post = async <Req, Res>(
   hostname: string,

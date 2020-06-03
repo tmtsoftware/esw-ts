@@ -1,4 +1,4 @@
-import { ComponentType, Subsystem } from 'models'
+import { ComponentType, Subsystem } from '../models'
 export interface GatewayConfig {
   readonly subsystem: Subsystem
   readonly componentName: string

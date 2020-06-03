@@ -1,4 +1,4 @@
-import { Parameter } from 'models/params/Parameter'
+import { Parameter } from './Parameter'
 
 export interface CurrentState {
   readonly prefix: string

@@ -1,9 +1,16 @@
-import { GatewayConnection } from 'clients/gateway/resolveGateway'
-import { HttpLocation } from 'clients/location'
-import { SequencerService, Step, StepList, StepStatus } from 'clients/sequencer'
-import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse, Wait } from 'models'
+import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
+import { HttpLocation } from '../../../src/clients/location'
+import { SequencerService, Step, StepList, StepStatus } from '../../../src/clients/sequencer'
+import {
+  ComponentId,
+  Prefix,
+  SequenceCommand,
+  Setup,
+  SubmitResponse,
+  Wait
+} from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/post'
+import { post } from '../../../src/utils/Post'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService(componentId, () => '')

@@ -1,14 +1,14 @@
-import { HttpConnection } from 'clients/location'
-import { ComponentType, Prefix, Subsystem } from 'models'
-import { authConnection } from 'utils/auth'
-import { waitForLocationServiceToStop, waitForServicesToUp } from 'utils/healthCheck'
-import { resolve } from 'utils/resolve'
+import { HttpConnection } from '../../src/clients/location'
+import { ComponentType, Prefix, Subsystem } from '../../src/models'
+import { authConnection } from './auth'
+import { waitForLocationServiceToStop, waitForServicesToUp } from './healthCheck'
+import { resolve } from '../../src/utils/Resolve'
 import {
   executeComponentScript,
   executeSequencerScript,
   executeServicesScript,
   executeStopServicesScript
-} from 'utils/shell'
+} from './shell'
 
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
 

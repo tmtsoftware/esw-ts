@@ -1,7 +1,13 @@
-import { Done, HttpConnection, HttpLocation, Location, LocationService } from 'clients/location'
-import { Prefix } from 'models'
+import {
+  Done,
+  HttpConnection,
+  HttpLocation,
+  Location,
+  LocationService
+} from '../../../src/clients/location'
+import { Prefix } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/post'
+import { post } from '../../../src/utils/Post'
 
 const locationService = new LocationService()
 jest.mock('utils/post')

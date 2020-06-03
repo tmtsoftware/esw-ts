@@ -1,4 +1,4 @@
-import { ControlCommand } from 'models/params/Command'
+import { ControlCommand } from '../../../models'
 
 export type CommandServiceHttpMessage = Submit | Validate | Oneway | Query
 

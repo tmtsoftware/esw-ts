@@ -1,11 +1,11 @@
-import { GatewayConnection } from 'clients/gateway/resolveGateway'
-import { HttpLocation } from 'clients/location'
-import { SequencerService } from 'clients/sequencer'
+import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
+import { HttpLocation } from '../../../src/clients/location'
+import { SequencerService } from '../../../src/clients/sequencer'
 import { Server } from 'mock-socket'
-import { ComponentId, Prefix, SubmitResponse } from 'models'
+import { ComponentId, Prefix, SubmitResponse } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { wsMockWithResolved } from 'utils/MockHelpers'
-import { post } from 'utils/post'
+import { wsMockWithResolved } from '../../utils/MockHelpers'
+import { post } from '../../../src/utils/Post'
 
 jest.mock('utils/post')
 const postMockFn = mocked(post, true)

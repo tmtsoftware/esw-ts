@@ -1,5 +1,5 @@
-import { AlarmKey } from 'clients/alarm'
-import { Prefix } from 'models'
+import { AlarmKey } from '../../../../src/clients/alarm'
+import { Prefix } from '../../../../src/models'
 
 describe('Alarm key', () => {
   test('prefix name should not have invalid chars', () => {

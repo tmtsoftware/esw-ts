@@ -1,10 +1,10 @@
-import { AlarmKey, AlarmService } from 'clients/alarm'
-import { CommandService } from 'clients/command'
-import { Done } from 'clients/location'
-import { SequencerService } from 'clients/sequencer'
-import { ComponentId, Prefix, Setup } from 'models'
-import { getToken } from 'utils/auth'
-import { startComponent, startSequencer, startServices, stopServices } from 'utils/backend'
+import { AlarmKey, AlarmService } from '../../src/clients/alarm'
+import { CommandService } from '../../src/clients/command'
+import { Done } from '../../src/clients/location'
+import { SequencerService } from '../../src/clients/sequencer'
+import { ComponentId, Prefix, Setup } from '../../src/models'
+import { getToken } from '../utils/auth'
+import { startComponent, startSequencer, startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
 

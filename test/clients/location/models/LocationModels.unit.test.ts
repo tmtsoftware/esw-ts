@@ -1,7 +1,14 @@
-import { AkkaConnection, HttpConnection, TcpConnection } from 'clients/location/models/Connection'
-import { AkkaLocation, HttpLocation, TcpLocation } from 'clients/location/models/Location'
-import * as TestData from 'jsons/LocationModels.json'
-import { Prefix } from 'models/params/Prefix'
+import {
+  AkkaConnection,
+  HttpConnection,
+  TcpConnection,
+  AkkaLocation,
+  HttpLocation,
+  TcpLocation
+} from '../../../../src/clients/location'
+
+import * as TestData from '../../../jsons/LocationModels.json'
+import { Prefix } from '../../../../src/models'
 
 const prefix = new Prefix('ESW', 'test')
 const uri = 'some uri'

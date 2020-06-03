@@ -1,6 +1,6 @@
-import * as Sequencer from 'clients/sequencer/models/PostCommand'
-import * as TestData from 'jsons/sequencerModels.json'
-import { SequenceCommand, Setup } from 'models/params/Command'
+import * as Sequencer from '../../../../src/clients/sequencer/models/PostCommand'
+import * as TestData from '../../../jsons/sequencerModels.json'
+import { SequenceCommand, Setup } from '../../../../src/models'
 
 const setupCommand = new Setup('ESW.test', 'command-1', [])
 const sequence: SequenceCommand[] = [setupCommand]

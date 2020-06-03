@@ -1,8 +1,8 @@
-import { HttpConnection } from 'clients/location'
-import { Prefix } from 'models'
-import { post } from 'utils/post'
-import { extractHostPort } from 'utils/Utils'
-import { resolve } from 'utils/resolve'
+import { HttpConnection } from '../../src/clients/location'
+import { Prefix } from '../../src/models'
+import { post } from '../../src/utils/Post'
+import { extractHostPort } from '../../src/utils/Utils'
+import { resolve } from '../../src/utils/Resolve'
 
 export const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
 

@@ -1,5 +1,5 @@
-import { Connection } from 'clients/location/models/Connection'
-import { Location } from 'clients/location/models/Location'
+import { Connection } from './Connection'
+import { Location } from './Location'
 
 export interface LocationUpdated {
   readonly _type: 'LocationUpdated'

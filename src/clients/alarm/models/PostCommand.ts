@@ -1,5 +1,5 @@
-import { Prefix } from 'models'
-import { requirement } from 'utils/Utils'
+import { Prefix } from '../../../models'
+import { requirement } from '../../../utils/Utils'
 
 const invalidChars = new RegExp('.*[\\*\\[\\]\\^\\?\\-].*')
 

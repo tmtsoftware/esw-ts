@@ -1,8 +1,8 @@
-import { LocationService } from 'clients/location'
-import { authConnection } from 'utils/auth'
-import { BackendServices, ServiceName } from 'utils/backend'
-import { eventually } from 'utils/eventually'
-import { resolve } from 'utils/resolve'
+import { LocationService } from '../../src/clients/location'
+import { authConnection } from './auth'
+import { BackendServices, ServiceName } from './backend'
+import { eventually } from './eventually'
+import { resolve } from '../../src/utils/Resolve'
 
 const locationService = new LocationService()
 

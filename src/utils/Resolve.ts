@@ -1,4 +1,4 @@
-import { Connection, LocationService } from 'clients/location'
+import { Connection, LocationService } from '../clients/location'
 
 const locationService = new LocationService()
 

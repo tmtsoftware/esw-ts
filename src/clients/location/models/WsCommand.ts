@@ -1,4 +1,4 @@
-import { Connection } from 'clients/location/models/Connection'
+import { Connection } from './Connection'
 
 export class Track {
   readonly _type: 'Track' = 'Track'

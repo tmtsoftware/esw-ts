@@ -1,13 +1,17 @@
-import * as Req from 'clients/command/models/PostCommand'
-import * as WsReq from 'clients/command/models/WsCommand'
-import { GatewayComponentCommand } from 'clients/gateway/models/Gateway'
-import { resolveGateway } from 'clients/gateway/resolveGateway'
-import { ComponentId } from 'models/ComponentId'
-import { ControlCommand } from 'models/params/Command'
-import { OneWayResponse, SubmitResponse, ValidateResponse } from 'models/params/CommandResponse'
-import { CurrentState } from 'models/params/CurrentState'
-import { HttpTransport, TokenFactory } from 'utils/HttpTransport'
-import { Subscription, Ws } from 'utils/Ws'
+import * as Req from './models/PostCommand'
+import * as WsReq from './models/WsCommand'
+import { GatewayComponentCommand } from '../gateway/models/Gateway'
+import { resolveGateway } from '../gateway/resolveGateway'
+import {
+  ComponentId,
+  ControlCommand,
+  CurrentState,
+  OneWayResponse,
+  SubmitResponse,
+  ValidateResponse
+} from '../../models'
+import { HttpTransport, TokenFactory } from '../../utils/HttpTransport'
+import { Subscription, Ws } from '../../utils/Ws'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>

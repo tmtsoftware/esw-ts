@@ -1,9 +1,9 @@
-import { AlarmKey, AlarmService } from 'clients/alarm'
-import { Prefix } from 'models'
-import { Done, HttpLocation } from 'clients/location'
+import { AlarmKey, AlarmService } from '../../../src/clients/alarm'
+import { Prefix } from '../../../src/models'
+import { Done, HttpLocation } from '../../../src/clients/location'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/post'
-import { GatewayConnection } from 'clients/gateway/resolveGateway'
+import { post } from '../../../src/utils/Post'
+import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
 
 jest.mock('utils/post')
 const postMockFn = mocked(post, true)

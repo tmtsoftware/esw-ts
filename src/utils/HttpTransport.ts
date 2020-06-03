@@ -1,5 +1,5 @@
-import { post } from 'utils/post'
-import { HeaderExt } from 'utils/HeaderExt'
+import { post } from './Post'
+import { HeaderExt } from './HeaderExt'
 
 export type TokenFactory = () => string | undefined
 

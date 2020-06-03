@@ -1,6 +1,5 @@
-import { Connection, ConnectionType } from 'clients/location/models/Connection'
-import { ComponentType } from 'models/ComponentType'
-import { Prefix } from 'models/params/Prefix'
+import { Connection, ConnectionType } from './Connection'
+import { ComponentType, Prefix } from '../../../models'
 
 export class ListEntries {
   readonly _type: 'ListEntries' = 'ListEntries'

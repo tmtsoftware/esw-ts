@@ -1,5 +1,5 @@
-import { Key } from 'models/params/Key'
-import { Parameter } from 'models/params/Parameter'
+import { Key } from './Key'
+import { Parameter } from './Parameter'
 
 interface Command {
   readonly _type: 'Setup' | 'Observe' | 'Wait'

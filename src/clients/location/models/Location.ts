@@ -1,9 +1,4 @@
-import {
-  AkkaConnection,
-  Connection,
-  HttpConnection,
-  TcpConnection
-} from 'clients/location/models/Connection'
+import { AkkaConnection, Connection, HttpConnection, TcpConnection } from './Connection'
 
 export interface Location {
   readonly _type: 'AkkaLocation' | 'HttpLocation' | 'TcpLocation'

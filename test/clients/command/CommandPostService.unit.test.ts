@@ -1,6 +1,6 @@
-import { CommandService } from 'clients/command'
-import { GatewayConnection } from 'clients/gateway/resolveGateway'
-import { HttpLocation } from 'clients/location'
+import { CommandService } from '../../../src/clients/command'
+import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
+import { HttpLocation } from '../../../src/clients/location'
 import {
   Completed,
   ComponentId,
@@ -10,9 +10,9 @@ import {
   Setup,
   SubmitResponse,
   ValidateResponse
-} from 'models'
+} from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { post } from 'utils/post'
+import { post } from '../../../src/utils/Post'
 
 jest.mock('utils/post')
 const postMockFn = mocked(post, true)

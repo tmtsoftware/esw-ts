@@ -1,4 +1,4 @@
-import { Prefix } from 'models'
+import { Prefix } from '../../src/models'
 
 describe('Prefix', () => {
   test("cannot have '-' in component name", () => {

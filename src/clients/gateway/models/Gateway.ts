@@ -1,8 +1,8 @@
-import { CommandServiceHttpMessage } from 'clients/command/models/PostCommand'
-import { CommandServiceWsMessage } from 'clients/command/models/WsCommand'
-import { SequencerPostRequest } from 'clients/sequencer/models/PostCommand'
-import { SequencerWebsocketRequest } from 'clients/sequencer/models/WsCommand'
-import { ComponentId } from 'models/ComponentId'
+import { CommandServiceHttpMessage } from '../../command/models/PostCommand'
+import { CommandServiceWsMessage } from '../../command/models/WsCommand'
+import { SequencerPostRequest } from '../../sequencer/models/PostCommand'
+import { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
+import { ComponentId } from '../../../models'
 
 export class GatewayComponentCommand {
   readonly _type: 'ComponentCommand' = 'ComponentCommand'
