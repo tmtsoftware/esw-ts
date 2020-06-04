@@ -49,9 +49,11 @@
     "ts-jest": "^25.5.1",
     "typescript": "^3.8.3"
   },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
   "dependencies": {
     "keycloak-js": "^10.0.1",
-    "react": "^16.13.1",
     "whatwg-fetch": "^3.0.0"
   },
   "files": [
