@@ -16,6 +16,7 @@ export interface LocationServiceApi {
   listByHostname(hostname: string): Promise<Location[]>
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]>
   listByPrefix(prefix: Prefix): Promise<Location[]>
+  find(connection: Connection): Promise<Location>
   unregister(connection: Connection): Promise<Done>
   resolve(connection: Connection, withinSeconds: number): Promise<Location[]>
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription
@@ -49,6 +50,10 @@ export class LocationService implements LocationServiceApi {
 
   listByPrefix(prefix: Prefix): Promise<Location[]> {
     return this.httpTransport.requestRes(new Req.ListByPrefix(prefix))
+  }
+
+  find(connection: Connection): Promise<Location> {
+    return this.httpTransport.requestRes(new Req.Find(connection))
   }
 
   unregister(connection: Connection): Promise<Done> {

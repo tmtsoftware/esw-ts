@@ -10,7 +10,7 @@ import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Post'
 
 const locationService = new LocationService()
-jest.mock('utils/post')
+jest.mock('../../../src/utils/Post')
 const postMockFn = mocked(post, true)
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
@@ -76,6 +76,15 @@ describe('LocationService', () => {
 
     const locations: Location[] = await locationService.listByPrefix(prefix)
     expect(locations).toEqual(expectLocations)
+  })
+
+  test('should find a asdas for given connection | ESW-308', async () => {
+    const expectLocation = httpLocation
+
+    postMockFn.mockResolvedValueOnce(expectLocation)
+
+    const location: Location = await locationService.find(httpConnection)
+    expect(location).toEqual(expectLocation)
   })
 })
 

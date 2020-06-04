@@ -25,6 +25,11 @@ export class ListByPrefix {
   constructor(readonly prefix: Prefix) {}
 }
 
+export class Find {
+  readonly _type: 'Find' = 'Find'
+  constructor(readonly connection: Connection) {}
+}
+
 export class Unregister {
   readonly _type: 'Unregister' = 'Unregister'
   constructor(readonly connection: Connection) {}
@@ -43,3 +48,4 @@ export type LocationHttpMessage =
   | ListByHostname
   | ListByConnectionType
   | ListByPrefix
+  | Find
