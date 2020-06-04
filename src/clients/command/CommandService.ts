@@ -1,7 +1,6 @@
 import * as Req from './models/PostCommand'
 import * as WsReq from './models/WsCommand'
 import { GatewayComponentCommand } from '../gateway/models/Gateway'
-import { resolveGateway } from '../gateway/resolveGateway'
 import {
   ComponentId,
   ControlCommand,
@@ -12,6 +11,7 @@ import {
 } from '../../models'
 import { HttpTransport, TokenFactory } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
+import { resolveGateway } from '../gateway/resolveGateway'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>

@@ -1,8 +1,8 @@
-import { Connection, LocationService } from '../clients/location'
+import { Connection } from './models/Connection'
+import { LocationService } from './LocationService'
 
 const locationService = new LocationService()
 
-// fixme: see if it can be moved to LocationService.resolve API
 export const resolve = async (connection: Connection, timeout = 10) => {
   const [location] = await locationService.resolve(connection, timeout)
 

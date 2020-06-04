@@ -2,7 +2,7 @@ import { HttpConnection } from '../../src/clients/location'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
 import { authConnection } from './auth'
 import { waitForLocationServiceToStop, waitForServicesToUp } from './healthCheck'
-import { resolve } from '../../src/utils/Resolve'
+import { resolve } from '../../src/clients/location/LocationUtils'
 import {
   executeComponentScript,
   executeSequencerScript,

@@ -2,7 +2,7 @@ import { TMTAuth } from '../../src/aas'
 import { mocked } from 'ts-jest/utils'
 import * as Keycloak from 'keycloak-js'
 import { AASConfig } from '../../src/config'
-import { resolve } from '../../src/utils/Resolve'
+import { resolve } from '../../src/clients/location/LocationUtils'
 import { HttpConnection, HttpLocation } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
 import { mockedKeyCloakInstance } from '../utils/MockHelpers'
@@ -13,10 +13,12 @@ const conf = {
 }
 
 const url = 'http://localhost:8081'
-jest.mock('utils/resolve')
+
+jest.mock('../../src/clients/location/LocationUtils')
 jest.mock('keycloak-js')
+
 afterEach(() => jest.clearAllMocks())
-jest.setTimeout(5 * 60000 + 10000)
+
 describe('Auth', () => {
   test('Initialise keycloak on authenticate', async () => {
     const mockFn = mocked(Keycloak, true)

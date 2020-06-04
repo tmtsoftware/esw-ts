@@ -1,10 +1,10 @@
 import * as Keycloak from 'keycloak-js'
 import { KeycloakInstance } from 'keycloak-js'
-import { resolve } from '../utils/Resolve'
 import { AASConfig } from '../config/AASConfig'
 import { Auth, AuthContextConfig, AuthenticateResult } from './Models'
 import { HttpConnection } from '../clients/location'
 import { Prefix } from '../models'
+import { resolve } from '../clients/location/LocationUtils'
 
 /**
  * Adapter for authentication and authorization service

@@ -2,7 +2,7 @@ import { HttpConnection } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
 import { post } from '../../src/utils/Post'
 import { extractHostPort } from '../../src/utils/Utils'
-import { resolve } from '../../src/utils/Resolve'
+import { resolve } from '../../src/clients/location/LocationUtils'
 
 export const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
 
