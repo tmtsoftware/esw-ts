@@ -1,4 +1,4 @@
-import * as TestData from '../jsons/keys.json'
+import * as TestData from '../jsons/Keys.json'
 import {
   AltAzCoord,
   CometCoord,

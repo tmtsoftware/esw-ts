@@ -1,6 +1,6 @@
 import { QueryFinal } from '../command/models/WsCommand'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
-import { resolveGateway } from '../gateway/resolveGateway'
+import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Req from './models/PostCommand'
 import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'

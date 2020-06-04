@@ -1,5 +1,5 @@
 import { CommandService } from '../../../src/clients/command'
-import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
+import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
 import {
   Completed,

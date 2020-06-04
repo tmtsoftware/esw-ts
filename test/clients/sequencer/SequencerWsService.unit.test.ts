@@ -1,4 +1,4 @@
-import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
+import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
 import { SequencerService } from '../../../src/clients/sequencer'
 import { Server } from 'mock-socket'

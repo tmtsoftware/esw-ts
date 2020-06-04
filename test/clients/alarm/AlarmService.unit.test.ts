@@ -3,7 +3,7 @@ import { Prefix } from '../../../src/models'
 import { Done, HttpLocation } from '../../../src/clients/location'
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Post'
-import { GatewayConnection } from '../../../src/clients/gateway/resolveGateway'
+import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 
 jest.mock('utils/post')
 const postMockFn = mocked(post, true)

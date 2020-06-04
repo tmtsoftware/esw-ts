@@ -1,4 +1,4 @@
-import { resolveGateway } from '../../../src/clients/gateway/resolveGateway'
+import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Post'
 

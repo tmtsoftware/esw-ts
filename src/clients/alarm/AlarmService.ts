@@ -1,4 +1,4 @@
-import { resolveGateway } from '../gateway/resolveGateway'
+import { resolveGateway } from '../gateway/ResolveGateway'
 import { Done } from '../location'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'

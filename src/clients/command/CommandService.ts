@@ -11,7 +11,7 @@ import {
 } from '../../models'
 import { HttpTransport, TokenFactory } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
-import { resolveGateway } from '../gateway/resolveGateway'
+import { resolveGateway } from '../gateway/ResolveGateway'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>
