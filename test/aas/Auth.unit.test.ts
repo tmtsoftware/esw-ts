@@ -1,6 +1,6 @@
-import { TMTAuth } from '../../src/aas'
+import { TMTAuth } from '../../src/aas/Auth'
 import { mocked } from 'ts-jest/utils'
-import * as Keycloak from 'keycloak-js'
+import Keycloak from 'keycloak-js'
 import { AASConfig } from '../../src/config'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { HttpConnection, HttpLocation } from '../../src/clients/location'
