@@ -8,8 +8,8 @@ import { LocationConfig } from '../../config'
 import { ComponentType, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
+import { Duration } from './models/Duration'
 
-// fixme: find API missing?
 export interface LocationServiceApi {
   list(): Promise<Location[]>
   listByComponentType(componentType: ComponentType): Promise<Location[]>
@@ -18,7 +18,7 @@ export interface LocationServiceApi {
   listByPrefix(prefix: Prefix): Promise<Location[]>
   find(connection: Connection): Promise<Location>
   unregister(connection: Connection): Promise<Done>
-  resolve(connection: Connection, withinSeconds: number): Promise<Location[]>
+  resolve(connection: Connection, within: Duration): Promise<Location[]>
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription
 }
 
@@ -64,8 +64,8 @@ export class LocationService implements LocationServiceApi {
   // 1. decide on within withinSeconds to be in seconds or custom time interval
   // 2. see if it can return Promise<Location>?
   // 3. add threshold check, take into consideration of http connection timeout at os/network layer
-  resolve(connection: Connection, withinSeconds: number): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.Resolve(connection, `${withinSeconds} seconds`))
+  resolve(connection: Connection, within: Duration): Promise<Location[]> {
+    return this.httpTransport.requestRes(new Req.Resolve(connection, within))
   }
 
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {

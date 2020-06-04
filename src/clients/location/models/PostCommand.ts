@@ -1,5 +1,6 @@
 import { Connection, ConnectionType } from './Connection'
 import { ComponentType, Prefix } from '../../../models'
+import { Duration } from './Duration'
 
 export class ListEntries {
   readonly _type: 'ListEntries' = 'ListEntries'
@@ -37,7 +38,7 @@ export class Unregister {
 
 export class Resolve {
   readonly _type: 'Resolve' = 'Resolve'
-  constructor(readonly connection: Connection, readonly within: string) {}
+  constructor(readonly connection: Connection, readonly within: Duration) {}
 }
 
 export type LocationHttpMessage =

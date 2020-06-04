@@ -8,6 +8,7 @@ import {
 import { Prefix } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Post'
+import { Duration } from '../../../src/clients/location/models/Duration'
 
 const locationService = new LocationService()
 jest.mock('../../../src/utils/Post')
@@ -38,7 +39,7 @@ describe('LocationService', () => {
     const expectLocation = [httpLocation]
     postMockFn.mockResolvedValue(expectLocation)
 
-    const actualLocation = await locationService.resolve(httpConnection, 5)
+    const actualLocation = await locationService.resolve(httpConnection, new Duration(5, 'seconds'))
     expect(actualLocation).toEqual(expectLocation)
   })
 
