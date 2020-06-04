@@ -29,7 +29,8 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json').withAuthorization('validToken')
+      headers: new HeaderExt().withContentType('application/json').withAuthorization('validToken'),
+      signal: new AbortController().signal
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
@@ -44,7 +45,8 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json')
+      headers: new HeaderExt().withContentType('application/json'),
+      signal: new AbortController().signal
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })

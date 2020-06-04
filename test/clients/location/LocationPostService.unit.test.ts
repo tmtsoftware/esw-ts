@@ -43,6 +43,16 @@ describe('LocationService', () => {
     expect(actualLocation).toEqual(expectLocation)
   })
 
+  test('should throw Request timed out when resolve takes more time than threshold | ESW-308', async () => {
+    postMockFn.mockRejectedValueOnce(() => {
+      throw new Error('Request timed out')
+    })
+
+    await expect(() =>
+      locationService.resolve(httpConnection, new Duration(3, 'seconds'))
+    ).rejects.toThrow('Request timed out')
+  })
+
   test('should fetch list all locations for given componentType | ESW-308', async () => {
     const expectLocations = [httpLocation]
 

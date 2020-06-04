@@ -12,14 +12,13 @@ export class HttpTransport<Req> {
     readonly tokenFactory: TokenFactory = () => undefined
   ) {}
 
-  async requestRes<Res>(request: Req): Promise<Res> {
+  async requestRes<Res>(request: Req, timeoutInMillis?: number): Promise<Res> {
     const { host, port } = await this.resolver()
     const token = this.tokenFactory()
+    const headers = new HeaderExt().withContentType('application/json')
     if (token) {
-      const headers = new HeaderExt().withContentType('application/json').withAuthorization(token)
-      return post<Req, Res>(host, port, request, this.path, headers)
-    } else {
-      return post<Req, Res>(host, port, request, this.path)
+      headers.withAuthorization(token)
     }
+    return post<Req, Res>(host, port, request, this.path, headers, timeoutInMillis)
   }
 }

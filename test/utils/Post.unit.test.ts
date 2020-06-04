@@ -56,6 +56,7 @@ const makeRequest = (request: string) => {
   return {
     method: 'POST',
     headers: new HeaderExt({ 'Content-Type': 'application/json' }),
-    body: JSON.stringify(request)
+    body: JSON.stringify(request),
+    signal: new AbortController().signal
   }
 }

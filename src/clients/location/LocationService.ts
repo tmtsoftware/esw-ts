@@ -61,9 +61,9 @@ export class LocationService implements LocationServiceApi {
   }
 
   // todo:
-  // 1. decide on within withinSeconds to be in seconds or custom time interval
+  // 1. decide on within withinSeconds to be in seconds or custom time interval --
   // 2. see if it can return Promise<Location>?
-  // 3. add threshold check, take into consideration of http connection timeout at os/network layer
+  // 3. add threshold check, take into consideration of http connection timeout at os/network layer --
   resolve(connection: Connection, within: Duration): Promise<Location[]> {
     return this.httpTransport.requestRes(new Req.Resolve(connection, within))
   }
