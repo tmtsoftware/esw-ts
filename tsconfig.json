@@ -13,8 +13,6 @@
     /* Allow javascript files to be compiled. */
     "checkJs": true,
     /* Report errors in .js files. */
-    "sourceMap": true,
-    /* Generates corresponding '.map' file. */
     "outDir": "./dist",
     /* Redirect output structure to the directory. */
     "rootDir": ".",
@@ -30,7 +28,9 @@
       "*": ["*"]
     },
     /* Additional Checks from jest*/
-
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true

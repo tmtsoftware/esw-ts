@@ -6,7 +6,7 @@ module.exports = {
     '(/integration/.*|(\\.|/)(test|spec))\\.ts?$'
   ],
   testPathIgnorePatterns: ['test/utils/MockHelpers.ts', 'integration/utils/*'],
-  moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+  moduleFileExtensions: ['ts', 'js', 'json', 'node', 'tsx'],
   moduleDirectories: ['node_modules', 'src', 'test', 'integration'],
   verbose: true,
   coverageThreshold: {

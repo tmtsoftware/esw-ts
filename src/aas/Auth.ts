@@ -1,6 +1,5 @@
-import * as Keycloak from 'keycloak-js'
-import { KeycloakInstance } from 'keycloak-js'
-import { AASConfig } from '../config/AASConfig'
+import Keycloak, { KeycloakInstance } from 'keycloak-js'
+import { AASConfig } from '../config'
 import { Auth, AuthContextConfig, AuthenticateResult } from './Models'
 import { HttpConnection } from '../clients/location'
 import { Prefix } from '../models'
