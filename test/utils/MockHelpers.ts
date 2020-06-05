@@ -8,6 +8,7 @@ export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
 
 export const mockedKeyCloakInstance = (): KeycloakInstance => {
   return {
+    authenticated: false,
     accountManagement: jest.fn(),
     clearToken: jest.fn(),
     createAccountUrl: jest.fn(),
@@ -27,7 +28,6 @@ export const mockedKeyCloakInstance = (): KeycloakInstance => {
     }),
     onTokenExpired: jest.fn(() => console.log('in token expire handler')),
     updateToken: jest.fn().mockImplementation(() => {
-      console.log('updating token')
       return Promise.resolve(true)
     })
   }

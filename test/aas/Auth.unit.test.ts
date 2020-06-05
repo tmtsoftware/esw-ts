@@ -6,6 +6,7 @@ import { resolve } from '../../src/clients/location/LocationUtils'
 import { HttpConnection, HttpLocation } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
 import { mockedKeyCloakInstance } from '../utils/MockHelpers'
+import { KeycloakInstance, KeycloakResourceAccess, KeycloakRoles } from 'keycloak-js'
 
 const conf = {
   realm: 'TMT-test',
@@ -20,6 +21,21 @@ jest.mock('keycloak-js')
 afterEach(() => jest.clearAllMocks())
 
 describe('Auth', () => {
+  test('should create TMTAuth instance', () => {
+    const mockKeycloak = mockedKeyCloakInstance()
+    const auth = TMTAuth.from(mockKeycloak)
+
+    expect(auth.logout).toBe(mockKeycloak.logout)
+    expect(auth.token()).toBe(mockKeycloak.token)
+    expect(auth.tokenParsed()).toBe(mockKeycloak.tokenParsed)
+    expect(auth.realmAccess()).toBe(mockKeycloak.realmAccess)
+    expect(auth.resourceAccess()).toBe(mockKeycloak.resourceAccess)
+    expect(auth.loadUserProfile).toBe(mockKeycloak.loadUserProfile)
+    expect(auth.isAuthenticated()).toBe(false)
+    expect(auth.hasRealmRole).toBe(mockKeycloak.hasRealmRole)
+    expect(auth.hasResourceRole).toBe(mockKeycloak.hasResourceRole)
+  })
+
   test('Initialise keycloak on authenticate', async () => {
     const mockFn = mocked(Keycloak, true)
     const keycloakInstance = mockedKeyCloakInstance()
@@ -39,6 +55,19 @@ describe('Auth', () => {
     })
     expect(mockFn).toBeCalledWith(expectedConfig)
     expect(await authenticatedPromise).toEqual(true)
+  })
+
+  test('Initialise keycloak on authenticate with redirect false', async () => {
+    const mockFn = mocked(Keycloak, true)
+    const keycloakInstance = mockedKeyCloakInstance()
+    mockFn.mockReturnValue(keycloakInstance)
+
+    await TMTAuth.authenticate(conf, url, false)
+
+    expect(keycloakInstance.init).toBeCalledWith({
+      onLoad: 'check-sso',
+      flow: 'implicit'
+    })
   })
 
   test('fetch AAS url', async () => {
