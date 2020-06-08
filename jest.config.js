@@ -3,10 +3,10 @@ module.exports = {
   preset: 'ts-jest',
   testRegex: [
     '(/test/.*|(\\.|/)(test|spec))\\.ts?$',
-    '(/integration/.*|(\\.|/)(test|spec))\\.ts?$'
+    '(/integration/.*|(\\.|/)(test|spec))\\.ts?$',
+    '(/test/.*|(\\.|/)(test|spec))\\.tsx?$'
   ],
   testPathIgnorePatterns: ['test/utils/MockHelpers.ts', 'integration/utils/*'],
-  moduleFileExtensions: ['ts', 'js', 'json', 'node', 'tsx'],
   moduleDirectories: ['node_modules', 'src', 'test', 'integration'],
   verbose: true,
   coverageThreshold: {

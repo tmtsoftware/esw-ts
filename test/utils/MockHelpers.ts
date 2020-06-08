@@ -19,6 +19,7 @@ export const mockedKeyCloakInstance = (): KeycloakInstance => {
     isTokenExpired: jest.fn(),
     loadUserInfo: jest.fn(),
     loadUserProfile: jest.fn(),
+    authenticated: true,
     login: jest.fn(),
     logout: jest.fn(),
     register: jest.fn(),
