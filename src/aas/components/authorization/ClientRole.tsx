@@ -16,7 +16,7 @@ export interface ClientRoleProps {
   clientRole: string
   client?: string
   children: React.ReactNode
-  error?: React.ReactNode
+  error: React.ReactNode
 }
 
 const ClientRole = ({ clientRole, client, children, error }: ClientRoleProps) => {

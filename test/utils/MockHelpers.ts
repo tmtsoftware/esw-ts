@@ -1,5 +1,11 @@
 import { Server } from 'mock-socket'
-import { KeycloakInstance } from 'keycloak-js'
+import {
+  KeycloakInstance,
+  KeycloakResourceAccess,
+  KeycloakRoles,
+  KeycloakTokenParsed
+} from 'keycloak-js'
+import { Auth } from '../../src/aas'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>
@@ -32,4 +38,28 @@ export const mockedKeyCloakInstance = (): KeycloakInstance => {
       return Promise.resolve(true)
     })
   }
+}
+
+export const mockAuth = (
+  isAuthenticated = true,
+  hasResourceRole = true,
+  testRealmRoles = 'test-realm-roles'
+) => {
+  const tokenParsed: KeycloakTokenParsed = {
+    exp: 10
+  }
+  const keycloakRoles: KeycloakRoles = { roles: [testRealmRoles] }
+  const keycloakResourceAccess: KeycloakResourceAccess = { mockResource: keycloakRoles }
+  const auth: Auth = {
+    hasRealmRole: (role) => keycloakRoles.roles.includes(role),
+    hasResourceRole: () => hasResourceRole,
+    isAuthenticated: () => isAuthenticated,
+    logout: jest.fn(),
+    token: () => 'token string',
+    tokenParsed: () => tokenParsed,
+    realmAccess: () => keycloakRoles,
+    resourceAccess: () => keycloakResourceAccess,
+    loadUserProfile: jest.fn()
+  }
+  return auth
 }

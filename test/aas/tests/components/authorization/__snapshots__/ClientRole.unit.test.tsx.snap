@@ -24,7 +24,43 @@ exports[`<ClientRole /> should not render ClientRole if authentication is true b
 </div>
 `;
 
+exports[`<ClientRole /> should not render children elements if authentication is false  1`] = `
+<div>
+  <div>
+    <div
+      class="error"
+    >
+      Authentication unsuccessful
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ClientRole /> should not render children elements if authentication is true but invalid Client role 1`] = `
+<div>
+  <div>
+    <div
+      class="error"
+    >
+      Authentication unsuccessful
+    </div>
+  </div>
+</div>
+`;
+
 exports[`<ClientRole /> should render ClientRole if authentication is true and with valid Client role 1`] = `
+<div>
+  <div>
+    <div
+      class="client-role"
+    >
+      Authentication successful
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ClientRole /> should render children elements if authentication is true and with valid Client role 1`] = `
 <div>
   <div>
     <div
