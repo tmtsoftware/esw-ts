@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> should render login 1`] = `
+<div>
+  <button
+    id="aas-login"
+  >
+    Login
+  </button>
+</div>
+`;

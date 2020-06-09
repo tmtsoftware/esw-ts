@@ -12,8 +12,8 @@ export interface AuthContextType {
  */
 const AuthContextDefaultState = {
   auth: null,
-  login: () => ({}),
-  logout: () => ({})
+  login: () => undefined,
+  logout: () => undefined
 }
 
 const AuthContext = React.createContext<AuthContextType>(AuthContextDefaultState)
