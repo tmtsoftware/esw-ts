@@ -4,9 +4,15 @@ import { Done } from '../../src/clients/location'
 import { SequencerService } from '../../src/clients/sequencer'
 import { ComponentId, Prefix, Setup } from '../../src/models'
 import { getToken } from '../utils/auth'
-import { startComponent, startSequencer, startServices, stopServices } from '../utils/backend'
+import { startServices, stopServices } from '../utils/backend'
+import { Auth, AuthContextConfig, TMTAuth } from '../../src/aas'
+import { AASConfig } from '../../src/config'
+import Keycloak, { KeycloakInstance } from 'keycloak-js'
+import { delay } from '../utils/eventually'
+import { render } from '@testing-library/react'
+import { simulateLogin } from './LoginHelper'
 
-jest.setTimeout(80000)
+jest.setTimeout(1000000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
@@ -15,14 +21,14 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  await startServices(['AAS', 'Gateway', 'Alarm'])
+  // await startServices(['AAS', 'Gateway', 'Alarm'])
   // setup test hcd
-  await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
-  await startSequencer('ESW', 'MoonNight')
+  // await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
+  // await startSequencer('ESW', 'MoonNight')
 })
 
 afterAll(async () => {
-  await stopServices()
+  // await stopServices()
   jest.clearAllMocks()
 })
 
@@ -101,5 +107,29 @@ describe('Sequencer Client', () => {
     )
 
     await expect(() => sequencerService.goOffline()).rejects.toThrow('Unauthorized')
+  })
+})
+
+describe('Login page', () => {
+  test('should successfully authenticate on login with valid username and password', async () => {
+    //Fetch AAS server
+
+    //Send an client config AAS server to authenticate it self
+
+    // attached that iframe to jsdom // window
+
+    simulateLogin()
+    await delay(5000)
+    // authenticatedPromise
+    //   .then(() => {
+    //     const auth = TMTAuth.from(keycloak)
+    //     expect(auth.isAuthenticated).toBeTruthy()
+    //     expect(auth.hasRealmRole('IRIS-user')).toBeTruthy()
+    //     done()
+    //   })
+    //   .catch((e) => {
+    //     console.error(e)
+    //     done()
+    //   })
   })
 })
