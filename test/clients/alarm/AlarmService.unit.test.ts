@@ -5,7 +5,7 @@ import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Post'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 
-jest.mock('utils/post')
+jest.mock('../../../src/utils/Post')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

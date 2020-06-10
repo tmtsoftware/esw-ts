@@ -20,7 +20,7 @@ const waitCommand = new Wait('ESW.test', 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
-jest.mock('utils/post')
+jest.mock('../../../src/utils/Post')
 const postMockFn = mocked(post, true)
 const uri = 'http://localhost:8080'
 const gatewayLocation = new HttpLocation(GatewayConnection, uri)

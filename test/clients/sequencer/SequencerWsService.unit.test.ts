@@ -7,7 +7,7 @@ import { mocked } from 'ts-jest/utils'
 import { wsMockWithResolved } from '../../utils/MockHelpers'
 import { post } from '../../../src/utils/Post'
 
-jest.mock('utils/post')
+jest.mock('../../../src/utils/Post')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

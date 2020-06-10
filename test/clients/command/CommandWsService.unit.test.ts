@@ -12,7 +12,7 @@ const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly
 const client = new CommandService(compId, () => '')
 let mockServer: Server
 
-jest.mock('utils/post')
+jest.mock('../../../src/utils/Post')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'
