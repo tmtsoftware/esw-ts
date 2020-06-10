@@ -6,7 +6,6 @@ import { resolve } from '../../src/clients/location/LocationUtils'
 import { HttpConnection, HttpLocation } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
 import { mockedKeyCloakInstance } from '../utils/MockHelpers'
-import { KeycloakInstance, KeycloakResourceAccess, KeycloakRoles } from 'keycloak-js'
 
 const conf = {
   realm: 'TMT-test',
