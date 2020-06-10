@@ -15,6 +15,8 @@ import { TMTAuth } from '../../Auth'
 export interface AuthContextConfig {
   realm: string
   clientId: string
+  username?: string
+  password?: string
 }
 
 export interface AuthContextProps {
@@ -63,13 +65,14 @@ const AuthContextProvider = (props: AuthContextProps) => {
    */
   const login = async () => {
     const url = await TMTAuth.getAASUrl()
-    await instantiateAAS(url, true)
+    console.log(url)
+    await instantiateAAS(url, false)
   }
 
   const logout = async () => {
     if (auth && auth.logout) {
       const logoutPromise = auth.logout()
-      logoutPromise.success(() => {
+      logoutPromise.then(() => {
         setauth(null)
       })
       await auth.logout()

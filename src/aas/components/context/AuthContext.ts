@@ -1,4 +1,4 @@
-import React from 'react'
+import { createContext } from 'react'
 import { Auth } from '../../Models'
 export interface AuthContextType {
   auth: Auth | null
@@ -16,7 +16,7 @@ const AuthContextDefaultState = {
   logout: () => undefined
 }
 
-const AuthContext = React.createContext<AuthContextType>(AuthContextDefaultState)
+const AuthContext = createContext<AuthContextType>(AuthContextDefaultState)
 const { Provider, Consumer } = AuthContext
 
 // todo: AuthContext is exported to support scala.js, see if only exporting Consumer works

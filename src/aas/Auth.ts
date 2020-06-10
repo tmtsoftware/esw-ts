@@ -43,6 +43,7 @@ class AuthStore {
    * @param redirect boolean which decides instantiation mode for keycloak. e.g. login-required or check-sso.
    * login-required mode redirects user to login screen if not logged in already. check-sso only checks if already
    * logged in without redirecting to login screen if not logged in.
+   * @param adapter
    * @return {{ keycloak, authenticated }} json which contains keycloak instance and authenticated which is promise after
    * initializing keycloak
    */
@@ -52,7 +53,8 @@ class AuthStore {
   public authenticate = (
     config: AuthContextConfig,
     url: string,
-    redirect: boolean
+    redirect: boolean,
+    adapter = 'default'
   ): AuthenticateResult => {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
@@ -62,7 +64,8 @@ class AuthStore {
 
     const authenticatedPromise = keycloak.init({
       onLoad: redirect ? 'login-required' : 'check-sso',
-      flow: 'implicit'
+      flow: 'implicit',
+      adapter: adapter
     })
     return { keycloak, authenticatedPromise }
   }
