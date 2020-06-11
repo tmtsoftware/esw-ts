@@ -5,8 +5,10 @@ import { waitForLocationServiceToStop, waitForServicesToUp } from './healthCheck
 import { resolve } from '../../src/clients/location/LocationUtils'
 import {
   executeComponentScript,
+  executeConfigScript,
   executeSequencerScript,
   executeServicesScript,
+  executeStopConfigScript,
   executeStopServicesScript
 } from './shell'
 
@@ -43,4 +45,12 @@ export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
 export const stopServices = async () => {
   executeStopServicesScript([])
   await waitForLocationServiceToStop()
+}
+
+export const startConfigApp = async () => {
+  executeConfigScript([])
+}
+
+export const stopConfigApp = async () => {
+  executeStopConfigScript([])
 }

@@ -3,6 +3,7 @@ import { authConnection } from './auth'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'
 import { resolve } from '../../src/clients/location/LocationUtils'
+import set = Reflect.set
 
 const locationService = new LocationService()
 
@@ -26,3 +27,7 @@ export const waitForLocationServiceToStop = () =>
       .catch(resolve)
       .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 100))
   })
+
+export const resolveConfigApp = async () => {
+  // await eventually(() => fetch('http://localhost:3000', { method: 'GET', headers: [['']]}))
+}

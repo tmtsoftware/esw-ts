@@ -4,15 +4,19 @@ import { Done } from '../../src/clients/location'
 import { SequencerService } from '../../src/clients/sequencer'
 import { ComponentId, Prefix, Setup } from '../../src/models'
 import { getToken } from '../utils/auth'
-import { startServices, stopServices } from '../utils/backend'
-import { Auth, AuthContextConfig, TMTAuth } from '../../src/aas'
-import { AASConfig } from '../../src/config'
-import Keycloak, { KeycloakInstance } from 'keycloak-js'
+import {
+  startComponent,
+  startConfigApp,
+  startSequencer,
+  startServices,
+  stopConfigApp,
+  stopServices
+} from '../utils/backend'
+import { Builder, By, until, WebDriver } from 'selenium-webdriver'
+import 'chromedriver'
 import { delay } from '../utils/eventually'
-import { render } from '@testing-library/react'
-import { simulateLogin } from './LoginHelper'
 
-jest.setTimeout(1000000)
+jest.setTimeout(100000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
@@ -21,14 +25,14 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  // await startServices(['AAS', 'Gateway', 'Alarm'])
+  await startServices(['AAS', 'Gateway', 'Alarm'])
   // setup test hcd
-  // await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
-  // await startSequencer('ESW', 'MoonNight')
+  await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
+  await startSequencer('ESW', 'MoonNight')
 })
 
 afterAll(async () => {
-  // await stopServices()
+  await stopServices()
   jest.clearAllMocks()
 })
 
@@ -111,25 +115,47 @@ describe('Sequencer Client', () => {
 })
 
 describe('Login page', () => {
+  beforeAll(async () => {
+    await startConfigApp()
+    // todo use eventually here
+    await delay(10000)
+  })
+  afterAll(async () => {
+    await stopConfigApp()
+  })
+
+  const enterCredentialsAndLogin = async (driver: WebDriver) => {
+    await driver.executeScript(
+      "document.getElementById('username').setAttribute('value', 'gateway-user1')"
+    )
+    await driver.executeScript(
+      "document.getElementById('password').setAttribute('value', 'gateway-user1')"
+    )
+    const element2 = driver.findElement(By.id('kc-login'))
+    return element2.click()
+  }
+
+  async function clickLoginOnAasResolve(driver: WebDriver) {
+    const loginButton = By.id('aas-login')
+
+    await driver.wait(until.elementLocated(loginButton), 5000)
+    const loginElement = driver.findElement(loginButton)
+    await loginElement.click()
+  }
+
   test('should successfully authenticate on login with valid username and password', async () => {
-    //Fetch AAS server
+    const driver = await new Builder().forBrowser('chrome').build()
+    try {
+      await driver.get('http://localhost:3000/')
+      await clickLoginOnAasResolve(driver)
+      await enterCredentialsAndLogin(driver)
 
-    //Send an client config AAS server to authenticate it self
-
-    // attached that iframe to jsdom // window
-
-    simulateLogin()
-    await delay(5000)
-    // authenticatedPromise
-    //   .then(() => {
-    //     const auth = TMTAuth.from(keycloak)
-    //     expect(auth.isAuthenticated).toBeTruthy()
-    //     expect(auth.hasRealmRole('IRIS-user')).toBeTruthy()
-    //     done()
-    //   })
-    //   .catch((e) => {
-    //     console.error(e)
-    //     done()
-    //   })
+      await driver.wait(until.elementLocated(By.id('create-config-btn')), 2000)
+      const webElementPromise = driver.findElement(By.id('create-config-btn'))
+      const displayed = await webElementPromise.isDisplayed()
+      expect(displayed).toBeTruthy()
+    } finally {
+      await driver.quit()
+    }
   })
 })

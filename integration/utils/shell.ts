@@ -4,6 +4,8 @@ import * as path from 'path'
 const scriptDir = path.resolve(__dirname, '../../scripts')
 
 export const appsLauncherScript = path.resolve(scriptDir, 'appLauncher.sh')
+export const configAppLauncherScript = path.resolve(scriptDir, 'exampleAppLauncher.sh')
+export const stopConfigAppScript = path.resolve(scriptDir, 'stopConfig.sh')
 export const stopServicesScript = path.resolve(scriptDir, 'stopServices.sh')
 
 const executeScript = (script: string, appName = '') => (args: string[]) => {
@@ -20,4 +22,6 @@ const executeScript = (script: string, appName = '') => (args: string[]) => {
 export const executeServicesScript = executeScript(appsLauncherScript, 'backend-testkit-services')
 export const executeComponentScript = executeScript(appsLauncherScript, 'backend-testkit-component')
 export const executeSequencerScript = executeScript(appsLauncherScript, 'backend-testkit-sequencer')
+export const executeConfigScript = executeScript(configAppLauncherScript)
+export const executeStopConfigScript = executeScript(stopConfigAppScript)
 export const executeStopServicesScript = executeScript(stopServicesScript)
