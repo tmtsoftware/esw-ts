@@ -12,9 +12,10 @@ import {
   stopConfigApp,
   stopServices
 } from '../utils/backend'
-import { Builder, By, until, WebDriver } from 'selenium-webdriver'
+import { By, until } from 'selenium-webdriver'
 import 'chromedriver'
 import { delay } from '../utils/eventually'
+import { clickLoginOnAasResolve, enterCredentialsAndLogin, setupBrowser } from './BrowserUtils'
 
 jest.setTimeout(100000)
 
@@ -114,7 +115,7 @@ describe('Sequencer Client', () => {
   })
 })
 
-describe('Login page', () => {
+describe.skip('Login page', () => {
   beforeAll(async () => {
     await startConfigApp()
     // todo use eventually here
@@ -124,38 +125,19 @@ describe('Login page', () => {
     await stopConfigApp()
   })
 
-  const enterCredentialsAndLogin = async (driver: WebDriver) => {
-    await driver.executeScript(
-      "document.getElementById('username').setAttribute('value', 'gateway-user1')"
-    )
-    await driver.executeScript(
-      "document.getElementById('password').setAttribute('value', 'gateway-user1')"
-    )
-    const element2 = driver.findElement(By.id('kc-login'))
-    return element2.click()
-  }
-
-  async function clickLoginOnAasResolve(driver: WebDriver) {
-    const loginButton = By.id('aas-login')
-
-    await driver.wait(until.elementLocated(loginButton), 5000)
-    const loginElement = driver.findElement(loginButton)
-    await loginElement.click()
-  }
-
   test('should successfully authenticate on login with valid username and password', async () => {
-    const driver = await new Builder().forBrowser('chrome').build()
+    const browser = await setupBrowser()
     try {
-      await driver.get('http://localhost:3000/')
-      await clickLoginOnAasResolve(driver)
-      await enterCredentialsAndLogin(driver)
+      await browser.get('http://localhost:3000/')
+      await delay(2000)
+      await clickLoginOnAasResolve(browser)
+      await enterCredentialsAndLogin(browser)
 
-      await driver.wait(until.elementLocated(By.id('create-config-btn')), 2000)
-      const webElementPromise = driver.findElement(By.id('create-config-btn'))
-      const displayed = await webElementPromise.isDisplayed()
-      expect(displayed).toBeTruthy()
+      await browser.wait(until.elementLocated(By.id('create-config-btn')), 2000)
+      const createConfigButtonPromise = browser.findElement(By.id('create-config-btn'))
+      expect(await createConfigButtonPromise.isDisplayed()).toBeTruthy()
     } finally {
-      await driver.quit()
+      await browser.quit()
     }
   })
 })

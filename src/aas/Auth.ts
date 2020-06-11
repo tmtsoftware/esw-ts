@@ -53,8 +53,7 @@ class AuthStore {
   public authenticate = (
     config: AuthContextConfig,
     url: string,
-    redirect: boolean,
-    adapter = 'default'
+    redirect: boolean
   ): AuthenticateResult => {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
@@ -64,8 +63,7 @@ class AuthStore {
 
     const authenticatedPromise = keycloak.init({
       onLoad: redirect ? 'login-required' : 'check-sso',
-      flow: 'implicit',
-      adapter: adapter
+      flow: 'implicit'
     })
     return { keycloak, authenticatedPromise }
   }

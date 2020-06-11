@@ -9,22 +9,16 @@ import { delay } from '../../../../integration/utils/eventually'
 // DEOPSCSW-631 - React layer for javascript adapter for AAS
 describe('<Login />', () => {
   test('should call login', async () => {
-    const config: AuthContextConfig = {
-      realm: 'TMT-test',
-      clientId: 'esw-gateway-client'
-    }
-    const { getByText, container } = await render(
-      <AuthContextProvider config={config}>
+    const mockLogin = jest.fn()
+    const { getByText } = await render(
+      <Provider value={{ auth: mockAuth(), login: mockLogin, logout: jest.fn() }}>
         <Login />
-      </AuthContextProvider>
+      </Provider>
     )
 
-    console.log(container)
-
     fireEvent.click(getByText('Login'))
-    await delay(2000)
-    console.log('*****************************************')
-    console.log(window)
+
+    expect(mockLogin).toHaveBeenCalled()
   })
 
   test('should render login', async () => {
