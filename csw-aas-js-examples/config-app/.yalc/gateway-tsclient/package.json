@@ -1,0 +1,55 @@
+{
+  "name": "gateway-tsclient",
+  "version": "1.0.0-c92d6917",
+  "description": "Typescript client for gateway",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "module": "dist/src/index.js",
+  "scripts": {
+    "start": "nodemon",
+    "audit": "npm audit",
+    "clean": "rm -rf dist && mkdir dist",
+    "prebuild": "npm-run-all --parallel audit fix",
+    "build": "tsc",
+    "build:clean": "npm-run-all clean tsc",
+    "build:watch": "tsc -w",
+    "test": "jest",
+    "test:unit": "jest unit",
+    "test:integration": "jest int",
+    "test:watch": "jest --watchAll",
+    "test:unit:coverage": "jest unit --coverage ",
+    "fix": "npm-run-all --parallel clean fix:eslint fix:prettier",
+    "fix:eslint": "eslint --fix --config .eslintrc.js './**/*.{ts,tsx}' --max-warnings 0",
+    "fix:prettier": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
+    "all": "npm-run-all --parallel fix build test"
+  },
+  "scripts-info": {
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "dependencies": {
+    "keycloak-js": "^10.0.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "files": [
+    "dist/src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmtsoftware/gateway-tsclient.git"
+  },
+  "keywords": [
+    "typescript",
+    "gateway"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmtsoftware/gateway-tsclient/issues"
+  },
+  "homepage": "https://github.com/tmtsoftware/gateway-tsclient#readme"
+}
