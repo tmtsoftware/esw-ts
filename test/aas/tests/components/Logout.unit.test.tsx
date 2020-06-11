@@ -1,6 +1,6 @@
 import React from 'react'
 import { Logout } from '../../../../src/aas'
-import { render, fireEvent } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { Provider } from '../../../../src/aas/components/context/AuthContext'
 import { mockAuth } from '../../../utils/MockHelpers'
 
