@@ -66,7 +66,7 @@ const AuthContextProvider = (props: AuthContextProps) => {
   const login = async () => {
     const url = await TMTAuth.getAASUrl()
     console.log(url)
-    await instantiateAAS(url, false)
+    await instantiateAAS(url, true)
   }
 
   const logout = async () => {
