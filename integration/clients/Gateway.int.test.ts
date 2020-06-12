@@ -17,6 +17,7 @@ import 'chromedriver'
 import { setupBrowser } from '../utils/browser'
 import { delay } from '../utils/eventually'
 
+jest.setTimeout(1000000)
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
 
@@ -37,7 +38,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   await stopConfigApp()
-  jest.clearAllMocks()
 })
 
 describe('Command Client', () => {
@@ -85,7 +85,7 @@ describe('Alarm Client', () => {
 
     const response: Done = await alarmService.setSeverity(alarmKey, 'Okay')
 
-    expect(response).toEqual('done')
+    expect(response).toEqual('Done')
   })
 })
 
@@ -119,23 +119,23 @@ describe('Sequencer Client', () => {
 })
 
 describe('Login page', () => {
-  const enterCredentialsAndLogin = async (driver: WebDriver) => {
-    await driver.wait(until.elementLocated(By.id('username')), 5000)
-    await driver.executeScript(
+  const enterCredentialsAndLogin = async (browser: WebDriver) => {
+    await browser.wait(until.elementLocated(By.id('username')), 5000)
+    await browser.executeScript(
       "document.getElementById('username').setAttribute('value', 'gateway-user1')"
     )
-    await driver.executeScript(
+    await browser.executeScript(
       "document.getElementById('password').setAttribute('value', 'gateway-user1')"
     )
-    const element2 = driver.findElement(By.id('kc-login'))
+    const element2 = browser.findElement(By.id('kc-login'))
     return element2.click()
   }
 
-  const clickLoginOnAasResolve = async (driver: WebDriver) => {
+  const clickLoginOnAasResolve = async (browser: WebDriver) => {
     const loginButton = By.id('aas-login')
 
-    await driver.wait(until.elementLocated(loginButton), 5000)
-    const loginElement = driver.findElement(loginButton)
+    await browser.wait(until.elementLocated(loginButton), 5000)
+    const loginElement = browser.findElement(loginButton)
     await loginElement.click()
   }
 
