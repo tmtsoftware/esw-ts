@@ -11,6 +11,7 @@ import {
   executeStopConfigScript,
   executeStopServicesScript
 } from './shell'
+import { eventually } from './eventually'
 
 const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
 
@@ -34,12 +35,14 @@ export const startServices = (serviceNames: ServiceName[]) => {
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
   executeComponentScript(['--local', componentConf, '--standalone'])
-  return resolve(new HttpConnection(prefix, compType))
+  return eventually(() => resolve(new HttpConnection(prefix, compType)))
 }
 
 export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
   executeSequencerScript(['start', '-s', subsystem, '-m', observingMode])
-  return resolve(new HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
+  return eventually(() =>
+    resolve(new HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
+  )
 }
 
 export const stopServices = async () => {

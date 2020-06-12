@@ -71,7 +71,7 @@ describe('Alarm Client', () => {
 
     const response: Done = await alarmService.setSeverity(alarmKey, 'Okay')
 
-    expect(response).toEqual('done')
+    expect(response).toEqual('Done')
   })
 })
 
