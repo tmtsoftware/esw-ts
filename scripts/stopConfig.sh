@@ -5,7 +5,7 @@ SCRIPTPATH="$(
     pwd -P
 )"
 
-cd $SCRIPTPATH/../csw-aas-js-examples/config-app || exit
+cd $SCRIPTPATH/../aas-examples/config-app || exit
 
 npm run stopConfig
 

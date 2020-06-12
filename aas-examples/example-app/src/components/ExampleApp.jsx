@@ -6,7 +6,7 @@ import {
   RealmRole,
   ClientRole,
   AuthContextProvider,
-} from 'csw-aas-js'
+} from 'gateway-tsclient'
 // #import-components-example
 import NavComponent from './NavComponent'
 import { AppConfig } from '../config/AppConfig'

@@ -34,6 +34,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Build - Config App
+        working-directory: ./aas-examples/config-app
+        run: |
+          npm ci
+          npm run build
+
       - name: Unit tests
         run: npm run test:unit:coverage
 
