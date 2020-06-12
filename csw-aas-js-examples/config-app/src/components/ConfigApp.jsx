@@ -6,7 +6,7 @@ import CreateConfig from './CreateConfig'
 import ConfigError from './ConfigError'
 import ListConfig from './ListConfig'
 import GetConfig from './GetConfig'
-import {AuthContextProvider, RealmRole} from "gateway-tsclient"
+import { AuthContextProvider, RealmRole } from 'gateway-tsclient'
 
 const ConfigApp = () => {
   return (
@@ -21,9 +21,7 @@ const ConfigApp = () => {
         <GetConfig />
         {
           // #create-config-component
-          <RealmRole
-            realmRole={'IRIS-user'}
-            error={<ConfigError />}>
+          <RealmRole realmRole={'IRIS-user'} error={<ConfigError />}>
             <CreateConfig />
           </RealmRole>
           // #create-config-component

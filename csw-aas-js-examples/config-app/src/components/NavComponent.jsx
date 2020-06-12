@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import {AuthContext, Logout, Login} from "gateway-tsclient";
+import { Logout, Login, AuthContext } from 'gateway-tsclient'
 
 const NavComponent = () => {
   const { auth } = useContext(AuthContext)
@@ -11,7 +11,7 @@ const NavComponent = () => {
         </a>
         <ul className='hide-on-med-and-down right'>
           <li>
-            {auth == null || auth === undefined ? (
+            {!auth ? (
               <span>Loading...</span>
             ) : auth.isAuthenticated() ? (
               <Logout />

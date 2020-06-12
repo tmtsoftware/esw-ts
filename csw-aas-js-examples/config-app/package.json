@@ -4,10 +4,10 @@
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
-    "gateway-tsclient": "file:.yalc/gateway-tsclient",
+    "gateway-tsclient": "file:../../",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "file:../../node_modules/react",
+    "react-dom": "file:../../node_modules/react-dom",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.4.1",
     "superagent": "^5.2.2"
