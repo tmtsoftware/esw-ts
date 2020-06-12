@@ -12,12 +12,10 @@ import {
   stopConfigApp,
   stopServices
 } from '../utils/backend'
-import { By, until } from 'selenium-webdriver'
+import { By, until, WebDriver } from 'selenium-webdriver'
 import 'chromedriver'
+import { setupBrowser } from '../utils/browser'
 import { delay } from '../utils/eventually'
-import { clickLoginOnAasResolve, enterCredentialsAndLogin, setupBrowser } from './BrowserUtils'
-
-jest.setTimeout(100000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
@@ -30,10 +28,15 @@ beforeAll(async () => {
   // setup test hcd
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
   await startSequencer('ESW', 'MoonNight')
+  // start example app for auth flow
+  await startConfigApp()
+  // todo use eventually here
+  await delay(10000)
 })
 
 afterAll(async () => {
   await stopServices()
+  await stopConfigApp()
   jest.clearAllMocks()
 })
 
@@ -115,27 +118,38 @@ describe('Sequencer Client', () => {
   })
 })
 
-describe.skip('Login page', () => {
-  beforeAll(async () => {
-    await startConfigApp()
-    // todo use eventually here
-    await delay(10000)
-  })
-  afterAll(async () => {
-    await stopConfigApp()
-  })
+describe('Login page', () => {
+  const enterCredentialsAndLogin = async (driver: WebDriver) => {
+    await driver.wait(until.elementLocated(By.id('username')), 5000)
+    await driver.executeScript(
+      "document.getElementById('username').setAttribute('value', 'gateway-user1')"
+    )
+    await driver.executeScript(
+      "document.getElementById('password').setAttribute('value', 'gateway-user1')"
+    )
+    const element2 = driver.findElement(By.id('kc-login'))
+    return element2.click()
+  }
+
+  const clickLoginOnAasResolve = async (driver: WebDriver) => {
+    const loginButton = By.id('aas-login')
+
+    await driver.wait(until.elementLocated(loginButton), 5000)
+    const loginElement = driver.findElement(loginButton)
+    await loginElement.click()
+  }
 
   test('should successfully authenticate on login with valid username and password', async () => {
     const browser = await setupBrowser()
     try {
       await browser.get('http://localhost:3000/')
-      await delay(2000)
+
       await clickLoginOnAasResolve(browser)
       await enterCredentialsAndLogin(browser)
 
       await browser.wait(until.elementLocated(By.id('create-config-btn')), 2000)
-      const createConfigButtonPromise = browser.findElement(By.id('create-config-btn'))
-      expect(await createConfigButtonPromise.isDisplayed()).toBeTruthy()
+      const createConfigButton = browser.findElement(By.id('create-config-btn'))
+      expect(await createConfigButton.isDisplayed()).toBeTruthy()
     } finally {
       await browser.quit()
     }

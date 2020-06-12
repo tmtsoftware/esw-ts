@@ -26,7 +26,3 @@ export const waitForLocationServiceToStop = () =>
       .catch(resolve)
       .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 100))
   })
-
-export const resolveConfigApp = async () => {
-  // await eventually(() => fetch('http://localhost:3000', { method: 'GET', headers: [['']]}))
-}
