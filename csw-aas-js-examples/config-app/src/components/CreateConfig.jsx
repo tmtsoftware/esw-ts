@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { sPost } from './Client'
-import {AuthContext} from "gateway-tsclient";
+import { AuthContext } from 'gateway-tsclient'
 
 const CreateConfig = () => {
   const [response, setResponse] = useState(null)
@@ -11,7 +11,7 @@ const CreateConfig = () => {
   const { auth } = useContext(AuthContext)
   // #use-auth-context
 
-  const callBack = res => setResponse(res)
+  const callBack = (res) => setResponse(res)
 
   const createConfig = (input, token) => {
     sPost(
@@ -22,7 +22,7 @@ const CreateConfig = () => {
     )
   }
 
-  const updateFileContent = event => setsetFileContent(event.target.value)
+  const updateFileContent = (event) => setsetFileContent(event.target.value)
 
   return (
     <div className='card-panel hoverable'>
