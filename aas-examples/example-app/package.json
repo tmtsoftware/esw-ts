@@ -1,16 +1,13 @@
 {
-  "name": "csw-aas-js-config-example",
+  "name": "csw-aas-js-example",
   "version": "1.0.0",
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
-    "gateway-tsclient": "file:../../",
-    "prop-types": "^15.7.2",
     "react": "file:../../node_modules/react",
     "react-dom": "file:../../node_modules/react-dom",
-    "react-router-dom": "^5.0.0",
     "react-scripts": "^3.4.1",
-    "superagent": "^5.2.2"
+    "gateway-tsclient": "file:../../"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,9 +15,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "config": "npm install && npm run build",
-    "startConfig": "BROWSER=none pm2 start node_modules/react-scripts/scripts/start.js --name config",
-    "stopConfig": "pm2 delete config"
+    "example": "npm install && npm run build"
   },
   "browserslist": [
     ">0.2%",
@@ -33,7 +28,6 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-react": "^9.2.0",
     "eslint-plugin-react": "^7.19.0",
-    "pm2": "^4.4.0",
-    "prettier-eslint-cli": "^5.0.0"
+    "react-router-dom": "^5.0.0"
   }
 }

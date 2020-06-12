@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import React, { useContext } from 'react'
 // #import-components
-import { AuthContext, Logout, Login } from 'csw-aas-js'
+import { AuthContext, Logout, Login } from 'gateway-tsclient'
 // #import-components
 
 const NavComponent = () => {
