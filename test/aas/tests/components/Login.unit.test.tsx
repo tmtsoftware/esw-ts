@@ -1,9 +1,8 @@
 import React from 'react'
 import { Provider } from '../../../../src/aas/components/context/AuthContext'
-import { AuthContextConfig, AuthContextProvider, Login } from '../../../../src/aas'
-import { render, fireEvent } from '@testing-library/react'
+import { Login } from '../../../../src/aas'
+import { fireEvent, render } from '@testing-library/react'
 import { mockAuth } from '../../../utils/MockHelpers'
-import { delay } from '../../../../integration/utils/eventually'
 
 // DEOPSCSW-630 - Javascript adapter for AAS
 // DEOPSCSW-631 - React layer for javascript adapter for AAS

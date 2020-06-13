@@ -28,6 +28,9 @@ module.exports = {
       typescript: {
         directory: './src'
       }
+    },
+    react: {
+      version: 'latest'
     }
   }
 }

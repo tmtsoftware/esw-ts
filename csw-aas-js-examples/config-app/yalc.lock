@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "gateway-tsclient": {
-      "signature": "c92d69175c215089e681a8579772cda1",
-      "file": true
-    }
-  }
-}
