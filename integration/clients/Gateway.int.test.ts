@@ -119,6 +119,21 @@ describe('Sequencer Client', () => {
 })
 
 describe('Login page', () => {
+  test('should successfully authenticate on login with valid username and password', async () => {
+    const browser = await setupBrowser()
+    try {
+      await browser.get('http://localhost:3000/')
+
+      await clickLoginOnAasResolve(browser)
+      await enterCredentialsAndLogin(browser)
+
+      await browser.wait(until.elementLocated(By.id('create-config-btn')), 2000)
+      const createConfigButton = browser.findElement(By.id('create-config-btn'))
+      expect(await createConfigButton.isDisplayed()).toBeTruthy()
+    } finally {
+      await browser.quit()
+    }
+  })
   const enterCredentialsAndLogin = async (browser: WebDriver) => {
     await browser.wait(until.elementLocated(By.id('username')), 5000)
     await browser.executeScript(
@@ -138,20 +153,4 @@ describe('Login page', () => {
     const loginElement = browser.findElement(loginButton)
     await loginElement.click()
   }
-
-  test('should successfully authenticate on login with valid username and password', async () => {
-    const browser = await setupBrowser()
-    try {
-      await browser.get('http://localhost:3000/')
-
-      await clickLoginOnAasResolve(browser)
-      await enterCredentialsAndLogin(browser)
-
-      await browser.wait(until.elementLocated(By.id('create-config-btn')), 2000)
-      const createConfigButton = browser.findElement(By.id('create-config-btn'))
-      expect(await createConfigButton.isDisplayed()).toBeTruthy()
-    } finally {
-      await browser.quit()
-    }
-  })
 })
