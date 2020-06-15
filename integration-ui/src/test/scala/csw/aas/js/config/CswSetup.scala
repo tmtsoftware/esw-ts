@@ -64,8 +64,3 @@ trait CswSetup {
   }
 
 }
-
-object main extends App with CswSetup {
-  startAndRegisterKeycloak()
-  startAndRegisterConfigServer()
-}
