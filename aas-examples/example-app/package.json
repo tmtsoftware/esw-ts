@@ -1,13 +1,13 @@
 {
-  "name": "csw-aas-js-example",
+  "name": "aas-js-example",
   "version": "1.0.0",
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
-    "react": "file:../../node_modules/react",
-    "react-dom": "file:../../node_modules/react-dom",
+    "react": "file:../../lib/node_modules/react",
+    "react-dom": "file:../../lib/node_modules/react-dom",
     "react-scripts": "^3.4.1",
-    "gateway-tsclient": "file:../../"
+    "gateway-tsclient": "file:../../lib"
   },
   "scripts": {
     "start": "react-scripts start",
