@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 
-const ListConfig = () => {
+const ListConfig = ({configURL}) => {
   const [response, setResponse] = useState('')
 
   const listConfig = async () => {
-    const response = await window.fetch(`http://localhost:4000/list`)
+    const response = await window.fetch(`${configURL}list`)
     if (response.status === 200) {
       const a = await response.json()
       setResponse(JSON.stringify(a))

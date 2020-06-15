@@ -1,6 +1,6 @@
 /// [appConfig]
 export const AppConfig = {
-  realm: 'TMT-test',
-  clientId: 'esw-gateway-client',
+  realm: 'TMT',
+  clientId: 'csw-config-app',
 }
 /// [appConfig]

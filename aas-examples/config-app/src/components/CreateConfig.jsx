@@ -3,7 +3,7 @@ import IOOperationComponent from './IOOperationComponent'
 import { sPost } from './Client'
 import { AuthContext } from 'gateway-tsclient'
 
-const CreateConfig = () => {
+const CreateConfig = ({configURL}) => {
   const [response, setResponse] = useState(null)
   const [fileContent, setsetFileContent] = useState('')
 
@@ -15,7 +15,7 @@ const CreateConfig = () => {
 
   const createConfig = (input, token) => {
     sPost(
-      `http://localhost:4000/config/${input}?comment="Sample commit message"`,
+      `${configURL}config/${input}?comment="Sample commit message"`,
       callBack,
       token,
       fileContent,

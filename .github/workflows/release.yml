@@ -1,0 +1,86 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: olafurpg/setup-scala@v5
+        with:
+          java-version: adopt@1.11
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Check library
+        working-directory: ./lib
+        run: |
+          npm ci
+          npm run build
+
+      - name: Check Config App
+        working-directory: ./aas-examples/config-app
+        run: |
+          npm ci
+          npm run build
+
+      - name: Check Example App
+        working-directory: ./aas-examples/example-app
+        run: |
+          npm ci
+          npm run build
+
+      - name: Selenium Test
+        run: sbt clean test
+        env:
+          CSW_VERSION: "50b46f322f" # Chnage before releasing (before tagging repo)
+
+      - name: NPM Publish
+        working-directory: ./lib
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Github Release
+        run: sbt -Dprod.publish=true githubRelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_RELEASE }}
+
+      - name: Docs Publish
+        run: |
+          echo 'echo $GITHUB_RELEASE' > /tmp/.git-askpass
+          chmod +x /tmp/.git-askpass
+          git config --global user.email "actions@github.com"
+          git config --global user.name "Github Action"
+          sbt -Dprod.publish=true clean ghpagesPushSite
+
+        env:
+          GITHUB_RELEASE: ${{ secrets.GITHUB_RELEASE }}
+          GIT_ASKPASS: /tmp/.git-askpass
+
+      - name: Build Status
+        if: always()
+        id: status
+        run: |
+          if [[ ${{job.status}} == Success ]]
+          then
+          echo ::set-output name=title::'SUCCESS'
+          echo ::set-output name=color::'#00FF00'
+          else
+          echo ::set-output name=title::'FAILURE'
+          echo ::set-output name=color::'#FF0000'
+          fi
+
+      - name: Notify slack
+        if: always()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"#csw-prod-release\", \"attachments\": [ { \"title\":\"${{ steps.status.outputs.title }}\", \"text\": \"[ ${{ github.event.repository.name }} ] : [ ${{ github.workflow }} ] : [ ${{ github.ref }} ] \n https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"color\": \"${{ steps.status.outputs.color }}\" } ]}'
