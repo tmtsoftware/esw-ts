@@ -12,9 +12,9 @@ export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
     socket.on('message', () => socket.send(JSON.stringify(data)))
   )
 
-export const mockedKeyCloakInstance = (): KeycloakInstance => {
+export const mockedKeyCloakInstance = (isAuthenticated = true): KeycloakInstance => {
   return {
-    authenticated: false,
+    authenticated: isAuthenticated,
     accountManagement: jest.fn(),
     clearToken: jest.fn(),
     createAccountUrl: jest.fn(),
@@ -26,7 +26,6 @@ export const mockedKeyCloakInstance = (): KeycloakInstance => {
     isTokenExpired: jest.fn(),
     loadUserInfo: jest.fn(),
     loadUserProfile: jest.fn(),
-    authenticated: true,
     login: jest.fn(),
     logout: jest.fn(),
     register: jest.fn(),

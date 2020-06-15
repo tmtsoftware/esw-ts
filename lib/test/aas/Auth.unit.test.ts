@@ -21,7 +21,7 @@ afterEach(() => jest.clearAllMocks())
 
 describe('Auth', () => {
   test('should create TMTAuth instance', () => {
-    const mockKeycloak = mockedKeyCloakInstance()
+    const mockKeycloak = mockedKeyCloakInstance(false)
     const auth = TMTAuth.from(mockKeycloak)
 
     expect(auth.logout).toBe(mockKeycloak.logout)

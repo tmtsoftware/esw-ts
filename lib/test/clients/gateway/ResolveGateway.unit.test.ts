@@ -2,7 +2,7 @@ import { resolveGateway } from '../../../src/clients/gateway/resolveGateway'
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Post'
 
-jest.mock('utils/post')
+jest.mock('../../../src/utils/Post')
 const postMockFn = mocked(post, true)
 
 afterEach(() => {
