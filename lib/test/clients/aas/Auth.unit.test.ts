@@ -1,11 +1,11 @@
-import { TMTAuth } from '../../src/clients/aas/Auth'
+import { TMTAuth } from '../../../src/clients/aas'
 import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
-import { AASConfig } from '../../src/config'
-import { resolve } from '../../src/clients/location/LocationUtils'
-import { HttpConnection, HttpLocation } from '../../src/clients/location'
-import { Prefix } from '../../src/models'
-import { mockedKeyCloakInstance } from '../utils/MockHelpers'
+import { AASConfig } from '../../../src/config'
+import { resolve } from '../../../src/clients/location/LocationUtils'
+import { HttpConnection, HttpLocation } from '../../../src/clients/location'
+import { Prefix } from '../../../src/models'
+import { mockedKeyCloakInstance } from '../../utils/MockHelpers'
 
 const conf = {
   realm: 'TMT-test',
@@ -14,7 +14,7 @@ const conf = {
 
 const url = 'http://localhost:8081'
 
-jest.mock('../../src/clients/location/LocationUtils')
+jest.mock('../../../src/clients/location/LocationUtils')
 jest.mock('keycloak-js')
 
 afterEach(() => jest.clearAllMocks())

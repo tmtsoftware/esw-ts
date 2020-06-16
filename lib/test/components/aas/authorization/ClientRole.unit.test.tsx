@@ -2,8 +2,8 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
-import { mockAuth, mockedKeyCloakInstance } from '../../../../utils/MockHelpers'
-import { ClientRole, AuthContext } from '../../../../../src/components'
+import { mockAuth, mockedKeyCloakInstance } from '../../../utils/MockHelpers'
+import { ClientRole, AuthContext } from '../../../../src/components'
 
 jest.mock('keycloak-js')
 // DEOPSCSW-630 - Javascript adapter for AAS
