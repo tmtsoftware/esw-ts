@@ -25,7 +25,7 @@ This project includes following sub modules:
 This module is published at npm registry as a javascript library which provides re-usable react components for authentication and authorization.
 See [lib](https://tmtsoftware.github.io/csw-js/1.0.0/aas/csw-aas-js) docs for details.
 
-## aas-examples
+## examples
 This module has examples which shows usage `lib` react components for authentication and authorization.
 
 ### Prerequisite for running config-app
@@ -47,7 +47,7 @@ Make sure that you have following csw services up and running:
     1.2 : npm install
     1.3 : npm start
 2. Start example config-app
-    2.1 : cd `aas-examples/config-app`
+    2.1 : cd `examples/config-app`
     2.2 : npm install
     2.3 : npm start
 
@@ -55,7 +55,7 @@ Make sure that you have following csw services up and running:
 This module includes E2E test which demonstrate following flow which is all automated:
 1. Start Location, Config and AAS csw services
 2. Build and Install `lib`
-3. Build and Start `config` example (aas-examples/config)
+3. Build and Start `config` example (examples/config)
 4. Create configuration file
 
 To run this test, execute `sbt test` or `sbt integration/test` command

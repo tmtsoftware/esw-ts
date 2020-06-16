@@ -3,8 +3,7 @@ import { render } from '@testing-library/react'
 import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
 import { mockAuth, mockedKeyCloakInstance } from '../../../../utils/MockHelpers'
-import { ClientRole } from '../../../../../src/aas'
-import { Provider } from '../../../../../src/aas/components/context/AuthContext'
+import { ClientRole, AuthContext } from '../../../../../src/components'
 
 jest.mock('keycloak-js')
 // DEOPSCSW-630 - Javascript adapter for AAS
@@ -27,9 +26,9 @@ describe('<ClientRole />', () => {
     }
 
     const { container } = render(
-      <Provider value={{ auth: mockAuth(true), logout: jest.fn(), login: jest.fn() }}>
+      <AuthContext.Provider value={{ auth: mockAuth(true), logout: jest.fn(), login: jest.fn() }}>
         <ClientRole {...props} />
-      </Provider>
+      </AuthContext.Provider>
     )
 
     expect(container.getElementsByClassName('client-role').length).toBe(1)
@@ -46,7 +45,7 @@ describe('<ClientRole />', () => {
     }
 
     const { container } = render(
-      <Provider
+      <AuthContext.Provider
         value={{
           auth: mockAuth(true, false, 'test-realm-roles'),
           logout: jest.fn(),
@@ -54,7 +53,7 @@ describe('<ClientRole />', () => {
         }}
       >
         <ClientRole {...props} />
-      </Provider>
+      </AuthContext.Provider>
     )
 
     expect(container.getElementsByClassName('client-role').length).toBe(0)
@@ -71,7 +70,7 @@ describe('<ClientRole />', () => {
     }
 
     const { container } = render(
-      <Provider
+      <AuthContext.Provider
         value={{
           auth: mockAuth(true, false, 'test-realm-roles'),
           logout: jest.fn(),
@@ -79,7 +78,7 @@ describe('<ClientRole />', () => {
         }}
       >
         <ClientRole {...props} />
-      </Provider>
+      </AuthContext.Provider>
     )
 
     expect(container.getElementsByClassName('client-role').length).toBe(0)

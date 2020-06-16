@@ -5,7 +5,7 @@ import {
   KeycloakRoles,
   KeycloakTokenParsed
 } from 'keycloak-js'
-import { Auth } from '../../src/aas'
+import { Auth } from '../../src/clients/aas'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>

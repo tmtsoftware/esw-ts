@@ -25,13 +25,13 @@ jobs:
           npm run build
 
       - name: Check Config App
-        working-directory: ./aas-examples/config-app
+        working-directory: ./examples/config-app
         run: |
           npm ci
           npm run build
 
       - name: Check Example App
-        working-directory: ./aas-examples/example-app
+        working-directory: ./examples/example-app
         run: |
           npm ci
           npm run build

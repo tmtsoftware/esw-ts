@@ -1,3 +1,4 @@
+# Deprecated
 # TMT CSW JavaScript Adapters
 
 `csw-js` provides following JavaScript adapters. 

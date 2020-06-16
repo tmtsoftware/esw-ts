@@ -1,4 +1,4 @@
-import { TMTAuth } from '../../src/aas/Auth'
+import { TMTAuth } from '../../src/clients/aas/Auth'
 import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
 import { AASConfig } from '../../src/config'

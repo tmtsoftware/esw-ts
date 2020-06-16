@@ -70,7 +70,7 @@ react context api. AuthContext gives handle to token, realm and resource roles, 
 this information can become consumer of AuthContext. For example
 
 Javascript
-:   @@snip [use auth context](../../../../aas-examples/config-app/src/components/CreateConfig.jsx) { #use-auth-context }
+:   @@snip [use auth context](../../../../examples/config-app/src/components/CreateConfig.jsx) { #use-auth-context }
 
 Access token can be extracted from `auth` and it can be sent in `Authorization` header for calling secure api
 
@@ -105,7 +105,7 @@ const SampleComponent = () => {
 
 Following diagram explains javascript application flow for making request to secure http api
 
-![javascript-app-flow](javascript-app-workflow.png)
+![javascript-app-flow](../assets/javascript-app-workflow.png)
 
 When user opens web application in browser, csw-aas-js checks if user is already logged in using `check-sso` mode. If user is
 not logged in then `Login` button is shown. When user clicks on login, user will be redirected to keyclok login page.

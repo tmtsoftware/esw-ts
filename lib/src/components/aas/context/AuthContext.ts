@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { Auth } from '../../Models'
+import { Auth } from '../../../clients/aas'
 export interface AuthContextType {
   auth: Auth | null
   login: () => void

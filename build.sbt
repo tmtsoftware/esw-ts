@@ -8,12 +8,12 @@ lazy val aggregatedProjects: Seq[ProjectReference] = Seq(
 )
 
 /* ================= Root Project ============== */
-lazy val `gateway-tsclient` = project
+lazy val `esw-ts` = project
   .in(file("."))
   .enablePlugins(SbtGithubReleasePlugin)
   .settings(
     ghreleaseRepoOrg := "tmtsoftware",
-    ghreleaseRepoName := "gateway-tsclient",
+    ghreleaseRepoName := "esw-ts",
     ghreleaseAssets := Seq()
   )
   .aggregate(aggregatedProjects: _*)
@@ -24,8 +24,8 @@ lazy val docs = project
   .disablePlugins(SbtGithubReleasePlugin)
   .settings(
     docsRepo := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
-    docsParentDir := "gateway-tsclient",
-    gitCurrentRepo := "https://github.com/tmtsoftware/gateway-tsclient"
+    docsParentDir := "esw-ts",
+    gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts"
   )
 
 lazy val `integration-ui` = project

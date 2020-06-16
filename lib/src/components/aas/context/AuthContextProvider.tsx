@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Provider } from './AuthContext'
-import { Auth } from '../../Models'
-import { TMTAuth } from '../../Auth'
+import { Auth } from '../../../clients/aas/Models'
+import { TMTAuth } from '../../../clients/aas/Auth'
 
 /**
  * React component which is wrapper over provider of react context api.

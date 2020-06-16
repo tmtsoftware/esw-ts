@@ -12,16 +12,16 @@ object Common extends AutoPlugin {
   val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
 
   override lazy val projectSettings: Seq[Setting[_]] = Seq(
-    organization := "com.github.tmtsoftware.csw-js",
+    organization := "com.github.tmtsoftware.esw-ts",
     organizationName := "TMT Org",
     scalaVersion := Libs.ScalaVersion,
     concurrentRestrictions in Global += Tags.limit(Tags.All, 1),
-    homepage := Some(url("https://github.com/tmtsoftware/csw-js")),
+    homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
     resolvers ++= Seq(
       "jitpack" at "https://jitpack.io"
     ),
     scmInfo := Some(
-      ScmInfo(url("https://github.com/tmtsoftware/csw-js"), "git@github.com:tmtsoftware/csw-js.git")
+      ScmInfo(url("https://github.com/tmtsoftware/esw-ts"), "git@github.com:tmtsoftware/esw-ts.git")
     ),
     licenses := Seq(("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))),
     scalacOptions ++= Seq(

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { render } from '@testing-library/react'
-import CheckLogin from '../../../../../src/aas/components/authentication/CheckLogin'
+import CheckLogin from '../../../../../src/components/aas/authentication/CheckLogin'
 import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
 import { mockAuth, mockedKeyCloakInstance } from '../../../../utils/MockHelpers'
-import { Provider } from '../../../../../src/aas/components/context/AuthContext'
+import { Provider } from '../../../../../src/components/aas/context/AuthContext'
 
 jest.mock('keycloak-js')
 

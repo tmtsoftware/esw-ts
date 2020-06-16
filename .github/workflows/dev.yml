@@ -61,13 +61,13 @@ jobs:
         run: npm run test:integration
 
       - name: Build - Config App
-        working-directory: ./aas-examples/config-app
+        working-directory: ./examples/config-app
         run: |
           npm ci
           npm run build
 
       - name: Build - Example App
-        working-directory: ./aas-examples/example-app
+        working-directory: ./examples/example-app
         run: |
           npm ci
           npm run build

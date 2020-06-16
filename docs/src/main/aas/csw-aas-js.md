@@ -9,19 +9,19 @@ enable the application to show or hide components based on the authentication an
 
 ## Dependencies
 
-To use the `csw-aas-js` adapter, run this command from root folder of your application where `package.json` exists:
+To use the `esw-ts` adapter, run this command from root folder of your application where `package.json` exists:
 
 npm
 :   @@@vars
     ```javascript
-        npm i --save csw-aas-js@$version$
+        npm i --save esw-ts@$version$
     ```
     @@@
 
 yarn
 :   @@@vars
     ```javascript
-        yarn add csw-aas-js@$version$
+        yarn add esw-ts@$version$
     ```
     @@@
 
@@ -37,12 +37,12 @@ i.e. `realm`, `clientId`
 in keycloak server.
 
 Javascript
-:   @@snip [App-config](../../../../aas-examples/example-app/src/config/AppConfig.js) { #app-config }
+:   @@snip [App-config](../../../../examples/example-app/src/config/AppConfig.js) { #app-config }
 
 
 ## Components
 
-`csw-aas-js` exposes the following React components.
+`esw-ts` exposes the following React components.
 
  - [AuthContextProvider](#AuthContextProvider)
  - [Consumer](#consumer)
@@ -55,7 +55,7 @@ Javascript
 Components can be imported as shown in code snippet below
 
 Javascript
-:   @@snip [Import Components](../../../../aas-examples/example-app/src/components/NavComponent.jsx) { #import-components }
+:   @@snip [Import Components](../../../../examples/example-app/src/components/NavComponent.jsx) { #import-components }
 
 
 ### AuthContextProvider
@@ -72,11 +72,11 @@ It is recommended to use `AuthContextProvider` to wrap the entire application so
 application via a `Consumer`.
 
 Javascript
-:   @@snip [AuthContextProvider.tsx](../../../../aas-examples/example-app/src/components/ExampleApp.jsx) { #AuthContextProvider-component-usage }
+:   @@snip [AuthContextProvider.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #AuthContextProvider-component-usage }
 
 #### Source code for RealmRole component
 
-* @github[AuthContextProvider Component](../../../../csw-aas-js/src/components/context/AuthContextProvider.tsx)
+* @github[AuthContextProvider Component](../../../../lib/src/components/aas/context/AuthContextProvider.tsx)
 
 ### Consumer
 
@@ -84,11 +84,11 @@ Javascript
 The shared `auth` object from the `AuthContextProvider` can be accessed using a `Consumer` component
 
 Javascript
-:   @@snip [Consumer.jsx](../../../../aas-examples/example-app/src/components/Read.jsx) { #Consumer-component-usage }
+:   @@snip [Consumer.jsx](../../../../examples/example-app/src/components/Read.jsx) { #Consumer-component-usage }
 
 #### Source code for RealmRole component
 
-* @github[Consumer Component](/csw-aas-js/src/components/context/AuthContext.ts)
+* @github[Consumer Component](/lib/src/components/aas/context/AuthContext.ts)
 
 ### Login
 
@@ -97,22 +97,22 @@ for the user to login. After login, the `auth` object in the context is updated 
 e.g. token, realm & client roles etc.
 
 Javascript
-:   @@snip [Login.tsx](../../../../aas-examples/example-app/src/components/NavComponent.jsx) { #login-component-usage }
+:   @@snip [Login.tsx](../../../../examples/example-app/src/components/NavComponent.jsx) { #login-component-usage }
 
 #### Source code for Login component
 
-* @github[Login Component](/csw-aas-js/src/components/Login.tsx)
+* @github[Login Component](/lib/src/components/aas/Login.tsx)
 
 ### Logout
 
 The `Logout` component logs out the user from the AAS server. It clears the `auth` object stored in the context.
 
 Javascript
-:   @@snip [Logout.tsx](../../../../aas-examples/example-app/src/components/NavComponent.jsx) { #logout-component-usage }
+:   @@snip [Logout.tsx](../../../../examples/example-app/src/components/NavComponent.jsx) { #logout-component-usage }
 
 #### Source code for Logout component
 
-* @github[Logout Component](/csw-aas-js/src/components/Logout.tsx)
+* @github[Logout Component](/lib/src/components/aas/Logout.tsx)
 
 ### CheckLogin
 
@@ -122,11 +122,11 @@ The behavior if the user is not logged in can be defined by an HTML element or R
 passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [CheckLogin.tsx](../../../../aas-examples/example-app/src/components/ExampleApp.jsx) { #checkLogin-component-usage }
+:   @@snip [CheckLogin.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #checkLogin-component-usage }
 
 #### Source code for CheckLogin component
 
-* @github[CheckLogin Component](/csw-aas-js/src/components/authentication/CheckLogin.tsx)
+* @github[CheckLogin Component](/lib/src/components/aas/authentication/CheckLogin.tsx)
 
 ### RealmRole
 
@@ -137,11 +137,11 @@ the behaviour if the user is not logged in can be optionally defined by an HTML 
 that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [RealmRole.tsx](../../../../aas-examples/example-app/src/components/ExampleApp.jsx) { #realmRole-component-usage }
+:   @@snip [RealmRole.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #realmRole-component-usage }
 
 #### Source code for RealmRole component
 
-* @github[RealmRole Component](/csw-aas-js/src/components/authorization/RealmRole.tsx)
+* @github[RealmRole Component](/lib/src/components/aas/authorization/RealmRole.tsx)
 
 ### ClientRole
 
@@ -152,11 +152,11 @@ the behaviour if the user is not logged in can be optionally defined by an HTML 
 that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [ClientRole.tsx](../../../../aas-examples/example-app/src/components/ExampleApp.jsx) { #clientRole-component-usage }
+:   @@snip [ClientRole.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #clientRole-component-usage }
 
 #### Source code for ClientRole component
 
-* @github[ClientRole Component](/csw-aas-js/src/components/authorization/ClientRole.tsx)
+* @github[ClientRole Component](/lib/src/components/aas/authorization/ClientRole.tsx)
 
 ## Technical Description
 See @ref:[csw-aas-js Technical Description](../technical/csw-aas-js.md).

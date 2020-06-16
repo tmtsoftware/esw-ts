@@ -1,4 +1,4 @@
-import { AuthContextDefaultState } from '../../../../../src/aas/components/context/AuthContext'
+import { AuthContextDefaultState } from '../../../../../src/components/aas/context/AuthContext'
 
 describe('<AuthContext />', () => {
   test('should have correct default state', () => {
