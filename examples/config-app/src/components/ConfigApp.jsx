@@ -6,7 +6,7 @@ import CreateConfig from './CreateConfig'
 import ConfigError from './ConfigError'
 import ListConfig from './ListConfig'
 import GetConfig from './GetConfig'
-import { AuthContextProvider, ClientRole } from 'gateway-tsclient'
+import { AuthContextProvider, ClientRole } from 'esw-ts'
 import {resolveConfig} from "../config/ResolveConfig";
 
 const ConfigApp = () => {

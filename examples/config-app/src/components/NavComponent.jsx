@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Logout, Login, AuthContext } from 'gateway-tsclient'
+import { Logout, Login, AuthContext } from 'esw-ts'
 
 const NavComponent = () => {
   const { auth } = useContext(AuthContext)

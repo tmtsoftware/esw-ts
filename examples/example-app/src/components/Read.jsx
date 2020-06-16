@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AuthContext } from 'gateway-tsclient'
+import { AuthContext } from 'esw-ts'
 
 const Read = () => {
   // #Consumer-component-usage

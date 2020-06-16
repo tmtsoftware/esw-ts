@@ -1,10 +1,10 @@
 {
-  "name": "aas-js-config-example",
+  "name": "esw-ts-config-example",
   "version": "1.0.0",
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
-    "gateway-tsclient": "file:../../lib",
+    "esw-ts": "file:../../lib",
     "prop-types": "^15.7.2",
     "react": "file:../../lib/node_modules/react",
     "react-dom": "file:../../lib/node_modules/react-dom",

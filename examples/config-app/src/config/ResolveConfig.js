@@ -1,5 +1,5 @@
-import {HttpConnection, LocationService, Prefix} from 'gateway-tsclient'
-import {Duration} from "gateway-tsclient";
+import {HttpConnection, LocationService, Prefix} from 'esw-ts'
+import {Duration} from "esw-ts";
 
 export const resolveConfig = async () => {
   let httpConnection = new HttpConnection(new Prefix('CSW', 'ConfigServer'), "Service");

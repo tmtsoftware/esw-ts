@@ -6,7 +6,7 @@ import {
   RealmRole,
   ClientRole,
   AuthContextProvider,
-} from 'gateway-tsclient'
+} from 'esw-ts'
 // #import-components-example
 import NavComponent from './NavComponent'
 import { AppConfig } from '../config/AppConfig'

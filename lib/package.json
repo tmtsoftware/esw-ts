@@ -1,5 +1,5 @@
 {
-  "name": "gateway-tsclient",
+  "name": "esw-ts",
   "version": "1.0.0",
   "description": "Typescript client for gateway",
   "main": "dist/src/index.js",
@@ -65,7 +65,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tmtsoftware/gateway-tsclient.git"
+    "url": "git+https://github.com/tmtsoftware/esw-ts.git"
   },
   "keywords": [
     "typescript",
@@ -74,7 +74,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tmtsoftware/gateway-tsclient/issues"
+    "url": "https://github.com/tmtsoftware/esw-ts/issues"
   },
-  "homepage": "https://github.com/tmtsoftware/gateway-tsclient#readme"
+  "homepage": "https://github.com/tmtsoftware/esw-ts#readme"
 }

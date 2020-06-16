@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { sPost } from './Client'
-import { AuthContext } from 'gateway-tsclient'
+import { AuthContext } from 'esw-ts'
 
 const CreateConfig = ({configURL}) => {
   const [response, setResponse] = useState(null)
