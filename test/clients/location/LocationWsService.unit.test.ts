@@ -24,7 +24,7 @@ afterEach(() => {
   mockServer.close()
 })
 
-test('location service must track a location for given connection| ESW-308', () => {
+test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311', () => {
   const expectedTrackingEvent: LocationUpdated = {
     _type: 'LocationUpdated',
     location: httpLocation
