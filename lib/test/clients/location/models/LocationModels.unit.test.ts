@@ -14,21 +14,21 @@ const prefix = new Prefix('ESW', 'test')
 const uri = 'some uri'
 
 describe('Typed Locations', () => {
-  test('Akka Location', () => {
+  test('Akka Location | ESW-308, ESW-310', () => {
     const akkaConnection = new AkkaConnection(prefix, 'Assembly')
     const akkaLocation = new AkkaLocation(akkaConnection, uri)
 
     expect(JSON.parse(JSON.stringify(akkaLocation))).toEqual(TestData.AkkaLocation)
   })
 
-  test('Http Location', () => {
+  test('Http Location | ESW-308, ESW-310', () => {
     const httpConnection = new HttpConnection(prefix, 'Assembly')
     const httpLocation = new HttpLocation(httpConnection, uri)
 
     expect(JSON.parse(JSON.stringify(httpLocation))).toEqual(TestData.HttpLocation)
   })
 
-  test('Tcp Location', () => {
+  test('Tcp Location | ESW-308, ESW-310', () => {
     const tcpConnection: TcpConnection = new TcpConnection(prefix, 'Assembly')
     const tcpLocation = new TcpLocation(tcpConnection, uri)
 
