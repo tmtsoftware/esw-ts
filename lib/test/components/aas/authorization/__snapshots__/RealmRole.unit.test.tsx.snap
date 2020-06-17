@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RealmRole /> should not render children elements if authentication is false  1`] = `
+<div>
+  <div>
+    <div
+      class="error"
+    >
+      Authentication unsuccessful
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<RealmRole /> should not render children elements if authentication is true but invalid realm role 1`] = `
+<div>
+  <div>
+    <div
+      class="error"
+    >
+      Authentication unsuccessful
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<RealmRole /> should render children elements if authentication is true and with valid realm role 1`] = `
+<div>
+  <div>
+    <div
+      class="realm-role"
+    >
+      Authentication successful
+    </div>
+  </div>
+</div>
+`;

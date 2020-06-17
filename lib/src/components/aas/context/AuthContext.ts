@@ -1,0 +1,23 @@
+import { createContext } from 'react'
+import { Auth } from '../../../clients/aas'
+export interface AuthContextType {
+  auth: Auth | null
+  login: () => void
+  logout: () => void
+}
+
+/**
+ * Default state for AuthContextProvider
+ * @type {{auth: undefined, login: (function(): boolean), logout: (function(): boolean)}}
+ */
+const AuthContextDefaultState = {
+  auth: null,
+  login: () => undefined,
+  logout: () => undefined
+}
+
+const AuthContext = createContext<AuthContextType>(AuthContextDefaultState)
+const { Provider, Consumer } = AuthContext
+
+// todo: AuthContext is exported to support scala.js, see if only exporting Consumer works
+export { AuthContext, Provider, Consumer, AuthContextDefaultState }

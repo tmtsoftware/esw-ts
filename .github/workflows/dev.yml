@@ -15,6 +15,22 @@ jobs:
         with:
           java-version: adopt@1.11
 
+      - name: Cache ~/.cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-coursier-${{ hashFiles('project/Libs.scala') }}
+          restore-keys: |
+            ${{ runner.os }}-coursier-
+
+      - name: Cache ~/.sbt
+        uses: actions/cache@v1
+        with:
+          path: ~/.sbt
+          key: ${{ runner.os }}-sbt-${{ hashFiles('project/build.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-sbt-
+
       - uses: actions/setup-node@v1
         with:
           node-version: "14.x"
@@ -29,16 +45,36 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install
-        run: npm install
+        working-directory: ./lib
+        run: npm ci
 
       - name: Build
+        working-directory: ./lib
         run: npm run build
 
       - name: Unit tests
+        working-directory: ./lib
         run: npm run test:unit:coverage
 
       - name: Integration tests
+        working-directory: ./lib
         run: npm run test:integration
+
+      - name: Build - Config App
+        working-directory: ./examples/config-app
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build - Example App
+        working-directory: ./examples/example-app
+        run: |
+          npm ci
+          npm run build
+
+      - name: Selenium Test
+        run: sbt clean test
+
 
       - name: Notify slack
         if: always()

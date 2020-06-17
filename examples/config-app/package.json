@@ -1,0 +1,39 @@
+{
+  "name": "esw-ts-config-example",
+  "version": "1.0.0",
+  "license": "Apache License, Version 2.0",
+  "private": true,
+  "dependencies": {
+    "esw-ts": "file:../../lib",
+    "prop-types": "^15.7.2",
+    "react": "file:../../lib/node_modules/react",
+    "react-dom": "file:../../lib/node_modules/react-dom",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.4.1",
+    "superagent": "^5.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "fix": "prettier-eslint --write 'src/**/*.{js,jsx}' ",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "config": "npm install && npm run build",
+    "startConfig": "BROWSER=none pm2 start node_modules/react-scripts/scripts/start.js --name config",
+    "stopConfig": "pm2 delete config"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-react": "^7.20.0",
+    "pm2": "^4.4.0",
+    "prettier-eslint-cli": "^5.0.0"
+  }
+}
