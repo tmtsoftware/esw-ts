@@ -89,7 +89,7 @@ describe('LocationService', () => {
     expect(locations).toEqual(expectLocations)
   })
 
-  test('should find a asdas for given connection | ESW-308, ESW-310, ESW-311', async () => {
+  test('should find a location for given connection | ESW-308, ESW-310, ESW-311', async () => {
     const expectLocation = httpLocation
 
     postMockFn.mockResolvedValueOnce(expectLocation)
