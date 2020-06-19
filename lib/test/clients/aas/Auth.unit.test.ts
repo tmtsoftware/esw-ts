@@ -20,7 +20,7 @@ jest.mock('keycloak-js')
 afterEach(() => jest.clearAllMocks())
 
 describe('Auth', () => {
-  test('should create TMTAuth instance', () => {
+  test('should create TMTAuth instance | ESW-330', () => {
     const mockKeycloak = mockedKeyCloakInstance(false)
     const auth = TMTAuth.from(mockKeycloak)
 
@@ -35,7 +35,7 @@ describe('Auth', () => {
     expect(auth.hasResourceRole).toBe(mockKeycloak.hasResourceRole)
   })
 
-  test('Initialise keycloak on authenticate', async () => {
+  test('Initialise keycloak on authenticate | ESW-330', async () => {
     const mockFn = mocked(Keycloak, true)
     const keycloakInstance = mockedKeyCloakInstance()
     mockFn.mockReturnValue(keycloakInstance)
@@ -56,7 +56,7 @@ describe('Auth', () => {
     expect(await authenticatedPromise).toEqual(true)
   })
 
-  test('Initialise keycloak on authenticate with redirect false', async () => {
+  test('Initialise keycloak on authenticate with redirect false | ESW-330', async () => {
     const mockFn = mocked(Keycloak, true)
     const keycloakInstance = mockedKeyCloakInstance()
     mockFn.mockReturnValue(keycloakInstance)
@@ -69,7 +69,7 @@ describe('Auth', () => {
     })
   })
 
-  test('fetch AAS url', async () => {
+  test('fetch AAS url | ESW-330', async () => {
     const mockedResolve = mocked(resolve, true)
     const authLocation = new HttpLocation(
       new HttpConnection(new Prefix('CSW', 'AAS'), 'Service'),
@@ -81,7 +81,7 @@ describe('Auth', () => {
     expect(uri).toEqual('http://localhost:8081/auth')
   })
 
-  test('fail to fetch AAS url', async () => {
+  test('fail to fetch AAS url | ESW-330', async () => {
     const mockedResolve = mocked(resolve, true)
     mockedResolve.mockRejectedValueOnce(Error('CSW.AAS not found'))
 

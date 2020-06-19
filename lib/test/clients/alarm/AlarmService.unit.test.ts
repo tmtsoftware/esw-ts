@@ -12,7 +12,7 @@ const uri = 'http://localhost:8080'
 const gatewayLocation = new HttpLocation(GatewayConnection, uri)
 
 describe('Alarm service', () => {
-  test('should set alarm severity for a given prefix', async () => {
+  test('should set alarm severity for a given prefix | ESW-314', async () => {
     const alarmService = new AlarmService()
     const alarmKey = new AlarmKey(new Prefix('ESW', 'Comp1'), 'alarm1')
     postMockFn.mockResolvedValueOnce([gatewayLocation])

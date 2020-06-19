@@ -24,7 +24,7 @@ describe('<CheckLogin />', () => {
   const mockLogin = jest.fn()
   const mockLogout = jest.fn()
 
-  test('should render children elements if authentication is true', async () => {
+  test('should render children elements if authentication is true | ESW-330', async () => {
     const auth = mockAuth(true)
 
     const { queryByText } = render(

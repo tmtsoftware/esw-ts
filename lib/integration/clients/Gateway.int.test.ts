@@ -27,7 +27,7 @@ afterAll(async () => {
 })
 
 describe('Command Client', () => {
-  test('should get accepted response on oneway command', async () => {
+  test('should get accepted response on oneway command | ESW-305', async () => {
     const validToken: string = await getToken(
       'esw-gateway-client',
       'gateway-user1',
@@ -41,14 +41,14 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Accepted')
   })
 
-  test('should get unauthorised error on sending invalid token', async () => {
+  test('should get unauthorised error on sending invalid token | ESW-305', async () => {
     const commandService = new CommandService(componentId, () => '')
     const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Unauthorized'))
   })
 
-  test('should get forbidden error on sending command to different subsystem', async () => {
+  test('should get forbidden error on sending command to different subsystem | ESW-305', async () => {
     const tokenWithoutRole: string = await getToken(
       'esw-gateway-client',
       'gateway-user2',
@@ -63,9 +63,9 @@ describe('Command Client', () => {
   })
 })
 
-describe('Alarm Client', () => {
+describe('Alarm Client ', () => {
   const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
-  test('set severity for the given component', async () => {
+  test('set severity for the given component | ESW-314', async () => {
     const alarmService = new AlarmService()
     const alarmKey = new AlarmKey(trombonePrefix, 'tromboneAxisHighLimitAlarm')
 
@@ -76,7 +76,7 @@ describe('Alarm Client', () => {
 })
 
 describe('Sequencer Client', () => {
-  test('is up and available', async () => {
+  test('is up and available | ESW-307', async () => {
     const validToken: string = await getToken(
       'esw-gateway-client',
       'gateway-user1',
@@ -94,7 +94,7 @@ describe('Sequencer Client', () => {
     expect(available).toBeTruthy()
   })
 
-  test('should get unauthorized error when invalid token is provided', async () => {
+  test('should get unauthorized error when invalid token is provided | ESW-307', async () => {
     const sequencerService = new SequencerService(
       new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer'),
       () => undefined

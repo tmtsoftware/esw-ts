@@ -24,7 +24,7 @@ const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly
 
 const client = new CommandService(compId, () => '')
 describe('CommandService', () => {
-  test('should post validate command', async () => {
+  test('should post validate command | ESW-305', async () => {
     const acceptedResponse = {
       _type: 'Accepted',
       runId: '1234124'
@@ -40,7 +40,7 @@ describe('CommandService', () => {
     expect(data).toBe(acceptedResponse)
   })
 
-  test('should post submit command', async () => {
+  test('should post submit command | ESW-305', async () => {
     const startedResponse: SubmitResponse = {
       _type: 'Started',
       runId: '1234124'
@@ -56,7 +56,7 @@ describe('CommandService', () => {
     expect(data).toBe(startedResponse)
   })
 
-  test('should post oneway command', async () => {
+  test('should post oneway command | ESW-305', async () => {
     const acceptedResponse = {
       _type: 'Accepted',
       runId: '1234124'
@@ -72,7 +72,7 @@ describe('CommandService', () => {
     expect(data).toBe(acceptedResponse)
   })
 
-  test('should post query command', async () => {
+  test('should post query command | ESW-305', async () => {
     const completedResponse: Completed = {
       _type: 'Completed',
       runId: '1234124',

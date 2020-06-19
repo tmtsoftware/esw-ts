@@ -17,7 +17,7 @@ describe('<ClientRole />', () => {
   const keycloakInstance = mockedKeyCloakInstance()
   mockFn.mockReturnValue(keycloakInstance)
 
-  test('should render children elements if authentication is true and with valid Client role', () => {
+  test('should render children elements if authentication is true and with valid Client role | ESW-330', () => {
     const props = {
       children: <div className="client-role">Authentication successful</div>,
       error: <div className="error">Authentication unsuccessful</div>,
@@ -36,7 +36,7 @@ describe('<ClientRole />', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should not render children elements if authentication is true but invalid Client role', () => {
+  test('should not render children elements if authentication is true but invalid Client role | ESW-330', () => {
     const props = {
       children: <div className="client-role">Authentication successful</div>,
       error: <div className="error">Authentication unsuccessful</div>,
@@ -61,7 +61,7 @@ describe('<ClientRole />', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should not render children elements if authentication is false ', () => {
+  test('should not render children elements if authentication is false | ESW-330', () => {
     const props = {
       children: <div className="client-role">Authentication successful</div>,
       error: <div className="error">Authentication unsuccessful</div>,

@@ -26,7 +26,7 @@ afterEach(() => {
   mockServer.close()
 })
 describe('CommandService', () => {
-  test('should subscribe to current state using websocket', () => {
+  test('should subscribe to current state using websocket | ESW-305', () => {
     const expectedState: CurrentState = {
       prefix: 'CSW.ncc.trombone',
       stateName: 'stateName1'
@@ -46,7 +46,7 @@ describe('CommandService', () => {
     })
   })
 
-  test('should receive submit response on query final using websocket', async () => {
+  test('should receive submit response on query final using websocket | ESW-305', async () => {
     const completedResponse: Completed = {
       _type: 'Completed',
       runId: '1234124',

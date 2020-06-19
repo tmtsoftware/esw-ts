@@ -62,5 +62,5 @@ describe('Sequencer Response Contract', () => {
       cannotOperateOnAnInFlightOrFinishedStep,
       TestData.CannotOperateOnAnInFlightOrFinishedStep
     ]
-  ])('%s', (_, actual, expected) => expect(actual).toEqual(expected))
+  ])('%s | ESW-307', (_, actual, expected) => expect(actual).toEqual(expected))
 })

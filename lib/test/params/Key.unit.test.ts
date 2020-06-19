@@ -153,5 +153,5 @@ describe('Key-Parameter Contract', () => {
     ['CometCoordKey', cometParam, TestData.CometCoordKey],
     ['AltAzCoordKey', altAzParam, TestData.AltAzCoordKey],
     ['CoordKey', coordParam, TestData.CoordKey]
-  ])('%s', (_, actual, expected) => expect(stringify(actual)).toEqual(JSON.stringify(expected)))
+  ])('%s | ESW-306', (_, actual, expected) => expect(stringify(actual)).toEqual(JSON.stringify(expected)))
 })

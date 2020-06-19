@@ -2,7 +2,7 @@ import * as Responses from '../jsons/CommandResponses.json'
 import { Accepted, Cancelled, Completed, Error, Invalid, Locked, Started } from '../../src/models'
 
 describe('Submit response', () => {
-  test('Error', () => {
+  test('Error | ESW-305', () => {
     const error: Error = {
       _type: 'Error',
       runId: 'id-1234',
@@ -12,7 +12,7 @@ describe('Submit response', () => {
     expect(error).toEqual(Responses.Error)
   })
 
-  test('Invalid', () => {
+  test('Invalid | ESW-305', () => {
     const invalid: Invalid = {
       _type: 'Invalid',
       runId: 'id-1234',
@@ -25,7 +25,7 @@ describe('Submit response', () => {
     expect(invalid).toEqual(Responses.Invalid)
   })
 
-  test('Locked', () => {
+  test('Locked | ESW-305', () => {
     const locked: Locked = {
       _type: 'Locked',
       runId: 'id-1234'
@@ -34,7 +34,7 @@ describe('Submit response', () => {
     expect(locked).toEqual(Responses.Locked)
   })
 
-  test('Started', () => {
+  test('Started | ESW-305', () => {
     const started: Started = {
       _type: 'Started',
       runId: 'id-1234'
@@ -43,7 +43,7 @@ describe('Submit response', () => {
     expect(started).toEqual(Responses.Started)
   })
 
-  test('Completed', () => {
+  test('Completed | ESW-305', () => {
     const completed: Completed = {
       _type: 'Completed',
       runId: 'id-1234',
@@ -53,7 +53,7 @@ describe('Submit response', () => {
     expect(completed).toEqual(Responses.Completed)
   })
 
-  test('Cancelled', () => {
+  test('Cancelled | ESW-305', () => {
     const cancelled: Cancelled = {
       _type: 'Cancelled',
       runId: 'id-1234'
@@ -62,7 +62,7 @@ describe('Submit response', () => {
     expect(cancelled).toEqual(Responses.Cancelled)
   })
 
-  test('Accepted', () => {
+  test('Accepted | ESW-305', () => {
     const accepted: Accepted = {
       _type: 'Accepted',
       runId: 'id-1234'

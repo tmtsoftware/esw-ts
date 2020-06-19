@@ -10,7 +10,7 @@ describe('<RealmRole />', () => {
     jest.resetModules()
   })
 
-  test('should render children elements if authentication is true and with valid realm role', () => {
+  test('should render children elements if authentication is true and with valid realm role | ESW-330', () => {
     const props = {
       children: <div className="realm-role">Authentication successful</div>,
       error: <div className="error">Authentication unsuccessful</div>,
@@ -28,7 +28,7 @@ describe('<RealmRole />', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should not render children elements if authentication is true but invalid realm role', () => {
+  test('should not render children elements if authentication is true but invalid realm role | ESW-330', () => {
     const props = {
       children: <div className="realm-role">Authentication successful</div>,
       error: <div className="error">Authentication unsuccessful</div>,
@@ -46,7 +46,7 @@ describe('<RealmRole />', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should not render children elements if authentication is false ', () => {
+  test('should not render children elements if authentication is false | ESW-330', () => {
     const props = {
       children: <div className="realm-role">Authentication successful</div>,
       error: <div className="error">Authentication unsuccessful</div>,

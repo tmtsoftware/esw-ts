@@ -7,7 +7,7 @@ import { mockAuth } from '../../utils/MockHelpers'
 // DEOPSCSW-630 - Javascript adapter for AAS
 // DEOPSCSW-631 - React layer for javascript adapter for AAS
 describe('<Logout />', () => {
-  test('should call logout', async () => {
+  test('should call logout | ESW-330', async () => {
     const mockLogout = jest.fn()
     const { getByText } = await render(
       <Provider value={{ logout: mockLogout, auth: mockAuth(), login: jest.fn() }}>
@@ -20,7 +20,7 @@ describe('<Logout />', () => {
     expect(mockLogout).toHaveBeenCalled()
   })
 
-  test('should render logout', () => {
+  test('should render logout | ESW-330', () => {
     const { container } = render(<Logout />)
     expect(container).toMatchSnapshot()
   })
