@@ -10,7 +10,7 @@ import { AuthContextProvider, ClientRole } from 'esw-ts'
 import {resolveConfig} from "../config/ResolveConfig";
 
 const ConfigApp = () => {
-  const [configURL, setconfigURL] = useState(null);
+  const [configURL, setconfigURL] = useState<string>('');
   const resolveConfigServer = async () => {
     const response = await resolveConfig()
     setconfigURL(response)

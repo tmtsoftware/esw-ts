@@ -1,8 +1,9 @@
 import React from 'react'
 import IOOperationComponent from './IOOperationComponent'
+import { InferProps, string } from 'prop-types'
 
-const GetConfig = ({configURL}) => {
-  const downloadURI = uri => {
+function GetConfig({configURL}: InferProps<typeof  GetConfig.propTypes>){
+  const downloadURI = (uri: string) => {
     let link = document.createElement('a')
     link.href = uri
     document.body.appendChild(link)
@@ -10,7 +11,7 @@ const GetConfig = ({configURL}) => {
     document.body.removeChild(link)
   }
 
-  const getConfig = async input => {
+  const getConfig = async (input: string) => {
     console.log(input)
     downloadURI(`${configURL}config/${input}`)
   }
@@ -23,8 +24,11 @@ const GetConfig = ({configURL}) => {
       operation='Get'
       output={null}
       api={getConfig}
+      token={()=>''}
     />
   )
 }
-
+GetConfig.propTypes = {
+  configURL: string
+}
 export default GetConfig

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Logout, Login, AuthContext } from 'esw-ts'
+import { AuthContext, Login, Logout } from 'esw-ts'
 
 const NavComponent = () => {
   const { auth } = useContext(AuthContext)

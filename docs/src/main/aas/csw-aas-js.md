@@ -37,7 +37,7 @@ i.e. `realm`, `clientId`
 in keycloak server.
 
 Javascript
-:   @@snip [App-config](../../../../examples/example-app/src/config/AppConfig.js) { #app-config }
+:   @@snip [App-config](../../../../examples/example-app/src/config/AppConfig.ts) { #app-config }
 
 
 ## Components
@@ -55,7 +55,7 @@ Javascript
 Components can be imported as shown in code snippet below
 
 Javascript
-:   @@snip [Import Components](../../../../examples/example-app/src/components/NavComponent.jsx) { #import-components }
+:   @@snip [Import Components](../../../../examples/example-app/src/components/NavComponent.tsx) { #import-components }
 
 
 ### AuthContextProvider
@@ -97,7 +97,7 @@ for the user to login. After login, the `auth` object in the context is updated 
 e.g. token, realm & client roles etc.
 
 Javascript
-:   @@snip [Login.tsx](../../../../examples/example-app/src/components/NavComponent.jsx) { #login-component-usage }
+:   @@snip [Login.tsx](../../../../examples/example-app/src/components/NavComponent.tsx) { #login-component-usage }
 
 #### Source code for Login component
 
@@ -108,7 +108,7 @@ Javascript
 The `Logout` component logs out the user from the AAS server. It clears the `auth` object stored in the context.
 
 Javascript
-:   @@snip [Logout.tsx](../../../../examples/example-app/src/components/NavComponent.jsx) { #logout-component-usage }
+:   @@snip [Logout.tsx](../../../../examples/example-app/src/components/NavComponent.tsx) { #logout-component-usage }
 
 #### Source code for Logout component
 

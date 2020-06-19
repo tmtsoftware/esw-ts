@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
+import PropTypes, { InferProps } from 'prop-types'
 
-const IOOperationComponent = props => {
+function IOOperationComponent(props: InferProps<typeof IOOperationComponent.propTypes>) {
   const [input, setInput] = useState('')
   const { txtId, btnId, componentNameProp, operation, output } = props
 
-  const updateInput = event => setInput(event.target.value)
+  const updateInput: ChangeEventHandler = (event: ChangeEvent<HTMLTextAreaElement> ) => {
+    setInput(event.target.value)
+  }
   const handleClick = () => props.api(input, props.token)
 
   return (
@@ -40,7 +42,8 @@ IOOperationComponent.propTypes = {
   componentNameProp: PropTypes.string,
   operation: PropTypes.string,
   output: PropTypes.string,
-  api: PropTypes.func,
+  api: PropTypes.func.isRequired,
+  token: PropTypes.func.isRequired
 }
 
 export default IOOperationComponent

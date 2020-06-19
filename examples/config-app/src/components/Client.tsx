@@ -1,6 +1,7 @@
 import request from 'superagent'
+import { TokenFactory } from 'esw-ts/dist/src/utils/HttpTransport'
 
-export const post = (url, callback, input = '') => {
+export const post = (url: string, callback: (arg: string) => void, input = '') => {
   request
     .post(url)
     .set('Content-Type', 'application/json')
@@ -15,7 +16,7 @@ export const post = (url, callback, input = '') => {
     )
 }
 
-export const sPost = (url, callback, token, input = '') => {
+export const sPost = (url: string, callback: (arg: string) => void, token: TokenFactory, input = '') => {
   request
     .post(url)
     .set('Content-Type', 'text/plain')
@@ -31,7 +32,7 @@ export const sPost = (url, callback, token, input = '') => {
     )
 }
 
-export const get = (url, callback) => {
+export const get = (url: string, callback: (res: string)=> void) => {
   request
     .get(url)
     .set('Content-Type', 'application/json')

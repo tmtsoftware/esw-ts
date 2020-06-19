@@ -20,7 +20,7 @@ Typescript which compiles typescrit files to JavaScript. `tsc` picks up configur
 is at root level of project. `tsconfig.json` allows to configure multiple compiler options. Please refer
 [this](https://www.typescriptlang.org/docs/handbook/compiler-options.html) for details of compiler options.
 `npm run build` command will run `tsc` which will produce outputs (.js and .d.ts). `.d.ts` files are the type declaration files
-which provide typings for react components exported by library. `package.json` points to `index.js` as a entry point for library
+which provide typings for react components exported by library. `package.json` points to `index.ts` as a entry point for library
 and `index.d.ts` as types. This will help `csw-aas-js` library users to know type signatures of components. e.g. type
 signature for react component props, api signatures. `csw-aas-js` can be seamlessly consumed by applications written ES6
 or Typescript.
@@ -70,7 +70,7 @@ react context api. AuthContext gives handle to token, realm and resource roles, 
 this information can become consumer of AuthContext. For example
 
 Javascript
-:   @@snip [use auth context](../../../../examples/config-app/src/components/CreateConfig.jsx) { #use-auth-context }
+:   @@snip [use auth context](../../../../examples/config-app/src/components/CreateConfig.tsx) { #use-auth-context }
 
 Access token can be extracted from `auth` and it can be sent in `Authorization` header for calling secure api
 

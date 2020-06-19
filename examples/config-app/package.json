@@ -4,6 +4,8 @@
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "@types/superagent": "^4.1.7",
     "esw-ts": "file:../../lib",
     "prop-types": "^15.7.2",
     "react": "file:../../lib/node_modules/react",
@@ -29,11 +31,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
     "babel-eslint": "^10.0.1",
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-react": "^9.2.0",
     "eslint-plugin-react": "^7.20.0",
     "pm2": "^4.4.0",
-    "prettier-eslint-cli": "^5.0.0"
+    "prettier-eslint-cli": "^5.0.0",
+    "typescript": "^3.9.5"
   }
 }
