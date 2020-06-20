@@ -72,7 +72,7 @@ It is recommended to use `AuthContextProvider` to wrap the entire application so
 application via a `Consumer`.
 
 Javascript
-:   @@snip [AuthContextProvider.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #AuthContextProvider-component-usage }
+:   @@snip [AuthContextProvider.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #AuthContextProvider-component-usage }
 
 #### Source code for RealmRole component
 
@@ -84,7 +84,7 @@ Javascript
 The shared `auth` object from the `AuthContextProvider` can be accessed using a `Consumer` component
 
 Javascript
-:   @@snip [Consumer.jsx](../../../../examples/example-app/src/components/Read.jsx) { #Consumer-component-usage }
+:   @@snip [Consumer.jsx](../../../../examples/example-app/src/components/Read.tsx) { #Consumer-component-usage }
 
 #### Source code for RealmRole component
 
@@ -122,7 +122,7 @@ The behavior if the user is not logged in can be defined by an HTML element or R
 passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [CheckLogin.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #checkLogin-component-usage }
+:   @@snip [CheckLogin.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #checkLogin-component-usage }
 
 #### Source code for CheckLogin component
 
@@ -137,7 +137,7 @@ the behaviour if the user is not logged in can be optionally defined by an HTML 
 that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [RealmRole.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #realmRole-component-usage }
+:   @@snip [RealmRole.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #realmRole-component-usage }
 
 #### Source code for RealmRole component
 
@@ -152,7 +152,7 @@ the behaviour if the user is not logged in can be optionally defined by an HTML 
 that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [ClientRole.tsx](../../../../examples/example-app/src/components/ExampleApp.jsx) { #clientRole-component-usage }
+:   @@snip [ClientRole.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #clientRole-component-usage }
 
 #### Source code for ClientRole component
 
