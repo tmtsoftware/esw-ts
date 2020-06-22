@@ -10,7 +10,7 @@ import {
   Wait
 } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Post'
+import { post } from '../../../src/utils/Http'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService(componentId, () => '')
@@ -20,7 +20,7 @@ const waitCommand = new Wait('ESW.test', 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
-jest.mock('../../../src/utils/Post')
+jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 const uri = 'http://localhost:8080'
 const gatewayLocation = new HttpLocation(GatewayConnection, uri)
