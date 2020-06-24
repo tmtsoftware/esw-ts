@@ -1,11 +1,15 @@
 import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
 import PropTypes, { InferProps } from 'prop-types'
 
-function IOOperationComponent(props: InferProps<typeof IOOperationComponent.propTypes>) {
+function IOOperationComponent(
+  props: InferProps<typeof IOOperationComponent.propTypes>
+) {
   const [input, setInput] = useState('')
   const { txtId, btnId, componentNameProp, operation, output } = props
 
-  const updateInput: ChangeEventHandler = (event: ChangeEvent<HTMLTextAreaElement> ) => {
+  const updateInput: ChangeEventHandler = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setInput(event.target.value)
   }
   const handleClick = () => props.api(input, props.token)

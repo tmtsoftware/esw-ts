@@ -1,0 +1,6 @@
+{
+  "devOptions": {
+    "fallback": "public/index.html",
+    "port": 3000
+  }
+}

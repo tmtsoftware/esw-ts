@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { InferProps, string } from 'prop-types'
 
-function ListConfig (props: InferProps<typeof ListConfig.propTypes>) {
+function ListConfig(props: InferProps<typeof ListConfig.propTypes>) {
   const [response, setResponse] = useState('')
 
   const listConfig = async () => {

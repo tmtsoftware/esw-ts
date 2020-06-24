@@ -6,7 +6,6 @@ import { AuthContext, Logout, Login } from 'esw-ts'
 
 const NavComponent = () => {
   const { auth } = useContext(AuthContext)
-
   return (
     <nav className='indigo'>
       <div className='nav-wrapper'>
@@ -21,7 +20,19 @@ const NavComponent = () => {
             <Link to='/secured'> Secured </Link>
           </li>
           <li>
-            {auth == null || auth === undefined ? (
+            <Link id='config-link' to='/config'>
+              {' '}
+              Config App{' '}
+            </Link>
+          </li>
+          <li>
+            <Link to='/example_admin'> Admin App </Link>
+          </li>
+          <li>
+            <Link to='/example_user'> User App </Link>
+          </li>
+          <li>
+            {!auth ? (
               <span>Loading...</span>
             ) : auth.isAuthenticated() ? (
               // #logout-component-usage

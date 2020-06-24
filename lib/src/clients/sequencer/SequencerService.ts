@@ -6,7 +6,9 @@ import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { SequenceCommand, SubmitResponse, ComponentId } from '../../models'
-import { HttpTransport, TokenFactory } from '../../utils/HttpTransport'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { TokenFactory } from '../../utils/TokenFactory'
+
 import { Ws } from '../../utils/Ws'
 
 export interface SequencerServiceApi {

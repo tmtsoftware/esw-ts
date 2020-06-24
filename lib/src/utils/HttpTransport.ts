@@ -1,7 +1,6 @@
 import { post } from './Post'
 import { HeaderExt } from './HeaderExt'
-
-export type TokenFactory = () => string | undefined
+import { TokenFactory } from './TokenFactory'
 
 export class HttpTransport<Req> {
   private readonly path = 'post-endpoint'

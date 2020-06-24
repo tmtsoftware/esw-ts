@@ -9,7 +9,8 @@ import {
   SubmitResponse,
   ValidateResponse
 } from '../../models'
-import { HttpTransport, TokenFactory } from '../../utils/HttpTransport'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { TokenFactory } from '../../utils/TokenFactory'
 import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
 

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "target": "es6",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ES6",
     "allowJs": true,
     "checkJs": true,
     "sourceMap": true,
