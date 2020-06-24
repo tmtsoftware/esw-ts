@@ -1,11 +1,10 @@
 import React, { useState, useContext, ChangeEvent } from 'react'
 import IOOperationComponent from './IOOperationComponent'
-import { sPost } from './Client'
-import { AuthContext } from 'esw-ts'
-import { TokenFactory } from 'esw-ts/dist/src/utils/HttpTransport'
+import { sPost } from '../../helpers/Client'
+import { AuthContext, TokenFactory } from 'esw-ts'
 import { InferProps, string } from 'prop-types'
 
-export function CreateConfig (props: InferProps<typeof CreateConfig.propTypes>) {
+export function CreateConfig(props: InferProps<typeof CreateConfig.propTypes>) {
   const [response, setResponse] = useState('')
   const [fileContent, setsetFileContent] = useState('')
 
@@ -20,18 +19,19 @@ export function CreateConfig (props: InferProps<typeof CreateConfig.propTypes>) 
       `${props.configURL}config/${input}?comment="Sample commit message"`,
       callBack,
       token,
-      fileContent,
+      fileContent
     )
   }
 
-  const updateFileContent = (event: ChangeEvent<HTMLTextAreaElement>) => setsetFileContent(event.target.value)
+  const updateFileContent = (event: ChangeEvent<HTMLTextAreaElement>) =>
+    setsetFileContent(event.target.value)
 
   return (
     <div className='card-panel hoverable'>
       <IOOperationComponent
         txtId='file-path'
         btnId='create-config'
-        token={ auth?.token ? auth.token : () => null}
+        token={auth?.token ? auth.token : () => null}
         componentNameProp='Create Config'
         operation='Create Config'
         output={response}

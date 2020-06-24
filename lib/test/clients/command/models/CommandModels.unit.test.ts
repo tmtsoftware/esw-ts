@@ -43,5 +43,7 @@ describe('Commands ', () => {
     ['Query Final', queryFinalCommand, TestData.QueryFinal],
     ['Query Final', subscribeCurrentState, TestData.SubscribeCurrentState],
     ['Gateway', gatewayCommand, TestData.GatewayCommand]
-  ])('%s  | ESW-305', (_, actual, expected) => expect(JSON.parse(JSON.stringify(actual))).toEqual(expected))
+  ])('%s  | ESW-305', (_, actual, expected) =>
+    expect(JSON.parse(JSON.stringify(actual))).toEqual(expected)
+  )
 })

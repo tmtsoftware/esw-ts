@@ -10,8 +10,10 @@ class ConfigAdminPage(implicit driver: WebDriver) extends WebBrowser {
   private val fileContentTxt     = id("file-content-txt-area")
   private val createConfigBtn    = id("create-config-btn")
   private val createConfigOutput = id("create-config-output")
+  private val configLink         = id("config-link")
 
   def createConfig(filePath: String, fileContent: String): ConfigAdminPage = {
+    click on configLink
     textArea(filePathTxt).value = filePath
     textArea(fileContentTxt).value = fileContent
     click on createConfigBtn
