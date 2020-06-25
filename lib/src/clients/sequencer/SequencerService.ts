@@ -7,7 +7,7 @@ import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { SequenceCommand, SubmitResponse, ComponentId } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { TokenFactory } from '../../utils/TokenFactory'
+import type { TokenFactory } from '../..'
 
 import { Ws } from '../../utils/Ws'
 

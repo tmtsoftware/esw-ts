@@ -1,4 +1,4 @@
-import { TokenFactory } from 'esw-ts'
+import type { TokenFactory } from 'esw-ts'
 
 function handleErr(response: Response) {
   if (response.ok) return response
