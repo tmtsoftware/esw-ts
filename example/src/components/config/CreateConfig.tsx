@@ -1,7 +1,8 @@
 import React, { useState, useContext, ChangeEvent } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { sPost } from '../../helpers/Client'
-import { AuthContext, TokenFactory } from 'esw-ts'
+import { AuthContext } from 'esw-ts'
+import type { TokenFactory } from 'esw-ts'
 import { InferProps, string } from 'prop-types'
 
 export function CreateConfig(props: InferProps<typeof CreateConfig.propTypes>) {

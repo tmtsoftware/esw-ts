@@ -10,7 +10,7 @@ import {
   ValidateResponse
 } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { TokenFactory } from '../../utils/TokenFactory'
+import type { TokenFactory } from '../..'
 import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
 
