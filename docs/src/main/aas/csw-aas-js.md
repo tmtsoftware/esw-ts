@@ -1,3 +1,4 @@
+
 # Javascript Adapter (csw-aas-js)
 
 `csw-aas-js` is an npm package which provides React components that integrate with the CSW
@@ -37,7 +38,7 @@ i.e. `realm`, `clientId`
 in keycloak server.
 
 Javascript
-:   @@snip [App-config](../../../../examples/example-app/src/config/AppConfig.ts) { #app-config }
+:   @@snip [App-config](../../../../example/src/config/AppConfig.ts) { #app-config }
 
 
 ## Components
@@ -55,7 +56,7 @@ Javascript
 Components can be imported as shown in code snippet below
 
 Javascript
-:   @@snip [Import Components](../../../../examples/example-app/src/components/NavComponent.tsx) { #import-components }
+:   @@snip [Import Components](../../../../example/src/components/NavComponent.tsx) { #import-components }
 
 
 ### AuthContextProvider
@@ -72,7 +73,7 @@ It is recommended to use `AuthContextProvider` to wrap the entire application so
 application via a `Consumer`.
 
 Javascript
-:   @@snip [AuthContextProvider.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #AuthContextProvider-component-usage }
+:   @@snip [AuthContextProvider.tsx](../../../../example/src/components/ExampleApp.tsx) { #AuthContextProvider-component-usage }
 
 #### Source code for RealmRole component
 
@@ -84,7 +85,7 @@ Javascript
 The shared `auth` object from the `AuthContextProvider` can be accessed using a `Consumer` component
 
 Javascript
-:   @@snip [Consumer.jsx](../../../../examples/example-app/src/components/Read.tsx) { #Consumer-component-usage }
+:   @@snip [Consumer.jsx](../../../../example/src/components/Read.tsx) { #Consumer-component-usage }
 
 #### Source code for RealmRole component
 
@@ -97,7 +98,7 @@ for the user to login. After login, the `auth` object in the context is updated 
 e.g. token, realm & client roles etc.
 
 Javascript
-:   @@snip [Login.tsx](../../../../examples/example-app/src/components/NavComponent.tsx) { #login-component-usage }
+:   @@snip [Login.tsx](../../../../example/src/components/NavComponent.tsx) { #login-component-usage }
 
 #### Source code for Login component
 
@@ -108,7 +109,7 @@ Javascript
 The `Logout` component logs out the user from the AAS server. It clears the `auth` object stored in the context.
 
 Javascript
-:   @@snip [Logout.tsx](../../../../examples/example-app/src/components/NavComponent.tsx) { #logout-component-usage }
+:   @@snip [Logout.tsx](../../../../example/src/components/NavComponent.tsx) { #logout-component-usage }
 
 #### Source code for Logout component
 
@@ -122,7 +123,7 @@ The behavior if the user is not logged in can be defined by an HTML element or R
 passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [CheckLogin.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #checkLogin-component-usage }
+:   @@snip [CheckLogin.tsx](../../../../example/src/components/ExampleApp.tsx) { #checkLogin-component-usage }
 
 #### Source code for CheckLogin component
 
@@ -137,7 +138,7 @@ the behaviour if the user is not logged in can be optionally defined by an HTML 
 that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [RealmRole.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #realmRole-component-usage }
+:   @@snip [RealmRole.tsx](../../../../example/src/components/ExampleApp.tsx) { #realmRole-component-usage }
 
 #### Source code for RealmRole component
 
@@ -152,7 +153,7 @@ the behaviour if the user is not logged in can be optionally defined by an HTML 
 that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
 Javascript
-:   @@snip [ClientRole.tsx](../../../../examples/example-app/src/components/ExampleApp.tsx) { #clientRole-component-usage }
+:   @@snip [ClientRole.tsx](../../../../example/src/components/ExampleApp.tsx) { #clientRole-component-usage }
 
 #### Source code for ClientRole component
 

@@ -2,6 +2,7 @@
   "devOptions": {
     "fallback": "public/index.html",
     "port": 3000,
-    "bundle": false
+    "bundle": false,
+    "open": "none"
   }
 }
