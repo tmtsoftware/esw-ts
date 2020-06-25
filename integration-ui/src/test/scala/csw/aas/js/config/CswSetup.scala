@@ -23,7 +23,6 @@ trait CswSetup {
 
   import locationWiring._
   import actorRuntime._
-//  implicit val _system: ActorSystem[SpawnProtocol.Command] = locationWiring.actorSystem
   implicit val unTypedSystem: actor.ActorSystem = locationWiring.actorSystem.toClassic
   implicit val _ec: ExecutionContext            = ec
 
@@ -51,7 +50,6 @@ trait CswSetup {
 
   def shutdown(): Unit = {
     deleteServerFiles()
-    await(Http().shutdownAllConnectionPools())
     configServer.foreach(terminateHttpServerBinding)
     terminateHttpServerBinding(locationServerBinding)
     await(actorRuntime.shutdown())

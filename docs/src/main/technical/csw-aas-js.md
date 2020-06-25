@@ -41,8 +41,7 @@ don't want to use location service, you can provide `AAS-server-url` along with 
 ```javascript
 const AppConfig = {
   realm: 'example',
-  clientId: 'example-app',
-  'AAS-server-url': 'http://localhost:8081/auth'
+  clientId: 'example-app'
 }
 ```
 - Initialize javascript adapter
@@ -70,7 +69,7 @@ react context api. AuthContext gives handle to token, realm and resource roles, 
 this information can become consumer of AuthContext. For example
 
 Javascript
-:   @@snip [use auth context](../../../../examples/config-app/src/components/CreateConfig.tsx) { #use-auth-context }
+:   @@snip [use auth context](../../../../example/src/components/config/CreateConfig.tsx) { #use-auth-context }
 
 Access token can be extracted from `auth` and it can be sent in `Authorization` header for calling secure api
 
