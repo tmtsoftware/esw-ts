@@ -41,7 +41,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Accepted')
   })
 
-  test('should get unauthorised error on sending invalid token | ESW-305', async () => {
+  test('should get unauthorized error on sending invalid token | ESW-305', async () => {
     const commandService = new CommandService(componentId, () => '')
     const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
 

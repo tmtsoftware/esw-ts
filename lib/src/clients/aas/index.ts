@@ -1,2 +1,2 @@
-export { TMTAuth } from './Auth'
+export { TMTAuth } from './AuthStore'
 export { Auth, AuthContextConfig, AuthenticateResult } from './Models'

@@ -1,9 +1,9 @@
 import Keycloak, { KeycloakInstance } from 'keycloak-js'
 import { AASConfig } from '../../config'
-import { Auth, AuthContextConfig, AuthenticateResult } from './Models'
-import { HttpConnection } from '../location'
 import { Prefix } from '../../models'
+import { HttpConnection } from '../location'
 import { resolve } from '../location/LocationUtils'
+import { Auth, AuthContextConfig, AuthenticateResult } from './Models'
 
 /**
  * Adapter for authentication and authorization service
@@ -12,19 +12,21 @@ class AuthStore {
   /**
    * Create instance of TMTAuth from keycloak.
    *
-   * @param keycloak keycloak instance instantiated using keyclok-js
+   * @param keycloak keycloak instance instantiated using keycloak-js
    */
-  public from: (keycloak: KeycloakInstance) => Auth = (keycloak) => ({
-    logout: keycloak.logout,
-    token: () => keycloak.token,
-    tokenParsed: () => keycloak.tokenParsed,
-    realmAccess: () => keycloak.realmAccess, // todo: should this be called realmRoles?
-    resourceAccess: () => keycloak.resourceAccess, // todo: should this be called resourceRoles?
-    loadUserProfile: keycloak.loadUserProfile,
-    isAuthenticated: () => keycloak.authenticated,
-    hasRealmRole: keycloak.hasRealmRole,
-    hasResourceRole: keycloak.hasResourceRole
-  })
+  public from(keycloak: KeycloakInstance): Auth {
+    return {
+      logout: keycloak.logout,
+      token: () => keycloak.token,
+      tokenParsed: () => keycloak.tokenParsed,
+      realmAccess: () => keycloak.realmAccess, // todo: should this be called realmRoles?
+      resourceAccess: () => keycloak.resourceAccess, // todo: should this be called resourceRoles?
+      loadUserProfile: keycloak.loadUserProfile,
+      isAuthenticated: () => keycloak.authenticated,
+      hasRealmRole: keycloak.hasRealmRole,
+      hasResourceRole: keycloak.hasResourceRole
+    }
+  }
 
   onTokenExpired(keycloak: KeycloakInstance): void {
     keycloak
@@ -50,11 +52,11 @@ class AuthStore {
 
   // fixme: this function name is confusing . it is doing instantiation of keycloak and returning authentication promise ?
   //  it doing too many things at once?
-  public authenticate = (
+  public authenticate(
     config: AuthContextConfig,
     url: string,
     redirect: boolean
-  ): AuthenticateResult => {
+  ): AuthenticateResult {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
     const keycloak: KeycloakInstance = Keycloak(keycloakConfig)
@@ -74,7 +76,7 @@ class AuthStore {
    *
    * @return url string which is AAS server url
    */
-  public getAASUrl: () => Promise<string> = async () => {
+  public async getAASUrl(): Promise<string> {
     const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
     const location = await resolve(authConnection)
     return location.uri

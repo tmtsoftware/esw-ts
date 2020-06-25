@@ -11,8 +11,8 @@ import {
   SubscribeCurrentState
 } from '../../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../../src/clients/gateway/models/Gateway'
+import { ComponentId, Observe, Prefix, Setup } from '../../../../src/models'
 import * as TestData from '../../../jsons/CommandRequests.json'
-import { ComponentId, Observe, Setup, Prefix } from '../../../../src/models'
 
 const setupCommand = new Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
 const observeCommand = new Observe('CSW.ncc.trombone', 'move', [], ['obs001'])
@@ -43,5 +43,7 @@ describe('Commands ', () => {
     ['Query Final', queryFinalCommand, TestData.QueryFinal],
     ['Query Final', subscribeCurrentState, TestData.SubscribeCurrentState],
     ['Gateway', gatewayCommand, TestData.GatewayCommand]
-  ])('%s  | ESW-305', (_, actual, expected) => expect(JSON.parse(JSON.stringify(actual))).toEqual(expected))
+  ])('%s  | ESW-305', (_, actual, expected) =>
+    expect(JSON.parse(JSON.stringify(actual))).toEqual(expected)
+  )
 })

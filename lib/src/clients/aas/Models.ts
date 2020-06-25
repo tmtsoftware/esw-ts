@@ -1,29 +1,20 @@
-import {
-  KeycloakError,
-  KeycloakInstance,
-  KeycloakLogoutOptions,
-  KeycloakProfile,
-  KeycloakPromise,
-  KeycloakResourceAccess,
-  KeycloakRoles,
-  KeycloakTokenParsed
-} from 'keycloak-js'
+import KC from 'keycloak-js'
 
 export interface Auth {
-  logout: (options?: KeycloakLogoutOptions) => KeycloakPromise<void, void>
+  logout: (options?: KC.KeycloakLogoutOptions) => KC.KeycloakPromise<void, void>
   token: () => string | undefined
-  tokenParsed: () => KeycloakTokenParsed | undefined
-  realmAccess: () => KeycloakRoles | undefined
-  resourceAccess: () => KeycloakResourceAccess | undefined
-  loadUserProfile: () => KeycloakPromise<KeycloakProfile, void>
+  tokenParsed: () => KC.KeycloakTokenParsed | undefined
+  realmAccess: () => KC.KeycloakRoles | undefined
+  resourceAccess: () => KC.KeycloakResourceAccess | undefined
+  loadUserProfile: () => KC.KeycloakPromise<KC.KeycloakProfile, void>
   isAuthenticated: () => boolean | undefined
   hasRealmRole: (role: string) => boolean
   hasResourceRole: (role: string, resource?: string) => boolean
 }
 
 export interface AuthenticateResult {
-  keycloak: KeycloakInstance
-  authenticatedPromise: KeycloakPromise<boolean, KeycloakError>
+  keycloak: KC.KeycloakInstance
+  authenticatedPromise: KC.KeycloakPromise<boolean, KC.KeycloakError>
 }
 
 export interface AuthContextConfig {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Provider } from './AuthContext'
+import { TMTAuth } from '../../../clients/aas/AuthStore'
 import { Auth } from '../../../clients/aas/Models'
-import { TMTAuth } from '../../../clients/aas/Auth'
+import { Provider } from './AuthContext'
 
 /**
  * React component which is wrapper over provider of react context api.
@@ -25,27 +25,22 @@ export interface AuthContextProps {
 }
 
 const AuthContextProvider = (props: AuthContextProps) => {
-  const [auth, setauth] = useState<Auth | null>(null)
+  const [auth, setAuth] = useState<Auth | null>(null)
 
   /**
    * Instantiate keycloak and sets TMTAuthStore instance in state. This state can be provided
    * as a context
    */
   const instantiateAAS = async (url: string, redirect: boolean) => {
-    const { keycloak, authenticatedPromise } = await TMTAuth.authenticate(
-      props.config,
-      url,
-      redirect
-    )
-    authenticatedPromise
-      .then(() => {
-        const _auth = TMTAuth.from(keycloak)
-        setauth(_auth)
-      })
-      .catch((e) => {
-        console.error(e)
-        setauth(null)
-      })
+    const { keycloak, authenticatedPromise } = TMTAuth.authenticate(props.config, url, redirect)
+    try {
+      await authenticatedPromise
+      const _auth = TMTAuth.from(keycloak)
+      setAuth(_auth)
+    } catch (e) {
+      console.error(e)
+      setAuth(null)
+    }
   }
 
   /**
@@ -73,7 +68,7 @@ const AuthContextProvider = (props: AuthContextProps) => {
     if (auth && auth.logout) {
       const logoutPromise = auth.logout()
       logoutPromise.then(() => {
-        setauth(null)
+        setAuth(null)
       })
       await auth.logout()
     }

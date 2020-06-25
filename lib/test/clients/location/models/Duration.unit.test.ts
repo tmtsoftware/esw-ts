@@ -1,4 +1,4 @@
-import { Duration } from '../../src/clients/location/models/Duration'
+import { Duration } from '../../../../src/clients/location/models/Duration'
 
 describe('Duration', () => {
   test('should format on serialize', () => {
