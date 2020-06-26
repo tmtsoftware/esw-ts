@@ -1,9 +1,7 @@
-import { HttpConnection } from '../location'
-import { Prefix } from '../../models'
 import { resolve } from '../location/LocationUtils'
 import { download, get, head } from '../../utils/Http'
 import { extractHostPort } from '../../utils/Utils'
-import { ConfigData, ConfigId } from './models/ConfigModels'
+import { ConfigId } from './models/ConfigModels'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { configConnection } from '../../utils/ServicesConnections'
 

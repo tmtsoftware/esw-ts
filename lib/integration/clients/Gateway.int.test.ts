@@ -16,9 +16,6 @@ beforeAll(async () => {
   console.error = jest.fn()
   // setup location service and gateway
   await startServices(['AAS', 'Gateway', 'Alarm'])
-  // setup test hcd
-  await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
-  await startSequencer('ESW', 'MoonNight')
 })
 
 afterAll(async () => {
@@ -27,6 +24,11 @@ afterAll(async () => {
 })
 
 describe('Command Client', () => {
+  beforeAll(async () => {
+    // setup test hcd
+    await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
+  })
+
   test('should get accepted response on oneway command | ESW-305', async () => {
     const validToken: string = await getToken(
       'esw-gateway-client',
@@ -76,6 +78,10 @@ describe('Alarm Client ', () => {
 })
 
 describe('Sequencer Client', () => {
+  beforeAll(async () => {
+    await startSequencer('ESW', 'MoonNight')
+  })
+
   test('is up and available | ESW-307', async () => {
     const validToken: string = await getToken(
       'esw-gateway-client',

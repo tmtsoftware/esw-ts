@@ -13,59 +13,65 @@ const uri = 'http://localhost:8080'
 const configLocation = new HttpLocation(configConnection, uri)
 
 describe('ConfigService', () => {
-  test('should get the latest conf of given path from the config server | ESW-320', (done) => {
-    const configService = new ConfigService(() => '')
-    const confPath = 'tmt/assembly.conf'
+  test('should get the latest conf of given path from the config server | ESW-320', () => {
+    return new Promise((done) => {
+      const configService = new ConfigService(() => '')
+      const confPath = 'tmt/assembly.conf'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
-    getMockFn.mockResolvedValueOnce('foo: bar')
+      postMockFn.mockResolvedValueOnce([configLocation])
+      getMockFn.mockResolvedValueOnce('foo: bar')
 
-    configService.getLatest(confPath, (confData, path) => {
-      expect(confData).toBe('foo: bar')
-      expect(path).toBe('assembly.conf')
-      expect(getMockFn).toBeCalledWith('localhost', 8080, {
-        path: `config/${confPath}`,
-        parser: expect.any(Function)
+      configService.getLatest(confPath, (confData, path) => {
+        expect(confData).toBe('foo: bar')
+        expect(path).toBe('assembly.conf')
+        expect(getMockFn).toBeCalledWith('localhost', 8080, {
+          path: `config/${confPath}`,
+          parser: expect.any(Function)
+        })
+        done()
       })
-      done()
     })
   })
 
-  test('should get the conf of given path and given id from the config server | ESW-320', (done) => {
-    const configService = new ConfigService(() => '')
-    const confPath = 'tmt/assembly.conf'
-    const configId = 'configId123'
+  test('should get the conf of given path and given id from the config server | ESW-320', () => {
+    return new Promise((done) => {
+      const configService = new ConfigService(() => '')
+      const confPath = 'tmt/assembly.conf'
+      const configId = 'configId123'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
-    getMockFn.mockResolvedValueOnce('foo: bar')
+      postMockFn.mockResolvedValueOnce([configLocation])
+      getMockFn.mockResolvedValueOnce('foo: bar')
 
-    configService.getById(confPath, configId, (confData, path) => {
-      expect(confData).toBe('foo: bar')
-      expect(path).toBe(`assembly.conf?id=${configId}`)
-      expect(getMockFn).toBeCalledWith('localhost', 8080, {
-        path: `config/${confPath}?id=${configId}`,
-        parser: expect.any(Function)
+      configService.getById(confPath, configId, (confData, path) => {
+        expect(confData).toBe('foo: bar')
+        expect(path).toBe(`assembly.conf?id=${configId}`)
+        expect(getMockFn).toBeCalledWith('localhost', 8080, {
+          path: `config/${confPath}?id=${configId}`,
+          parser: expect.any(Function)
+        })
+        done()
       })
-      done()
     })
   })
 
-  test('should get the conf of given path and given time from the config server | ESW-320', (done) => {
-    const configService = new ConfigService(() => '')
-    const confPath = 'tmt/assembly.conf'
-    const date = new Date()
+  test('should get the conf of given path and given time from the config server | ESW-320', () => {
+    return new Promise((done) => {
+      const configService = new ConfigService(() => '')
+      const confPath = 'tmt/assembly.conf'
+      const date = new Date()
 
-    postMockFn.mockResolvedValueOnce([configLocation])
-    getMockFn.mockResolvedValueOnce('foo: bar')
+      postMockFn.mockResolvedValueOnce([configLocation])
+      getMockFn.mockResolvedValueOnce('foo: bar')
 
-    configService.getByTime(confPath, date, (confData, path) => {
-      expect(confData).toBe('foo: bar')
-      expect(path).toBe(`assembly.conf?date=${date}`)
-      expect(getMockFn).toBeCalledWith('localhost', 8080, {
-        path: `config/${confPath}?date=${date}`,
-        parser: expect.any(Function)
+      configService.getByTime(confPath, date, (confData, path) => {
+        expect(confData).toBe('foo: bar')
+        expect(path).toBe(`assembly.conf?date=${date}`)
+        expect(getMockFn).toBeCalledWith('localhost', 8080, {
+          path: `config/${confPath}?date=${date}`,
+          parser: expect.any(Function)
+        })
+        done()
       })
-      done()
     })
   })
 
