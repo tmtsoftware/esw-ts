@@ -1,4 +1,4 @@
-import { post } from './Post'
+import { post } from './Http'
 import { HeaderExt } from './HeaderExt'
 import type { TokenFactory } from './TokenFactory'
 
@@ -14,10 +14,15 @@ export class HttpTransport<Req> {
   async requestRes<Res>(request: Req, timeoutInMillis?: number): Promise<Res> {
     const { host, port } = await this.resolver()
     const token = this.tokenFactory()
-    const headers = new HeaderExt().withContentType('application/json')
+    let headers = new HeaderExt().withContentType('application/json')
     if (token) {
-      headers.withAuthorization(token)
+      headers = headers.withAuthorization(token)
     }
-    return post<Req, Res>(host, port, request, this.path, headers, timeoutInMillis)
+    return post<Req, Res>(host, port, {
+      headers,
+      path: this.path,
+      payload: request,
+      timeout: timeoutInMillis
+    })
   }
 }

@@ -5,14 +5,14 @@ import { Server } from 'mock-socket'
 import { Completed, ComponentId, CurrentState, Prefix } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
 import { wsMockWithResolved } from '../../utils/MockHelpers'
-import { post } from '../../../src/utils/Post'
+import { post } from '../../../src/utils/Http'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
 const client = new CommandService(compId, () => '')
 let mockServer: Server
 
-jest.mock('../../../src/utils/Post')
+jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

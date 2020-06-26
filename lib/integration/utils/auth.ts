@@ -1,6 +1,6 @@
 import { HttpConnection } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
-import { post } from '../../src/utils/Post'
+import { post } from '../../src/utils/Http'
 import { extractHostPort } from '../../src/utils/Utils'
 import { resolve } from '../../src/clients/location/LocationUtils'
 
@@ -10,7 +10,7 @@ const getKeycloakTokenUri = async (realm: string) => {
   const authLocation = await resolve(authConnection)
   const { host, port } = extractHostPort(authLocation.uri)
   const tokenPath = `auth/realms/${realm}/protocol/openid-connect/token`
-  return { host, port, tokenPath }
+  return { host, port, path: tokenPath }
 }
 
 export const getToken = async (client: string, user: string, password: string, realm: string) => {
@@ -21,9 +21,13 @@ export const getToken = async (client: string, user: string, password: string, r
     password: password
   }
 
-  const { host, port, tokenPath } = await getKeycloakTokenUri(realm)
+  const { host, port, path } = await getKeycloakTokenUri(realm)
   const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
 
-  const { access_token } = await post(host, port, payload, tokenPath, headers)
+  const { access_token } = await post(host, port, {
+    path: path,
+    payload: payload,
+    headers: headers
+  })
   return access_token
 }

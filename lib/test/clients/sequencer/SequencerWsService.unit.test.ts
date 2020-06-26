@@ -5,9 +5,9 @@ import { Server } from 'mock-socket'
 import { ComponentId, Prefix, SubmitResponse } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
 import { wsMockWithResolved } from '../../utils/MockHelpers'
-import { post } from '../../../src/utils/Post'
+import { post } from '../../../src/utils/Http'
 
-jest.mock('../../../src/utils/Post')
+jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'

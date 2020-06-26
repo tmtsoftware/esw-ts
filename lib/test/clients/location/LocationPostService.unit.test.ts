@@ -7,11 +7,11 @@ import {
 } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Post'
+import { post } from '../../../src/utils/Http'
 import { Duration } from '../../../src/clients/location/models/Duration'
 
 const locationService = new LocationService()
-jest.mock('../../../src/utils/Post')
+jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')

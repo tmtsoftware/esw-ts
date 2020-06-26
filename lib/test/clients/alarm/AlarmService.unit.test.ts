@@ -2,10 +2,10 @@ import { AlarmKey, AlarmService } from '../../../src/clients/alarm'
 import { Prefix } from '../../../src/models'
 import { Done, HttpLocation } from '../../../src/clients/location'
 import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Post'
+import { post } from '../../../src/utils/Http'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 
-jest.mock('../../../src/utils/Post')
+jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'
