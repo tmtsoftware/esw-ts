@@ -24,6 +24,7 @@ interface ConfigServiceApi {
 
   getByTime(path: string, time: Date, writer: (data: any, path: string) => void): Promise<void>
 
+  exists(path: string, id?: ConfigId): Promise<boolean>
 
   // delete(path: string, comment: string): Promise<void>
   //
@@ -94,4 +95,9 @@ export class ConfigService implements ConfigServiceApi {
     return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
   }
 
+  async exists(confPath: string, id?: ConfigId): Promise<boolean> {
+    const { host, port } = await ConfigService.resolveConfigServer()
+    const path = id ? `config/${confPath}?id=${id}` : `config/${confPath}`
+    return await head(host, port, { path })
+  }
 }
