@@ -15,7 +15,7 @@
     "start": "snowpack dev",
     "fix": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
     "build": "snowpack build",
-    "prepare": "snowpack",
+    "prepare": "cd ../lib && npm run build && cd ../example && snowpack",
     "example": "npm install && npm run build",
     "startConfig": "BROWSER=none pm2 start npm  --name example -- start",
     "stopConfig": "pm2 delete example"
