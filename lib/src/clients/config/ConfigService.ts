@@ -4,7 +4,8 @@ import { resolve } from '../location/LocationUtils'
 import { download, get, head } from '../../utils/Http'
 import { extractHostPort } from '../../utils/Utils'
 import { ConfigData, ConfigId } from './models/ConfigModels'
-import { TokenFactory } from '../../utils/HttpTransport'
+import { TokenFactory } from '../../utils/TokenFactory'
+import { configConnection } from '../../utils/ServicesConnections'
 
 interface ConfigServiceApi {
   // create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId>
@@ -51,25 +52,28 @@ interface ConfigServiceApi {
 export class ConfigService implements ConfigServiceApi {
   constructor(readonly tokenFactory: TokenFactory) {}
 
-  private async resolveConfigServer() {
-    const httpConnection = new HttpConnection(new Prefix('CSW', 'ConfigServer'), 'Service')
-    const location = await resolve(httpConnection)
+  private static async resolveConfigServer() {
+    const location = await resolve(configConnection)
     return extractHostPort(location.uri)
   }
 
-  private async getConf(path: string): Promise<Blob> {
-    const { host, port } = await this.resolveConfigServer()
+  private static async getConf(path: string): Promise<Blob> {
+    const { host, port } = await ConfigService.resolveConfigServer()
     return get(host, port, { path, parser: (res) => res.blob() })
   }
 
-  private async writeConf(conf: any, path: string, writer: (data: any, path: string) => void) {
+  private static async writeConf(
+    conf: any,
+    path: string,
+    writer: (data: any, path: string) => void
+  ) {
     const fileName = path.split('/').pop() || path
     writer(conf, fileName)
   }
 
   getLatest(confPath: string, writer: (data: any, path: string) => void = download): Promise<void> {
     const path = `config/${confPath}`
-    return this.getConf(path).then((blob) => this.writeConf(blob, path, writer))
+    return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
   }
 
   getById(
@@ -78,7 +82,7 @@ export class ConfigService implements ConfigServiceApi {
     writer: (data: any, path: string) => void = download
   ): Promise<void> {
     const path = `config/${confPath}?id=${configId}`
-    return this.getConf(path).then((blob) => this.writeConf(blob, path, writer))
+    return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
   }
 
   getByTime(
@@ -87,7 +91,7 @@ export class ConfigService implements ConfigServiceApi {
     writer: (data: any, path: string) => void
   ): Promise<void> {
     const path = `config/${confPath}?date=${time}`
-    return this.getConf(path).then((blob) => this.writeConf(blob, path, writer))
+    return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
   }
 
 }
