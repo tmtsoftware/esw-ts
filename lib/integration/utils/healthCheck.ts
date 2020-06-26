@@ -13,9 +13,7 @@ export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   if (serviceNames.includes('AAS')) await waitForAASToUp()
 
   const servicesExceptAAS = serviceNames.filter((name) => name != 'AAS')
-  return await Promise.all(
-    servicesExceptAAS.map((name) => BackendServices[name]).map((connection) => resolve(connection))
-  )
+  return await Promise.all(servicesExceptAAS.map((name) => resolve(BackendServices[name])))
 }
 
 export const waitForLocationServiceToStop = () =>
@@ -25,7 +23,3 @@ export const waitForLocationServiceToStop = () =>
       .catch(resolve)
       .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 100))
   })
-
-export const resolveConfigApp = async () => {
-  // await eventually(() => fetch('http://localhost:3000', { method: 'GET', headers: [['']]}))
-}
