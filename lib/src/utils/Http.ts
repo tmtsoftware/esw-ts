@@ -1,9 +1,9 @@
 import 'whatwg-fetch'
 import { HeaderExt } from './HeaderExt'
 
-type Method = 'GET' | 'POST' | 'PUT' | 'UPDATE' | 'DELETE'
+type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
-interface ReqParam<Req, Res> {
+export interface ReqParam<Req, Res> {
   path?: string
   payload?: Req
   headers?: Headers
@@ -57,11 +57,20 @@ export const post = fetchFor('POST')
 export const get = fetchFor('GET')
 export const put = fetchFor('PUT')
 export const del = fetchFor('DELETE')
-export const update = fetchFor('UPDATE')
+export const head = fetchFor('HEAD')
 
 const handleErrors = (res: Response) => {
   if (!res.ok) throw new Error(res.statusText)
   return res
+}
+
+export const download = (object: any, fileName: string) => {
+  const anchorElement = document.createElement('a')
+  anchorElement.href = window.URL.createObjectURL(object)
+  anchorElement.download = fileName
+  document.body.appendChild(anchorElement)
+  anchorElement.click()
+  anchorElement.remove()
 }
 
 const urlencodedSerializer = (

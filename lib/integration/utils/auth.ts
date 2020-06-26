@@ -1,10 +1,7 @@
-import { HttpConnection } from '../../src/clients/location'
-import { Prefix } from '../../src/models'
 import { post } from '../../src/utils/Http'
 import { extractHostPort } from '../../src/utils/Utils'
 import { resolve } from '../../src/clients/location/LocationUtils'
-
-export const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
+import { authConnection } from './backend'
 
 const getKeycloakTokenUri = async (realm: string) => {
   const authLocation = await resolve(authConnection)

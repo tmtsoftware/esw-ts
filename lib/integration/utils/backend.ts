@@ -1,6 +1,5 @@
 import { HttpConnection } from '../../src/clients/location'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
-import { authConnection } from './auth'
 import { waitForLocationServiceToStop, waitForServicesToUp } from './healthCheck'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import {
@@ -10,15 +9,19 @@ import {
   executeStopServicesScript
 } from './shell'
 
-const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
+export const gatewayConnection = new HttpConnection(new Prefix('ESW', 'EswGateway'), 'Service')
+export const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
+export const configConnection = new HttpConnection(new Prefix('CSW', 'ConfigServer'), 'Service')
+export const eventConnection = new HttpConnection(new Prefix('CSW', 'EventServer'), 'Service')
+export const alarmConnection = new HttpConnection(new Prefix('CSW', 'AlarmServer'), 'Service')
 
 export const BackendServices = {
   Gateway: gatewayConnection,
   AAS: authConnection,
-  Location: gatewayConnection,
-  Alarm: gatewayConnection,
-  Event: gatewayConnection,
-  Config: gatewayConnection
+  Location: undefined,
+  Alarm: alarmConnection,
+  Event: eventConnection,
+  Config: configConnection
 }
 
 export type ServiceName = keyof typeof BackendServices
