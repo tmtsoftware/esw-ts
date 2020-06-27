@@ -7,7 +7,7 @@ const getKeycloakTokenUri = async (realm: string) => {
   const authLocation = await resolve(authConnection)
   const { host, port } = extractHostPort(authLocation.uri)
   const tokenPath = `auth/realms/${realm}/protocol/openid-connect/token`
-  return { host, port, path: tokenPath }
+  return `http://${host}:${port}/${tokenPath}`
 }
 
 export const getToken = async (client: string, user: string, password: string, realm: string) => {
@@ -18,9 +18,9 @@ export const getToken = async (client: string, user: string, password: string, r
     password: password
   }
 
-  const { host, port, path } = await getKeycloakTokenUri(realm)
+  const endpoint = await getKeycloakTokenUri(realm)
   const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
 
-  const { access_token } = await post({ host, port, path, payload, headers })
+  const { access_token } = await post({ endpoint, payload, headers })
   return access_token
 }

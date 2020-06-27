@@ -57,9 +57,14 @@ export class ConfigService implements ConfigServiceApi {
     return extractHostPort(location.uri)
   }
 
-  private static async getConf(path: string): Promise<Blob> {
+  private static async endpoint(path: string) {
     const { host, port } = await ConfigService.resolveConfigServer()
-    return get({ host, port, path, responseMapper: (res) => res.blob() })
+    return `http://${host}:${port}/${path}`
+  }
+
+  private static async getConf(path: string): Promise<Blob> {
+    const endpoint = await ConfigService.endpoint(path)
+    return get({ endpoint, responseMapper: (res) => res.blob() })
   }
 
   private static async writeConf(
@@ -95,8 +100,8 @@ export class ConfigService implements ConfigServiceApi {
   }
 
   async exists(confPath: string, id?: ConfigId): Promise<boolean> {
-    const { host, port } = await ConfigService.resolveConfigServer()
     const path = id ? `config/${confPath}?id=${id}` : `config/${confPath}`
-    return await head({ host, port, path })
+    const endpoint = await ConfigService.endpoint(path)
+    return await head({ endpoint })
   }
 }

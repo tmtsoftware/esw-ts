@@ -4,9 +4,7 @@ import { HeaderExt } from './HeaderExt'
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
 export interface FetchRequest<Req, Res> {
-  host: string
-  port: number
-  path?: string
+  endpoint: string
   payload?: Req
   headers?: Headers
   timeout?: number
@@ -24,11 +22,9 @@ const handleRequestTimeout = (timeout: number) => {
   return controller
 }
 
-const fetchFor = (method: Method) => {
+const fetchMethod = (method: Method) => {
   return async <Req, Res>({
-    host,
-    port,
-    path = '',
+    endpoint,
     payload,
     headers = jsonHeader(),
     timeout = 120000,
@@ -38,7 +34,7 @@ const fetchFor = (method: Method) => {
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
 
-    const fetchCall = fetch(`http://${host}:${port}/${path}`, {
+    const fetchCall = fetch(endpoint, {
       method: method,
       headers: headers,
       body: body,
@@ -52,11 +48,11 @@ const fetchFor = (method: Method) => {
   }
 }
 
-export const post = fetchFor('POST')
-export const get = fetchFor('GET')
-export const put = fetchFor('PUT')
-export const del = fetchFor('DELETE')
-export const head = fetchFor('HEAD')
+export const post = fetchMethod('POST')
+export const get = fetchMethod('GET')
+export const put = fetchMethod('PUT')
+export const del = fetchMethod('DELETE')
+export const head = fetchMethod('HEAD')
 
 const handleErrors = (res: Response) => {
   if (!res.ok) throw new Error(res.statusText)

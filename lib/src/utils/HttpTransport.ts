@@ -3,8 +3,6 @@ import { HeaderExt } from './HeaderExt'
 import type { TokenFactory } from './TokenFactory'
 
 export class HttpTransport<Req> {
-  private readonly path = 'post-endpoint'
-
   constructor(
     // todo: should this resolve on every request, msocket takes uri?
     readonly resolver: () => Promise<{ host: string; port: number }>,
@@ -13,16 +11,16 @@ export class HttpTransport<Req> {
 
   async requestRes<Res>(request: Req, timeoutInMillis?: number): Promise<Res> {
     const { host, port } = await this.resolver()
+    const endpoint = `http://${host}:${port}/post-endpoint`
+
     const token = this.tokenFactory()
     let headers = new HeaderExt().withContentType('application/json')
     if (token) {
       headers = headers.withAuthorization(token)
     }
     return post<Req, Res>({
-      host,
-      port,
+      endpoint,
       headers,
-      path: this.path,
       payload: request,
       timeout: timeoutInMillis
     })

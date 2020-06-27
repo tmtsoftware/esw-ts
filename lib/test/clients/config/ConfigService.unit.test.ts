@@ -12,24 +12,21 @@ const headMockFn = mocked(head, true)
 const uri = 'http://localhost:8080'
 const configLocation = new HttpLocation(configConnection, uri)
 
+const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
+
 describe('ConfigService', () => {
   test('should get the latest conf of given path from the config server | ESW-320', () => {
     return new Promise((done) => {
       const configService = new ConfigService(() => '')
       const confPath = 'tmt/assembly.conf'
-
+      const endpoint = configEndpoint(confPath)
       postMockFn.mockResolvedValueOnce([configLocation])
       getMockFn.mockResolvedValueOnce('foo: bar')
 
       configService.getLatest(confPath, (confData, path) => {
         expect(confData).toBe('foo: bar')
         expect(path).toBe('assembly.conf')
-        expect(getMockFn).toBeCalledWith({
-          host: 'localhost',
-          port: 8080,
-          path: `config/${confPath}`,
-          responseMapper: expect.any(Function)
-        })
+        expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
         done()
       })
     })
@@ -40,6 +37,7 @@ describe('ConfigService', () => {
       const configService = new ConfigService(() => '')
       const confPath = 'tmt/assembly.conf'
       const configId = 'configId123'
+      const endpoint = configEndpoint(`${confPath}?id=${configId}`)
 
       postMockFn.mockResolvedValueOnce([configLocation])
       getMockFn.mockResolvedValueOnce('foo: bar')
@@ -47,12 +45,7 @@ describe('ConfigService', () => {
       configService.getById(confPath, configId, (confData, path) => {
         expect(confData).toBe('foo: bar')
         expect(path).toBe(`assembly.conf?id=${configId}`)
-        expect(getMockFn).toBeCalledWith({
-          host: 'localhost',
-          port: 8080,
-          path: `config/${confPath}?id=${configId}`,
-          responseMapper: expect.any(Function)
-        })
+        expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
         done()
       })
     })
@@ -63,6 +56,7 @@ describe('ConfigService', () => {
       const configService = new ConfigService(() => '')
       const confPath = 'tmt/assembly.conf'
       const date = new Date()
+      const endpoint = configEndpoint(`${confPath}?date=${date}`)
 
       postMockFn.mockResolvedValueOnce([configLocation])
       getMockFn.mockResolvedValueOnce('foo: bar')
@@ -70,12 +64,7 @@ describe('ConfigService', () => {
       configService.getByTime(confPath, date, (confData, path) => {
         expect(confData).toBe('foo: bar')
         expect(path).toBe(`assembly.conf?date=${date}`)
-        expect(getMockFn).toBeCalledWith({
-          host: 'localhost',
-          port: 8080,
-          path: `config/${confPath}?date=${date}`,
-          responseMapper: expect.any(Function)
-        })
+        expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
         done()
       })
     })
@@ -84,29 +73,27 @@ describe('ConfigService', () => {
   test('should check if the given conf is present | ESW-320', async () => {
     const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
+    const endpoint = configEndpoint(confPath)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
 
     const actualRes = await configService.exists(confPath)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ host: 'localhost', port: 8080, path: `config/${confPath}` })
+    expect(headMockFn).toBeCalledWith({ endpoint })
   })
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
     const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const configId = 'configId123'
+    const endpoint = configEndpoint(`${confPath}?id=${configId}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({
-      host: 'localhost',
-      port: 8080,
-      path: `config/${confPath}?id=${configId}`
-    })
+    expect(headMockFn).toBeCalledWith({ endpoint })
   })
 })

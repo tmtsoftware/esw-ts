@@ -5,16 +5,16 @@ const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
 const host = 'localhost'
 const port = 1234
-const url = `http://${host}:${port}/`
+const endpoint = `http://${host}:${port}/`
 
 describe('Http util', () => {
   test('Post request', async () => {
     const expectedValue = { ok: true, status: 200 }
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
     const payload = 'hello'
-    const response = await post({ host, port, payload })
+    const response = await post({ endpoint, payload })
 
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
     expect(response).toEqual(expectedValue)
   })
 
@@ -22,8 +22,8 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeErrorResponse())
     const payload = 'hello'
 
-    await expect(post({ host, port, payload })).rejects.toThrow(Error)
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    await expect(post({ endpoint, payload })).rejects.toThrow(Error)
+    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
   })
 
   test('should be able to add Bearer token to Auth header', () => {
@@ -37,9 +37,9 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
     const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
     const payload = 'hello'
-    const response = await post({ host, port, payload, headers })
+    const response = await post({ endpoint, payload, headers })
 
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
     expect(response).toEqual(expectedValue)
   })
 
@@ -47,8 +47,8 @@ describe('Http util', () => {
     fetchMockFn.mockRejectedValueOnce(new Error())
     const payload = 'hello'
 
-    await expect(post({ host, port, payload })).rejects.toThrow(Error)
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    await expect(post({ endpoint, payload })).rejects.toThrow(Error)
+    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
   })
 })
 
@@ -60,11 +60,9 @@ const makeErrorResponse = (): Response => {
   return new Response('', { status: 404, statusText: 'bad request' })
 }
 
-const makeRequest = (request: string) => {
-  return {
-    method: 'POST',
-    headers: new HeaderExt({ 'Content-Type': 'application/json' }),
-    body: JSON.stringify(request),
-    signal: new AbortController().signal
-  }
-}
+const makeRequest = (request: string) => ({
+  method: 'POST',
+  headers: new HeaderExt({ 'Content-Type': 'application/json' }),
+  body: JSON.stringify(request),
+  signal: new AbortController().signal
+})
