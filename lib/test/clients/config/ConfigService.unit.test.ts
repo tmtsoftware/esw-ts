@@ -24,9 +24,11 @@ describe('ConfigService', () => {
       configService.getLatest(confPath, (confData, path) => {
         expect(confData).toBe('foo: bar')
         expect(path).toBe('assembly.conf')
-        expect(getMockFn).toBeCalledWith('localhost', 8080, {
+        expect(getMockFn).toBeCalledWith({
+          host: 'localhost',
+          port: 8080,
           path: `config/${confPath}`,
-          parser: expect.any(Function)
+          responseMapper: expect.any(Function)
         })
         done()
       })
@@ -45,9 +47,11 @@ describe('ConfigService', () => {
       configService.getById(confPath, configId, (confData, path) => {
         expect(confData).toBe('foo: bar')
         expect(path).toBe(`assembly.conf?id=${configId}`)
-        expect(getMockFn).toBeCalledWith('localhost', 8080, {
+        expect(getMockFn).toBeCalledWith({
+          host: 'localhost',
+          port: 8080,
           path: `config/${confPath}?id=${configId}`,
-          parser: expect.any(Function)
+          responseMapper: expect.any(Function)
         })
         done()
       })
@@ -66,9 +70,11 @@ describe('ConfigService', () => {
       configService.getByTime(confPath, date, (confData, path) => {
         expect(confData).toBe('foo: bar')
         expect(path).toBe(`assembly.conf?date=${date}`)
-        expect(getMockFn).toBeCalledWith('localhost', 8080, {
+        expect(getMockFn).toBeCalledWith({
+          host: 'localhost',
+          port: 8080,
           path: `config/${confPath}?date=${date}`,
-          parser: expect.any(Function)
+          responseMapper: expect.any(Function)
         })
         done()
       })
@@ -84,7 +90,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.exists(confPath)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith('localhost', 8080, { path: `config/${confPath}` })
+    expect(headMockFn).toBeCalledWith({ host: 'localhost', port: 8080, path: `config/${confPath}` })
   })
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
@@ -97,7 +103,9 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith('localhost', 8080, {
+    expect(headMockFn).toBeCalledWith({
+      host: 'localhost',
+      port: 8080,
       path: `config/${confPath}?id=${configId}`
     })
   })

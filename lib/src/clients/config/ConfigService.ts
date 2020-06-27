@@ -1,5 +1,6 @@
 import { configConnection } from '../../config/connections'
-import { download, get, head } from '../../utils/Http'
+import { download } from '../../utils/download'
+import { get, head } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
@@ -58,7 +59,7 @@ export class ConfigService implements ConfigServiceApi {
 
   private static async getConf(path: string): Promise<Blob> {
     const { host, port } = await ConfigService.resolveConfigServer()
-    return get(host, port, { path, parser: (res) => res.blob() })
+    return get({ host, port, path, responseMapper: (res) => res.blob() })
   }
 
   private static async writeConf(
@@ -96,6 +97,6 @@ export class ConfigService implements ConfigServiceApi {
   async exists(confPath: string, id?: ConfigId): Promise<boolean> {
     const { host, port } = await ConfigService.resolveConfigServer()
     const path = id ? `config/${confPath}?id=${id}` : `config/${confPath}`
-    return await head(host, port, { path })
+    return await head({ host, port, path })
   }
 }

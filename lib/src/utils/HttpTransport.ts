@@ -18,7 +18,9 @@ export class HttpTransport<Req> {
     if (token) {
       headers = headers.withAuthorization(token)
     }
-    return post<Req, Res>(host, port, {
+    return post<Req, Res>({
+      host,
+      port,
       headers,
       path: this.path,
       payload: request,

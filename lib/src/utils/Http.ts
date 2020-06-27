@@ -3,17 +3,18 @@ import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
-export interface ReqParam<Req, Res> {
+export interface FetchRequest<Req, Res> {
+  host: string
+  port: number
   path?: string
   payload?: Req
   headers?: Headers
   timeout?: number
-  parser?: (res: Response) => Promise<Res>
+  responseMapper?: (res: Response) => Promise<Res>
 }
 
 const jsonHeader = () => new HeaderExt().withContentType('application/json')
-
-const jsonResParser = (res: Response) => res.json()
+const toJson = (res: Response) => res.json()
 
 const handleRequestTimeout = (timeout: number) => {
   const controller = new AbortController()
@@ -24,22 +25,20 @@ const handleRequestTimeout = (timeout: number) => {
 }
 
 const fetchFor = (method: Method) => {
-  return async <Req, Res>(
-    hostname: string,
-    port: number,
-    {
-      path = '',
-      payload,
-      headers = jsonHeader(),
-      timeout = 120000,
-      parser = jsonResParser
-    }: ReqParam<Req, Res>
-  ): Promise<Res> => {
+  return async <Req, Res>({
+    host,
+    port,
+    path = '',
+    payload,
+    headers = jsonHeader(),
+    timeout = 120000,
+    responseMapper = toJson
+  }: FetchRequest<Req, Res>): Promise<Res> => {
     const controller = handleRequestTimeout(timeout)
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
 
-    const fetchCall = fetch(`http://${hostname}:${port}/${path}`, {
+    const fetchCall = fetch(`http://${host}:${port}/${path}`, {
       method: method,
       headers: headers,
       body: body,
@@ -49,7 +48,7 @@ const fetchFor = (method: Method) => {
       throw new Error(err.message)
     })
 
-    return parser(handleErrors(await fetchCall))
+    return responseMapper(handleErrors(await fetchCall))
   }
 }
 
@@ -62,15 +61,6 @@ export const head = fetchFor('HEAD')
 const handleErrors = (res: Response) => {
   if (!res.ok) throw new Error(res.statusText)
   return res
-}
-
-export const download = (object: any, fileName: string) => {
-  const anchorElement = document.createElement('a')
-  anchorElement.href = window.URL.createObjectURL(object)
-  anchorElement.download = fileName
-  document.body.appendChild(anchorElement)
-  anchorElement.click()
-  anchorElement.remove()
 }
 
 const urlencodedSerializer = (

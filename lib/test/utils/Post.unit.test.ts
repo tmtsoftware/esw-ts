@@ -1,5 +1,5 @@
-import { post } from '../../src/utils/Http'
 import { HeaderExt } from '../../src/utils/HeaderExt'
+import { post } from '../../src/utils/Http'
 
 const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
@@ -12,7 +12,7 @@ describe('Http util', () => {
     const expectedValue = { ok: true, status: 200 }
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
     const payload = 'hello'
-    const response = await post(host, port, { payload })
+    const response = await post({ host, port, payload })
 
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     expect(response).toEqual(expectedValue)
@@ -22,7 +22,7 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeErrorResponse())
     const payload = 'hello'
 
-    await expect(post(host, port, { payload })).rejects.toThrow(Error)
+    await expect(post({ host, port, payload })).rejects.toThrow(Error)
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
 
@@ -37,7 +37,7 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
     const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
     const payload = 'hello'
-    const response = await post(host, port, { payload, headers })
+    const response = await post({ host, port, payload, headers })
 
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     expect(response).toEqual(expectedValue)
@@ -47,7 +47,7 @@ describe('Http util', () => {
     fetchMockFn.mockRejectedValueOnce(new Error())
     const payload = 'hello'
 
-    await expect(post(host, port, { payload })).rejects.toThrow(Error)
+    await expect(post({ host, port, payload })).rejects.toThrow(Error)
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
 })
