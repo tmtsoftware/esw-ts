@@ -6,22 +6,20 @@ import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 import { ConfigId } from './models/ConfigModels'
 
-interface ConfigServiceApi {
+export type Writer = (data: any, path: string) => void
+
+export interface ConfigServiceApi {
   // create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId>
   //
   // update(path: string, configData: ConfigData, comment: string): Promise<ConfigId>
   //
   // getActive(path: string): Promise<ConfigData | undefined>
   //
-  getLatest(path: string, writer: (data: any, path: string) => void): Promise<void>
+  getLatest(path: string, writer: Writer): Promise<void>
 
-  getById(
-    path: string,
-    configId: ConfigId,
-    writer: (data: any, path: string) => void
-  ): Promise<void>
+  getById(path: string, configId: ConfigId, writer: Writer): Promise<void>
 
-  getByTime(path: string, time: Date, writer: (data: any, path: string) => void): Promise<void>
+  getByTime(path: string, time: Date, writer: Writer): Promise<void>
 
   exists(path: string, id?: ConfigId): Promise<boolean>
 
@@ -59,48 +57,40 @@ export class ConfigService implements ConfigServiceApi {
 
   private static async endpoint(path: string) {
     const { host, port } = await ConfigService.resolveConfigServer()
-    return `http://${host}:${port}/${path}`
+    return `http://${host}:${port}/config/${path}`
   }
 
-  private static async getConf(path: string): Promise<Blob> {
+  private static async get(path: string): Promise<Blob> {
     const endpoint = await ConfigService.endpoint(path)
     return get({ endpoint, responseMapper: (res) => res.blob() })
   }
 
-  private static async writeConf(
-    conf: any,
-    path: string,
-    writer: (data: any, path: string) => void
-  ) {
+  private static write(conf: any, path: string, writer: Writer) {
     const fileName = path.split('/').pop() || path
-    writer(conf, fileName)
+    return writer(conf, fileName)
   }
 
-  getLatest(confPath: string, writer: (data: any, path: string) => void = download): Promise<void> {
-    const path = `config/${confPath}`
-    return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
+  private static async getAndWrite(confPath: string, writer: Writer) {
+    const blob = await ConfigService.get(confPath)
+    return ConfigService.write(blob, confPath, writer)
   }
 
-  getById(
-    confPath: string,
-    configId: ConfigId,
-    writer: (data: any, path: string) => void = download
-  ): Promise<void> {
-    const path = `config/${confPath}?id=${configId}`
-    return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
+  getLatest(confPath: string, writer: Writer = download): Promise<void> {
+    return ConfigService.getAndWrite(confPath, writer)
   }
 
-  getByTime(
-    confPath: string,
-    time: Date,
-    writer: (data: any, path: string) => void
-  ): Promise<void> {
-    const path = `config/${confPath}?date=${time}`
-    return ConfigService.getConf(path).then((blob) => ConfigService.writeConf(blob, path, writer))
+  getById(confPath: string, configId: ConfigId, writer: Writer = download): Promise<void> {
+    const path = `${confPath}?id=${configId}`
+    return ConfigService.getAndWrite(path, writer)
+  }
+
+  getByTime(confPath: string, time: Date, writer: Writer): Promise<void> {
+    const path = `${confPath}?date=${time}`
+    return ConfigService.getAndWrite(path, writer)
   }
 
   async exists(confPath: string, id?: ConfigId): Promise<boolean> {
-    const path = id ? `config/${confPath}?id=${id}` : `config/${confPath}`
+    const path = id ? `${confPath}?id=${id}` : confPath
     const endpoint = await ConfigService.endpoint(path)
     return await head({ endpoint })
   }
