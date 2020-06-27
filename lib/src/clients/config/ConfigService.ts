@@ -1,9 +1,9 @@
-import { resolve } from '../location/LocationUtils'
+import { configConnection } from '../../config/connections'
 import { download, get, head } from '../../utils/Http'
-import { extractHostPort } from '../../utils/Utils'
-import { ConfigId } from './models/ConfigModels'
 import { TokenFactory } from '../../utils/TokenFactory'
-import { configConnection } from '../../utils/ServicesConnections'
+import { extractHostPort } from '../../utils/Utils'
+import { resolve } from '../location/LocationUtils'
+import { ConfigId } from './models/ConfigModels'
 
 interface ConfigServiceApi {
   // create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId>

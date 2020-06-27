@@ -1,7 +1,8 @@
 import { LocationService } from '../../src/clients/location'
-import { eventually } from './eventually'
 import { resolve } from '../../src/clients/location/LocationUtils'
-import { authConnection, BackendServices, ServiceName } from '../../src/utils/ServicesConnections'
+import { authConnection } from '../../src/config/connections'
+import { BackendServices, ServiceName } from './backend'
+import { eventually } from './eventually'
 
 const locationService = new LocationService()
 

@@ -1,8 +1,8 @@
-import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { mocked } from 'ts-jest/utils'
-import { get, head, post } from '../../../src/utils/Http'
+import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { HttpLocation } from '../../../src/clients/location'
-import { configConnection } from '../../../src/utils/ServicesConnections'
+import { configConnection } from '../../../src/config/connections'
+import { get, head, post } from '../../../src/utils/Http'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)

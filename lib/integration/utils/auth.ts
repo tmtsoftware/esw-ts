@@ -1,7 +1,7 @@
+import { resolve } from '../../src/clients/location/LocationUtils'
+import { authConnection } from '../../src/config/connections'
 import { post } from '../../src/utils/Http'
 import { extractHostPort } from '../../src/utils/Utils'
-import { resolve } from '../../src/clients/location/LocationUtils'
-import { authConnection } from '../../src/utils/ServicesConnections'
 
 const getKeycloakTokenUri = async (realm: string) => {
   const authLocation = await resolve(authConnection)
