@@ -60,21 +60,14 @@ jobs:
         working-directory: ./lib
         run: npm run test:integration
 
-      - name: Build - Config App
-        working-directory: ./examples/config-app
-        run: |
-          npm ci
-          npm run build
-
       - name: Build - Example App
-        working-directory: ./examples/example-app
+        working-directory: ./example
         run: |
           npm ci
           npm run build
 
       - name: Selenium Test
         run: sbt clean test
-
 
       - name: Notify slack
         if: always()

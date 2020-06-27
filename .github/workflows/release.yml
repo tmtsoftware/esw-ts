@@ -22,8 +22,8 @@ jobs:
         working-directory: ./lib
         run: |
           npm ci
-          npm run build   
-          
+          npm run build
+
       - name: Unit tests
         working-directory: ./lib
         run: npm run test:unit:coverage
@@ -32,14 +32,8 @@ jobs:
         working-directory: ./lib
         run: npm run test:integration
 
-      - name: Check Config App
-        working-directory: ./examples/config-app
-        run: |
-          npm ci
-          npm run build
-
       - name: Check Example App
-        working-directory: ./examples/example-app
+        working-directory: ./example
         run: |
           npm ci
           npm run build
@@ -47,7 +41,7 @@ jobs:
       - name: Selenium Test
         run: sbt clean test
         env:
-          CSW_VERSION: "50b46f322f" # Chnage before releasing (before tagging repo)
+          CSW_VERSION: "50b46f322f" # Change before releasing (before tagging repo)
 
       - name: NPM Publish
         working-directory: ./lib
