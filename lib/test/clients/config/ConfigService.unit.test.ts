@@ -13,6 +13,8 @@ const uri = 'http://localhost:8080'
 const configLocation = new HttpLocation(configConnection, uri)
 
 const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
+const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
+const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
 
 describe('ConfigService', () => {
   test('should get the latest conf of given path from the config server | ESW-320', async () => {
@@ -30,8 +32,8 @@ describe('ConfigService', () => {
   test('should get the conf of given path and given id from the config server | ESW-320', async () => {
     const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
-    const configId = 'configId123'
-    const endpoint = configEndpoint(`${confPath}?id=${configId}`)
+    const configId = { id: 'configId123' }
+    const endpoint = configEndpoint(`${confPath}?id=${configId.id}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
@@ -71,8 +73,8 @@ describe('ConfigService', () => {
   test('should check if the given conf with given id is present | ESW-320', async () => {
     const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
-    const configId = 'configId123'
-    const endpoint = configEndpoint(`${confPath}?id=${configId}`)
+    const configId = { id: 'configId123' }
+    const endpoint = configEndpoint(`${confPath}?id=${configId.id}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
@@ -132,5 +134,32 @@ describe('ConfigService', () => {
     const actualRes = await configService.list('Annex', '*')
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
     expect(getMockFn).toBeCalledWith({ endpoint, parameters: { type: 'Annex', pattern: '*' } })
+  })
+
+  test('should get the active conf of given path from the config server | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = activeConfigEndpoint(`${confPath}`)
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce('foo: bar')
+
+    const confData = await configService.getActive(confPath)
+    expect(confData).toBe('foo: bar')
+    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
+  })
+
+  test('should get the active conf of given path and given time from the config server | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const date = new Date()
+    const endpoint = activeConfigEndpoint(`${confPath}?date=${date}`)
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce('foo: bar')
+
+    const confData = await configService.getActiveByTime(confPath, date)
+    expect(confData).toBe('foo: bar')
+    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
   })
 })

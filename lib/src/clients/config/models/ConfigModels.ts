@@ -1,6 +1,9 @@
 export type ConfigData = string
-export type ConfigId = string
 export type FileType = 'Normal' | 'Annex'
+
+export interface ConfigId {
+  id: string
+}
 
 export interface ConfigFileInfo {
   path: string
