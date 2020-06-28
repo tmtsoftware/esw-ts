@@ -162,4 +162,18 @@ describe('ConfigService', () => {
     expect(confData).toBe('foo: bar')
     expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
   })
+
+  test('should get the active version of the conf | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = activeVersionEndpoint(confPath)
+    const configId = { id: 'configId123' }
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce([configId])
+
+    const actualConfId = await configService.getActiveVersion(confPath)
+    expect(actualConfId).toEqual([configId])
+    expect(getMockFn).toBeCalledWith({ endpoint })
+  })
 })

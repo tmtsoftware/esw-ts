@@ -36,10 +36,10 @@ export interface ConfigServiceApi {
   // setActiveVersion(path: string, id: ConfigId, comment: string): Promise<void>
   //
   // resetActiveVersion(path: string, comment: string): Promise<void>
-  // getActiveVersion(path: string): Promise<ConfigData | undefined>
-  //
 
   getActiveByTime(path: string, time: Date): Promise<Blob>
+
+  getActiveVersion(path: string): Promise<ConfigId[]>
 
   // getMetadata(): Promise<ConfigMetadata>
 }
@@ -111,5 +111,10 @@ export class ConfigService implements ConfigServiceApi {
 
   getActiveByTime(confPath: string, time: Date): Promise<Blob> {
     return ConfigService.getActiveConfigBlob(`${confPath}?date=${time}`)
+  }
+
+  async getActiveVersion(path: string): Promise<ConfigId[]> {
+    const endpoint = await ConfigService.activeVersionEndpoint(path)
+    return await get({ endpoint })
   }
 }
