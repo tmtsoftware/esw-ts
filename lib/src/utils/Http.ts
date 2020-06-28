@@ -5,6 +5,7 @@ type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
 export interface FetchRequest<Req, Res> {
   endpoint: string
+  parameters?: Record<string, string>
   payload?: Req
   headers?: Headers
   timeout?: number
@@ -22,19 +23,26 @@ const handleRequestTimeout = (timeout: number) => {
   return controller
 }
 
+const paramString = (parameters: Record<string, string>) => {
+  Object.entries(parameters)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&')
+}
+
 const fetchMethod = (method: Method) => {
   return async <Req, Res>({
     endpoint,
     payload,
+    parameters,
     headers = jsonHeader(),
     timeout = 120000,
     responseMapper = toJson
   }: FetchRequest<Req, Res>): Promise<Res> => {
     const controller = handleRequestTimeout(timeout)
-
+    const path = parameters ? `${endpoint}?${paramString(parameters)}` : endpoint
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
 
-    const fetchCall = fetch(endpoint, {
+    const fetchCall = fetch(path, {
       method: method,
       headers: headers,
       body: body,

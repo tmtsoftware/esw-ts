@@ -21,9 +21,9 @@ export interface ConfigServiceApi {
   exists(path: string, id?: ConfigId): Promise<boolean>
 
   // delete(path: string, comment: string): Promise<void>
-  //
-  // list(fileType?: FileType, pattern?: string): Promise<ConfigFileInfo[]>
-  //
+
+  list(fileType?: FileType, pattern?: string): Promise<ConfigFileInfo[]>
+
   // history(path: string, from: Date, to: Date, maxResults: number): Promise<ConfigFileRevision[]>
   //
   // historyActive(
@@ -78,5 +78,13 @@ export class ConfigService implements ConfigServiceApi {
     const path = id ? `${confPath}?id=${id}` : confPath
     const endpoint = await ConfigService.endpoint(path)
     return await head({ endpoint })
+  }
+
+  async list(type?: FileType, pattern?: string): Promise<ConfigFileInfo[]> {
+    const parameters: Record<string, string> = {}
+    if (type) parameters['type'] = type
+    if (pattern) parameters['pattern'] = pattern
+    const endpoint = await ConfigService.configEndpoint('list')
+    return await get({ endpoint, parameters })
   }
 }

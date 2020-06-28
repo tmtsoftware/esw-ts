@@ -81,4 +81,56 @@ describe('ConfigService', () => {
     expect(actualRes).toBe(true)
     expect(headMockFn).toBeCalledWith({ endpoint })
   })
+
+  test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const endpoint = configEndpoint('list')
+
+    const firstConfInfo = {
+      path: 'firstConf',
+      id: 'id123',
+      author: 'Admin',
+      comment: 'comment1'
+    }
+
+    const secondConfInfo = {
+      path: 'secondConf',
+      id: 'id234',
+      author: 'Author1',
+      comment: 'comment2'
+    }
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
+
+    const actualRes = await configService.list()
+    expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
+    expect(getMockFn).toBeCalledWith({ endpoint, parameters: {} })
+  })
+
+  test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const endpoint = configEndpoint(`list`)
+
+    const firstConfInfo = {
+      path: 'firstConf',
+      id: 'id123',
+      author: 'Admin',
+      comment: 'comment1'
+    }
+
+    const secondConfInfo = {
+      path: 'secondConf',
+      id: 'id234',
+      author: 'Author1',
+      comment: 'comment2'
+    }
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
+
+    const actualRes = await configService.list('Annex', '*')
+    expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
+    expect(getMockFn).toBeCalledWith({ endpoint, parameters: { type: 'Annex', pattern: '*' } })
+  })
 })
