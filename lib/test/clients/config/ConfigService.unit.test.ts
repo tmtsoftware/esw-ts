@@ -15,59 +15,44 @@ const configLocation = new HttpLocation(configConnection, uri)
 const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
 
 describe('ConfigService', () => {
-  test('should get the latest conf of given path from the config server | ESW-320', () => {
-    return new Promise((done) => {
-      const configService = new ConfigService(() => '')
-      const confPath = 'tmt/assembly.conf'
-      const endpoint = configEndpoint(confPath)
-      postMockFn.mockResolvedValueOnce([configLocation])
-      getMockFn.mockResolvedValueOnce('foo: bar')
+  test('should get the latest conf of given path from the config server | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = configEndpoint(confPath)
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce('foo: bar')
 
-      configService.getLatest(confPath, (confData, path) => {
-        expect(confData).toBe('foo: bar')
-        expect(path).toBe('assembly.conf')
-        expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
-        done()
-      })
-    })
+    const confData = await configService.getLatest(confPath)
+    expect(confData).toBe('foo: bar')
+    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
   })
 
-  test('should get the conf of given path and given id from the config server | ESW-320', () => {
-    return new Promise((done) => {
-      const configService = new ConfigService(() => '')
-      const confPath = 'tmt/assembly.conf'
-      const configId = 'configId123'
-      const endpoint = configEndpoint(`${confPath}?id=${configId}`)
+  test('should get the conf of given path and given id from the config server | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const configId = 'configId123'
+    const endpoint = configEndpoint(`${confPath}?id=${configId}`)
 
-      postMockFn.mockResolvedValueOnce([configLocation])
-      getMockFn.mockResolvedValueOnce('foo: bar')
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce('foo: bar')
 
-      configService.getById(confPath, configId, (confData, path) => {
-        expect(confData).toBe('foo: bar')
-        expect(path).toBe(`assembly.conf?id=${configId}`)
-        expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
-        done()
-      })
-    })
+    const confData = await configService.getById(confPath, configId)
+    expect(confData).toBe('foo: bar')
+    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
   })
 
-  test('should get the conf of given path and given time from the config server | ESW-320', () => {
-    return new Promise((done) => {
-      const configService = new ConfigService(() => '')
-      const confPath = 'tmt/assembly.conf'
-      const date = new Date()
-      const endpoint = configEndpoint(`${confPath}?date=${date}`)
+  test('should get the conf of given path and given time from the config server | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const date = new Date()
+    const endpoint = configEndpoint(`${confPath}?date=${date}`)
 
-      postMockFn.mockResolvedValueOnce([configLocation])
-      getMockFn.mockResolvedValueOnce('foo: bar')
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce('foo: bar')
 
-      configService.getByTime(confPath, date, (confData, path) => {
-        expect(confData).toBe('foo: bar')
-        expect(path).toBe(`assembly.conf?date=${date}`)
-        expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
-        done()
-      })
-    })
+    const confData = await configService.getByTime(confPath, date)
+    expect(confData).toBe('foo: bar')
+    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
   })
 
   test('should check if the given conf is present | ESW-320', async () => {

@@ -1,12 +1,9 @@
 import { configConnection } from '../../config/connections'
-import { download } from '../../utils/download'
 import { get, head } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 import { ConfigId } from './models/ConfigModels'
-
-export type Writer = (data: any, path: string) => void
 
 export interface ConfigServiceApi {
   // create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId>
@@ -15,11 +12,11 @@ export interface ConfigServiceApi {
   //
   // getActive(path: string): Promise<ConfigData | undefined>
   //
-  getLatest(path: string, writer: Writer): Promise<void>
+  getLatest(path: string): Promise<Blob>
 
-  getById(path: string, configId: ConfigId, writer: Writer): Promise<void>
+  getById(path: string, configId: ConfigId): Promise<Blob>
 
-  getByTime(path: string, time: Date, writer: Writer): Promise<void>
+  getByTime(path: string, time: Date): Promise<Blob>
 
   exists(path: string, id?: ConfigId): Promise<boolean>
 
@@ -60,33 +57,21 @@ export class ConfigService implements ConfigServiceApi {
     return `http://${host}:${port}/config/${path}`
   }
 
-  private static async get(path: string): Promise<Blob> {
+  private static async getConfigBlob(path: string): Promise<Blob> {
     const endpoint = await ConfigService.endpoint(path)
     return get({ endpoint, responseMapper: (res) => res.blob() })
   }
 
-  private static write(conf: any, path: string, writer: Writer) {
-    const fileName = path.split('/').pop() || path
-    return writer(conf, fileName)
+  getLatest(confPath: string): Promise<Blob> {
+    return ConfigService.getConfigBlob(confPath)
   }
 
-  private static async getAndWrite(confPath: string, writer: Writer) {
-    const blob = await ConfigService.get(confPath)
-    return ConfigService.write(blob, confPath, writer)
+  getById(confPath: string, configId: ConfigId): Promise<Blob> {
+    return ConfigService.getConfigBlob(`${confPath}?id=${configId}`)
   }
 
-  getLatest(confPath: string, writer: Writer = download): Promise<void> {
-    return ConfigService.getAndWrite(confPath, writer)
-  }
-
-  getById(confPath: string, configId: ConfigId, writer: Writer = download): Promise<void> {
-    const path = `${confPath}?id=${configId}`
-    return ConfigService.getAndWrite(path, writer)
-  }
-
-  getByTime(confPath: string, time: Date, writer: Writer): Promise<void> {
-    const path = `${confPath}?date=${time}`
-    return ConfigService.getAndWrite(path, writer)
+  getByTime(confPath: string, time: Date): Promise<Blob> {
+    return ConfigService.getConfigBlob(`${confPath}?date=${time}`)
   }
 
   async exists(confPath: string, id?: ConfigId): Promise<boolean> {
