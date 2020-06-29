@@ -3,6 +3,7 @@ import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
 import { get, head, post } from '../../../src/utils/Http'
+import { ConfigMetadata } from '../../../src/clients/config/models/ConfigModels'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -174,6 +175,26 @@ describe('ConfigService', () => {
 
     const actualConfId = await configService.getActiveVersion(confPath)
     expect(actualConfId).toEqual([configId])
+    expect(getMockFn).toBeCalledWith({ endpoint })
+  })
+
+  test('should get the active version of the conf | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = 'http://localhost:8080/metadata'
+
+    const expectedConfigMetadata = {
+      repoPath: confPath,
+      annexPath: confPath,
+      annexMinFileSize: '1MB',
+      maxConfigFileSize: '1MB'
+    }
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce(expectedConfigMetadata)
+
+    const configMetadata = await configService.getMetadata()
+    expect(configMetadata).toEqual(expectedConfigMetadata)
     expect(getMockFn).toBeCalledWith({ endpoint })
   })
 })

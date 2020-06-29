@@ -2,7 +2,7 @@ import { get, head } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
-import { ConfigFileInfo, ConfigId, FileType } from './models/ConfigModels'
+import { ConfigFileInfo, ConfigId, ConfigMetadata, FileType } from './models/ConfigModels'
 import { configConnection } from '../../config/connections'
 
 export interface ConfigServiceApi {
@@ -41,7 +41,7 @@ export interface ConfigServiceApi {
 
   getActiveVersion(path: string): Promise<ConfigId[]>
 
-  // getMetadata(): Promise<ConfigMetadata>
+  getMetadata(): Promise<ConfigMetadata>
 }
 
 export class ConfigService implements ConfigServiceApi {
@@ -52,21 +52,21 @@ export class ConfigService implements ConfigServiceApi {
     return extractHostPort(location.uri)
   }
 
-  private static async endpoint(route: string, path: string) {
+  private static async endpoint(path: string) {
     const { host, port } = await ConfigService.resolveConfigServer()
-    return `http://${host}:${port}/${route}/${path}`
+    return `http://${host}:${port}/${path}`
   }
 
   private static configEndpoint(path: string) {
-    return ConfigService.endpoint('config', path)
+    return ConfigService.endpoint(`config/${path}`)
   }
 
   private static activeConfigEndpoint(path: string) {
-    return ConfigService.endpoint('active-config', path)
+    return ConfigService.endpoint(`active-config/${path}`)
   }
 
   private static activeVersionEndpoint(path: string) {
-    return ConfigService.endpoint('active-version', path)
+    return ConfigService.endpoint(`active-version/${path}`)
   }
 
   private static async getConfigBlob(path: string): Promise<Blob> {
@@ -115,6 +115,11 @@ export class ConfigService implements ConfigServiceApi {
 
   async getActiveVersion(path: string): Promise<ConfigId[]> {
     const endpoint = await ConfigService.activeVersionEndpoint(path)
+    return await get({ endpoint })
+  }
+
+  async getMetadata(): Promise<ConfigMetadata> {
+    const endpoint = await ConfigService.endpoint('metadata')
     return await get({ endpoint })
   }
 }
