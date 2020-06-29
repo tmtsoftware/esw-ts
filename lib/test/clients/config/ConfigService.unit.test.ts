@@ -2,7 +2,7 @@ import { mocked } from 'ts-jest/utils'
 import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
-import { get, head, post, put } from '../../../src/utils/Http'
+import { del, get, head, post, put } from '../../../src/utils/Http'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 
 jest.mock('../../../src/utils/Http')
@@ -10,6 +10,7 @@ const getMockFn = mocked(get, true)
 const postMockFn = mocked(post, true)
 const headMockFn = mocked(head, true)
 const putMockFn = mocked(put, true)
+const deleteMockFn = mocked(del, true)
 
 const uri = 'http://localhost:8080'
 const configLocation = new HttpLocation(configConnection, uri)
@@ -289,6 +290,25 @@ describe('ConfigService', () => {
     await configService.resetActiveVersion(confPath, comment)
 
     expect(putMockFn).toBeCalledWith({
+      endpoint,
+      headers: new HeaderExt().withAuthorization(token),
+      parameters: { comment }
+    })
+  })
+
+  test('should delete the config | ESW-320', async () => {
+    const token = 'token123'
+    const configService = new ConfigService(() => token)
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = configEndpoint(confPath)
+    const comment = 'something'
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    deleteMockFn.mockResolvedValue({})
+
+    await configService.delete(confPath, comment)
+
+    expect(deleteMockFn).toBeCalledWith({
       endpoint,
       headers: new HeaderExt().withAuthorization(token),
       parameters: { comment }

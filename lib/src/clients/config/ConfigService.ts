@@ -1,4 +1,4 @@
-import { get, head, put } from '../../utils/Http'
+import { del, get, head, put } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
@@ -27,7 +27,7 @@ export interface ConfigServiceApi {
 
   exists(path: string, id?: ConfigId): Promise<boolean>
 
-  // delete(path: string, comment: string): Promise<void>
+  delete(path: string, comment: string): Promise<void>
 
   list(fileType?: FileType, pattern?: string): Promise<ConfigFileInfo[]>
 
@@ -178,5 +178,12 @@ export class ConfigService implements ConfigServiceApi {
     const endpoint = await ConfigService.activeVersionEndpoint(path)
     const headers = this.getAuthHeader()
     return await put({ endpoint, headers, parameters: { id: configId.id, comment } })
+  }
+
+  async delete(path: string, comment: string): Promise<void> {
+    const endpoint = await ConfigService.configEndpoint(path)
+    const headers = this.getAuthHeader()
+
+    return del({ endpoint, headers, parameters: { comment } })
   }
 }
