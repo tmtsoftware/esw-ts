@@ -2,7 +2,13 @@ import { get, head } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
-import { ConfigFileInfo, ConfigId, ConfigMetadata, FileType } from './models/ConfigModels'
+import {
+  ConfigFileInfo,
+  ConfigFileRevision,
+  ConfigId,
+  ConfigMetadata,
+  FileType
+} from './models/ConfigModels'
 import { configConnection } from '../../config/connections'
 
 export interface ConfigServiceApi {
@@ -24,15 +30,15 @@ export interface ConfigServiceApi {
 
   list(fileType?: FileType, pattern?: string): Promise<ConfigFileInfo[]>
 
-  // history(path: string, from: Date, to: Date, maxResults: number): Promise<ConfigFileRevision[]>
-  //
-  // historyActive(
-  //   path: string,
-  //   from: Date,
-  //   to: Date,
-  //   maxResults: number
-  // ): Promise<ConfigFileRevision[]>
-  //
+  history(path: string, from: Date, to: Date, maxResults: number): Promise<ConfigFileRevision[]>
+
+  historyActive(
+    path: string,
+    from: Date,
+    to: Date,
+    maxResults: number
+  ): Promise<ConfigFileRevision[]>
+
   // setActiveVersion(path: string, id: ConfigId, comment: string): Promise<void>
   //
   // resetActiveVersion(path: string, comment: string): Promise<void>
@@ -121,5 +127,39 @@ export class ConfigService implements ConfigServiceApi {
   async getMetadata(): Promise<ConfigMetadata> {
     const endpoint = await ConfigService.endpoint('metadata')
     return await get({ endpoint })
+  }
+
+  async history(
+    path: string,
+    from: Date,
+    to: Date,
+    maxResults: number
+  ): Promise<ConfigFileRevision[]> {
+    const endpoint = await ConfigService.endpoint(`history/${path}`)
+    return await get({
+      endpoint,
+      parameters: {
+        from: from.toUTCString(),
+        to: to.toUTCString(),
+        maxResults: maxResults.toString()
+      }
+    })
+  }
+
+  async historyActive(
+    path: string,
+    from: Date,
+    to: Date,
+    maxResults: number
+  ): Promise<ConfigFileRevision[]> {
+    const endpoint = await ConfigService.endpoint(`history-active/${path}`)
+    return await get({
+      endpoint,
+      parameters: {
+        from: from.toUTCString(),
+        to: to.toUTCString(),
+        maxResults: maxResults.toString()
+      }
+    })
   }
 }

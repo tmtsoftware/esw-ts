@@ -3,7 +3,6 @@ import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
 import { get, head, post } from '../../../src/utils/Http'
-import { ConfigMetadata } from '../../../src/clients/config/models/ConfigModels'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -178,7 +177,7 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({ endpoint })
   })
 
-  test('should get the active version of the conf | ESW-320', async () => {
+  test('should get metadata | ESW-320', async () => {
     const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const endpoint = 'http://localhost:8080/metadata'
@@ -196,5 +195,63 @@ describe('ConfigService', () => {
     const configMetadata = await configService.getMetadata()
     expect(configMetadata).toEqual(expectedConfigMetadata)
     expect(getMockFn).toBeCalledWith({ endpoint })
+  })
+
+  test('should get the history for the given config path | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const from = new Date(2020, 4)
+    const to = new Date(2020, 5)
+    const maxResults = 10
+    const endpoint = `http://localhost:8080/history/${confPath}`
+
+    const revision = {
+      id: { id: '15265' },
+      author: 'author1',
+      comment: 'something',
+      time: new Date()
+    }
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce([revision])
+
+    const history = await configService.history(confPath, from, to, maxResults)
+    expect(history).toEqual([revision])
+    expect(getMockFn).toBeCalledWith({
+      endpoint,
+      parameters: {
+        from: from.toUTCString(),
+        to: to.toUTCString(),
+        maxResults: maxResults.toString()
+      }
+    })
+  })
+
+  test('should get the history for the given active-config | ESW-320', async () => {
+    const configService = new ConfigService(() => '')
+    const confPath = 'tmt/assembly.conf'
+    const from = new Date(2020, 4)
+    const to = new Date(2020, 5)
+    const maxResults = 10
+    const endpoint = `http://localhost:8080/history-active/${confPath}`
+
+    const revision = {
+      id: { id: '15265' },
+      author: 'author1',
+      comment: 'something',
+      time: new Date()
+    }
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockResolvedValueOnce([revision])
+
+    const history = await configService.historyActive(confPath, from, to, maxResults)
+    expect(history).toEqual([revision])
+    expect(getMockFn).toBeCalledWith({
+      endpoint,
+      parameters: {
+        from: from.toUTCString(),
+        to: to.toUTCString(),
+        maxResults: maxResults.toString()
+      }
+    })
   })
 })
