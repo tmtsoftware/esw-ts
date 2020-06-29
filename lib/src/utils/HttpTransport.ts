@@ -14,10 +14,7 @@ export class HttpTransport<Req> {
     const endpoint = `http://${host}:${port}/post-endpoint`
 
     const token = this.tokenFactory()
-    let headers = new HeaderExt().withContentType('application/json')
-    if (token) {
-      headers = headers.withAuthorization(token)
-    }
+    const headers = new HeaderExt().withContentType('application/json').withAuthorization(token)
     return post<Req, Res>({
       endpoint,
       headers,

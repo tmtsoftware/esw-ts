@@ -1,4 +1,4 @@
-import { get, head } from '../../utils/Http'
+import { get, head, put } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
@@ -10,6 +10,7 @@ import {
   FileType
 } from './models/ConfigModels'
 import { configConnection } from '../../config/connections'
+import { HeaderExt } from '../../utils/HeaderExt'
 
 export interface ConfigServiceApi {
   // create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId>
@@ -39,9 +40,9 @@ export interface ConfigServiceApi {
     maxResults: number
   ): Promise<ConfigFileRevision[]>
 
-  // setActiveVersion(path: string, id: ConfigId, comment: string): Promise<void>
-  //
-  // resetActiveVersion(path: string, comment: string): Promise<void>
+  setActiveVersion(path: string, id: ConfigId, comment: string): Promise<void>
+
+  resetActiveVersion(path: string, comment: string): Promise<void>
 
   getActiveByTime(path: string, time: Date): Promise<Blob>
 
@@ -56,6 +57,10 @@ export class ConfigService implements ConfigServiceApi {
   private static async resolveConfigServer() {
     const location = await resolve(configConnection)
     return extractHostPort(location.uri)
+  }
+
+  getAuthHeader() {
+    return new HeaderExt().withAuthorization(this.tokenFactory())
   }
 
   private static async endpoint(path: string) {
@@ -161,5 +166,17 @@ export class ConfigService implements ConfigServiceApi {
         maxResults: maxResults.toString()
       }
     })
+  }
+
+  async resetActiveVersion(path: string, comment: string): Promise<void> {
+    const endpoint = await ConfigService.activeVersionEndpoint(path)
+    const headers = this.getAuthHeader()
+    return await put({ endpoint, headers, parameters: { comment } })
+  }
+
+  async setActiveVersion(path: string, configId: ConfigId, comment: string): Promise<void> {
+    const endpoint = await ConfigService.activeVersionEndpoint(path)
+    const headers = this.getAuthHeader()
+    return await put({ endpoint, headers, parameters: { id: configId.id, comment } })
   }
 }

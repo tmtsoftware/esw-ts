@@ -2,12 +2,14 @@ import { mocked } from 'ts-jest/utils'
 import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
-import { get, head, post } from '../../../src/utils/Http'
+import { get, head, post, put } from '../../../src/utils/Http'
+import { HeaderExt } from '../../../src/utils/HeaderExt'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
 const postMockFn = mocked(post, true)
 const headMockFn = mocked(head, true)
+const putMockFn = mocked(put, true)
 
 const uri = 'http://localhost:8080'
 const configLocation = new HttpLocation(configConnection, uri)
@@ -252,6 +254,44 @@ describe('ConfigService', () => {
         to: to.toUTCString(),
         maxResults: maxResults.toString()
       }
+    })
+  })
+
+  test('should set the active version of the conf if config id and comment are given | ESW-320', async () => {
+    const token = 'token123'
+    const configService = new ConfigService(() => token)
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = activeVersionEndpoint(confPath)
+    const configId = { id: 'configId123' }
+    const comment = 'something'
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    putMockFn.mockResolvedValueOnce({})
+
+    await configService.setActiveVersion(confPath, configId, comment)
+    expect(putMockFn).toBeCalledWith({
+      endpoint,
+      headers: new HeaderExt().withAuthorization(token),
+      parameters: { id: configId.id, comment }
+    })
+  })
+
+  test('should reset the active version of the conf if config id is not given | ESW-320', async () => {
+    const token = 'token123'
+    const configService = new ConfigService(() => token)
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = activeVersionEndpoint(confPath)
+    const comment = 'something'
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    putMockFn.mockResolvedValue({})
+
+    await configService.resetActiveVersion(confPath, comment)
+
+    expect(putMockFn).toBeCalledWith({
+      endpoint,
+      headers: new HeaderExt().withAuthorization(token),
+      parameters: { comment }
     })
   })
 })

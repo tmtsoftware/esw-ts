@@ -12,7 +12,8 @@ export class HeaderExt extends Headers {
     return this.withHeader('Content-Type', value)
   }
 
-  withAuthorization(token: string) {
+  withAuthorization(token?: string) {
+    if (!token) return this
     return this.withHeader('Authorization', `Bearer ${token}`)
   }
 }
