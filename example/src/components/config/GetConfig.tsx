@@ -1,8 +1,7 @@
 import React from 'react'
 import IOOperationComponent from './IOOperationComponent'
-import { InferProps, string } from 'prop-types'
 
-function GetConfig({ configURL }: InferProps<typeof GetConfig.propTypes>) {
+function GetConfig({ configURL }: GetConfigProps) {
   const downloadURI = (uri: string) => {
     let link = document.createElement('a')
     link.href = uri
@@ -22,13 +21,15 @@ function GetConfig({ configURL }: InferProps<typeof GetConfig.propTypes>) {
       btnId='get-config'
       componentNameProp='Get Config'
       operation='Get'
-      output={null}
+      output={''}
       api={getConfig}
       token={() => ''}
     />
   )
 }
-GetConfig.propTypes = {
+
+interface GetConfigProps {
   configURL: string
 }
+
 export default GetConfig

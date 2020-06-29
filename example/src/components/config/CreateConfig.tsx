@@ -3,9 +3,8 @@ import IOOperationComponent from './IOOperationComponent'
 import { sPost } from '../../helpers/Client'
 import { AuthContext } from 'esw-ts'
 import type { TokenFactory } from 'esw-ts'
-import { InferProps, string } from 'prop-types'
 
-export function CreateConfig(props: InferProps<typeof CreateConfig.propTypes>) {
+export function CreateConfig(props: CreateConfigProps) {
   const [response, setResponse] = useState('')
   const [fileContent, setsetFileContent] = useState('')
 
@@ -51,7 +50,9 @@ export function CreateConfig(props: InferProps<typeof CreateConfig.propTypes>) {
     </div>
   )
 }
-CreateConfig.propTypes = {
+
+interface CreateConfigProps {
   configURL: string
 }
+
 export default CreateConfig
