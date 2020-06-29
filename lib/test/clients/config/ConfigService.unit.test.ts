@@ -15,13 +15,19 @@ const deleteMockFn = mocked(del, true)
 const uri = 'http://localhost:8080'
 const configLocation = new HttpLocation(configConnection, uri)
 
+const token = 'token123'
+const configService = new ConfigService(() => token)
+
 const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
 const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
 const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
 
+afterEach(() => {
+  jest.clearAllMocks()
+})
+
 describe('ConfigService', () => {
   test('should get the latest conf of given path from the config server | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const endpoint = configEndpoint(confPath)
     postMockFn.mockResolvedValueOnce([configLocation])
@@ -33,7 +39,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the conf of given path and given id from the config server | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const configId = { id: 'configId123' }
     const endpoint = configEndpoint(`${confPath}?id=${configId.id}`)
@@ -47,7 +52,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the conf of given path and given time from the config server | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
     const endpoint = configEndpoint(`${confPath}?date=${date}`)
@@ -61,7 +65,6 @@ describe('ConfigService', () => {
   })
 
   test('should check if the given conf is present | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const endpoint = configEndpoint(confPath)
 
@@ -74,7 +77,6 @@ describe('ConfigService', () => {
   })
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const configId = { id: 'configId123' }
     const endpoint = configEndpoint(`${confPath}?id=${configId.id}`)
@@ -88,7 +90,6 @@ describe('ConfigService', () => {
   })
 
   test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const endpoint = configEndpoint('list')
 
     const firstConfInfo = {
@@ -114,7 +115,6 @@ describe('ConfigService', () => {
   })
 
   test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const endpoint = configEndpoint(`list`)
 
     const firstConfInfo = {
@@ -140,7 +140,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the active conf of given path from the config server | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const endpoint = activeConfigEndpoint(`${confPath}`)
 
@@ -153,7 +152,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the active conf of given path and given time from the config server | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
     const endpoint = activeConfigEndpoint(`${confPath}?date=${date}`)
@@ -167,7 +165,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the active version of the conf | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const endpoint = activeVersionEndpoint(confPath)
     const configId = { id: 'configId123' }
@@ -181,7 +178,6 @@ describe('ConfigService', () => {
   })
 
   test('should get metadata | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const endpoint = 'http://localhost:8080/metadata'
 
@@ -201,7 +197,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the history for the given config path | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const from = new Date(2020, 4)
     const to = new Date(2020, 5)
@@ -230,7 +225,6 @@ describe('ConfigService', () => {
   })
 
   test('should get the history for the given active-config | ESW-320', async () => {
-    const configService = new ConfigService(() => '')
     const confPath = 'tmt/assembly.conf'
     const from = new Date(2020, 4)
     const to = new Date(2020, 5)
@@ -259,8 +253,6 @@ describe('ConfigService', () => {
   })
 
   test('should set the active version of the conf if config id and comment are given | ESW-320', async () => {
-    const token = 'token123'
-    const configService = new ConfigService(() => token)
     const confPath = 'tmt/assembly.conf'
     const endpoint = activeVersionEndpoint(confPath)
     const configId = { id: 'configId123' }
@@ -278,8 +270,6 @@ describe('ConfigService', () => {
   })
 
   test('should reset the active version of the conf if config id is not given | ESW-320', async () => {
-    const token = 'token123'
-    const configService = new ConfigService(() => token)
     const confPath = 'tmt/assembly.conf'
     const endpoint = activeVersionEndpoint(confPath)
     const comment = 'something'
@@ -297,8 +287,6 @@ describe('ConfigService', () => {
   })
 
   test('should delete the config | ESW-320', async () => {
-    const token = 'token123'
-    const configService = new ConfigService(() => token)
     const confPath = 'tmt/assembly.conf'
     const endpoint = configEndpoint(confPath)
     const comment = 'something'
@@ -312,6 +300,49 @@ describe('ConfigService', () => {
       endpoint,
       headers: new HeaderExt().withAuthorization(token),
       parameters: { comment }
+    })
+  })
+
+  test('should create the config | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = configEndpoint(confPath)
+    const comment = 'something'
+    const configId = { id: 'configId123' }
+    const configData: File = new File(['foo: Bar'], 'assembly.conf')
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    postMockFn.mockResolvedValueOnce(configId)
+
+    const actualResConfigId = await configService.create(confPath, configData, true, comment)
+
+    expect(actualResConfigId).toEqual(configId)
+    expect(postMockFn).toBeCalledTimes(2)
+    expect(postMockFn).toHaveBeenNthCalledWith(2, {
+      endpoint,
+      headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
+      parameters: { annex: 'true', comment },
+      payload: configData
+    })
+  })
+
+  test('should update the config | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const endpoint = configEndpoint(confPath)
+    const comment = 'something'
+    const configId = { id: 'configId123' }
+    const configData: File = new File(['foo: Bar'], 'assembly.conf')
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    putMockFn.mockResolvedValueOnce(configId)
+
+    const actualResConfigId = await configService.update(confPath, configData, comment)
+
+    expect(actualResConfigId).toEqual(configId)
+    expect(putMockFn).toBeCalledWith({
+      endpoint,
+      headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
+      parameters: { comment },
+      payload: configData
     })
   })
 })

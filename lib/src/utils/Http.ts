@@ -73,7 +73,8 @@ const urlencodedSerializer = (
 
 const serializers = new Map([
   ['application/json', JSON.stringify],
-  ['application/x-www-form-urlencoded', urlencodedSerializer]
+  ['application/x-www-form-urlencoded', urlencodedSerializer],
+  ['application/octet-stream', <Req>(x: Req) => x]
 ])
 
 const getContentType = (headers: Headers) => headers.get('Content-Type') || 'application/json'

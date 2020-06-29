@@ -1,4 +1,4 @@
-import { del, get, head, put } from '../../utils/Http'
+import { del, get, head, post, put } from '../../utils/Http'
 import { TokenFactory } from '../../utils/TokenFactory'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
@@ -13,10 +13,10 @@ import { configConnection } from '../../config/connections'
 import { HeaderExt } from '../../utils/HeaderExt'
 
 export interface ConfigServiceApi {
-  // create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId>
-  //
-  // update(path: string, configData: ConfigData, comment: string): Promise<ConfigId>
-  //
+  create(path: string, configData: Blob, annex: boolean, comment: string): Promise<ConfigId>
+
+  update(path: string, configData: Blob, comment: string): Promise<ConfigId>
+
   getActive(path: string): Promise<Blob>
 
   getLatest(path: string): Promise<Blob>
@@ -185,5 +185,19 @@ export class ConfigService implements ConfigServiceApi {
     const headers = this.getAuthHeader()
 
     return del({ endpoint, headers, parameters: { comment } })
+  }
+
+  async create(path: string, configData: Blob, annex: boolean, comment: string): Promise<ConfigId> {
+    const endpoint = await ConfigService.configEndpoint(path)
+    const headers = this.getAuthHeader().withContentType('application/octet-stream')
+    const parameters = { annex: annex.toString(), comment }
+    return await post({ endpoint, headers, parameters, payload: configData })
+  }
+
+  async update(path: string, configData: Blob, comment: string): Promise<ConfigId> {
+    const endpoint = await ConfigService.configEndpoint(path)
+    const headers = this.getAuthHeader().withContentType('application/octet-stream')
+    const parameters = { comment }
+    return await put({ endpoint, headers, parameters, payload: configData })
   }
 }
