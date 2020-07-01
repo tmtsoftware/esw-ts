@@ -8,8 +8,7 @@
     "prettier": "^2.0.5",
     "react": "file:../lib/node_modules/react",
     "react-dom": "file:../lib/node_modules/react-dom",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.4.1"
+    "react-router-dom": "^5.0.0"
   },
   "scripts": {
     "start": "snowpack dev",
