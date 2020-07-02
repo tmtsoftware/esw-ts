@@ -9,6 +9,7 @@ run() {
             clean_install "$js_dir"
             npm run build
 
+            clean_install "${js_dir}"
             npm run startConfig
         ;;
         stop)
