@@ -12,6 +12,8 @@ export interface FetchRequest<Req, Res> {
   responseMapper?: (res: Response) => Promise<Res>
 }
 
+export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Promise<Res>
+
 const jsonHeader = () => new HeaderExt().withContentType('application/json')
 const toJson = (res: Response) => res.json()
 
@@ -23,21 +25,22 @@ const handleRequestTimeout = (timeout: number) => {
   return controller
 }
 
-const paramString = (parameters: Record<string, string>) => {
+const paramString = (parameters: Record<string, string>) =>
   Object.entries(parameters)
     .map(([key, value]) => `${key}=${value}`)
     .join('&')
-}
 
-const fetchMethod = (method: Method) => {
-  return async <Req, Res>({
-    endpoint,
-    payload,
-    parameters,
-    headers = jsonHeader(),
-    timeout = 120000,
-    responseMapper = toJson
-  }: FetchRequest<Req, Res>): Promise<Res> => {
+const fetchMethod = (method: Method): RequestResponse => {
+  return async <Req, Res>(request: FetchRequest<Req, Res>) => {
+    const {
+      endpoint,
+      payload,
+      parameters,
+      headers = jsonHeader(),
+      timeout = 120000,
+      responseMapper = toJson
+    } = request
+
     const controller = handleRequestTimeout(timeout)
     const path = parameters ? `${endpoint}?${paramString(parameters)}` : endpoint
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
@@ -74,7 +77,7 @@ const urlencodedSerializer = (
 const serializers = new Map([
   ['application/json', JSON.stringify],
   ['application/x-www-form-urlencoded', urlencodedSerializer],
-  ['application/octet-stream', <Req>(x: Req) => x]
+  ['application/octet-stream', <Req>(req: Req) => req]
 ])
 
 const getContentType = (headers: Headers) => headers.get('Content-Type') || 'application/json'
