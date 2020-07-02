@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 SCRIPTPATH="$(
-    cd "$(dirname "$0")" >/dev/null 2>&1 || exit
-    pwd -P
+  cd "$(dirname "$0")" >/dev/null 2>&1 || exit
+  pwd -P
 )"
 
-TMT_BACKEND_VERSION="5c8168a"
+TMT_BACKEND_VERSION="dc3ea77c4e"
 
 COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/coursier"
 

@@ -4,7 +4,7 @@ import { Done } from '../../src/clients/location'
 import { SequencerService } from '../../src/clients/sequencer'
 import { ComponentId, Prefix, Setup } from '../../src/models'
 import { getToken } from '../utils/auth'
-import { startComponent, startSequencer, startServices, stopServices } from '../utils/backend'
+import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(90000)
 
@@ -15,7 +15,7 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  await startServices(['AAS', 'Gateway', 'Alarm'])
+  await startServices(['AAS', 'Gateway'])
 })
 
 afterAll(async () => {
@@ -24,11 +24,6 @@ afterAll(async () => {
 })
 
 describe('Command Client', () => {
-  beforeAll(async () => {
-    // setup test hcd
-    await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
-  })
-
   test('should get accepted response on oneway command | ESW-305', async () => {
     const validToken: string = await getToken(
       'esw-gateway-client',
@@ -73,15 +68,11 @@ describe('Alarm Client ', () => {
 
     const response: Done = await alarmService.setSeverity(alarmKey, 'Okay')
 
-    expect(response).toEqual('done')
+    expect(response).toEqual('Done')
   })
 })
 
 describe('Sequencer Client', () => {
-  beforeAll(async () => {
-    await startSequencer('ESW', 'MoonNight')
-  })
-
   test('is up and available | ESW-307', async () => {
     const validToken: string = await getToken(
       'esw-gateway-client',
