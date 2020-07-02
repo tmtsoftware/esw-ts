@@ -9,7 +9,7 @@ export const GatewayConnection = new HttpConnection(
   GatewayConfig.componentType
 )
 
-export const resolveGateway = async () => {
+export const resolveGateway: () => Promise<{ port: number; host: string }> = async () => {
   const location = await resolve(GatewayConnection)
   return extractHostPort(location.uri)
 }

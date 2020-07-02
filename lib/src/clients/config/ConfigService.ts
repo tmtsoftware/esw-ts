@@ -1,5 +1,5 @@
 import { del, get, head, post, put } from '../../utils/Http'
-import { TokenFactory } from '../../utils/TokenFactory'
+import { TokenFactory } from '../..'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 import {
@@ -59,7 +59,7 @@ export class ConfigService implements ConfigServiceApi {
     return extractHostPort(location.uri)
   }
 
-  getAuthHeader() {
+  getAuthHeader(): HeaderExt {
     return new HeaderExt().withAuthorization(this.tokenFactory())
   }
 
