@@ -22,7 +22,6 @@ trait BaseTestSuite
     startAndRegisterConfigServer()
     if (!await(startNodeConfigServer())) throw new RuntimeException("failed to start js config server")
     implicitlyWait(10.seconds)
-    listPm2Process()
   }
 
   override protected def afterAll(): Unit = {

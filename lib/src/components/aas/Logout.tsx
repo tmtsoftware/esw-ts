@@ -8,7 +8,7 @@ const Logout = () => {
   const { logout } = useContext(AuthContext)
   return (
     // Call to this.props.logout method is responsible for logging out.
-    <button id="aas-logout" onClick={logout}>
+    <button id="keycloak-logout" onClick={logout}>
       Logout
     </button>
   )

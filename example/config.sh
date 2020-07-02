@@ -16,10 +16,6 @@ run() {
             cd "${js_dir}" &&
             npm run stopConfig
         ;;
-        list)
-            cd "${js_dir}" &&
-            npm run list
-        ;;
         *)
             echo "[ERROR] Please use start or stop as first argument, find usage below: "
             usage
