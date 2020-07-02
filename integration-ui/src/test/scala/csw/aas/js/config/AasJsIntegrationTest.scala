@@ -8,7 +8,7 @@ class AasJsIntegrationTest extends BaseTestSuite {
   test("should create config file through config admin UI | ESW-330") {
     val homePage = new HomePage
     go to homePage
-    println("******* url loaded : " + webDriver.getCurrentUrl() + " ***************")
+    println("******* url loaded : " + webDriver.getCurrentUrl + " ***************")
     homePage
       .clickOnLoginBtn()
       .login(Keycloak.configUser, Keycloak.configPassword)

@@ -22,6 +22,8 @@ trait JsConfigServer {
 
   def stopNodeConfigServer(): Boolean = run("stop")
 
+  def listPm2Process(): Boolean = run("list")
+
   private def run(cmd: String) =
     os.proc("sh", configScript, cmd)
       .call(stdout = Inherit)

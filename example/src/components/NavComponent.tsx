@@ -12,7 +12,7 @@ const NavComponent = () => {
         <a href='https://www.tmt.org/' className='brand-logo'>
           TMT
         </a>
-        <ul className='hide-on-med-and-down right'>
+        <ul className='right'>
           <li>
             <Link to='/public'> Public </Link>
           </li>

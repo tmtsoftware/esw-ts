@@ -17,7 +17,8 @@
     "prepare": "cd ../lib && npm run build && cd ../example && snowpack",
     "example": "npm install && npm run build",
     "startConfig": "BROWSER=none pm2 start npm  --name example -- start",
-    "stopConfig": "pm2 delete example"
+    "stopConfig": "pm2 delete example",
+    "list": "pm2 list"
   },
   "browserslist": [
     "last 1 chrome version"
