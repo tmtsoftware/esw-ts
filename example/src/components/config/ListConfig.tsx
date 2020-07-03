@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
+import { ConfigService } from 'esw-ts'
 
-function ListConfig(props: ListConfigProps) {
+function ListConfig({ configService }: ListConfigProps) {
   const [response, setResponse] = useState('')
 
   const listConfig = async () => {
-    const response = await window.fetch(`${props.configURL}list`)
-    if (response.status === 200) {
-      const a = await response.json()
-      setResponse(JSON.stringify(a))
-    }
+    const list = await configService.list()
+    setResponse(JSON.stringify(list))
   }
 
   return (
@@ -20,11 +18,10 @@ function ListConfig(props: ListConfigProps) {
       operation='List'
       output={response}
       api={listConfig}
-      token={() => ''}
     />
   )
 }
 interface ListConfigProps {
-  configURL: string
+  configService: ConfigService
 }
 export default ListConfig

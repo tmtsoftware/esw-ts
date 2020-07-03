@@ -1,18 +1,11 @@
 import React from 'react'
 import IOOperationComponent from './IOOperationComponent'
+import { ConfigService } from 'esw-ts'
+import { download } from 'esw-ts/dist/src/utils/download'
 
-function GetConfig({ configURL }: GetConfigProps) {
-  const downloadURI = (uri: string) => {
-    let link = document.createElement('a')
-    link.href = uri
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
+function GetConfig({ configService }: GetConfigProps) {
   const getConfig = async (input: string) => {
-    console.log(input)
-    downloadURI(`${configURL}config/${input}`)
+    download(await configService.getLatest(input), input)
   }
 
   return (
@@ -23,13 +16,12 @@ function GetConfig({ configURL }: GetConfigProps) {
       operation='Get'
       output={''}
       api={getConfig}
-      token={() => ''}
     />
   )
 }
 
 interface GetConfigProps {
-  configURL: string
+  configService: ConfigService
 }
 
 export default GetConfig

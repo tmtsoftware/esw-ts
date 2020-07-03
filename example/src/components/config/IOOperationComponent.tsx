@@ -7,7 +7,8 @@ function IOOperationComponent(props: IOOperationProps) {
   const updateInput: ChangeEventHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
   }
-  const handleClick = () => props.api(input, props.token)
+
+  const handleClick = () => props.api(input)
 
   return (
     <div className='card-panel hoverable'>
@@ -41,8 +42,7 @@ interface IOOperationProps {
   componentNameProp: string,
   operation: string,
   output: string,
-  api: Function,
-  token: Function
+  api: Function
 }
 
 export default IOOperationComponent

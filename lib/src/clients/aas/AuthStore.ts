@@ -79,7 +79,7 @@ class AuthStore {
   public async getAASUrl(): Promise<string> {
     const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
     const location = await resolve(authConnection)
-    console.log(location)
+
     return location.uri
   }
 }

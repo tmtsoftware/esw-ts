@@ -12,6 +12,6 @@ class AasJsIntegrationTest extends BaseTestSuite {
       .clickOnLoginBtn()
       .login(Keycloak.configUser, Keycloak.configPassword)
       .createConfig("test", "Sample file content.")
-      .outputText shouldBe "\"1\""
+      .outputText shouldBe "1"
   }
 }

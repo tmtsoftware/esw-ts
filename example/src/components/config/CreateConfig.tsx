@@ -1,37 +1,24 @@
 import React, { useState, useContext, ChangeEvent } from 'react'
 import IOOperationComponent from './IOOperationComponent'
-import { sPost } from '../../helpers/Client'
-import { AuthContext } from 'esw-ts'
-import type { TokenFactory } from 'esw-ts'
+import { ConfigService } from 'esw-ts'
 
-export function CreateConfig(props: CreateConfigProps) {
+export function CreateConfig({ configService }: CreateConfigProps) {
   const [response, setResponse] = useState('')
-  const [fileContent, setsetFileContent] = useState('')
+  const [fileContent, setFileContent] = useState<string>('')
 
-  // #use-auth-context
-  const { auth } = useContext(AuthContext)
-  // #use-auth-context
-
-  const callBack = (res: string) => setResponse(res)
-
-  const createConfig = (input: string, token: TokenFactory) => {
-    sPost(
-      `${props.configURL}config/${input}?comment="Sample commit message"`,
-      callBack,
-      token,
-      fileContent
-    )
+  const createConfig = async (input: string) => {
+    const config = await configService.create(input, new Blob([fileContent]), false, "Sample commit message" )
+    setResponse(config.toString())
   }
 
   const updateFileContent = (event: ChangeEvent<HTMLTextAreaElement>) =>
-    setsetFileContent(event.target.value)
+    setFileContent(event.target.value)
 
   return (
     <div className='card-panel hoverable'>
       <IOOperationComponent
         txtId='file-path'
         btnId='create-config'
-        token={auth?.token ? auth.token : () => null}
         componentNameProp='Create Config'
         operation='Create Config'
         output={response}
@@ -52,7 +39,7 @@ export function CreateConfig(props: CreateConfigProps) {
 }
 
 interface CreateConfigProps {
-  configURL: string
+  configService: ConfigService
 }
 
 export default CreateConfig
