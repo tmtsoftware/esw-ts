@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: increase file watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
       - uses: olafurpg/setup-scala@v7
         with:
           java-version: adopt@1.11
@@ -68,7 +72,7 @@ jobs:
 
       - name: Selenium Test
         run: sbt clean test
-
+#
 #      - name: Notify slack
 #        if: always()
 #        continue-on-error: true
