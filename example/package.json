@@ -13,8 +13,8 @@
     "start": "snowpack dev",
     "fix": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
     "build": "snowpack build",
-    "example": "npm install && npm run build",
-    "startConfig": "BROWSER=none pm2 start npm  --name example -- start",
+    "serve": "serve build",
+    "startConfig": "BROWSER=none pm2 start npm  --name example -- run serve",
     "stopConfig": "pm2 delete example",
     "list": "pm2 list"
   },
@@ -22,6 +22,7 @@
     "last 1 chrome version"
   ],
   "devDependencies": {
+    "serve": "^11.3.2",
     "prettier": "^2.0.5",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
