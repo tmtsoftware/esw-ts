@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+      # https://www.pika.dev/npm/snowpack/discuss/444
+      # following step is needed because snowpack is watching files from node_modules as well
       - name: increase file watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
@@ -72,12 +73,12 @@ jobs:
 
       - name: Selenium Test
         run: sbt clean test
-#
-#      - name: Notify slack
-#        if: always()
-#        continue-on-error: true
-#        uses: kpritam/slack-job-status-action@v1
-#        with:
-#          job-status: ${{ job.status }}
-#          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
-#          channel: ci-dev
+
+      - name: Notify slack
+        if: always()
+        continue-on-error: true
+        uses: kpritam/slack-job-status-action@v1
+        with:
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: ci-dev

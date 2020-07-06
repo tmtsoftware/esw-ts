@@ -6,9 +6,10 @@ import GetConfig from './GetConfig'
 import { AuthContext, ClientRole, ConfigService } from 'esw-ts'
 
 const ConfigApp = () => {
+  // #use-auth-context
   const { auth } = useContext(AuthContext)
   const [configService, setConfigService] = useState<ConfigService>(new ConfigService( auth ? auth.token : () => ''))
-
+  // #use-auth-context
   useEffect(() =>{
     setConfigService(new ConfigService( auth ? auth.token : () => ''))
   },[auth])
