@@ -1,7 +1,7 @@
 import React from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { ConfigService } from 'esw-ts'
-import { download } from 'esw-ts/dist/src/utils/download'
+import { download } from 'esw-ts'
 
 function GetConfig({ configService }: GetConfigProps) {
   const getConfig = async (input: string) => {

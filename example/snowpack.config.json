@@ -4,6 +4,7 @@
     "bundle": false,
     "open": "none"
   },
+  "exclude": ["**/node_modules/**/*"],
   "scripts": {
     "mount:public": "mount public --to /",
     "mount:src": "mount src --to /_dist_",

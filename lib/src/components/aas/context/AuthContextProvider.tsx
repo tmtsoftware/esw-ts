@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TMTAuth } from '../../../clients/aas/AuthStore'
-import { Auth } from '../../../clients/aas/Models'
+import { TMTAuth, Auth } from '../../../clients/aas'
 import { Provider } from './AuthContext'
 
 /**
