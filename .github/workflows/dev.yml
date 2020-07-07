@@ -59,11 +59,11 @@ jobs:
 
       - name: Unit tests
         working-directory: ./lib
-        run: npm run test:unit:coverage
+        run: npm run test:unit:coverage --reporters=default --reporters=./test/testReporter.js -- append=false --output=../../RTM/testStoryMapping.txt
 
       - name: Integration tests
         working-directory: ./lib
-        run: npm run test:integration
+        run: npm run test:integration --reporters=default --reporters=./test/testReporter.js -- append=true --output=../../RTM/testStoryMapping.txt
 
       - name: Build - Example App
         working-directory: ./example
@@ -72,7 +72,21 @@ jobs:
           npm run build
 
       - name: Selenium Test
-        run: sbt clean test
+        run: sbt -DgenerateStoryReport=true clean test
+
+      - name: Generate RTM
+        if: always()
+        continue-on-error: true
+        run: |
+          ./lib/scripts/coursier launch --channel https://raw.githubusercontent.com/tmtsoftware/apps/master/apps.json rtm:d1c8c7e -- ./RTM/testStoryMapping.txt ./RTM/storyRequirementMapping.csv ./RTM/testRequirementsMapping.txt
+
+      - name: Upload RTM
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v1
+        with:
+          name: RTM
+          path: ./RTM
 
       - name: Notify slack
         if: always()
