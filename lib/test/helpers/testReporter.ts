@@ -12,7 +12,7 @@ import path from 'path'
  * example usage :
  * > jest unit --reporters=./test/testReporter.js -- append=true output=./output.txt
  */
-type CustomReporter = Pick<BaseReporter,'onTestResult'> & Pick<BaseReporter,'onRunComplete'>
+type CustomReporter = Pick<BaseReporter, 'onTestResult'> & Pick<BaseReporter, 'onRunComplete'>
 
 const PIPE = '|'
 const PIPE_WITH_SPACES = ' | '
@@ -29,17 +29,13 @@ const append = appendArg || false
 
 class TestReporter implements CustomReporter {
   private results: string[] = []
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async onTestResult(_test?: Test, testResult?: TestResult, _results?: AggregatedResult) {
-    if(testResult) {
+    if (testResult) {
       testResult.testResults.forEach((test) => {
         const [name, storyIds] = test.fullName.split(PIPE)
         if (!!storyIds) {
-          storyIds
-            .split(COMMA)
-            .forEach((storyId) =>
-              this.addResult(storyId, name, test.status)
-            )
+          storyIds.split(COMMA).forEach((storyId) => this.addResult(storyId, name, test.status))
         } else {
           this.addResult('None', name, test.status)
         }
@@ -48,11 +44,13 @@ class TestReporter implements CustomReporter {
   }
 
   addResult(storyId: string, name: string, status: string) {
-    return this.results.push(`${storyId.trim() + PIPE_WITH_SPACES + name.trim() + PIPE_WITH_SPACES + status}`)
+    return this.results.push(
+      `${storyId.trim() + PIPE_WITH_SPACES + name.trim() + PIPE_WITH_SPACES + status}`
+    )
   }
-
-  async onRunComplete(_contexts?: Set<Context>, _aggregatedResults?: AggregatedResult) {
-    if(!append && fs.existsSync(OUTPUT_PATH)) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async onRunComplete(_context?: Set<Context>, _results?: AggregatedResult) {
+    if (!append && fs.existsSync(OUTPUT_PATH)) {
       deleteFile(OUTPUT_PATH)
     }
     writeArrayToFile(this.results, OUTPUT_PATH)
@@ -60,9 +58,8 @@ class TestReporter implements CustomReporter {
   }
 }
 
-
 function getArgumentValue(data: string[], outputRegex: RegExp) {
-  return data.filter(x => x.match(outputRegex)).map(x => x.split('=')[1])[0]
+  return data.filter((x) => x.match(outputRegex)).map((x) => x.split('=')[1])[0]
 }
 
 function parseOutput(args: string[], outputRegex = new RegExp('output|OUTPUT')) {
@@ -84,7 +81,7 @@ function deleteFile(outputPath: string) {
 function writeArrayToFile(results: string[], OUTPUT_PATH: string) {
   const stream = fs.createWriteStream(OUTPUT_PATH, { flags: append ? 'a' : 'w' })
   stream.on('open', () => {
-    results.forEach(function(item) {
+    results.forEach(function (item) {
       stream.write(item + os.EOL)
     })
     stream.end()
