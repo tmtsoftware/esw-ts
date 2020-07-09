@@ -4,7 +4,7 @@ import { SequencerService } from '../../../src/clients/sequencer'
 import { Server } from 'mock-socket'
 import { ComponentId, Prefix, SubmitResponse } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { wsMockWithResolved } from '../../utils/MockHelpers'
+import { wsMockWithResolved } from '../../helpers/MockHelpers'
 import { post } from '../../../src/utils/Http'
 
 jest.mock('../../../src/utils/Http')

@@ -6,7 +6,7 @@ import {
 } from '../../../src/clients/location'
 import { Server } from 'mock-socket'
 import { Prefix } from '../../../src/models'
-import { wsMockWithResolved } from '../../utils/MockHelpers'
+import { wsMockWithResolved } from '../../helpers/MockHelpers'
 
 let mockServer: Server
 const uri = 'http://someuri'

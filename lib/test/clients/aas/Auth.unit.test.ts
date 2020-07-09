@@ -5,7 +5,7 @@ import { AASConfig } from '../../../src/config'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { HttpConnection, HttpLocation } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
-import { mockedKeyCloakInstance } from '../../utils/MockHelpers'
+import { mockedKeyCloakInstance } from '../../helpers/MockHelpers'
 
 const conf = {
   realm: 'TMT-test',

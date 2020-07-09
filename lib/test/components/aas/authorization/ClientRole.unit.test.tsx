@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
-import { mockAuth, mockedKeyCloakInstance } from '../../../utils/MockHelpers'
+import { mockAuth, mockedKeyCloakInstance } from '../../../helpers/MockHelpers'
 import { ClientRole, AuthContext } from '../../../../src/components'
 
 jest.mock('keycloak-js')

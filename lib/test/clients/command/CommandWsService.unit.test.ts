@@ -4,7 +4,7 @@ import { HttpLocation } from '../../../src/clients/location'
 import { Server } from 'mock-socket'
 import { Completed, ComponentId, CurrentState, Prefix } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { wsMockWithResolved } from '../../utils/MockHelpers'
+import { wsMockWithResolved } from '../../helpers/MockHelpers'
 import { post } from '../../../src/utils/Http'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')

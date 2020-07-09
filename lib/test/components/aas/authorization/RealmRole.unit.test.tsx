@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from '../../../../src/components/aas/context/AuthContext'
-import { mockAuth } from '../../../utils/MockHelpers'
+import { mockAuth } from '../../../helpers/MockHelpers'
 import { RealmRole } from '../../../../src/components'
 import { render } from '@testing-library/react'
 // DEOPSCSW-630 - Javascript adapter for AAS
