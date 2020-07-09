@@ -26,11 +26,11 @@ jobs:
 
       - name: Unit tests
         working-directory: ./lib
-        run: npm run test:unit:coverage
+        run: npm run test:unit:ci
 
       - name: Integration tests
         working-directory: ./lib
-        run: npm run test:integration
+        run: npm run test:integration:ci
 
       - name: Check Example App
         working-directory: ./example
@@ -42,6 +42,20 @@ jobs:
         run: sbt clean test
         env:
           CSW_VERSION: "50b46f322f" # Change before releasing (before tagging repo)
+
+      - name: Generate RTM
+        if: always()
+        continue-on-error: true
+        run: |
+          sh rtm.sh
+
+      - name: Upload RTM
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v1
+        with:
+          name: RTM
+          path: ./RTM
 
       - name: NPM Publish
         working-directory: ./lib

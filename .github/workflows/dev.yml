@@ -78,7 +78,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          ./lib/scripts/coursier launch --channel https://raw.githubusercontent.com/tmtsoftware/apps/master/apps.json rtm:97d880571f -- ./RTM/testStoryMapping.txt ./RTM/storyRequirementMapping.csv ./RTM/testRequirementsMapping.txt
+          sh rtm.sh
 
       - name: Upload RTM
         if: always()
