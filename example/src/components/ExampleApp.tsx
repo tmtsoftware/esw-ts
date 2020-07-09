@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 // #import-components-example
-import { CheckLogin, RealmRole, ClientRole, AuthContextProvider } from 'esw-ts'
+import { AuthContextProvider, CheckLogin, ClientRole, RealmRole } from 'esw-ts'
 // #import-components-example
 import NavComponent from './NavComponent'
 import { AppConfig } from '../config/AppConfig'
@@ -30,7 +30,7 @@ const ExampleApp = () => {
                   // #checkLogin-component-usage
                 )}
               />
-              <Route exact path='/config' render={(_) => <ConfigApp />} />
+              <Route exact path='/config' render={(_) => <ConfigApp/> }/>
               <Route
                 exact
                 path='/example_admin'

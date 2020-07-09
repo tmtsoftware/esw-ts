@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import IOOperationComponent from './IOOperationComponent'
-import { ConfigService } from 'esw-ts'
 import { download } from 'esw-ts'
+import { ConfigContext } from './context/ConfigContext'
 
-function GetConfig({ configService }: GetConfigProps) {
+function GetConfig() {
+  const configService = useContext(ConfigContext)
+
   const getConfig = async (input: string) => {
     download(await configService.getLatest(input), input)
   }
@@ -18,10 +20,6 @@ function GetConfig({ configService }: GetConfigProps) {
       api={getConfig}
     />
   )
-}
-
-interface GetConfigProps {
-  configService: ConfigService
 }
 
 export default GetConfig

@@ -1,10 +1,12 @@
-import React, { useState, useContext, ChangeEvent } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
-import { ConfigService } from 'esw-ts'
+import { ConfigContext } from './context/ConfigContext'
 
-export function CreateConfig({ configService }: CreateConfigProps) {
+export function CreateConfig() {
   const [response, setResponse] = useState('')
   const [fileContent, setFileContent] = useState<string>('')
+
+  const configService = useContext(ConfigContext)
 
   const createConfig = async (input: string) => {
     const config = await configService.create(input, new Blob([fileContent]), false, "Sample commit message" )
@@ -36,10 +38,6 @@ export function CreateConfig({ configService }: CreateConfigProps) {
       </div>
     </div>
   )
-}
-
-interface CreateConfigProps {
-  configService: ConfigService
 }
 
 export default CreateConfig

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
-import { ConfigService } from 'esw-ts'
+import { ConfigContext } from './context/ConfigContext'
 
-function ListConfig({ configService }: ListConfigProps) {
+function ListConfig() {
   const [response, setResponse] = useState('')
-
+  const configService = useContext(ConfigContext)
   const listConfig = async () => {
     const list = await configService.list()
     setResponse(JSON.stringify(list))
@@ -20,8 +20,5 @@ function ListConfig({ configService }: ListConfigProps) {
       api={listConfig}
     />
   )
-}
-interface ListConfigProps {
-  configService: ConfigService
 }
 export default ListConfig
