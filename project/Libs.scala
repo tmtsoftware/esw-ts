@@ -5,10 +5,12 @@ import sbt._
 object Libs {
   val ScalaVersion = "2.13.2"
 
-  val `scalatest`         = "org.scalatest"                            %% "scalatest"         % "3.0.8" //Apache License 2.0
+  val `scalaTest`         = "org.scalatest"                            %% "scalatest"         % "3.0.8" //Apache License 2.0
   val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "3.141.59"
   val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "9374d69"
-  val `webdrivermanager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "4.0.0"
+  val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "4.0.0"
+  val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"               % "97d880571f"
+  val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-3-141"    % "3.2.0.0"
 }
 
 object CSW {

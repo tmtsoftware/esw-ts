@@ -39,7 +39,7 @@ jobs:
           npm run build
 
       - name: Selenium Test
-        run: sbt clean test
+        run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM clean test
         env:
           CSW_VERSION: "50b46f322f" # Change before releasing (before tagging repo)
 

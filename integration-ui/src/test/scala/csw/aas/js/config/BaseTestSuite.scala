@@ -2,15 +2,17 @@ package csw.aas.js.config
 
 import csw.aas.js.config.Utils.await
 import org.scalatest.concurrent.Eventually
+import org.scalatest.funsuite.AnyFunSuiteLike
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.SpanSugar.convertFloatToGrainOfTime
-import org.scalatest.{BeforeAndAfterAll, FunSuiteLike, Matchers}
+import org.scalatest.{BeforeAndAfterAll}
 import org.tmt.embedded_keycloak.impl.StopHandle
 
 trait BaseTestSuite
     extends JsConfigServer
     with CswSetup
     with Chrome
-    with FunSuiteLike
+    with AnyFunSuiteLike
     with BeforeAndAfterAll
     with Matchers
     with Eventually {

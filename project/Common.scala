@@ -11,6 +11,11 @@ object Common extends AutoPlugin {
 
   val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
 
+  private val storyReport: Boolean = sys.props.get("generateStoryReport").contains("true")
+  private val reporterOptions: Seq[Tests.Argument] =
+    if (storyReport) Seq(Tests.Argument(TestFrameworks.ScalaTest, "-oDF", "-C", "tmt.test.reporter.TestReporter"))
+    else Seq(Tests.Argument("-oDF"))
+
   override lazy val projectSettings: Seq[Setting[_]] = Seq(
     organization := "com.github.tmtsoftware.esw-ts",
     organizationName := "TMT Org",
@@ -18,7 +23,8 @@ object Common extends AutoPlugin {
     concurrentRestrictions in Global += Tags.limit(Tags.All, 1),
     homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
     resolvers ++= Seq(
-      "jitpack" at "https://jitpack.io"
+      "jitpack" at "https://jitpack.io",
+      "bintray" at "https://jcenter.bintray.com"
     ),
     scmInfo := Some(
       ScmInfo(url("https://github.com/tmtsoftware/esw-ts"), "git@github.com:tmtsoftware/esw-ts.git")
@@ -46,7 +52,8 @@ object Common extends AutoPlugin {
     detectCycles := true,
     autoCompilerPlugins := true,
     cancelable in Global := true, // allow ongoing test(or any task) to cancel with ctrl + c and still remain inside sbt
-    if (formatOnCompile) scalafmtOnCompile := true else scalafmtOnCompile := false
+    if (formatOnCompile) scalafmtOnCompile := true else scalafmtOnCompile := false,
+    testOptions in Test ++= reporterOptions
   )
 
   private def formatOnCompile =
