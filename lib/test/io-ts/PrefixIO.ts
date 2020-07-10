@@ -41,5 +41,3 @@ export const PrefixIO: t.Type<Prefix, string> = new t.Type(
   decodePrefix,
   encodePrefix
 )
-
-export type PrefixIO = t.TypeOf<typeof PrefixIO>
