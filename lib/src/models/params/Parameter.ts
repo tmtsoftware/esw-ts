@@ -1,5 +1,5 @@
-import { Units } from './Units'
 import { Key, KeyTag, KeyType } from './Key'
+import { Units } from './Units'
 
 export class Parameter<T extends Key> {
   constructor(
