@@ -10,7 +10,7 @@ import path from 'path'
  * append=true/false
  * output=relative-path-to-output-file
  * example usage :
- * > jest unit --reporters=./test/testReporter.js -- append=true output=./output.txt
+ * > jest unit --reporters=./dist/test/helpers/testReporter.js -- append=true output=./output.txt
  */
 type CustomReporter = Pick<BaseReporter, 'onTestResult'> & Pick<BaseReporter, 'onRunComplete'>
 
@@ -30,7 +30,7 @@ const append = appendArg || false
 class TestReporter implements CustomReporter {
   private results: string[] = []
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async onTestResult(_test?: Test, testResult?: TestResult, _results?: AggregatedResult) {
+  async onTestResult(_test?: Test, testResult?: TestResult) {
     if (testResult) {
       testResult.testResults.forEach((test) => {
         const [name, storyIds] = test.fullName.split(PIPE)

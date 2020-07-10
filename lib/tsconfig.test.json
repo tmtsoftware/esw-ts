@@ -4,6 +4,6 @@
     "module": "CommonJS"
   },
   "include": [
-    "test/helpers/testReporter.ts"
+    "test/helpers/TestReporter.ts"
   ]
 }

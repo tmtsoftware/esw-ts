@@ -72,7 +72,7 @@ jobs:
           npm run build
 
       - name: Selenium Test
-        run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM clean test
+        run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=./testStoryMapping.txt clean test
 
       - name: Generate RTM
         if: always()
