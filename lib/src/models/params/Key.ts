@@ -9,7 +9,7 @@ import {
   RaDec,
   SolarSystemCoord
 } from './Coord'
-import { Parameter } from './Parameter'
+import { Struct } from './Struct'
 import { Units } from './Units'
 
 export type KeyType<T extends Key> = T['KeyType']
@@ -86,9 +86,6 @@ export type FloatMatrixKey = MatrixDataNumberKey<'FloatMatrixKey'>
 export type DoubleMatrixKey = MatrixDataNumberKey<'DoubleMatrixKey'>
 export type ByteMatrixKey = MatrixDataNumberKey<'ByteMatrixKey'>
 
-export interface Struct {
-  paramSet: Parameter<Key>[]
-}
 export type StructKey = RawKey<'StructKey', Struct>
 
 export type ChoiceKey = RawKey<'ChoiceKey', string>
