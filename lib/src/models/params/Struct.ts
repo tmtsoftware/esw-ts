@@ -1,6 +1,5 @@
 import * as t from 'io-ts'
-import { Key } from './Key'
-import { Parameter, ParamSetV } from './Parameter'
+import { Key, Parameter, ParamSetV } from './Parameter'
 
 export interface Struct {
   paramSet: Parameter<Key>[]

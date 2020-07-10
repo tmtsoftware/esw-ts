@@ -1,15 +1,14 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/function'
 import * as t from 'io-ts'
-import { IntArrayKey, IntKey, Key, KeyTag, KeyType, StringKey, StructKey } from './Key'
-import { StructV } from './Struct'
-import { Units, UnitsV } from './Units'
+import { Key, Keys, KeyTag } from './Key'
+import { Units } from './Units'
 
 export class Parameter<T extends Key> {
   constructor(
     readonly keyName: string,
-    readonly keyTag: KeyTag<T>,
-    readonly values: KeyType<T>[],
+    readonly keyTag: T['KeyTag'],
+    readonly values: T['KeyType'][],
     readonly units: Units
   ) {}
 
@@ -35,21 +34,14 @@ type ParameterJson<T extends Key> = {
 }
 type ParameterJsonResult<T extends Key> = E.Either<t.Errors, ParameterJson<T>>
 
-const ParamBodyDecoder = <T extends Key>(valuesDec: t.Type<T['KeyType'], unknown>) =>
-  t.type({
-    keyName: t.string,
-    values: t.array(valuesDec),
-    units: UnitsV
-  })
-
-const decodeKeyTag = (record: Record<string, unknown>) => KeyTagV.decode(Object.keys(record)[0])
+const decodeKeyTag = (record: Record<string, unknown>) => KeyTag.decode(Object.keys(record)[0])
 
 const decodeParamBody = <T extends Key>(
-  keyTag: KeyTagT,
+  keyTag: KeyTag,
   record: Record<string, unknown>
-): ParameterJsonResult<T> => ParamDecodersMap[keyTag].decode(record[keyTag])
+): ParameterJsonResult<T> => Keys[keyTag].props.paramDecoder.decode(record[keyTag])
 
-const toParameter = <T extends Key>(keyTag: KeyTagT, rawParam: ParameterJson<T>) =>
+const toParameter = <T extends Key>(keyTag: KeyTag, rawParam: ParameterJson<T>) =>
   new Parameter(rawParam.keyName, keyTag, rawParam.values, rawParam.units)
 
 const decodeParameter = <T extends Key>(input: unknown): t.Validation<Parameter<T>> =>
@@ -67,16 +59,6 @@ const decodeParameter = <T extends Key>(input: unknown): t.Validation<Parameter<
       )
     )
   )
-
-const ParamDecodersMap = {
-  IntKey: ParamBodyDecoder<IntKey>(t.number),
-  StringKey: ParamBodyDecoder<StringKey>(t.string),
-  IntArrayKey: ParamBodyDecoder<IntArrayKey>(t.array(t.number)),
-  StructKey: ParamBodyDecoder<StructKey>(StructV)
-}
-
-const KeyTagV = t.keyof(ParamDecodersMap)
-type KeyTagT = t.TypeOf<typeof KeyTagV>
 
 export const ParameterV: t.Type<Parameter<Key>, unknown> = new t.Type(
   'Parameter',
