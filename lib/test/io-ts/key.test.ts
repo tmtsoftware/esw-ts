@@ -25,37 +25,32 @@ const ParamsDecFactory = <T extends Key>(kt: T['KeyTag'], valuesDec: D.Decoder<T
     })
   })
 
+const ParameterDecoder: D.Decoder<Parameter<Key>> = {
+  decode: (input: unknown) =>
+    pipe(
+      ParamsDecoder.decode(input),
+      E.chain((result) => {
+        return pipe(
+          KeyTagDecoder.decode(Object.keys(result)[0]),
+          E.map((keyTag) => {
+            const { keyName, values, units } = result[keyTag]
+            return new Parameter(keyName, keyTag, values, units)
+          })
+        )
+      })
+    )
+}
+
 const IntParamDec = ParamsDecFactory('IntKey', D.number)
 const IntArrayKeyParamDec = ParamsDecFactory('IntArrayKey', D.array(D.number))
 const StringParamDec = ParamsDecFactory('StringKey', D.string)
 
-const parseParameter0 = (input: unknown) =>
-  pipe(
-    ParamsDecoder.decode(input),
-    E.chain((result) => {
-      const kt = Object.keys(result)[0]
-      const final = pipe(
-        KeyTagDecoder.decode(kt),
-        E.map((kt) => {
-          const { keyName, values, units } = result[kt]
-          return new Parameter(keyName, kt, values, units)
-        })
-      )
-      return final
-    })
-  )
-
-const parseParameter = (input: unknown) => get(parseParameter0(input))
-
-const ParameterDecoder: D.Decoder<Parameter<Key>> = {
-  decode: parseParameter0
-}
-
 const StructDecoder: D.Decoder<Struct> = D.type({ paramSet: D.array(ParameterDecoder) })
-const StructKeyDecoder = ParamsDecFactory('StructKey', StructDecoder)
+const StructParamDecoder = ParamsDecFactory('StructKey', StructDecoder)
 
-const ParamsDecoder = D.union(IntParamDec, StringParamDec, IntArrayKeyParamDec, StructKeyDecoder)
+const ParamsDecoder = D.union(IntParamDec, StringParamDec, IntArrayKeyParamDec, StructParamDecoder)
 
+const parseParameter = (input: unknown) => get(ParameterDecoder.decode(input))
 const ParamSetDec = D.type({ paramSet: D.array(ParamsDecoder) })
 const parseParamSet = (input: unknown) => {
   const rawParamSet = get(ParamSetDec.decode(input)).paramSet
