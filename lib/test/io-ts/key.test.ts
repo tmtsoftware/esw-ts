@@ -1,16 +1,4 @@
-import * as E from 'fp-ts/lib/Either'
-import { DecodeError } from 'io-ts/lib/DecodeError'
-import * as D from 'io-ts/lib/Decoder'
-import { FreeSemigroup } from 'io-ts/lib/FreeSemigroup'
-import { ParameterV, ParamSetV } from '../../src/models'
-import { ParameterDecoder, ParamSetDec } from './Decoder'
-
-type ErrorD = FreeSemigroup<DecodeError<string>>
-
-const get = <A>(result: E.Either<ErrorD, A>): A =>
-  E.getOrElse<ErrorD, A>((err) => {
-    throw Error('Error: ' + D.draw(err))
-  })(result)
+import { ParameterV, Struct } from '../../src/models'
 
 describe('io-ts', () => {
   test('Parameter', () => {
@@ -23,7 +11,7 @@ describe('io-ts', () => {
       }
     }
 
-    const intArrayRaw: unknown = {
+    const intArrayParam: unknown = {
       IntArrayKey: {
         keyName: 'epoch',
         values: [
@@ -34,9 +22,8 @@ describe('io-ts', () => {
       }
     }
 
-    console.log(get(ParameterDecoder.decode(intParam)))
-    console.log(get(ParameterDecoder.decode(intArrayRaw)))
     console.log(ParameterV.decode(intParam))
+    console.log(ParameterV.decode(intArrayParam))
   })
 
   test('ParamSet', () => {
@@ -63,8 +50,7 @@ describe('io-ts', () => {
       ]
     }
 
-    console.log(get(ParamSetDec.decode(paramSet)))
-    console.log(ParamSetV.decode(paramSet))
+    console.log(Struct.decode(paramSet))
   })
 
   test('Struct', () => {
@@ -95,7 +81,6 @@ describe('io-ts', () => {
       }
     }
 
-    console.log(JSON.stringify(get(ParameterDecoder.decode(raw))))
     console.log(JSON.stringify(ParameterV.decode(raw)))
   })
 })
