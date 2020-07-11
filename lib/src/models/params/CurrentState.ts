@@ -1,8 +1,12 @@
-import { Parameter } from './Parameter'
+import * as t from 'io-ts'
+import { ParameterV } from './Parameter'
 
-export interface CurrentState {
-  readonly prefix: string
-  readonly stateName: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly paramSet?: Parameter<any>[]
-}
+// todo: scala has state variable ADT (CurrentState | DemandState)
+// _type: "CurrentState" prop present in json coming from scala
+export const CurrentState = t.type({
+  prefix: t.string,
+  stateName: t.string,
+  paramSet: t.array(ParameterV)
+})
+
+export type CurrentState = t.TypeOf<typeof CurrentState>
