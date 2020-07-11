@@ -14,10 +14,13 @@ const ParamBodyDecoder = <T>(valuesDec: t.Type<T, unknown>) =>
 
 const RawKey = <KType extends t.Mixed>(kType: KType) => <KTag extends string>(kTag: KTag) =>
   t.type({
-    KeyTag: t.literal(kTag),
-    KeyType: kType,
+    keyTag: t.literal(kTag),
+    keyType: kType,
     paramDecoder: ParamBodyDecoder(kType)
   })
+
+export type KTag<T extends Key> = T['keyTag']
+export type KType<T extends Key> = T['keyType']
 
 const NumberKey = RawKey(t.number)
 export const IntKey = NumberKey('IntKey')
@@ -175,7 +178,7 @@ export const Keys = {
 export const KeyTag = t.keyof(Keys)
 export type KeyTag = t.TypeOf<typeof KeyTag>
 
-const keyFactory = <KType extends Key>(keyTag: KType['KeyTag'], defaultUnit: Units = 'NoUnits') => (
+const keyFactory = <KType extends Key>(keyTag: KType['keyTag'], defaultUnit: Units = 'NoUnits') => (
   name: string,
   units: Units = defaultUnit
 ) => new BaseKey<KType>(name, keyTag, units)

@@ -1,14 +1,14 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/function'
 import * as t from 'io-ts'
-import { Key, Keys, KeyTag } from './Key'
+import { Key, Keys, KeyTag, KTag, KType } from './Key'
 import { Units } from './Units'
 
 export class Parameter<T extends Key> {
   constructor(
     readonly keyName: string,
-    readonly keyTag: T['KeyTag'],
-    readonly values: T['KeyType'][],
+    readonly keyTag: KTag<T>,
+    readonly values: KType<T>[],
     readonly units: Units
   ) {}
 
@@ -29,7 +29,7 @@ const isParameter = (input: unknown): input is Parameter<Key> => input instanceo
 
 type ParameterJson<T extends Key> = {
   keyName: string
-  values: T['KeyType'][]
+  values: KType<T>[]
   units: Units
 }
 type ParameterJsonResult<T extends Key> = E.Either<t.Errors, ParameterJson<T>>
