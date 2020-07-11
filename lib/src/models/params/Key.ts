@@ -1,6 +1,7 @@
 import * as t from 'io-ts'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
+import * as C from './Coord'
 import { Struct } from './Struct'
 import { Units } from './Units'
 
@@ -56,46 +57,50 @@ export const ByteMatrixKey = MatrixDataNumberKey('ByteMatrixKey')
 export const StructKey = RawKey(Struct)('StructKey')
 
 export const ChoiceKey = RawKey(t.string)('ChoiceKey')
-// export const RaDecKey = RawKey(RaDec)('RaDecKey')
-// export const EqCoordKey = RawKey(EqCoord)('EqCoordKey')
-// export const SolarSystemCoordKey = RawKey(SolarSystemCoord)('SolarSystemCoordKey')
-// export const MinorPlanetCoordKey = RawKey(MinorPlanetCoord)('MinorPlanetCoordKey')
-// export const CometCoordKey = RawKey(CometCoord)('CometCoordKey')
-// export const AltAzCoordKey = RawKey(AltAzCoord)('AltAzCoordKey')
-// export const CoordKey = RawKey(Coord)('CoordKey')
 
-export type IntKey = Omit<t.TypeOf<typeof IntKey>, 'paramDecoder'>
-export type LongKey = Omit<t.TypeOf<typeof LongKey>, 'paramDecoder'>
-export type ShortKey = Omit<t.TypeOf<typeof ShortKey>, 'paramDecoder'>
-export type FloatKey = Omit<t.TypeOf<typeof FloatKey>, 'paramDecoder'>
-export type DoubleKey = Omit<t.TypeOf<typeof DoubleKey>, 'paramDecoder'>
-export type ByteKey = Omit<t.TypeOf<typeof ByteKey>, 'paramDecoder'>
-export type StringKey = Omit<t.TypeOf<typeof StringKey>, 'paramDecoder'>
-export type CharKey = Omit<t.TypeOf<typeof CharKey>, 'paramDecoder'>
-export type StructKey = Omit<t.TypeOf<typeof StructKey>, 'paramDecoder'>
-export type ChoiceKey = Omit<t.TypeOf<typeof ChoiceKey>, 'paramDecoder'>
-export type IntMatrixKey = Omit<t.TypeOf<typeof IntMatrixKey>, 'paramDecoder'>
-export type ByteMatrixKey = Omit<t.TypeOf<typeof ByteMatrixKey>, 'paramDecoder'>
-export type LongMatrixKey = Omit<t.TypeOf<typeof LongMatrixKey>, 'paramDecoder'>
-export type ShortMatrixKey = Omit<t.TypeOf<typeof ShortMatrixKey>, 'paramDecoder'>
-export type FloatMatrixKey = Omit<t.TypeOf<typeof FloatMatrixKey>, 'paramDecoder'>
-export type DoubleMatrixKey = Omit<t.TypeOf<typeof DoubleMatrixKey>, 'paramDecoder'>
-export type IntArrayKey = Omit<t.TypeOf<typeof IntArrayKey>, 'paramDecoder'>
-export type ByteArrayKey = Omit<t.TypeOf<typeof ByteArrayKey>, 'paramDecoder'>
-export type LongArrayKey = Omit<t.TypeOf<typeof LongArrayKey>, 'paramDecoder'>
-export type ShortArrayKey = Omit<t.TypeOf<typeof ShortArrayKey>, 'paramDecoder'>
-export type FloatArrayKey = Omit<t.TypeOf<typeof FloatArrayKey>, 'paramDecoder'>
-export type DoubleArrayKey = Omit<t.TypeOf<typeof DoubleArrayKey>, 'paramDecoder'>
-export type BooleanKey = Omit<t.TypeOf<typeof BooleanKey>, 'paramDecoder'>
-export type UTCTimeKey = Omit<t.TypeOf<typeof UTCTimeKey>, 'paramDecoder'>
-export type TAITimeKey = Omit<t.TypeOf<typeof TAITimeKey>, 'paramDecoder'>
-// RaDecKey,
-// EqCoordKey,
-// SolarSystemCoordKey,
-// MinorPlanetCoordKey,
-// CometCoordKey,
-// AltAzCoordKey,
-// CoordKey,
+// coord keys
+export const RaDecKey = RawKey(C.RaDec)('RaDecKey')
+export const EqCoordKey = RawKey(C.EqCoord)('EqCoordKey')
+export const SolarSystemCoordKey = RawKey(C.SolarSystemCoord)('SolarSystemCoordKey')
+export const MinorPlanetCoordKey = RawKey(C.MinorPlanetCoord)('MinorPlanetCoordKey')
+export const CometCoordKey = RawKey(C.CometCoord)('CometCoordKey')
+export const AltAzCoordKey = RawKey(C.AltAzCoord)('AltAzCoordKey')
+export const CoordKey = RawKey(C.Coord)('CoordKey')
+
+type OmitParamDecoder<T extends t.Any> = Omit<t.TypeOf<T>, 'paramDecoder'>
+
+export type IntKey = OmitParamDecoder<typeof IntKey>
+export type LongKey = OmitParamDecoder<typeof LongKey>
+export type ShortKey = OmitParamDecoder<typeof ShortKey>
+export type FloatKey = OmitParamDecoder<typeof FloatKey>
+export type DoubleKey = OmitParamDecoder<typeof DoubleKey>
+export type ByteKey = OmitParamDecoder<typeof ByteKey>
+export type StringKey = OmitParamDecoder<typeof StringKey>
+export type CharKey = OmitParamDecoder<typeof CharKey>
+export type StructKey = OmitParamDecoder<typeof StructKey>
+export type ChoiceKey = OmitParamDecoder<typeof ChoiceKey>
+export type IntMatrixKey = OmitParamDecoder<typeof IntMatrixKey>
+export type ByteMatrixKey = OmitParamDecoder<typeof ByteMatrixKey>
+export type LongMatrixKey = OmitParamDecoder<typeof LongMatrixKey>
+export type ShortMatrixKey = OmitParamDecoder<typeof ShortMatrixKey>
+export type FloatMatrixKey = OmitParamDecoder<typeof FloatMatrixKey>
+export type DoubleMatrixKey = OmitParamDecoder<typeof DoubleMatrixKey>
+export type IntArrayKey = OmitParamDecoder<typeof IntArrayKey>
+export type ByteArrayKey = OmitParamDecoder<typeof ByteArrayKey>
+export type LongArrayKey = OmitParamDecoder<typeof LongArrayKey>
+export type ShortArrayKey = OmitParamDecoder<typeof ShortArrayKey>
+export type FloatArrayKey = OmitParamDecoder<typeof FloatArrayKey>
+export type DoubleArrayKey = OmitParamDecoder<typeof DoubleArrayKey>
+export type BooleanKey = OmitParamDecoder<typeof BooleanKey>
+export type UTCTimeKey = OmitParamDecoder<typeof UTCTimeKey>
+export type TAITimeKey = OmitParamDecoder<typeof TAITimeKey>
+export type RaDecKey = OmitParamDecoder<typeof RaDecKey>
+export type EqCoordKey = OmitParamDecoder<typeof EqCoordKey>
+export type SolarSystemCoordKey = OmitParamDecoder<typeof SolarSystemCoordKey>
+export type MinorPlanetCoordKey = OmitParamDecoder<typeof MinorPlanetCoordKey>
+export type CometCoordKey = OmitParamDecoder<typeof CometCoordKey>
+export type AltAzCoordKey = OmitParamDecoder<typeof AltAzCoordKey>
+export type CoordKey = OmitParamDecoder<typeof CoordKey>
 
 export type Key =
   | IntKey
@@ -123,6 +128,14 @@ export type Key =
   | BooleanKey
   | UTCTimeKey
   | TAITimeKey
+  | TAITimeKey
+  | RaDecKey
+  | EqCoordKey
+  | SolarSystemCoordKey
+  | MinorPlanetCoordKey
+  | CometCoordKey
+  | AltAzCoordKey
+  | CoordKey
 
 export const Keys = {
   IntKey: IntKey,
@@ -149,15 +162,16 @@ export const Keys = {
   DoubleMatrixKey: DoubleMatrixKey,
   ByteMatrixKey: ByteMatrixKey,
   StructKey: StructKey,
-  ChoiceKey: ChoiceKey
-  // RaDecKey: RaDecKey,
-  // EqCoordKey: EqCoordKey,
-  // SolarSystemCoordKey: SolarSystemCoordKey,
-  // MinorPlanetCoordKey: MinorPlanetCoordKey,
-  // CometCoordKey: CometCoordKey,
-  // AltAzCoordKey: AltAzCoordKey,
-  // CoordKey: CoordKey
+  ChoiceKey: ChoiceKey,
+  RaDecKey: RaDecKey,
+  EqCoordKey: EqCoordKey,
+  SolarSystemCoordKey: SolarSystemCoordKey,
+  MinorPlanetCoordKey: MinorPlanetCoordKey,
+  CometCoordKey: CometCoordKey,
+  AltAzCoordKey: AltAzCoordKey,
+  CoordKey: CoordKey
 }
+
 export const KeyTag = t.keyof(Keys)
 export type KeyTag = t.TypeOf<typeof KeyTag>
 
@@ -202,10 +216,10 @@ export const choiceKey = (name: string, units: Units = 'NoUnits') =>
   new ChoiceKeyFactory<ChoiceKey>(name, 'ChoiceKey', units)
 
 // co-ord keys
-// export const raDecKey = keyFactory<RaDecKey>('RaDecKey')
-// export const eqCoordKey = keyFactory<EqCoordKey>('EqCoordKey')
-// export const solarSystemCoordKey = keyFactory<SolarSystemCoordKey>('SolarSystemCoordKey')
-// export const minorPlanetCoordKey = keyFactory<MinorPlanetCoordKey>('MinorPlanetCoordKey')
-// export const cometCoordKey = keyFactory<CometCoordKey>('CometCoordKey')
-// export const altAzCoordKey = keyFactory<AltAzCoordKey>('AltAzCoordKey')
-// export const coordKey = keyFactory<CoordKey>('CoordKey')
+export const raDecKey = keyFactory<RaDecKey>('RaDecKey')
+export const eqCoordKey = keyFactory<EqCoordKey>('EqCoordKey')
+export const solarSystemCoordKey = keyFactory<SolarSystemCoordKey>('SolarSystemCoordKey')
+export const minorPlanetCoordKey = keyFactory<MinorPlanetCoordKey>('MinorPlanetCoordKey')
+export const cometCoordKey = keyFactory<CometCoordKey>('CometCoordKey')
+export const altAzCoordKey = keyFactory<AltAzCoordKey>('AltAzCoordKey')
+export const coordKey = keyFactory<CoordKey>('CoordKey')
