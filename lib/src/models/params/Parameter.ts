@@ -23,7 +23,7 @@ export class Parameter<T extends Key> {
   }
 }
 
-const encodeParameter = (parameter: Parameter<Key>) => JSON.stringify(parameter.toJSON())
+const encodeParameter = (parameter: Parameter<Key>) => parameter.toJSON()
 
 const isParameter = (input: unknown): input is Parameter<Key> => input instanceof Parameter
 
@@ -60,10 +60,7 @@ const decodeParameter = <T extends Key>(input: unknown): t.Validation<Parameter<
     )
   )
 
-export const ParameterV: t.Type<Parameter<Key>, unknown> = new t.Type(
-  'Parameter',
-  isParameter,
-  decodeParameter,
-  encodeParameter
+export const ParameterV: t.Type<Parameter<Key>, unknown> = t.recursion(
+  'Parameter<Key>',
+  () => new t.Type('Parameter', isParameter, decodeParameter, encodeParameter)
 )
-export const ParamSetV = t.type({ paramSet: t.array(ParameterV) })

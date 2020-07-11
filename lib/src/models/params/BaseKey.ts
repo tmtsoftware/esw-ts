@@ -1,4 +1,5 @@
-import { Key, Parameter } from './Parameter'
+import { Key } from './Key'
+import { Parameter } from './Parameter'
 import { Units } from './Units'
 
 export class BaseKey<T extends Key> {
