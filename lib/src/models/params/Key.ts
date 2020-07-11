@@ -12,7 +12,7 @@ const ParamBodyDecoder = <T>(valuesDec: t.Type<T, unknown>) =>
     units: Units
   })
 
-const RawKey = <KType extends t.Mixed>(kType: KType) => (kTag: string) =>
+const RawKey = <KType extends t.Mixed>(kType: KType) => <KTag extends string>(kTag: KTag) =>
   t.type({
     KeyTag: t.literal(kTag),
     KeyType: kType,
