@@ -1,4 +1,5 @@
-import { ParameterV, Struct } from '../../src/models'
+import { isRight } from 'fp-ts/lib/These'
+import { CurrentState, ParameterV, Struct } from '../../src/models'
 
 describe('io-ts', () => {
   test('Parameter', () => {
@@ -353,5 +354,46 @@ describe('io-ts', () => {
     }
 
     console.log(JSON.stringify(ParameterV.decode(raw)))
+  })
+
+  test('CurrentState', () => {
+    const currentState = {
+      _type: 'CurrentState',
+      prefix: 'WFOS.blue.filter',
+      stateName: 'testStateName',
+      paramSet: [
+        {
+          IntArrayKey: {
+            keyName: 'intArrayKey',
+            values: [
+              [1, 2, 3, 4, 5],
+              [10, 20, 30, 40, 50]
+            ],
+            units: 'meter'
+          }
+        },
+        {
+          UTCTimeKey: {
+            keyName: 'utcTimeKey',
+            values: ['1970-01-01T00:00:00Z', '2017-09-04T16:28:00.123456789Z'],
+            units: 'second'
+          }
+        }
+      ]
+    }
+
+    const cs = CurrentState.decode(currentState)
+    if (isRight(cs)) {
+      const ps = cs.right.paramSet
+      const ia = ps.find((p) => p.keyName == 'intArrayKey')
+      if (ia) {
+        expect(ia.values).toStrictEqual([
+          [1, 2, 3, 4, 5],
+          [10, 20, 30, 40, 50]
+        ])
+        console.log('----- MATCHED ------')
+      }
+    }
+    console.log(JSON.stringify(cs))
   })
 })
