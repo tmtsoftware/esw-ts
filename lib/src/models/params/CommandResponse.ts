@@ -1,70 +1,84 @@
-import { Key } from './Key'
-import { Parameter } from './Parameter'
+import * as t from 'io-ts'
+import { ParamSet } from './Parameter'
 
-interface CommandResponse {
-  readonly runId: string
-}
+export const IssueTypes = t.keyof({
+  AssemblyBusyIssue: null,
+  HCDBusyIssue: null,
+  IdNotAvailableIssue: null,
+  MissingKeyIssue: null,
+  OtherIssue: null,
+  ParameterValueOutOfRangeIssue: null,
+  RequiredAssemblyUnavailableIssue: null,
+  RequiredHCDUnavailableIssue: null,
+  RequiredSequencerUnavailableIssue: null,
+  RequiredServiceUnavailableIssue: null,
+  UnresolvedLocationsIssue: null,
+  UnsupportedCommandInStateIssue: null,
+  UnsupportedCommandIssue: null,
+  WrongInternalStateIssue: null,
+  WrongNumberOfParametersIssue: null,
+  WrongParameterTypeIssue: null,
+  WrongPrefixIssue: null,
+  WrongUnitsIssue: null
+})
 
-export interface Error extends CommandResponse {
-  readonly _type: 'Error'
-  readonly message: string
-}
+export const CommandIssue = t.type({
+  _type: IssueTypes,
+  reason: t.string
+})
 
-export interface Invalid extends CommandResponse {
-  readonly _type: 'Invalid'
-  readonly issue: CommandIssue
-}
+export const Error = t.type({
+  runId: t.string,
+  _type: t.literal('Error'),
+  message: t.string
+})
 
-export interface Locked extends CommandResponse {
-  readonly _type: 'Locked'
-}
+export const Invalid = t.type({
+  runId: t.string,
+  _type: t.literal('Invalid'),
+  issue: CommandIssue
+})
 
-export interface Started extends CommandResponse {
-  readonly _type: 'Started'
-}
+export const Locked = t.type({
+  runId: t.string,
+  _type: t.literal('Locked')
+})
 
-export interface Completed extends CommandResponse {
-  readonly _type: 'Completed'
-  readonly result?: { paramSet: Parameter<Key>[] }
-}
+export const Started = t.type({
+  runId: t.string,
+  _type: t.literal('Started')
+})
 
-export interface Cancelled extends CommandResponse {
-  readonly _type: 'Cancelled'
-}
+export const Completed = t.type({
+  runId: t.string,
+  _type: t.literal('Completed'),
+  result: ParamSet
+})
 
-export interface Accepted extends CommandResponse {
-  readonly _type: 'Accepted'
-}
+export const Cancelled = t.type({
+  runId: t.string,
+  _type: t.literal('Cancelled')
+})
 
-export type ValidateResponse = Accepted | Invalid | Locked
+export const Accepted = t.type({
+  runId: t.string,
+  _type: t.literal('Accepted')
+})
 
-export type SubmitResponse = Error | Invalid | Locked | Started | Completed | Cancelled
+export const SubmitResponse = t.union([Error, Invalid, Locked, Started, Completed, Cancelled])
+export const CommandResponse = t.union([
+  Error,
+  Invalid,
+  Locked,
+  Started,
+  Completed,
+  Cancelled,
+  Accepted
+])
+export const ValidateResponse = t.union([Accepted, Invalid, Locked])
+export const OneWayResponse = t.union([Accepted, Invalid, Locked])
 
-export type OneWayResponse = Accepted | Invalid | Locked
-
-type IssueTypes =
-  | 'AssemblyBusyIssue'
-  | 'HCDBusyIssue'
-  | 'IdNotAvailableIssue'
-  | 'MissingKeyIssue'
-  | 'OtherIssue'
-  | 'ParameterValueOutOfRangeIssue'
-  | 'RequiredAssemblyUnavailableIssue'
-  | 'RequiredHCDUnavailableIssue'
-  | 'RequiredSequencerUnavailableIssue'
-  | 'RequiredServiceUnavailableIssue'
-  | 'UnresolvedLocationsIssue'
-  | 'UnsupportedCommandInStateIssue'
-  | 'UnsupportedCommandIssue'
-  | 'WrongInternalStateIssue'
-  | 'WrongNumberOfParametersIssue'
-  | 'WrongParameterTypeIssue'
-  | 'WrongPrefixIssue'
-  | 'WrongUnitsIssue'
-
-export interface CommandIssue {
-  readonly _type: IssueTypes
-  readonly reason: string
-}
-
-export type CommandServiceResponses = SubmitResponse | OneWayResponse | ValidateResponse
+export type SubmitResponse = t.TypeOf<typeof SubmitResponse>
+export type CommandResponse = t.TypeOf<typeof CommandResponse>
+export type ValidateResponse = t.TypeOf<typeof ValidateResponse>
+export type OneWayResponse = t.TypeOf<typeof OneWayResponse>
