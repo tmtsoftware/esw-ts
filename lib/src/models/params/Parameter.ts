@@ -23,37 +23,24 @@ export class Parameter<T extends Key> {
   }
 }
 
-const encodeParameter = (parameter: Parameter<Key>) => parameter.toJSON()
-
-const isParameter = (input: unknown): input is Parameter<Key> => input instanceof Parameter
-
-type ParameterJson<T extends Key> = {
-  keyName: string
-  values: KType<T>[]
-  units: Units
+const isParameter = <T extends Key>(input: unknown): input is Parameter<T> => {
+  if (t.UnknownRecord.is(input)) {
+    const keyTag = Object.keys(input)[0]
+    if (KeyTag.is(keyTag)) return Keys[keyTag].props.paramDecoder.is(input[keyTag])
+  }
+  return false
 }
-type ParameterJsonResult<T extends Key> = E.Either<t.Errors, ParameterJson<T>>
-
-const decodeKeyTag = (record: Record<string, unknown>) => KeyTag.decode(Object.keys(record)[0])
-
-const decodeParamBody = <T extends Key>(
-  keyTag: KeyTag,
-  record: Record<string, unknown>
-): ParameterJsonResult<T> => Keys[keyTag].props.paramDecoder.decode(record[keyTag])
-
-const toParameter = <T extends Key>(keyTag: KeyTag, rawParam: ParameterJson<T>) =>
-  new Parameter(rawParam.keyName, keyTag, rawParam.values, rawParam.units)
 
 const decodeParameter = <T extends Key>(input: unknown): t.Validation<Parameter<T>> =>
   pipe(
     t.UnknownRecord.decode(input),
     E.chain((record) =>
       pipe(
-        decodeKeyTag(record),
+        KeyTag.decode(Object.keys(record)[0]),
         E.chain((keyTag) =>
           pipe(
-            decodeParamBody<T>(keyTag, record),
-            E.map((body) => toParameter<T>(keyTag, body))
+            Keys[keyTag].props.paramDecoder.decode(record[keyTag]),
+            E.map((body) => new Parameter(body.keyName, keyTag, body.values, body.units))
           )
         )
       )
@@ -62,5 +49,7 @@ const decodeParameter = <T extends Key>(input: unknown): t.Validation<Parameter<
 
 export const ParameterV: t.Type<Parameter<Key>, unknown> = t.recursion(
   'Parameter<Key>',
-  () => new t.Type('Parameter', isParameter, decodeParameter, encodeParameter)
+  () => new t.Type('Parameter', isParameter, decodeParameter, (param) => param.toJSON())
 )
+
+export const ParamSet = t.type({ paramSet: t.array(ParameterV) })
