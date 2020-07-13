@@ -11,8 +11,8 @@ import { wsMockWithResolved } from '../../helpers/MockHelpers'
 let mockServer: Server
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
-const httpConnection = new HttpConnection(prefix, 'Sequencer')
-const httpLocation: HttpLocation = new HttpLocation(httpConnection, uri)
+const httpConnection = HttpConnection(prefix, 'Sequencer')
+const httpLocation: HttpLocation = { _type: 'HttpLocation', connection: httpConnection, uri }
 
 const locationService = new LocationService()
 

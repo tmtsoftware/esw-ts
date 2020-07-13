@@ -71,10 +71,11 @@ describe('Auth', () => {
 
   test('fetch AAS url | ESW-330', async () => {
     const mockedResolve = mocked(resolve, true)
-    const authLocation = new HttpLocation(
-      new HttpConnection(new Prefix('CSW', 'AAS'), 'Service'),
-      'http://localhost:8081/auth'
-    )
+    const authLocation: HttpLocation = {
+      _type: 'HttpLocation',
+      connection: HttpConnection(new Prefix('CSW', 'AAS'), 'Service'),
+      uri: 'http://localhost:8081/auth'
+    }
     mockedResolve.mockResolvedValueOnce(authLocation)
     // mockedResolve.mockRejectedValueOnce(Error('aas not found'))
     const uri = await TMTAuth.getAASUrl()

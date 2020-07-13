@@ -4,7 +4,7 @@ import { Prefix } from '../../models'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 
-export const GatewayConnection = new HttpConnection(
+export const GatewayConnection = HttpConnection(
   new Prefix(GatewayConfig.subsystem, GatewayConfig.componentName),
   GatewayConfig.componentType
 )

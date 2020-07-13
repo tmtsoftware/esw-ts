@@ -16,7 +16,7 @@ jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'
-const gatewayLocation = new HttpLocation(GatewayConnection, uri)
+const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:8080/websocket-endpoint')

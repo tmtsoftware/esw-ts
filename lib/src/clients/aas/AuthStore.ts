@@ -77,7 +77,7 @@ class AuthStore {
    * @return url string which is AAS server url
    */
   public async getAASUrl(): Promise<string> {
-    const authConnection = new HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
+    const authConnection = HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
     const location = await resolve(authConnection)
 
     return location.uri

@@ -1,22 +1,22 @@
-import { AkkaConnection, Connection, HttpConnection, TcpConnection } from './Connection'
+import * as t from 'io-ts'
+import { AkkaConnectionV, HttpConnectionV, TcpConnectionV } from './Connection'
 
-export interface Location {
-  readonly _type: 'AkkaLocation' | 'HttpLocation' | 'TcpLocation'
-  readonly connection: Connection
-  readonly uri: string
-}
+type LocationType = 'AkkaLocation' | 'HttpLocation' | 'TcpLocation'
 
-export class AkkaLocation implements Location {
-  readonly _type = 'AkkaLocation'
-  constructor(readonly connection: AkkaConnection, readonly uri: string) {}
-}
+const locationT = <L extends LocationType, T extends t.Mixed>(locationType: L, connection: T) =>
+  t.type({
+    _type: t.literal(locationType),
+    connection: connection,
+    uri: t.string
+  })
 
-export class HttpLocation implements Location {
-  readonly _type = 'HttpLocation'
-  constructor(readonly connection: HttpConnection, readonly uri: string) {}
-}
+const AkkaLocation = locationT('AkkaLocation', AkkaConnectionV)
+const HttpLocation = locationT('HttpLocation', HttpConnectionV)
+const TcpLocation = locationT('TcpLocation', TcpConnectionV)
 
-export class TcpLocation implements Location {
-  readonly _type = 'TcpLocation'
-  constructor(readonly connection: TcpConnection, readonly uri: string) {}
-}
+export type AkkaLocation = t.TypeOf<typeof AkkaLocation>
+export type HttpLocation = t.TypeOf<typeof HttpLocation>
+export type TcpLocation = t.TypeOf<typeof TcpLocation>
+
+export const Location = t.union([AkkaLocation, HttpLocation, TcpLocation])
+export type Location = t.TypeOf<typeof Location>
