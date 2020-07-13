@@ -15,8 +15,9 @@ import { post } from '../../../src/utils/Http'
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService(componentId, () => '')
 
-const setupCommand = new Setup('ESW.test', 'command-1', [])
-const waitCommand = new Wait('ESW.test', 'command-1', [])
+const eswTestPrefix = Prefix.fromString('ESW.test')
+const setupCommand = new Setup(eswTestPrefix, 'command-1', [])
+const waitCommand = new Wait(eswTestPrefix, 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 

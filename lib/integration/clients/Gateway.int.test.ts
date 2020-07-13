@@ -10,6 +10,7 @@ jest.setTimeout(90000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
+const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
@@ -33,14 +34,14 @@ describe('Command Client', () => {
     )
 
     const commandService = new CommandService(componentId, () => validToken)
-    const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
     const actualResponse = await commandService.oneway(setupCommand)
     expect(actualResponse._type).toEqual('Accepted')
   })
 
   test('should get unauthorized error on sending invalid token | ESW-305', async () => {
     const commandService = new CommandService(componentId, () => '')
-    const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Unauthorized'))
   })
@@ -54,7 +55,7 @@ describe('Command Client', () => {
     )
 
     const commandService = new CommandService(componentId, () => tokenWithoutRole)
-    const setupCommand = new Setup('CSW.testHcd', 'c1', [], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Forbidden'))
   })

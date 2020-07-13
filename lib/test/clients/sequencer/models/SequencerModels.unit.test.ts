@@ -1,8 +1,8 @@
 import * as Sequencer from '../../../../src/clients/sequencer/models/PostCommand'
 import * as TestData from '../../../jsons/sequencerModels.json'
-import { SequenceCommand, Setup } from '../../../../src/models'
+import { Prefix, SequenceCommand, Setup } from '../../../../src/models'
 
-const setupCommand = new Setup('ESW.test', 'command-1', [])
+const setupCommand = new Setup(Prefix.fromString('ESW.test'), 'command-1', [])
 const sequence: SequenceCommand[] = [setupCommand]
 const commands: SequenceCommand[] = [setupCommand]
 const id = 'id-1234'
@@ -31,5 +31,7 @@ describe('Sequencer Models Contract', () => {
     ['Stop', new Sequencer.Stop(), TestData.Stop],
     ['OperationsMode', new Sequencer.OperationsMode(), TestData.OperationsMode],
     ['DiagnosticMode', new Sequencer.DiagnosticMode(date, 'start'), TestData.DiagnosticMode]
-  ])('%s | ESW-307', (_, actual, expected) => expect(actual).toEqual(expected))
+  ])('%s | ESW-307', (_, actual, expected) =>
+    expect(JSON.parse(JSON.stringify(actual))).toEqual(expected)
+  )
 })

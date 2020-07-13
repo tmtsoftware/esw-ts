@@ -14,8 +14,9 @@ import { GatewayComponentCommand } from '../../../../src/clients/gateway/models/
 import { ComponentId, Observe, Prefix, Setup } from '../../../../src/models'
 import * as TestData from '../../../jsons/CommandRequests.json'
 
-const setupCommand = new Setup('CSW.ncc.trombone', 'move', [], ['obs001'])
-const observeCommand = new Observe('CSW.ncc.trombone', 'move', [], ['obs001'])
+const cswTrombonePrefix = Prefix.fromString('CSW.ncc.trombone')
+const setupCommand = new Setup(cswTrombonePrefix, 'move', [], ['obs001'])
+const observeCommand = new Observe(cswTrombonePrefix, 'move', [], ['obs001'])
 
 const observeSubmit: CommandServiceHttpMessage = new Submit(observeCommand)
 const setupOneway: CommandServiceHttpMessage = new Oneway(setupCommand)
