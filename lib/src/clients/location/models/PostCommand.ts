@@ -1,7 +1,6 @@
 import { Connection, ConnectionType } from './Connection'
-import { ComponentType, Prefix, PrefixV } from '../../../models'
+import { ComponentType, Prefix } from '../../../models'
 import { Duration } from './Duration'
-import { ConnectionEncoder } from './Encoder'
 
 export class ListEntries {
   readonly _type: 'ListEntries' = 'ListEntries'
@@ -25,36 +24,21 @@ export class ListByConnectionType {
 export class ListByPrefix {
   readonly _type: 'ListByPrefix' = 'ListByPrefix'
   constructor(readonly prefix: Prefix) {}
-
-  toJSON() {
-    return { _type: this._type, prefix: PrefixV.encode(this.prefix) }
-  }
 }
 
-export class Find extends ConnectionEncoder {
+export class Find {
   readonly _type: 'Find' = 'Find'
-  constructor(readonly connection: Connection) {
-    super()
-  }
+  constructor(readonly connection: Connection) {}
 }
 
-export class Unregister extends ConnectionEncoder {
+export class Unregister {
   readonly _type: 'Unregister' = 'Unregister'
-  constructor(readonly connection: Connection) {
-    super()
-  }
+  constructor(readonly connection: Connection) {}
 }
 
-export class Resolve extends ConnectionEncoder {
+export class Resolve {
   readonly _type: 'Resolve' = 'Resolve'
-  constructor(readonly connection: Connection, readonly within: Duration) {
-    super()
-  }
-
-  toJSON() {
-    const json = super.toJSON()
-    return { ...json, within: this.within }
-  }
+  constructor(readonly connection: Connection, readonly within: Duration) {}
 }
 
 export type LocationHttpMessage =

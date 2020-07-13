@@ -26,6 +26,10 @@ export class Prefix {
     validateComponentName(componentName)
     return new Prefix(parseSubsystemStr(sub), componentName)
   }
+
+  toJSON() {
+    return PrefixV.encode(this)
+  }
 }
 
 const decodePrefix = (input: unknown, context: t.Context): t.Validation<Prefix> =>
