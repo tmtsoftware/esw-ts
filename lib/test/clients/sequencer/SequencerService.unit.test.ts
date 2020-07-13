@@ -40,7 +40,8 @@ describe('SequencerService', () => {
   test('should start the sequence in given sequencer | ESW-307', async () => {
     const completedResponse: SubmitResponse = {
       _type: 'Completed',
-      runId: '1234124'
+      runId: '1234124',
+      result: { paramSet: [] }
     }
 
     postMockFn.mockResolvedValueOnce(completedResponse)

@@ -29,7 +29,8 @@ describe('CommandService', () => {
   test('should subscribe to current state using websocket | ESW-305', () => {
     const expectedState: CurrentState = {
       prefix: 'CSW.ncc.trombone',
-      stateName: 'stateName1'
+      stateName: 'stateName1',
+      paramSet: []
     }
 
     postMockFn.mockResolvedValueOnce([gatewayLocation])
