@@ -2,7 +2,7 @@ import { CommandService } from '../../../src/clients/command'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
 import { Server } from 'mock-socket'
-import { Completed, ComponentId, CurrentState, Prefix } from '../../../src/models'
+import { ComponentId, CurrentState, Prefix, SubmitResponse } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
 import { wsMockWithResolved } from '../../helpers/MockHelpers'
 import { post } from '../../../src/utils/Http'
@@ -48,7 +48,7 @@ describe('CommandService', () => {
   })
 
   test('should receive submit response on query final using websocket | ESW-305', async () => {
-    const completedResponse: Completed = {
+    const completedResponse: SubmitResponse = {
       _type: 'Completed',
       runId: '1234124',
       result: { paramSet: [] }

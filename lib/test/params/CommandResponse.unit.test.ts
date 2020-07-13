@@ -1,9 +1,8 @@
 import * as Responses from '../jsons/CommandResponses.json'
-import { Accepted, Cancelled, Completed, Error, Invalid, Locked, Started } from '../../src/models'
 
 describe('Submit response', () => {
   test('Error | ESW-305', () => {
-    const error: Error = {
+    const error = {
       _type: 'Error',
       runId: 'id-1234',
       message: 'Some reason'
@@ -13,7 +12,7 @@ describe('Submit response', () => {
   })
 
   test('Invalid | ESW-305', () => {
-    const invalid: Invalid = {
+    const invalid = {
       _type: 'Invalid',
       runId: 'id-1234',
       issue: {
@@ -26,7 +25,7 @@ describe('Submit response', () => {
   })
 
   test('Locked | ESW-305', () => {
-    const locked: Locked = {
+    const locked = {
       _type: 'Locked',
       runId: 'id-1234'
     }
@@ -35,7 +34,7 @@ describe('Submit response', () => {
   })
 
   test('Started | ESW-305', () => {
-    const started: Started = {
+    const started = {
       _type: 'Started',
       runId: 'id-1234'
     }
@@ -44,7 +43,7 @@ describe('Submit response', () => {
   })
 
   test('Completed | ESW-305', () => {
-    const completed: Completed = {
+    const completed = {
       _type: 'Completed',
       runId: 'id-1234',
       result: { paramSet: [] }
@@ -54,7 +53,7 @@ describe('Submit response', () => {
   })
 
   test('Cancelled | ESW-305', () => {
-    const cancelled: Cancelled = {
+    const cancelled = {
       _type: 'Cancelled',
       runId: 'id-1234'
     }
@@ -63,7 +62,7 @@ describe('Submit response', () => {
   })
 
   test('Accepted | ESW-305', () => {
-    const accepted: Accepted = {
+    const accepted = {
       _type: 'Accepted',
       runId: 'id-1234'
     }

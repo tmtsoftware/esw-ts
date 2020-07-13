@@ -1,7 +1,7 @@
 import * as t from 'io-ts'
 import { ParamSet } from './Parameter'
 
-export const IssueTypes = t.keyof({
+const IssueTypes = t.keyof({
   AssemblyBusyIssue: null,
   HCDBusyIssue: null,
   IdNotAvailableIssue: null,
@@ -22,24 +22,24 @@ export const IssueTypes = t.keyof({
   WrongUnitsIssue: null
 })
 
-export const CommandIssue = t.type({
+const CommandIssue = t.type({
   _type: IssueTypes,
   reason: t.string
 })
 
-export const Error = t.type({
+const Error = t.type({
   runId: t.string,
   _type: t.literal('Error'),
   message: t.string
 })
 
-export const Invalid = t.type({
+const Invalid = t.type({
   runId: t.string,
   _type: t.literal('Invalid'),
   issue: CommandIssue
 })
 
-export const Completed = t.type({
+const Completed = t.type({
   runId: t.string,
   _type: t.literal('Completed'),
   result: ParamSet
@@ -51,10 +51,10 @@ const commandRes = <T extends string>(type: T) =>
     runId: t.string
   })
 
-export const Locked = commandRes('Locked')
-export const Started = commandRes('Started')
-export const Cancelled = commandRes('Cancelled')
-export const Accepted = commandRes('Accepted')
+const Locked = commandRes('Locked')
+const Started = commandRes('Started')
+const Cancelled = commandRes('Cancelled')
+const Accepted = commandRes('Accepted')
 
 export const SubmitResponse = t.union([Error, Invalid, Locked, Started, Completed, Cancelled])
 export const CommandResponse = t.union([
@@ -68,14 +68,6 @@ export const CommandResponse = t.union([
 ])
 export const ValidateResponse = t.union([Accepted, Invalid, Locked])
 export const OneWayResponse = t.union([Accepted, Invalid, Locked])
-
-export type Started = t.TypeOf<typeof Started>
-export type Locked = t.TypeOf<typeof Locked>
-export type Cancelled = t.TypeOf<typeof Cancelled>
-export type Accepted = t.TypeOf<typeof Accepted>
-export type Completed = t.TypeOf<typeof Completed>
-export type Invalid = t.TypeOf<typeof Invalid>
-export type Error = t.TypeOf<typeof Error>
 
 export type SubmitResponse = t.TypeOf<typeof SubmitResponse>
 export type CommandResponse = t.TypeOf<typeof CommandResponse>
