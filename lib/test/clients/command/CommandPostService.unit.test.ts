@@ -2,7 +2,6 @@ import { CommandService } from '../../../src/clients/command'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
 import {
-  Completed,
   ComponentId,
   Observe,
   OneWayResponse,
@@ -74,7 +73,7 @@ describe('CommandService', () => {
   })
 
   test('should http query command | ESW-305', async () => {
-    const completedResponse: Completed = {
+    const completedResponse: SubmitResponse = {
       _type: 'Completed',
       runId: '1234124',
       result: { paramSet: [] }
