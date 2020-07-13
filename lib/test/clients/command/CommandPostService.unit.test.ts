@@ -21,6 +21,7 @@ const uri = 'http://localhost:8080'
 const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
+const eswTestPrefix = new Prefix('ESW', 'test')
 
 const client = new CommandService(compId, () => '')
 describe('CommandService', () => {
@@ -33,7 +34,7 @@ describe('CommandService', () => {
     postMockFn.mockResolvedValueOnce([gatewayLocation])
     postMockFn.mockResolvedValueOnce(acceptedResponse)
 
-    const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
+    const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
     const data: ValidateResponse = await client.validate(setupCommand)
 
     expect(postMockFn).toBeCalledTimes(2)
@@ -49,7 +50,7 @@ describe('CommandService', () => {
     postMockFn.mockResolvedValueOnce([gatewayLocation])
     postMockFn.mockResolvedValueOnce(startedResponse)
 
-    const setupCommand = new Setup('esw.test', 'c1', [], ['obsId'])
+    const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
     const data: SubmitResponse = await client.submit(setupCommand)
 
     expect(postMockFn).toBeCalledTimes(2)
@@ -65,7 +66,7 @@ describe('CommandService', () => {
     postMockFn.mockResolvedValueOnce([gatewayLocation])
     postMockFn.mockResolvedValueOnce(acceptedResponse)
 
-    const observeCommand = new Observe('esw.test', 'c1', [])
+    const observeCommand = new Observe(eswTestPrefix, 'c1', [])
     const data: OneWayResponse = await client.oneway(observeCommand)
 
     expect(postMockFn).toBeCalledTimes(2)

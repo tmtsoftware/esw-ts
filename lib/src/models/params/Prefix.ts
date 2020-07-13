@@ -20,7 +20,9 @@ export class Prefix {
   }
 
   static fromString = (prefixStr: string): Prefix => {
-    const [sub, componentName] = prefixStr.split('.', 2)
+    const stringL = prefixStr.split(SEPARATOR)
+    const sub = stringL[0]
+    const componentName = stringL.slice(1).join(SEPARATOR)
     validateComponentName(componentName)
     return new Prefix(parseSubsystemStr(sub), componentName)
   }
