@@ -1,9 +1,6 @@
 import { Connection } from './Connection'
-import { ConnectionEncoder } from './Encoder'
 
-export class Track extends ConnectionEncoder {
+export class Track {
   readonly _type: 'Track' = 'Track'
-  constructor(readonly connection: Connection) {
-    super()
-  }
+  constructor(readonly connection: Connection) {}
 }
