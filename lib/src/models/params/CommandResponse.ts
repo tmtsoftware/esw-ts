@@ -39,31 +39,22 @@ export const Invalid = t.type({
   issue: CommandIssue
 })
 
-export const Locked = t.type({
-  runId: t.string,
-  _type: t.literal('Locked')
-})
-
-export const Started = t.type({
-  runId: t.string,
-  _type: t.literal('Started')
-})
-
 export const Completed = t.type({
   runId: t.string,
   _type: t.literal('Completed'),
   result: ParamSet
 })
 
-export const Cancelled = t.type({
-  runId: t.string,
-  _type: t.literal('Cancelled')
-})
+const commandRes = <T extends string>(type: T) =>
+  t.type({
+    _type: t.literal(type),
+    runId: t.string
+  })
 
-export const Accepted = t.type({
-  runId: t.string,
-  _type: t.literal('Accepted')
-})
+export const Locked = commandRes('Locked')
+export const Started = commandRes('Started')
+export const Cancelled = commandRes('Cancelled')
+export const Accepted = commandRes('Accepted')
 
 export const SubmitResponse = t.union([Error, Invalid, Locked, Started, Completed, Cancelled])
 export const CommandResponse = t.union([
@@ -77,6 +68,14 @@ export const CommandResponse = t.union([
 ])
 export const ValidateResponse = t.union([Accepted, Invalid, Locked])
 export const OneWayResponse = t.union([Accepted, Invalid, Locked])
+
+export type Started = t.TypeOf<typeof Started>
+export type Locked = t.TypeOf<typeof Locked>
+export type Cancelled = t.TypeOf<typeof Cancelled>
+export type Accepted = t.TypeOf<typeof Accepted>
+export type Completed = t.TypeOf<typeof Completed>
+export type Invalid = t.TypeOf<typeof Invalid>
+export type Error = t.TypeOf<typeof Error>
 
 export type SubmitResponse = t.TypeOf<typeof SubmitResponse>
 export type CommandResponse = t.TypeOf<typeof CommandResponse>

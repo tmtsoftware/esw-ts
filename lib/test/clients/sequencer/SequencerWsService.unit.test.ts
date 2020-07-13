@@ -27,7 +27,8 @@ afterEach(() => {
 test('SequencerService should receive submit response on query final using websocket | ESW-307', async () => {
   const completedResponse: SubmitResponse = {
     _type: 'Completed',
-    runId: '1234124'
+    runId: '1234124',
+    result: { paramSet: [] }
   }
   postMockFn.mockResolvedValue([gatewayLocation])
   wsMockWithResolved(completedResponse, mockServer)

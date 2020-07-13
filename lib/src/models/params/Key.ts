@@ -131,7 +131,6 @@ export type Key =
   | BooleanKey
   | UTCTimeKey
   | TAITimeKey
-  | TAITimeKey
   | RaDecKey
   | EqCoordKey
   | SolarSystemCoordKey
