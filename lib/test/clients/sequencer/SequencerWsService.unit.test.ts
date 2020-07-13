@@ -11,7 +11,7 @@ jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 
 const uri = 'http://localhost:8080'
-const gatewayLocation = new HttpLocation(GatewayConnection, uri)
+const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
 let mockServer: Server
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const sequencer = new SequencerService(componentId, () => '')

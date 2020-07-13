@@ -1,9 +1,8 @@
 import { Either, getOrElse } from 'fp-ts/lib/Either'
 import { Errors } from 'io-ts'
 import Reporter from 'io-ts-reporters'
-import { ComponentId } from './ComponentId'
-import { Connection } from './Connection'
-import { Prefix, PrefixIO } from './PrefixIO'
+import { Prefix, PrefixV, ValidateResponse } from '../../src/models'
+import { Connection } from '../../src/clients/location'
 
 const get = <A>(e: Either<Errors, A>): A =>
   getOrElse<Errors, A>(() => {
@@ -12,28 +11,15 @@ const get = <A>(e: Either<Errors, A>): A =>
   })(e)
 
 test('Prefix.decode', () => {
-  const p1 = PrefixIO.decode('ESW.filter.wheel')
+  const p1 = PrefixV.decode('ESW.filter.wheel')
   console.log(get(p1))
 
   const p2: Prefix = new Prefix('ESW', 'filter.wheel')
 
-  console.log(PrefixIO.is(p2))
+  console.log(PrefixV.is(p2))
 
-  const p3 = PrefixIO.encode(p2)
+  const p3 = PrefixV.encode(p2)
   console.log(p3)
-})
-
-test('ComponentId.decode', () => {
-  const c1: ComponentId = {
-    prefix: new Prefix('ESW', 'filter.wheel'),
-    componentType: 'HCD'
-  }
-
-  const c2 = ComponentId.encode(c1)
-  console.log(c2)
-
-  const c3: ComponentId = get(ComponentId.decode(c2))
-  console.log(c3)
 })
 
 test('Connection.decode', () => {
@@ -55,4 +41,8 @@ test('Connection.decode', () => {
 
   const c4 = Connection.decode(c3)
   console.log(get(c4))
+})
+
+test('ValidateResponse', () => {
+  console.log(get(ValidateResponse.decode({ _type: 'Accepted', runId: '123' })))
 })

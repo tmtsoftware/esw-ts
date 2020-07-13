@@ -1,24 +1,39 @@
-import { ComponentType, Prefix } from '../../../models'
+import * as t from 'io-ts'
+import { ComponentType, Prefix, PrefixV } from '../../../models'
 
-export type ConnectionType = 'akka' | 'http' | 'tcp'
+const akka = t.literal('akka')
+const http = t.literal('http')
+const tcp = t.literal('tcp')
 
-export interface Connection {
-  readonly prefix: Prefix
-  readonly componentType: ComponentType
-  readonly connectionType: ConnectionType
+const ConnectionType = t.union([akka, http, tcp])
+export type ConnectionType = t.TypeOf<typeof ConnectionType>
+
+const connectionT = <T extends ConnectionType>(connectionType: t.LiteralType<T>) =>
+  t.type({
+    connectionType,
+    prefix: PrefixV,
+    componentType: ComponentType
+  })
+
+export const AkkaConnectionV = connectionT(akka)
+export const HttpConnectionV = connectionT(http)
+export const TcpConnectionV = connectionT(tcp)
+
+export type HttpConnection = t.TypeOf<typeof HttpConnectionV>
+export type AkkaConnection = t.TypeOf<typeof AkkaConnectionV>
+export type TcpConnection = t.TypeOf<typeof TcpConnectionV>
+
+export const Connection = t.union([AkkaConnectionV, HttpConnectionV, TcpConnectionV])
+export type Connection = t.TypeOf<typeof Connection>
+
+export const HttpConnection = (prefix: Prefix, componentType: ComponentType): HttpConnection => {
+  return { connectionType: 'http', prefix, componentType }
 }
 
-export class AkkaConnection implements Connection {
-  readonly connectionType: 'akka' = 'akka'
-  constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
+export const TcpConnection = (prefix: Prefix, componentType: ComponentType): TcpConnection => {
+  return { connectionType: 'tcp', prefix, componentType }
 }
 
-export class HttpConnection implements Connection {
-  readonly connectionType: 'http' = 'http'
-  constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
-}
-
-export class TcpConnection implements Connection {
-  readonly connectionType: 'tcp' = 'tcp'
-  constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
+export const AkkaConnection = (prefix: Prefix, componentType: ComponentType): AkkaConnection => {
+  return { connectionType: 'akka', prefix, componentType }
 }

@@ -14,12 +14,12 @@ export const startServices = (serviceNames: ServiceName[]) => {
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
   sh.executeComponentScript(['--local', componentConf, '--standalone'])
-  return resolve(new HttpConnection(prefix, compType))
+  return resolve(HttpConnection(prefix, compType))
 }
 
 export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
   sh.executeSequencerScript(['start', '-s', subsystem, '-m', observingMode])
-  return resolve(new HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
+  return resolve(HttpConnection(new Prefix(subsystem, observingMode), 'Sequencer'), 20)
 }
 
 export const stopServices = async () => {

@@ -1,5 +1,6 @@
 import {
   Done,
+  Duration,
   HttpConnection,
   HttpLocation,
   Location,
@@ -8,15 +9,14 @@ import {
 import { Prefix } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Http'
-import { Duration } from '../../../src/clients/location/models/Duration'
 
 const locationService = new LocationService()
 jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
-const httpConnection = new HttpConnection(prefix, 'Sequencer')
-const httpLocation = new HttpLocation(httpConnection, uri)
+const httpConnection = HttpConnection(prefix, 'Sequencer')
+const httpLocation: HttpLocation = { _type: 'HttpLocation', connection: httpConnection, uri }
 
 describe('LocationService', () => {
   test('should fetch list of registered entries | ESW-308, ESW-310, ESW-311', async () => {
