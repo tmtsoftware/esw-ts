@@ -45,7 +45,7 @@ const Completed = D.type({
   result: ParamSet
 })
 
-const commandRes = <T extends string>(type: T) =>
+const commandRes = <T extends string>(type: T): D.Decoder<{ _type: T; runId: string }> =>
   D.type({
     _type: D.literal(type),
     runId: D.string
@@ -56,8 +56,15 @@ const Started = commandRes('Started')
 const Cancelled = commandRes('Cancelled')
 const Accepted = commandRes('Accepted')
 
-export const SubmitResponse = D.union(Error, Invalid, Locked, Started, Completed, Cancelled)
-export const CommandResponse = D.union(
+export const SubmitResponseD = D.sum('_type')({
+  Error,
+  Invalid,
+  Locked,
+  Started,
+  Completed,
+  Cancelled
+})
+export const CommandResponseD = D.sum('_type')({
   Error,
   Invalid,
   Locked,
@@ -65,11 +72,11 @@ export const CommandResponse = D.union(
   Completed,
   Cancelled,
   Accepted
-)
-export const ValidateResponse = D.union(Accepted, Invalid, Locked)
-export const OneWayResponse = D.union(Accepted, Invalid, Locked)
+})
+export const ValidateResponseD = D.sum('_type')({ Accepted, Invalid, Locked })
+export const OneWayResponseD = D.sum('_type')({ Accepted, Invalid, Locked })
 
-export type SubmitResponse = D.TypeOf<typeof SubmitResponse>
-export type CommandResponse = D.TypeOf<typeof CommandResponse>
-export type ValidateResponse = D.TypeOf<typeof ValidateResponse>
-export type OneWayResponse = D.TypeOf<typeof OneWayResponse>
+export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
+export type CommandResponse = D.TypeOf<typeof CommandResponseD>
+export type ValidateResponse = D.TypeOf<typeof ValidateResponseD>
+export type OneWayResponse = D.TypeOf<typeof OneWayResponseD>
