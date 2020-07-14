@@ -1,12 +1,12 @@
-import * as t from 'io-ts'
-import { ParameterV } from './Parameter'
+import * as D from 'io-ts/lib/Decoder'
+import { ParameterD } from './Parameter'
 
 // todo: scala has state variable ADT (CurrentState | DemandState)
 // _type: "CurrentState" prop present in json coming from scala
-export const CurrentState = t.type({
-  prefix: t.string,
-  stateName: t.string,
-  paramSet: t.array(ParameterV)
+export const CurrentState = D.type({
+  prefix: D.string,
+  stateName: D.string,
+  paramSet: D.array(ParameterD)
 })
 
-export type CurrentState = t.TypeOf<typeof CurrentState>
+export type CurrentState = D.TypeOf<typeof CurrentState>

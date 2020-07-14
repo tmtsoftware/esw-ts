@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ComponentType, ComponentTypeD } from './ComponentType'
+import { ComponentType } from './ComponentType'
 import { Prefix, PrefixD } from './params/Prefix'
 
 export class ComponentId {
@@ -8,7 +8,5 @@ export class ComponentId {
 
 export const ComponentIdD = D.type({
   prefix: PrefixD,
-  componentType: ComponentTypeD
+  componentType: ComponentType
 })
-
-export type ComponentIdD = D.TypeOf<typeof ComponentIdD>

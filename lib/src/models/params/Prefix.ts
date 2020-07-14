@@ -1,6 +1,5 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
-import * as t from 'io-ts'
 import * as D from 'io-ts/lib/Decoder'
 import { requirement } from '../../utils/Utils'
 import { Subsystem } from './Subsystem'
@@ -13,8 +12,9 @@ const validateComponentName = (name: string) => {
 }
 
 const parseSubsystemStr = (subsystem: string): Subsystem => {
-  if (Subsystem.is(subsystem)) return subsystem
-  else throw Error(`Subsystem: ${subsystem} is invalid`)
+  const s = Subsystem.decode(subsystem)
+  if (E.isLeft(s)) throw Error(`Subsystem: ${subsystem} is invalid`)
+  return s.right
 }
 
 const splitSubsystemComponentName = (prefixStr: string) => {
@@ -36,7 +36,7 @@ export class Prefix {
   }
 
   toJSON() {
-    return PrefixV.encode(this)
+    return this.subsystem + SEPARATOR + this.componentName
   }
 }
 
@@ -45,35 +45,6 @@ const parsePrefix = (prefixStr: string): E.Either<Error, Prefix> =>
     () => Prefix.fromString(prefixStr),
     (e) => (e instanceof Error ? e : new Error('unknown error'))
   )
-
-const decodePrefix = (input: unknown, context: t.Context): t.Validation<Prefix> =>
-  pipe(
-    t.string.decode(input),
-    E.chain((str) => {
-      const p = parsePrefix(str)
-      if (E.isRight(p)) return t.success(p.right)
-      else return t.failure(input, context, p.left.message)
-    })
-  )
-
-const encodePrefix = (prefix: Prefix) => prefix.subsystem + SEPARATOR + prefix.componentName
-
-const isPrefix = (input: unknown): input is Prefix => {
-  if (t.string.is(input)) {
-    const [sub, componentName] = splitSubsystemComponentName(input)
-    return (
-      Subsystem.is(sub) && componentName === componentName.trim() && !componentName.includes('-')
-    )
-  }
-  return false
-}
-
-export const PrefixV: t.Type<Prefix, string> = new t.Type(
-  'Prefix',
-  isPrefix,
-  decodePrefix,
-  encodePrefix
-)
 
 export const PrefixD: D.Decoder<Prefix> = pipe(
   D.string,
