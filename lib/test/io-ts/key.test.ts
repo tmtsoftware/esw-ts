@@ -1,5 +1,5 @@
 import { isRight } from 'fp-ts/lib/Either'
-import { CurrentState, ParameterD, Struct } from '../../src/models'
+import { CurrentState, ParameterD, Struct, SubmitResponse } from '../../src/models'
 
 describe('io-ts', () => {
   test('Parameter', () => {
@@ -397,118 +397,118 @@ describe('io-ts', () => {
     console.log(JSON.stringify(cs))
   })
 
-  // test('SubmitResponse', () => {
-  //   const submitResponse = {
-  //     _type: 'Completed',
-  //     runId: '71d9b2b6-7ae9-491d-8471-bb73d97412bc',
-  //     result: {
-  //       paramSet: [
-  //         {
-  //           StructKey: {
-  //             keyName: 'structs',
-  //             values: [
-  //               {
-  //                 paramSet: [
-  //                   {
-  //                     IntKey: {
-  //                       keyName: 'encoder',
-  //                       values: [100],
-  //                       units: 'NoUnits'
-  //                     }
-  //                   },
-  //                   {
-  //                     IntArrayKey: {
-  //                       keyName: 'filter',
-  //                       values: [
-  //                         [1, 2, 3, 4, 5],
-  //                         [10, 20, 30, 40, 50]
-  //                       ],
-  //                       units: 'NoUnits'
-  //                     }
-  //                   }
-  //                 ]
-  //               }
-  //             ],
-  //             units: 'NoUnits'
-  //           }
-  //         },
-  //         {
-  //           IntArrayKey: {
-  //             keyName: 'filter',
-  //             values: [
-  //               [1, 2, 3, 4, 5],
-  //               [10, 20, 30, 40, 50]
-  //             ],
-  //             units: 'NoUnits'
-  //           }
-  //         },
-  //         {
-  //           IntMatrixKey: {
-  //             keyName: 'matrix',
-  //             values: [
-  //               [
-  //                 [1, 2, 3, 4, 5],
-  //                 [10, 20, 30, 40, 50]
-  //               ]
-  //             ],
-  //             units: 'NoUnits'
-  //           }
-  //         },
-  //         {
-  //           ChoiceKey: {
-  //             keyName: 'mode-reset',
-  //             values: ['c'],
-  //             units: 'NoUnits'
-  //           }
-  //         },
-  //         {
-  //           UTCTimeKey: {
-  //             keyName: 'utcTimeKey',
-  //             values: ['2017-09-04T16:28:00.123456789Z'],
-  //             units: 'second'
-  //           }
-  //         },
-  //         {
-  //           RaDecKey: {
-  //             keyName: 'raDecKey',
-  //             values: [
-  //               {
-  //                 ra: 100,
-  //                 dec: 100
-  //               }
-  //             ],
-  //             units: 'NoUnits'
-  //           }
-  //         },
-  //         {
-  //           CometCoordKey: {
-  //             keyName: "halley's",
-  //             values: [
-  //               {
-  //                 _type: 'CometCoord',
-  //                 tag: 'BASE',
-  //                 epochOfPerihelion: 2000,
-  //                 inclination: 90,
-  //                 longAscendingNode: 2,
-  //                 argOfPerihelion: 100,
-  //                 perihelionDistance: 1.4,
-  //                 eccentricity: 0.234
-  //               }
-  //             ],
-  //             units: 'NoUnits'
-  //           }
-  //         },
-  //         {
-  //           IntKey: {
-  //             keyName: 'encoder',
-  //             values: [100],
-  //             units: 'NoUnits'
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   }
+  test('SubmitResponse', () => {
+    const submitResponse = {
+      _type: 'Completed',
+      runId: '71d9b2b6-7ae9-491d-8471-bb73d97412bc',
+      result: {
+        paramSet: [
+          {
+            StructKey: {
+              keyName: 'structs',
+              values: [
+                {
+                  paramSet: [
+                    {
+                      IntKey: {
+                        keyName: 'encoder',
+                        values: [100],
+                        units: 'NoUnits'
+                      }
+                    },
+                    {
+                      IntArrayKey: {
+                        keyName: 'filter',
+                        values: [
+                          [1, 2, 3, 4, 5],
+                          [10, 20, 30, 40, 50]
+                        ],
+                        units: 'NoUnits'
+                      }
+                    }
+                  ]
+                }
+              ],
+              units: 'NoUnits'
+            }
+          },
+          {
+            IntArrayKey: {
+              keyName: 'filter',
+              values: [
+                [1, 2, 3, 4, 5],
+                [10, 20, 30, 40, 50]
+              ],
+              units: 'NoUnits'
+            }
+          },
+          {
+            IntMatrixKey: {
+              keyName: 'matrix',
+              values: [
+                [
+                  [1, 2, 3, 4, 5],
+                  [10, 20, 30, 40, 50]
+                ]
+              ],
+              units: 'NoUnits'
+            }
+          },
+          {
+            ChoiceKey: {
+              keyName: 'mode-reset',
+              values: ['c'],
+              units: 'NoUnits'
+            }
+          },
+          {
+            UTCTimeKey: {
+              keyName: 'utcTimeKey',
+              values: ['2017-09-04T16:28:00.123456789Z'],
+              units: 'second'
+            }
+          },
+          {
+            RaDecKey: {
+              keyName: 'raDecKey',
+              values: [
+                {
+                  ra: 100,
+                  dec: 100
+                }
+              ],
+              units: 'NoUnits'
+            }
+          },
+          {
+            CometCoordKey: {
+              keyName: "halley's",
+              values: [
+                {
+                  _type: 'CometCoord',
+                  tag: 'BASE',
+                  epochOfPerihelion: 2000,
+                  inclination: 90,
+                  longAscendingNode: 2,
+                  argOfPerihelion: 100,
+                  perihelionDistance: 1.4,
+                  eccentricity: 0.234
+                }
+              ],
+              units: 'NoUnits'
+            }
+          },
+          {
+            IntKey: {
+              keyName: 'encoder',
+              values: [100],
+              units: 'NoUnits'
+            }
+          }
+        ]
+      }
+    }
 
-  //   console.log(JSON.stringify(SubmitResponse.decode(submitResponse)))
-  // })
+    console.log(JSON.stringify(SubmitResponse.decode(submitResponse)))
+  })
 })

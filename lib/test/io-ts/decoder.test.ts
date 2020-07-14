@@ -1,13 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
 
-// input json to be decoded to Parameter class
-const raw: unknown = {
-  IntKey: {
-    keyName: 'epoch',
-    values: [1, 2, 3]
-  }
-}
-
 const MakeKey = <KT extends string, KType>(kt: KT, decoder: D.Decoder<KType>) => {
   return D.type({
     [kt]: D.type({
