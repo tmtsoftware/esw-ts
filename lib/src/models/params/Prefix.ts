@@ -1,6 +1,9 @@
+import * as E from 'fp-ts/lib/Either'
+import { pipe } from 'fp-ts/lib/pipeable'
 import * as t from 'io-ts'
-import { Subsystem } from './Subsystem'
+import * as D from 'io-ts/lib/Decoder'
 import { requirement } from '../../utils/Utils'
+import { Subsystem } from './Subsystem'
 
 const SEPARATOR = '.'
 
@@ -37,18 +40,21 @@ export class Prefix {
   }
 }
 
-const parsePrefix = (prefixStr: string, context: t.Context): t.Validation<Prefix> => {
-  try {
-    return t.success(Prefix.fromString(prefixStr))
-  } catch (e) {
-    return t.failure(prefixStr, context, e)
-  }
-}
+const parsePrefix = (prefixStr: string): E.Either<Error, Prefix> =>
+  E.tryCatch(
+    () => Prefix.fromString(prefixStr),
+    (e) => (e instanceof Error ? e : new Error('unknown error'))
+  )
 
 const decodePrefix = (input: unknown, context: t.Context): t.Validation<Prefix> =>
-  typeof input === 'string'
-    ? parsePrefix(input, context)
-    : t.failure(input, context, `Failed to decode ${input} to Prefix model`)
+  pipe(
+    t.string.decode(input),
+    E.chain((str) => {
+      const p = parsePrefix(str)
+      if (E.isRight(p)) return t.success(p.right)
+      else return t.failure(input, context, p.left.message)
+    })
+  )
 
 const encodePrefix = (prefix: Prefix) => prefix.subsystem + SEPARATOR + prefix.componentName
 
@@ -67,4 +73,13 @@ export const PrefixV: t.Type<Prefix, string> = new t.Type(
   isPrefix,
   decodePrefix,
   encodePrefix
+)
+
+export const PrefixD: D.Decoder<Prefix> = pipe(
+  D.string,
+  D.parse((str) => {
+    const p = parsePrefix(str)
+    if (E.isRight(p)) return D.success(p.right)
+    else return D.failure(str, p.left.message)
+  })
 )
