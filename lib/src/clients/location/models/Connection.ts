@@ -1,39 +1,46 @@
-import * as t from 'io-ts'
-import { ComponentType, Prefix, PrefixV } from '../../../models'
+import * as D from 'io-ts/lib/Decoder'
+import { ComponentType, Prefix, PrefixD } from '../../../models'
 
-const akka = t.literal('akka')
-const http = t.literal('http')
-const tcp = t.literal('tcp')
+const akka = 'akka'
+const http = 'http'
+const tcp = 'tcp'
 
-const ConnectionType = t.union([akka, http, tcp])
-export type ConnectionType = t.TypeOf<typeof ConnectionType>
+export type ConnectionType = typeof akka | typeof http | typeof tcp
 
-const connectionT = <T extends ConnectionType>(connectionType: t.LiteralType<T>) =>
-  t.type({
-    connectionType,
-    prefix: PrefixV,
+type ConnectionPayload<T extends ConnectionType> = D.Decoder<{
+  connectionType: T
+  prefix: Prefix
+  componentType: ComponentType
+}>
+
+const connectionT = <T extends ConnectionType>(connectionType: T): ConnectionPayload<T> =>
+  D.type({
+    connectionType: D.literal(connectionType),
+    prefix: PrefixD,
     componentType: ComponentType
   })
 
-export const AkkaConnectionV = connectionT(akka)
-export const HttpConnectionV = connectionT(http)
-export const TcpConnectionV = connectionT(tcp)
+export const AkkaConnectionD = connectionT(akka)
+export const HttpConnectionD = connectionT(http)
+export const TcpConnectionD = connectionT(tcp)
 
-export type HttpConnection = t.TypeOf<typeof HttpConnectionV>
-export type AkkaConnection = t.TypeOf<typeof AkkaConnectionV>
-export type TcpConnection = t.TypeOf<typeof TcpConnectionV>
+export type HttpConnection = D.TypeOf<typeof HttpConnectionD>
+export type AkkaConnection = D.TypeOf<typeof AkkaConnectionD>
+export type TcpConnection = D.TypeOf<typeof TcpConnectionD>
 
-export const Connection = t.union([AkkaConnectionV, HttpConnectionV, TcpConnectionV])
-export type Connection = t.TypeOf<typeof Connection>
+export const Connection = D.sum('connectionType')({
+  [akka]: AkkaConnectionD,
+  [http]: HttpConnectionD,
+  [tcp]: TcpConnectionD
+})
 
-export const HttpConnection = (prefix: Prefix, componentType: ComponentType): HttpConnection => {
-  return { connectionType: 'http', prefix, componentType }
-}
+export type Connection = D.TypeOf<typeof Connection>
 
-export const TcpConnection = (prefix: Prefix, componentType: ComponentType): TcpConnection => {
-  return { connectionType: 'tcp', prefix, componentType }
-}
+const makeConnection = <T extends ConnectionType>(connectionType: T) => (
+  prefix: Prefix,
+  componentType: ComponentType
+) => ({ connectionType, prefix, componentType })
 
-export const AkkaConnection = (prefix: Prefix, componentType: ComponentType): AkkaConnection => {
-  return { connectionType: 'akka', prefix, componentType }
-}
+export const AkkaConnection = makeConnection(akka)
+export const HttpConnection = makeConnection(http)
+export const TcpConnection = makeConnection(tcp)

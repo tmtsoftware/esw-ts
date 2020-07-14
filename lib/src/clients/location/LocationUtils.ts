@@ -1,8 +1,7 @@
-import { Connection } from './models/Connection'
 import { LocationService } from './LocationService'
+import { Connection } from './models/Connection'
 import { Duration, TimeUnit } from './models/Duration'
 import { Location } from './models/Location'
-import { PrefixV } from '../../models'
 
 const locationService = new LocationService()
 
@@ -17,6 +16,6 @@ export const resolve: (
 ) => {
   const [location] = await locationService.resolve(connection, new Duration(timeout, timeoutUnit))
 
-  if (!location) throw new Error(`${PrefixV.encode(connection.prefix)} not found`)
+  if (!location) throw new Error(`${connection.prefix.toJSON} not found`)
   return location
 }
