@@ -50,7 +50,6 @@ export const PrefixD: D.Decoder<Prefix> = pipe(
   D.string,
   D.parse((str) => {
     const p = parsePrefix(str)
-    if (E.isRight(p)) return D.success(p.right)
-    else return D.failure(str, p.left.message)
+    return E.isRight(p) ? D.success(p.right) : D.failure(str, p.left.message)
   })
 )

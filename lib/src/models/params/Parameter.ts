@@ -26,18 +26,19 @@ export class Parameter<T extends Key> {
 const decodeParameter = () =>
   pipe(
     D.UnknownRecord,
-    D.parse((record) => {
-      const kt = Object.keys(record)[0]
-      const keyTagE = KeyTag.decode(kt)
-      if (E.isLeft(keyTagE)) return keyTagE
-      const keyTag = keyTagE.right
-      const paramDecoder = Keys[keyTag]
-      const bodyE = paramDecoder.decode(record[keyTag])
-      if (E.isLeft(bodyE)) return bodyE
-      const body = bodyE.right
-      const p = new Parameter(body.keyName, keyTag as any, body.values as any, body.units)
-      return D.success(p)
-    })
+    D.parse((record) =>
+      pipe(
+        KeyTag.decode(Object.keys(record)[0]),
+        E.chain((keyTag) =>
+          pipe(
+            Keys[keyTag].decode(record[keyTag]),
+            E.map(
+              (body) => new Parameter(body.keyName, keyTag as any, body.values as any, body.units)
+            )
+          )
+        )
+      )
+    )
   )
 
 export const ParameterD: D.Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', decodeParameter)
