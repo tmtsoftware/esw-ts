@@ -37,9 +37,17 @@ export class Prefix {
   }
 }
 
+const parsePrefix = (prefixStr: string, context: t.Context): t.Validation<Prefix> => {
+  try {
+    return t.success(Prefix.fromString(prefixStr))
+  } catch (e) {
+    return t.failure(prefixStr, context, e)
+  }
+}
+
 const decodePrefix = (input: unknown, context: t.Context): t.Validation<Prefix> =>
   typeof input === 'string'
-    ? t.success(Prefix.fromString(input))
+    ? parsePrefix(input, context)
     : t.failure(input, context, `Failed to decode ${input} to Prefix model`)
 
 const encodePrefix = (prefix: Prefix) => prefix.subsystem + SEPARATOR + prefix.componentName
