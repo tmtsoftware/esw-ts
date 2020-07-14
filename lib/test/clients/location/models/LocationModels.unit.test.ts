@@ -5,7 +5,7 @@ import {
   AkkaLocation,
   HttpLocation,
   TcpLocation,
-  Location
+  LocationD
 } from '../../../../src/clients/location'
 
 import * as TestData from '../../../jsons/LocationModels.json'
@@ -23,7 +23,7 @@ describe('Typed Locations', () => {
       connection: akkaConnection,
       uri
     }
-    const expected = get(Location.decode(TestData.AkkaLocation))
+    const expected = get(LocationD.decode(TestData.AkkaLocation))
     expect(akkaLocation).toEqual(expected)
   })
 
@@ -35,7 +35,7 @@ describe('Typed Locations', () => {
       uri
     }
 
-    const expected = get(Location.decode(TestData.HttpLocation))
+    const expected = get(LocationD.decode(TestData.HttpLocation))
     expect(httpLocation).toEqual(expected)
   })
 
@@ -47,7 +47,7 @@ describe('Typed Locations', () => {
       uri
     }
 
-    const expected = get(Location.decode(TestData.TcpLocation))
+    const expected = get(LocationD.decode(TestData.TcpLocation))
     expect(tcpLocation).toEqual(expected)
   })
 })

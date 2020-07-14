@@ -1,9 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
 import { AkkaConnectionD, Connection, HttpConnectionD, TcpConnectionD } from './Connection'
 
-const AkkaLocation = 'AkkaLocation'
-const HttpLocation = 'HttpLocation'
-const TcpLocation = 'TcpLocation'
+const AkkaLocation = 'AkkaLocation' as const
+const HttpLocation = 'HttpLocation' as const
+const TcpLocation = 'TcpLocation' as const
 
 type LocationType = typeof AkkaLocation | typeof HttpLocation | typeof TcpLocation
 
@@ -27,13 +27,13 @@ const AkkaLocationD = locationD('AkkaLocation', AkkaConnectionD)
 const HttpLocationD = locationD('HttpLocation', HttpConnectionD)
 const TcpLocationD = locationD('TcpLocation', TcpConnectionD)
 
-export type AkkaLocation = D.TypeOf<typeof AkkaLocation>
-export type HttpLocation = D.TypeOf<typeof HttpLocation>
-export type TcpLocation = D.TypeOf<typeof TcpLocation>
+export type AkkaLocation = D.TypeOf<typeof AkkaLocationD>
+export type HttpLocation = D.TypeOf<typeof HttpLocationD>
+export type TcpLocation = D.TypeOf<typeof TcpLocationD>
 
-export const Location = D.sum('_type')({
+export const LocationD = D.sum('_type')({
   [AkkaLocation]: AkkaLocationD,
   [HttpLocation]: HttpLocationD,
   [TcpLocation]: TcpLocationD
 })
-export type Location = D.TypeOf<typeof Location>
+export type Location = D.TypeOf<typeof LocationD>

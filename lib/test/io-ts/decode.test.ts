@@ -1,24 +1,14 @@
-import { Either, getOrElse } from 'fp-ts/lib/Either'
-import { Errors } from 'io-ts'
-import Reporter from 'io-ts-reporters'
-import { Prefix, PrefixV, ValidateResponse } from '../../src/models'
+import { Prefix, PrefixD, ValidateResponseD } from '../../src/models'
 import { Connection } from '../../src/clients/location'
-
-const get = <A>(e: Either<Errors, A>): A =>
-  getOrElse<Errors, A>(() => {
-    const err = Reporter.report(e).join(',')
-    throw Error('Right value not present, Error: ' + err)
-  })(e)
+import { get } from '../helpers/TestUtils'
 
 test('Prefix.decode', () => {
-  const p1 = PrefixV.decode('ESW.filter.wheel')
+  const p1 = PrefixD.decode('ESW.filter.wheel')
   console.log(get(p1))
 
   const p2: Prefix = new Prefix('ESW', 'filter.wheel')
 
-  console.log(PrefixV.is(p2))
-
-  const p3 = PrefixV.encode(p2)
+  const p3 = JSON.stringify(p2)
   console.log(p3)
 })
 
@@ -36,7 +26,7 @@ test('Connection.decode', () => {
     componentType: 'HCD'
   }
 
-  const c3 = Connection.encode(c2)
+  const c3 = JSON.stringify(c2)
   console.log(c3)
 
   const c4 = Connection.decode(c3)
@@ -44,5 +34,5 @@ test('Connection.decode', () => {
 })
 
 test('ValidateResponse', () => {
-  console.log(get(ValidateResponse.decode({ _type: 'Accepted', runId: '123' })))
+  console.log(get(ValidateResponseD.decode({ _type: 'Accepted', runId: '123' })))
 })

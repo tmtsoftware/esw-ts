@@ -1,9 +1,8 @@
 import { Either, getOrElse } from 'fp-ts/lib/Either'
-import Reporter from 'io-ts-reporters'
-import { Errors } from 'io-ts'
+import { DecodeError } from 'io-ts/lib/Decoder'
 
-export const get = <A>(e: Either<Errors, A>): A =>
-  getOrElse<Errors, A>(() => {
-    const err = Reporter.report(e).join(',')
-    throw Error('Right value not present, Error: ' + err)
+export const get = <A>(e: Either<DecodeError, A>): A =>
+  getOrElse<DecodeError, A>(() => {
+    console.log(e)
+    throw Error('Right value not present, Error: ' + e)
   })(e)
