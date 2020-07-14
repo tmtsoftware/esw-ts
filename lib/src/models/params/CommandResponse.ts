@@ -1,25 +1,25 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ParamSet } from './Parameter'
 
-const IssueTypes = D.union(
-  D.literal('AssemblyBusyIssue'),
-  D.literal('HCDBusyIssue'),
-  D.literal('IdNotAvailableIssue'),
-  D.literal('MissingKeyIssue'),
-  D.literal('OtherIssue'),
-  D.literal('ParameterValueOutOfRangeIssue'),
-  D.literal('RequiredAssemblyUnavailableIssue'),
-  D.literal('RequiredHCDUnavailableIssue'),
-  D.literal('RequiredSequencerUnavailableIssue'),
-  D.literal('RequiredServiceUnavailableIssue'),
-  D.literal('UnresolvedLocationsIssue'),
-  D.literal('UnsupportedCommandInStateIssue'),
-  D.literal('UnsupportedCommandIssue'),
-  D.literal('WrongInternalStateIssue'),
-  D.literal('WrongNumberOfParametersIssue'),
-  D.literal('WrongParameterTypeIssue'),
-  D.literal('WrongPrefixIssue'),
-  D.literal('WrongUnitsIssue')
+const IssueTypes = D.literal(
+  'AssemblyBusyIssue',
+  'HCDBusyIssue',
+  'IdNotAvailableIssue',
+  'MissingKeyIssue',
+  'OtherIssue',
+  'ParameterValueOutOfRangeIssue',
+  'RequiredAssemblyUnavailableIssue',
+  'RequiredHCDUnavailableIssue',
+  'RequiredSequencerUnavailableIssue',
+  'RequiredServiceUnavailableIssue',
+  'UnresolvedLocationsIssue',
+  'UnsupportedCommandInStateIssue',
+  'UnsupportedCommandIssue',
+  'WrongInternalStateIssue',
+  'WrongNumberOfParametersIssue',
+  'WrongParameterTypeIssue',
+  'WrongPrefixIssue',
+  'WrongUnitsIssue'
 )
 
 const CommandIssue = D.type({
@@ -64,6 +64,7 @@ export const SubmitResponseD = D.sum('_type')({
   Completed,
   Cancelled
 })
+
 export const CommandResponseD = D.sum('_type')({
   Error,
   Invalid,
