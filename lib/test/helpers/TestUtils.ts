@@ -1,8 +1,8 @@
 import { Either, getOrElse } from 'fp-ts/lib/Either'
-import { DecodeError } from 'io-ts/lib/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 
-export const get = <A>(e: Either<DecodeError, A>): A =>
-  getOrElse<DecodeError, A>(() => {
-    console.log(e)
-    throw Error('Right value not present, Error: ' + e)
+export const get = <A>(e: Either<D.DecodeError, A>): A =>
+  getOrElse<D.DecodeError, A>((err) => {
+    const msg = D.draw(err)
+    throw Error('Right value not present, Error: ' + msg)
   })(e)

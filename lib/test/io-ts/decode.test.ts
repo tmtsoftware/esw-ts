@@ -29,7 +29,7 @@ test('Connection.decode', () => {
   const c3 = JSON.stringify(c2)
   console.log(c3)
 
-  const c4 = Connection.decode(c3)
+  const c4 = Connection.decode(JSON.parse(c3))
   console.log(get(c4))
 })
 
