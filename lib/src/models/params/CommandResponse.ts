@@ -22,6 +22,14 @@ const IssueTypes = D.literal(
   'WrongUnitsIssue'
 )
 
+const ErrorType = 'Error' as const
+const InvalidType = 'Invalid' as const
+const CompletedType = 'Completed' as const
+const LockedType = 'Locked' as const
+const StartedType = 'Started' as const
+const CancelledType = 'Cancelled' as const
+const AcceptedType = 'Accepted' as const
+
 const CommandIssue = D.type({
   _type: IssueTypes,
   reason: D.string
@@ -29,19 +37,19 @@ const CommandIssue = D.type({
 
 const Error = D.type({
   runId: D.string,
-  _type: D.literal('Error'),
+  _type: D.literal(ErrorType),
   message: D.string
 })
 
 const Invalid = D.type({
   runId: D.string,
-  _type: D.literal('Invalid'),
+  _type: D.literal(InvalidType),
   issue: CommandIssue
 })
 
 const Completed = D.type({
   runId: D.string,
-  _type: D.literal('Completed'),
+  _type: D.literal(CompletedType),
   result: ParamSet
 })
 
@@ -51,31 +59,41 @@ const commandRes = <T extends string>(type: T): D.Decoder<{ _type: T; runId: str
     runId: D.string
   })
 
-const Locked = commandRes('Locked')
-const Started = commandRes('Started')
-const Cancelled = commandRes('Cancelled')
-const Accepted = commandRes('Accepted')
+const Locked = commandRes(LockedType)
+const Started = commandRes(StartedType)
+const Cancelled = commandRes(CompletedType)
+const Accepted = commandRes(AcceptedType)
 
 export const SubmitResponseD = D.sum('_type')({
-  Error,
-  Invalid,
-  Locked,
-  Started,
-  Completed,
-  Cancelled
+  [ErrorType]: Error,
+  [InvalidType]: Invalid,
+  [LockedType]: Locked,
+  [StartedType]: Started,
+  [CompletedType]: Completed,
+  [CancelledType]: Cancelled
 })
 
 export const CommandResponseD = D.sum('_type')({
-  Error,
-  Invalid,
-  Locked,
-  Started,
-  Completed,
-  Cancelled,
-  Accepted
+  [ErrorType]: Error,
+  [InvalidType]: Invalid,
+  [LockedType]: Locked,
+  [StartedType]: Started,
+  [CompletedType]: Completed,
+  [CancelledType]: Cancelled,
+  [AcceptedType]: Accepted
 })
-export const ValidateResponseD = D.sum('_type')({ Accepted, Invalid, Locked })
-export const OneWayResponseD = D.sum('_type')({ Accepted, Invalid, Locked })
+
+export const ValidateResponseD = D.sum('_type')({
+  [AcceptedType]: Accepted,
+  [InvalidType]: Invalid,
+  [LockedType]: Locked
+})
+
+export const OneWayResponseD = D.sum('_type')({
+  [AcceptedType]: Accepted,
+  [InvalidType]: Invalid,
+  [LockedType]: Locked
+})
 
 export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
 export type CommandResponse = D.TypeOf<typeof CommandResponseD>

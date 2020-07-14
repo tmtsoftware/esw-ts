@@ -1,66 +1,86 @@
-import {
-  CannotOperateOnAnInFlightOrFinishedStep,
-  DiagnosticHookFailed,
-  GoOfflineHookFailed,
-  GoOnlineHookFailed,
-  IdDoesNotExist,
-  Ok,
-  OperationsHookFailed,
-  Unhandled
-} from '../../../../src/clients/sequencer'
 import * as TestData from '../../../jsons/SequencerResponses.json'
+import {
+  DiagnosticModeResponse,
+  GoOfflineResponse,
+  GoOnlineResponse,
+  OkOrUnhandledResponse,
+  OperationsModeResponse,
+  PauseResponse,
+  RemoveBreakpointResponse
+} from '../../../../src/clients/sequencer'
+import { get } from '../../../helpers/TestUtils'
 
-const ok: Ok = { _type: 'Ok' }
+const ok: OkOrUnhandledResponse = { _type: 'Ok' }
 
-const cannotOperateOnAnInFlightOrFinishedStep: CannotOperateOnAnInFlightOrFinishedStep = {
+const cannotOperateOnAnInFlightOrFinishedStep: PauseResponse = {
   _type: 'CannotOperateOnAnInFlightOrFinishedStep'
 }
 
-const idDoesNotExist: IdDoesNotExist = {
+const idDoesNotExist: RemoveBreakpointResponse = {
   _type: 'IdDoesNotExist',
   id: 'id-1234'
 }
 
-const unhandled: Unhandled = {
+const unhandled: OkOrUnhandledResponse = {
   _type: 'Unhandled',
   state: 'offline',
   messageType: 'StartSequence',
   msg: "Sequencer can not accept 'StartSequence' message in 'offline' state"
 }
 
-const goOnlineHookFailed: GoOnlineHookFailed = {
+const goOnlineHookFailed: GoOnlineResponse = {
   _type: 'GoOnlineHookFailed',
   msg: ''
 }
 
-const goOfflineHookFailed: GoOfflineHookFailed = {
+const goOfflineHookFailed: GoOfflineResponse = {
   _type: 'GoOfflineHookFailed',
   msg: ''
 }
 
-const diagnosticHookFailed: DiagnosticHookFailed = {
+const diagnosticHookFailed: DiagnosticModeResponse = {
   _type: 'DiagnosticHookFailed',
   msg: ''
 }
 
-const operationsHookFailed: OperationsHookFailed = {
+const operationsHookFailed: OperationsModeResponse = {
   _type: 'OperationsHookFailed',
   msg: ''
 }
 
 describe('Sequencer Response Contract', () => {
   test.each([
-    ['Ok', ok, TestData.Ok],
-    ['IdDoesNotExist', idDoesNotExist, TestData.IdDoesNotExist],
-    ['Unhandled', unhandled, TestData.Unhandled],
-    ['GoOnlineHookFailed', goOnlineHookFailed, TestData.GoOnlineHookFailed],
-    ['GoOfflineHookFailed', goOfflineHookFailed, TestData.GoOfflineHookFailed],
-    ['DiagnosticHookFailed', diagnosticHookFailed, TestData.DiagnosticHookFailed],
-    ['OperationsHookFailed', operationsHookFailed, TestData.OperationsHookFailed],
+    ['Ok', ok, get(OkOrUnhandledResponse.decode(TestData.Ok))],
+    [
+      'IdDoesNotExist',
+      idDoesNotExist,
+      get(RemoveBreakpointResponse.decode(TestData.IdDoesNotExist))
+    ],
+    ['Unhandled', unhandled, get(OkOrUnhandledResponse.decode(TestData.Unhandled))],
+    [
+      'GoOnlineHookFailed',
+      goOnlineHookFailed,
+      get(GoOnlineResponse.decode(TestData.GoOnlineHookFailed))
+    ],
+    [
+      'GoOfflineHookFailed',
+      goOfflineHookFailed,
+      get(GoOfflineResponse.decode(TestData.GoOfflineHookFailed))
+    ],
+    [
+      'DiagnosticHookFailed',
+      diagnosticHookFailed,
+      get(DiagnosticModeResponse.decode(TestData.DiagnosticHookFailed))
+    ],
+    [
+      'OperationsHookFailed',
+      operationsHookFailed,
+      get(OperationsModeResponse.decode(TestData.OperationsHookFailed))
+    ],
     [
       'CannotOperateOnAnInFlightOrFinishedStep',
       cannotOperateOnAnInFlightOrFinishedStep,
-      TestData.CannotOperateOnAnInFlightOrFinishedStep
+      get(PauseResponse.decode(TestData.CannotOperateOnAnInFlightOrFinishedStep))
     ]
   ])('%s | ESW-307', (_, actual, expected) => expect(actual).toEqual(expected))
 })
