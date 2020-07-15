@@ -1,11 +1,11 @@
+import { Server } from 'mock-socket'
+import { mocked } from 'ts-jest/utils'
 import { CommandService } from '../../../src/clients/command'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
-import { Server } from 'mock-socket'
 import { ComponentId, CurrentState, Prefix, SubmitResponse } from '../../../src/models'
-import { mocked } from 'ts-jest/utils'
-import { wsMockWithResolved } from '../../helpers/MockHelpers'
 import { post } from '../../../src/utils/Http'
+import { wsMockWithResolved } from '../../helpers/MockHelpers'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 

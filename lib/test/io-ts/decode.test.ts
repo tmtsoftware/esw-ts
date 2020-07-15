@@ -1,5 +1,5 @@
-import { Prefix, PrefixD, ValidateResponseD } from '../../src/models'
 import { Connection } from '../../src/clients/location'
+import { Prefix, PrefixD, ValidateResponse } from '../../src/models'
 import { get } from '../helpers/TestUtils'
 
 test('Prefix.decode', () => {
@@ -34,5 +34,5 @@ test('Connection.decode', () => {
 })
 
 test('ValidateResponse', () => {
-  console.log(get(ValidateResponseD.decode({ _type: 'Accepted', runId: '123' })))
+  console.log(get(ValidateResponse.decode({ _type: 'Accepted', runId: '123' })))
 })

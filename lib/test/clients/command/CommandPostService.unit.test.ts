@@ -1,3 +1,4 @@
+import { mocked } from 'ts-jest/utils'
 import { CommandService } from '../../../src/clients/command'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
@@ -10,7 +11,6 @@ import {
   SubmitResponse,
   ValidateResponse
 } from '../../../src/models'
-import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Http'
 
 jest.mock('../../../src/utils/Http')

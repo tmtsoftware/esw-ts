@@ -22,13 +22,13 @@ const IssueTypes = D.literal(
   'WrongUnitsIssue'
 )
 
-const ErrorType = 'Error' as const
-const InvalidType = 'Invalid' as const
-const CompletedType = 'Completed' as const
-const LockedType = 'Locked' as const
-const StartedType = 'Started' as const
-const CancelledType = 'Cancelled' as const
-const AcceptedType = 'Accepted' as const
+const ErrorType = 'Error'
+const InvalidType = 'Invalid'
+const CompletedType = 'Completed'
+const LockedType = 'Locked'
+const StartedType = 'Started'
+const CancelledType = 'Cancelled'
+const AcceptedType = 'Accepted'
 
 const CommandIssue = D.type({
   _type: IssueTypes,
@@ -73,7 +73,7 @@ export const SubmitResponseD = D.sum('_type')({
   [CancelledType]: Cancelled
 })
 
-export const CommandResponseD = D.sum('_type')({
+export const CommandResponse = D.sum('_type')({
   [ErrorType]: Error,
   [InvalidType]: Invalid,
   [LockedType]: Locked,
@@ -83,19 +83,19 @@ export const CommandResponseD = D.sum('_type')({
   [AcceptedType]: Accepted
 })
 
-export const ValidateResponseD = D.sum('_type')({
+export const ValidateResponse = D.sum('_type')({
   [AcceptedType]: Accepted,
   [InvalidType]: Invalid,
   [LockedType]: Locked
 })
 
-export const OneWayResponseD = D.sum('_type')({
+export const OneWayResponse = D.sum('_type')({
   [AcceptedType]: Accepted,
   [InvalidType]: Invalid,
   [LockedType]: Locked
 })
 
 export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
-export type CommandResponse = D.TypeOf<typeof CommandResponseD>
-export type ValidateResponse = D.TypeOf<typeof ValidateResponseD>
-export type OneWayResponse = D.TypeOf<typeof OneWayResponseD>
+export type CommandResponse = D.TypeOf<typeof CommandResponse>
+export type ValidateResponse = D.TypeOf<typeof ValidateResponse>
+export type OneWayResponse = D.TypeOf<typeof OneWayResponse>

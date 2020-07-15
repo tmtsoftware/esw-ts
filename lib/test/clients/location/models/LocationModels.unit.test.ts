@@ -1,16 +1,15 @@
 import {
   AkkaConnection,
-  HttpConnection,
-  TcpConnection,
   AkkaLocation,
+  HttpConnection,
   HttpLocation,
-  TcpLocation,
-  LocationD
+  Location,
+  TcpConnection,
+  TcpLocation
 } from '../../../../src/clients/location'
-
-import * as TestData from '../../../jsons/LocationModels.json'
 import { Prefix } from '../../../../src/models'
 import { get } from '../../../helpers/TestUtils'
+import * as TestData from '../../../jsons/LocationModels.json'
 
 const prefix = new Prefix('ESW', 'test')
 const uri = 'some uri'
@@ -23,7 +22,7 @@ describe('Typed Locations', () => {
       connection: akkaConnection,
       uri
     }
-    const expected = get(LocationD.decode(TestData.AkkaLocation))
+    const expected = get(Location.decode(TestData.AkkaLocation))
     expect(akkaLocation).toEqual(expected)
   })
 
@@ -35,7 +34,7 @@ describe('Typed Locations', () => {
       uri
     }
 
-    const expected = get(LocationD.decode(TestData.HttpLocation))
+    const expected = get(Location.decode(TestData.HttpLocation))
     expect(httpLocation).toEqual(expected)
   })
 
@@ -47,7 +46,7 @@ describe('Typed Locations', () => {
       uri
     }
 
-    const expected = get(LocationD.decode(TestData.TcpLocation))
+    const expected = get(Location.decode(TestData.TcpLocation))
     expect(tcpLocation).toEqual(expected)
   })
 })
