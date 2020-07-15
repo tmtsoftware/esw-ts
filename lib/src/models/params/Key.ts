@@ -5,15 +5,29 @@ import * as C from './Coord'
 import { Struct } from './Struct'
 import { Units } from './Units'
 
-type ParamDecoder<T> = D.Decoder<
-  unknown,
-  {
-    keyName: string
-    values: T[]
-    units: Units
-  }
->
-const ParamBodyDecoder = <T>(valuesDec: D.Decoder<unknown, T>): ParamDecoder<T> =>
+// ---------------------------------
+// Key, ParameterBody Schema
+// ---------------------------------
+type Decoder<T> = D.Decoder<unknown, T>
+
+type ParamDecoder<T> = Decoder<{
+  keyName: string
+  values: T[]
+  units: Units
+}>
+
+type KeyType<L extends string, T> = {
+  keyTag: L
+  keyType: T
+}
+
+export type KTag<T extends Key> = T['keyTag']
+export type KType<T extends Key> = T['keyType']
+
+// ---------------------------------
+// Key, ParameterBody Decoders
+// ---------------------------------
+const ParamBodyDecoder = <T>(valuesDec: Decoder<T>): ParamDecoder<T> =>
   D.type({
     keyName: D.string,
     values: D.array(valuesDec),
@@ -22,15 +36,10 @@ const ParamBodyDecoder = <T>(valuesDec: D.Decoder<unknown, T>): ParamDecoder<T> 
 
 export const Keys: Record<string, ParamDecoder<unknown>> = {}
 
-const RawKey = <KType>(kType: D.Decoder<unknown, KType>) => <KTag extends string>(
+const RawKey = <KType>(kType: Decoder<KType>) => <KTag extends string>(
   kTag: KTag
-): D.Decoder<
-  unknown,
-  {
-    keyTag: KTag
-    keyType: KType
-  }
-> => {
+): Decoder<KeyType<KTag, KType>> => {
+  // populate [key -> decoder] record, used while decoding parameter
   Keys[kTag] = ParamBodyDecoder(kType)
 
   return D.type({
@@ -39,9 +48,7 @@ const RawKey = <KType>(kType: D.Decoder<unknown, KType>) => <KTag extends string
   })
 }
 
-export type KTag<T extends Key> = T['keyTag']
-export type KType<T extends Key> = T['keyType']
-
+// Simple Keys
 const NumberKey = RawKey<number>(D.number)
 export const IntKey = NumberKey('IntKey')
 export const LongKey = NumberKey('LongKey')
@@ -59,7 +66,7 @@ export const CharKey = RawStringKey('CharKey')
 export const UTCTimeKey = RawStringKey('UTCTimeKey') // todo: Maybe in future if we implement Time models, use those here
 export const TAITimeKey = RawStringKey('TAITimeKey') // todo: Maybe in future if we implement Time models, use those here
 
-// Array keys
+// Array Keys
 const ArrayNumberKey = RawKey(D.array(D.number))
 export const IntArrayKey = ArrayNumberKey('IntArrayKey')
 export const LongArrayKey = ArrayNumberKey('LongArrayKey')
@@ -68,7 +75,7 @@ export const FloatArrayKey = ArrayNumberKey('FloatArrayKey')
 export const DoubleArrayKey = ArrayNumberKey('DoubleArrayKey')
 export const ByteArrayKey = ArrayNumberKey('ByteArrayKey')
 
-// Matrix keys
+// Matrix Keys
 const MatrixDataNumberKey = RawKey(D.array(D.array(D.number)))
 export const IntMatrixKey = MatrixDataNumberKey('IntMatrixKey')
 export const LongMatrixKey = MatrixDataNumberKey('LongMatrixKey')
@@ -77,11 +84,7 @@ export const FloatMatrixKey = MatrixDataNumberKey('FloatMatrixKey')
 export const DoubleMatrixKey = MatrixDataNumberKey('DoubleMatrixKey')
 export const ByteMatrixKey = MatrixDataNumberKey('ByteMatrixKey')
 
-export const StructKey = RawKey(Struct)('StructKey')
-
-export const ChoiceKey = RawKey(D.string)('ChoiceKey')
-
-// coord keys
+// Coord Keys
 export const RaDecKey = RawKey(C.RaDec)('RaDecKey')
 export const EqCoordKey = RawKey(C.EqCoord)('EqCoordKey')
 export const SolarSystemCoordKey = RawKey(C.SolarSystemCoord)('SolarSystemCoordKey')
@@ -89,6 +92,9 @@ export const MinorPlanetCoordKey = RawKey(C.MinorPlanetCoord)('MinorPlanetCoordK
 export const CometCoordKey = RawKey(C.CometCoord)('CometCoordKey')
 export const AltAzCoordKey = RawKey(C.AltAzCoord)('AltAzCoordKey')
 export const CoordKey = RawKey(C.Coord)('CoordKey')
+
+export const StructKey = RawKey(Struct)('StructKey')
+export const ChoiceKey = RawKey(D.string)('ChoiceKey')
 
 export type Key =
   | D.TypeOf<typeof IntKey>
@@ -124,12 +130,15 @@ export type Key =
   | D.TypeOf<typeof AltAzCoordKey>
   | D.TypeOf<typeof CoordKey>
 
-const keyFactory = <KType extends Key>(keyTag: KType['keyTag'], defaultUnit: Units = 'NoUnits') => (
+// ---------------------------------
+// Key Factories
+// ---------------------------------
+const keyFactory = <K extends Key>(keyTag: KTag<K>, defaultUnit: Units = 'NoUnits') => (
   name: string,
   units: Units = defaultUnit
-) => new BaseKey<KType>(name, keyTag, units)
+) => new BaseKey<K>(name, keyTag, units)
 
-// simple key's
+// Simple Key's
 export const intKey = keyFactory('IntKey')
 export const longKey = keyFactory('LongKey')
 export const shortKey = keyFactory('ShortKey')
@@ -140,7 +149,7 @@ export const stringKey = keyFactory('StringKey')
 export const charKey = keyFactory('CharKey')
 export const booleanKey = keyFactory('BooleanKey')
 
-// matrix keys
+// Matrix Keys
 export const byteMatrixKey = keyFactory('ByteMatrixKey')
 export const intMatrixKey = keyFactory('IntMatrixKey')
 export const longMatrixKey = keyFactory('LongMatrixKey')
@@ -148,7 +157,7 @@ export const shortMatrixKey = keyFactory('ShortMatrixKey')
 export const floatMatrixKey = keyFactory('FloatMatrixKey')
 export const doubleMatrixKey = keyFactory('DoubleMatrixKey')
 
-// array keys
+// Array Keys
 export const byteArrayKey = keyFactory('ByteArrayKey')
 export const intArrayKey = keyFactory('IntArrayKey')
 export const longArrayKey = keyFactory('LongArrayKey')
@@ -156,7 +165,7 @@ export const shortArrayKey = keyFactory('ShortArrayKey')
 export const floatArrayKey = keyFactory('FloatArrayKey')
 export const doubleArrayKey = keyFactory('DoubleArrayKey')
 
-// time, choice and struct keys
+// Time, Choice and Struct Keys
 export const structKey = keyFactory('StructKey')
 export const utcTimeKey = keyFactory('UTCTimeKey', 'second')
 export const taiTimeKey = keyFactory('TAITimeKey', 'second')
@@ -164,7 +173,7 @@ export const taiTimeKey = keyFactory('TAITimeKey', 'second')
 export const choiceKey = (name: string, units: Units = 'NoUnits') =>
   new ChoiceKeyFactory(name, 'ChoiceKey', units)
 
-// co-ord keys
+// Coord Keys
 export const raDecKey = keyFactory('RaDecKey')
 export const eqCoordKey = keyFactory('EqCoordKey')
 export const solarSystemCoordKey = keyFactory('SolarSystemCoordKey')
@@ -173,5 +182,8 @@ export const cometCoordKey = keyFactory('CometCoordKey')
 export const altAzCoordKey = keyFactory('AltAzCoordKey')
 export const coordKey = keyFactory('CoordKey')
 
-const ks = Object.keys(Keys)
-export const KeyTag = D.literal(ks[0], ...ks.slice(1))
+// -----------------------------------------------------------
+// Key Literals Decoder, for ex. 'IntKey', 'StringKey' etc.
+// -----------------------------------------------------------
+const keys = Object.keys(Keys)
+export const KeyTag = D.literal(keys[0], ...keys.slice(1))
