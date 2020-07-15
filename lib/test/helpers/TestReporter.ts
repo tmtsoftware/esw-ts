@@ -25,7 +25,7 @@ const outputFilePath = parseOutput(args) || '../../../../RTM/testStoryMapping.tx
 const OUTPUT_PATH = path.resolve(path.join(__dirname, outputFilePath))
 console.log(OUTPUT_PATH)
 // default append is false
-const append = appendArg || false
+const append = appendArg || true
 
 class TestReporter implements CustomReporter {
   private results: string[] = []
