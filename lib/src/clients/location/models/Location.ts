@@ -1,34 +1,33 @@
 import * as D from 'io-ts/lib/Decoder'
 import { AkkaConnectionD, Connection, HttpConnectionD, TcpConnectionD } from './Connection'
 
+type Decoder<T> = D.Decoder<unknown, T>
+
 const AkkaLocationL = 'AkkaLocation'
 const HttpLocationL = 'HttpLocation'
 const TcpLocationL = 'TcpLocation'
 
 type LocationType = typeof AkkaLocationL | typeof HttpLocationL | typeof TcpLocationL
 
-type LocationPayload<L extends LocationType, C extends Connection> = D.Decoder<
-  unknown,
-  {
-    _type: L
-    connection: C
-    uri: string
-  }
->
+type LocationDecoder<L extends LocationType, C extends Connection> = Decoder<{
+  _type: L
+  connection: C
+  uri: string
+}>
 
-const locationD = <L extends LocationType, C extends Connection>(
+const location = <L extends LocationType, C extends Connection>(
   locationType: L,
-  connection: D.Decoder<unknown, C>
-): LocationPayload<L, C> =>
+  connection: Decoder<C>
+): LocationDecoder<L, C> =>
   D.type({
     _type: D.literal(locationType),
     connection: connection,
     uri: D.string
   })
 
-const AkkaLocation = locationD('AkkaLocation', AkkaConnectionD)
-const HttpLocation = locationD('HttpLocation', HttpConnectionD)
-const TcpLocation = locationD('TcpLocation', TcpConnectionD)
+const AkkaLocation = location(AkkaLocationL, AkkaConnectionD)
+const HttpLocation = location(HttpLocationL, HttpConnectionD)
+const TcpLocation = location(TcpLocationL, TcpConnectionD)
 
 export type AkkaLocation = D.TypeOf<typeof AkkaLocation>
 export type HttpLocation = D.TypeOf<typeof HttpLocation>

@@ -7,16 +7,16 @@ const tcp = 'tcp'
 
 export type ConnectionType = typeof akka | typeof http | typeof tcp
 
-type ConnectionDecoder<T extends ConnectionType> = D.Decoder<
+type ConnectionDecoder<L extends ConnectionType> = D.Decoder<
   unknown,
   {
-    connectionType: T
+    connectionType: L
     prefix: Prefix
     componentType: ComponentType
   }
 >
 
-const connectionDecoder = <T extends ConnectionType>(connectionType: T): ConnectionDecoder<T> =>
+const connectionDecoder = <L extends ConnectionType>(connectionType: L): ConnectionDecoder<L> =>
   D.type({
     connectionType: D.literal(connectionType),
     prefix: PrefixD,
