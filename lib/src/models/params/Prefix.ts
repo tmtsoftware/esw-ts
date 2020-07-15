@@ -1,6 +1,7 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
 import * as D from 'io-ts/lib/Decoder'
+import { Decoder } from '../../utils/Decoder'
 import { requirement } from '../../utils/Utils'
 import { Subsystem } from './Subsystem'
 
@@ -46,7 +47,7 @@ const parsePrefix = (prefixStr: string): E.Either<Error, Prefix> =>
     (e) => (e instanceof Error ? e : new Error('unknown error'))
   )
 
-export const PrefixD: D.Decoder<unknown, Prefix> = pipe(
+export const PrefixD: Decoder<Prefix> = pipe(
   D.string,
   D.parse((str) => {
     const p = parsePrefix(str)

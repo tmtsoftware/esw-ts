@@ -1,4 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
+import { Decoder } from '../../utils/Decoder'
 import { ParamSet } from './Parameter'
 
 const IssueTypes = D.literal(
@@ -53,7 +54,7 @@ const Completed = D.type({
   result: ParamSet
 })
 
-const commandRes = <L extends string>(type: L): D.Decoder<unknown, { _type: L; runId: string }> =>
+const commandRes = <L extends string>(type: L): Decoder<{ _type: L; runId: string }> =>
   D.type({
     _type: D.literal(type),
     runId: D.string

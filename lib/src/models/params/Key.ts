@@ -1,4 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
+import { char, Decoder } from '../../utils/Decoder'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import * as C from './Coord'
@@ -8,7 +9,6 @@ import { Units } from './Units'
 // ---------------------------------
 // Key, ParameterBody Schema
 // ---------------------------------
-type Decoder<T> = D.Decoder<unknown, T>
 
 type ParamDecoder<T> = Decoder<{
   keyName: string
@@ -59,9 +59,10 @@ export const ByteKey = NumberKey('ByteKey')
 
 export const BooleanKey = RawKey(D.boolean)('BooleanKey')
 
+export const CharKey = RawKey(char)('CharKey')
+
 const RawStringKey = RawKey(D.string)
 export const StringKey = RawStringKey('StringKey')
-export const CharKey = RawStringKey('CharKey')
 
 export const UTCTimeKey = RawStringKey('UTCTimeKey') // todo: Maybe in future if we implement Time models, use those here
 export const TAITimeKey = RawStringKey('TAITimeKey') // todo: Maybe in future if we implement Time models, use those here

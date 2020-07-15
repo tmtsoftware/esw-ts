@@ -1,5 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ComponentType, Prefix, PrefixD } from '../../../models'
+import { Decoder } from '../../../utils/Decoder'
 
 const akka = 'akka'
 const http = 'http'
@@ -7,14 +8,11 @@ const tcp = 'tcp'
 
 export type ConnectionType = typeof akka | typeof http | typeof tcp
 
-type ConnectionDecoder<L extends ConnectionType> = D.Decoder<
-  unknown,
-  {
-    connectionType: L
-    prefix: Prefix
-    componentType: ComponentType
-  }
->
+type ConnectionDecoder<L extends ConnectionType> = Decoder<{
+  connectionType: L
+  prefix: Prefix
+  componentType: ComponentType
+}>
 
 const connectionDecoder = <L extends ConnectionType>(connectionType: L): ConnectionDecoder<L> =>
   D.type({

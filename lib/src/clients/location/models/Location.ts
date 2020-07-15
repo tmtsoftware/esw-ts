@@ -1,7 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
+import { Decoder } from '../../../utils/Decoder'
 import { AkkaConnectionD, Connection, HttpConnectionD, TcpConnectionD } from './Connection'
-
-type Decoder<T> = D.Decoder<unknown, T>
 
 const AkkaLocationL = 'AkkaLocation'
 const HttpLocationL = 'HttpLocation'

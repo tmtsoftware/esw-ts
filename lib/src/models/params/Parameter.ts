@@ -1,9 +1,9 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
 import * as D from 'io-ts/lib/Decoder'
+import { Decoder } from '../../utils/Decoder'
 import { Key, Keys, KeyTag, KTag, KType } from './Key'
 import { Units } from './Units'
-
 export class Parameter<T extends Key> {
   constructor(
     readonly keyName: string,
@@ -41,9 +41,6 @@ const decodeParameter = () =>
     )
   )
 
-export const ParameterD: D.Decoder<unknown, Parameter<Key>> = D.lazy(
-  'Parameter<Key>',
-  decodeParameter
-)
+export const ParameterD: Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', decodeParameter)
 
 export const ParamSet = D.type({ paramSet: D.array(ParameterD) })
