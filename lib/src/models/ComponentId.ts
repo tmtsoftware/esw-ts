@@ -6,7 +6,7 @@ export class ComponentId {
   constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
 }
 
-export const ComponentIdD = D.type({
+export const ComponentIdD: D.Decoder<unknown, ComponentId> = D.type({
   prefix: PrefixD,
   componentType: ComponentType
 })

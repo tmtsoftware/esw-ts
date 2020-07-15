@@ -46,7 +46,7 @@ const parsePrefix = (prefixStr: string): E.Either<Error, Prefix> =>
     (e) => (e instanceof Error ? e : new Error('unknown error'))
   )
 
-export const PrefixD: D.Decoder<Prefix> = pipe(
+export const PrefixD: D.Decoder<unknown, Prefix> = pipe(
   D.string,
   D.parse((str) => {
     const p = parsePrefix(str)

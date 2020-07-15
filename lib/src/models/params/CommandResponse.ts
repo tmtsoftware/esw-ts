@@ -53,7 +53,7 @@ const Completed = D.type({
   result: ParamSet
 })
 
-const commandRes = <T extends string>(type: T): D.Decoder<{ _type: T; runId: string }> =>
+const commandRes = <T extends string>(type: T): D.Decoder<unknown, { _type: T; runId: string }> =>
   D.type({
     _type: D.literal(type),
     runId: D.string

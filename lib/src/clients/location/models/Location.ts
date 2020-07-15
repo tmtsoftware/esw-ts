@@ -7,15 +7,18 @@ const TcpLocationL = 'TcpLocation'
 
 type LocationType = typeof AkkaLocationL | typeof HttpLocationL | typeof TcpLocationL
 
-type LocationPayload<L extends LocationType, C extends Connection> = D.Decoder<{
-  _type: L
-  connection: C
-  uri: string
-}>
+type LocationPayload<L extends LocationType, C extends Connection> = D.Decoder<
+  unknown,
+  {
+    _type: L
+    connection: C
+    uri: string
+  }
+>
 
 const locationD = <L extends LocationType, C extends Connection>(
   locationType: L,
-  connection: D.Decoder<C>
+  connection: D.Decoder<unknown, C>
 ): LocationPayload<L, C> =>
   D.type({
     _type: D.literal(locationType),

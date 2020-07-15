@@ -7,25 +7,28 @@ const tcp = 'tcp'
 
 export type ConnectionType = typeof akka | typeof http | typeof tcp
 
-type ConnectionPayload<T extends ConnectionType> = D.Decoder<{
-  connectionType: T
-  prefix: Prefix
-  componentType: ComponentType
-}>
+type ConnectionDecoder<T extends ConnectionType> = D.Decoder<
+  unknown,
+  {
+    connectionType: T
+    prefix: Prefix
+    componentType: ComponentType
+  }
+>
 
-const connectionT = <T extends ConnectionType>(connectionType: T): ConnectionPayload<T> =>
+const connectionDecoder = <T extends ConnectionType>(connectionType: T): ConnectionDecoder<T> =>
   D.type({
     connectionType: D.literal(connectionType),
     prefix: PrefixD,
     componentType: ComponentType
   })
 
-export const AkkaConnectionD = connectionT(akka)
-export const HttpConnectionD = connectionT(http)
-export const TcpConnectionD = connectionT(tcp)
+export const AkkaConnectionD = connectionDecoder(akka)
+export const HttpConnectionD = connectionDecoder(http)
+export const TcpConnectionD = connectionDecoder(tcp)
 
-export type HttpConnection = D.TypeOf<typeof HttpConnectionD>
 export type AkkaConnection = D.TypeOf<typeof AkkaConnectionD>
+export type HttpConnection = D.TypeOf<typeof HttpConnectionD>
 export type TcpConnection = D.TypeOf<typeof TcpConnectionD>
 
 export const Connection = D.sum('connectionType')({

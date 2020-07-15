@@ -5,12 +5,15 @@ import * as C from './Coord'
 import { Struct } from './Struct'
 import { Units } from './Units'
 
-type ParamDecoder<T> = D.Decoder<{
-  keyName: string
-  values: T[]
-  units: Units
-}>
-const ParamBodyDecoder = <T>(valuesDec: D.Decoder<T>): ParamDecoder<T> =>
+type ParamDecoder<T> = D.Decoder<
+  unknown,
+  {
+    keyName: string
+    values: T[]
+    units: Units
+  }
+>
+const ParamBodyDecoder = <T>(valuesDec: D.Decoder<unknown, T>): ParamDecoder<T> =>
   D.type({
     keyName: D.string,
     values: D.array(valuesDec),
@@ -19,12 +22,15 @@ const ParamBodyDecoder = <T>(valuesDec: D.Decoder<T>): ParamDecoder<T> =>
 
 export const Keys: Record<string, ParamDecoder<unknown>> = {}
 
-const RawKey = <KType>(kType: D.Decoder<KType>) => <KTag extends string>(
+const RawKey = <KType>(kType: D.Decoder<unknown, KType>) => <KTag extends string>(
   kTag: KTag
-): D.Decoder<{
-  keyTag: KTag
-  keyType: KType
-}> => {
+): D.Decoder<
+  unknown,
+  {
+    keyTag: KTag
+    keyType: KType
+  }
+> => {
   Keys[kTag] = ParamBodyDecoder(kType)
 
   return D.type({

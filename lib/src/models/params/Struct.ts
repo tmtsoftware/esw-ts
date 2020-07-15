@@ -6,4 +6,4 @@ export interface Struct {
   paramSet: Array<Parameter<Key>>
 }
 
-export const Struct: D.Decoder<Struct> = D.lazy('Struct', () => ParamSet)
+export const Struct: D.Decoder<unknown, Struct> = D.lazy('Struct', () => ParamSet)
