@@ -22,3 +22,4 @@ yarn.lock
 target
 **/web_modules/*
 lib/src/**/*.js
+lib/integration/jsons
