@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RealmRole /> should not render children elements if authentication is false  1`] = `
+exports[`<RealmRole /> should not render children elements if authentication is false | ESW-330 1`] = `
 <div>
   <div>
     <div
@@ -12,7 +12,7 @@ exports[`<RealmRole /> should not render children elements if authentication is 
 </div>
 `;
 
-exports[`<RealmRole /> should not render children elements if authentication is true but invalid realm role 1`] = `
+exports[`<RealmRole /> should not render children elements if authentication is true but invalid realm role | ESW-330 1`] = `
 <div>
   <div>
     <div
@@ -24,7 +24,7 @@ exports[`<RealmRole /> should not render children elements if authentication is 
 </div>
 `;
 
-exports[`<RealmRole /> should render children elements if authentication is true and with valid realm role 1`] = `
+exports[`<RealmRole /> should render children elements if authentication is true and with valid realm role | ESW-330 1`] = `
 <div>
   <div>
     <div

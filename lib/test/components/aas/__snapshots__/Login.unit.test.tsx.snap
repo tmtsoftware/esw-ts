@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Login /> should render login 1`] = `
+exports[`<Login /> should render login | ESW-330 1`] = `
 <div>
   <button
-    id="aas-login"
+    id="keycloak-login"
   >
     Login
   </button>
