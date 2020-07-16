@@ -65,7 +65,7 @@ const Started = commandRes(StartedL)
 const Cancelled = commandRes(CompletedL)
 const Accepted = commandRes(AcceptedL)
 
-export const SubmitResponseD = D.sum('_type')({
+export const SubmitResponse = D.sum('_type')({
   [ErrorL]: Error,
   [InvalidL]: Invalid,
   [LockedL]: Locked,
@@ -96,7 +96,7 @@ export const OneWayResponse = D.sum('_type')({
   [LockedL]: Locked
 })
 
-export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
+export type SubmitResponse = D.TypeOf<typeof SubmitResponse>
 export type CommandResponse = D.TypeOf<typeof CommandResponse>
 export type ValidateResponse = D.TypeOf<typeof ValidateResponse>
 export type OneWayResponse = D.TypeOf<typeof OneWayResponse>

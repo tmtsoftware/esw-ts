@@ -1,3 +1,4 @@
+import * as D from 'io-ts/lib/Decoder'
 import { Connection, ConnectionType } from './models/Connection'
 import { Location } from './models/Location'
 import { Done } from './models/LocationResponses'
@@ -24,6 +25,7 @@ export interface LocationServiceApi {
 
 export class LocationService implements LocationServiceApi {
   private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>
+  private readonly locationListD = D.array(Location)
 
   constructor(
     readonly host: string = LocationConfig.hostName,
@@ -33,31 +35,37 @@ export class LocationService implements LocationServiceApi {
   }
 
   list(): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListEntries())
+    return this.httpTransport.requestRes(new Req.ListEntries(), this.locationListD)
   }
 
   listByComponentType(componentType: ComponentType): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByComponentType(componentType))
+    return this.httpTransport.requestRes(
+      new Req.ListByComponentType(componentType),
+      this.locationListD
+    )
   }
 
   listByHostname(hostname: string): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByHostname(hostname))
+    return this.httpTransport.requestRes(new Req.ListByHostname(hostname), this.locationListD)
   }
 
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByConnectionType(connectionType))
+    return this.httpTransport.requestRes(
+      new Req.ListByConnectionType(connectionType),
+      this.locationListD
+    )
   }
 
   listByPrefix(prefix: Prefix): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByPrefix(prefix))
+    return this.httpTransport.requestRes(new Req.ListByPrefix(prefix), this.locationListD)
   }
 
   find(connection: Connection): Promise<Location> {
-    return this.httpTransport.requestRes(new Req.Find(connection))
+    return this.httpTransport.requestRes(new Req.Find(connection), Location)
   }
 
   unregister(connection: Connection): Promise<Done> {
-    return this.httpTransport.requestRes(new Req.Unregister(connection))
+    return this.httpTransport.requestRes(new Req.Unregister(connection), Done)
   }
 
   // todo:
@@ -65,7 +73,7 @@ export class LocationService implements LocationServiceApi {
   // 2. see if it can return Promise<Location>?
   // 3. add threshold check, take into consideration of http connection timeout at os/network layer --
   resolve(connection: Connection, within: Duration): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.Resolve(connection, within))
+    return this.httpTransport.requestRes(new Req.Resolve(connection, within), this.locationListD)
   }
 
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {

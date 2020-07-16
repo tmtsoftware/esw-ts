@@ -1,3 +1,5 @@
+import * as D from 'io-ts/lib/Decoder'
+
 import { QueryFinal } from '../command/models/WsCommand'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
@@ -5,7 +7,7 @@ import * as Req from './models/PostCommand'
 import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
-import { SequenceCommand, SubmitResponse, ComponentId } from '../../models'
+import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import type { TokenFactory } from '../..'
 
@@ -49,92 +51,98 @@ export class SequencerService implements SequencerServiceApi {
     return new GatewaySequencerCommand(this.componentId, request)
   }
 
-  private postSequencerCmd<Res>(request: Req.SequencerPostRequest): Promise<Res> {
-    return this.httpTransport.requestRes(this.sequencerCommand(request))
+  private postSequencerCmd<Res>(
+    request: Req.SequencerPostRequest,
+    decoder: D.Decoder<unknown, Res>
+  ): Promise<Res> {
+    return this.httpTransport.requestRes(this.sequencerCommand(request), decoder)
   }
 
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.LoadSequence(sequence))
+    return this.postSequencerCmd(new Req.LoadSequence(sequence), Res.OkOrUnhandledResponse)
   }
 
   startSequence(): Promise<SubmitResponse> {
-    return this.postSequencerCmd(new Req.StartSequence())
+    return this.postSequencerCmd(new Req.StartSequence(), SubmitResponse)
   }
 
   add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Add(commands))
+    return this.postSequencerCmd(new Req.Add(commands), Res.OkOrUnhandledResponse)
   }
 
   prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Prepend(commands))
+    return this.postSequencerCmd(new Req.Prepend(commands), Res.OkOrUnhandledResponse)
   }
 
   replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.Replace(id, commands))
+    return this.postSequencerCmd(new Req.Replace(id, commands), Res.GenericResponse)
   }
 
   insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.InsertAfter(id, commands))
+    return this.postSequencerCmd(new Req.InsertAfter(id, commands), Res.GenericResponse)
   }
 
   delete(id: string): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.Delete(id))
+    return this.postSequencerCmd(new Req.Delete(id), Res.GenericResponse)
   }
 
   addBreakpoint(id: string): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.AddBreakpoint(id))
+    return this.postSequencerCmd(new Req.AddBreakpoint(id), Res.GenericResponse)
   }
 
   removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse> {
-    return this.postSequencerCmd(new Req.RemoveBreakpoint(id))
+    return this.postSequencerCmd(new Req.RemoveBreakpoint(id), Res.RemoveBreakpointResponse)
   }
 
   reset(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Reset())
+    return this.postSequencerCmd(new Req.Reset(), Res.OkOrUnhandledResponse)
   }
 
   resume(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Resume())
+    return this.postSequencerCmd(new Req.Resume(), Res.OkOrUnhandledResponse)
   }
 
   pause(): Promise<Res.PauseResponse> {
-    return this.postSequencerCmd(new Req.Pause())
+    return this.postSequencerCmd(new Req.Pause(), Res.PauseResponse)
   }
 
   getSequence(): Promise<StepList[]> {
-    return this.postSequencerCmd(new Req.GetSequence())
+    return this.postSequencerCmd(new Req.GetSequence(), D.array(StepList))
   }
 
   isAvailable(): Promise<boolean> {
-    return this.postSequencerCmd(new Req.IsAvailable())
+    return this.postSequencerCmd(new Req.IsAvailable(), D.boolean)
   }
 
   isOnline(): Promise<boolean> {
-    return this.postSequencerCmd(new Req.IsOnline())
+    return this.postSequencerCmd(new Req.IsOnline(), D.boolean)
   }
 
   goOnline(): Promise<Res.GoOnlineResponse> {
-    return this.postSequencerCmd(new Req.GoOnline())
+    return this.postSequencerCmd(new Req.GoOnline(), Res.GoOnlineResponse)
   }
 
   goOffline(): Promise<Res.GoOfflineResponse> {
-    return this.postSequencerCmd(new Req.GoOffline())
+    return this.postSequencerCmd(new Req.GoOffline(), Res.GoOfflineResponse)
   }
 
   abortSequence(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.AbortSequence())
+    return this.postSequencerCmd(new Req.AbortSequence(), Res.OkOrUnhandledResponse)
   }
 
   stop(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Stop())
+    return this.postSequencerCmd(new Req.Stop(), Res.OkOrUnhandledResponse)
   }
 
   diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse> {
-    return this.postSequencerCmd(new Req.DiagnosticMode(startTime, hint))
+    return this.postSequencerCmd(
+      new Req.DiagnosticMode(startTime, hint),
+      Res.DiagnosticModeResponse
+    )
   }
 
   operationsMode(): Promise<Res.OperationsModeResponse> {
-    return this.postSequencerCmd(new Req.OperationsMode())
+    return this.postSequencerCmd(new Req.OperationsMode(), Res.OperationsModeResponse)
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {

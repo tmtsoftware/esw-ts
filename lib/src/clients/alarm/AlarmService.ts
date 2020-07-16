@@ -15,6 +15,6 @@ export class AlarmService implements AlarmApi {
   }
 
   setSeverity(alarmKey: AlarmKey, severity: AlarmSeverity): Promise<Done> {
-    return this.httpTransport.requestRes(new SetAlarmSeverity(alarmKey, severity))
+    return this.httpTransport.requestRes(new SetAlarmSeverity(alarmKey, severity), Done)
   }
 }

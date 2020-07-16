@@ -13,6 +13,7 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import type { TokenFactory } from '../../'
 import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
+import * as D from 'io-ts/lib/Decoder'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>
@@ -38,24 +39,27 @@ export class CommandService implements CommandServiceApi {
     return new GatewayComponentCommand(this.componentId, msg)
   }
 
-  private postComponentCmd<Res>(msg: Req.CommandServiceHttpMessage) {
-    return this.httpTransport.requestRes<Res>(this.componentCommand(msg))
+  private postComponentCmd<Res>(
+    msg: Req.CommandServiceHttpMessage,
+    decoder: D.Decoder<unknown, Res>
+  ) {
+    return this.httpTransport.requestRes<Res>(this.componentCommand(msg), decoder)
   }
 
   validate(command: ControlCommand): Promise<ValidateResponse> {
-    return this.postComponentCmd(new Req.Validate(command))
+    return this.postComponentCmd(new Req.Validate(command), ValidateResponse)
   }
 
   submit(command: ControlCommand): Promise<SubmitResponse> {
-    return this.postComponentCmd(new Req.Submit(command))
+    return this.postComponentCmd(new Req.Submit(command), SubmitResponse)
   }
 
   oneway(command: ControlCommand): Promise<OneWayResponse> {
-    return this.postComponentCmd(new Req.Oneway(command))
+    return this.postComponentCmd(new Req.Oneway(command), OneWayResponse)
   }
 
   query(runId: string): Promise<SubmitResponse> {
-    return this.postComponentCmd(new Req.Query(runId))
+    return this.postComponentCmd(new Req.Query(runId), SubmitResponse)
   }
 
   private async ws(): Promise<Ws<GatewayComponentCommand>> {

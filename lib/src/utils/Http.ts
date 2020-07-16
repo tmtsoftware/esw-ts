@@ -10,6 +10,7 @@ export interface FetchRequest<Req, Res> {
   headers?: Headers
   timeout?: number
   responseMapper?: (res: Response) => Promise<Res>
+  decoder?: (a: any) => Res
 }
 
 export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Promise<Res>
@@ -38,7 +39,8 @@ const fetchMethod = (method: Method): RequestResponse => {
       parameters,
       headers = jsonHeader(),
       timeout = 120000,
-      responseMapper = toJson
+      responseMapper = toJson,
+      decoder = (a: any) => a
     } = request
 
     const controller = handleRequestTimeout(timeout)
@@ -55,7 +57,8 @@ const fetchMethod = (method: Method): RequestResponse => {
       throw new Error(err.message)
     })
 
-    return responseMapper(handleErrors(await fetchCall))
+    const response = await responseMapper(handleErrors(await fetchCall))
+    return decoder(response)
   }
 }
 
