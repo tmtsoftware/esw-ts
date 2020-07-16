@@ -23,13 +23,14 @@ export class Parameter<T extends Key> {
   }
 }
 
-const decodeParameter = pipe(
-  object(paramDecoders),
-  D.parse(([key, body]) =>
-    D.success(new Parameter(body.keyName, key as any, body.values as any, body.units))
+const decodeParameter = () =>
+  pipe(
+    object(paramDecoders),
+    D.parse(([key, body]) =>
+      D.success(new Parameter(body.keyName, key as any, body.values as any, body.units))
+    )
   )
-)
 
-export const ParameterD: Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', () => decodeParameter)
+export const ParameterD: Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', decodeParameter)
 
 export const ParamSet = D.type({ paramSet: D.array(ParameterD) })

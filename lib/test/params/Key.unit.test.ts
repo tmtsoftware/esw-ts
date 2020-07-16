@@ -1,16 +1,8 @@
-import * as TestData from '../jsons/Keys.json'
-import {
-  AltAzCoord,
-  CometCoord,
-  EqCoord,
-  MinorPlanetCoord,
-  SolarSystemCoord,
-  Key,
-  Parameter
-} from '../../src/models'
+import * as M from '../../src/models'
 import * as Keys from '../../src/models/params/Key'
+import * as TestData from '../jsons/Keys.json'
 
-const stringify = (param: Parameter<Key>) => JSON.stringify(param.toJSON()[param.keyTag])
+const stringify = (param: M.Parameter<M.Key>) => JSON.stringify(param.toJSON()[param.keyTag])
 
 // ======== Simple Keys ========
 const intParam = Keys.intKey('numbers').set([1, 2, 3])
@@ -59,7 +51,7 @@ const choiceParam = resetKey.setChoice(choices, ['c'])
 const raDecParam = Keys.raDecKey('RaDecKey').set([{ ra: 7.3, dec: 12.1 }])
 
 // ======== Coord Keys ========
-const eqCoord: EqCoord = {
+const eqCoord: M.EqCoord = {
   _type: 'EqCoord',
   tag: 'BASE',
   ra: 659912250000,
@@ -72,13 +64,13 @@ const eqCoord: EqCoord = {
   }
 }
 
-const solarSystemCoord: SolarSystemCoord = {
+const solarSystemCoord: M.SolarSystemCoord = {
   _type: 'SolarSystemCoord',
   tag: 'BASE',
   body: 'Venus'
 }
 
-const minorPlanetCoord: MinorPlanetCoord = {
+const minorPlanetCoord: M.MinorPlanetCoord = {
   _type: 'MinorPlanetCoord',
   tag: 'GUIDER1',
   epoch: 2000.0,
@@ -90,7 +82,7 @@ const minorPlanetCoord: MinorPlanetCoord = {
   meanAnomaly: 792000000000
 }
 
-const cometCoord: CometCoord = {
+const cometCoord: M.CometCoord = {
   _type: 'CometCoord',
   tag: 'BASE',
   epochOfPerihelion: 2000.0,
@@ -101,7 +93,7 @@ const cometCoord: CometCoord = {
   eccentricity: 0.234
 }
 
-const altAzCoord: AltAzCoord = {
+const altAzCoord: M.AltAzCoord = {
   _type: 'AltAzCoord',
   tag: 'BASE',
   alt: 1083600000000,
