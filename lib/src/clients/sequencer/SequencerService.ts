@@ -1,5 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
-
+import type { TokenFactory } from '../..'
+import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
+import { Decoder } from '../../utils/Decoder'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { Ws } from '../../utils/Ws'
 import { QueryFinal } from '../command/models/WsCommand'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
@@ -7,13 +11,6 @@ import * as Req from './models/PostCommand'
 import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
-import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import type { TokenFactory } from '../..'
-
-import { Ws } from '../../utils/Ws'
-import { Decoder } from '../../utils/Decoder'
-import { decoderFactory } from '../../utils/Utils'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -151,7 +148,7 @@ export class SequencerService implements SequencerServiceApi {
     const { host, port } = await resolveGateway()
     return new Ws(host, port).singleResponse(
       this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds)),
-      decoderFactory(SubmitResponse)
+      SubmitResponse
     )
   }
 }

@@ -1,10 +1,10 @@
 import { Connection } from '../../src/clients/location'
 import { Prefix, PrefixD, ValidateResponse } from '../../src/models'
-import { get } from '../helpers/TestUtils'
+import { getResponse } from './../../src/utils/Utils'
 
 test('Prefix.decode', () => {
   const p1 = PrefixD.decode('ESW.filter.wheel')
-  console.log(get(p1))
+  console.log(getResponse(p1))
 
   const p2: Prefix = new Prefix('ESW', 'filter.wheel')
 
@@ -18,7 +18,7 @@ test('Connection.decode', () => {
     prefix: 'ESW.filter.wheel',
     componentType: 'HCD'
   })
-  console.log(get(c1))
+  console.log(getResponse(c1))
 
   const c2: Connection = {
     connectionType: 'akka',
@@ -30,9 +30,9 @@ test('Connection.decode', () => {
   console.log(c3)
 
   const c4 = Connection.decode(JSON.parse(c3))
-  console.log(get(c4))
+  console.log(getResponse(c4))
 })
 
 test('ValidateResponse', () => {
-  console.log(get(ValidateResponse.decode({ _type: 'Accepted', runId: '123' })))
+  console.log(getResponse(ValidateResponse.decode({ _type: 'Accepted', runId: '123' })))
 })

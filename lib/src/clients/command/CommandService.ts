@@ -1,38 +1,30 @@
+import type { TokenFactory } from '../../'
+import * as M from '../../models'
+import { Decoder } from '../../utils/Decoder'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { Subscription, Ws } from '../../utils/Ws'
+import { GatewayComponentCommand } from '../gateway/models/Gateway'
+import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Req from './models/PostCommand'
 import * as WsReq from './models/WsCommand'
-import { GatewayComponentCommand } from '../gateway/models/Gateway'
-import {
-  ComponentId,
-  ControlCommand,
-  CurrentState,
-  OnewayResponse,
-  SubmitResponse,
-  ValidateResponse
-} from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import type { TokenFactory } from '../../'
-import { Subscription, Ws } from '../../utils/Ws'
-import { resolveGateway } from '../gateway/ResolveGateway'
-import { decoderFactory } from '../../utils/Utils'
-import { Decoder } from '../../utils/Decoder'
 
 export interface CommandServiceApi {
-  validate(command: ControlCommand): Promise<ValidateResponse>
-  submit(command: ControlCommand): Promise<SubmitResponse>
-  oneway(command: ControlCommand): Promise<OnewayResponse>
-  query(runId: string): Promise<SubmitResponse>
+  validate(command: M.ControlCommand): Promise<M.ValidateResponse>
+  submit(command: M.ControlCommand): Promise<M.SubmitResponse>
+  oneway(command: M.ControlCommand): Promise<M.OnewayResponse>
+  query(runId: string): Promise<M.SubmitResponse>
 
-  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse>
   subscribeCurrentState(
     stateNames: Set<string>,
-    onStateChange: (state: CurrentState) => void
+    onStateChange: (state: M.CurrentState) => void
   ): Subscription
 }
 
 export class CommandService implements CommandServiceApi {
   private readonly httpTransport: HttpTransport<GatewayComponentCommand>
 
-  constructor(readonly componentId: ComponentId, readonly tokenFactory: TokenFactory) {
+  constructor(readonly componentId: M.ComponentId, readonly tokenFactory: TokenFactory) {
     this.httpTransport = new HttpTransport(resolveGateway, this.tokenFactory)
   }
 
@@ -44,20 +36,20 @@ export class CommandService implements CommandServiceApi {
     return this.httpTransport.requestRes<Res>(this.componentCommand(msg), decoder)
   }
 
-  validate(command: ControlCommand): Promise<ValidateResponse> {
-    return this.postComponentCmd(new Req.Validate(command), ValidateResponse)
+  validate(command: M.ControlCommand): Promise<M.ValidateResponse> {
+    return this.postComponentCmd(new Req.Validate(command), M.ValidateResponse)
   }
 
-  submit(command: ControlCommand): Promise<SubmitResponse> {
-    return this.postComponentCmd(new Req.Submit(command), SubmitResponse)
+  submit(command: M.ControlCommand): Promise<M.SubmitResponse> {
+    return this.postComponentCmd(new Req.Submit(command), M.SubmitResponse)
   }
 
-  oneway(command: ControlCommand): Promise<OnewayResponse> {
-    return this.postComponentCmd(new Req.Oneway(command), OnewayResponse)
+  oneway(command: M.ControlCommand): Promise<M.OnewayResponse> {
+    return this.postComponentCmd(new Req.Oneway(command), M.OnewayResponse)
   }
 
-  query(runId: string): Promise<SubmitResponse> {
-    return this.postComponentCmd(new Req.Query(runId), SubmitResponse)
+  query(runId: string): Promise<M.SubmitResponse> {
+    return this.postComponentCmd(new Req.Query(runId), M.SubmitResponse)
   }
 
   private async ws(): Promise<Ws<GatewayComponentCommand>> {
@@ -65,17 +57,17 @@ export class CommandService implements CommandServiceApi {
     return new Ws(host, port)
   }
 
-  private async subscribe(stateNames: Set<string>, onStateChange: (state: CurrentState) => void) {
+  private async subscribe(stateNames: Set<string>, onStateChange: (state: M.CurrentState) => void) {
     return (await this.ws()).subscribe(
       this.componentCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
-      decoderFactory(CurrentState)
+      M.CurrentState
     )
   }
 
   subscribeCurrentState(
     stateNames: Set<string>,
-    onStateChange: (state: CurrentState) => void
+    onStateChange: (state: M.CurrentState) => void
   ): Subscription {
     const subscriptionResponse = this.subscribe(stateNames, onStateChange)
     return {
@@ -86,10 +78,10 @@ export class CommandService implements CommandServiceApi {
     }
   }
 
-  async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
+  async queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse> {
     return (await this.ws()).singleResponse(
       this.componentCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
-      decoderFactory(SubmitResponse)
+      M.SubmitResponse
     )
   }
 }

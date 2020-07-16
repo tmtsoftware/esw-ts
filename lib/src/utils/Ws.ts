@@ -1,3 +1,6 @@
+import { Decoder } from './Decoder'
+import { getResponse } from './Utils'
+
 const createWebsocket = (host: string, port: number, path = 'websocket-endpoint') =>
   new WebSocket(`ws://${host}:${port}/${path}`)
 
@@ -16,11 +19,13 @@ export class Ws<Req> {
     return this.socket.then((wss) => wss.send(JSON.stringify(msg)))
   }
 
-  private subscribeOnly<T>(cb: (msg: T) => void, decoder?: (a: any) => T): Subscription {
+  private subscribeOnly<T>(cb: (msg: T) => void, decoder?: Decoder<T>): Subscription {
     this.socket.then(
       (wss) =>
         (wss.onmessage = (event) => {
-          const response = decoder ? decoder(JSON.parse(event.data)) : JSON.parse(event.data)
+          const response: T = decoder
+            ? getResponse(decoder.decode(JSON.parse(event.data)))
+            : JSON.parse(event.data)
           return cb(response)
         })
     )
@@ -28,12 +33,12 @@ export class Ws<Req> {
     return this.subscription
   }
 
-  subscribe<T>(msg: Req, cb: (msg: T) => void, decoder?: (a: any) => T): Subscription {
+  subscribe<T>(msg: Req, cb: (msg: T) => void, decoder?: Decoder<T>): Subscription {
     this.send(msg).then(() => this.subscribeOnly(cb, decoder))
     return this.subscription
   }
 
-  singleResponse<T>(msg: Req, decoder?: (a: any) => T): Promise<T> {
+  singleResponse<T>(msg: Req, decoder?: Decoder<T>): Promise<T> {
     return new Promise<T>((resolve) => {
       this.subscribe(msg, (response: T) => resolve(response), decoder)
     })
