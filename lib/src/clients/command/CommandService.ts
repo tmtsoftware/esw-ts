@@ -5,7 +5,7 @@ import {
   ComponentId,
   ControlCommand,
   CurrentState,
-  OneWayResponse,
+  OnewayResponse,
   SubmitResponse,
   ValidateResponse
 } from '../../models'
@@ -13,12 +13,13 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import type { TokenFactory } from '../../'
 import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
+import { decoderFactory } from '../../utils/Utils'
 import { Decoder } from '../../utils/Decoder'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>
   submit(command: ControlCommand): Promise<SubmitResponse>
-  oneway(command: ControlCommand): Promise<OneWayResponse>
+  oneway(command: ControlCommand): Promise<OnewayResponse>
   query(runId: string): Promise<SubmitResponse>
 
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
@@ -51,8 +52,8 @@ export class CommandService implements CommandServiceApi {
     return this.postComponentCmd(new Req.Submit(command), SubmitResponse)
   }
 
-  oneway(command: ControlCommand): Promise<OneWayResponse> {
-    return this.postComponentCmd(new Req.Oneway(command), OneWayResponse)
+  oneway(command: ControlCommand): Promise<OnewayResponse> {
+    return this.postComponentCmd(new Req.Oneway(command), OnewayResponse)
   }
 
   query(runId: string): Promise<SubmitResponse> {
@@ -67,7 +68,8 @@ export class CommandService implements CommandServiceApi {
   private async subscribe(stateNames: Set<string>, onStateChange: (state: CurrentState) => void) {
     return (await this.ws()).subscribe(
       this.componentCommand(new WsReq.SubscribeCurrentState(stateNames)),
-      onStateChange
+      onStateChange,
+      decoderFactory(CurrentState)
     )
   }
 
@@ -86,7 +88,8 @@ export class CommandService implements CommandServiceApi {
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
     return (await this.ws()).singleResponse(
-      this.componentCommand(new WsReq.QueryFinal(runId, timeoutInSeconds))
+      this.componentCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
+      decoderFactory(SubmitResponse)
     )
   }
 }

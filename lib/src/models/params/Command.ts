@@ -59,10 +59,15 @@ const SetupD: Decoder<Setup> = Command(SetupL)
 const ObserveD: Decoder<Observe> = Command(ObserveL)
 const WaitD: Decoder<Wait> = Command(WaitL)
 
-export const SequenceCommand = D.sum('_type')({
+export const SequenceCommand: Decoder<SequenceCommand> = D.sum('_type')({
   [SetupL]: SetupD,
   [ObserveL]: ObserveD,
   [WaitL]: WaitD
+})
+
+export const ControlCommand: Decoder<ControlCommand> = D.sum('_type')({
+  [SetupL]: SetupD,
+  [ObserveL]: ObserveD
 })
 
 export type ControlCommand = Setup | Observe

@@ -13,6 +13,7 @@ import type { TokenFactory } from '../..'
 
 import { Ws } from '../../utils/Ws'
 import { Decoder } from '../../utils/Decoder'
+import { decoderFactory } from '../../utils/Utils'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -149,7 +150,8 @@ export class SequencerService implements SequencerServiceApi {
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
     const { host, port } = await resolveGateway()
     return new Ws(host, port).singleResponse(
-      this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds))
+      this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds)),
+      decoderFactory(SubmitResponse)
     )
   }
 }

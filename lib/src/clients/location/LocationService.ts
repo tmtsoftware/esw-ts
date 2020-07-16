@@ -10,6 +10,7 @@ import { ComponentType, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
 import { Duration } from './models/Duration'
+import { decoderFactory } from '../../utils/Utils'
 
 export interface LocationServiceApi {
   list(): Promise<Location[]>
@@ -77,6 +78,10 @@ export class LocationService implements LocationServiceApi {
   }
 
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {
-    return new Ws(this.host, this.port).subscribe(new Track(connection), callBack)
+    return new Ws(this.host, this.port).subscribe(
+      new Track(connection),
+      callBack,
+      decoderFactory(TrackingEvent)
+    )
   }
 }

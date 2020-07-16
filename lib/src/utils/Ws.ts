@@ -16,20 +16,26 @@ export class Ws<Req> {
     return this.socket.then((wss) => wss.send(JSON.stringify(msg)))
   }
 
-  private subscribeOnly<T>(cb: (msg: T) => void): Subscription {
-    this.socket.then((wss) => (wss.onmessage = (event) => cb(JSON.parse(event.data))))
+  private subscribeOnly<T>(cb: (msg: T) => void, decoder?: (a: any) => T): Subscription {
+    this.socket.then(
+      (wss) =>
+        (wss.onmessage = (event) => {
+          const response = decoder ? decoder(JSON.parse(event.data)) : JSON.parse(event.data)
+          return cb(response)
+        })
+    )
 
     return this.subscription
   }
 
-  subscribe<T>(msg: Req, cb: (msg: T) => void): Subscription {
-    this.send(msg).then(() => this.subscribeOnly(cb))
+  subscribe<T>(msg: Req, cb: (msg: T) => void, decoder?: (a: any) => T): Subscription {
+    this.send(msg).then(() => this.subscribeOnly(cb, decoder))
     return this.subscription
   }
 
-  singleResponse<T>(msg: Req): Promise<T> {
+  singleResponse<T>(msg: Req, decoder?: (a: any) => T): Promise<T> {
     return new Promise<T>((resolve) => {
-      this.subscribe(msg, (response: T) => resolve(response))
+      this.subscribe(msg, (response: T) => resolve(response), decoder)
     })
   }
 

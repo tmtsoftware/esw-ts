@@ -5,7 +5,7 @@ import { HttpLocation } from '../../../src/clients/location'
 import {
   ComponentId,
   Observe,
-  OneWayResponse,
+  OnewayResponse,
   Prefix,
   Setup,
   SubmitResponse,
@@ -66,7 +66,7 @@ describe('CommandService', () => {
     postMockFn.mockResolvedValueOnce(acceptedResponse)
 
     const observeCommand = new Observe(eswTestPrefix, 'c1', [])
-    const data: OneWayResponse = await client.oneway(observeCommand)
+    const data: OnewayResponse = await client.oneway(observeCommand)
 
     expect(postMockFn).toBeCalledTimes(2)
     expect(data).toBe(acceptedResponse)

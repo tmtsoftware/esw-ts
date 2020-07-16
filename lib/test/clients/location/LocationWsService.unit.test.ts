@@ -33,7 +33,7 @@ test('location service must track a location for given connection | ESW-308, ESW
 
   return new Promise((done) => {
     locationService.track(httpConnection, (trackingEvent) => {
-      expect(trackingEvent).toEqual(JSON.parse(JSON.stringify(expectedTrackingEvent)))
+      expect(trackingEvent).toEqual(expectedTrackingEvent)
       done()
     })
   })

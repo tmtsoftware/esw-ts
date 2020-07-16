@@ -2,7 +2,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { Decoder, ciLiteral } from '../../utils/Decoder'
 import { ParamSet } from './Parameter'
 
-const IssueTypes = ciLiteral(
+export const IssueTypes = ciLiteral(
   'AssemblyBusyIssue',
   'HCDBusyIssue',
   'IdNotAvailableIssue',
@@ -31,7 +31,7 @@ const StartedL = 'Started'
 const CancelledL = 'Cancelled'
 const AcceptedL = 'Accepted'
 
-const CommandIssue = D.type({
+export const CommandIssue = D.type({
   _type: IssueTypes,
   reason: D.string
 })
@@ -62,7 +62,7 @@ const commandRes = <L extends string>(type: L): Decoder<{ _type: L; runId: strin
 
 const Locked = commandRes(LockedL)
 const Started = commandRes(StartedL)
-const Cancelled = commandRes(CompletedL)
+const Cancelled = commandRes(CancelledL)
 const Accepted = commandRes(AcceptedL)
 
 export const SubmitResponse = D.sum('_type')({
@@ -90,7 +90,7 @@ export const ValidateResponse = D.sum('_type')({
   [LockedL]: Locked
 })
 
-export const OneWayResponse = D.sum('_type')({
+export const OnewayResponse = D.sum('_type')({
   [AcceptedL]: Accepted,
   [InvalidL]: Invalid,
   [LockedL]: Locked
@@ -99,4 +99,4 @@ export const OneWayResponse = D.sum('_type')({
 export type SubmitResponse = D.TypeOf<typeof SubmitResponse>
 export type CommandResponse = D.TypeOf<typeof CommandResponse>
 export type ValidateResponse = D.TypeOf<typeof ValidateResponse>
-export type OneWayResponse = D.TypeOf<typeof OneWayResponse>
+export type OnewayResponse = D.TypeOf<typeof OnewayResponse>
