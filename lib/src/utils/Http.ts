@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import { identity } from 'fp-ts/lib/function'
 import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
@@ -40,7 +41,7 @@ const fetchMethod = (method: Method): RequestResponse => {
       headers = jsonHeader(),
       timeout = 120000,
       responseMapper = toJson,
-      decoder = (a: any) => a
+      decoder = identity
     } = request
 
     const controller = handleRequestTimeout(timeout)

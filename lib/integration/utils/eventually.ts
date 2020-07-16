@@ -22,4 +22,4 @@ export const eventually = async <T>(task: Task<T>): Promise<T> => {
   return loop(0)
 }
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

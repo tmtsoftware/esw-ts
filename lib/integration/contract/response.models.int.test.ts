@@ -1,16 +1,16 @@
-import { delay } from 'fp-ts/lib/Task'
 import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
+import path from 'path'
 import * as M from '../../src/models'
 import { Decoder } from '../../src/utils/Decoder'
 import { getResponse } from '../../src/utils/Utils'
-import { pathDir } from '../utils/FileUtils'
+import { delay } from '../utils/eventually'
 import { executeCswContract } from '../utils/shell'
 
 jest.setTimeout(100000)
 
-const sourceDir = pathDir('../jsons')
-const resourcesDir = pathDir('../FakeResources') //fixme: this should not be required, fix this in csw and esw contract
+const sourceDir = path.resolve(__dirname, '../jsons')
+const resourcesDir = path.resolve(__dirname, '../FakeResources') //fixme: this should not be required, fix this in csw and esw contract
 const commandModelsJsonPath = `${sourceDir}/command-service/models.json`
 
 beforeAll(async () => {

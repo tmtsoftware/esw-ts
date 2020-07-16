@@ -1,4 +1,4 @@
-import { Either, getOrElse } from 'fp-ts/lib/Either'
+import * as E from 'fp-ts/lib/Either'
 import * as D from 'io-ts/lib/Decoder'
 import { Decoder } from './Decoder'
 
@@ -12,10 +12,9 @@ export const extractHostPort = (uri: string) => {
   return { host, port }
 }
 
-export const getResponse = <A>(e: Either<D.DecodeError, A>): A =>
-  getOrElse<D.DecodeError, A>((err) => {
-    const msg = D.draw(err)
-    throw Error('Right value not present, Error: ' + msg)
+export const getResponse = <A>(e: E.Either<D.DecodeError, A>): A =>
+  E.getOrElse<D.DecodeError, A>((err) => {
+    throw Error(D.draw(err))
   })(e)
 
 export const decoderFactory = <T>(decoder: Decoder<T>) => (data: unknown) =>
