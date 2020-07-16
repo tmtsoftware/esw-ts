@@ -1,8 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
+import { CaseInsensitiveLiteral } from '../../utils/Decoder'
 
 export type Subsystem = D.TypeOf<typeof Subsystem>
 
-export const Subsystem = D.literal(
+export const Subsystem = CaseInsensitiveLiteral(
   'AOESW',
   'APS',
   'CIS',

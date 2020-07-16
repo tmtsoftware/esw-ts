@@ -2,6 +2,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
 import { Prefix, PrefixD } from './Prefix'
+import { CaseInsensitiveLiteral, Decoder } from '../../utils/Decoder'
 
 const SetupL = 'Setup'
 const ObserveL = 'Observe'
@@ -15,9 +16,9 @@ interface Command<L> {
   readonly paramSet: Parameter<Key>[]
 }
 
-const Command = <L extends string>(_type: L): D.Decoder<unknown, Command<L>> =>
+const Command = <L extends string>(_type: L): Decoder<Command<L>> =>
   D.type({
-    _type: D.literal(_type),
+    _type: CaseInsensitiveLiteral(_type),
     source: PrefixD,
     commandName: D.string,
     paramSet: D.array(ParameterD),
@@ -54,9 +55,9 @@ export class Wait implements Command<typeof WaitL> {
   ) {}
 }
 
-const SetupD: D.Decoder<unknown, Setup> = Command(SetupL)
-const ObserveD: D.Decoder<unknown, Observe> = Command(ObserveL)
-const WaitD: D.Decoder<unknown, Wait> = Command(WaitL)
+const SetupD: Decoder<Setup> = Command(SetupL)
+const ObserveD: Decoder<Observe> = Command(ObserveL)
+const WaitD: Decoder<Wait> = Command(WaitL)
 
 export const SequenceCommand = D.sum('_type')({
   [SetupL]: SetupD,

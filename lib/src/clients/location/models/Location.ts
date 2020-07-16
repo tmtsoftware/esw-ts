@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { Decoder } from '../../../utils/Decoder'
+import { Decoder, CaseInsensitiveLiteral } from '../../../utils/Decoder'
 import { AkkaConnectionD, Connection, HttpConnectionD, TcpConnectionD } from './Connection'
 
 const AkkaLocationL = 'AkkaLocation'
@@ -19,7 +19,7 @@ const location = <L extends LocationType, C extends Connection>(
   connection: Decoder<C>
 ): LocationDecoder<L, C> =>
   D.type({
-    _type: D.literal(locationType),
+    _type: CaseInsensitiveLiteral(locationType),
     connection: connection,
     uri: D.string
   })

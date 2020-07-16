@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { char, Decoder } from '../../utils/Decoder'
+import { char, Decoder, CaseInsensitiveLiteral } from '../../utils/Decoder'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import * as C from './Coord'
@@ -43,7 +43,7 @@ const RawKey = <KType>(kType: Decoder<KType>) => <KTag extends string>(
   Keys[kTag] = ParamBodyDecoder(kType)
 
   return D.type({
-    keyTag: D.literal(kTag),
+    keyTag: CaseInsensitiveLiteral(kTag),
     keyType: kType
   })
 }
@@ -187,4 +187,4 @@ export const coordKey = keyFactory('CoordKey')
 // Key Literals Decoder, for ex. 'IntKey', 'StringKey' etc.
 // -----------------------------------------------------------
 const keys = Object.keys(Keys)
-export const KeyTag = D.literal(keys[0], ...keys.slice(1))
+export const KeyTag = CaseInsensitiveLiteral(keys[0], ...keys.slice(1))

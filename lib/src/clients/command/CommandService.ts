@@ -13,7 +13,7 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import type { TokenFactory } from '../../'
 import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
-import * as D from 'io-ts/lib/Decoder'
+import { Decoder } from '../../utils/Decoder'
 
 export interface CommandServiceApi {
   validate(command: ControlCommand): Promise<ValidateResponse>
@@ -39,10 +39,7 @@ export class CommandService implements CommandServiceApi {
     return new GatewayComponentCommand(this.componentId, msg)
   }
 
-  private postComponentCmd<Res>(
-    msg: Req.CommandServiceHttpMessage,
-    decoder: D.Decoder<unknown, Res>
-  ) {
+  private postComponentCmd<Res>(msg: Req.CommandServiceHttpMessage, decoder: Decoder<Res>) {
     return this.httpTransport.requestRes<Res>(this.componentCommand(msg), decoder)
   }
 

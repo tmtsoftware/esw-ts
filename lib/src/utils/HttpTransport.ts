@@ -1,8 +1,8 @@
-import * as D from 'io-ts/lib/Decoder'
 import { post } from './Http'
 import { HeaderExt } from './HeaderExt'
 import type { TokenFactory } from './TokenFactory'
 import { getResponse } from './Utils'
+import { Decoder } from './Decoder'
 
 export class HttpTransport<Req> {
   constructor(
@@ -13,7 +13,7 @@ export class HttpTransport<Req> {
 
   async requestRes<Res>(
     request: Req,
-    decoder?: D.Decoder<unknown, Res>,
+    decoder?: Decoder<Res>,
     timeoutInMillis?: number
   ): Promise<Res> {
     const { host, port } = await this.resolver()

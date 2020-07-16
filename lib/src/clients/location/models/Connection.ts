@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ComponentType, Prefix, PrefixD } from '../../../models'
-import { Decoder } from '../../../utils/Decoder'
+import { CaseInsensitiveLiteral, Decoder } from '../../../utils/Decoder'
 
 const akka = 'akka'
 const http = 'http'
@@ -16,7 +16,7 @@ type ConnectionDecoder<L extends ConnectionType> = Decoder<{
 
 const connectionDecoder = <L extends ConnectionType>(connectionType: L): ConnectionDecoder<L> =>
   D.type({
-    connectionType: D.literal(connectionType),
+    connectionType: CaseInsensitiveLiteral(connectionType),
     prefix: PrefixD,
     componentType: ComponentType
   })

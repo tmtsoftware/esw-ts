@@ -12,6 +12,7 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import type { TokenFactory } from '../..'
 
 import { Ws } from '../../utils/Ws'
+import { Decoder } from '../../utils/Decoder'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -53,7 +54,7 @@ export class SequencerService implements SequencerServiceApi {
 
   private postSequencerCmd<Res>(
     request: Req.SequencerPostRequest,
-    decoder: D.Decoder<unknown, Res>
+    decoder: Decoder<Res>
   ): Promise<Res> {
     return this.httpTransport.requestRes(this.sequencerCommand(request), decoder)
   }

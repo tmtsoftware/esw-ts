@@ -1,10 +1,11 @@
 import * as D from 'io-ts/lib/Decoder'
 import { SequenceCommand } from '../../../models'
+import { CaseInsensitiveLiteral, Decoder } from '../../../utils/Decoder'
 
-const StepStatusL = D.literal('Pending', 'InFlight', 'Success', 'Failure')
-const StepStatus: D.Decoder<unknown, StepStatus> = D.type({ _type: StepStatusL })
+const StepStatusL = CaseInsensitiveLiteral('Pending', 'InFlight', 'Success', 'Failure')
+const StepStatus: Decoder<StepStatus> = D.type({ _type: StepStatusL })
 
-export const Step: D.Decoder<unknown, Step> = D.type({
+export const Step: Decoder<Step> = D.type({
   id: D.string,
   command: SequenceCommand,
   status: StepStatus,
