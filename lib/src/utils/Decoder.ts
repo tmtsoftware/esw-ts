@@ -31,3 +31,22 @@ export const ciLiteral = <L extends readonly [string, ...Array<string>]>(
     )
   }
 }
+
+export const object = <T>(bodyDecoders: Record<string, Decoder<T>>): Decoder<[string, T]> =>
+  pipe(
+    D.UnknownRecord,
+    D.parse((record) => {
+      const keys = Object.keys(bodyDecoders)
+      const keyDecoder = ciLiteral(keys[0], ...keys.slice(1))
+
+      return pipe(
+        keyDecoder.decode(Object.keys(record)[0]),
+        E.chain((keyTag) =>
+          pipe(
+            bodyDecoders[keyTag].decode(record[keyTag]),
+            E.map((body) => [keyTag, body])
+          )
+        )
+      )
+    })
+  )

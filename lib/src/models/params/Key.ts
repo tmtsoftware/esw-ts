@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { char, Decoder, ciLiteral } from '../../utils/Decoder'
+import { char, ciLiteral, Decoder } from '../../utils/Decoder'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import * as C from './Coord'
@@ -34,13 +34,13 @@ const ParamBodyDecoder = <T>(valuesDec: Decoder<T>): ParamDecoder<T> =>
     units: Units
   })
 
-export const Keys: Record<string, ParamDecoder<unknown>> = {}
+export const paramDecoders: Record<string, ParamDecoder<unknown>> = {}
 
 const RawKey = <KType>(kType: Decoder<KType>) => <KTag extends string>(
   kTag: KTag
 ): Decoder<KeyType<KTag, KType>> => {
   // populate [key -> decoder] record, used while decoding parameter
-  Keys[kTag] = ParamBodyDecoder(kType)
+  paramDecoders[kTag] = ParamBodyDecoder(kType)
 
   return D.type({
     keyTag: ciLiteral(kTag),
@@ -186,5 +186,5 @@ export const coordKey = keyFactory('CoordKey')
 // -----------------------------------------------------------
 // Key Literals Decoder, for ex. 'IntKey', 'StringKey' etc.
 // -----------------------------------------------------------
-const keys = Object.keys(Keys)
-export const KeyTag = ciLiteral(keys[0], ...keys.slice(1))
+const keys = Object.keys(paramDecoders)
+export const keyTagDecoder = ciLiteral(keys[0], ...keys.slice(1))

@@ -22,11 +22,3 @@ export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   }
   return await Promise.all(servicesToHealthCheck.map((name) => resolve(BackendServices[name])))
 }
-
-export const waitForLocationServiceToStop = () =>
-  new Promise((resolve) => {
-    locationService
-      .list()
-      .catch(resolve)
-      .then(() => setTimeout(() => resolve(waitForLocationServiceToStop()), 100))
-  })

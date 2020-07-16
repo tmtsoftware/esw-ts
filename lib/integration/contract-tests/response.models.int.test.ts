@@ -1,44 +1,33 @@
-import * as D from 'io-ts/lib/Decoder'
+import { delay } from 'fp-ts/lib/Task'
 import fs from 'fs'
-import { executeCswContract, executeRmDir } from '../utils/shell'
-import { pathDir, waitFor } from '../utils/FileUtils'
+import * as D from 'io-ts/lib/Decoder'
+import * as M from '../../src/models'
 import { Decoder } from '../../src/utils/Decoder'
-import {
-  CommandIssue,
-  ControlCommand,
-  CurrentState,
-  KeyTag,
-  OnewayResponse,
-  ParameterD,
-  ParamSet,
-  SubmitResponse,
-  Units,
-  ValidateResponse
-} from '../../src/models'
 import { getResponse } from '../../src/utils/Utils'
+import { pathDir } from '../utils/FileUtils'
+import { executeCswContract } from '../utils/shell'
 
 jest.setTimeout(100000)
 
-let commandModels: Record<string, unknown[]>
-
 const sourceDir = pathDir('../jsons')
-const resourcesDir = pathDir('../FakeResources')
+const resourcesDir = pathDir('../FakeResources') //fixme: this should not be required, fix this in csw and esw contract
 const commandModelsJsonPath = `${sourceDir}/command-service/models.json`
 
 beforeAll(async () => {
   executeCswContract([sourceDir, resourcesDir])
-
-  await waitFor(commandModelsJsonPath)
-  commandModels = JSON.parse(fs.readFileSync(commandModelsJsonPath, 'utf-8'))
 })
 
 afterAll(async () => {
-  executeRmDir([sourceDir])
-  return await new Promise((resolve) => setTimeout(resolve, 200))
+  fs.rmdirSync(sourceDir, { recursive: true })
+  return delay(200)
 })
 
 describe('models contract test', () => {
   test('should test command models ', () => {
+    const commandModels: Record<string, unknown[]> = JSON.parse(
+      fs.readFileSync(commandModelsJsonPath, 'utf-8')
+    )
+
     Object.entries(commandModels).forEach(([responseName, responseModels]) => {
       responseModels.forEach((response) => {
         testRoundTrip(response, decoders[responseName])
@@ -53,15 +42,15 @@ const testRoundTrip = (json: unknown, decoder: Decoder<any>) => {
 }
 
 const decoders: Record<string, Decoder<any>> = {
-  Units: Units,
-  Parameter: ParameterD,
+  Units: M.Units,
+  Parameter: M.ParameterD,
   CommandName: D.string,
-  CurrentState: CurrentState,
-  CommandIssue: CommandIssue,
-  SubmitResponse: SubmitResponse,
-  OnewayResponse: OnewayResponse,
-  ValidateResponse: ValidateResponse,
-  ControlCommand: ControlCommand,
-  Result: ParamSet,
-  KeyType: KeyTag
+  CurrentState: M.CurrentState,
+  CommandIssue: M.CommandIssue,
+  SubmitResponse: M.SubmitResponse,
+  OnewayResponse: M.OnewayResponse,
+  ValidateResponse: M.ValidateResponse,
+  ControlCommand: M.ControlCommand,
+  Result: M.ParamSet,
+  KeyType: M.keyTagDecoder
 }

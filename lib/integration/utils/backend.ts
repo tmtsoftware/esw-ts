@@ -2,7 +2,7 @@ import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection, configConnection, gatewayConnection } from '../../src/config/connections'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
-import { waitForLocationServiceToStop, waitForServicesToUp } from './healthCheck'
+import { waitForServicesToUp } from './healthCheck'
 import * as sh from './shell'
 
 const joinWithPrefix = (serviceNames: ServiceName[]) => serviceNames.flatMap((name) => ['-s', name])
@@ -24,7 +24,6 @@ export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
 
 export const stopServices = async () => {
   sh.executeStopServicesScript([])
-  await waitForLocationServiceToStop()
 }
 
 export const BackendServices = {
