@@ -1,9 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
-import { CaseInsensitiveLiteral } from '../../utils/Decoder'
+import { ciLiteral } from '../../utils/Decoder'
 
 export type Units = D.TypeOf<typeof Units>
 
-export const Units = CaseInsensitiveLiteral(
+export const Units = ciLiteral(
   // SI units
   'angstrom',
   'arcmin',

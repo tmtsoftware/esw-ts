@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
-import { CaseInsensitiveLiteral } from '../../utils/Decoder'
+import { ciLiteral } from '../../utils/Decoder'
 
-export const Tag = CaseInsensitiveLiteral(
+export const Tag = ciLiteral(
   'BASE',
   'OIWFS1',
   'OIWFS2',
@@ -15,7 +15,7 @@ export const Tag = CaseInsensitiveLiteral(
   'GUIDER2'
 )
 
-export const SolarSystemObject = CaseInsensitiveLiteral(
+export const SolarSystemObject = ciLiteral(
   'Mercury',
   'Venus',
   'Moon',
@@ -27,7 +27,7 @@ export const SolarSystemObject = CaseInsensitiveLiteral(
   'Pluto'
 )
 
-export const EqFrame = CaseInsensitiveLiteral('ICRS', 'FK5')
+export const EqFrame = ciLiteral('ICRS', 'FK5')
 
 export const RaDec = D.type({
   ra: D.number,
@@ -40,7 +40,7 @@ export const ProperMotion = D.type({
 })
 
 export const EqCoord = D.type({
-  _type: CaseInsensitiveLiteral('EqCoord'),
+  _type: ciLiteral('EqCoord'),
   tag: Tag,
   ra: D.number,
   dec: D.number,
@@ -50,7 +50,7 @@ export const EqCoord = D.type({
 })
 
 export const MinorPlanetCoord = D.type({
-  _type: CaseInsensitiveLiteral('MinorPlanetCoord'),
+  _type: ciLiteral('MinorPlanetCoord'),
   tag: Tag,
   epoch: D.number,
   inclination: D.number,
@@ -62,13 +62,13 @@ export const MinorPlanetCoord = D.type({
 })
 
 export const SolarSystemCoord = D.type({
-  _type: CaseInsensitiveLiteral('SolarSystemCoord'),
+  _type: ciLiteral('SolarSystemCoord'),
   tag: Tag,
   body: SolarSystemObject
 })
 
 export const CometCoord = D.type({
-  _type: CaseInsensitiveLiteral('CometCoord'),
+  _type: ciLiteral('CometCoord'),
   tag: Tag,
   epochOfPerihelion: D.number,
   inclination: D.number,
@@ -79,7 +79,7 @@ export const CometCoord = D.type({
 })
 
 export const AltAzCoord = D.type({
-  _type: CaseInsensitiveLiteral('AltAzCoord'),
+  _type: ciLiteral('AltAzCoord'),
   tag: Tag,
   alt: D.number,
   az: D.number

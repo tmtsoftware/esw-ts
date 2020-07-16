@@ -2,7 +2,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
 import { Prefix, PrefixD } from './Prefix'
-import { CaseInsensitiveLiteral, Decoder } from '../../utils/Decoder'
+import { ciLiteral, Decoder } from '../../utils/Decoder'
 
 const SetupL = 'Setup'
 const ObserveL = 'Observe'
@@ -18,7 +18,7 @@ interface Command<L> {
 
 const Command = <L extends string>(_type: L): Decoder<Command<L>> =>
   D.type({
-    _type: CaseInsensitiveLiteral(_type),
+    _type: ciLiteral(_type),
     source: PrefixD,
     commandName: D.string,
     paramSet: D.array(ParameterD),

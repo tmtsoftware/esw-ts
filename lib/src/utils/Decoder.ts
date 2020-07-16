@@ -11,7 +11,7 @@ export const char = pipe(
   D.refine((s): s is string => s.length == 1, 'single char')
 )
 
-export const CaseInsensitiveLiteral = <L extends readonly [string, ...Array<string>]>(
+export const ciLiteral = <L extends readonly [string, ...Array<string>]>(
   ...values: L
 ): Decoder<L[number]> => {
   const message = values.map((value) => JSON.stringify(value)).join(' | ')

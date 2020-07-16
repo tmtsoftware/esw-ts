@@ -1,8 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
-import { Decoder, CaseInsensitiveLiteral } from '../../utils/Decoder'
+import { Decoder, ciLiteral } from '../../utils/Decoder'
 import { ParamSet } from './Parameter'
 
-const IssueTypes = CaseInsensitiveLiteral(
+const IssueTypes = ciLiteral(
   'AssemblyBusyIssue',
   'HCDBusyIssue',
   'IdNotAvailableIssue',
@@ -37,26 +37,26 @@ const CommandIssue = D.type({
 })
 
 const Error = D.type({
-  _type: CaseInsensitiveLiteral(ErrorL),
+  _type: ciLiteral(ErrorL),
   runId: D.string,
   message: D.string
 })
 
 const Invalid = D.type({
-  _type: CaseInsensitiveLiteral(InvalidL),
+  _type: ciLiteral(InvalidL),
   runId: D.string,
   issue: CommandIssue
 })
 
 const Completed = D.type({
-  _type: CaseInsensitiveLiteral(CompletedL),
+  _type: ciLiteral(CompletedL),
   runId: D.string,
   result: ParamSet
 })
 
 const commandRes = <L extends string>(type: L): Decoder<{ _type: L; runId: string }> =>
   D.type({
-    _type: CaseInsensitiveLiteral(type),
+    _type: ciLiteral(type),
     runId: D.string
   })
 

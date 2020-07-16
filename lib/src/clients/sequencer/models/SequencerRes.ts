@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { CaseInsensitiveLiteral } from '../../../utils/Decoder'
+import { ciLiteral } from '../../../utils/Decoder'
 
 const Ok = 'Ok'
 const CannotOperateOnAnInFlightOrFinishedStep = 'CannotOperateOnAnInFlightOrFinishedStep'
@@ -11,42 +11,42 @@ const DiagnosticHookFailed = 'DiagnosticHookFailed'
 const OperationsHookFailed = 'OperationsHookFailed'
 
 const OkD = D.type({
-  _type: CaseInsensitiveLiteral(Ok)
+  _type: ciLiteral(Ok)
 })
 
 const CannotOperateOnAnInFlightOrFinishedStepD = D.type({
-  _type: CaseInsensitiveLiteral(CannotOperateOnAnInFlightOrFinishedStep)
+  _type: ciLiteral(CannotOperateOnAnInFlightOrFinishedStep)
 })
 
 const IdDoesNotExistD = D.type({
-  _type: CaseInsensitiveLiteral(IdDoesNotExist),
+  _type: ciLiteral(IdDoesNotExist),
   id: D.string
 })
 
 const UnhandledD = D.type({
-  _type: CaseInsensitiveLiteral(Unhandled),
+  _type: ciLiteral(Unhandled),
   state: D.string,
   messageType: D.string,
   msg: D.string
 })
 
 const GoOnlineHookFailedD = D.type({
-  _type: CaseInsensitiveLiteral(GoOnlineHookFailed),
+  _type: ciLiteral(GoOnlineHookFailed),
   msg: D.string
 })
 
 const GoOfflineHookFailedD = D.type({
-  _type: CaseInsensitiveLiteral(GoOfflineHookFailed),
+  _type: ciLiteral(GoOfflineHookFailed),
   msg: D.string
 })
 
 const DiagnosticHookFailedD = D.type({
-  _type: CaseInsensitiveLiteral(DiagnosticHookFailed),
+  _type: ciLiteral(DiagnosticHookFailed),
   msg: D.string
 })
 
 const OperationsHookFailedD = D.type({
-  _type: CaseInsensitiveLiteral(OperationsHookFailed),
+  _type: ciLiteral(OperationsHookFailed),
   msg: D.string
 })
 

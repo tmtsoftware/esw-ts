@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
-import { CaseInsensitiveLiteral } from '../utils/Decoder'
+import { ciLiteral } from '../utils/Decoder'
 
-export const ComponentType = CaseInsensitiveLiteral(
+export const ComponentType = ciLiteral(
   'HCD',
   'Assembly',
   'Service',
