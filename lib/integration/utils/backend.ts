@@ -1,3 +1,4 @@
+import { delay } from 'fp-ts/lib/Task'
 import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection, configConnection, gatewayConnection } from '../../src/config/connections'
@@ -24,6 +25,7 @@ export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
 
 export const stopServices = async () => {
   sh.executeStopServicesScript([])
+  await delay(500)
 }
 
 export const BackendServices = {
