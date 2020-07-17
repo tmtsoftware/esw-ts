@@ -7,9 +7,7 @@ export const appsLauncherScript = path.resolve(scriptDir, 'appLauncher.sh')
 export const stopServicesScript = path.resolve(scriptDir, 'stopServices.sh')
 export const contractGeneratorScript = path.resolve(scriptDir, 'contract-generator.sh')
 
-const executeScript = (script: string, appName = '', appVersion = 'master-SNAPSHOT') => (
-  args: string[]
-) => {
+const executeScript = (script: string, appName = '', appVersion = '') => (args: string[]) => {
   const cmd = [script, appName, appVersion, ...args]
   console.log(`Executing cmd : ${cmd.join(' ')}`)
 
@@ -18,19 +16,22 @@ const executeScript = (script: string, appName = '', appVersion = 'master-SNAPSH
   return child
 }
 
-const executeScriptSync = (script: string, appName = '', appVersion = 'master-SNAPSHOT') => (
-  args: string[]
-) => {
+const executeScriptSync = (script: string, appName = '', appVersion = '') => (args: string[]) => {
   const cmd = [script, appName, appVersion, ...args]
   console.log(`Executing cmd : ${cmd.join(' ')}`)
 
   execSync(cmd.join(' '))
 }
 
-const backendTestKit = (name: string) => executeScript(appsLauncherScript, name, 'dc3ea77c4e')
-export const executeServicesScript = backendTestKit('backend-testkit-services')
-export const executeComponentScript = backendTestKit('backend-testkit-component')
-export const executeSequencerScript = backendTestKit('backend-testkit-sequencer')
+const appLauncher = (name: string, version = 'master-SNAPSHOT') =>
+  executeScript(appsLauncherScript, name, version)
+
+const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
+  executeScriptSync(appsLauncherScript, name, version)
+
+export const executeServicesScript = appLauncher('backend-testkit-services')
+export const executeComponentScript = appLauncher('backend-testkit-component')
+export const executeSequencerScript = appLauncher('backend-testkit-sequencer')
 
 export const executeStopServicesScript = executeScriptSync(stopServicesScript)
-export const executeCswContract = executeScriptSync(appsLauncherScript, 'csw-contract')
+export const executeCswContract = appLauncherSync('csw-contract')
