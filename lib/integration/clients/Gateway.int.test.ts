@@ -2,7 +2,7 @@ import { AlarmKey, AlarmService } from '../../src/clients/alarm'
 import { CommandService } from '../../src/clients/command'
 import { Done } from '../../src/clients/location'
 import { SequencerService } from '../../src/clients/sequencer'
-import { ComponentId, Prefix, Setup } from '../../src/models'
+import { ComponentId, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -58,6 +58,51 @@ describe('Command Client', () => {
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Forbidden'))
+  })
+
+  test('should be able to submit the given command | ESW-305', async () => {
+    const validToken: string = await getToken(
+      'esw-gateway-client',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT-test'
+    )
+
+    const commandService = new CommandService(componentId, () => validToken)
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
+    const actualResponse = await commandService.submit(setupCommand)
+    expect(actualResponse._type).toEqual('Started')
+  })
+
+  test('should be able to send the validate command | ESW-305', async () => {
+    const validToken: string = await getToken(
+      'esw-gateway-client',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT-test'
+    )
+
+    const commandService = new CommandService(componentId, () => validToken)
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
+    const actualResponse = await commandService.validate(setupCommand)
+    expect(actualResponse._type).toEqual('Accepted')
+  })
+
+  test('should be able to query response for the given runId | ESW-305', async () => {
+    const validToken: string = await getToken(
+      'esw-gateway-client',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT-test'
+    )
+
+    const commandService = new CommandService(componentId, () => validToken)
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
+    const submitRes: SubmitResponse = await commandService.submit(setupCommand)
+    expect(submitRes._type).toEqual('Started')
+
+    const queryRes = await commandService.query(submitRes.runId)
+    expect(queryRes._type).toEqual('Started')
   })
 })
 

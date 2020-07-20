@@ -24,7 +24,10 @@ export interface CommandServiceApi {
 export class CommandService implements CommandServiceApi {
   private readonly httpTransport: HttpTransport<GatewayComponentCommand>
 
-  constructor(readonly componentId: M.ComponentId, readonly tokenFactory: TokenFactory) {
+  constructor(
+    readonly componentId: M.ComponentId,
+    readonly tokenFactory: TokenFactory = () => undefined
+  ) {
     this.httpTransport = new HttpTransport(resolveGateway, this.tokenFactory)
   }
 

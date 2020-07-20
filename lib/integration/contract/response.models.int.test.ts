@@ -12,7 +12,6 @@ import { Connection, ConnectionType, Location, TrackingEvent } from '../../src/c
 jest.setTimeout(100000)
 
 const sourceDir = path.resolve(__dirname, '../jsons')
-const resourcesDir = path.resolve(__dirname, '../FakeResources') //fixme: this should not be required, fix this in csw and esw contract
 const commandModelsJsonPath = `${sourceDir}/command-service/models.json`
 const locationModelsJsonPath = `${sourceDir}/location-service/models.json`
 
@@ -21,7 +20,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  // fs.rmdirSync(sourceDir, { recursive: true })
+  fs.rmdirSync(sourceDir, { recursive: true })
   return await delay(200)
 })
 
