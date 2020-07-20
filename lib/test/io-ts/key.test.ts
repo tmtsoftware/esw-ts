@@ -1,6 +1,6 @@
 import { isRight } from 'fp-ts/lib/Either'
 import { CurrentState, ParameterD, Struct, SubmitResponse } from '../../src/models'
-import { getResponse } from './../../src/utils/Utils'
+import { getOrThrow } from './../../src/utils/Utils'
 
 describe('io-ts', () => {
   test('Parameter', () => {
@@ -510,6 +510,6 @@ describe('io-ts', () => {
       }
     }
 
-    console.log(getResponse(SubmitResponse.decode(submitResponse)))
+    console.log(getOrThrow(SubmitResponse.decode(submitResponse)))
   })
 })

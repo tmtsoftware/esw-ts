@@ -9,7 +9,7 @@ import {
 } from '../../../../src/clients/location'
 import { Prefix } from '../../../../src/models'
 import * as TestData from '../../../jsons/LocationModels.json'
-import { getResponse } from './../../../../src/utils/Utils'
+import { getOrThrow } from './../../../../src/utils/Utils'
 
 const prefix = new Prefix('ESW', 'test')
 const uri = 'some uri'
@@ -22,7 +22,7 @@ describe('Typed Locations', () => {
       connection: akkaConnection,
       uri
     }
-    const expected = getResponse(Location.decode(TestData.AkkaLocation))
+    const expected = getOrThrow(Location.decode(TestData.AkkaLocation))
     expect(akkaLocation).toEqual(expected)
   })
 
@@ -34,7 +34,7 @@ describe('Typed Locations', () => {
       uri
     }
 
-    const expected = getResponse(Location.decode(TestData.HttpLocation))
+    const expected = getOrThrow(Location.decode(TestData.HttpLocation))
     expect(httpLocation).toEqual(expected)
   })
 
@@ -46,7 +46,7 @@ describe('Typed Locations', () => {
       uri
     }
 
-    const expected = getResponse(Location.decode(TestData.TcpLocation))
+    const expected = getOrThrow(Location.decode(TestData.TcpLocation))
     expect(tcpLocation).toEqual(expected)
   })
 })

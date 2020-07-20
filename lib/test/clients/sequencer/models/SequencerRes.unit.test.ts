@@ -8,7 +8,7 @@ import {
   RemoveBreakpointResponse
 } from '../../../../src/clients/sequencer'
 import * as TestData from '../../../jsons/SequencerResponses.json'
-import { getResponse } from './../../../../src/utils/Utils'
+import { getOrThrow } from './../../../../src/utils/Utils'
 
 const ok: OkOrUnhandledResponse = { _type: 'Ok' }
 
@@ -50,37 +50,37 @@ const operationsHookFailed: OperationsModeResponse = {
 
 describe('Sequencer Response Contract', () => {
   test.each([
-    ['Ok', ok, getResponse(OkOrUnhandledResponse.decode(TestData.Ok))],
+    ['Ok', ok, getOrThrow(OkOrUnhandledResponse.decode(TestData.Ok))],
     [
       'IdDoesNotExist',
       idDoesNotExist,
-      getResponse(RemoveBreakpointResponse.decode(TestData.IdDoesNotExist))
+      getOrThrow(RemoveBreakpointResponse.decode(TestData.IdDoesNotExist))
     ],
-    ['Unhandled', unhandled, getResponse(OkOrUnhandledResponse.decode(TestData.Unhandled))],
+    ['Unhandled', unhandled, getOrThrow(OkOrUnhandledResponse.decode(TestData.Unhandled))],
     [
       'GoOnlineHookFailed',
       goOnlineHookFailed,
-      getResponse(GoOnlineResponse.decode(TestData.GoOnlineHookFailed))
+      getOrThrow(GoOnlineResponse.decode(TestData.GoOnlineHookFailed))
     ],
     [
       'GoOfflineHookFailed',
       goOfflineHookFailed,
-      getResponse(GoOfflineResponse.decode(TestData.GoOfflineHookFailed))
+      getOrThrow(GoOfflineResponse.decode(TestData.GoOfflineHookFailed))
     ],
     [
       'DiagnosticHookFailed',
       diagnosticHookFailed,
-      getResponse(DiagnosticModeResponse.decode(TestData.DiagnosticHookFailed))
+      getOrThrow(DiagnosticModeResponse.decode(TestData.DiagnosticHookFailed))
     ],
     [
       'OperationsHookFailed',
       operationsHookFailed,
-      getResponse(OperationsModeResponse.decode(TestData.OperationsHookFailed))
+      getOrThrow(OperationsModeResponse.decode(TestData.OperationsHookFailed))
     ],
     [
       'CannotOperateOnAnInFlightOrFinishedStep',
       cannotOperateOnAnInFlightOrFinishedStep,
-      getResponse(PauseResponse.decode(TestData.CannotOperateOnAnInFlightOrFinishedStep))
+      getOrThrow(PauseResponse.decode(TestData.CannotOperateOnAnInFlightOrFinishedStep))
     ]
   ])('%s | ESW-307', (_, actual, expected) => expect(actual).toEqual(expected))
 })

@@ -11,7 +11,7 @@ export const extractHostPort = (uri: string) => {
   return { host, port }
 }
 
-export const getResponse = <A>(e: E.Either<D.DecodeError, A>): A =>
+export const getOrThrow = <A>(e: E.Either<D.DecodeError, A>): A =>
   E.getOrElse<D.DecodeError, A>((err) => {
     throw Error(D.draw(err))
   })(e)

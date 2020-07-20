@@ -1,7 +1,7 @@
 import { post } from './Http'
 import { HeaderExt } from './HeaderExt'
 import type { TokenFactory } from './TokenFactory'
-import { getResponse } from './Utils'
+import { getOrThrow } from './Utils'
 import { Decoder } from './Decoder'
 
 export class HttpTransport<Req> {
@@ -26,7 +26,7 @@ export class HttpTransport<Req> {
       headers,
       payload: request,
       timeout: timeoutInMillis,
-      decoder: decoder ? (obj) => getResponse(decoder.decode(obj)) : decoder
+      decoder: decoder ? (obj) => getOrThrow(decoder.decode(obj)) : decoder
     })
   }
 }

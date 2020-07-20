@@ -6,7 +6,8 @@ const akka = 'akka'
 const http = 'http'
 const tcp = 'tcp'
 
-export type ConnectionType = typeof akka | typeof http | typeof tcp
+export const ConnectionType = D.literal(akka, http, tcp)
+export type ConnectionType = D.TypeOf<typeof ConnectionType>
 
 type ConnectionDecoder<L extends ConnectionType> = Decoder<{
   connectionType: L

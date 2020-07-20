@@ -1,5 +1,5 @@
 import { Decoder } from './Decoder'
-import { getResponse } from './Utils'
+import { getOrThrow } from './Utils'
 
 const createWebsocket = (host: string, port: number, path = 'websocket-endpoint') =>
   new WebSocket(`ws://${host}:${port}/${path}`)
@@ -24,7 +24,7 @@ export class Ws<Req> {
       (wss) =>
         (wss.onmessage = (event) => {
           const response: T = decoder
-            ? getResponse(decoder.decode(JSON.parse(event.data)))
+            ? getOrThrow(decoder.decode(JSON.parse(event.data)))
             : JSON.parse(event.data)
           return cb(response)
         })
