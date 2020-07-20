@@ -1,13 +1,12 @@
 import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 import path from 'path'
+import { Connection, ConnectionType, Location, TrackingEvent } from '../../src/clients/location'
 import * as M from '../../src/models'
-import { ComponentIdD, ComponentType, PrefixD, Subsystem } from '../../src/models'
 import { Decoder } from '../../src/utils/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
 import { executeCswContract } from '../utils/shell'
-import { Connection, ConnectionType, Location, TrackingEvent } from '../../src/clients/location'
 
 jest.setTimeout(100000)
 
@@ -24,37 +23,32 @@ afterAll(async () => {
   return await delay(200)
 })
 
+const parseModels = (file: string) => JSON.parse(fs.readFileSync(file, 'utf-8'))
+
 describe('models contract test', () => {
   test('should test command models | ESW-305, ESW-343, ESW-348', () => {
-    const commandModelSet: Record<string, unknown[]> = JSON.parse(
-      fs.readFileSync(commandModelsJsonPath, 'utf-8')
-    )
+    const commandModelSet: Record<string, unknown[]> = parseModels(commandModelsJsonPath)
 
     // [ ["ComponentType", ["Container", "HCD"] ], ["ValidateResponse", [...] ] ...]
 
     Object.entries(commandModelSet).forEach(([modelName, models]) => {
-      models.forEach((modelJson) => {
-        testRoundTrip(modelJson, decoders[modelName])
-      })
+      models.forEach((modelJson) => testRoundTrip(modelJson, decoders[modelName]))
     })
   })
 
   test('should test location models | ESW-308, ESW-343, ESW-348', () => {
-    const locationModels: Record<string, unknown[]> = JSON.parse(
-      fs.readFileSync(locationModelsJsonPath, 'utf-8')
-    )
+    const locationModelSet: Record<string, unknown[]> = parseModels(locationModelsJsonPath)
 
-    Object.entries(locationModels).forEach(([responseName, responseModels]) => {
-      responseModels.forEach((response) => {
-        testRoundTrip(response, locationDecoders[responseName])
-      })
+    Object.entries(locationModelSet).forEach(([modelName, models]) => {
+      models.forEach((modelJson) => testRoundTrip(modelJson, locationDecoders[modelName]))
     })
   })
 })
 
-const testRoundTrip = (json: unknown, decoder: Decoder<any>) => {
-  const model = getOrThrow(decoder.decode(json)) // typescript side of decoding
-  expect(json).toEqual(JSON.parse(JSON.stringify(model))) // encoding
+const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
+  const decodedModel = getOrThrow(decoder.decode(scalaJsonModel)) // typescript side of decoding
+  const tsJsonModel = JSON.parse(JSON.stringify(decodedModel)) // encoding
+  expect(scalaJsonModel).toEqual(tsJsonModel)
 }
 
 const decoders: Record<string, Decoder<any>> = {
@@ -73,13 +67,13 @@ const decoders: Record<string, Decoder<any>> = {
 
 const locationDecoders: Record<string, Decoder<any>> = {
   TrackingEvent: TrackingEvent,
-  ComponentType: ComponentType,
+  ComponentType: M.ComponentType,
   Connection: Connection,
   Registration: D.id(),
-  ComponentId: ComponentIdD,
-  Prefix: PrefixD,
+  ComponentId: M.ComponentIdD,
+  Prefix: M.PrefixD,
   LocationServiceError: D.id(),
   ConnectionType: ConnectionType,
-  Subsystem: Subsystem,
+  Subsystem: M.Subsystem,
   Location: Location
 }
