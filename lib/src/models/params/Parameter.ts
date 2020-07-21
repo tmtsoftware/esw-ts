@@ -13,10 +13,13 @@ export class Parameter<T extends Key> {
   ) {}
 
   toJSON() {
+    const values =
+      this.keyTag === 'CharKey' ? this.values.map((v) => v.toString().charCodeAt(0)) : this.values
+
     return {
       [this.keyTag]: {
         keyName: this.keyName,
-        values: this.values,
+        values: values,
         units: this.units
       }
     }

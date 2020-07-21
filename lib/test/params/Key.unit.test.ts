@@ -13,7 +13,7 @@ const doubleParam = Keys.doubleKey('numbers').set([1, 2, 3])
 const byteParam = Keys.byteKey('numbers').set([1, 2, 3])
 const booleanParam = Keys.booleanKey('BooleanKey').set([true])
 const stringParam = Keys.stringKey('days').set(['monday', 'tuesday'])
-const charParam = Keys.charKey('days').set(['monday', 'tuesday'])
+const charParam = Keys.charKey('alpha').set(['A', 'B'])
 const utcTimeParam = Keys.utcTimeKey('utcTimeKey').set(['2017-09-04T16:28:00.123456789Z'])
 const taiTimeParam = Keys.taiTimeKey('taiTime').set(['2017-09-04T16:28:00.123456789Z'])
 
@@ -117,7 +117,7 @@ describe('Key-Parameter Contract', () => {
     ['BooleanKey', booleanParam, TestData.BooleanKey],
 
     ['StringKey', stringParam, TestData.StringKey],
-    ['CharKey', charParam, TestData.StringKey],
+    ['CharKey', charParam, TestData.CharKey],
     ['UTCTimeKey', utcTimeParam, TestData.UTCTimeKey],
     ['TAITimeKey', taiTimeParam, TestData.TAITimeKey],
 
