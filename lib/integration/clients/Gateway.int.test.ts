@@ -2,7 +2,7 @@ import { AlarmKey, AlarmService } from '../../src/clients/alarm'
 import { CommandService } from '../../src/clients/command'
 import { Done } from '../../src/clients/location'
 import { SequencerService } from '../../src/clients/sequencer'
-import { ComponentId, Prefix, Setup, SubmitResponse } from '../../src/models'
+import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -103,6 +103,44 @@ describe('Command Client', () => {
 
     const queryRes = await commandService.query(submitRes.runId)
     expect(queryRes._type).toEqual('Started')
+  })
+
+  test('should be able to query the final response for the given runId | ESW-305', async () => {
+    const validToken: string = await getToken(
+      'esw-gateway-client',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT-test'
+    )
+
+    const commandService = new CommandService(componentId, () => validToken)
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
+    const submitRes: SubmitResponse = await commandService.submit(setupCommand)
+    expect(submitRes._type).toEqual('Started')
+
+    const queryRes = await commandService.queryFinal(submitRes.runId, 5)
+    const expectedRes: SubmitResponse = {
+      _type: 'Completed',
+      runId: submitRes.runId,
+      result: { paramSet: [] }
+    }
+    expect(queryRes).toEqual(expectedRes)
+  })
+
+  test('should be able to subscribe to the current state | ESW-305', () => {
+    return new Promise((done) => {
+      const commandService = new CommandService(componentId)
+      const prefix: Prefix = new Prefix('ESW', 'a.b')
+
+      commandService.subscribeCurrentState(
+        new Set(['stateName1', 'stateName2']),
+        (currentState) => {
+          expect(currentState.prefix).toEqual(prefix)
+          expect(currentState.paramSet).toEqual([])
+          done()
+        }
+      )
+    })
   })
 })
 

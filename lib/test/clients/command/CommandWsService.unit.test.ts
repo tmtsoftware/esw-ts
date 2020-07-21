@@ -28,7 +28,7 @@ afterEach(() => {
 describe('CommandService', () => {
   test('should subscribe to current state using websocket | ESW-305', () => {
     const expectedState: CurrentState = {
-      prefix: 'CSW.ncc.trombone',
+      prefix: new Prefix('CSW', 'ncc.trombone'),
       stateName: 'stateName1',
       paramSet: []
     }
