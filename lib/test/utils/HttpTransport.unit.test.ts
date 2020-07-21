@@ -1,5 +1,5 @@
-import { HttpTransport } from '../../src/utils/HttpTransport'
 import { HeaderExt } from '../../src/utils/HeaderExt'
+import { HttpTransport } from '../../src/utils/HttpTransport'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM
@@ -29,8 +29,7 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json').withAuthorization('validToken'),
-      signal: new AbortController().signal
+      headers: new HeaderExt().withContentType('application/json').withAuthorization('validToken')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
@@ -45,8 +44,7 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json'),
-      signal: new AbortController().signal
+      headers: new HeaderExt().withContentType('application/json')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })

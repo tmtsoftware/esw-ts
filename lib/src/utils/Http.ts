@@ -19,18 +19,17 @@ export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Pro
 const jsonHeader = () => new HeaderExt().withContentType('application/json')
 const toJson = (res: Response) => res.json()
 
-const handleRequestTimeout = (timeout: number) => {
-  const controller = new AbortController()
-  if (timeout) {
-    setTimeout(() => controller.abort(), timeout)
-  }
-  return controller
-}
-
 const paramString = (parameters: Record<string, string>) =>
   Object.entries(parameters)
     .map(([key, value]) => `${key}=${value}`)
     .join('&')
+
+const withTimeout = <T>(ms: number, promise: Promise<T>): Promise<T> => {
+  const x: Promise<T> = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Request timed out')), ms)
+  )
+  return Promise.race([x, promise])
+}
 
 const fetchMethod = (method: Method): RequestResponse => {
   return async <Req, Res>(request: FetchRequest<Req, Res>) => {
@@ -44,21 +43,12 @@ const fetchMethod = (method: Method): RequestResponse => {
       decoder = identity
     } = request
 
-    const controller = handleRequestTimeout(timeout)
     const path = parameters ? `${endpoint}?${paramString(parameters)}` : endpoint
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
 
-    const fetchCall = fetch(path, {
-      method: method,
-      headers: headers,
-      body: body,
-      signal: controller.signal
-    }).catch((err: Error) => {
-      if (err.name === 'AbortError') throw new Error('Request timed out')
-      throw new Error(err.message)
-    })
+    const fetchResponse = withTimeout(timeout, fetch(path, { method, headers, body }))
 
-    const response = await responseMapper(handleErrors(await fetchCall))
+    const response = await responseMapper(handleErrors(await fetchResponse))
     return decoder(response)
   }
 }

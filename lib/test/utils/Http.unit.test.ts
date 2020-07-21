@@ -52,17 +52,13 @@ describe('Http util', () => {
   })
 })
 
-const makeResponse = <T>(response: T): Response => {
-  return new Response(JSON.stringify(response))
-}
+const makeResponse = <T>(response: T): Response => new Response(JSON.stringify(response))
 
-const makeErrorResponse = (): Response => {
-  return new Response('', { status: 404, statusText: 'bad request' })
-}
+const makeErrorResponse = (): Response =>
+  new Response('', { status: 404, statusText: 'bad request' })
 
 const makeRequest = (request: string) => ({
   method: 'POST',
   headers: new HeaderExt({ 'Content-Type': 'application/json' }),
-  body: JSON.stringify(request),
-  signal: new AbortController().signal
+  body: JSON.stringify(request)
 })
