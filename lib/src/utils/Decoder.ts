@@ -6,9 +6,9 @@ import * as D from 'io-ts/lib/Decoder'
 
 export type Decoder<T> = D.Decoder<unknown, T>
 
-export const char = pipe(
-  D.string,
-  D.refine((s): s is string => s.length == 1, 'single char')
+export const char: Decoder<string> = pipe(
+  D.number,
+  D.parse((n) => D.success(String.fromCharCode(n)))
 )
 
 export const ciLiteral = <L extends readonly [string, ...Array<string>]>(
