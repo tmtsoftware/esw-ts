@@ -2,7 +2,7 @@ import { AlarmKey, AlarmService } from '../../src/clients/alarm'
 import { CommandService } from '../../src/clients/command'
 import { Done } from '../../src/clients/location'
 import { SequencerService } from '../../src/clients/sequencer'
-import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
+import { ComponentId, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
