@@ -1,19 +1,21 @@
-import {ComponentId, ComponentType, Prefix, PrefixD} from "../../../models";
-import {EventName, EventNameD} from "./EventName";
-import {Decoder} from "../../../utils/Decoder";
-import {pipe} from "fp-ts/lib/pipeable";
-import * as D from "io-ts/lib/Decoder";
-import * as E from "fp-ts/lib/Either";
-import {requirement} from "../../../utils/Utils";
+import { ComponentId, ComponentType, Prefix, PrefixD } from '../../../models'
+import { EventName, EventNameD } from './EventName'
+import { Decoder } from '../../../utils/Decoder'
+import { pipe } from 'fp-ts/lib/pipeable'
+import * as D from 'io-ts/lib/Decoder'
+import * as E from 'fp-ts/lib/Either'
+import { requirement } from '../../../utils/Utils'
 
 const SEPARATOR = '.'
 
 export class EventKey {
-  constructor(readonly source: Prefix, readonly eventName: EventName) {
-  }
+  constructor(readonly source: Prefix, readonly eventName: EventName) {}
 
   static fromString = (eventKeyStr: string): EventKey => {
-    requirement(eventKeyStr != null || eventKeyStr != undefined, "event key cannot be null or undefined")
+    requirement(
+      eventKeyStr != null || eventKeyStr != undefined,
+      'event key cannot be null or undefined'
+    )
     const [source, eventName] = splitSourceEventName(eventKeyStr)
     return new EventKey(Prefix.fromString(source), new EventName(eventName))
   }

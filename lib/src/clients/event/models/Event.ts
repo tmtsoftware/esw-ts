@@ -1,13 +1,12 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
-import { Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
+import { Parameter, ParameterD, Prefix, PrefixD, Key } from '../../../models'
 import { EventName, EventNameD } from './EventName'
-import { Key } from '../../../models'
 
 const ObserveEventL = 'ObserveEvent'
 const SystemEventL = 'SystemEvent'
 
-export interface EventD<L> {
+interface EventI<L> {
   readonly _type: L
   readonly eventId: string
   readonly source: Prefix
@@ -16,7 +15,7 @@ export interface EventD<L> {
   readonly paramSet: Parameter<Key>[]
 }
 
-export const Event = <L extends string>(_type: L): Decoder<EventD<L>> =>
+export const EventD = <L extends string>(_type: L): Decoder<EventI<L>> =>
   D.type({
     _type: ciLiteral(_type),
     eventId: D.string,
@@ -26,7 +25,7 @@ export const Event = <L extends string>(_type: L): Decoder<EventD<L>> =>
     paramSet: D.array(ParameterD)
   })
 
-export class ObserveEvent implements EventD<typeof ObserveEventL> {
+export class ObserveEvent implements EventI<typeof ObserveEventL> {
   readonly _type = ObserveEventL
 
   constructor(
@@ -38,7 +37,7 @@ export class ObserveEvent implements EventD<typeof ObserveEventL> {
   ) {}
 }
 
-export class SystemEvent implements EventD<typeof SystemEventL> {
+export class SystemEvent implements EventI<typeof SystemEventL> {
   readonly _type = SystemEventL
 
   constructor(
@@ -50,9 +49,9 @@ export class SystemEvent implements EventD<typeof SystemEventL> {
   ) {}
 }
 
-export type Event = ObserveEvent | SystemEvent
+export type Event = D.TypeOf<typeof Event>
 
-export const EventResponse = D.sum('_type')({
-  [ObserveEventL]: Event(ObserveEventL),
-  [SystemEventL]: Event(SystemEventL)
+export const Event = D.sum('_type')({
+  [ObserveEventL]: EventD(ObserveEventL),
+  [SystemEventL]: EventD(SystemEventL)
 })

@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
 import { Done } from '../location'
-import { Event, EventResponse } from './models/Event'
+import { Event } from './models/Event'
 import { EventKey } from './models/EventKey'
 import { Subscription, Ws } from '../../utils/Ws'
 import { Subsystem } from '../../models'
@@ -44,12 +44,12 @@ export class EventService implements EventServiceApi {
   }
 
   get(eventKeys: Set<EventKey>): Promise<Event[]> {
-    return this.httpTransport.requestRes(new GatewayGetEvent(eventKeys), D.array(EventResponse))
+    return this.httpTransport.requestRes(new GatewayGetEvent(eventKeys), D.array(Event))
   }
 
   subscribe(
     eventKeys: Set<EventKey>,
-    maxFrequency: number = 0,
+    maxFrequency = 0,
     callback: (event: Event) => void
   ): Subscription {
     const subscriptionResponse = EventService.resolveAndSubscribe(eventKeys, maxFrequency, callback)
@@ -63,8 +63,8 @@ export class EventService implements EventServiceApi {
 
   pSubscribe(
     subsystem: Subsystem,
-    maxFrequency: number = 0,
-    pattern: string = '*',
+    maxFrequency = 0,
+    pattern = '*',
     callback: (event: Event) => void
   ): Subscription {
     const subscriptionResponse = EventService.resolveAndpSubscribe(
@@ -94,7 +94,7 @@ export class EventService implements EventServiceApi {
     return (await EventService.ws()).subscribe(
       new Subscribe(eventKeys, maxFrequency),
       callback,
-      EventResponse
+      Event
     )
   }
 
@@ -107,7 +107,7 @@ export class EventService implements EventServiceApi {
     return (await EventService.ws()).subscribe(
       new SubscribeWithPattern(subsystem, maxFrequency, pattern),
       callback,
-      EventResponse
+      Event
     )
   }
 }
