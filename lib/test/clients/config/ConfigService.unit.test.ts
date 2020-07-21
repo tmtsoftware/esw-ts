@@ -2,8 +2,8 @@ import { mocked } from 'ts-jest/utils'
 import { ConfigService } from '../../../src/clients/config/ConfigService'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
-import { del, get, head, post, put } from '../../../src/utils/Http'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
+import { del, get, head, post, put } from '../../../src/utils/Http'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -29,68 +29,68 @@ afterEach(() => {
 describe('ConfigService', () => {
   test('should get the latest conf of given path from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = configEndpoint(confPath)
+    const url = configEndpoint(confPath)
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getLatest(confPath)
     expect(confData).toBe('foo: bar')
-    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
+    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the conf of given path and given id from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = { id: 'configId123' }
-    const endpoint = configEndpoint(`${confPath}?id=${configId.id}`)
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getById(confPath, configId)
     expect(confData).toBe('foo: bar')
-    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
+    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the conf of given path and given time from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
-    const endpoint = configEndpoint(`${confPath}?date=${date}`)
+    const url = configEndpoint(`${confPath}?date=${date}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getByTime(confPath, date)
     expect(confData).toBe('foo: bar')
-    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
+    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should check if the given conf is present | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = configEndpoint(confPath)
+    const url = configEndpoint(confPath)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
 
     const actualRes = await configService.exists(confPath)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ endpoint })
+    expect(headMockFn).toBeCalledWith({ url })
   })
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = { id: 'configId123' }
-    const endpoint = configEndpoint(`${confPath}?id=${configId.id}`)
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ endpoint })
+    expect(headMockFn).toBeCalledWith({ url })
   })
 
   test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
-    const endpoint = configEndpoint('list')
+    const url = configEndpoint('list')
 
     const firstConfInfo = {
       path: 'firstConf',
@@ -111,11 +111,11 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.list()
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
-    expect(getMockFn).toBeCalledWith({ endpoint, parameters: {} })
+    expect(getMockFn).toBeCalledWith({ url, queryParams: {} })
   })
 
   test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
-    const endpoint = configEndpoint(`list`)
+    const url = configEndpoint(`list`)
 
     const firstConfInfo = {
       path: 'firstConf',
@@ -136,37 +136,37 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.list('Annex', '*')
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
-    expect(getMockFn).toBeCalledWith({ endpoint, parameters: { type: 'Annex', pattern: '*' } })
+    expect(getMockFn).toBeCalledWith({ url, queryParams: { type: 'Annex', pattern: '*' } })
   })
 
   test('should get the active conf of given path from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = activeConfigEndpoint(`${confPath}`)
+    const url = activeConfigEndpoint(`${confPath}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getActive(confPath)
     expect(confData).toBe('foo: bar')
-    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
+    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the active conf of given path and given time from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
-    const endpoint = activeConfigEndpoint(`${confPath}?date=${date}`)
+    const url = activeConfigEndpoint(`${confPath}?date=${date}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getActiveByTime(confPath, date)
     expect(confData).toBe('foo: bar')
-    expect(getMockFn).toBeCalledWith({ endpoint, responseMapper: expect.any(Function) })
+    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the active version of the conf | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = activeVersionEndpoint(confPath)
+    const url = activeVersionEndpoint(confPath)
     const configId = { id: 'configId123' }
 
     postMockFn.mockResolvedValueOnce([configLocation])
@@ -174,12 +174,12 @@ describe('ConfigService', () => {
 
     const actualConfId = await configService.getActiveVersion(confPath)
     expect(actualConfId).toEqual([configId])
-    expect(getMockFn).toBeCalledWith({ endpoint })
+    expect(getMockFn).toBeCalledWith({ url })
   })
 
   test('should get metadata | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = 'http://localhost:8080/metadata'
+    const url = 'http://localhost:8080/metadata'
 
     const expectedConfigMetadata = {
       repoPath: confPath,
@@ -193,7 +193,7 @@ describe('ConfigService', () => {
 
     const configMetadata = await configService.getMetadata()
     expect(configMetadata).toEqual(expectedConfigMetadata)
-    expect(getMockFn).toBeCalledWith({ endpoint })
+    expect(getMockFn).toBeCalledWith({ url })
   })
 
   test('should get the history for the given config path | ESW-320', async () => {
@@ -201,7 +201,7 @@ describe('ConfigService', () => {
     const from = new Date(2020, 4)
     const to = new Date(2020, 5)
     const maxResults = 10
-    const endpoint = `http://localhost:8080/history/${confPath}`
+    const url = `http://localhost:8080/history/${confPath}`
 
     const revision = {
       id: { id: '15265' },
@@ -215,8 +215,8 @@ describe('ConfigService', () => {
     const history = await configService.history(confPath, from, to, maxResults)
     expect(history).toEqual([revision])
     expect(getMockFn).toBeCalledWith({
-      endpoint,
-      parameters: {
+      url,
+      queryParams: {
         from: from.toUTCString(),
         to: to.toUTCString(),
         maxResults: maxResults.toString()
@@ -229,7 +229,7 @@ describe('ConfigService', () => {
     const from = new Date(2020, 4)
     const to = new Date(2020, 5)
     const maxResults = 10
-    const endpoint = `http://localhost:8080/history-active/${confPath}`
+    const url = `http://localhost:8080/history-active/${confPath}`
 
     const revision = {
       id: { id: '15265' },
@@ -243,8 +243,8 @@ describe('ConfigService', () => {
     const history = await configService.historyActive(confPath, from, to, maxResults)
     expect(history).toEqual([revision])
     expect(getMockFn).toBeCalledWith({
-      endpoint,
-      parameters: {
+      url,
+      queryParams: {
         from: from.toUTCString(),
         to: to.toUTCString(),
         maxResults: maxResults.toString()
@@ -254,7 +254,7 @@ describe('ConfigService', () => {
 
   test('should set the active version of the conf if config id and comment are given | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = activeVersionEndpoint(confPath)
+    const url = activeVersionEndpoint(confPath)
     const configId = { id: 'configId123' }
     const comment = 'something'
 
@@ -263,15 +263,15 @@ describe('ConfigService', () => {
 
     await configService.setActiveVersion(confPath, configId, comment)
     expect(putMockFn).toBeCalledWith({
-      endpoint,
+      url,
       headers: new HeaderExt().withAuthorization(token),
-      parameters: { id: configId.id, comment }
+      queryParams: { id: configId.id, comment }
     })
   })
 
   test('should reset the active version of the conf if config id is not given | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = activeVersionEndpoint(confPath)
+    const url = activeVersionEndpoint(confPath)
     const comment = 'something'
 
     postMockFn.mockResolvedValueOnce([configLocation])
@@ -280,15 +280,15 @@ describe('ConfigService', () => {
     await configService.resetActiveVersion(confPath, comment)
 
     expect(putMockFn).toBeCalledWith({
-      endpoint,
+      url,
       headers: new HeaderExt().withAuthorization(token),
-      parameters: { comment }
+      queryParams: { comment }
     })
   })
 
   test('should delete the config | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = configEndpoint(confPath)
+    const url = configEndpoint(confPath)
     const comment = 'something'
 
     postMockFn.mockResolvedValueOnce([configLocation])
@@ -297,15 +297,15 @@ describe('ConfigService', () => {
     await configService.delete(confPath, comment)
 
     expect(deleteMockFn).toBeCalledWith({
-      endpoint,
+      url,
       headers: new HeaderExt().withAuthorization(token),
-      parameters: { comment }
+      queryParams: { comment }
     })
   })
 
   test('should create the config | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = configEndpoint(confPath)
+    const url = configEndpoint(confPath)
     const comment = 'something'
     const configId = { id: 'configId123' }
     const configData: File = new File(['foo: Bar'], 'assembly.conf')
@@ -318,16 +318,16 @@ describe('ConfigService', () => {
     expect(actualResConfigId).toEqual(configId)
     expect(postMockFn).toBeCalledTimes(2)
     expect(postMockFn).toHaveBeenNthCalledWith(2, {
-      endpoint,
+      url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
-      parameters: { annex: 'true', comment },
+      queryParams: { annex: 'true', comment },
       payload: configData
     })
   })
 
   test('should update the config | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const endpoint = configEndpoint(confPath)
+    const url = configEndpoint(confPath)
     const comment = 'something'
     const configId = { id: 'configId123' }
     const configData: File = new File(['foo: Bar'], 'assembly.conf')
@@ -339,9 +339,9 @@ describe('ConfigService', () => {
 
     expect(actualResConfigId).toEqual(configId)
     expect(putMockFn).toBeCalledWith({
-      endpoint,
+      url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
-      parameters: { comment },
+      queryParams: { comment },
       payload: configData
     })
   })

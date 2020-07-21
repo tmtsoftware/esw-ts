@@ -17,12 +17,12 @@ export class HttpTransport<Req> {
     timeoutInMillis?: number
   ): Promise<Res> {
     const { host, port } = await this.resolver()
-    const endpoint = `http://${host}:${port}/post-endpoint`
+    const url = `http://${host}:${port}/post-endpoint`
 
     const token = this.tokenFactory()
     const headers = new HeaderExt().withContentType('application/json').withAuthorization(token)
     return post<Req, Res>({
-      endpoint,
+      url,
       headers,
       payload: request,
       timeout: timeoutInMillis,

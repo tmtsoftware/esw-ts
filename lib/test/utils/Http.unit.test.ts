@@ -5,16 +5,16 @@ const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
 const host = 'localhost'
 const port = 1234
-const endpoint = `http://${host}:${port}/`
+const url = `http://${host}:${port}/`
 
 describe('Http util', () => {
   test('Post request', async () => {
     const expectedValue = { ok: true, status: 200 }
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
     const payload = 'hello'
-    const response = await post({ endpoint, payload })
+    const response = await post({ url, payload })
 
-    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     expect(response).toEqual(expectedValue)
   })
 
@@ -22,8 +22,8 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeErrorResponse())
     const payload = 'hello'
 
-    await expect(post({ endpoint, payload })).rejects.toThrow(Error)
-    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
+    await expect(post({ url, payload })).rejects.toThrow(Error)
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
 
   test('should be able to add Bearer token to Auth header', () => {
@@ -37,9 +37,9 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
     const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
     const payload = 'hello'
-    const response = await post({ endpoint, payload, headers })
+    const response = await post({ url, payload, headers })
 
-    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     expect(response).toEqual(expectedValue)
   })
 
@@ -47,8 +47,8 @@ describe('Http util', () => {
     fetchMockFn.mockRejectedValueOnce(new Error())
     const payload = 'hello'
 
-    await expect(post({ endpoint, payload })).rejects.toThrow(Error)
-    expect(window.fetch).toBeCalledWith(endpoint, makeRequest(payload))
+    await expect(post({ url, payload })).rejects.toThrow(Error)
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
 })
 

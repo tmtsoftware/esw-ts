@@ -5,8 +5,8 @@ import { HeaderExt } from './HeaderExt'
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
 export interface FetchRequest<Req, Res> {
-  endpoint: string
-  parameters?: Record<string, string>
+  url: string
+  queryParams?: Record<string, string>
   payload?: Req
   headers?: Headers
   timeout?: number
@@ -19,31 +19,34 @@ export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Pro
 const jsonHeader = () => new HeaderExt().withContentType('application/json')
 const toJson = (res: Response) => res.json()
 
-const paramString = (parameters: Record<string, string>) =>
-  Object.entries(parameters)
+const queryString = (queryParams: Record<string, string>) =>
+  Object.entries(queryParams)
     .map(([key, value]) => `${key}=${value}`)
     .join('&')
 
 const withTimeout = <T>(ms: number, promise: Promise<T>): Promise<T> => {
-  const x: Promise<T> = new Promise((_, reject) =>
+  const timeout: Promise<T> = new Promise((_, reject) =>
     setTimeout(() => reject(new Error('Request timed out')), ms)
   )
-  return Promise.race([x, promise])
+  return Promise.race([timeout, promise])
 }
+
+const fullUrl = (url: string, queryParams?: Record<string, string>) =>
+  queryParams ? `${url}?${queryString(queryParams)}` : url
 
 const fetchMethod = (method: Method): RequestResponse => {
   return async <Req, Res>(request: FetchRequest<Req, Res>) => {
     const {
-      endpoint,
+      url,
       payload,
-      parameters,
+      queryParams,
       headers = jsonHeader(),
       timeout = 120000,
       responseMapper = toJson,
       decoder = identity
     } = request
 
-    const path = parameters ? `${endpoint}?${paramString(parameters)}` : endpoint
+    const path = fullUrl(url, queryParams)
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
 
     const fetchResponse = withTimeout(timeout, fetch(path, { method, headers, body }))
