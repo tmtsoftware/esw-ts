@@ -16,7 +16,7 @@
 },
 "CharKey": {
   "keyName": "alpha",
-  "values": [65, 66],
+  "values": ["A", "B"],
   "units": "NoUnits"
 },
 "GeneralKey": {
