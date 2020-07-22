@@ -1,7 +1,9 @@
 import { CommandService } from '../../src/clients/command'
 import { ComponentId, Prefix, Setup, SubmitResponse } from '../../src/models'
-import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
+import { getToken } from '../utils/auth'
+import { EventName, EventService, ObserveEvent } from '../../src/clients/event'
+import { delay } from '../utils/eventually'
 
 jest.setTimeout(50000)
 
@@ -13,7 +15,7 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  await startServices(['AAS', 'Gateway'])
+  await startServices(['AAS', 'Gateway', 'Event'])
 })
 
 afterAll(async () => {
@@ -140,3 +142,29 @@ describe('Command Client', () => {
     })
   })
 })
+
+describe('Event Client', () => {
+  test("should publish event | ESW-318", async () => {
+    const eventService = new EventService()
+
+    const prefix = new Prefix("ESW", "eventComp")
+    const eventName = new EventName("offline")
+    const observeEvent = new ObserveEvent("event1",prefix, eventName,new Date(2020,1,1).toISOString(), [])
+    const done = await eventService.publish(observeEvent)
+
+    const done1: Done = "Done"
+    expect(done).toEqual(done1)
+  })
+
+  test("should publish event | ESW-318", async () => {
+    const eventService = new EventService()
+
+    const prefix = new Prefix("ESW", "eventComp")
+    const eventName = new EventName("offline")
+    const observeEvent = new ObserveEvent("event1",prefix, eventName,new Date(2020,1,1).toISOString(), [])
+    const done = await eventService.publish(observeEvent)
+
+    expect(done).toEqual("Done")
+  })
+})
+

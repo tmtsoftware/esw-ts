@@ -5,7 +5,6 @@ const scriptDir = path.resolve(__dirname, '../../scripts')
 
 export const appsLauncherScript = path.resolve(scriptDir, 'appLauncher.sh')
 export const stopServicesScript = path.resolve(scriptDir, 'stopServices.sh')
-export const contractGeneratorScript = path.resolve(scriptDir, 'contract-generator.sh')
 
 const executeScript = (script: string, appName = '', appVersion = '') => (args: string[]) => {
   const cmd = [script, appName, appVersion, ...args]
@@ -34,4 +33,5 @@ export const executeComponentScript = appLauncher('backend-testkit-component')
 export const executeSequencerScript = appLauncher('backend-testkit-sequencer')
 
 export const executeStopServicesScript = executeScript(stopServicesScript) // fixme: make this executeScriptSync call
-export const executeCswContract = appLauncherSync('csw-contract', 'b90e9ab')
+export const executeCswContract = appLauncherSync('csw-contract','b90e9ab')
+export const executeEswContract = appLauncherSync('esw-contract', '2fff251649')
