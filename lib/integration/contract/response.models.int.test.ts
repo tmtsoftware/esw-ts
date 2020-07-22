@@ -26,24 +26,22 @@ afterAll(async () => {
 const parseModels = (file: string) => JSON.parse(fs.readFileSync(file, 'utf-8'))
 
 describe('models contract test', () => {
-  test('should test command models | ESW-305, ESW-343, ESW-348', () => {
-    const commandModelSet: Record<string, unknown[]> = parseModels(commandModelsJsonPath)
-
-    // [ ["ComponentType", ["Container", "HCD"] ], ["ValidateResponse", [...] ] ...]
-
-    Object.entries(commandModelSet).forEach(([modelName, models]) => {
-      models.forEach((modelJson) => testRoundTrip(modelJson, decoders[modelName]))
-    })
+  test('Command Models | ESW-305, ESW-343, ESW-348', () => {
+    verifyContract(commandModelsJsonPath, commandDecoders)
   })
 
-  test('should test location models | ESW-308, ESW-343, ESW-348', () => {
-    const locationModelSet: Record<string, unknown[]> = parseModels(locationModelsJsonPath)
-
-    Object.entries(locationModelSet).forEach(([modelName, models]) => {
-      models.forEach((modelJson) => testRoundTrip(modelJson, locationDecoders[modelName]))
-    })
+  test('Location Models | ESW-308, ESW-343, ESW-348', () => {
+    verifyContract(locationModelsJsonPath, locationDecoders)
   })
 })
+
+// [ ["ComponentType", ["Container", "HCD"] ], ["ValidateResponse", [...] ] ...]
+const verifyContract = (inputJson: string, decoders: Record<string, Decoder<any>>) => {
+  const modelSet: Record<string, unknown[]> = parseModels(inputJson)
+  Object.entries(modelSet).forEach(([modelName, models]) => {
+    models.forEach((modelJson) => testRoundTrip(modelJson, decoders[modelName]))
+  })
+}
 
 const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
   const decodedModel = getOrThrow(decoder.decode(scalaJsonModel)) // typescript side of decoding
@@ -51,7 +49,7 @@ const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
   expect(scalaJsonModel).toEqual(tsJsonModel)
 }
 
-const decoders: Record<string, Decoder<any>> = {
+const commandDecoders: Record<string, Decoder<any>> = {
   Units: M.Units,
   Parameter: M.ParameterD,
   CommandName: D.string,
