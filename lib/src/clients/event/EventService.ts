@@ -44,7 +44,7 @@ export class EventService implements EventServiceApi {
   }
 
   get(eventKeys: Set<EventKey>): Promise<Event[]> {
-    return this.httpTransport.requestRes(new GatewayGetEvent(eventKeys), D.array(Event))
+    return this.httpTransport.requestRes(new GatewayGetEvent([...eventKeys]), D.array(Event))
   }
 
   subscribe(
@@ -92,7 +92,7 @@ export class EventService implements EventServiceApi {
     callback: (event: Event) => void
   ) {
     return (await EventService.ws()).subscribe(
-      new Subscribe(eventKeys, maxFrequency),
+      new Subscribe([...eventKeys], maxFrequency),
       callback,
       Event
     )

@@ -3,8 +3,8 @@ import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { Parameter, ParameterD, Prefix, PrefixD, Key } from '../../../models'
 import { EventName, EventNameD } from './EventName'
 
-const ObserveEventL = 'ObserveEvent'
-const SystemEventL = 'SystemEvent'
+export const ObserveEventL = 'ObserveEvent'
+export const SystemEventL = 'SystemEvent'
 
 interface EventI<L> {
   readonly _type: L
@@ -15,7 +15,7 @@ interface EventI<L> {
   readonly paramSet: Parameter<Key>[]
 }
 
-export const EventD = <L extends string>(_type: L): Decoder<EventI<L>> =>
+const EventD = <L extends string>(_type: L): Decoder<EventI<L>> =>
   D.type({
     _type: ciLiteral(_type),
     eventId: D.string,

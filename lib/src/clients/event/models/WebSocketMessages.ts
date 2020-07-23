@@ -6,7 +6,7 @@ export type EventWebsocketRequest = Subscribe | SubscribeWithPattern
 export class Subscribe {
   readonly _type: 'Subscribe' = 'Subscribe'
 
-  constructor(readonly eventKeys: Set<EventKey>, readonly maxFrequency: number) {}
+  constructor(readonly eventKeys: EventKey[], readonly maxFrequency: number) {}
 }
 
 export class SubscribeWithPattern {

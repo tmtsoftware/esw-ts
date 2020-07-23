@@ -32,7 +32,7 @@ export class GatewayPublishEvent {
 export class GatewayGetEvent {
   readonly _type: 'GetEvent' = 'GetEvent'
 
-  constructor(readonly eventKeys: Set<EventKey>) {}
+  constructor(readonly eventKeys: EventKey[]) {}
 }
 
 export type GatewayEventPostRequest = GatewayPublishEvent | GatewayGetEvent
