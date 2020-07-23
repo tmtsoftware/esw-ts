@@ -49,7 +49,7 @@ describe('Event Client', () => {
     expect(observeEvent.eventName).toEqual(eventName)
   })
 
-  test('should subscribe to s published event', () => {
+  test('should subscribe to published event | ESW-318', () => {
     return new Promise((jestDoneCallback) => {
       const prefix = new Prefix('CSW', 'ncc.trombone')
       const eventName = new EventName('offline')
@@ -64,7 +64,7 @@ describe('Event Client', () => {
     })
   })
 
-  test('should pattern subscribe to s published event', () => {
+  test('should pattern subscribe to published event | ESW-318', () => {
     return new Promise((jestDoneCallback) => {
       const prefix = new Prefix('CSW', 'ncc.trombone')
       const eventName = new EventName('offline')
