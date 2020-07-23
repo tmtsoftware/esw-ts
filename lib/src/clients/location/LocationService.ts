@@ -10,6 +10,8 @@ import { Done } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
 import { TrackingEvent } from './models/TrackingEvent'
 import { Track } from './models/WsCommand'
+import { getOptionValue } from '../../utils/Utils'
+import { Option } from '../../utils/Option'
 
 export interface LocationServiceApi {
   list(): Promise<Location[]>
@@ -17,9 +19,9 @@ export interface LocationServiceApi {
   listByHostname(hostname: string): Promise<Location[]>
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]>
   listByPrefix(prefix: Prefix): Promise<Location[]>
-  find(connection: Connection): Promise<Location>
+  find(connection: Connection): Promise<Option<Location>>
   unregister(connection: Connection): Promise<Done>
-  resolve(connection: Connection, within: Duration): Promise<Location[]>
+  resolve(connection: Connection, within: Duration): Promise<Option<Location>>
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription
 }
 
@@ -60,8 +62,12 @@ export class LocationService implements LocationServiceApi {
     return this.httpTransport.requestRes(new Req.ListByPrefix(prefix), this.locationListD)
   }
 
-  find(connection: Connection): Promise<Location> {
-    return this.httpTransport.requestRes(new Req.Find(connection), Location)
+  async find(connection: Connection): Promise<Option<Location>> {
+    const response = await this.httpTransport.requestRes(
+      new Req.Find(connection),
+      this.locationListD
+    )
+    return getOptionValue(response)
   }
 
   unregister(connection: Connection): Promise<Done> {
@@ -72,8 +78,12 @@ export class LocationService implements LocationServiceApi {
   // 1. decide on within withinSeconds to be in seconds or custom time interval --
   // 2. see if it can return Promise<Location>?
   // 3. add threshold check, take into consideration of http connection timeout at os/network layer --
-  resolve(connection: Connection, within: Duration): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.Resolve(connection, within), this.locationListD)
+  async resolve(connection: Connection, within: Duration): Promise<Option<Location>> {
+    const response = await this.httpTransport.requestRes(
+      new Req.Resolve(connection, within),
+      this.locationListD
+    )
+    return getOptionValue(response)
   }
 
   track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {

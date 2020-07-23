@@ -131,7 +131,7 @@ describe('SequencerService', () => {
     }
     const stepList: StepList = [step]
 
-    postMockFn.mockResolvedValueOnce(stepList)
+    postMockFn.mockResolvedValueOnce([stepList])
 
     const res = await sequencer.getSequence()
     expect(res).toEqual(stepList)

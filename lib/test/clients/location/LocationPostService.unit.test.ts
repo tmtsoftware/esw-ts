@@ -40,7 +40,7 @@ describe('LocationService', () => {
     postMockFn.mockResolvedValue(expectLocation)
 
     const actualLocation = await locationService.resolve(httpConnection, new Duration(5, 'seconds'))
-    expect(actualLocation).toEqual(expectLocation)
+    expect(actualLocation).toEqual(httpLocation)
   })
 
   test('should throw Request timed out when resolve takes more time than threshold | ESW-308, ESW-310, ESW-311', async () => {
@@ -90,12 +90,12 @@ describe('LocationService', () => {
   })
 
   test('should find a location for given connection | ESW-308, ESW-310, ESW-311', async () => {
-    const expectLocation = httpLocation
+    const expectLocation = [httpLocation]
 
     postMockFn.mockResolvedValueOnce(expectLocation)
 
-    const location: Location = await locationService.find(httpConnection)
-    expect(location).toEqual(expectLocation)
+    const location = await locationService.find(httpConnection)
+    expect(location).toEqual(httpLocation)
   })
 })
 

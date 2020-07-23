@@ -9,7 +9,7 @@ import {
 } from '../../../../src/clients/location'
 import { Prefix } from '../../../../src/models'
 import * as TestData from '../../../jsons/LocationModels.json'
-import { getOrThrow } from './../../../../src/utils/Utils'
+import { getOrThrow } from '../../../../src/utils/Utils'
 
 const prefix = new Prefix('ESW', 'test')
 const uri = 'some uri'

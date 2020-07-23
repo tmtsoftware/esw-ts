@@ -11,6 +11,8 @@ import * as Req from './models/PostCommand'
 import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
+import { Option } from '../../utils/Option'
+import { getOptionValue } from '../../utils/Utils'
 
 export interface SequencerServiceApi {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -25,7 +27,7 @@ export interface SequencerServiceApi {
   reset(): Promise<Res.OkOrUnhandledResponse>
   resume(): Promise<Res.OkOrUnhandledResponse>
   pause(): Promise<Res.PauseResponse>
-  getSequence(): Promise<StepList[]>
+  getSequence(): Promise<Option<StepList>>
   isAvailable(): Promise<boolean>
   isOnline(): Promise<boolean>
   goOnline(): Promise<Res.GoOnlineResponse>
@@ -105,8 +107,8 @@ export class SequencerService implements SequencerServiceApi {
     return this.postSequencerCmd(new Req.Pause(), Res.PauseResponse)
   }
 
-  getSequence(): Promise<StepList[]> {
-    return this.postSequencerCmd(new Req.GetSequence(), D.array(StepList))
+  async getSequence(): Promise<Option<StepList>> {
+    return getOptionValue(await this.postSequencerCmd(new Req.GetSequence(), D.array(StepList)))
   }
 
   isAvailable(): Promise<boolean> {
