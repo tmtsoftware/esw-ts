@@ -1,9 +1,8 @@
-import { delay } from 'fp-ts/lib/Task'
 import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection, configConnection, gatewayConnection } from '../../src/config/connections'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
-import { waitForServicesToUp } from './healthCheck'
+import { waitForLocationToStop, waitForServicesToUp } from './healthCheck'
 import * as sh from './shell'
 
 const joinWithPrefix = (serviceNames: ServiceName[]) => serviceNames.flatMap((name) => ['-s', name])
@@ -25,7 +24,7 @@ export const startSequencer = (subsystem: Subsystem, observingMode: string) => {
 
 export const stopServices = async () => {
   sh.executeStopServicesScript([])
-  await delay(500)
+  await waitForLocationToStop()
 }
 
 export const BackendServices = {
