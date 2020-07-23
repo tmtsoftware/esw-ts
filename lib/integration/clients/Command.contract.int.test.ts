@@ -13,7 +13,6 @@ const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  // setup location service and gateway
   await startServices(['AAS', 'Gateway', 'Event'])
 })
 
@@ -166,13 +165,43 @@ describe('Event Client', () => {
 
     const prefix = new Prefix('CSW', 'ncc.trombone')
     const eventName = new EventName('offline')
-    const eventKeys = new Set<EventKey>().add(new EventKey(prefix, eventName))
+    const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 
     const observeEvent: Event = (await eventService.get(eventKeys))[0]
 
     expect(observeEvent._type).toEqual('ObserveEvent')
     expect(observeEvent.source).toEqual(prefix)
     expect(observeEvent.eventName).toEqual(eventName)
+  })
+
+  test('should subscribe to s published event', () => {
+    return new Promise((jestDoneCallback) => {
+      const prefix = new Prefix('CSW', 'ncc.trombone')
+      const eventName = new EventName('offline')
+      const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
+
+      new EventService().subscribe(eventKeys, 1, (event) => {
+        expect(event._type).toEqual('ObserveEvent')
+        expect(event.source).toEqual(prefix)
+        expect(event.eventName).toEqual(eventName)
+        jestDoneCallback()
+      })
+    })
+  })
+
+  test('should pattern subscribe to s published event', () => {
+    return new Promise((jestDoneCallback) => {
+      const prefix = new Prefix('CSW', 'ncc.trombone')
+      const eventName = new EventName('offline')
+      const subsystem: Subsystem = 'ESW'
+
+      new EventService().pSubscribe(subsystem, 1, '*', (event) => {
+        expect(event._type).toEqual('ObserveEvent')
+        expect(event.source).toEqual(prefix)
+        expect(event.eventName).toEqual(eventName)
+        jestDoneCallback()
+      })
+    })
   })
 })
 
