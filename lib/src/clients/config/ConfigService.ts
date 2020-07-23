@@ -106,7 +106,7 @@ export class ConfigService implements ConfigServiceApi {
     const queryParams: Record<string, string> = {}
     if (type) queryParams['type'] = type
     if (pattern) queryParams['pattern'] = pattern
-    const url = await ConfigService.configEndpoint('list')
+    const url = await ConfigService.endpoint('list')
     return await get({ url, queryParams })
   }
 

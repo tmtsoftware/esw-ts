@@ -19,6 +19,7 @@ const token = 'token123'
 const configService = new ConfigService(() => token)
 
 const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
+const listEndpoint = () => `http://localhost:8080/list`
 const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
 const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
 
@@ -90,7 +91,7 @@ describe('ConfigService', () => {
   })
 
   test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
-    const url = configEndpoint('list')
+    const url = listEndpoint()
 
     const firstConfInfo = {
       path: 'firstConf',
@@ -115,7 +116,7 @@ describe('ConfigService', () => {
   })
 
   test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
-    const url = configEndpoint(`list`)
+    const url = listEndpoint()
 
     const firstConfInfo = {
       path: 'firstConf',
