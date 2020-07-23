@@ -1,7 +1,7 @@
 import { CommandService } from '../../src/clients/command'
 import { ComponentId, Prefix, Setup, SubmitResponse } from '../../src/models'
-import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
+import { getToken } from '../utils/auth'
 
 jest.setTimeout(50000)
 
@@ -12,8 +12,7 @@ const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  // setup location service and gateway
-  await startServices(['AAS', 'Gateway'])
+  await startServices(['AAS', 'Gateway', 'Event'])
 })
 
 afterAll(async () => {

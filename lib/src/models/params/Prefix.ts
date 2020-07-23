@@ -19,9 +19,9 @@ const parseSubsystemStr = (subsystem: string): Subsystem => {
 }
 
 const splitSubsystemComponentName = (prefixStr: string) => {
-  const stringL = prefixStr.split(SEPARATOR)
-  const sub = stringL[0]
-  const componentName = stringL.slice(1).join(SEPARATOR)
+  const stringParts = prefixStr.split(SEPARATOR)
+  const sub = stringParts[0]
+  const componentName = stringParts.slice(1).join(SEPARATOR)
   return [sub, componentName]
 }
 

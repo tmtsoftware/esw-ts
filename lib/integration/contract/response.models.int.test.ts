@@ -6,16 +6,23 @@ import * as M from '../../src/models'
 import { Decoder } from '../../src/utils/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
-import { executeCswContract } from '../utils/shell'
+import { executeCswContract, executeEswContract } from '../utils/shell'
+import { Event } from '../../src/clients/event'
+import { EventKeyD } from '../../src/clients/event/models/EventKey'
+import { ComponentIdD, PrefixD } from '../../src/models'
 
 jest.setTimeout(100000)
 
 const sourceDir = path.resolve(__dirname, '../jsons')
-const commandModelsJsonPath = `${sourceDir}/command-service/models.json`
-const locationModelsJsonPath = `${sourceDir}/location-service/models.json`
+const eswDir = path.resolve(__dirname, '../jsons/esw')
+const cswDir = path.resolve(__dirname, '../jsons/csw')
+const commandModelsJsonPath = `${cswDir}/command-service/models.json`
+const locationModelsJsonPath = `${cswDir}/location-service/models.json`
+const eventModelsJsonPath = `${eswDir}/gateway-service/models.json`
 
 beforeAll(async () => {
-  executeCswContract([sourceDir])
+  executeCswContract([cswDir])
+  executeEswContract([eswDir])
 })
 
 afterAll(async () => {
@@ -32,6 +39,14 @@ describe('models contract test', () => {
 
   test('Location Models | ESW-308, ESW-343, ESW-348', () => {
     verifyContract(locationModelsJsonPath, locationDecoders)
+  })
+
+  test('should test Gateway models | ESW-317', () => {
+    const eventModelSet: Record<string, unknown[]> = parseModels(eventModelsJsonPath)
+
+    Object.entries(eventModelSet).forEach(([modelName, models]) => {
+      models.forEach((modelJson) => testRoundTrip(modelJson, gatewayDecoders[modelName]))
+    })
   })
 })
 
@@ -74,4 +89,15 @@ const locationDecoders: Record<string, Decoder<any>> = {
   ConnectionType: ConnectionType,
   Subsystem: M.Subsystem,
   Location: Location
+}
+
+const gatewayDecoders: Record<string, Decoder<any>> = {
+  Subsystem: M.Subsystem,
+  AlarmSeverity: D.id(),
+  ComponentId: ComponentIdD,
+  EventKey: EventKeyD,
+  Event: Event,
+  GatewayException: D.id(),
+  Prefix: PrefixD,
+  LogMetadata: D.id()
 }
