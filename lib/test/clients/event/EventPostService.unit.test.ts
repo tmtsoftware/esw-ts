@@ -1,6 +1,12 @@
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Http'
-import { EventKey, EventName, EventService, ObserveEvent } from '../../../src/clients/event'
+import {
+  EventKey,
+  EventName,
+  EventService,
+  ObserveEvent,
+  SystemEvent
+} from '../../../src/clients/event'
 import { Prefix } from '../../../src/models'
 import { Done, HttpLocation } from '../../../src/clients/location'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
@@ -34,8 +40,8 @@ describe('Event Service', () => {
   test('should get event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
     const eventName = new EventName('offline')
-    const observeEvent = new ObserveEvent(
-      'event1',
+    const systemEvent = new SystemEvent(
+      'event2',
       prefix,
       eventName,
       new Date(2020, 1, 1).toISOString(),
@@ -44,12 +50,12 @@ describe('Event Service', () => {
     const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 
     postMockFn.mockResolvedValueOnce([gatewayLocation])
-    postMockFn.mockResolvedValueOnce(observeEvent)
+    postMockFn.mockResolvedValueOnce(systemEvent)
 
     let response = await client.get(eventKeys)
 
     expect(postMockFn).toBeCalledTimes(2)
-    expect(response).toEqual(observeEvent)
+    expect(response).toEqual(systemEvent)
   })
 })
 
