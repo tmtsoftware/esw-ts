@@ -1,7 +1,4 @@
 import { Prefix, PrefixD } from '../../src/models'
-import { Either, isLeft, left, map } from 'fp-ts/lib/Either'
-import { FreeSemigroup } from 'io-ts/lib/FreeSemigroup'
-import { DecodeError } from 'io-ts/lib/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 
 describe('Prefix', () => {
