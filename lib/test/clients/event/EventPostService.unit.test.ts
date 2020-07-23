@@ -16,7 +16,7 @@ const postMockFn = mocked(post, true)
 const uri = 'http://localhost:8080'
 const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
 
-let client = new EventService()
+const client = new EventService()
 describe('Event Service', () => {
   test('should publish event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
@@ -31,7 +31,7 @@ describe('Event Service', () => {
     postMockFn.mockResolvedValueOnce([gatewayLocation])
     postMockFn.mockResolvedValueOnce(Done)
 
-    let response = await client.publish(observeEvent)
+    const response = await client.publish(observeEvent)
 
     expect(postMockFn).toBeCalledTimes(2)
     expect(response).toBe(Done)
@@ -52,7 +52,7 @@ describe('Event Service', () => {
     postMockFn.mockResolvedValueOnce([gatewayLocation])
     postMockFn.mockResolvedValueOnce(systemEvent)
 
-    let response = await client.get(eventKeys)
+    const response = await client.get(eventKeys)
 
     expect(postMockFn).toBeCalledTimes(2)
     expect(response).toEqual(systemEvent)

@@ -1,8 +1,14 @@
-import {startComponent, startServices, stopServices} from '../utils/backend'
-import {AkkaConnection, Duration, HttpConnection, LocationRemoved, LocationService} from '../../src/clients/location'
-import {gatewayConnection} from '../../src/config/connections'
-import {Prefix} from '../../src/models'
-import {Option} from '../../src/utils/Option'
+import { startComponent, startServices, stopServices } from '../utils/backend'
+import {
+  AkkaConnection,
+  Duration,
+  HttpConnection,
+  LocationRemoved,
+  LocationService
+} from '../../src/clients/location'
+import { gatewayConnection } from '../../src/config/connections'
+import { Prefix } from '../../src/models'
+import { Option } from '../../src/utils/Option'
 
 jest.setTimeout(30000)
 

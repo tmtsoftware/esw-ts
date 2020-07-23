@@ -8,7 +8,7 @@ jest.setTimeout(50000)
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  await startServices(['Gateway', 'Event'])
+  await startServices(['Gateway'])
 })
 
 afterAll(async () => {
