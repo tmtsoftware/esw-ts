@@ -1,18 +1,17 @@
-import { startComponent, startServices, stopServices } from '../utils/backend'
-import {
-  AkkaConnection,
-  Duration,
-  HttpConnection,
-  LocationRemoved,
-  LocationService
-} from '../../src/clients/location'
-import { gatewayConnection } from '../../src/config/connections'
-import { Prefix } from '../../src/models'
-import { Option } from '../../src/utils/Option'
+import {startComponent, startServices, stopServices} from '../utils/backend'
+import {AkkaConnection, Duration, HttpConnection, LocationRemoved, LocationService} from '../../src/clients/location'
+import {gatewayConnection} from '../../src/config/connections'
+import {Prefix} from '../../src/models'
+import {Option} from '../../src/utils/Option'
 
 jest.setTimeout(30000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
+const locationService = new LocationService()
+const getValueFromOption = <T>(value: Option<T>): T => {
+  if (value === undefined) throw new Error('value is undefined')
+  return value
+}
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
@@ -27,15 +26,8 @@ afterAll(async () => {
   jest.clearAllMocks()
 })
 
-const getValueFromOption = <T>(value: Option<T>): T => {
-  if (value === undefined) throw new Error('value is undefined')
-  return value
-}
-
 describe('LocationService', () => {
   test('should be able to resolve a location for given connection | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
-
     const gatewayLocation = getValueFromOption(
       await locationService.resolve(gatewayConnection, new Duration(10, 'seconds'))
     )
@@ -43,8 +35,6 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
-
     const locations = await locationService.list()
 
     expect(locations.length).toBe(3)
@@ -52,8 +42,6 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given componentType | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
-
     const locations = await locationService.listByComponentType('Service')
 
     expect(locations.length).toBe(1)
@@ -61,8 +49,6 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given connectionType | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
-
     const locations = await locationService.listByConnectionType('akka')
 
     const akkaHcdConnection: AkkaConnection = {
@@ -75,8 +61,6 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given prefix | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
-
     const locations = await locationService.listByPrefix(hcdPrefix)
 
     const akkaHcdConnection: AkkaConnection = {
@@ -96,7 +80,6 @@ describe('LocationService', () => {
   })
 
   test('should be able to find the location of given connection | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
     const akkaHcdConnection: AkkaConnection = {
       prefix: hcdPrefix,
       componentType: 'HCD',
@@ -110,8 +93,6 @@ describe('LocationService', () => {
 
   test('should be able to track a location from location server | ESW-343, ESW-308', () => {
     return new Promise(async (done) => {
-      const locationService = new LocationService()
-
       const expectedTrackingEvent: LocationRemoved = {
         _type: 'LocationRemoved',
         connection: gatewayConnection
@@ -131,8 +112,6 @@ describe('LocationService', () => {
   })
 
   test('should be able to unregister a location from location server | ESW-343, ESW-308', async () => {
-    const locationService = new LocationService()
-
     const response = await locationService.unregister(gatewayConnection)
     expect(response).toBe('Done')
 
