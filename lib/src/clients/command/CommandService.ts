@@ -16,9 +16,8 @@ export interface CommandServiceApi {
 
   queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse>
   subscribeCurrentState(
-    stateNames: Set<string>,
-    onStateChange: (state: M.CurrentState) => void
-  ): Subscription
+    stateNames: Set<string>
+  ): (onStateChange: (state: M.CurrentState) => void) => Subscription
 }
 
 export class CommandService implements CommandServiceApi {
@@ -68,10 +67,9 @@ export class CommandService implements CommandServiceApi {
     )
   }
 
-  subscribeCurrentState(
-    stateNames: Set<string>,
+  subscribeCurrentState = (stateNames: Set<string>) => (
     onStateChange: (state: M.CurrentState) => void
-  ): Subscription {
+  ): Subscription => {
     const subscriptionResponse = this.subscribe(stateNames, onStateChange)
     return {
       cancel: async () => {

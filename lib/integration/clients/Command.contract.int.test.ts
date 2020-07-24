@@ -1,5 +1,5 @@
 import { CommandService } from '../../src/clients/command'
-import { ComponentId, Prefix, Setup, SubmitResponse } from '../../src/models'
+import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
 
@@ -128,14 +128,12 @@ describe('Command Client', () => {
       const commandService = new CommandService(componentId)
       const prefix: Prefix = new Prefix('ESW', 'a.b')
 
-      commandService.subscribeCurrentState(
-        new Set(['stateName1', 'stateName2']),
-        (currentState) => {
-          expect(currentState.prefix).toEqual(prefix)
-          expect(currentState.paramSet).toEqual([])
-          done()
-        }
-      )
+      const callback = (currentState: CurrentState) => {
+        expect(currentState.prefix).toEqual(prefix)
+        expect(currentState.paramSet).toEqual([])
+        done()
+      }
+      commandService.subscribeCurrentState(new Set(['stateName1', 'stateName2']))(callback)
     })
   })
 })

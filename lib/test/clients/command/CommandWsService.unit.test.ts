@@ -37,13 +37,11 @@ describe('CommandService', () => {
     wsMockWithResolved(expectedState, mockServer)
 
     return new Promise((done) => {
-      client.subscribeCurrentState(
-        new Set(['stateName1', 'stateName2']),
-        (currentState: CurrentState) => {
-          expect(currentState).toEqual(expectedState)
-          done()
-        }
-      )
+      const callback = (currentState: CurrentState) => {
+        expect(currentState).toEqual(expectedState)
+        done()
+      }
+      client.subscribeCurrentState(new Set(['stateName1', 'stateName2']))(callback)
     })
   })
 

@@ -2,12 +2,12 @@ import {
   HttpConnection,
   HttpLocation,
   LocationService,
-  LocationUpdated
+  LocationUpdated,
+  TrackingEvent
 } from '../../../src/clients/location'
 import { Server } from 'mock-socket'
 import { Prefix } from '../../../src/models'
 import { wsMockWithResolved } from '../../helpers/MockHelpers'
-
 let mockServer: Server
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
@@ -32,9 +32,10 @@ test('location service must track a location for given connection | ESW-308, ESW
   wsMockWithResolved(expectedTrackingEvent, mockServer)
 
   return new Promise((done) => {
-    locationService.track(httpConnection, (trackingEvent) => {
+    const callback = (trackingEvent: TrackingEvent) => {
       expect(trackingEvent).toEqual(expectedTrackingEvent)
       done()
-    })
+    }
+    locationService.track(httpConnection)(callback)
   })
 })

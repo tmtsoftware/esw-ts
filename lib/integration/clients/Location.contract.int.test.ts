@@ -4,7 +4,8 @@ import {
   Duration,
   HttpConnection,
   LocationRemoved,
-  LocationService
+  LocationService,
+  TrackingEvent
 } from '../../src/clients/location'
 import { gatewayConnection } from '../../src/config/connections'
 import { Prefix } from '../../src/models'
@@ -104,10 +105,11 @@ describe('LocationService', () => {
         connection: gatewayConnection
       }
 
-      locationService.track(gatewayConnection, (trackingEvent) => {
+      const callBack = (trackingEvent: TrackingEvent) => {
         expect(trackingEvent).toEqual(expectedTrackingEvent)
         done()
-      })
+      }
+      locationService.track(gatewayConnection)(callBack)
 
       const response = await locationService.unregister(gatewayConnection)
       expect(response).toBe('Done')

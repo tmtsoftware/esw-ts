@@ -22,7 +22,7 @@ export interface LocationServiceApi {
   find(connection: Connection): Promise<Option<Location>>
   unregister(connection: Connection): Promise<Done>
   resolve(connection: Connection, within: Duration): Promise<Option<Location>>
-  track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription
+  track(connection: Connection): (callBack: (trackingEvent: TrackingEvent) => void) => Subscription
 }
 
 export class LocationService implements LocationServiceApi {
@@ -86,7 +86,9 @@ export class LocationService implements LocationServiceApi {
     return getOptionValue(response)
   }
 
-  track(connection: Connection, callBack: (trackingEvent: TrackingEvent) => void): Subscription {
+  track = (connection: Connection) => (
+    callBack: (trackingEvent: TrackingEvent) => void
+  ): Subscription => {
     return new Ws(this.host, this.port).subscribe(new Track(connection), callBack, TrackingEvent)
   }
 }
