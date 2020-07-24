@@ -1,6 +1,19 @@
 import { isRight } from 'fp-ts/lib/Either'
 import { CurrentState, ParameterD, Struct, SubmitResponse } from '../../src/models'
-import { getOrThrow } from './../../src/utils/Utils'
+import { getOrThrow } from '../../src/utils/Utils'
+import * as os from 'os'
+import { NetworkInterfaceInfo } from 'os'
+
+const getIPv4Address = () => {
+  const interfaces = os.networkInterfaces()
+  const en0IFaces: NetworkInterfaceInfo[] = interfaces.en0 as NetworkInterfaceInfo[]
+  const { address } = en0IFaces.filter((x) => x.family == 'IPv4')[0]
+  return address
+}
+
+test('localhost', () => {
+  console.log(getIPv4Address())
+})
 
 describe('io-ts', () => {
   test('Parameter', () => {

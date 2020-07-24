@@ -27,4 +27,35 @@ describe('Alarm Client ', () => {
 
     expect(response).toEqual('Done')
   })
+
+  test('set severity for the component | ESW-314', async () => {
+    const alarmService = new AlarmService()
+    const trombonePrefix = new Prefix('TCS', 'trombone')
+
+    const alarmKey = new AlarmKey(trombonePrefix, 'InvalidAlarm')
+
+    let response
+    try {
+      response = await alarmService.setSeverity(alarmKey, 'Okay')
+    } catch (e) {
+      console.log(e._type)
+    }
+
+    expect(response).toEqual('Done')
+  })
+
+  test('set severity for the wcomponent | ESW-314', async () => {
+    const alarmService = new AlarmService()
+    const trombonePrefix = new Prefix('TCS', 'trombone')
+
+    const alarmKey = new AlarmKey(trombonePrefix, 'InvalidAlarm')
+
+    try {
+      await alarmService.setSeverity(alarmKey, 'Okay')
+    } catch (e) {
+      console.log(e)
+    }
+
+    // expect(response).toEqual('Done')
+  })
 })

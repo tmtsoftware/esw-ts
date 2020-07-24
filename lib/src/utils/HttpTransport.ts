@@ -1,7 +1,7 @@
 import { post } from './Http'
 import { HeaderExt } from './HeaderExt'
 import type { TokenFactory } from './TokenFactory'
-import { getOrThrow } from './Utils'
+import { decodeOrReturn, getOrThrow } from './Utils'
 import { Decoder } from './Decoder'
 
 export class HttpTransport<Req> {
@@ -14,6 +14,7 @@ export class HttpTransport<Req> {
   async requestRes<Res>(
     request: Req,
     decoder?: Decoder<Res>,
+    errorDecoder?: Decoder<Error>,
     timeoutInMillis?: number
   ): Promise<Res> {
     const { host, port } = await this.resolver()
@@ -26,7 +27,8 @@ export class HttpTransport<Req> {
       headers,
       payload: request,
       timeout: timeoutInMillis,
-      decoder: decoder ? (obj) => getOrThrow(decoder.decode(obj)) : decoder
+      decoder: decoder ? (obj) => getOrThrow(decoder.decode(obj)) : decoder,
+      errorDecoder: errorDecoder ? (error) => decodeOrReturn(error, errorDecoder) : errorDecoder
     })
   }
 }

@@ -12,6 +12,7 @@ export interface FetchRequest<Req, Res> {
   timeout?: number
   responseMapper?: (res: Response) => Promise<Res>
   decoder?: (a: any) => Res
+  errorDecoder?: (a: Error) => Error
 }
 
 export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Promise<Res>
@@ -43,7 +44,8 @@ const fetchMethod = (method: Method): RequestResponse => {
       headers = jsonHeader(),
       timeout = 120000,
       responseMapper = toJson,
-      decoder = identity
+      decoder = identity,
+      errorDecoder
     } = request
 
     const path = fullUrl(url, queryParams)
@@ -51,7 +53,7 @@ const fetchMethod = (method: Method): RequestResponse => {
 
     const fetchResponse = withTimeout(timeout, fetch(path, { method, headers, body }))
 
-    const response = await responseMapper(handleErrors(await fetchResponse))
+    const response = await handleErrors(await fetchResponse, responseMapper, errorDecoder)
     return decoder(response)
   }
 }
@@ -62,9 +64,25 @@ export const put = fetchMethod('PUT')
 export const del = fetchMethod('DELETE')
 export const head = fetchMethod('HEAD')
 
-const handleErrors = (res: Response) => {
-  if (!res.ok) throw new Error(res.statusText)
-  return res
+class GenericError extends Error {
+  constructor(readonly error: string, readonly status: number) {
+    super(error)
+  }
+}
+
+const handleErrors = async <Res>(
+  res: Response,
+  responseMapper: (res: Response) => Promise<Res>,
+  errorDecoder?: (a: any) => Error
+) => {
+  if (!res.ok) {
+    const errorRes = await responseMapper(res).catch(
+      () => new GenericError(res.statusText, res.status)
+    )
+    throw errorDecoder ? errorDecoder(errorRes) : errorRes
+  }
+
+  return responseMapper(res)
 }
 
 const urlencodedSerializer = (

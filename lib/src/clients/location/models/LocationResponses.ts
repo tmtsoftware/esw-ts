@@ -1,5 +1,4 @@
-import * as D from 'io-ts/lib/Decoder'
-import { ciLiteral } from '../../../utils/Decoder'
+import { ciLiteral, Decoder } from '../../../utils/Decoder'
 
-export const Done = ciLiteral('Done')
-export type Done = D.TypeOf<typeof Done>
+export const Done: Decoder<Done> = ciLiteral('Done')
+export type Done = 'Done'

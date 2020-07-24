@@ -9,7 +9,7 @@ const SEPARATOR = '.'
 
 const validateComponentName = (name: string) => {
   requirement(name === name.trim(), `component name ${name} has leading/trailing whitespace`)
-  requirement(!name.includes('-'), `component name ${name} has '-'`)
+  // requirement(!name.includes('-'), `component name ${name} has '-'`)
 }
 
 const parseSubsystemStr = (subsystem: string): Subsystem => {
