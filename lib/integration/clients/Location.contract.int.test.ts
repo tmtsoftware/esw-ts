@@ -10,6 +10,7 @@ import {
 import { gatewayConnection } from '../../src/config/connections'
 import { Prefix } from '../../src/models'
 import { Option } from '../../src/utils/Option'
+import { getIPv4Address } from '../utils/networkUtils'
 
 jest.setTimeout(30000)
 
@@ -18,6 +19,18 @@ const locationService = new LocationService()
 const getValueFromOption = <T>(value: Option<T>): T => {
   if (value === undefined) throw new Error('value is undefined')
   return value
+}
+
+const akkaHcdConnection: AkkaConnection = {
+  prefix: hcdPrefix,
+  componentType: 'HCD',
+  connectionType: 'akka'
+}
+
+const httpHcdConnection: HttpConnection = {
+  prefix: hcdPrefix,
+  componentType: 'HCD',
+  connectionType: 'http'
 }
 
 beforeAll(async () => {
@@ -45,7 +58,15 @@ describe('LocationService', () => {
     const locations = await locationService.list()
 
     expect(locations.length).toBe(3)
-    expect(locations.map((x) => x.connection)).toContainEqual(gatewayConnection)
+
+    const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
+    const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
+
+    locations.forEach((loc) => {
+      expect(allExpectedTypes).toContainEqual(loc._type)
+      expect(allExpectedConnections).toContainEqual(loc.connection)
+      expect(loc).toHaveProperty('uri')
+    })
   })
 
   test('should be able to list all the registered location for given componentType | ESW-343, ESW-308', async () => {
@@ -58,11 +79,6 @@ describe('LocationService', () => {
   test('should be able to list all the registered location for given connectionType | ESW-343, ESW-308', async () => {
     const locations = await locationService.listByConnectionType('akka')
 
-    const akkaHcdConnection: AkkaConnection = {
-      prefix: hcdPrefix,
-      componentType: 'HCD',
-      connectionType: 'akka'
-    }
     expect(locations.length).toBe(1)
     expect(locations[0].connection).toEqual(akkaHcdConnection)
   })
@@ -70,29 +86,26 @@ describe('LocationService', () => {
   test('should be able to list all the registered location for given prefix | ESW-343, ESW-308', async () => {
     const locations = await locationService.listByPrefix(hcdPrefix)
 
-    const akkaHcdConnection: AkkaConnection = {
-      prefix: hcdPrefix,
-      componentType: 'HCD',
-      connectionType: 'akka'
-    }
-
-    const httpHcdConnection: HttpConnection = {
-      prefix: hcdPrefix,
-      componentType: 'HCD',
-      connectionType: 'http'
-    }
     expect(locations.length).toBe(2)
     expect(locations.map((x) => x.connection)).toContainEqual(akkaHcdConnection)
     expect(locations.map((x) => x.connection)).toContainEqual(httpHcdConnection)
   })
 
-  test('should be able to find the location of given connection | ESW-343, ESW-308', async () => {
-    const akkaHcdConnection: AkkaConnection = {
-      prefix: hcdPrefix,
-      componentType: 'HCD',
-      connectionType: 'akka'
-    }
+  test('should be able to list all the registered location for given hostname | ESW-343, ESW-308', async () => {
+    const locations = await locationService.listByHostname(getIPv4Address())
 
+    const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
+    const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
+
+    expect(locations.length).toBe(3)
+    locations.forEach((loc) => {
+      expect(allExpectedTypes).toContainEqual(loc._type)
+      expect(allExpectedConnections).toContainEqual(loc.connection)
+      expect(loc).toHaveProperty('uri')
+    })
+  })
+
+  test('should be able to find the location of given connection | ESW-343, ESW-308', async () => {
     const location = getValueFromOption(await locationService.find(akkaHcdConnection))
     expect(location._type).toBe('AkkaLocation')
     expect(location.connection).toEqual(akkaHcdConnection)
@@ -120,11 +133,10 @@ describe('LocationService', () => {
   })
 
   test('should be able to unregister a location from location server | ESW-343, ESW-308', async () => {
-    const response = await locationService.unregister(gatewayConnection)
+    const response = await locationService.unregister(httpHcdConnection)
     expect(response).toBe('Done')
 
-    const location = await locationService.find(gatewayConnection)
+    const location = await locationService.find(httpHcdConnection)
     expect(location).toBeUndefined()
   })
 })
-// listByHostname(hostname: string): Promise<Location[]>
