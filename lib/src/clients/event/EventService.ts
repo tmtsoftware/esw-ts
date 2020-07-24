@@ -20,16 +20,14 @@ interface EventServiceApi {
 
   subscribe(
     eventKeys: Set<EventKey>,
-    maxFrequency: number,
-    callback: (event: Event) => void
-  ): Subscription
+    maxFrequency: number
+  ): (callback: (event: Event) => void) => Subscription
 
   pSubscribe(
     subsystem: Subsystem,
     maxFrequency: number,
-    pattern: string,
-    callback: (event: Event) => void
-  ): Subscription
+    pattern: string
+  ): (callback: (event: Event) => void) => Subscription
 }
 
 export class EventService implements EventServiceApi {
@@ -47,11 +45,9 @@ export class EventService implements EventServiceApi {
     return this.httpTransport.requestRes(new GatewayGetEvent([...eventKeys]), D.array(Event))
   }
 
-  subscribe(
-    eventKeys: Set<EventKey>,
-    maxFrequency = 0,
+  subscribe = (eventKeys: Set<EventKey>, maxFrequency = 0) => (
     callback: (event: Event) => void
-  ): Subscription {
+  ): Subscription => {
     const subscriptionResponse = EventService.resolveAndSubscribe(eventKeys, maxFrequency, callback)
     return {
       cancel: async () => {
@@ -61,12 +57,9 @@ export class EventService implements EventServiceApi {
     }
   }
 
-  pSubscribe(
-    subsystem: Subsystem,
-    maxFrequency = 0,
-    pattern = '*',
+  pSubscribe = (subsystem: Subsystem, maxFrequency = 0, pattern = '*') => (
     callback: (event: Event) => void
-  ): Subscription {
+  ): Subscription => {
     const subscriptionResponse = EventService.resolveAndpSubscribe(
       subsystem,
       maxFrequency,

@@ -50,32 +50,37 @@ describe('Event Client', () => {
   })
 
   test('should subscribe to published event | ESW-318', () => {
-    return new Promise((jestDoneCallback) => {
+    return new Promise(async (jestDoneCallback) => {
       const prefix = new Prefix('CSW', 'ncc.trombone')
       const eventName = new EventName('offline')
       const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 
-      new EventService().subscribe(eventKeys, 1, (event) => {
+      const callback = (event: Event) => {
         expect(event._type).toEqual('ObserveEvent')
         expect(event.source).toEqual(prefix)
         expect(event.eventName).toEqual(eventName)
+        subscription.cancel()
         jestDoneCallback()
-      })
+      }
+
+      const subscription = await new EventService().subscribe(eventKeys, 1)(callback)
     })
   })
 
   test('should pattern subscribe to published event | ESW-318', () => {
-    return new Promise((jestDoneCallback) => {
-      const prefix = new Prefix('CSW', 'ncc.trombone')
-      const eventName = new EventName('offline')
-      const subsystem: Subsystem = 'ESW'
-
-      new EventService().pSubscribe(subsystem, 1, '*', (event) => {
+    const prefix = new Prefix('CSW', 'ncc.trombone')
+    const eventName = new EventName('offline')
+    const subsystem: Subsystem = 'ESW'
+    return new Promise(async (jestDoneCallback) => {
+      const callback = (event: Event) => {
         expect(event._type).toEqual('ObserveEvent')
         expect(event.source).toEqual(prefix)
         expect(event.eventName).toEqual(eventName)
+        subscription.cancel()
         jestDoneCallback()
-      })
+      }
+
+      const subscription = await new EventService().pSubscribe(subsystem, 1, '*')(callback)
     })
   })
 })

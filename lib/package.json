@@ -20,7 +20,7 @@
   "test:unit:reporter": "jest unit --coverage --reporters=default --reporters=./dist/test/helpers/TestReporter.js",
   "test:unit:ci": "npm-run-all build:reporter test:unit:reporter",
   "test:integration": "jest int --runInBand",
-  "test:integration:reporter": "jest int --reporters=./dist/test/helpers/TestReporter.js",
+  "test:integration:reporter": "jest int --runInBand --reporters=default --reporters=./dist/test/helpers/TestReporter.js",
   "test:integration:ci": "npm-run-all build:reporter test:integration:reporter",
   "test:watch": "jest --watchAll",
   "fix": "npm-run-all --parallel clean fix:eslint fix:prettier",

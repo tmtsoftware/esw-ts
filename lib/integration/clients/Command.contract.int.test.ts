@@ -12,7 +12,7 @@ const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  await startServices(['AAS', 'Gateway', 'Event'])
+  await startServices(['AAS', 'Gateway'])
 })
 
 afterAll(async () => {

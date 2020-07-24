@@ -7,13 +7,15 @@ describe('Prefix', () => {
   })
 
   test('from string  | ESW-305', () => {
-    expect( Prefix.fromString('ESW.comp1')).toEqual(new Prefix('ESW', 'comp1'))
+    expect(Prefix.fromString('ESW.comp1')).toEqual(new Prefix('ESW', 'comp1'))
   })
 
   test('throws error when decoding unknown object | ESW-305', () => {
     const invalidString = 'ESWComp1'
-    const expectedError = new Error(`cannot decode \"${invalidString}\", should be Subsystem: ${invalidString} is invalid`)
+    const expectedError = new Error(
+      `cannot decode \"${invalidString}\", should be Subsystem: ${invalidString} is invalid`
+    )
 
-    expect( () => getOrThrow(PrefixD.decode(invalidString))).toThrow(expectedError)
+    expect(() => getOrThrow(PrefixD.decode(invalidString))).toThrow(expectedError)
   })
 })
