@@ -1,6 +1,6 @@
 // #app-config
 export const AppConfig = {
   realm: 'TMT',
-  clientId: 'csw-config-app'
+  clientId: 'tmt-frontend-app'
 }
 // #app-config

@@ -3,7 +3,7 @@ import CreateConfig from './CreateConfig'
 import ConfigError from './ConfigError'
 import ListConfig from './ListConfig'
 import GetConfig from './GetConfig'
-import { AuthContext, ClientRole } from 'esw-ts'
+import { AuthContext, RealmRole } from 'esw-ts'
 import ConfigServiceProvider from './context/ConfigServiceProvider'
 
 const ConfigApp = () => {
@@ -14,12 +14,11 @@ const ConfigApp = () => {
         <GetConfig />
         {
           // #create-config-component
-          <ClientRole
-            clientRole='admin'
-            client='csw-config-server'
+          <RealmRole
+            realmRole='config-admin'
             error={<ConfigError />}>
             <CreateConfig/>
-          </ClientRole>
+          </RealmRole>
           // #create-config-component
         }
       </ConfigServiceProvider>

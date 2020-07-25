@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 // #import-components-example
-import { AuthContextProvider, CheckLogin, ClientRole, RealmRole } from 'esw-ts'
+import { AuthContextProvider, CheckLogin, RealmRole } from 'esw-ts'
 // #import-components-example
 import NavComponent from './NavComponent'
 import { AppConfig } from '../config/AppConfig'
@@ -49,12 +49,11 @@ const ExampleApp = () => {
                 path='/example_user'
                 render={(_) => (
                   // #clientRole-component-usage
-                  <ClientRole
-                    clientRole='person-role'
-                    client='example-server'
+                  <RealmRole
+                    realmRole='person-role'
                     error={<ExampleError />}>
                     <div>Person role specific functionality</div>
-                  </ClientRole>
+                  </RealmRole>
                   // #clientRole-component-usage
                 )}
               />
