@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
 

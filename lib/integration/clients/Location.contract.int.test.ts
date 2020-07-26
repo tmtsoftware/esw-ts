@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import {
   AkkaConnection,

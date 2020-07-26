@@ -1,4 +1,3 @@
-import 'whatwg-fetch'
 import { identity } from 'fp-ts/lib/function'
 import { HeaderExt } from './HeaderExt'
 import { GenericError } from './GenericError'

@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { AlarmKey, AlarmService } from '../../src/clients/alarm'
 import { Done } from '../../src/clients/location'
 import { Prefix } from '../../src/models'

@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { Prefix, Subsystem } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { Event, EventKey, EventName, EventService, ObserveEvent } from '../../src/clients/event'

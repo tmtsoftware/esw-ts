@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { getToken } from '../utils/auth'
 import { SequencerService } from '../../src/clients/sequencer'
 import { ComponentId, Prefix } from '../../src/models'

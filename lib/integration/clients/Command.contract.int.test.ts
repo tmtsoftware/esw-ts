@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { CommandService } from '../../src/clients/command'
 import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
