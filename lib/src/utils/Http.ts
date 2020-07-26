@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
 import { identity } from 'fp-ts/lib/function'
 import { HeaderExt } from './HeaderExt'
+import { GenericError } from './GenericError'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
@@ -17,7 +18,6 @@ export interface FetchRequest<Req, Res> {
 export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Promise<Res>
 
 const jsonHeader = () => new HeaderExt().withContentType('application/json')
-const toJson = (res: Response) => res.json()
 
 const queryString = (queryParams: Record<string, string>) =>
   Object.entries(queryParams)
@@ -42,16 +42,14 @@ const fetchMethod = (method: Method): RequestResponse => {
       queryParams,
       headers = jsonHeader(),
       timeout = 120000,
-      responseMapper = toJson,
+      responseMapper = defaultResponseMapper,
       decoder = identity
     } = request
 
     const path = fullUrl(url, queryParams)
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
-
-    const fetchResponse = withTimeout(timeout, fetch(path, { method, headers, body }))
-
-    const response = await responseMapper(handleErrors(await fetchResponse))
+    const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body }))
+    const response = await handleErrors(fetchResponse, responseMapper)
     return decoder(response)
   }
 }
@@ -62,9 +60,24 @@ export const put = fetchMethod('PUT')
 export const del = fetchMethod('DELETE')
 export const head = fetchMethod('HEAD')
 
-const handleErrors = (res: Response) => {
-  if (!res.ok) throw new Error(res.statusText)
-  return res
+const defaultResponseMapper = (response: Response) => {
+  const contentType = response.headers.get('content-type')
+  if (contentType && contentType.indexOf('application/json') !== -1) {
+    return response.json()
+  } else {
+    return response.text()
+  }
+}
+
+const handleErrors = async <Res>(
+  res: Response,
+  responseMapper: (res: Response) => Promise<Res>
+): Promise<Res> => {
+  const responseBody = await responseMapper(res)
+  if (!res.ok) {
+    throw new GenericError(res.status, res.statusText, responseBody)
+  }
+  return responseBody
 }
 
 const urlencodedSerializer = (

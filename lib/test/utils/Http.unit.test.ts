@@ -7,10 +7,12 @@ const host = 'localhost'
 const port = 1234
 const url = `http://${host}:${port}/`
 
+const resHeaders = new HeaderExt().withContentType('application/json')
+
 describe('Http util', () => {
   test('Post request', async () => {
     const expectedValue = { ok: true, status: 200 }
-    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
+    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, resHeaders))
     const payload = 'hello'
     const response = await post({ url, payload })
 
@@ -34,7 +36,7 @@ describe('Http util', () => {
 
   test('should be able to serialize form body', async () => {
     const expectedValue = { ok: true, status: 200 }
-    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue))
+    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, resHeaders))
     const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
     const payload = 'hello'
     const response = await post({ url, payload, headers })
@@ -52,7 +54,8 @@ describe('Http util', () => {
   })
 })
 
-const makeResponse = <T>(response: T): Response => new Response(JSON.stringify(response))
+const makeResponse = <T>(response: T, headers?: Headers): Response =>
+  new Response(JSON.stringify(response), { headers })
 
 const makeErrorResponse = (): Response =>
   new Response('', { status: 404, statusText: 'bad request' })

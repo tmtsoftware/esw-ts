@@ -2,6 +2,7 @@ import { CommandService } from '../../src/clients/command'
 import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
+import { GenericError } from '../../src/utils/GenericError'
 
 jest.setTimeout(50000)
 
@@ -39,7 +40,9 @@ describe('Command Client', () => {
     const commandService = new CommandService(componentId, () => '')
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
-    await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Unauthorized'))
+    await expect(commandService.oneway(setupCommand)).rejects.toThrow(
+      new GenericError(401, 'Unauthorized', expect.any(String))
+    )
   })
 
   test('should get forbidden error on sending command to different subsystem | ESW-305', async () => {
@@ -53,7 +56,9 @@ describe('Command Client', () => {
     const commandService = new CommandService(componentId, () => tokenWithoutRole)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
-    await expect(commandService.oneway(setupCommand)).rejects.toThrow(Error('Forbidden'))
+    await expect(commandService.oneway(setupCommand)).rejects.toThrow(
+      new GenericError(403, 'Forbidden', expect.any(String))
+    )
   })
 
   test('should be able to submit the given command | ESW-305', async () => {
