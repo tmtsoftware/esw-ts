@@ -4,8 +4,8 @@ import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../
 import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
 import { GenericError } from '../../src/utils/GenericError'
-import { delay } from '../utils/eventually'
 
+jest.setTimeout(50000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
