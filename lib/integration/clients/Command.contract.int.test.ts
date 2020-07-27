@@ -5,7 +5,7 @@ import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
 import { GenericError } from '../../src/utils/GenericError'
 
-jest.setTimeout(50000)
+jest.setTimeout(70000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
