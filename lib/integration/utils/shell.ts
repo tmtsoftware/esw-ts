@@ -28,11 +28,11 @@ const appLauncher = (name: string, version = 'master-SNAPSHOT') =>
 const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
   executeScriptSync(appsLauncherScript, name, version)
 
-const backend_testkit_sha = 'af7a5a4cacbf'
+const backend_testkit_sha = 'a10468ec0b'
 export const executeServicesScript = appLauncher('backend-testkit-services', backend_testkit_sha)
 export const executeComponentScript = appLauncher('backend-testkit-component', backend_testkit_sha)
 export const executeSequencerScript = appLauncher('backend-testkit-sequencer')
 
 export const executeStopServicesScript = executeScript(stopServicesScript) // fixme: make this executeScriptSync call
-export const executeCswContract = appLauncherSync('csw-contract', 'b90e9ab')
-export const executeEswContract = appLauncherSync('esw-contract', '2fff251649')
+export const executeCswContract = appLauncherSync('csw-contract', '5ce2d9f24')
+export const executeEswContract = appLauncherSync('esw-contract', 'a981c1b9e7f')

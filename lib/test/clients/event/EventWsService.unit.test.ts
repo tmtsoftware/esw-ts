@@ -43,8 +43,8 @@ describe('Event Service', () => {
         expect(event._type).toEqual('ObserveEvent')
         expect(event.source).toEqual(prefix)
         expect(event.eventName).toEqual(eventName)
-        jestDoneCallback()
         subscription.cancel()
+        jestDoneCallback()
       }
       const subscription = await new EventService().subscribe(eventKeys, 1)(callback)
     })
@@ -59,8 +59,8 @@ describe('Event Service', () => {
         expect(event._type).toEqual('ObserveEvent')
         expect(event.source).toEqual(prefix)
         expect(event.eventName).toEqual(eventName)
-        jestDoneCallback()
         subscription.cancel()
+        jestDoneCallback()
       }
       const subscription = await new EventService().subscribe(eventKeys)(callback)
     })

@@ -3,6 +3,7 @@
     "declaration": true,
     "target": "ESNext",
     "module": "ESNext",
+    "outDir": "dist",
     "allowJs": true,
     "checkJs": true,
     "sourceMap": true,
