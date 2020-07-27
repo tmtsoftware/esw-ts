@@ -52,7 +52,7 @@ describe('CommandService', () => {
     const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
     const data: SubmitResponse = await client.submit(setupCommand)
 
-    expect(postMockFn).toBeCalledTimes(3)
+    expect(postMockFn).toBeCalledTimes(2)
     expect(data).toBe(startedResponse)
   })
 
