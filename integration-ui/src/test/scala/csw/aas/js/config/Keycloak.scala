@@ -9,8 +9,8 @@ import scala.concurrent.{Await, ExecutionContext}
 
 object Keycloak {
 
-  val configUserName = "config-admin"
-  val configPassword = "config-admin"
+  val configUserName = "config-admin1"
+  val configPassword = "config-admin1"
 
   val exampleUserName = "dummy-user"
   val examplePassword = "dummy-user"

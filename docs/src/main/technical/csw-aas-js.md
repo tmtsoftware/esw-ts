@@ -35,15 +35,11 @@ for details.
 
 - Create new Keycloak client instance
 This instantiation expects config which includes keycloak server url and some application
-specific config like `realm` and `clientId`. csw-aas-js uses csw location service to resolve keycloak server. If you
-don't want to use location service, you can provide `AAS-server-url` along with `realm` and `clientId` in web application config.
+specific config like `realm` and `clientId`. csw-aas-js uses csw location service to resolve keycloak server.
 
-```javascript
-const AppConfig = {
-  realm: 'example',
-  clientId: 'example-app'
-}
-```
+Javascript
+:   @@snip [App-config](../../../../example/src/config/AppConfig.ts) { #app-config }
+
 - Initialize javascript adapter
 To call secure end point, web application first needs to be authenticated using keycloak server. There are two options to make this adapter automatically authenticate - `login-required` and `check-sso`.
 `login-required` will automatically authenticate if the user is already logged-in, otherwise it will display keycloak login page.
