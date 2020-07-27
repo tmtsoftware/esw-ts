@@ -8,7 +8,7 @@ import { Prefix } from '../../../src/models'
 import { mockedKeyCloakInstance } from '../../helpers/MockHelpers'
 
 const conf = {
-  realm: 'TMT-test',
+  realm: 'TMT',
   clientId: 'config-app'
 }
 

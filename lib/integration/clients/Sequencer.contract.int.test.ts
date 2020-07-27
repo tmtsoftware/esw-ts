@@ -21,10 +21,10 @@ afterAll(async () => {
 describe('Sequencer Client', () => {
   test('is up and available | ESW-307', async () => {
     const validToken: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user1',
       'gateway-user1',
-      'TMT-test'
+      'TMT'
     )
 
     const sequencerService = new SequencerService(

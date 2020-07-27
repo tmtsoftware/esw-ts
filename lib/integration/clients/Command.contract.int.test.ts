@@ -4,8 +4,8 @@ import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../
 import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
 import { GenericError } from '../../src/utils/GenericError'
+import { delay } from '../utils/eventually'
 
-jest.setTimeout(100000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
@@ -25,10 +25,10 @@ afterAll(async () => {
 describe('Command Client', () => {
   test('should get accepted response on oneway command | ESW-305', async () => {
     const validToken: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user1',
       'gateway-user1',
-      'TMT-test'
+      'TMT'
     )
 
     const commandService = new CommandService(componentId, () => validToken)
@@ -48,10 +48,10 @@ describe('Command Client', () => {
 
   test('should get forbidden error on sending command to different subsystem | ESW-305', async () => {
     const tokenWithoutRole: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user2',
       'gateway-user2',
-      'TMT-test'
+      'TMT'
     )
 
     const commandService = new CommandService(componentId, () => tokenWithoutRole)
@@ -64,10 +64,10 @@ describe('Command Client', () => {
 
   test('should be able to submit the given command | ESW-305', async () => {
     const validToken: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user1',
       'gateway-user1',
-      'TMT-test'
+      'TMT'
     )
 
     const commandService = new CommandService(componentId, () => validToken)
@@ -78,10 +78,10 @@ describe('Command Client', () => {
 
   test('should be able to send the validate command | ESW-305', async () => {
     const validToken: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user1',
       'gateway-user1',
-      'TMT-test'
+      'TMT'
     )
 
     const commandService = new CommandService(componentId, () => validToken)
@@ -92,10 +92,10 @@ describe('Command Client', () => {
 
   test('should be able to query response for the given runId | ESW-305', async () => {
     const validToken: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user1',
       'gateway-user1',
-      'TMT-test'
+      'TMT'
     )
 
     const commandService = new CommandService(componentId, () => validToken)
@@ -109,10 +109,10 @@ describe('Command Client', () => {
 
   test('should be able to query the final response for the given runId | ESW-305', async () => {
     const validToken: string = await getToken(
-      'esw-gateway-client',
+      'tmt-frontend-app',
       'gateway-user1',
       'gateway-user1',
-      'TMT-test'
+      'TMT'
     )
 
     const commandService = new CommandService(componentId, () => validToken)
