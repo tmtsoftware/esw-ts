@@ -11,7 +11,7 @@ import {
 import { gatewayConnection } from '../../src/config/connections'
 import { Prefix } from '../../src/models'
 import { Option } from '../../src/utils/Option'
-import { getIPv4Address } from '../utils/networkUtils'
+import { publicNIIp } from '../utils/networkUtils'
 
 jest.setTimeout(30000)
 
@@ -93,7 +93,7 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given hostname | ESW-343, ESW-308', async () => {
-    const locations = await locationService.listByHostname(getIPv4Address())
+    const locations = await locationService.listByHostname(publicNIIp())
 
     const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
     const allExpectedTypes = ['AkkaLocation', 'HttpLocation']

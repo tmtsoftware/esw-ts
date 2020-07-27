@@ -1,8 +1,16 @@
 import * as os from 'os'
 
-export const getIPv4Address = () => {
+export const publicNIIp = () => {
   const interfaces = os.networkInterfaces()
-  const en0IFaces = interfaces.en0 as os.NetworkInterfaceInfo[]
-  const { address } = en0IFaces.filter((x) => x.family == 'IPv4')[0]
+  const ifaces = Object.values(interfaces)
+  const address = ifaces.reduce((result, iface) => {
+    if (iface)
+      return iface.reduce((result, nIInfo) => {
+        if (nIInfo.family == 'IPv4' && !nIInfo.internal) return nIInfo.address
+        return result
+      }, result)
+    return result
+  }, '')
+  if (address.length == 0) throw Error('No public network interface for IPv4')
   return address
 }
