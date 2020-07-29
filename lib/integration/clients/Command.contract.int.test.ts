@@ -23,7 +23,7 @@ afterAll(async () => {
 })
 
 describe('Command Client', () => {
-  test('should get accepted response on oneway command | ESW-305', async () => {
+  test('should get accepted response on oneway command | ESW-343, ESW-305', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -37,7 +37,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Accepted')
   })
 
-  test('should get unauthorized error on sending invalid token | ESW-305', async () => {
+  test('should get unauthorized error on sending invalid token | ESW-343, ESW-305', async () => {
     const commandService = new CommandService(componentId, () => '')
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
@@ -46,7 +46,7 @@ describe('Command Client', () => {
     )
   })
 
-  test('should get forbidden error on sending command to different subsystem | ESW-305', async () => {
+  test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305', async () => {
     const tokenWithoutRole: string = await getToken(
       'tmt-frontend-app',
       'gateway-user2',
@@ -62,7 +62,7 @@ describe('Command Client', () => {
     )
   })
 
-  test('should be able to submit the given command | ESW-305', async () => {
+  test('should be able to submit the given command | ESW-343, ESW-305', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -76,7 +76,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Started')
   })
 
-  test('should be able to send the validate command | ESW-305', async () => {
+  test('should be able to send the validate command | ESW-343, ESW-305', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -90,7 +90,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Accepted')
   })
 
-  test('should be able to query response for the given runId | ESW-305', async () => {
+  test('should be able to query response for the given runId | ESW-343, ESW-305', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -107,7 +107,7 @@ describe('Command Client', () => {
     expect(queryRes._type).toEqual('Started')
   })
 
-  test('should be able to query the final response for the given runId | ESW-305', async () => {
+  test('should be able to query the final response for the given runId | ESW-343, ESW-305', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -129,7 +129,7 @@ describe('Command Client', () => {
     expect(queryRes).toEqual(expectedRes)
   })
 
-  test('should be able to subscribe to the current state | ESW-305', () => {
+  test('should be able to subscribe to the current state | ESW-343, ESW-305', () => {
     return new Promise((done) => {
       const commandService = new CommandService(componentId)
       const prefix: Prefix = new Prefix('ESW', 'a.b')
