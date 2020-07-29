@@ -3,29 +3,24 @@ import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { Parameter, ParameterD, Prefix, PrefixD, Key } from '../../../models'
 import { EventName, EventNameD } from './EventName'
 
-export const ObserveEventL = 'ObserveEvent'
-export const SystemEventL = 'SystemEvent'
+const ObserveEventL = 'ObserveEvent'
+const SystemEventL = 'SystemEvent'
 
-interface EventI<L> {
-  readonly _type: L
-  readonly eventId: string
-  readonly source: Prefix
-  readonly eventName: EventName
-  readonly eventTime: string
-  readonly paramSet: Parameter<Key>[]
-}
+type EventTypes = typeof ObserveEventL | typeof SystemEventL
 
-const EventD = <L extends string>(_type: L): Decoder<EventI<L>> =>
-  D.type({
+export type Event = ObserveEvent | SystemEvent
+
+const EventD = (_type: EventTypes): Decoder<Event> => D.type({
     _type: ciLiteral(_type),
     eventId: D.string,
     source: PrefixD,
     eventName: EventNameD,
     eventTime: D.string,
     paramSet: D.array(ParameterD)
-  })
+  });
 
-export class ObserveEvent implements EventI<typeof ObserveEventL> {
+
+export class ObserveEvent {
   readonly _type = ObserveEventL
 
   constructor(
@@ -37,7 +32,7 @@ export class ObserveEvent implements EventI<typeof ObserveEventL> {
   ) {}
 }
 
-export class SystemEvent implements EventI<typeof SystemEventL> {
+export class SystemEvent {
   readonly _type = SystemEventL
 
   constructor(
@@ -48,8 +43,6 @@ export class SystemEvent implements EventI<typeof SystemEventL> {
     readonly paramSet: Parameter<Key>[]
   ) {}
 }
-
-export type Event = D.TypeOf<typeof Event>
 
 export const Event = D.sum('_type')({
   [ObserveEventL]: EventD(ObserveEventL),
