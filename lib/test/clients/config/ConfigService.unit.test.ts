@@ -4,6 +4,7 @@ import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
+import { ConfigId } from '../../../src'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -41,7 +42,7 @@ describe('ConfigService', () => {
 
   test('should get the conf of given path and given id from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const configId = { id: 'configId123' }
+    const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
@@ -79,7 +80,7 @@ describe('ConfigService', () => {
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
-    const configId = { id: 'configId123' }
+    const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
@@ -256,7 +257,7 @@ describe('ConfigService', () => {
   test('should set the active version of the conf if config id and comment are given | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const url = activeVersionEndpoint(confPath)
-    const configId = { id: 'configId123' }
+    const configId = new ConfigId('configId123')
     const comment = 'something'
 
     postMockFn.mockResolvedValueOnce([configLocation])

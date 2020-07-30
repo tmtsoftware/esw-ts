@@ -1,27 +1,43 @@
-export type ConfigData = string
-export type FileType = 'Normal' | 'Annex'
+import * as D from 'io-ts/lib/Decoder'
+import { ciLiteral } from '../../../utils/Decoder'
+import { pipe } from 'fp-ts/lib/pipeable'
 
-export interface ConfigId {
-  id: string
+export const FileType = ciLiteral('Normal', 'Annex')
+export type FileType = D.TypeOf<typeof FileType>
+
+export class ConfigId {
+  constructor(readonly id: string) {}
+
+  toJSON() {
+    return this.id
+  }
 }
 
-export interface ConfigFileInfo {
-  path: string
-  id: ConfigId
-  author: string
-  comment: string
-}
+export const ConfigIdD = pipe(
+  D.string,
+  D.parse((name) => D.success(new ConfigId(name)))
+)
 
-export interface ConfigFileRevision {
-  id: ConfigId
-  author: string
-  comment: string
-  time: Date
-}
+export type ConfigFileInfo = D.TypeOf<typeof ConfigFileInfo>
+export const ConfigFileInfo = D.type({
+  path: D.string,
+  id: ConfigIdD,
+  author: D.string,
+  comment: D.string
+})
 
-export interface ConfigMetadata {
-  repoPath: string
-  annexPath: string
-  annexMinFileSize: string
-  maxConfigFileSize: string
-}
+export type ConfigFileRevision = D.TypeOf<typeof ConfigFileRevision>
+export const ConfigFileRevision = D.type({
+  id: ConfigIdD,
+  author: D.string,
+  comment: D.string,
+  time: D.string
+})
+
+export type ConfigMetadata = D.TypeOf<typeof ConfigMetadata>
+export const ConfigMetadata = D.type({
+  repoPath: D.string,
+  annexPath: D.string,
+  annexMinFileSize: D.string,
+  maxConfigFileSize: D.string
+})

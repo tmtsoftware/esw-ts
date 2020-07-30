@@ -10,6 +10,7 @@ import { executeCswContract, executeEswContract } from '../utils/shell'
 import { Event } from '../../src/clients/event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { ComponentIdD, PrefixD } from '../../src/models'
+import * as C from '../../src/clients/config'
 
 jest.setTimeout(100000)
 
@@ -19,6 +20,7 @@ const cswDir = path.resolve(__dirname, '../jsons/csw')
 const commandModelsJsonPath = `${cswDir}/command-service/models.json`
 const locationModelsJsonPath = `${cswDir}/location-service/models.json`
 const eventModelsJsonPath = `${eswDir}/gateway-service/models.json`
+const configModelsJsonPath = `${cswDir}/config-service/models.json`
 
 beforeAll(async () => {
   executeCswContract([cswDir])
@@ -42,11 +44,11 @@ describe('models contract test', () => {
   })
 
   test('should test Gateway models | ESW-317', () => {
-    const eventModelSet: Record<string, unknown[]> = parseModels(eventModelsJsonPath)
+    verifyContract(eventModelsJsonPath, gatewayDecoders)
+  })
 
-    Object.entries(eventModelSet).forEach(([modelName, models]) => {
-      models.forEach((modelJson) => testRoundTrip(modelJson, gatewayDecoders[modelName]))
-    })
+  test('should test Config models | ESW-319, ESW-320', () => {
+    verifyContract(configModelsJsonPath, configDecoders)
   })
 })
 
@@ -100,4 +102,12 @@ const gatewayDecoders: Record<string, Decoder<any>> = {
   GatewayException: D.id(),
   Prefix: PrefixD,
   LogMetadata: D.id()
+}
+
+const configDecoders: Record<string, Decoder<any>> = {
+  ConfigId: C.ConfigIdD,
+  FileType: C.FileType,
+  ConfigMetadata: C.ConfigMetadata,
+  ConfigFileInfo: C.ConfigFileInfo,
+  ConfigFileRevision: C.ConfigFileRevision
 }
