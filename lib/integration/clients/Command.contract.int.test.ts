@@ -23,7 +23,7 @@ afterAll(async () => {
 })
 
 describe('Command Client', () => {
-  test('should get accepted response on oneway command | ESW-343, ESW-305', async () => {
+  test('should get accepted response on oneway command | ESW-343, ESW-305, ESW-99', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -37,7 +37,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Accepted')
   })
 
-  test('should get unauthorized error on sending invalid token | ESW-343, ESW-305', async () => {
+  test('should get unauthorized error on sending invalid token | ESW-343, ESW-305, ESW-99', async () => {
     const commandService = new CommandService(componentId, () => '')
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
@@ -46,7 +46,7 @@ describe('Command Client', () => {
     )
   })
 
-  test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305', async () => {
+  test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305, ESW-99', async () => {
     const tokenWithoutRole: string = await getToken(
       'tmt-frontend-app',
       'gateway-user2',
@@ -62,7 +62,7 @@ describe('Command Client', () => {
     )
   })
 
-  test('should be able to submit the given command | ESW-343, ESW-305', async () => {
+  test('should be able to submit the given command | ESW-343, ESW-305, ESW-99', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -76,7 +76,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Started')
   })
 
-  test('should be able to send the validate command | ESW-343, ESW-305', async () => {
+  test('should be able to send the validate command | ESW-343, ESW-305, ESW-99', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',

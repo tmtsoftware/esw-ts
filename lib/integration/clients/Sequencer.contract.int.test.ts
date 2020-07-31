@@ -37,7 +37,7 @@ describe('Sequencer Client', () => {
     expect(available).toBeTruthy()
   })
 
-  test('should get unauthorized error when invalid token is provided | ESW-307', async () => {
+  test('should get unauthorized error when invalid token is provided | ESW-307, ESW-99', async () => {
     const sequencerService = new SequencerService(
       new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer'),
       () => undefined
