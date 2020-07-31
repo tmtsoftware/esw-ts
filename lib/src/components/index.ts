@@ -7,5 +7,14 @@ import Logout from './aas/Logout'
 import { Consumer, AuthContext } from './aas/context/AuthContext'
 
 // #export-components
-export { Logout, Login, CheckLogin, RealmRole, ClientRole, AuthContextProvider, Consumer, AuthContext }
+export {
+  Logout,
+  Login,
+  CheckLogin,
+  RealmRole,
+  ClientRole,
+  AuthContextProvider,
+  Consumer,
+  AuthContext
+}
 // #export-components

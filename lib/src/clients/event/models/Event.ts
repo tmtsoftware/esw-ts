@@ -10,15 +10,15 @@ type EventTypes = typeof ObserveEventL | typeof SystemEventL
 
 export type Event = ObserveEvent | SystemEvent
 
-const EventD = (_type: EventTypes): Decoder<Event> => D.type({
+const EventD = (_type: EventTypes): Decoder<Event> =>
+  D.type({
     _type: ciLiteral(_type),
     eventId: D.string,
     source: PrefixD,
     eventName: EventNameD,
     eventTime: D.string,
     paramSet: D.array(ParameterD)
-  });
-
+  })
 
 export class ObserveEvent {
   readonly _type = ObserveEventL

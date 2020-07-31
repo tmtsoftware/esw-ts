@@ -1,87 +1,52 @@
 import 'whatwg-fetch'
-import { Prefix, Subsystem } from '../../src/models'
+import { ConfigService } from '../../src/clients/config'
 import { startServices, stopServices } from '../utils/backend'
-import { Event, EventKey, EventName, EventService, ObserveEvent } from '../../src/clients/event'
-import { Done } from '../../src/clients/location'
+import { delay } from '../utils/eventually'
 
-jest.setTimeout(50000)
+jest.setTimeout(30000)
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  await startServices(['Gateway'])
+  await startServices(['Config'])
+  await delay(5000) // wait for svn repo to initialise
 })
 
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
 })
+const token = 'valid'
+const path = 'file6'
+const configService = new ConfigService(() => token)
+afterEach(async () => {
+  // deleting file which was created in test
+  await configService.delete(path, 'deleting file')
+})
 
-describe('Event Client', () => {
-  test('should publish event | ESW-318', async () => {
-    const eventService = new EventService()
+describe('Config Client', () => {
+  test('should create, update, delete config', async () => {
+    const expectedFileContent = '{key:filecontent}'
 
-    const prefix: Prefix = new Prefix('ESW', 'eventComp')
-    const eventName = new EventName('offline')
-    const observeEvent = new ObserveEvent(
-      'event1',
-      prefix,
-      eventName,
-      new Date(2020, 1, 1).toISOString(),
-      []
+    // create file
+    const configId = await configService.create(
+      path,
+      new Blob([expectedFileContent]),
+      false,
+      'creating file'
     )
-    const done = await eventService.publish(observeEvent)
+    const actualFile = await configService.getById(path, configId)
+    const actualFileContent = await new Response(actualFile).text()
 
-    const done1: Done = 'Done'
-    expect(done).toEqual(done1)
-  })
+    expect(actualFileContent).toEqual(expectedFileContent)
 
-  test('should get event | ESW-318', async () => {
-    const eventService = new EventService()
+    //update file
+    const newFileContent = '{key:new-file-content}'
 
-    const prefix = new Prefix('CSW', 'ncc.trombone')
-    const eventName = new EventName('offline')
-    const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
+    await configService.update(path, new Blob([newFileContent]), 'updating file')
 
-    const observeEvent: Event = (await eventService.get(eventKeys))[0]
-
-    expect(observeEvent._type).toEqual('ObserveEvent')
-    expect(observeEvent.source).toEqual(prefix)
-    expect(observeEvent.eventName).toEqual(eventName)
-  })
-
-  test('should subscribe to published event | ESW-318', () => {
-    return new Promise(async (jestDoneCallback) => {
-      const prefix = new Prefix('CSW', 'ncc.trombone')
-      const eventName = new EventName('offline')
-      const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
-
-      const callback = (event: Event) => {
-        expect(event._type).toEqual('ObserveEvent')
-        expect(event.source).toEqual(prefix)
-        expect(event.eventName).toEqual(eventName)
-        subscription.cancel()
-        jestDoneCallback()
-      }
-
-      const subscription = await new EventService().subscribe(eventKeys, 1)(callback)
-    })
-  })
-
-  test('should pattern subscribe to published event | ESW-318', () => {
-    const prefix = new Prefix('CSW', 'ncc.trombone')
-    const eventName = new EventName('offline')
-    const subsystem: Subsystem = 'ESW'
-    return new Promise(async (jestDoneCallback) => {
-      const callback = (event: Event) => {
-        expect(event._type).toEqual('ObserveEvent')
-        expect(event.source).toEqual(prefix)
-        expect(event.eventName).toEqual(eventName)
-        subscription.cancel()
-        jestDoneCallback()
-      }
-
-      const subscription = await new EventService().pSubscribe(subsystem, 1, '*')(callback)
-    })
+    const updatedFile = await configService.getLatest(path)
+    const updatedFileContent = await new Response(updatedFile).text()
+    expect(updatedFileContent).toEqual(newFileContent)
   })
 })

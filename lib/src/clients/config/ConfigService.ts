@@ -1,10 +1,9 @@
-import { TokenFactory } from '../..'
-import { configConnection } from '../../config/connections'
+import * as D from 'io-ts/lib/Decoder'
 import { HeaderExt } from '../../utils/HeaderExt'
 import { del, get, head, post, put } from '../../utils/Http'
-import { extractHostPort } from '../../utils/Utils'
-import { resolve } from '../location/LocationUtils'
 import * as M from './models/ConfigModels'
+import { TokenFactory } from '../..'
+import * as ConfigUtils from './ConfigUtils'
 
 export interface ConfigServiceApi {
   create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId>
@@ -48,84 +47,56 @@ export interface ConfigServiceApi {
 export class ConfigService implements ConfigServiceApi {
   constructor(readonly tokenFactory: TokenFactory) {}
 
-  private static async resolveConfigServer() {
-    const location = await resolve(configConnection)
-    return extractHostPort(location.uri)
-  }
-
   getAuthHeader(): HeaderExt {
     return new HeaderExt().withAuthorization(this.tokenFactory())
   }
 
-  private static async endpoint(path: string) {
-    const { host, port } = await ConfigService.resolveConfigServer()
-    return `http://${host}:${port}/${path}`
-  }
-
-  private static configEndpoint(path: string) {
-    return ConfigService.endpoint(`config/${path}`)
-  }
-
-  private static activeConfigEndpoint(path: string) {
-    return ConfigService.endpoint(`active-config/${path}`)
-  }
-
-  private static activeVersionEndpoint(path: string) {
-    return ConfigService.endpoint(`active-version/${path}`)
-  }
-
-  private static async getConfigBlob(path: string): Promise<Blob> {
-    const url = await ConfigService.configEndpoint(path)
-    return await get({ url, responseMapper: (res) => res.blob() })
-  }
-
-  private static async getActiveConfigBlob(path: string): Promise<Blob> {
-    const url = await ConfigService.activeConfigEndpoint(path)
-    return await get({ url, responseMapper: (res) => res.blob() })
-  }
-
   getLatest(confPath: string): Promise<Blob> {
-    return ConfigService.getConfigBlob(confPath)
+    return ConfigUtils.getConfigBlob(confPath)
   }
 
   getById(confPath: string, configId: M.ConfigId): Promise<Blob> {
-    return ConfigService.getConfigBlob(`${confPath}?id=${configId.id}`)
+    return ConfigUtils.getConfigBlob(`${confPath}?id=${configId.id}`)
   }
 
   getByTime(confPath: string, time: Date): Promise<Blob> {
-    return ConfigService.getConfigBlob(`${confPath}?date=${time}`)
+    return ConfigUtils.getConfigBlob(`${confPath}?date=${time}`)
   }
 
-  async exists(confPath: string, configId?: M.ConfigId): Promise<boolean> {
+  async exists(confPath: string, configId?: M.ConfigId) {
     const path = configId ? `${confPath}?id=${configId.id}` : confPath
-    const url = await ConfigService.configEndpoint(path)
-    return await head({ url })
+    const url = await ConfigUtils.configEndpoint(path)
+    return await head({ url, decoder: ConfigUtils.decodeUsing(D.boolean) })
   }
 
   async list(type?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]> {
     const queryParams: Record<string, string> = {}
     if (type) queryParams['type'] = type
     if (pattern) queryParams['pattern'] = pattern
-    const url = await ConfigService.endpoint('list')
-    return await get({ url, queryParams })
+    const url = await ConfigUtils.endpoint('list')
+    return await get({
+      url,
+      queryParams,
+      decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileInfo))
+    })
   }
 
   getActive(confPath: string): Promise<Blob> {
-    return ConfigService.getActiveConfigBlob(confPath)
+    return ConfigUtils.getActiveConfigBlob(confPath)
   }
 
   getActiveByTime(confPath: string, time: Date): Promise<Blob> {
-    return ConfigService.getActiveConfigBlob(`${confPath}?date=${time}`)
+    return ConfigUtils.getActiveConfigBlob(`${confPath}?date=${time}`)
   }
 
   async getActiveVersion(path: string): Promise<M.ConfigId[]> {
-    const url = await ConfigService.activeVersionEndpoint(path)
-    return await get({ url })
+    const url = await ConfigUtils.activeVersionEndpoint(path)
+    return await get({ url, decoder: ConfigUtils.decodeUsing(D.array(M.ConfigIdD)) })
   }
 
   async getMetadata(): Promise<M.ConfigMetadata> {
-    const url = await ConfigService.endpoint('metadata')
-    return await get({ url })
+    const url = await ConfigUtils.endpoint('metadata')
+    return await get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigMetadata) })
   }
 
   async history(
@@ -134,14 +105,15 @@ export class ConfigService implements ConfigServiceApi {
     to: Date,
     maxResults: number
   ): Promise<M.ConfigFileRevision[]> {
-    const url = await ConfigService.endpoint(`history/${path}`)
+    const url = await ConfigUtils.endpoint(`history/${path}`)
     return await get({
       url,
       queryParams: {
         from: from.toUTCString(),
         to: to.toUTCString(),
         maxResults: maxResults.toString()
-      }
+      },
+      decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileRevision))
     })
   }
 
@@ -151,31 +123,32 @@ export class ConfigService implements ConfigServiceApi {
     to: Date,
     maxResults: number
   ): Promise<M.ConfigFileRevision[]> {
-    const url = await ConfigService.endpoint(`history-active/${path}`)
+    const url = await ConfigUtils.endpoint(`history-active/${path}`)
     return await get({
       url,
       queryParams: {
         from: from.toUTCString(),
         to: to.toUTCString(),
         maxResults: maxResults.toString()
-      }
+      },
+      decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileRevision))
     })
   }
 
   async resetActiveVersion(path: string, comment: string): Promise<void> {
-    const url = await ConfigService.activeVersionEndpoint(path)
+    const url = await ConfigUtils.activeVersionEndpoint(path)
     const headers = this.getAuthHeader()
     return await put({ url, headers, queryParams: { comment } })
   }
 
   async setActiveVersion(path: string, configId: M.ConfigId, comment: string): Promise<void> {
-    const url = await ConfigService.activeVersionEndpoint(path)
+    const url = await ConfigUtils.activeVersionEndpoint(path)
     const headers = this.getAuthHeader()
     return await put({ url, headers, queryParams: { id: configId.id, comment } })
   }
 
   async delete(path: string, comment: string): Promise<void> {
-    const url = await ConfigService.configEndpoint(path)
+    const url = await ConfigUtils.configEndpoint(path)
     const headers = this.getAuthHeader()
 
     return del({ url, headers, queryParams: { comment } })
@@ -187,16 +160,28 @@ export class ConfigService implements ConfigServiceApi {
     annex: boolean,
     comment: string
   ): Promise<M.ConfigId> {
-    const url = await ConfigService.configEndpoint(path)
+    const url = await ConfigUtils.configEndpoint(path)
     const headers = this.getAuthHeader().withContentType('application/octet-stream')
     const parameters = { annex: annex.toString(), comment }
-    return await post({ url, headers, queryParams: parameters, payload: configData })
+    return await post({
+      url,
+      headers,
+      queryParams: parameters,
+      payload: configData,
+      decoder: ConfigUtils.decodeUsing(M.ConfigIdD)
+    })
   }
 
   async update(path: string, configData: Blob, comment: string): Promise<M.ConfigId> {
-    const url = await ConfigService.configEndpoint(path)
+    const url = await ConfigUtils.configEndpoint(path)
     const headers = this.getAuthHeader().withContentType('application/octet-stream')
     const parameters = { comment }
-    return await put({ url, headers, queryParams: parameters, payload: configData })
+    return await put({
+      url,
+      headers,
+      queryParams: parameters,
+      payload: configData,
+      decoder: ConfigUtils.decodeUsing(M.ConfigIdD)
+    })
   }
 }

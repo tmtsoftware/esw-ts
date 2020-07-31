@@ -10,7 +10,7 @@ import { executeCswContract, executeEswContract } from '../utils/shell'
 import { Event } from '../../src/clients/event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { ComponentIdD, PrefixD } from '../../src/models'
-import * as C from '../../src/clients/config'
+import * as C from '../../src/clients/config/models/ConfigModels'
 
 jest.setTimeout(100000)
 

@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { ConfigService } from '../../../src/clients/config/ConfigService'
+import { ConfigService } from '../../../src/clients/config/'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
@@ -75,7 +75,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.exists(confPath)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ url })
+    expect(headMockFn).toHaveBeenCalledWith({ url, decoder: expect.any(Function) })
   })
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
@@ -88,7 +88,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ url })
+    expect(headMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
   test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
@@ -113,7 +113,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.list()
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
-    expect(getMockFn).toBeCalledWith({ url, queryParams: {} })
+    expect(getMockFn).toBeCalledWith({ url, queryParams: {}, decoder: expect.any(Function) })
   })
 
   test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
@@ -138,7 +138,11 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.list('Annex', '*')
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
-    expect(getMockFn).toBeCalledWith({ url, queryParams: { type: 'Annex', pattern: '*' } })
+    expect(getMockFn).toBeCalledWith({
+      url,
+      queryParams: { type: 'Annex', pattern: '*' },
+      decoder: expect.any(Function)
+    })
   })
 
   test('should get the active conf of given path from the config server | ESW-320', async () => {
@@ -176,7 +180,7 @@ describe('ConfigService', () => {
 
     const actualConfId = await configService.getActiveVersion(confPath)
     expect(actualConfId).toEqual([configId])
-    expect(getMockFn).toBeCalledWith({ url })
+    expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
   test('should get metadata | ESW-320', async () => {
@@ -195,7 +199,7 @@ describe('ConfigService', () => {
 
     const configMetadata = await configService.getMetadata()
     expect(configMetadata).toEqual(expectedConfigMetadata)
-    expect(getMockFn).toBeCalledWith({ url })
+    expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
   test('should get the history for the given config path | ESW-320', async () => {
@@ -222,7 +226,8 @@ describe('ConfigService', () => {
         from: from.toUTCString(),
         to: to.toUTCString(),
         maxResults: maxResults.toString()
-      }
+      },
+      decoder: expect.any(Function)
     })
   })
 
@@ -250,7 +255,8 @@ describe('ConfigService', () => {
         from: from.toUTCString(),
         to: to.toUTCString(),
         maxResults: maxResults.toString()
-      }
+      },
+      decoder: expect.any(Function)
     })
   })
 
@@ -323,7 +329,8 @@ describe('ConfigService', () => {
       url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
       queryParams: { annex: 'true', comment },
-      payload: configData
+      payload: configData,
+      decoder: expect.any(Function)
     })
   })
 
@@ -344,7 +351,8 @@ describe('ConfigService', () => {
       url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
       queryParams: { comment },
-      payload: configData
+      payload: configData,
+      decoder: expect.any(Function)
     })
   })
 })

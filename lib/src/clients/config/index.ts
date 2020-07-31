@@ -1,2 +1,8 @@
-export * from './ConfigService'
-export * from './models/ConfigModels'
+export { ConfigService } from './ConfigService'
+export {
+  ConfigId,
+  FileType,
+  ConfigMetadata,
+  ConfigFileRevision,
+  ConfigFileInfo
+} from './models/ConfigModels'
