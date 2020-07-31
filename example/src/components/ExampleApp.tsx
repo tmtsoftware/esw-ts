@@ -30,7 +30,7 @@ const ExampleApp = () => {
                   // #checkLogin-component-usage
                 )}
               />
-              <Route exact path='/config' render={(_) => <ConfigApp/> }/>
+              <Route exact path='/config' render={(_) => <ConfigApp />} />
               <Route
                 exact
                 path='/example_admin'
@@ -49,9 +49,7 @@ const ExampleApp = () => {
                 path='/example_user'
                 render={(_) => (
                   // #clientRole-component-usage
-                  <RealmRole
-                    realmRole='person-role'
-                    error={<ExampleError />}>
+                  <RealmRole realmRole='person-role' error={<ExampleError />}>
                     <div>Person role specific functionality</div>
                   </RealmRole>
                   // #clientRole-component-usage

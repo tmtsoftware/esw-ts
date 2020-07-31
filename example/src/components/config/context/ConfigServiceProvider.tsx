@@ -10,7 +10,7 @@ export interface ConfigServiceProps {
 const ConfigServiceProvider = (props: ConfigServiceProps) => {
   const { authContext, children } = props
 
-  const [configService, setConfigService]= useState(defaultConfigServiceState)
+  const [configService, setConfigService] = useState(defaultConfigServiceState)
   // #use-auth-context
   const { auth } = useContext(authContext)
   // #use-auth-context
@@ -19,7 +19,11 @@ const ConfigServiceProvider = (props: ConfigServiceProps) => {
     setConfigService(new ConfigService(auth ? auth.token : () => ''))
   }, [auth])
 
-  return <ConfigContext.Provider value={configService}>{children} </ConfigContext.Provider>
+  return (
+    <ConfigContext.Provider value={configService}>
+      {children}{' '}
+    </ConfigContext.Provider>
+  )
 }
 
 export default ConfigServiceProvider

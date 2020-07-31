@@ -10,14 +10,12 @@ const ConfigApp = () => {
   return (
     <div className='row card col s12 m7'>
       <ConfigServiceProvider authContext={AuthContext}>
-        <ListConfig/>
+        <ListConfig />
         <GetConfig />
         {
           // #create-config-component
-          <RealmRole
-            realmRole='config-admin'
-            error={<ConfigError />}>
-            <CreateConfig/>
+          <RealmRole realmRole='config-admin' error={<ConfigError />}>
+            <CreateConfig />
           </RealmRole>
           // #create-config-component
         }

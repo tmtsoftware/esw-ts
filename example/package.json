@@ -12,7 +12,7 @@
   "scripts": {
     "start": "snowpack dev",
     "fix": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
-    "build": "snowpack build",
+    "build": "npm run fix && snowpack build",
     "startConfig": "BROWSER=none pm2 start npm  --name example -- start",
     "stopConfig": "pm2 delete example"
   },
@@ -25,10 +25,10 @@
     "@types/react-router-dom": "^5.1.5",
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-react": "^9.2.0",
-    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react": "^7.20.5",
     "pm2": "^4.4.0",
     "prettier": "^2.0.5",
-    "snowpack": "^2.6.4",
-    "typescript": "^3.9.5"
+    "snowpack": "^2.7.3",
+    "typescript": "^3.9.7"
   }
 }

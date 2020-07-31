@@ -4,7 +4,9 @@ function IOOperationComponent(props: IOOperationProps) {
   const [input, setInput] = useState('')
   const { txtId, btnId, componentNameProp, operation, output } = props
 
-  const updateInput: ChangeEventHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const updateInput: ChangeEventHandler = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setInput(event.target.value)
   }
 
@@ -37,11 +39,11 @@ function IOOperationComponent(props: IOOperationProps) {
 }
 
 interface IOOperationProps {
-  txtId: string,
-  btnId: string,
-  componentNameProp: string,
-  operation: string,
-  output: string,
+  txtId: string
+  btnId: string
+  componentNameProp: string
+  operation: string
+  output: string
   api: Function
 }
 

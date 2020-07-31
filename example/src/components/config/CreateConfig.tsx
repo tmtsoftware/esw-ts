@@ -9,8 +9,13 @@ export function CreateConfig() {
   const configService = useContext(ConfigContext)
 
   const createConfig = async (input: string) => {
-    const config = await configService.create(input, new Blob([fileContent]), false, "Sample commit message" )
-    setResponse(config.toString())
+    const config: ConfigId = await configService.create(
+      input,
+      new Blob([fileContent]),
+      false,
+      'Sample commit message'
+    )
+    setResponse(config.id)
   }
 
   const updateFileContent = (event: ChangeEvent<HTMLTextAreaElement>) =>
