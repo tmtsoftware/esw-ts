@@ -12,6 +12,7 @@ import {
   ValidateResponse
 } from '../../../src/models'
 import { post } from '../../../src/utils/Http'
+import { getMockedToken } from '../../helpers/TokenVerifier'
 
 jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
@@ -22,7 +23,7 @@ const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: Gatew
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 const eswTestPrefix = new Prefix('ESW', 'test')
 
-const client = new CommandService(compId, () => '')
+const client = new CommandService(compId, () => 'validToken')
 describe('CommandService', () => {
   test('should http validate command | ESW-305', async () => {
     const acceptedResponse = {
@@ -37,6 +38,7 @@ describe('CommandService', () => {
     const data: ValidateResponse = await client.validate(setupCommand)
 
     expect(postMockFn).toBeCalledTimes(2)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(data).toBe(acceptedResponse)
   })
 
@@ -53,6 +55,7 @@ describe('CommandService', () => {
     const data: SubmitResponse = await client.submit(setupCommand)
 
     expect(postMockFn).toBeCalledTimes(2)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(data).toBe(startedResponse)
   })
 
@@ -69,6 +72,7 @@ describe('CommandService', () => {
     const data: OnewayResponse = await client.oneway(observeCommand)
 
     expect(postMockFn).toBeCalledTimes(2)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(data).toBe(acceptedResponse)
   })
 

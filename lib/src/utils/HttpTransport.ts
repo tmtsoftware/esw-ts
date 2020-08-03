@@ -13,7 +13,7 @@ export class HttpTransport<Req> {
 
   async requestRes<Res>(
     request: Req,
-    decoder?: Decoder<Res>,
+    decoder: Decoder<Res>,
     timeoutInMillis?: number
   ): Promise<Res> {
     const { host, port } = await this.resolver()

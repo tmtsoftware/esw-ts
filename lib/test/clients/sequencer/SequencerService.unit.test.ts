@@ -11,9 +11,10 @@ import {
 } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Http'
+import { getMockedToken } from '../../helpers/TokenVerifier'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-const sequencer = new SequencerService(componentId, () => '')
+const sequencer = new SequencerService(componentId, () => 'validToken')
 
 const eswTestPrefix = Prefix.fromString('ESW.test')
 const setupCommand = new Setup(eswTestPrefix, 'command-1', [])
@@ -35,6 +36,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.loadSequence(sequence)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -48,6 +50,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(completedResponse)
 
     const res = await sequencer.startSequence()
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(completedResponse)
   })
 
@@ -55,6 +58,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.add(commands)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -62,6 +66,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.prepend(commands)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -69,6 +74,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.replace('id-123', commands)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -76,6 +82,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.insertAfter('id-123', commands)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -83,6 +90,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.delete('id-123')
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -90,6 +98,7 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.addBreakpoint('id-123')
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
   })
 
@@ -97,7 +106,9 @@ describe('SequencerService', () => {
     postMockFn.mockResolvedValueOnce(Ok)
 
     const res = await sequencer.removeBreakpoint('id-123')
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should reset the sequence in given sequencer | ESW-307', async () => {
@@ -105,6 +116,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.reset()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should resume the sequence in given sequencer | ESW-307', async () => {
@@ -112,6 +124,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.resume()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should pause the sequence in given sequencer | ESW-307', async () => {
@@ -119,6 +132,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.pause()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should get a step list from sequencer | ESW-307', async () => {
@@ -156,6 +170,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.goOnline()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should get a go offline response from sequencer on GoOffline | ESW-307', async () => {
@@ -163,6 +178,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.goOffline()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should abort a sequence from sequencer | ESW-307', async () => {
@@ -170,6 +186,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.abortSequence()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should stop a sequence from sequencer | ESW-307', async () => {
@@ -177,6 +194,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.stop()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should send diagnostic mode to sequencer | ESW-307', async () => {
@@ -184,6 +202,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.diagnosticMode(new Date('2020-10-08'), 'hint for diagnostic mode')
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should send operations mode to sequencer | ESW-307', async () => {
@@ -191,6 +210,7 @@ describe('SequencerService', () => {
 
     const res = await sequencer.operationsMode()
     expect(res).toEqual(Ok)
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 })
 

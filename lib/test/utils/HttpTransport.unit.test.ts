@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
+import * as D from 'io-ts/lib/Decoder'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM
@@ -25,7 +26,7 @@ describe('Http transport', () => {
       () => 'validToken'
     )
 
-    await httpTransport.requestRes<string>('hello')
+    await httpTransport.requestRes<string>('hello', D.string)
 
     const expectedReq = {
       method: 'POST',
@@ -40,7 +41,7 @@ describe('Http transport', () => {
 
     const httpTransport = new HttpTransport(() => Promise.resolve({ host, port }))
 
-    await httpTransport.requestRes<string>('hello')
+    await httpTransport.requestRes<string>('hello', D.string)
 
     const expectedReq = {
       method: 'POST',

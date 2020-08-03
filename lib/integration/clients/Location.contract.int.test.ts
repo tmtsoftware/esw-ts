@@ -33,7 +33,7 @@ const httpHcdConnection: HttpConnection = {
   componentType: 'HCD',
   connectionType: 'http'
 }
-
+//TODO handle public location service with Auth
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()

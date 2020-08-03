@@ -5,6 +5,7 @@ import { configConnection } from '../../../src/config/connections'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
 import { ConfigId } from '../../../src'
+import { getMockedToken } from '../../helpers/TokenVerifier'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -16,7 +17,7 @@ const deleteMockFn = mocked(del, true)
 const uri = 'http://localhost:8080'
 const configLocation: HttpLocation = { _type: 'HttpLocation', connection: configConnection, uri }
 
-const token = 'token123'
+const token = 'validToken'
 const configService = new ConfigService(() => token)
 
 const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
@@ -286,7 +287,7 @@ describe('ConfigService', () => {
     putMockFn.mockResolvedValue({})
 
     await configService.resetActiveVersion(confPath, comment)
-
+    expect(getMockedToken(putMockFn, 0)).toBe('Bearer validToken')
     expect(putMockFn).toBeCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token),
@@ -309,6 +310,7 @@ describe('ConfigService', () => {
       headers: new HeaderExt().withAuthorization(token),
       queryParams: { comment }
     })
+    expect(getMockedToken(deleteMockFn, 0)).toBe('Bearer validToken')
   })
 
   test('should create the config | ESW-320', async () => {
@@ -332,6 +334,7 @@ describe('ConfigService', () => {
       payload: configData,
       decoder: expect.any(Function)
     })
+    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should update the config | ESW-320', async () => {
@@ -354,5 +357,6 @@ describe('ConfigService', () => {
       payload: configData,
       decoder: expect.any(Function)
     })
+    expect(getMockedToken(putMockFn, 0)).toBe('Bearer validToken')
   })
 })
