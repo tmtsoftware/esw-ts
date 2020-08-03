@@ -3,5 +3,6 @@ import { createContext } from 'react'
 
 export const defaultConfigServiceState = new ConfigService(() => '')
 
-export const ConfigContext = createContext<ConfigService>(defaultConfigServiceState)
-
+export const ConfigContext = createContext<ConfigService>(
+  defaultConfigServiceState
+)

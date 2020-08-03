@@ -11,9 +11,8 @@ export const extractHostPort = (uri: string) => {
   return { host, port }
 }
 
-export const getOptionValue = <T>(option: T[]): T => {
-  const [value] = option
-  return value
+export const getOptionValue = <T>(option: T[] | T): T => {
+ return Array.isArray(option) ? option[0] : option
 }
 
 export const getOrThrow = <A>(e: E.Either<D.DecodeError, A>): A =>

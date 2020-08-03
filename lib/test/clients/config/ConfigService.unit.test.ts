@@ -161,7 +161,7 @@ describe('ConfigService', () => {
   test('should get the active conf of given path and given time from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
-    const url = activeConfigEndpoint(`${confPath}?date=${date}`)
+    const url = activeConfigEndpoint(`${confPath}?date=${date.toISOString()}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
@@ -177,10 +177,10 @@ describe('ConfigService', () => {
     const configId = { id: 'configId123' }
 
     postMockFn.mockResolvedValueOnce([configLocation])
-    getMockFn.mockResolvedValueOnce([configId])
+    getMockFn.mockResolvedValueOnce(configId)
 
     const actualConfId = await configService.getActiveVersion(confPath)
-    expect(actualConfId).toEqual([configId])
+    expect(actualConfId).toEqual(configId)
     expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
@@ -224,8 +224,8 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({
       url,
       queryParams: {
-        from: from.toUTCString(),
-        to: to.toUTCString(),
+        from: from.toISOString(),
+        to: to.toISOString(),
         maxResults: maxResults.toString()
       },
       decoder: expect.any(Function)
@@ -253,8 +253,8 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({
       url,
       queryParams: {
-        from: from.toUTCString(),
-        to: to.toUTCString(),
+        from: from.toISOString(),
+        to: to.toISOString(),
         maxResults: maxResults.toString()
       },
       decoder: expect.any(Function)

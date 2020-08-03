@@ -1,9 +1,11 @@
-import * as D from 'io-ts/lib/Decoder'
-import { HeaderExt } from '../../utils/HeaderExt'
-import { del, get, head, post, put } from '../../utils/Http'
-import * as M from './models/ConfigModels'
-import { TokenFactory } from '../..'
-import * as ConfigUtils from './ConfigUtils'
+import * as D from "io-ts/lib/Decoder";
+import { HeaderExt } from "../../utils/HeaderExt";
+import { del, get, head, post, put } from "../../utils/Http";
+import * as M from "./models/ConfigModels";
+import { TokenFactory } from "../..";
+import * as ConfigUtils from "./ConfigUtils";
+import { Option } from "../../utils/Option";
+import { getOptionValue } from "../../utils/Utils";
 
 export interface ConfigServiceApi {
   create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId>
@@ -39,7 +41,7 @@ export interface ConfigServiceApi {
 
   getActiveByTime(path: string, time: Date): Promise<Blob>
 
-  getActiveVersion(path: string): Promise<M.ConfigId[]>
+  getActiveVersion(path: string): Promise<Option<M.ConfigId>>
 
   getMetadata(): Promise<M.ConfigMetadata>
 }
@@ -86,12 +88,13 @@ export class ConfigService implements ConfigServiceApi {
   }
 
   getActiveByTime(confPath: string, time: Date): Promise<Blob> {
-    return ConfigUtils.getActiveConfigBlob(`${confPath}?date=${time}`)
+    return ConfigUtils.getActiveConfigBlob(`${confPath}?date=${time.toISOString()}`)
   }
 
-  async getActiveVersion(path: string): Promise<M.ConfigId[]> {
+  async getActiveVersion(path: string): Promise<Option<M.ConfigId>> {
     const url = await ConfigUtils.activeVersionEndpoint(path)
-    return await get({ url, decoder: ConfigUtils.decodeUsing(D.array(M.ConfigIdD)) })
+    const option = await get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigIdD) });
+    return getOptionValue(option)
   }
 
   async getMetadata(): Promise<M.ConfigMetadata> {
@@ -109,8 +112,8 @@ export class ConfigService implements ConfigServiceApi {
     return await get({
       url,
       queryParams: {
-        from: from.toUTCString(),
-        to: to.toUTCString(),
+        from: from.toISOString(),
+        to: to.toISOString(),
         maxResults: maxResults.toString()
       },
       decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileRevision))
@@ -127,8 +130,8 @@ export class ConfigService implements ConfigServiceApi {
     return await get({
       url,
       queryParams: {
-        from: from.toUTCString(),
-        to: to.toUTCString(),
+        from: from.toISOString(),
+        to: to.toISOString(),
         maxResults: maxResults.toString()
       },
       decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileRevision))
