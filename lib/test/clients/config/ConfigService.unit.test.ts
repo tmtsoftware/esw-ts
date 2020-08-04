@@ -5,7 +5,6 @@ import { configConnection } from '../../../src/config/connections'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
 import { ConfigId } from '../../../src'
-import { getMockedToken } from '../../helpers/TokenVerifier'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
