@@ -1,124 +1,105 @@
 # ESW-TS
 
-## Library usage
+### Project overview :
 
-## Step 0
+ * Typescript library clients - /lib/src/clients
+ * Aas Components - /lib/src/components
+ * Example App - /example/src
+ * UI Integration tests - /integration-ui/src/test/scala/csw/aas/js/config
+
+### Typescript library clients
+This project provide following typescript clients for various TMT services, which can be found at location - /lib/src/clients.
+
+ * Command
+ * Sequencer
+ * Event
+ * Alarm
+ * Config
+ * Location
+
+### Aas Components in React
+ * CheckLogin
+ * ClientRole
+ * RealmRole
+ * AuthContextProvider
+ * Login
+ * Logout
+
+### Example App
+
+This app shows how to use typescript clients and Aas Components to create your web app. Refer following files for respective use cases.
+
+ * Typescript usage - e.g. example/src/components/config/context/ConfigServiceProvider.tsx
+ * Aas login/logout usage - e.g. example/src/components/NavComponent.tsx
+ * Auth Context usage - e.g. example/src/components/ExampleApp.tsx
+
+### How to run example app
+Step1: Run required backend services
+
+Step2: Build Library
+
+Step3: Run Example App
+
+#### Step1: Run required backend services
+
+Make sure you have following csw services up and running:
+
+  * Location Service
+  * AAS service
+  * Config Service
+
+    Note: Simple way to start all these services is to run `csw-services.sh` script from `csw` github repository.
+
 ```
-cd lib 
+cd {csw_repo}/scripts
+sh csw-services.sh start -k -c -v $SHA_OF_CSW
 ```
-## Step 1: Fetch dependencies
+
+#### Step2: Build ESW-TS Library
+
+#####
+```
+cd lib
+```
+##### Fetch dependencies
 
 ```
 npm install
 ```
 
-## Step 2: Build library
+##### Build library
 
 ```
 npm run build
 ```
 
-## Step 3: Run unit tests of library
+##### Run unit tests of library
 
 ```
 npm run test:unit
 ```
 
-## Step 4: Run integration tests of library
+##### Run integration tests of library
 
 ```
 npm run test:integration
 ```
 
-## Run integration-ui test which uses AAS logic
-
-Step 1 : build library
+### Step3: Run Example App
 
 ```
-cd lib && npm run build
+cd example
+npm install
+npm start
 ```
 
-Step 2 : build config app
-
-```
- cd example/config-app && npm clean-install && npm run build
-```
-
-Step 3 : run test
-
-```
- sbt integration-ui/test
-```
-
-# Following is the older documentation and it needs to be updated
-
-This project provides javascript and scalajs libraries for Authentication and Authorization Service (AAS) provided by CSW.
-This will help build an browser based applications that enforce authentication & authorization policies for TMT.
-
-The backbone of AAS is the [Keycloak](https://www.keycloak.org/documentation.html). It is where all client and server applications need to be registered and configured.
-We are using javascript adapter called [keycloak-js](https://www.npmjs.com/package/keycloak-js) provided by Keycloak as a underlying mechanism to talk to keycloak.
-As a consumer of this project, you need not to be worried about this. You will always be interacting with libraries provided by `csw` which are just wrapper over keycloak.
-
-## Version compatibility
-
----
-
-| csw-js     | csw        |
-| ---------- | ---------- |
-| v2.0.0     | v2.0.0     |
-| v2.0.0-RC3 | v2.0.0-RC3 |
-| v2.0.0-RC2 | v2.0.0-RC2 |
-| v2.0.0-RC1 | v2.0.0-RC1 |
-| v1.1.0-RC1 | v1.0.0-RC1 |
-| v1.0.0     | v1.0.0     |
-
-This project includes following sub modules:
-
-## lib
-
-This module is published at npm registry as a javascript library which provides re-usable react components for authentication and authorization.
-See [lib](https://tmtsoftware.github.io/csw-js/1.0.0/aas/csw-aas-js) docs for details.
-
-## examples
-
-This module has examples which shows usage `lib` react components for authentication and authorization.
-
-### Prerequisite for running config-app
-
-Make sure that you have following csw services up and running:
-
-    1.1. Location Service
-
-    1.2. AAS service
-
-    1.3. Config Service
-
-    Note: Simple way to start all these services is to run `csw-services.sh` script from `csw` github repository. Version of
-    csw should be compatible with csw-js. Refer version compatibility section above.
-
-### run config-app
-
-1. Start csw-aas
-   1.1 : cd `lib`
-   1.2 : npm install
-   1.3 : npm start
-2. Start example config-app
-   2.1 : cd `examples/config-app`
-   2.2 : npm install
-   2.3 : npm start
-
-## Integration
+### Running Integration-UI test
 
 This module includes E2E test which demonstrate following flow which is all automated:
 
 1. Start Location, Config and AAS csw services
 2. Build and Install `lib`
-3. Build and Start `config` example (examples/config)
+3. Build and Start `config` example
 4. Create configuration file
 
-To run this test, execute `sbt test` or `sbt integration/test` command
-
-## Troubleshooting
-
-If `sbt test` fails with an error stating that `http://localhost:3000` is not accessible, it may be this [issue](https://github.com/facebook/create-react-app/issues/2844).
-The solution is to unset the `HOST` environment variable before running the test.
+To run this test, execute `sbt test` or `sbt integration-ui/test` command
