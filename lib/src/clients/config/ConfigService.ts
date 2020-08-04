@@ -1,11 +1,11 @@
-import * as D from "io-ts/lib/Decoder";
-import { HeaderExt } from "../../utils/HeaderExt";
-import { del, get, head, post, put } from "../../utils/Http";
-import * as M from "./models/ConfigModels";
-import { TokenFactory } from "../..";
-import * as ConfigUtils from "./ConfigUtils";
-import { Option } from "../../utils/Option";
-import { getOptionValue } from "../../utils/Utils";
+import * as D from 'io-ts/lib/Decoder'
+import { HeaderExt } from '../../utils/HeaderExt'
+import { del, get, head, post, put } from '../../utils/Http'
+import * as M from './models/ConfigModels'
+import { TokenFactory } from '../..'
+import * as ConfigUtils from './ConfigUtils'
+import { Option } from '../../utils/Option'
+import { getOptionValue } from '../../utils/Utils'
 
 export interface ConfigServiceApi {
   create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId>
@@ -20,7 +20,7 @@ export interface ConfigServiceApi {
 
   getByTime(path: string, time: Date): Promise<Blob>
 
-  exists(path: string, id?: M.ConfigId): Promise<boolean>
+  exists(path: string, id?: M.ConfigId): Promise<string>
 
   delete(path: string, comment: string): Promise<void>
 
@@ -62,13 +62,13 @@ export class ConfigService implements ConfigServiceApi {
   }
 
   getByTime(confPath: string, time: Date): Promise<Blob> {
-    return ConfigUtils.getConfigBlob(`${confPath}?date=${time}`)
+    return ConfigUtils.getConfigBlob(`${confPath}?date=${time.toISOString()}`)
   }
 
-  async exists(confPath: string, configId?: M.ConfigId) {
+  async exists(confPath: string, configId?: M.ConfigId): Promise<string> {
     const path = configId ? `${confPath}?id=${configId.id}` : confPath
     const url = await ConfigUtils.configEndpoint(path)
-    return await head({ url, decoder: ConfigUtils.decodeUsing(D.boolean) })
+    return await head({ url, decoder: ConfigUtils.decodeUsing(D.string) })
   }
 
   async list(type?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]> {
@@ -93,7 +93,7 @@ export class ConfigService implements ConfigServiceApi {
 
   async getActiveVersion(path: string): Promise<Option<M.ConfigId>> {
     const url = await ConfigUtils.activeVersionEndpoint(path)
-    const option = await get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigIdD) });
+    const option = await get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigIdD) })
     return getOptionValue(option)
   }
 

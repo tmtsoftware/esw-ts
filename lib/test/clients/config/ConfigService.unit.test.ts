@@ -57,7 +57,7 @@ describe('ConfigService', () => {
   test('should get the conf of given path and given time from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
-    const url = configEndpoint(`${confPath}?date=${date}`)
+    const url = configEndpoint(`${confPath}?date=${date.toISOString()}`)
 
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
@@ -287,7 +287,6 @@ describe('ConfigService', () => {
     putMockFn.mockResolvedValue({})
 
     await configService.resetActiveVersion(confPath, comment)
-    expect(getMockedToken(putMockFn, 0)).toBe('Bearer validToken')
     expect(putMockFn).toBeCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token),
@@ -310,7 +309,6 @@ describe('ConfigService', () => {
       headers: new HeaderExt().withAuthorization(token),
       queryParams: { comment }
     })
-    expect(getMockedToken(deleteMockFn, 0)).toBe('Bearer validToken')
   })
 
   test('should create the config | ESW-320', async () => {
@@ -334,7 +332,6 @@ describe('ConfigService', () => {
       payload: configData,
       decoder: expect.any(Function)
     })
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
   })
 
   test('should update the config | ESW-320', async () => {
@@ -357,6 +354,5 @@ describe('ConfigService', () => {
       payload: configData,
       decoder: expect.any(Function)
     })
-    expect(getMockedToken(putMockFn, 0)).toBe('Bearer validToken')
   })
 })

@@ -12,7 +12,7 @@ export const extractHostPort = (uri: string) => {
 }
 
 export const getOptionValue = <T>(option: T[] | T): T => {
- return Array.isArray(option) ? option[0] : option
+  return Array.isArray(option) ? option[0] : option
 }
 
 export const getOrThrow = <A>(e: E.Either<D.DecodeError, A>): A =>
