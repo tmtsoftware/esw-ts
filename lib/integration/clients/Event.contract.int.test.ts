@@ -81,7 +81,7 @@ describe('Event Client', () => {
         jestDoneCallback()
       }
 
-      const subscription = await new EventService().pSubscribe(subsystem, 1, '*')(callback)
+      const subscription = await new EventService().pSubscribe(subsystem, 1, '.*')(callback)
     })
   })
 })

@@ -136,11 +136,11 @@ describe('ConfigService', () => {
     postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
 
-    const actualRes = await configService.list('Annex', '*')
+    const actualRes = await configService.list('Annex', '.*')
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
     expect(getMockFn).toBeCalledWith({
       url,
-      queryParams: { type: 'Annex', pattern: '*' },
+      queryParams: { type: 'Annex', pattern: '.*' },
       decoder: expect.any(Function)
     })
   })

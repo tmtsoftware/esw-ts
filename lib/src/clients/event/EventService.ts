@@ -45,31 +45,35 @@ export class EventService implements EventServiceApi {
     return this.httpTransport.requestRes(new GatewayGetEvent([...eventKeys]), D.array(Event))
   }
 
-  subscribe = (eventKeys: Set<EventKey>, maxFrequency = 0) => (
-    callback: (event: Event) => void
-  ): Subscription => {
-    const subscriptionResponse = EventService.resolveAndSubscribe(eventKeys, maxFrequency, callback)
-    return {
-      cancel: async () => {
-        const response = await subscriptionResponse
-        return response.cancel()
+  subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {
+    return (callback: (event: Event) => void): Subscription => {
+      const subscriptionResponse = EventService.resolveAndSubscribe(
+        eventKeys,
+        maxFrequency,
+        callback
+      )
+      return {
+        cancel: async () => {
+          const response = await subscriptionResponse
+          return response.cancel()
+        }
       }
     }
   }
 
-  pSubscribe = (subsystem: Subsystem, maxFrequency = 0, pattern = '*') => (
-    callback: (event: Event) => void
-  ): Subscription => {
-    const subscriptionResponse = EventService.resolveAndpSubscribe(
-      subsystem,
-      maxFrequency,
-      pattern,
-      callback
-    )
-    return {
-      cancel: async () => {
-        const response = await subscriptionResponse
-        return response.cancel()
+  pSubscribe(subsystem: Subsystem, maxFrequency = 0, pattern = '.*') {
+    return (callback: (event: Event) => void): Subscription => {
+      const subscriptionResponse = EventService.resolveAndpSubscribe(
+        subsystem,
+        maxFrequency,
+        pattern,
+        callback
+      )
+      return {
+        cancel: async () => {
+          const response = await subscriptionResponse
+          return response.cancel()
+        }
       }
     }
   }
