@@ -59,7 +59,6 @@ describe('Event Client', () => {
         new Date(2020, 1, 1).toISOString(),
         []
       )
-      await eventService.publish(observeEvent)
 
       const callback = (event: Event) => {
         expect(event.eventId).toEqual(eventId)
@@ -71,6 +70,7 @@ describe('Event Client', () => {
       }
 
       const subscription = await new EventService().subscribe(eventKeys, 1)(callback)
+      await eventService.publish(observeEvent)
     })
   })
 
@@ -88,7 +88,6 @@ describe('Event Client', () => {
         new Date(2020, 1, 1).toISOString(),
         []
       )
-      await eventService.publish(observeEvent)
 
       const callback = (event: Event) => {
         expect(event.eventId).toEqual(eventId)
@@ -100,6 +99,7 @@ describe('Event Client', () => {
       }
 
       const subscription = await new EventService().pSubscribe(subsystem, 1, '.*')(callback)
+      await eventService.publish(observeEvent)
     })
   })
 })

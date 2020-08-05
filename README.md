@@ -59,7 +59,7 @@ sh csw-services.sh start -k -c -v $SHA_OF_CSW
 
 #####
 ```
-cd lib
+cd {ESW-TS-Repo}/lib
 ```
 ##### Fetch dependencies
 
@@ -87,11 +87,30 @@ npm run test:integration
 
 ### Step3: Run Example App
 
+Start App -
+
 ```
-cd example
+cd ../example
 npm install
 npm start
 ```
+
+Open App in browser -
+
+Go to http://localhost:3000 in Browser
+
+To use config Admin functionality
+
+ * Login - Enter username : `config-admin1` and password : `config-admin1`.
+ * Go To Config App.
+ * This user can create new Config from UI as well get or list config.
+
+To use regular User functionality
+
+ * Login - Enter username : `config-user1` and password : `config-user1`.
+ * Go To Config App
+ * This user can't create new Config from UI, but can get or list existing config
+
 
 ### Running Integration-UI test
 
