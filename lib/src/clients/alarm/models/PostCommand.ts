@@ -1,7 +1,8 @@
-import { Prefix, PrefixD } from "../../../models";
+import { Prefix, PrefixD } from '../../../models'
 import { requirement } from '../../../utils/Utils'
-import { ciLiteral } from "../../../utils/Decoder";
+import { ciLiteral } from '../../../utils/Decoder'
 import * as D from 'io-ts/lib/Decoder'
+
 const invalidChars = new RegExp('.*[\\*\\[\\]\\^\\?\\-].*')
 
 export class AlarmKey {
@@ -17,9 +18,10 @@ export const AlarmKeyD = D.type({
 })
 
 export type AlarmSeverity = D.TypeOf<typeof AlarmSeverity>
-export const AlarmSeverity = ciLiteral('Okay','Warning','Major','Indeterminate','Critical')
+export const AlarmSeverity = ciLiteral('Okay', 'Warning', 'Major', 'Indeterminate', 'Critical')
 
 export class SetAlarmSeverity {
   readonly _type: 'SetAlarmSeverity' = 'SetAlarmSeverity'
+
   constructor(readonly alarmKey: AlarmKey, readonly severity: AlarmSeverity) {}
 }
