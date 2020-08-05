@@ -35,5 +35,5 @@ export const executeComponentScript = appLauncher('backend-testkit-component', b
 export const executeSequencerScript = appLauncher('backend-testkit-sequencer')
 
 export const executeStopServicesScript = executeScript(stopServicesScript) // fixme: make this executeScriptSync call
-export const executeCswContract = appLauncherSync('csw-contract', 'cc6593b275')
-export const executeEswContract = appLauncherSync('esw-contract', 'a981c1b9e7f')
+export const executeCswContract = appLauncherSync('csw-contract', '10792cccc9f')
+export const executeEswContract = appLauncherSync('esw-contract', 'c8c10c0fd2c')

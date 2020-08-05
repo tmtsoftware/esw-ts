@@ -11,6 +11,8 @@ import { Event } from '../../src/clients/event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { ComponentIdD, PrefixD } from '../../src/models'
 import * as C from '../../src/clients/config/models/ConfigModels'
+import { AlarmSeverity } from "../../src/clients/alarm";
+import { AlarmKeyD } from "../../src/clients/alarm/models/PostCommand";
 
 jest.setTimeout(100000)
 
@@ -95,7 +97,8 @@ const locationDecoders: Record<string, Decoder<any>> = {
 
 const gatewayDecoders: Record<string, Decoder<any>> = {
   Subsystem: M.Subsystem,
-  AlarmSeverity: D.id(),
+  AlarmSeverity: AlarmSeverity,
+  AlarmKey: AlarmKeyD,
   ComponentId: ComponentIdD,
   EventKey: EventKeyD,
   Event: Event,
