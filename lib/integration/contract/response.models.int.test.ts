@@ -11,6 +11,7 @@ import { Event } from '../../src/clients/event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { ComponentIdD, PrefixD } from '../../src/models'
 import * as C from '../../src/clients/config/models/ConfigModels'
+import * as Seq from "../../src/clients/sequencer/models/SequencerRes";
 import { AlarmSeverity } from '../../src/clients/alarm'
 import { AlarmKeyD } from '../../src/clients/alarm/models/PostCommand'
 
@@ -23,6 +24,7 @@ const commandModelsJsonPath = `${cswDir}/command-service/models.json`
 const locationModelsJsonPath = `${cswDir}/location-service/models.json`
 const eventModelsJsonPath = `${eswDir}/gateway-service/models.json`
 const configModelsJsonPath = `${cswDir}/config-service/models.json`
+const sequencerModelsJsonPath = `${eswDir}/sequencer-service/models.json`
 
 beforeAll(async () => {
   executeCswContract([cswDir])
@@ -51,6 +53,10 @@ describe('models contract test', () => {
 
   test('should test Config models | ESW-319, ESW-320', () => {
     verifyContract(configModelsJsonPath, configDecoders)
+  })
+
+  test('should test Sequencer models | ESW-307', () => {
+    verifyContract(sequencerModelsJsonPath, sequencerDecoders)
   })
 })
 
@@ -113,4 +119,18 @@ const configDecoders: Record<string, Decoder<any>> = {
   ConfigMetadata: C.ConfigMetadata,
   ConfigFileInfo: C.ConfigFileInfo,
   ConfigFileRevision: C.ConfigFileRevision
+}
+
+const sequencerDecoders: Record<string, Decoder<any>> = {
+  SequenceCommand: M.SequenceCommand,
+  AkkaLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
+  GenericResponse: Seq.GenericResponse,
+  PauseResponse: Seq.PauseResponse,
+  SubmitResponse: M.SubmitResponse,
+  GoOfflineResponse: Seq.GoOfflineResponse,
+  GoOnlineResponse: Seq.GoOnlineResponse,
+  OperationsModeResponse: Seq.OperationsModeResponse,
+  OkOrUnhandledResponse: Seq.OkOrUnhandledResponse,
+  DiagnosticModeResponse: Seq.DiagnosticModeResponse,
+  RemoveBreakpointResponse: Seq.RemoveBreakpointResponse
 }
