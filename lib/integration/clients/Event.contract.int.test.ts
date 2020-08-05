@@ -18,13 +18,15 @@ afterAll(async () => {
 })
 
 describe('Event Client', () => {
-  test('should publish event | ESW-318', async () => {
+  test('should publish and get event | ESW-318', async () => {
     const eventService = new EventService()
 
-    const prefix = new Prefix('ESW', 'eventComp')
+    const prefix = new Prefix('ESW', 'ncc.trombone1')
     const eventName = new EventName('offline')
+    const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
+    const eventId = 'eventId1'
     const observeEvent = new ObserveEvent(
-      'event1',
+      eventId,
       prefix,
       eventName,
       new Date(2020, 1, 1).toISOString(),
@@ -32,31 +34,35 @@ describe('Event Client', () => {
     )
     const done = await eventService.publish(observeEvent)
 
-    const done1: Done = 'Done'
-    expect(done).toEqual(done1)
+    const expected: Done = 'Done'
+    expect(done).toEqual(expected)
+
+    const event: Event = (await eventService.get(eventKeys))[0]
+    // expect(actualObserveEvent).toEqual(observeEvent)//TODO event time not matching
+    expect(event.eventId).toEqual(eventId)
+    expect(event._type).toEqual('ObserveEvent')
+    expect(event.eventName).toEqual(eventName)
+    expect(event.source).toEqual(prefix)
   })
 
-  test('should get event | ESW-318', async () => {
-    const eventService = new EventService()
-
-    const prefix = new Prefix('CSW', 'ncc.trombone')
-    const eventName = new EventName('offline')
-    const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
-
-    const observeEvent: Event = (await eventService.get(eventKeys))[0]
-
-    expect(observeEvent._type).toEqual('ObserveEvent')
-    expect(observeEvent.source).toEqual(prefix)
-    expect(observeEvent.eventName).toEqual(eventName)
-  })
-
-  test('should subscribe to published event | ESW-318', () => {
+  test('should publish and subscribe to published event | ESW-318', () => {
     return new Promise(async (jestDoneCallback) => {
-      const prefix = new Prefix('CSW', 'ncc.trombone')
+      const eventService = new EventService()
+      const prefix = new Prefix('ESW', 'ncc.trombone2')
       const eventName = new EventName('offline')
       const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
+      const eventId = 'event2'
+      const observeEvent = new ObserveEvent(
+        eventId,
+        prefix,
+        eventName,
+        new Date(2020, 1, 1).toISOString(),
+        []
+      )
+      await eventService.publish(observeEvent)
 
       const callback = (event: Event) => {
+        expect(event.eventId).toEqual(eventId)
         expect(event._type).toEqual('ObserveEvent')
         expect(event.source).toEqual(prefix)
         expect(event.eventName).toEqual(eventName)
@@ -68,12 +74,24 @@ describe('Event Client', () => {
     })
   })
 
-  test('should pattern subscribe to published event | ESW-318', () => {
-    const prefix = new Prefix('CSW', 'ncc.trombone')
-    const eventName = new EventName('offline')
-    const subsystem: Subsystem = 'ESW'
+  test('should publish and pattern subscribe to published event | ESW-318', () => {
     return new Promise(async (jestDoneCallback) => {
+      const eventService = new EventService()
+      const prefix = new Prefix('CSW', 'ncc.trombone')
+      const eventName = new EventName('offline')
+      const subsystem: Subsystem = 'CSW'
+      const eventId = 'event3'
+      const observeEvent = new ObserveEvent(
+        eventId,
+        prefix,
+        eventName,
+        new Date(2020, 1, 1).toISOString(),
+        []
+      )
+      await eventService.publish(observeEvent)
+
       const callback = (event: Event) => {
+        expect(event.eventId).toEqual(eventId)
         expect(event._type).toEqual('ObserveEvent')
         expect(event.source).toEqual(prefix)
         expect(event.eventName).toEqual(eventName)
