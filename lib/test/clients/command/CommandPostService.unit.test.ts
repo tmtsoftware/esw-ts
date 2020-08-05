@@ -25,7 +25,7 @@ const eswTestPrefix = new Prefix('ESW', 'test')
 
 const client = new CommandService(compId, () => 'validToken')
 describe('CommandService', () => {
-  test('should http validate command | ESW-305', async () => {
+  test('should be able to validate command sent to assembly | ESW-305', async () => {
     const acceptedResponse = {
       _type: 'Accepted',
       runId: '1234124'
@@ -42,7 +42,7 @@ describe('CommandService', () => {
     expect(data).toBe(acceptedResponse)
   })
 
-  test('should http submit command | ESW-305', async () => {
+  test('should be able to submit command to assembly | ESW-305', async () => {
     const startedResponse: SubmitResponse = {
       _type: 'Started',
       runId: '1234124'
@@ -59,7 +59,7 @@ describe('CommandService', () => {
     expect(data).toBe(startedResponse)
   })
 
-  test('should http oneway command | ESW-305', async () => {
+  test('should be able to send oneway command | ESW-305', async () => {
     const acceptedResponse = {
       _type: 'Accepted',
       runId: '1234124'
@@ -76,7 +76,7 @@ describe('CommandService', () => {
     expect(data).toBe(acceptedResponse)
   })
 
-  test('should http query command | ESW-305', async () => {
+  test('should be able to send query command | ESW-305', async () => {
     const completedResponse: SubmitResponse = {
       _type: 'Completed',
       runId: '1234124',
