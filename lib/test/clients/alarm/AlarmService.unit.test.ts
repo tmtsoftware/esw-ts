@@ -21,5 +21,6 @@ describe('Alarm service', () => {
     const done: Done = await alarmService.setSeverity(alarmKey, 'Okay')
 
     expect(done).toEqual('Done')
+    expect(postMockFn).toBeCalledTimes(2)
   })
 })

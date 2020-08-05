@@ -2,12 +2,13 @@ import { resolveGateway } from '../gateway/ResolveGateway'
 import { Done } from '../location'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'
+import { HeaderExt } from "../../utils/HeaderExt";
 
-interface AlarmApi {
+interface AlarmServiceApi {
   setSeverity(alarmKey: AlarmKey, severity: AlarmSeverity): Promise<Done>
 }
 
-export class AlarmService implements AlarmApi {
+export class AlarmService implements AlarmServiceApi {
   private readonly httpTransport: HttpTransport<SetAlarmSeverity>
 
   constructor() {

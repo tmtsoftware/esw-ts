@@ -55,8 +55,8 @@ describe('models contract test', () => {
 })
 
 // [ ["ComponentType", ["Container", "HCD"] ], ["ValidateResponse", [...] ] ...]
-const verifyContract = (inputJson: string, decoders: Record<string, Decoder<any>>) => {
-  const modelSet: Record<string, unknown[]> = parseModels(inputJson)
+const verifyContract = (inputJsonFile: string, decoders: Record<string, Decoder<any>>) => {
+  const modelSet: Record<string, unknown[]> = parseModels(inputJsonFile)
   Object.entries(modelSet).forEach(([modelName, models]) => {
     models.forEach((modelJson) => testRoundTrip(modelJson, decoders[modelName]))
   })
