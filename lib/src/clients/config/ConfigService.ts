@@ -1,11 +1,11 @@
 import * as D from 'io-ts/lib/Decoder'
-import { HeaderExt } from '../../utils/HeaderExt'
-import { del, get, post, put } from '../../utils/Http'
-import * as M from './models/ConfigModels'
 import { TokenFactory } from '../..'
+import { HeaderExt } from '../../utils/HeaderExt'
+import { del, get, post, put, RequestResponse } from '../../utils/Http'
+import { Option } from '../../utils/Option'
 import * as ConfigUtils from './ConfigUtils'
 import { configEndpoint, tryGetConfigBlob } from './ConfigUtils'
-import { Option } from '../../utils/Option'
+import * as M from './models/ConfigModels'
 
 export interface ConfigServiceApi {
   create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId>
@@ -105,40 +105,17 @@ export class ConfigService implements ConfigServiceApi {
     return await get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigMetadata) })
   }
 
-  async history(
-    path: string,
-    from: Date,
-    to: Date,
-    maxResults: number
-  ): Promise<M.ConfigFileRevision[]> {
-    const url = await ConfigUtils.endpoint(`history/${path}`)
-    return await get({
-      url,
-      queryParams: {
-        from: from.toISOString(),
-        to: to.toISOString(),
-        maxResults: maxResults.toString()
-      },
-      decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileRevision))
-    })
+  history(path: string, from: Date, to: Date, maxResults: number): Promise<M.ConfigFileRevision[]> {
+    return ConfigUtils.history(`history/${path}`, from, to, maxResults)
   }
 
-  async historyActive(
+  historyActive(
     path: string,
     from: Date,
     to: Date,
     maxResults: number
   ): Promise<M.ConfigFileRevision[]> {
-    const url = await ConfigUtils.endpoint(`history-active/${path}`)
-    return await get({
-      url,
-      queryParams: {
-        from: from.toISOString(),
-        to: to.toISOString(),
-        maxResults: maxResults.toString()
-      },
-      decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileRevision))
-    })
+    return ConfigUtils.history(`history-active/${path}`, from, to, maxResults)
   }
 
   async resetActiveVersion(path: string, comment: string): Promise<void> {
@@ -160,34 +137,23 @@ export class ConfigService implements ConfigServiceApi {
     return del({ url, headers, queryParams: { comment } })
   }
 
-  async create(
+  create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId> {
+    return this.createOrUpdate(path, configData, { annex: annex.toString(), comment }, post)
+  }
+
+  update(path: string, configData: Blob, comment: string): Promise<M.ConfigId> {
+    return this.createOrUpdate(path, configData, { comment }, put)
+  }
+
+  private async createOrUpdate(
     path: string,
-    configData: Blob,
-    annex: boolean,
-    comment: string
+    payload: Blob,
+    queryParams: Record<string, string>,
+    fetchReq: RequestResponse
   ): Promise<M.ConfigId> {
     const url = await ConfigUtils.configEndpoint(path)
     const headers = this.getAuthHeader().withContentType('application/octet-stream')
-    const parameters = { annex: annex.toString(), comment }
-    return await post({
-      url,
-      headers,
-      queryParams: parameters,
-      payload: configData,
-      decoder: ConfigUtils.decodeUsing(M.ConfigIdD)
-    })
-  }
-
-  async update(path: string, configData: Blob, comment: string): Promise<M.ConfigId> {
-    const url = await ConfigUtils.configEndpoint(path)
-    const headers = this.getAuthHeader().withContentType('application/octet-stream')
-    const parameters = { comment }
-    return await put({
-      url,
-      headers,
-      queryParams: parameters,
-      payload: configData,
-      decoder: ConfigUtils.decodeUsing(M.ConfigIdD)
-    })
+    const decoder = ConfigUtils.decodeUsing(M.ConfigIdD)
+    return await fetchReq({ url, headers, queryParams, payload, decoder })
   }
 }
