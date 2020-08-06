@@ -1,13 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { download } from 'esw-ts'
 import { ConfigContext } from './context/ConfigContext'
 
 function GetConfig() {
+  const [err, setErr] = useState('')
   const configService = useContext(ConfigContext)
 
   const getConfig = async (input: string) => {
-    download(await configService.getLatest(input), input)
+    const config = await configService.getLatest(input)
+    if (config) download(config, input)
+    else setErr('Config not found')
   }
 
   return (
@@ -16,7 +19,7 @@ function GetConfig() {
       btnId='get-config'
       componentNameProp='Get Config'
       operation='Get'
-      output={''}
+      output={err}
       api={getConfig}
     />
   )
