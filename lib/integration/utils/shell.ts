@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-nodejs-modules
 import { exec, execSync } from 'child_process'
+// eslint-disable-next-line import/no-nodejs-modules
 import * as path from 'path'
 
 const scriptDir = path.resolve(__dirname, '../../scripts')

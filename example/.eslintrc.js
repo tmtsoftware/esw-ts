@@ -26,7 +26,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       typescript: {
-        directory: './src'
+        project: './src'
       },
     },
     'react': {

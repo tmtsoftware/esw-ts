@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-nodejs-modules
 import * as os from 'os'
 
 export const publicIPv4Address = () => {
