@@ -29,7 +29,7 @@ describe('Event Client', () => {
       eventId,
       prefix,
       eventName,
-      new Date(2020, 1, 1).toISOString(),
+      new Date(2020, 1, 1,1,1,30,12).toISOString(),
       []
     )
     const done = await eventService.publish(observeEvent)
@@ -38,11 +38,7 @@ describe('Event Client', () => {
     expect(done).toEqual(expected)
 
     const event: Event = (await eventService.get(eventKeys))[0]
-    // expect(actualObserveEvent).toEqual(observeEvent)//TODO event time not matching
-    expect(event.eventId).toEqual(eventId)
-    expect(event._type).toEqual('ObserveEvent')
-    expect(event.eventName).toEqual(eventName)
-    expect(event.source).toEqual(prefix)
+    expect(event).toEqual(observeEvent)
   })
 
   test('should publish and subscribe to published event | ESW-318', () => {
