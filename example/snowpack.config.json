@@ -4,10 +4,15 @@
     "bundle": false,
     "open": "none"
   },
-  "exclude": ["**/node_modules/**/*"],
-  "scripts": {
-    "mount:public": "mount public --to /",
-    "mount:src": "mount src --to /_dist_",
-    "run:tsc": "tsc --noEmit"
-  }
+  "buildOptions": {
+    "clean": true,
+    "sourceMaps": false
+  },
+  "mount": {
+    "public": "/",
+    "src": "/_dist_"
+  },
+  "plugins": [
+    ["@snowpack/plugin-run-script", { "cmd": "tsc --noEmit", "watch": "$1 --watch"}]
+  ]
 }
