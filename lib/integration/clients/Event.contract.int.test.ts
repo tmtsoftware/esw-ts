@@ -29,7 +29,7 @@ describe('Event Client', () => {
       eventId,
       prefix,
       eventName,
-      new Date(2020, 1, 1,1,1,30,12).toISOString(),
+      new Date(2020, 1, 1, 1, 1, 30, 12).toISOString(),
       []
     )
     const done = await eventService.publish(observeEvent)

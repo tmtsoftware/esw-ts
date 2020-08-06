@@ -100,7 +100,7 @@ describe('Config Client', () => {
       'creating file'
     )
     const exists = await configService.exists(path, configId)
-    expect(exists).toEqual('')
+    expect(exists).toEqual(true)
   })
 
   test('should list config | ESW-320', async () => {

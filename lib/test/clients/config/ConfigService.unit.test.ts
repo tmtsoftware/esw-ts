@@ -5,6 +5,7 @@ import { configConnection } from '../../../src/config/connections'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
 import { ConfigId } from '../../../src'
+import { GenericError } from '../../../src/utils/GenericError'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -53,6 +54,31 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
+  test('should get undefined if config is not present for the given id | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
+
+    const confData = await configService.getById(confPath, configId)
+    expect(confData).toBeFalsy()
+    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+  })
+
+  test('should throw generic error if bad request is received on getById | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
+
+    await expect(configService.getById(confPath, configId)).rejects.toThrowError(
+      new GenericError(500, 'Internal server error', '')
+    )
+  })
+
   test('should get the conf of given path and given time from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const date = new Date()
@@ -89,6 +115,31 @@ describe('ConfigService', () => {
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
     expect(headMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+  })
+
+  test('should return false if the given conf is not present | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    headMockFn.mockRejectedValueOnce(new GenericError(404, 'not found', ''))
+
+    const actualRes = await configService.exists(confPath, configId)
+    expect(actualRes).toBe(false)
+    expect(headMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+  })
+
+  test('should throw error if internal server error is received on check of config exists| ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    headMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
+
+    await expect(configService.exists(confPath, configId)).rejects.toThrowError(
+      new GenericError(500, 'Internal server error', '')
+    )
   })
 
   test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
@@ -181,6 +232,27 @@ describe('ConfigService', () => {
     const actualConfId = await configService.getActiveVersion(confPath)
     expect(actualConfId).toEqual(configId)
     expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+  })
+
+  test('should get undefined if the active version not found for the config | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
+
+    const configId = await configService.getActiveVersion(confPath)
+    expect(configId).toBeFalsy()
+  })
+
+  test('should throw error if internal server error is received on getActiveVersion | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+
+    postMockFn.mockResolvedValueOnce([configLocation])
+    getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
+
+    await expect(configService.getActiveVersion(confPath)).rejects.toThrowError(
+      new GenericError(500, 'Internal server error', '')
+    )
   })
 
   test('should get metadata | ESW-320', async () => {

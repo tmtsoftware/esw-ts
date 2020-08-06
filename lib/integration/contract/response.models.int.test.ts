@@ -11,7 +11,7 @@ import { Event } from '../../src/clients/event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { ComponentIdD, PrefixD } from '../../src/models'
 import * as C from '../../src/clients/config/models/ConfigModels'
-import * as Seq from "../../src/clients/sequencer/models/SequencerRes";
+import * as Seq from '../../src/clients/sequencer/models/SequencerRes'
 import { AlarmSeverity } from '../../src/clients/alarm'
 import { AlarmKeyD } from '../../src/clients/alarm/models/PostCommand'
 

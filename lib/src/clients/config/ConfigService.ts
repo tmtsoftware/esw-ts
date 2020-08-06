@@ -1,26 +1,26 @@
 import * as D from 'io-ts/lib/Decoder'
 import { HeaderExt } from '../../utils/HeaderExt'
-import { del, get, head, post, put } from '../../utils/Http'
+import { del, get, post, put } from '../../utils/Http'
 import * as M from './models/ConfigModels'
 import { TokenFactory } from '../..'
 import * as ConfigUtils from './ConfigUtils'
+import { configEndpoint, tryGetConfigBlob } from './ConfigUtils'
 import { Option } from '../../utils/Option'
-import { getOptionValue } from '../../utils/Utils'
 
 export interface ConfigServiceApi {
   create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId>
 
   update(path: string, configData: Blob, comment: string): Promise<M.ConfigId>
 
-  getActive(path: string): Promise<Blob>
+  getActive(path: string): Promise<Option<Blob>>
 
-  getLatest(path: string): Promise<Blob>
+  getLatest(path: string): Promise<Option<Blob>>
 
-  getById(path: string, configId: M.ConfigId): Promise<Blob>
+  getById(path: string, configId: M.ConfigId): Promise<Option<Blob>>
 
-  getByTime(path: string, time: Date): Promise<Blob>
+  getByTime(path: string, time: Date): Promise<Option<Blob>>
 
-  exists(path: string, id?: M.ConfigId): Promise<string>
+  exists(path: string, id?: M.ConfigId): Promise<boolean>
 
   delete(path: string, comment: string): Promise<void>
 
@@ -39,7 +39,7 @@ export interface ConfigServiceApi {
 
   resetActiveVersion(path: string, comment: string): Promise<void>
 
-  getActiveByTime(path: string, time: Date): Promise<Blob>
+  getActiveByTime(path: string, time: Date): Promise<Option<Blob>>
 
   getActiveVersion(path: string): Promise<Option<M.ConfigId>>
 
@@ -53,22 +53,24 @@ export class ConfigService implements ConfigServiceApi {
     return new HeaderExt().withAuthorization(this.tokenFactory())
   }
 
-  getLatest(confPath: string): Promise<Blob> {
-    return ConfigUtils.getConfigBlob(confPath)
+  async getLatest(confPath: string): Promise<Option<Blob>> {
+    const url = await configEndpoint(confPath)
+    return await tryGetConfigBlob(url)
   }
 
-  getById(confPath: string, configId: M.ConfigId): Promise<Blob> {
-    return ConfigUtils.getConfigBlob(`${confPath}?id=${configId.id}`)
+  async getById(confPath: string, configId: M.ConfigId): Promise<Option<Blob>> {
+    const url = await configEndpoint(`${confPath}?id=${configId.id}`)
+    return await tryGetConfigBlob(url)
   }
 
-  getByTime(confPath: string, time: Date): Promise<Blob> {
-    return ConfigUtils.getConfigBlob(`${confPath}?date=${time.toISOString()}`)
+  async getByTime(confPath: string, time: Date): Promise<Option<Blob>> {
+    const url = await configEndpoint(`${confPath}?date=${time.toISOString()}`)
+    return await tryGetConfigBlob(url)
   }
 
-  async exists(confPath: string, configId?: M.ConfigId): Promise<string> {
+  exists(confPath: string, configId?: M.ConfigId): Promise<boolean> {
     const path = configId ? `${confPath}?id=${configId.id}` : confPath
-    const url = await ConfigUtils.configEndpoint(path)
-    return await head({ url, decoder: ConfigUtils.decodeUsing(D.string) })
+    return ConfigUtils.tryConfigExists(path)
   }
 
   async list(type?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]> {
@@ -83,18 +85,19 @@ export class ConfigService implements ConfigServiceApi {
     })
   }
 
-  getActive(confPath: string): Promise<Blob> {
-    return ConfigUtils.getActiveConfigBlob(confPath)
+  async getActive(confPath: string): Promise<Option<Blob>> {
+    const url = await ConfigUtils.activeConfigEndpoint(confPath)
+    return await ConfigUtils.tryGetConfigBlob(url)
   }
 
-  getActiveByTime(confPath: string, time: Date): Promise<Blob> {
-    return ConfigUtils.getActiveConfigBlob(`${confPath}?date=${time.toISOString()}`)
+  async getActiveByTime(confPath: string, time: Date): Promise<Option<Blob>> {
+    const url = await ConfigUtils.activeConfigEndpoint(`${confPath}?date=${time.toISOString()}`)
+    return await ConfigUtils.tryGetConfigBlob(url)
   }
 
   async getActiveVersion(path: string): Promise<Option<M.ConfigId>> {
     const url = await ConfigUtils.activeVersionEndpoint(path)
-    const option = await get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigIdD) })
-    return getOptionValue(option)
+    return ConfigUtils.tryGetActiveVersion(url)
   }
 
   async getMetadata(): Promise<M.ConfigMetadata> {
