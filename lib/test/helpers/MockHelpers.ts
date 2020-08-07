@@ -62,3 +62,11 @@ export const mockAuth = (
   }
   return auth
 }
+
+export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
+  return {
+    requestRes: requestRes,
+    url: 'http://localhost:8080',
+    tokenFactory: () => 'validToken'
+  }
+}

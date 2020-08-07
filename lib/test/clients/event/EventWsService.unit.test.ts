@@ -1,11 +1,12 @@
 import { mocked } from 'ts-jest/utils'
 import { post } from '../../../src/utils/Http'
-import { EventKey, EventName, EventService, ObserveEvent, Event } from '../../../src/clients/event'
+import { EventKey, EventName, ObserveEvent, Event } from '../../../src/clients/event'
 import { Prefix, Subsystem } from '../../../src/models'
 import { HttpLocation } from '../../../src/clients/location'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { Server } from 'mock-socket'
-import { wsMockWithResolved } from '../../helpers/MockHelpers'
+import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
+import { EventServiceImpl } from '../../../src/clients/event/EventService'
 
 jest.mock('../../../src/utils/Http')
 const postMockFn = mocked(post, true)
@@ -24,6 +25,7 @@ const observeEvent = new ObserveEvent(
 )
 const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 const subsystem: Subsystem = 'ESW'
+const httpTransport = mockHttpTransport()
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:8080/websocket-endpoint')
@@ -46,7 +48,10 @@ describe('Event Service', () => {
         subscription.cancel()
         jestDoneCallback()
       }
-      const subscription = await new EventService().subscribe(eventKeys, 1)(callback)
+      const subscription = await new EventServiceImpl(httpTransport).subscribe(
+        eventKeys,
+        1
+      )(callback)
     })
   })
 
@@ -62,7 +67,7 @@ describe('Event Service', () => {
         subscription.cancel()
         jestDoneCallback()
       }
-      const subscription = await new EventService().subscribe(eventKeys)(callback)
+      const subscription = await new EventServiceImpl(httpTransport).subscribe(eventKeys)(callback)
     })
   })
 
@@ -78,7 +83,11 @@ describe('Event Service', () => {
         jestDoneCallback()
         subscription.cancel()
       }
-      const subscription = await new EventService().pSubscribe(subsystem, 1, '.*')(callback)
+      const subscription = await new EventServiceImpl(httpTransport).pSubscribe(
+        subsystem,
+        1,
+        '.*'
+      )(callback)
     })
   })
 
@@ -94,7 +103,7 @@ describe('Event Service', () => {
         jestDoneCallback()
         subscription.cancel()
       }
-      const subscription = await new EventService().pSubscribe(subsystem)(callback)
+      const subscription = await new EventServiceImpl(httpTransport).pSubscribe(subsystem)(callback)
     })
   })
 })
