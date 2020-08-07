@@ -13,7 +13,7 @@ import {
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { EventWebsocketRequest, Subscribe, SubscribeWithPattern } from './models/WebSocketMessages'
 
-interface EventServiceApi {
+export interface EventService {
   publish(event: Event): Promise<Done>
 
   get(eventKeys: Set<EventKey>): Promise<Event[]>
@@ -30,11 +30,19 @@ interface EventServiceApi {
   ): (callback: (event: Event) => void) => Subscription
 }
 
-export class EventService implements EventServiceApi {
-  private readonly httpTransport: HttpTransport<GatewayEventPostRequest>
+export class EventServiceFactory {
+  static async make() {
+    const { host, port } = await resolveGateway()
+    const url = `http://${host}:${port}/post-endpoint`
+    return new EventServiceImpl(new HttpTransport(url))
+  }
+}
 
-  constructor() {
-    this.httpTransport = new HttpTransport(resolveGateway)
+export class EventServiceImpl implements EventService {
+  private httpTransport: HttpTransport<GatewayEventPostRequest>
+
+  constructor(httpTransport: HttpTransport<GatewayEventPostRequest>) {
+    this.httpTransport = httpTransport
   }
 
   publish(event: Event): Promise<Done> {
@@ -47,11 +55,7 @@ export class EventService implements EventServiceApi {
 
   subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {
     return (callback: (event: Event) => void): Subscription => {
-      const subscriptionResponse = EventService.resolveAndSubscribe(
-        eventKeys,
-        maxFrequency,
-        callback
-      )
+      const subscriptionResponse = this.resolveAndSubscribe(eventKeys, maxFrequency, callback)
       return {
         cancel: async () => {
           const response = await subscriptionResponse
@@ -63,7 +67,7 @@ export class EventService implements EventServiceApi {
 
   pSubscribe(subsystem: Subsystem, maxFrequency = 0, pattern = '.*') {
     return (callback: (event: Event) => void): Subscription => {
-      const subscriptionResponse = EventService.resolveAndpSubscribe(
+      const subscriptionResponse = this.resolveAndpSubscribe(
         subsystem,
         maxFrequency,
         pattern,
@@ -78,30 +82,26 @@ export class EventService implements EventServiceApi {
     }
   }
 
-  private static async ws(): Promise<Ws<EventWebsocketRequest>> {
+  private async ws(): Promise<Ws<EventWebsocketRequest>> {
     const { host, port } = await resolveGateway()
     return new Ws(host, port)
   }
 
-  private static async resolveAndSubscribe(
+  private async resolveAndSubscribe(
     eventKeys: Set<EventKey>,
     maxFrequency: number,
     callback: (event: Event) => void
   ) {
-    return (await EventService.ws()).subscribe(
-      new Subscribe([...eventKeys], maxFrequency),
-      callback,
-      Event
-    )
+    return (await this.ws()).subscribe(new Subscribe([...eventKeys], maxFrequency), callback, Event)
   }
 
-  private static async resolveAndpSubscribe(
+  private async resolveAndpSubscribe(
     subsystem: Subsystem,
     maxFrequency: number,
     pattern: string,
     callback: (event: Event) => void
   ) {
-    return (await EventService.ws()).subscribe(
+    return (await this.ws()).subscribe(
       new SubscribeWithPattern(subsystem, maxFrequency, pattern),
       callback,
       Event

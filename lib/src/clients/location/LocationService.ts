@@ -12,16 +12,25 @@ import { TrackingEvent } from './models/TrackingEvent'
 import { Track } from './models/WsCommand'
 import { getOptionValue } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
+import { LocationHttpMessage } from './models/PostCommand'
 
 export interface LocationServiceApi {
   list(): Promise<Location[]>
+
   listByComponentType(componentType: ComponentType): Promise<Location[]>
+
   listByHostname(hostname: string): Promise<Location[]>
+
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]>
+
   listByPrefix(prefix: Prefix): Promise<Location[]>
+
   find(connection: Connection): Promise<Option<Location>>
+
   unregister(connection: Connection): Promise<Done>
+
   resolve(connection: Connection, within: Duration): Promise<Option<Location>>
+
   track(connection: Connection): (callBack: (trackingEvent: TrackingEvent) => void) => Subscription
 }
 
@@ -33,7 +42,8 @@ export class LocationService implements LocationServiceApi {
     readonly host: string = LocationConfig.hostName,
     readonly port: number = LocationConfig.port
   ) {
-    this.httpTransport = new HttpTransport(() => Promise.resolve({ host, port }))
+    const url = `http://${host}:${port}/post-endpoint`
+    this.httpTransport = new HttpTransport(url)
   }
 
   list(): Promise<Location[]> {

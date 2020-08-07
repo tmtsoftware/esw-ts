@@ -1,22 +1,13 @@
-import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Http'
-import {
-  EventKey,
-  EventName,
-  EventService,
-  ObserveEvent,
-  SystemEvent
-} from '../../../src/clients/event'
+import { EventKey, EventName, ObserveEvent } from '../../../src/clients/event'
+import { Done } from '../../../src/clients/location'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { EventServiceImpl } from '../../../src/clients/event/EventService'
+import { GatewayGetEvent, GatewayPublishEvent } from '../../../src/clients/gateway/models/Gateway'
 import { Prefix } from '../../../src/models'
-import { Done, HttpLocation } from '../../../src/clients/location'
-import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 
-jest.mock('../../../src/utils/Http')
-const postMockFn = mocked(post, true)
-const uri = 'http://localhost:8080'
-const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
+const requestRes: jest.Mock = jest.fn()
 
-const client = new EventService()
+const client = new EventServiceImpl(mockHttpTransport(requestRes))
 describe('Event Service', () => {
   test('should publish event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
@@ -28,34 +19,19 @@ describe('Event Service', () => {
       new Date(2020, 1, 1).toISOString(),
       []
     )
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    postMockFn.mockResolvedValueOnce(Done)
+    await client.publish(observeEvent)
 
-    const response = await client.publish(observeEvent)
-
-    expect(postMockFn).toBeCalledTimes(2)
-    expect(response).toBe(Done)
+    expect(requestRes).toBeCalledWith(new GatewayPublishEvent(observeEvent), Done)
   })
 
   test('should get event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
     const eventName = new EventName('offline')
-    const systemEvent = new SystemEvent(
-      'event2',
-      prefix,
-      eventName,
-      new Date(2020, 1, 1).toISOString(),
-      []
-    )
     const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    postMockFn.mockResolvedValueOnce(systemEvent)
+    await client.get(eventKeys)
 
-    const response = await client.get(eventKeys)
-
-    expect(postMockFn).toBeCalledTimes(2)
-    expect(response).toEqual(systemEvent)
+    expect(requestRes).toBeCalledWith(new GatewayGetEvent([...eventKeys]), expect.anything())
   })
 })
 

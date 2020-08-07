@@ -1,15 +1,24 @@
 import 'whatwg-fetch'
 import { Prefix, Subsystem } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
-import { Event, EventKey, EventName, EventService, ObserveEvent } from '../../src/clients/event'
+import {
+  Event,
+  EventKey,
+  EventName,
+  EventService,
+  EventServiceFactory,
+  ObserveEvent
+} from '../../src/clients/event'
 import { Done } from '../../src/clients/location'
 
 jest.setTimeout(50000)
+let eventService: EventService
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   await startServices(['Gateway'])
+  eventService = await EventServiceFactory.make()
 })
 
 afterAll(async () => {
@@ -19,8 +28,6 @@ afterAll(async () => {
 
 describe('Event Client', () => {
   test('should publish and get event | ESW-318', async () => {
-    const eventService = new EventService()
-
     const prefix = new Prefix('ESW', 'ncc.trombone1')
     const eventName = new EventName('offline')
     const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
@@ -43,7 +50,6 @@ describe('Event Client', () => {
 
   test('should publish and subscribe to published event | ESW-318', () => {
     return new Promise(async (jestDoneCallback) => {
-      const eventService = new EventService()
       const prefix = new Prefix('ESW', 'ncc.trombone2')
       const eventName = new EventName('offline')
       const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
@@ -65,14 +71,13 @@ describe('Event Client', () => {
         jestDoneCallback()
       }
 
-      const subscription = await new EventService().subscribe(eventKeys, 1)(callback)
+      const subscription = await eventService.subscribe(eventKeys, 1)(callback)
       await eventService.publish(observeEvent)
     })
   })
 
   test('should publish and pattern subscribe to published event | ESW-318', () => {
     return new Promise(async (jestDoneCallback) => {
-      const eventService = new EventService()
       const prefix = new Prefix('CSW', 'ncc.trombone')
       const eventName = new EventName('offline')
       const subsystem: Subsystem = 'CSW'
@@ -94,7 +99,7 @@ describe('Event Client', () => {
         jestDoneCallback()
       }
 
-      const subscription = await new EventService().pSubscribe(subsystem, 1, '.*')(callback)
+      const subscription = await eventService.pSubscribe(subsystem, 1, '.*')(callback)
       await eventService.publish(observeEvent)
     })
   })

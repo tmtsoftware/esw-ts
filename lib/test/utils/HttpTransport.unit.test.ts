@@ -21,10 +21,7 @@ describe('Http transport', () => {
   test('sends request with auth headers on providing token', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
 
-    const httpTransport = new HttpTransport(
-      () => Promise.resolve({ host, port }),
-      () => 'validToken'
-    )
+    const httpTransport = new HttpTransport(url, () => 'validToken')
 
     await httpTransport.requestRes<string>('hello', D.string)
 
@@ -39,7 +36,7 @@ describe('Http transport', () => {
   test('sends request without auth headers when no token is provided', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
 
-    const httpTransport = new HttpTransport(() => Promise.resolve({ host, port }))
+    const httpTransport = new HttpTransport(url)
 
     await httpTransport.requestRes<string>('hello', D.string)
 
