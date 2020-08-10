@@ -1,9 +1,10 @@
-import { SequencerServiceImpl, Step, StepList, StepStatus } from '../../../src/clients/sequencer'
+import { Step, StepList, StepStatus } from '../../../src/clients/sequencer'
 import { ComponentId, Prefix, SequenceCommand, Setup, Wait } from '../../../src/models'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
 import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { SequencerServiceImpl } from "../../../src/clients/sequencer/SequencerService";
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
@@ -95,22 +96,16 @@ describe('SequencerService', () => {
     }
     const stepList: StepList = [step]
 
-    mockRequestRes.mockResolvedValueOnce([stepList])
-
     await sequencer.getSequence()
     verifyPayload(getGatewaySequencerCommand(new Req.GetSequence()))
   })
 
   test('should return whether a sequencer is available | ESW-307', async () => {
-    mockRequestRes.mockResolvedValueOnce(true)
-
     await sequencer.isAvailable()
     verifyPayload(getGatewaySequencerCommand(new Req.IsAvailable()))
   })
 
   test('should return whether a sequencer is online | ESW-307', async () => {
-    mockRequestRes.mockResolvedValueOnce(true)
-
     await sequencer.isOnline()
     verifyPayload(getGatewaySequencerCommand(new Req.IsOnline()))
   })

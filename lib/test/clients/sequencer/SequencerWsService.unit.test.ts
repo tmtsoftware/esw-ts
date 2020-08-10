@@ -1,6 +1,6 @@
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
-import { SequencerServiceImpl } from '../../../src/clients/sequencer'
+import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerService'
 import { Server } from 'mock-socket'
 import { ComponentId, Prefix, SubmitResponse } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'

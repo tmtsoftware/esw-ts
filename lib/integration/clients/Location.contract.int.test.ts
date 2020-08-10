@@ -16,7 +16,7 @@ import { publicIPv4Address } from '../utils/networkUtils'
 jest.setTimeout(30000)
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
-const locationService = new LocationService()
+const locationService = LocationService()
 const getValueFromOption = <T>(value: Option<T>): T => {
   if (value === undefined) throw new Error('value is undefined')
   return value
