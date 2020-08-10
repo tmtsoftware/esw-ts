@@ -1,10 +1,10 @@
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
-import { SequencerService } from '../../../src/clients/sequencer'
+import { SequencerServiceImpl } from '../../../src/clients/sequencer'
 import { Server } from 'mock-socket'
 import { ComponentId, Prefix, SubmitResponse } from '../../../src/models'
 import { mocked } from 'ts-jest/utils'
-import { wsMockWithResolved } from '../../helpers/MockHelpers'
+import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
 import { post } from '../../../src/utils/Http'
 
 jest.mock('../../../src/utils/Http')
@@ -14,7 +14,7 @@ const uri = 'http://localhost:8080'
 const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
 let mockServer: Server
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-const sequencer = new SequencerService(componentId, () => '')
+const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(jest.fn()))
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:8080/websocket-endpoint')
