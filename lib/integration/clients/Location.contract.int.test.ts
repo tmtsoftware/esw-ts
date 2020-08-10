@@ -1,7 +1,6 @@
 import 'whatwg-fetch'
 import {
   AkkaConnection,
-  Duration,
   HttpConnection,
   LocationRemoved,
   LocationService,
@@ -50,7 +49,7 @@ afterAll(async () => {
 describe('LocationService', () => {
   test('should be able to resolve a location for given connection | ESW-343, ESW-308', async () => {
     const gatewayLocation = getValueFromOption(
-      await locationService.resolve(gatewayConnection, new Duration(10, 'seconds'))
+      await locationService.resolve(gatewayConnection, 10, 'seconds')
     )
     expect(gatewayLocation._type).toBe('HttpLocation')
   })
