@@ -4,7 +4,7 @@ import { authConnection } from '../../src/config/connections'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'
 
-const locationService = new LocationService()
+const locationService = LocationService()
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
 const waitForAASToUp = () => eventually(() => resolve(authConnection))

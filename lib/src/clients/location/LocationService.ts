@@ -1,20 +1,19 @@
-import * as D from 'io-ts/lib/Decoder'
-import { LocationConfig } from '../../config'
-import { ComponentType, Prefix } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { Subscription, Ws } from '../../utils/Ws'
-import { Connection, ConnectionType } from './models/Connection'
-import { Duration } from './models/Duration'
-import { Location } from './models/Location'
-import { Done } from './models/LocationResponses'
-import * as Req from './models/PostCommand'
-import { TrackingEvent } from './models/TrackingEvent'
-import { Track } from './models/WsCommand'
-import { getOptionValue } from '../../utils/Utils'
-import { Option } from '../../utils/Option'
-import { LocationHttpMessage } from './models/PostCommand'
+import * as D from "io-ts/lib/Decoder";
+import { LocationConfig } from "../../config";
+import { ComponentType, Prefix } from "../../models";
+import { HttpTransport } from "../../utils/HttpTransport";
+import { Subscription, Ws } from "../../utils/Ws";
+import { Connection, ConnectionType } from "./models/Connection";
+import { Duration } from "./models/Duration";
+import { Location } from "./models/Location";
+import { Done } from "./models/LocationResponses";
+import * as Req from "./models/PostCommand";
+import { TrackingEvent } from "./models/TrackingEvent";
+import { Track } from "./models/WsCommand";
+import { getOptionValue } from "../../utils/Utils";
+import { Option } from "../../utils/Option";
 
-export interface LocationServiceApi {
+export interface LocationService {
   list(): Promise<Location[]>
 
   listByComponentType(componentType: ComponentType): Promise<Location[]>
@@ -34,16 +33,17 @@ export interface LocationServiceApi {
   track(connection: Connection): (callBack: (trackingEvent: TrackingEvent) => void) => Subscription
 }
 
-export class LocationService implements LocationServiceApi {
+export const LocationService = () => {
+  const url = `http://${LocationConfig.hostName}:${LocationConfig.port}/post-endpoint`
+  return new LocationServiceImpl(new HttpTransport(url))
+}
+
+export class LocationServiceImpl implements LocationService {
   private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>
   private readonly locationListD = D.array(Location)
 
-  constructor(
-    readonly host: string = LocationConfig.hostName,
-    readonly port: number = LocationConfig.port
-  ) {
-    const url = `http://${host}:${port}/post-endpoint`
-    this.httpTransport = new HttpTransport(url)
+  constructor(httpTransport: HttpTransport<Req.LocationHttpMessage>) {
+    this.httpTransport = httpTransport
   }
 
   list(): Promise<Location[]> {
@@ -99,6 +99,6 @@ export class LocationService implements LocationServiceApi {
   track = (connection: Connection) => (
     callBack: (trackingEvent: TrackingEvent) => void
   ): Subscription => {
-    return new Ws(this.host, this.port).subscribe(new Track(connection), callBack, TrackingEvent)
+    return new Ws(LocationConfig.hostName, LocationConfig.port).subscribe(new Track(connection), callBack, TrackingEvent)
   }
 }

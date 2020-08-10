@@ -1,20 +1,20 @@
 import {
   HttpConnection,
   HttpLocation,
-  LocationService,
   LocationUpdated,
   TrackingEvent
 } from '../../../src/clients/location'
 import { Server } from 'mock-socket'
 import { Prefix } from '../../../src/models'
-import { wsMockWithResolved } from '../../helpers/MockHelpers'
+import { mockHttpTransport, wsMockWithResolved } from "../../helpers/MockHelpers";
+import { LocationServiceImpl } from "../../../src/clients/location/LocationService";
 let mockServer: Server
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
 const httpLocation: HttpLocation = { _type: 'HttpLocation', connection: httpConnection, uri }
 
-const locationService = new LocationService()
+const locationService = new LocationServiceImpl(mockHttpTransport(jest.fn()))
 
 beforeEach(() => {
   mockServer = new Server('ws://localhost:7654/websocket-endpoint')
