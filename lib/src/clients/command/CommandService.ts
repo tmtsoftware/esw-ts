@@ -7,6 +7,7 @@ import { GatewayComponentCommand } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Req from './models/PostCommand'
 import * as WsReq from './models/WsCommand'
+import { getPostEndPoint } from '../../utils/Utils'
 
 export interface CommandService {
   validate(command: M.ControlCommand): Promise<M.ValidateResponse>
@@ -28,8 +29,7 @@ export const CommandService = async (
   componentId: M.ComponentId,
   tokenFactory: TokenFactory
 ): Promise<CommandService> => {
-  const { host, port } = await resolveGateway()
-  const url = `http://${host}:${port}/post-endpoint`
+  const url = getPostEndPoint(await resolveGateway())
   return new CommandServiceImpl(componentId, new HttpTransport(url, tokenFactory))
 }
 

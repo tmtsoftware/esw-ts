@@ -12,6 +12,7 @@ import {
 } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { EventWebsocketRequest, Subscribe, SubscribeWithPattern } from './models/WebSocketMessages'
+import { getPostEndPoint } from '../../utils/Utils'
 
 export interface EventService {
   publish(event: Event): Promise<Done>
@@ -31,8 +32,7 @@ export interface EventService {
 }
 
 export const EventService = async (): Promise<EventService> => {
-  const { host, port } = await resolveGateway()
-  const url = `http://${host}:${port}/post-endpoint`
+  const url = getPostEndPoint(await resolveGateway())
   return new EventServiceImpl(new HttpTransport(url))
 }
 
