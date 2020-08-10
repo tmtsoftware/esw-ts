@@ -10,7 +10,7 @@ import { Done } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
 import { TrackingEvent } from './models/TrackingEvent'
 import { Track } from './models/WsCommand'
-import { getOptionValue } from '../../utils/Utils'
+import { getOptionValue, getPostEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
 
 export interface LocationService {
@@ -34,7 +34,7 @@ export interface LocationService {
 }
 
 export const LocationService = () => {
-  const url = `http://${LocationConfig.hostName}:${LocationConfig.port}/post-endpoint`
+  const url = getPostEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
   return new LocationServiceImpl(new HttpTransport(url))
 }
 
