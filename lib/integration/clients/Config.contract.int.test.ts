@@ -26,7 +26,7 @@ afterAll(async () => {
 
 const token = 'valid'
 const path = 'somepath'
-let configService:ConfigService;
+let configService: ConfigService
 const config1 = '{key:filecontent1}'
 const config2 = '{key:filecontent2}'
 const config3 = '{key:filecontent3}'

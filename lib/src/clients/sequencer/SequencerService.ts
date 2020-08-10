@@ -48,14 +48,10 @@ export const SequencerService = async (componentId: ComponentId, tokenFactory: T
 }
 
 export class SequencerServiceImpl implements SequencerService {
-  private readonly httpTransport: HttpTransport<GatewaySequencerCommand>
-
   constructor(
     readonly componentId: ComponentId,
-    httpTransport: HttpTransport<GatewaySequencerCommand>
-  ) {
-    this.httpTransport = httpTransport
-  }
+    private readonly httpTransport: HttpTransport<GatewaySequencerCommand>
+  ) {}
 
   private sequencerCommand(request: Req.SequencerPostRequest | SequencerWebsocketRequest) {
     return new GatewaySequencerCommand(this.componentId, request)

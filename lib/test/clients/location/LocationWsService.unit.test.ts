@@ -6,8 +6,8 @@ import {
 } from '../../../src/clients/location'
 import { Server } from 'mock-socket'
 import { Prefix } from '../../../src/models'
-import { mockHttpTransport, wsMockWithResolved } from "../../helpers/MockHelpers";
-import { LocationServiceImpl } from "../../../src/clients/location/LocationService";
+import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
+import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
 let mockServer: Server
 const uri = 'http://someuri'
 const prefix = new Prefix('ESW', 'MoonNight')
