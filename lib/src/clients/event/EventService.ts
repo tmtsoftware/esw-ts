@@ -30,12 +30,10 @@ export interface EventService {
   ): (callback: (event: Event) => void) => Subscription
 }
 
-export class EventServiceFactory {
-  static async make() {
-    const { host, port } = await resolveGateway()
-    const url = `http://${host}:${port}/post-endpoint`
-    return new EventServiceImpl(new HttpTransport(url))
-  }
+export const EventService = async (): Promise<EventService> => {
+  const { host, port } = await resolveGateway()
+  const url = `http://${host}:${port}/post-endpoint`
+  return new EventServiceImpl(new HttpTransport(url))
 }
 
 export class EventServiceImpl implements EventService {
