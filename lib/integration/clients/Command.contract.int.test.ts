@@ -1,9 +1,9 @@
 import 'whatwg-fetch'
-import { CommandService } from '../../src/clients/command'
 import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
 import { GenericError } from '../../src/utils/GenericError'
+import { CommandService } from '../../src/clients/command'
 
 jest.setTimeout(70000)
 
@@ -31,14 +31,14 @@ describe('Command Client', () => {
       'TMT'
     )
 
-    const commandService = new CommandService(componentId, () => validToken)
+    const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
     const actualResponse = await commandService.oneway(setupCommand)
     expect(actualResponse._type).toEqual('Accepted')
   })
 
   test('should get unauthorized error on sending invalid token | ESW-343, ESW-305, ESW-99', async () => {
-    const commandService = new CommandService(componentId, () => '')
+    const commandService = await CommandService(componentId, () => '')
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(
@@ -54,7 +54,7 @@ describe('Command Client', () => {
       'TMT'
     )
 
-    const commandService = new CommandService(componentId, () => tokenWithoutRole)
+    const commandService = await CommandService(componentId, () => tokenWithoutRole)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
     await expect(commandService.oneway(setupCommand)).rejects.toThrow(
@@ -70,7 +70,7 @@ describe('Command Client', () => {
       'TMT'
     )
 
-    const commandService = new CommandService(componentId, () => validToken)
+    const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
     const actualResponse = await commandService.submit(setupCommand)
     expect(actualResponse._type).toEqual('Started')
@@ -84,7 +84,7 @@ describe('Command Client', () => {
       'TMT'
     )
 
-    const commandService = new CommandService(componentId, () => validToken)
+    const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
     const actualResponse = await commandService.validate(setupCommand)
     expect(actualResponse._type).toEqual('Accepted')
@@ -98,7 +98,7 @@ describe('Command Client', () => {
       'TMT'
     )
 
-    const commandService = new CommandService(componentId, () => validToken)
+    const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
     const submitRes: SubmitResponse = await commandService.submit(setupCommand)
     expect(submitRes._type).toEqual('Started')
@@ -115,7 +115,7 @@ describe('Command Client', () => {
       'TMT'
     )
 
-    const commandService = new CommandService(componentId, () => validToken)
+    const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
     const submitRes: SubmitResponse = await commandService.submit(setupCommand)
     expect(submitRes._type).toEqual('Started')
@@ -130,8 +130,8 @@ describe('Command Client', () => {
   })
 
   test('should be able to subscribe to the current state | ESW-343, ESW-305', () => {
-    return new Promise((done) => {
-      const commandService = new CommandService(componentId)
+    return new Promise(async (done) => {
+      const commandService = await CommandService(componentId)
       const prefix: Prefix = new Prefix('ESW', 'a.b')
 
       const callback = (currentState: CurrentState) => {

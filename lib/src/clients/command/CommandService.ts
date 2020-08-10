@@ -8,24 +8,36 @@ import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Req from './models/PostCommand'
 import * as WsReq from './models/WsCommand'
 
-export interface CommandServiceApi {
+export interface CommandService {
   validate(command: M.ControlCommand): Promise<M.ValidateResponse>
+
   submit(command: M.ControlCommand): Promise<M.SubmitResponse>
+
   oneway(command: M.ControlCommand): Promise<M.OnewayResponse>
+
   query(runId: string): Promise<M.SubmitResponse>
 
   queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse>
+
   subscribeCurrentState(
     stateNames: Set<string>
   ): (onStateChange: (state: M.CurrentState) => void) => Subscription
 }
 
-export class CommandService implements CommandServiceApi {
-  private readonly httpTransport: HttpTransport<GatewayComponentCommand>
+export const CommandService = async (
+  componentId: M.ComponentId,
+  tokenFactory: TokenFactory = () => undefined
+): Promise<CommandService> => {
+  const { host, port } = await resolveGateway()
+  const url = `http://${host}:${port}/post-endpoint`
+  return new CommandServiceImpl(componentId, new HttpTransport(url, tokenFactory))
+}
 
-  constructor(readonly componentId: M.ComponentId, tokenFactory: TokenFactory = () => undefined) {
-    this.httpTransport = new HttpTransport(resolveGateway, tokenFactory)
-  }
+export class CommandServiceImpl implements CommandService {
+  constructor(
+    readonly componentId: M.ComponentId,
+    readonly httpTransport: HttpTransport<GatewayComponentCommand>
+  ) {}
 
   private componentCommand(msg: Req.CommandServiceHttpMessage | WsReq.CommandServiceWsMessage) {
     return new GatewayComponentCommand(this.componentId, msg)
