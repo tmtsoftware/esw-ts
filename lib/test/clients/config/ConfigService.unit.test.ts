@@ -63,7 +63,7 @@ describe('ConfigService', () => {
     getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
 
     const confData = await configService.getById(confPath, configId)
-    expect(confData).toBeFalsy()
+    expect(confData).toBeUndefined()
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
@@ -241,7 +241,7 @@ describe('ConfigService', () => {
     getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
 
     const configId = await configService.getActiveVersion(confPath)
-    expect(configId).toBeFalsy()
+    expect(configId).toBeUndefined()
   })
 
   test('should throw error if internal server error is received on getActiveVersion | ESW-320', async () => {
