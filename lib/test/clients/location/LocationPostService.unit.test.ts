@@ -1,8 +1,8 @@
 import { Duration, HttpConnection } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
-import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
 import * as Req from '../../../src/clients/location/models/PostCommand'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
 
 const mockRequestRes = jest.fn()
 const locationService = new LocationServiceImpl(mockHttpTransport(mockRequestRes))
