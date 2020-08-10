@@ -21,7 +21,7 @@ afterAll(async () => {
 describe('Alarm Client ', () => {
   const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
   test('set severity for the given component | ESW-314', async () => {
-    const alarmService = new AlarmService()
+    const alarmService = await AlarmService()
     const alarmKey = new AlarmKey(trombonePrefix, 'tromboneAxisHighLimitAlarm')
 
     const response: Done = await alarmService.setSeverity(alarmKey, 'Okay')

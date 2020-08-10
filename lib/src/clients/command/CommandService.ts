@@ -26,7 +26,7 @@ export interface CommandService {
 
 export const CommandService = async (
   componentId: M.ComponentId,
-  tokenFactory: TokenFactory = () => undefined
+  tokenFactory: TokenFactory
 ): Promise<CommandService> => {
   const { host, port } = await resolveGateway()
   const url = `http://${host}:${port}/post-endpoint`
@@ -35,8 +35,8 @@ export const CommandService = async (
 
 export class CommandServiceImpl implements CommandService {
   constructor(
-    readonly componentId: M.ComponentId,
-    readonly httpTransport: HttpTransport<GatewayComponentCommand>
+    private readonly componentId: M.ComponentId,
+    private readonly httpTransport: HttpTransport<GatewayComponentCommand>
   ) {}
 
   private componentCommand(msg: Req.CommandServiceHttpMessage | WsReq.CommandServiceWsMessage) {

@@ -1,26 +1,18 @@
-import { AlarmKey, AlarmService } from '../../../src/clients/alarm'
+import { AlarmKey } from '../../../src/clients/alarm'
 import { Prefix } from '../../../src/models'
-import { Done, HttpLocation } from '../../../src/clients/location'
-import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Http'
-import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
-
-jest.mock('../../../src/utils/Http')
-const postMockFn = mocked(post, true)
-
-const uri = 'http://localhost:8080'
-const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
+import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmService'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'
+import { Done } from '../../../src/clients/location'
 
 describe('Alarm service', () => {
   test('should set alarm severity for a given prefix | ESW-314', async () => {
-    const alarmService = new AlarmService()
+    const requestRes: jest.Mock = jest.fn()
+    const alarmService = new AlarmServiceImpl(mockHttpTransport(requestRes))
     const alarmKey = new AlarmKey(new Prefix('ESW', 'Comp1'), 'alarm1')
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    postMockFn.mockResolvedValueOnce('Done')
+    const severity = 'Okay'
+    await alarmService.setSeverity(alarmKey, severity)
 
-    const done: Done = await alarmService.setSeverity(alarmKey, 'Okay')
-
-    expect(done).toEqual('Done')
-    expect(postMockFn).toBeCalledTimes(2)
+    expect(requestRes).toBeCalledWith(new SetAlarmSeverity(alarmKey, severity), Done)
   })
 })
