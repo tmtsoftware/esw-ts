@@ -14,7 +14,7 @@ import { SequencerWebsocketRequest } from './models/WsCommand'
 import { Option } from '../../utils/Option'
 import { getOptionValue } from '../../utils/Utils'
 
-export interface SequencerServiceApi {
+export interface SequencerService {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
   startSequence(): Promise<SubmitResponse>
   add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -41,11 +41,20 @@ export interface SequencerServiceApi {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 }
 
-export class SequencerService implements SequencerServiceApi {
+export const SequencerService = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
+  const { host, port } = await resolveGateway()
+  const url = `http://${host}:${port}/post-endpoint`
+  return new SequencerServiceImpl(componentId, new HttpTransport(url, tokenFactory))
+}
+
+export class SequencerServiceImpl implements SequencerService {
   private readonly httpTransport: HttpTransport<GatewaySequencerCommand>
 
-  constructor(readonly componentId: ComponentId, readonly tokenFactory: TokenFactory) {
-    this.httpTransport = new HttpTransport(resolveGateway, this.tokenFactory)
+  constructor(
+    readonly componentId: ComponentId,
+    httpTransport: HttpTransport<GatewaySequencerCommand>
+  ) {
+    this.httpTransport = httpTransport
   }
 
   private sequencerCommand(request: Req.SequencerPostRequest | SequencerWebsocketRequest) {

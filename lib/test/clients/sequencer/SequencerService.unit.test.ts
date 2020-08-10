@@ -1,20 +1,11 @@
-import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
-import { HttpLocation } from '../../../src/clients/location'
-import { SequencerService, Step, StepList, StepStatus } from '../../../src/clients/sequencer'
-import {
-  ComponentId,
-  Prefix,
-  SequenceCommand,
-  Setup,
-  SubmitResponse,
-  Wait
-} from '../../../src/models'
-import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Http'
-import { getMockedToken } from '../../helpers/TokenVerifier'
+import { SequencerServiceImpl, Step, StepList, StepStatus } from '../../../src/clients/sequencer'
+import { ComponentId, Prefix, SequenceCommand, Setup, Wait } from '../../../src/models'
+import * as Req from '../../../src/clients/sequencer/models/PostCommand'
+import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
+import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-const sequencer = new SequencerService(componentId, () => 'validToken')
 
 const eswTestPrefix = Prefix.fromString('ESW.test')
 const setupCommand = new Setup(eswTestPrefix, 'command-1', [])
@@ -22,117 +13,76 @@ const waitCommand = new Wait(eswTestPrefix, 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
-jest.mock('../../../src/utils/Http')
-const postMockFn = mocked(post, true)
-const uri = 'http://localhost:8080'
-const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
-const Ok = { _type: 'Ok' }
+const mockRequestRes: jest.Mock = jest.fn()
+const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes))
 
-beforeEach(() => {
-  postMockFn.mockResolvedValueOnce([gatewayLocation])
-})
+const getGatewaySequencerCommand = (command: SequencerPostRequest) => {
+  return new GatewaySequencerCommand(componentId, command)
+}
+
+const verifyPayload = (gatewayCommand: GatewaySequencerCommand) => {
+  expect(mockRequestRes).toBeCalledWith(gatewayCommand, expect.anything())
+}
+
 describe('SequencerService', () => {
   test('should load a sequence in given sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.loadSequence(sequence)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.loadSequence(sequence)
+    verifyPayload(getGatewaySequencerCommand(new Req.LoadSequence(sequence)))
   })
 
   test('should start the sequence in given sequencer | ESW-307', async () => {
-    const completedResponse: SubmitResponse = {
-      _type: 'Completed',
-      runId: '1234124',
-      result: { paramSet: [] }
-    }
-
-    postMockFn.mockResolvedValueOnce(completedResponse)
-
-    const res = await sequencer.startSequence()
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(completedResponse)
+    await sequencer.startSequence()
+    verifyPayload(getGatewaySequencerCommand(new Req.StartSequence()))
   })
 
   test('should add given commands in the sequence of given sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.add(commands)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.add(commands)
+    verifyPayload(getGatewaySequencerCommand(new Req.Add(commands)))
   })
 
   test('should prepend given commands in the sequence of given sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.prepend(commands)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.prepend(commands)
+    verifyPayload(getGatewaySequencerCommand(new Req.Prepend(commands)))
   })
 
   test('should replace given id command with given commands | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.replace('id-123', commands)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.replace('id-123', commands)
+    verifyPayload(getGatewaySequencerCommand(new Req.Replace('id-123', commands)))
   })
 
   test('should insert the given commands after given command of given id | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.insertAfter('id-123', commands)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.insertAfter('id-123', commands)
+    verifyPayload(getGatewaySequencerCommand(new Req.InsertAfter('id-123', commands)))
   })
 
   test('should delete the given command from sequence | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.delete('id-123')
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.delete('id-123')
+    verifyPayload(getGatewaySequencerCommand(new Req.Delete('id-123')))
   })
 
   test('should add a breakPoint on the given command from sequence | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.addBreakpoint('id-123')
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
+    await sequencer.addBreakpoint('id-123')
+    verifyPayload(getGatewaySequencerCommand(new Req.AddBreakpoint('id-123')))
   })
 
   test('should remove the breakPoint on the given command from sequence | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.removeBreakpoint('id-123')
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.removeBreakpoint('id-123')
+    verifyPayload(getGatewaySequencerCommand(new Req.RemoveBreakpoint('id-123')))
   })
 
   test('should reset the sequence in given sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.reset()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.reset()
+    verifyPayload(getGatewaySequencerCommand(new Req.Reset()))
   })
 
   test('should resume the sequence in given sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.resume()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.resume()
+    verifyPayload(getGatewaySequencerCommand(new Req.Resume()))
   })
 
   test('should pause the sequence in given sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.pause()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.pause()
+    verifyPayload(getGatewaySequencerCommand(new Req.Pause()))
   })
 
   test('should get a step list from sequencer | ESW-307', async () => {
@@ -145,72 +95,57 @@ describe('SequencerService', () => {
     }
     const stepList: StepList = [step]
 
-    postMockFn.mockResolvedValueOnce([stepList])
+    mockRequestRes.mockResolvedValueOnce([stepList])
 
-    const res = await sequencer.getSequence()
-    expect(res).toEqual(stepList)
+    await sequencer.getSequence()
+    verifyPayload(getGatewaySequencerCommand(new Req.GetSequence()))
   })
 
   test('should return whether a sequencer is available | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(true)
+    mockRequestRes.mockResolvedValueOnce(true)
 
-    const res = await sequencer.isAvailable()
-    expect(res).toEqual(true)
+    await sequencer.isAvailable()
+    verifyPayload(getGatewaySequencerCommand(new Req.IsAvailable()))
   })
 
   test('should return whether a sequencer is online | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(true)
+    mockRequestRes.mockResolvedValueOnce(true)
 
-    const res = await sequencer.isOnline()
-    expect(res).toEqual(true)
+    await sequencer.isOnline()
+    verifyPayload(getGatewaySequencerCommand(new Req.IsOnline()))
   })
 
   test('should get a go online response from sequencer on GoOnline | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.goOnline()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.goOnline()
+    verifyPayload(getGatewaySequencerCommand(new Req.GoOnline()))
   })
 
   test('should get a go offline response from sequencer on GoOffline | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.goOffline()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.goOffline()
+    verifyPayload(getGatewaySequencerCommand(new Req.GoOffline()))
   })
 
   test('should abort a sequence from sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.abortSequence()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.abortSequence()
+    verifyPayload(getGatewaySequencerCommand(new Req.AbortSequence()))
   })
 
   test('should stop a sequence from sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.stop()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.stop()
+    verifyPayload(getGatewaySequencerCommand(new Req.Stop()))
   })
 
   test('should send diagnostic mode to sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
+    const date = new Date('2020-10-08')
+    const hint = 'hint for diagnostic mode'
 
-    const res = await sequencer.diagnosticMode(new Date('2020-10-08'), 'hint for diagnostic mode')
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.diagnosticMode(date, hint)
+    verifyPayload(getGatewaySequencerCommand(new Req.DiagnosticMode(date, hint)))
   })
 
   test('should send operations mode to sequencer | ESW-307', async () => {
-    postMockFn.mockResolvedValueOnce(Ok)
-
-    const res = await sequencer.operationsMode()
-    expect(res).toEqual(Ok)
-    expect(getMockedToken(postMockFn)).toBe('Bearer validToken')
+    await sequencer.operationsMode()
+    verifyPayload(getGatewaySequencerCommand(new Req.OperationsMode()))
   })
 })
 
