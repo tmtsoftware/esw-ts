@@ -1,15 +1,15 @@
 import { Server } from 'mock-socket'
 import { mocked } from 'ts-jest/utils'
-import { CommandService } from '../../../src/clients/command'
 import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpLocation } from '../../../src/clients/location'
 import { ComponentId, CurrentState, Prefix, SubmitResponse } from '../../../src/models'
 import { post } from '../../../src/utils/Http'
-import { wsMockWithResolved } from '../../helpers/MockHelpers'
+import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
+import { CommandServiceImpl } from '../../../src/clients/command/CommandService'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = new CommandService(compId, () => '')
+const client = new CommandServiceImpl(compId, mockHttpTransport())
 let mockServer: Server
 
 jest.mock('../../../src/utils/Http')

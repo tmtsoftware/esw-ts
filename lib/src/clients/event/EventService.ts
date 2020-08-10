@@ -37,11 +37,7 @@ export const EventService = async (): Promise<EventService> => {
 }
 
 export class EventServiceImpl implements EventService {
-  private httpTransport: HttpTransport<GatewayEventPostRequest>
-
-  constructor(httpTransport: HttpTransport<GatewayEventPostRequest>) {
-    this.httpTransport = httpTransport
-  }
+  constructor(readonly httpTransport: HttpTransport<GatewayEventPostRequest>) {}
 
   publish(event: Event): Promise<Done> {
     return this.httpTransport.requestRes(new GatewayPublishEvent(event), Done)
