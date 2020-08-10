@@ -12,7 +12,7 @@ import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { Option } from '../../utils/Option'
-import { getOptionValue } from '../../utils/Utils'
+import { getOptionValue, getPostEndPoint } from '../../utils/Utils'
 
 export interface SequencerService {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -42,8 +42,7 @@ export interface SequencerService {
 }
 
 export const SequencerService = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
-  const { host, port } = await resolveGateway()
-  const url = `http://${host}:${port}/post-endpoint`
+  const url = getPostEndPoint(await resolveGateway())
   return new SequencerServiceImpl(componentId, new HttpTransport(url, tokenFactory))
 }
 

@@ -2,14 +2,14 @@ import { Done } from '../location'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'
 import { resolveGateway } from '../gateway/ResolveGateway'
+import { getPostEndPoint } from '../../utils/Utils'
 
 interface AlarmService {
   setSeverity(alarmKey: AlarmKey, severity: AlarmSeverity): Promise<Done>
 }
 
 export const AlarmService = async (): Promise<AlarmService> => {
-  const { host, port } = await resolveGateway()
-  const url = `http://${host}:${port}/post-endpoint`
+  const url = getPostEndPoint(await resolveGateway())
   return new AlarmServiceImpl(new HttpTransport(url))
 }
 

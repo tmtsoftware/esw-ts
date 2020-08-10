@@ -19,3 +19,7 @@ export const getOrThrow = <A>(e: E.Either<D.DecodeError, A>): A =>
   E.getOrElse<D.DecodeError, A>((err) => {
     throw Error(D.draw(err))
   })(e)
+
+export const getPostEndPoint = (uri: { port: number; host: string }) => {
+  return `http://${uri.host}:${uri.port}/post-endpoint`
+}
