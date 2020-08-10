@@ -1,14 +1,7 @@
 import 'whatwg-fetch'
 import { Prefix, Subsystem } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
-import {
-  Event,
-  EventKey,
-  EventName,
-  EventService,
-  EventServiceFactory,
-  ObserveEvent
-} from '../../src/clients/event'
+import { Event, EventKey, EventName, EventService, ObserveEvent } from '../../src/clients/event'
 import { Done } from '../../src/clients/location'
 
 jest.setTimeout(50000)
@@ -18,7 +11,7 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   await startServices(['Gateway'])
-  eventService = await EventServiceFactory.make()
+  eventService = await EventService()
 })
 
 afterAll(async () => {

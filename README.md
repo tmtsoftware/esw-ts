@@ -64,7 +64,7 @@ cd {ESW-TS-Repo}/lib
 ##### Fetch dependencies
 
 ```
-npm install
+npm clean-install
 ```
 
 ##### Build library
@@ -91,7 +91,7 @@ Start App -
 
 ```
 cd ../example
-npm install
+npm clean-install
 npm start
 ```
 
