@@ -18,12 +18,17 @@ const uri = 'http://localhost:8080'
 const configLocation: HttpLocation = { _type: 'HttpLocation', connection: configConnection, uri }
 
 const token = 'validToken'
-const configService = new ConfigService(() => token)
+let configService: ConfigService
 
 const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
 const listEndpoint = () => `http://localhost:8080/list`
 const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
 const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
+
+beforeAll(async() => {
+  postMockFn.mockResolvedValueOnce([configLocation])
+  configService = await ConfigService(() => token)
+})
 
 afterEach(() => {
   jest.clearAllMocks()
@@ -33,7 +38,7 @@ describe('ConfigService', () => {
   test('should get the latest conf of given path from the config server | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const url = configEndpoint(confPath)
-    postMockFn.mockResolvedValueOnce([configLocation])
+
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getLatest(confPath)
@@ -46,7 +51,6 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getById(confPath, configId)
@@ -59,7 +63,6 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
 
     const confData = await configService.getById(confPath, configId)
@@ -71,7 +74,6 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
 
     await expect(configService.getById(confPath, configId)).rejects.toThrowError(
@@ -84,7 +86,6 @@ describe('ConfigService', () => {
     const date = new Date()
     const url = configEndpoint(`${confPath}?date=${date.toISOString()}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getByTime(confPath, date)
@@ -96,12 +97,11 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const url = configEndpoint(confPath)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
 
     const actualRes = await configService.exists(confPath)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toHaveBeenCalledWith({ url, decoder: expect.any(Function) })
+    expect(headMockFn).toHaveBeenCalledWith({ url, decoder: expect.anything() })
   })
 
   test('should check if the given conf with given id is present | ESW-320', async () => {
@@ -109,12 +109,11 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockResolvedValueOnce(true)
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+    expect(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
   })
 
   test('should return false if the given conf is not present | ESW-320', async () => {
@@ -122,19 +121,17 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockRejectedValueOnce(new GenericError(404, 'not found', ''))
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(false)
-    expect(headMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+    expect(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
   })
 
   test('should throw error if internal server error is received on check of config exists| ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     headMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
 
     await expect(configService.exists(confPath, configId)).rejects.toThrowError(
@@ -159,7 +156,6 @@ describe('ConfigService', () => {
       comment: 'comment2'
     }
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
 
     const actualRes = await configService.list()
@@ -184,7 +180,6 @@ describe('ConfigService', () => {
       comment: 'comment2'
     }
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
 
     const actualRes = await configService.list('Annex', '.*')
@@ -200,7 +195,6 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const url = activeConfigEndpoint(`${confPath}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getActive(confPath)
@@ -213,7 +207,6 @@ describe('ConfigService', () => {
     const date = new Date()
     const url = activeConfigEndpoint(`${confPath}?date=${date.toISOString()}`)
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce('foo: bar')
 
     const confData = await configService.getActiveByTime(confPath, date)
@@ -226,7 +219,6 @@ describe('ConfigService', () => {
     const url = activeVersionEndpoint(confPath)
     const configId = { id: 'configId123' }
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce(configId)
 
     const actualConfId = await configService.getActiveVersion(confPath)
@@ -237,7 +229,6 @@ describe('ConfigService', () => {
   test('should get undefined if the active version not found for the config | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
 
     const configId = await configService.getActiveVersion(confPath)
@@ -247,7 +238,6 @@ describe('ConfigService', () => {
   test('should throw error if internal server error is received on getActiveVersion | ESW-320', async () => {
     const confPath = 'tmt/assembly.conf'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
 
     await expect(configService.getActiveVersion(confPath)).rejects.toThrowError(
@@ -266,7 +256,6 @@ describe('ConfigService', () => {
       maxConfigFileSize: '1MB'
     }
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     getMockFn.mockResolvedValueOnce(expectedConfigMetadata)
 
     const configMetadata = await configService.getMetadata()
@@ -287,7 +276,7 @@ describe('ConfigService', () => {
       comment: 'something',
       time: new Date()
     }
-    postMockFn.mockResolvedValueOnce([configLocation])
+
     getMockFn.mockResolvedValueOnce([revision])
 
     const history = await configService.history(confPath, from, to, maxResults)
@@ -316,7 +305,7 @@ describe('ConfigService', () => {
       comment: 'something',
       time: new Date()
     }
-    postMockFn.mockResolvedValueOnce([configLocation])
+
     getMockFn.mockResolvedValueOnce([revision])
 
     const history = await configService.historyActive(confPath, from, to, maxResults)
@@ -328,7 +317,7 @@ describe('ConfigService', () => {
         to: to.toISOString(),
         maxResults: maxResults.toString()
       },
-      decoder: expect.any(Function)
+      decoder: expect.anything()
     })
   })
 
@@ -338,7 +327,6 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const comment = 'something'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     putMockFn.mockResolvedValueOnce({})
 
     await configService.setActiveVersion(confPath, configId, comment)
@@ -354,7 +342,6 @@ describe('ConfigService', () => {
     const url = activeVersionEndpoint(confPath)
     const comment = 'something'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     putMockFn.mockResolvedValue({})
 
     await configService.resetActiveVersion(confPath, comment)
@@ -370,7 +357,6 @@ describe('ConfigService', () => {
     const url = configEndpoint(confPath)
     const comment = 'something'
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     deleteMockFn.mockResolvedValue({})
 
     await configService.delete(confPath, comment)
@@ -389,19 +375,17 @@ describe('ConfigService', () => {
     const configId = { id: 'configId123' }
     const configData: File = new File(['foo: Bar'], 'assembly.conf')
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     postMockFn.mockResolvedValueOnce(configId)
 
     const actualResConfigId = await configService.create(confPath, configData, true, comment)
 
     expect(actualResConfigId).toEqual(configId)
-    expect(postMockFn).toBeCalledTimes(2)
-    expect(postMockFn).toHaveBeenNthCalledWith(2, {
+    expect(postMockFn).toHaveBeenCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
       queryParams: { annex: 'true', comment },
       payload: configData,
-      decoder: expect.any(Function)
+      decoder: expect.anything()
     })
   })
 
@@ -412,7 +396,6 @@ describe('ConfigService', () => {
     const configId = { id: 'configId123' }
     const configData: File = new File(['foo: Bar'], 'assembly.conf')
 
-    postMockFn.mockResolvedValueOnce([configLocation])
     putMockFn.mockResolvedValueOnce(configId)
 
     const actualResConfigId = await configService.update(confPath, configData, comment)

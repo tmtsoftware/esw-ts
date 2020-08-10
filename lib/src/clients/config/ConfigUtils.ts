@@ -10,25 +10,14 @@ import * as M from './models/ConfigModels'
 export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))
 
-export const endpoint = async (path: string) => {
-  const { host, port } = await resolveConfigServer()
-  return `http://${host}:${port}/${path}`
-}
-
 export const resolveConfigServer = async () => {
   const location = await resolve(configConnection)
   return extractHostPort(location.uri)
 }
-
-export const configEndpoint = (path: string) => endpoint(`config/${path}`)
-export const activeConfigEndpoint = (path: string) => endpoint(`active-config/${path}`)
-export const activeVersionEndpoint = (path: string) => endpoint(`active-version/${path}`)
-
 export const tryGetConfigBlob = (url: string) =>
   map404(get({ url, responseMapper: (res) => res.blob() }), undefined)
 
-export const tryConfigExists = async (path: string): Promise<boolean> => {
-  const url = await configEndpoint(path)
+export const tryConfigExists = async (url: string): Promise<boolean> => {
   return map404(
     head({ url, decoder: decodeUsing(D.string) }).then(() => true),
     false
@@ -45,7 +34,7 @@ export const history = async (
   maxResults: number
 ): Promise<M.ConfigFileRevision[]> =>
   get({
-    url: await endpoint(path),
+    url: path,
     queryParams: {
       from: from.toISOString(),
       to: to.toISOString(),

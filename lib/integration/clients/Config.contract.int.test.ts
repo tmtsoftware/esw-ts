@@ -16,6 +16,7 @@ beforeAll(async () => {
   console.error = jest.fn()
   await startServices(['Config'])
   await delay(5000) // wait for svn repo to initialise
+  configService = await ConfigService(() => token)
 })
 
 afterAll(async () => {
@@ -25,7 +26,7 @@ afterAll(async () => {
 
 const token = 'valid'
 const path = 'somepath'
-const configService = new ConfigService(() => token)
+let configService:ConfigService;
 const config1 = '{key:filecontent1}'
 const config2 = '{key:filecontent2}'
 const config3 = '{key:filecontent3}'
