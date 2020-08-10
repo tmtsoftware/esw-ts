@@ -1,10 +1,9 @@
-import { Step, StepList, StepStatus } from '../../../src/clients/sequencer'
 import { ComponentId, Prefix, SequenceCommand, Setup, Wait } from '../../../src/models'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
 import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
-import { SequencerServiceImpl } from "../../../src/clients/sequencer/SequencerService";
+import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerService'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
@@ -87,15 +86,6 @@ describe('SequencerService', () => {
   })
 
   test('should get a step list from sequencer | ESW-307', async () => {
-    const Pending: StepStatus = { _type: 'Pending' }
-    const step: Step = {
-      id: 'bfec413e-e377-4e3a-8737-3e625d694bd1',
-      command: setupCommand,
-      status: Pending,
-      hasBreakpoint: false
-    }
-    const stepList: StepList = [step]
-
     await sequencer.getSequence()
     verifyPayload(getGatewaySequencerCommand(new Req.GetSequence()))
   })

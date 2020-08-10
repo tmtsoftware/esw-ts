@@ -1,17 +1,17 @@
-import * as D from "io-ts/lib/Decoder";
-import { LocationConfig } from "../../config";
-import { ComponentType, Prefix } from "../../models";
-import { HttpTransport } from "../../utils/HttpTransport";
-import { Subscription, Ws } from "../../utils/Ws";
-import { Connection, ConnectionType } from "./models/Connection";
-import { Duration } from "./models/Duration";
-import { Location } from "./models/Location";
-import { Done } from "./models/LocationResponses";
-import * as Req from "./models/PostCommand";
-import { TrackingEvent } from "./models/TrackingEvent";
-import { Track } from "./models/WsCommand";
-import { getOptionValue } from "../../utils/Utils";
-import { Option } from "../../utils/Option";
+import * as D from 'io-ts/lib/Decoder'
+import { LocationConfig } from '../../config'
+import { ComponentType, Prefix } from '../../models'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { Subscription, Ws } from '../../utils/Ws'
+import { Connection, ConnectionType } from './models/Connection'
+import { Duration } from './models/Duration'
+import { Location } from './models/Location'
+import { Done } from './models/LocationResponses'
+import * as Req from './models/PostCommand'
+import { TrackingEvent } from './models/TrackingEvent'
+import { Track } from './models/WsCommand'
+import { getOptionValue } from '../../utils/Utils'
+import { Option } from '../../utils/Option'
 
 export interface LocationService {
   list(): Promise<Location[]>
@@ -39,12 +39,9 @@ export const LocationService = () => {
 }
 
 export class LocationServiceImpl implements LocationService {
-  private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>
   private readonly locationListD = D.array(Location)
 
-  constructor(httpTransport: HttpTransport<Req.LocationHttpMessage>) {
-    this.httpTransport = httpTransport
-  }
+  constructor(private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>) {}
 
   list(): Promise<Location[]> {
     return this.httpTransport.requestRes(new Req.ListEntries(), this.locationListD)
@@ -99,6 +96,10 @@ export class LocationServiceImpl implements LocationService {
   track = (connection: Connection) => (
     callBack: (trackingEvent: TrackingEvent) => void
   ): Subscription => {
-    return new Ws(LocationConfig.hostName, LocationConfig.port).subscribe(new Track(connection), callBack, TrackingEvent)
+    return new Ws(LocationConfig.hostName, LocationConfig.port).subscribe(
+      new Track(connection),
+      callBack,
+      TrackingEvent
+    )
   }
 }

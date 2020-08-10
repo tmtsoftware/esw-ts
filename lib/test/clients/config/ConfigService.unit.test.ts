@@ -25,7 +25,7 @@ const listEndpoint = () => `http://localhost:8080/list`
 const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
 const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
 
-beforeAll(async() => {
+beforeAll(async () => {
   postMockFn.mockResolvedValueOnce([configLocation])
   configService = await ConfigService(() => token)
 })

@@ -4,7 +4,7 @@ import { HeaderExt } from '../../utils/HeaderExt'
 import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import { Option } from '../../utils/Option'
 import * as ConfigUtils from './ConfigUtils'
-import { resolveConfigServer, tryGetConfigBlob } from "./ConfigUtils";
+import { resolveConfigServer, tryGetConfigBlob } from './ConfigUtils'
 import * as M from './models/ConfigModels'
 
 export interface ConfigService {
@@ -50,7 +50,11 @@ export const ConfigService = async (tokenFactory: TokenFactory) => {
   return new ConfigServiceImpl(host, port, tokenFactory)
 }
 export class ConfigServiceImpl implements ConfigService {
-  constructor(private readonly host: string, private readonly port: number, readonly tokenFactory: TokenFactory) {}
+  constructor(
+    private readonly host: string,
+    private readonly port: number,
+    readonly tokenFactory: TokenFactory
+  ) {}
 
   getAuthHeader(): HeaderExt {
     return new HeaderExt().withAuthorization(this.tokenFactory())
