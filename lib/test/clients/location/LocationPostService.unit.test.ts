@@ -22,7 +22,7 @@ describe('LocationService', () => {
 
   test('should return location of given component | ESW-308, ESW-310, ESW-311', async () => {
     const duration = new Duration(5, 'seconds')
-    await locationService.resolve(httpConnection, duration)
+    await locationService.resolve(httpConnection, 5, 'seconds')
     expect(mockRequestRes).toBeCalledWith(
       new Req.Resolve(httpConnection, duration),
       expect.anything()
@@ -34,9 +34,9 @@ describe('LocationService', () => {
       throw new Error('Request timed out')
     })
 
-    await expect(() =>
-      locationService.resolve(httpConnection, new Duration(3, 'seconds'))
-    ).rejects.toThrow('Request timed out')
+    await expect(() => locationService.resolve(httpConnection, 3, 'seconds')).rejects.toThrow(
+      'Request timed out'
+    )
   })
 
   test('should fetch list all locations for given componentType | ESW-308, ESW-310, ESW-311', async () => {
