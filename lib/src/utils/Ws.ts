@@ -1,15 +1,14 @@
 import { Decoder } from './Decoder'
 import { getOrThrow } from './Utils'
 
-const createWebsocket = (host: string, port: number, path = 'websocket-endpoint') =>
-  new WebSocket(`ws://${host}:${port}/${path}`)
+const createWebsocket = (url: string) => new WebSocket(url)
 
 export class Ws<Req> {
   private socket: Promise<WebSocket>
 
-  constructor(host: string, port: number) {
+  constructor(url: string) {
     this.socket = new Promise((resolve, reject) => {
-      const wss = createWebsocket(host, port)
+      const wss = createWebsocket(url)
       wss.onopen = () => resolve(wss)
       wss.onerror = (event: Event) => reject({ message: 'error', ...event })
     })

@@ -1,111 +1,54 @@
-import { mocked } from 'ts-jest/utils'
-import { post } from '../../../src/utils/Http'
-import { EventKey, EventName, ObserveEvent, Event } from '../../../src/clients/event'
+import { Event, EventKey, EventName } from '../../../src/clients/event'
 import { Prefix, Subsystem } from '../../../src/models'
-import { HttpLocation } from '../../../src/clients/location'
-import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
-import { Server } from 'mock-socket'
-import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { EventServiceImpl } from '../../../src/clients/event/EventService'
+import {
+  Subscribe,
+  SubscribeWithPattern
+} from '../../../src/clients/event/models/WebSocketMessages'
 
-jest.mock('../../../src/utils/Http')
-const postMockFn = mocked(post, true)
-let mockServer: Server
-
-const uri = 'http://localhost:8080'
-const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
 const prefix = new Prefix('ESW', 'eventComp')
 const eventName = new EventName('offline')
-const observeEvent = new ObserveEvent(
-  'event1',
-  prefix,
-  eventName,
-  new Date(2020, 1, 1).toISOString(),
-  []
-)
 const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 const subsystem: Subsystem = 'ESW'
+
 const httpTransport = mockHttpTransport()
-
-beforeEach(() => {
-  mockServer = new Server('ws://localhost:8080/websocket-endpoint')
-})
-
-afterEach(() => {
-  mockServer.close()
-})
-
+const mockSubscribe = jest.fn()
+const callback = () => {}
+const eventServiceImpl = new EventServiceImpl(httpTransport, (): any =>
+  mockWsTransport(mockSubscribe)
+)
 describe('Event Service', () => {
   test('should subscribe event without default parameters using websocket | ESW-318', async () => {
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    wsMockWithResolved(observeEvent, mockServer)
+    await eventServiceImpl.subscribe(eventKeys, 1)(callback)
 
-    return new Promise(async (jestDoneCallback) => {
-      const callback = (event: Event) => {
-        expect(event._type).toEqual('ObserveEvent')
-        expect(event.source).toEqual(prefix)
-        expect(event.eventName).toEqual(eventName)
-        subscription.cancel()
-        jestDoneCallback()
-      }
-      const subscription = await new EventServiceImpl(httpTransport).subscribe(
-        eventKeys,
-        1
-      )(callback)
-    })
+    expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 1), callback, Event)
   })
 
   test('should subscribe event with default parameters using websocket | ESW-318', async () => {
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    wsMockWithResolved(observeEvent, mockServer)
+    await eventServiceImpl.subscribe(eventKeys)(callback)
 
-    return new Promise(async (jestDoneCallback) => {
-      const callback = (event: Event) => {
-        expect(event._type).toEqual('ObserveEvent')
-        expect(event.source).toEqual(prefix)
-        expect(event.eventName).toEqual(eventName)
-        subscription.cancel()
-        jestDoneCallback()
-      }
-      const subscription = await new EventServiceImpl(httpTransport).subscribe(eventKeys)(callback)
-    })
+    expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 0), callback, Event)
   })
 
-  test('should pattern subscribe event using websocket | ESW-318', () => {
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    wsMockWithResolved(observeEvent, mockServer)
+  test('should pattern subscribe event using websocket | ESW-318', async () => {
+    await eventServiceImpl.pSubscribe(subsystem, 1, '.*')(callback)
 
-    return new Promise(async (jestDoneCallback) => {
-      const callback = (event: Event) => {
-        expect(event._type).toEqual('ObserveEvent')
-        expect(event.source).toEqual(prefix)
-        expect(event.eventName).toEqual(eventName)
-        jestDoneCallback()
-        subscription.cancel()
-      }
-      const subscription = await new EventServiceImpl(httpTransport).pSubscribe(
-        subsystem,
-        1,
-        '.*'
-      )(callback)
-    })
+    expect(mockSubscribe).toBeCalledWith(
+      new SubscribeWithPattern(subsystem, 1, '.*'),
+      callback,
+      Event
+    )
   })
 
-  test('should pattern subscribe event with default parameters using websocket | ESW-318', () => {
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    wsMockWithResolved(observeEvent, mockServer)
+  test('should pattern subscribe event with default parameters using websocket | ESW-318', async () => {
+    await eventServiceImpl.pSubscribe(subsystem)(callback)
 
-    return new Promise(async (jestDoneCallback) => {
-      const callback = (event: Event) => {
-        expect(event._type).toEqual('ObserveEvent')
-        expect(event.source).toEqual(prefix)
-        expect(event.eventName).toEqual(eventName)
-        jestDoneCallback()
-        subscription.cancel()
-      }
-      const subscription = await new EventServiceImpl(httpTransport).pSubscribe(subsystem)(callback)
-    })
+    expect(mockSubscribe).toBeCalledWith(
+      new SubscribeWithPattern(subsystem, 0, '.*'),
+      callback,
+      Event
+    )
   })
 })
-
 afterEach(() => jest.clearAllMocks())
