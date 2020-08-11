@@ -49,14 +49,14 @@ export const SequencerService = async (componentId: ComponentId, tokenFactory: T
   const httpTransport = new HttpTransport(postEndpoint, tokenFactory)
   const webSocketTransport = WebSocketTransport(webSocketEndpoint)
 
-  return new SequencerServiceImpl(componentId, httpTransport, () => webSocketTransport)
+  return new SequencerServiceImpl(componentId, httpTransport, webSocketTransport)
 }
 
 export class SequencerServiceImpl implements SequencerService {
   constructor(
     readonly componentId: ComponentId,
     private readonly httpTransport: HttpTransport<GatewaySequencerCommand>,
-    private readonly ws: () => Promise<Ws<GatewaySequencerCommand>>
+    private readonly ws: Ws<GatewaySequencerCommand>
   ) {}
 
   private sequencerCommand(request: Req.SequencerPostRequest | SequencerWebsocketRequest) {
@@ -158,7 +158,7 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
-    return (await this.ws()).singleResponse(
+    return this.ws.singleResponse(
       this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds)),
       SubmitResponse
     )
