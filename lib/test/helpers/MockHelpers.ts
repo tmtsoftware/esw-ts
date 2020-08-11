@@ -7,7 +7,6 @@ import {
 } from 'keycloak-js'
 import { Auth } from '../../src/clients/aas'
 import { Ws } from '../../src/utils/Ws'
-import { EventWebsocketRequest } from '../../src/clients/event/models/WebSocketMessages'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>
@@ -73,13 +72,17 @@ export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
   }
 }
 
-export const mockWsTransport = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
-  return Promise.resolve({
+// @ts-ignore
+export const mockWsTransport: <T>(
+  subscribe?: jest.Mock<any, any>,
+  singleResponse?: jest.Mock<any, any>
+) => Ws<T> = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
+  return {
     subscribe,
     singleResponse,
     send: jest.fn(),
     subscription: { cancel: jest.fn() },
     subscribeOnly: jest.fn(),
-    socket: Promise.resolve({})
-  })
+    socket: Promise.resolve(new WebSocket('ws://'))
+  }
 }
