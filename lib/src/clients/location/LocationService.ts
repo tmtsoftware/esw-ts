@@ -41,8 +41,7 @@ export const LocationService = () => {
     port: LocationConfig.port
   })
   const postEndpoint = getPostEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
-  return new LocationServiceImpl(
-    new HttpTransport(postEndpoint),
+  return new LocationServiceImpl(new HttpTransport(postEndpoint), () =>
     WebSocketTransport(webSocketEndpoint)
   )
 }
@@ -52,7 +51,7 @@ export class LocationServiceImpl implements LocationService {
 
   constructor(
     private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>,
-    private readonly ws: Ws<LocationWebSocketMessage>
+    private readonly ws: () => Ws<LocationWebSocketMessage>
   ) {}
 
   list(): Promise<Location[]> {
@@ -108,6 +107,6 @@ export class LocationServiceImpl implements LocationService {
   track = (connection: Connection) => (
     callBack: (trackingEvent: TrackingEvent) => void
   ): Subscription => {
-    return this.ws.subscribe(new Track(connection), callBack, TrackingEvent)
+    return this.ws().subscribe(new Track(connection), callBack, TrackingEvent)
   }
 }

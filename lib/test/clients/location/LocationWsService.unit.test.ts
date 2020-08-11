@@ -8,7 +8,9 @@ const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
 
 const mockSubscribe = jest.fn()
-const locationService = new LocationServiceImpl(mockHttpTransport(), mockWsTransport(mockSubscribe))
+const locationService = new LocationServiceImpl(mockHttpTransport(), () =>
+  mockWsTransport(mockSubscribe)
+)
 
 test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311', () => {
   const callback = () => {}
