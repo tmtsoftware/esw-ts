@@ -5,8 +5,7 @@ import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
 
 const mockRequestRes = jest.fn()
-const locationService = new LocationServiceImpl(
-  mockHttpTransport(mockRequestRes),
+const locationService = new LocationServiceImpl(mockHttpTransport(mockRequestRes), () =>
   mockWsTransport()
 )
 const prefix = new Prefix('ESW', 'MoonNight')

@@ -36,8 +36,7 @@ export const EventService = async (): Promise<EventService> => {
   const { host, port } = await resolveGateway()
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
-  return new EventServiceImpl(
-    new HttpTransport(postEndpoint),
+  return new EventServiceImpl(new HttpTransport(postEndpoint), () =>
     WebSocketTransport(webSocketEndpoint)
   )
 }
@@ -45,7 +44,7 @@ export const EventService = async (): Promise<EventService> => {
 export class EventServiceImpl implements EventService {
   constructor(
     private readonly httpTransport: HttpTransport<GatewayEventPostRequest>,
-    private readonly ws: Ws<EventWebsocketRequest>
+    private readonly ws: () => Ws<EventWebsocketRequest>
   ) {}
 
   publish(event: Event): Promise<Done> {
@@ -90,7 +89,7 @@ export class EventServiceImpl implements EventService {
     maxFrequency: number,
     callback: (event: Event) => void
   ) {
-    return this.ws.subscribe(new Subscribe([...eventKeys], maxFrequency), callback, Event)
+    return this.ws().subscribe(new Subscribe([...eventKeys], maxFrequency), callback, Event)
   }
 
   private async resolveAndpSubscribe(
@@ -99,7 +98,7 @@ export class EventServiceImpl implements EventService {
     pattern: string,
     callback: (event: Event) => void
   ) {
-    return this.ws.subscribe(
+    return this.ws().subscribe(
       new SubscribeWithPattern(subsystem, maxFrequency, pattern),
       callback,
       Event
