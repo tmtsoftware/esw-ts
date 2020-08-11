@@ -24,4 +24,6 @@ export interface StepStatus {
 }
 
 export const StepList = D.array(Step)
+export const OptionOfStepList = D.array(StepList)
+
 export type StepList = D.TypeOf<typeof StepList>

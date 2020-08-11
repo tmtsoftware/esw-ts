@@ -9,7 +9,7 @@ import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Req from './models/PostCommand'
 import * as Res from './models/SequencerRes'
-import { StepList } from './models/StepList'
+import { OptionOfStepList, StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { Option } from '../../utils/Option'
 import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
@@ -119,7 +119,7 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   async getSequence(): Promise<Option<StepList>> {
-    return getOptionValue(await this.postSequencerCmd(new Req.GetSequence(), D.array(StepList)))
+    return getOptionValue(await this.postSequencerCmd(new Req.GetSequence(), OptionOfStepList))
   }
 
   isAvailable(): Promise<boolean> {
