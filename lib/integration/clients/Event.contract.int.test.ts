@@ -4,7 +4,7 @@ import { startServices, stopServices } from '../utils/backend'
 import { Event, EventKey, EventName, EventService, ObserveEvent } from '../../src/clients/event'
 import { Done } from '../../src/clients/location'
 
-jest.setTimeout(50000)
+jest.setTimeout(20000)
 let eventService: EventService
 
 beforeAll(async () => {
