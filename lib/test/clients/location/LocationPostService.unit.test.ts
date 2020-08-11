@@ -1,11 +1,14 @@
 import { Duration, HttpConnection } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import * as Req from '../../../src/clients/location/models/PostCommand'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
 
 const mockRequestRes = jest.fn()
-const locationService = new LocationServiceImpl(mockHttpTransport(mockRequestRes))
+const locationService = new LocationServiceImpl(
+  mockHttpTransport(mockRequestRes),
+  mockWsTransport()
+)
 const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
 
