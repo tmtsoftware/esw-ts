@@ -5,8 +5,9 @@ let mockServer: Server
 const host = 'localhost'
 const port = 8080
 
+const url = `ws://${host}:${port}/websocket-endpoint`
 beforeEach(() => {
-  mockServer = new Server(`ws://${host}:${port}/websocket-endpoint`)
+  mockServer = new Server(url)
 })
 
 afterEach(() => {
@@ -22,7 +23,7 @@ describe('Web socket util', () => {
         done()
       }
       wsMockWithResolved(expectedData, mockServer)
-      new Ws(host, port).subscribe('hello', fn)
+      new Ws(url).subscribe('hello', fn)
     })
   })
 
@@ -30,7 +31,7 @@ describe('Web socket util', () => {
     const expectedData = 'hello'
     wsMockWithResolved(expectedData, mockServer)
 
-    const data = await new Ws(host, port).singleResponse<string>('hello')
+    const data = await new Ws(url).singleResponse<string>('hello')
     expect(data).toEqual(expectedData)
   })
 
@@ -38,7 +39,7 @@ describe('Web socket util', () => {
     wsMockWithResolved('', mockServer)
 
     expect(mockServer.clients().length).toEqual(0)
-    const subscription = new Ws(host, port).subscribe('hello', () => ({}))
+    const subscription = new Ws(url).subscribe('hello', () => ({}))
 
     expect(mockServer.clients().length).toEqual(1)
     subscription.cancel()
