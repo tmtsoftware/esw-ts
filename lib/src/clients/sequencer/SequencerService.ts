@@ -12,7 +12,8 @@ import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { Option } from '../../utils/Option'
-import { getOptionValue, getPostEndPoint } from '../../utils/Utils'
+import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
 export interface SequencerService {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -42,14 +43,20 @@ export interface SequencerService {
 }
 
 export const SequencerService = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
-  const url = getPostEndPoint(await resolveGateway())
-  return new SequencerServiceImpl(componentId, new HttpTransport(url, tokenFactory))
+  const { host, port } = await resolveGateway()
+  const postEndpoint = getPostEndPoint({ host, port })
+  const webSocketEndpoint = getWebSocketEndPoint({ host, port })
+  const httpTransport = new HttpTransport(postEndpoint, tokenFactory)
+  const webSocketTransport = WebSocketTransport(webSocketEndpoint)
+
+  return new SequencerServiceImpl(componentId, httpTransport, () => webSocketTransport)
 }
 
 export class SequencerServiceImpl implements SequencerService {
   constructor(
     readonly componentId: ComponentId,
-    private readonly httpTransport: HttpTransport<GatewaySequencerCommand>
+    private readonly httpTransport: HttpTransport<GatewaySequencerCommand>,
+    private readonly ws: () => Promise<Ws<GatewaySequencerCommand>>
   ) {}
 
   private sequencerCommand(request: Req.SequencerPostRequest | SequencerWebsocketRequest) {
@@ -151,8 +158,7 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
-    const { host, port } = await resolveGateway()
-    return new Ws(host, port).singleResponse(
+    return (await this.ws()).singleResponse(
       this.sequencerCommand(new QueryFinal(runId, timeoutInSeconds)),
       SubmitResponse
     )
