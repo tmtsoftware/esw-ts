@@ -1,14 +1,17 @@
 import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandService'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import * as Req from '../../../src/clients/command/models/PostCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
+import * as M from '../../../src/models'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 const eswTestPrefix = new Prefix('ESW', 'test')
 
 const requestRes: jest.Mock = jest.fn()
-const client = new CommandServiceImpl(compId, mockHttpTransport(requestRes))
+const client = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
+  mockWsTransport()
+)
 
 describe('CommandService', () => {
   test('should be able to validate command sent to assembly | ESW-305', async () => {
@@ -17,7 +20,7 @@ describe('CommandService', () => {
 
     await client.validate(setupCommand)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), expect.anything())
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.ValidateResponse)
   })
 
   test('should be able to submit command to assembly | ESW-305', async () => {
@@ -26,7 +29,7 @@ describe('CommandService', () => {
 
     await client.submit(setupCommand)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), expect.anything())
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponse)
   })
 
   test('should be able to send oneway command | ESW-305', async () => {
@@ -35,7 +38,7 @@ describe('CommandService', () => {
 
     await client.oneway(observeCommand)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), expect.anything())
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.OnewayResponse)
   })
 
   test('should be able to send query command | ESW-305', async () => {
@@ -43,7 +46,7 @@ describe('CommandService', () => {
     await client.query(runId)
     const msg = new Req.Query(runId)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), expect.anything())
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponse)
   })
 })
 

@@ -1,62 +1,43 @@
-import { Server } from 'mock-socket'
-import { mocked } from 'ts-jest/utils'
-import { GatewayConnection } from '../../../src/clients/gateway/ResolveGateway'
-import { HttpLocation } from '../../../src/clients/location'
-import { ComponentId, CurrentState, Prefix, SubmitResponse } from '../../../src/models'
-import { post } from '../../../src/utils/Http'
-import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
+import * as M from '../../../src/models'
+import { ComponentId, Prefix } from '../../../src/models'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandService'
+import * as WsReq from '../../../src/clients/command/models/WsCommand'
+import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 
-const client = new CommandServiceImpl(compId, mockHttpTransport())
-let mockServer: Server
+const mockSubscribe = jest.fn()
+const mockSingleResponse = jest.fn()
+const callback = () => {}
+const client = new CommandServiceImpl(compId, mockHttpTransport(), () =>
+  mockWsTransport(mockSubscribe, mockSingleResponse)
+)
 
-jest.mock('../../../src/utils/Http')
-const postMockFn = mocked(post, true)
-
-const uri = 'http://localhost:8080'
-const gatewayLocation: HttpLocation = { _type: 'HttpLocation', connection: GatewayConnection, uri }
-
-beforeEach(() => {
-  mockServer = new Server('ws://localhost:8080/websocket-endpoint')
-})
-
-afterEach(() => {
-  mockServer.close()
-})
 describe('CommandService', () => {
   test('should subscribe to current state using websocket | ESW-305', () => {
-    const expectedState: CurrentState = {
-      prefix: new Prefix('CSW', 'ncc.trombone'),
-      stateName: 'stateName1',
-      paramSet: []
-    }
+    const stateNames = new Set(['stateName1', 'stateName2'])
+    const msg = new WsReq.SubscribeCurrentState(stateNames)
 
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    wsMockWithResolved(expectedState, mockServer)
+    client.subscribeCurrentState(stateNames)(callback)
 
-    return new Promise((done) => {
-      const callback = (currentState: CurrentState) => {
-        expect(currentState).toEqual(expectedState)
-        done()
-      }
-      client.subscribeCurrentState(new Set(['stateName1', 'stateName2']))(callback)
-    })
+    expect(mockSubscribe).toBeCalledWith(
+      new GatewayComponentCommand(compId, msg),
+      callback,
+      M.CurrentState
+    )
   })
 
   test('should receive submit response on query final using websocket | ESW-305', async () => {
-    const completedResponse: SubmitResponse = {
-      _type: 'Completed',
-      runId: '1234124',
-      result: { paramSet: [] }
-    }
+    const runId = '12345'
+    const timeoutInSeconds = 1000
+    const msg = new WsReq.QueryFinal(runId, timeoutInSeconds)
 
-    postMockFn.mockResolvedValueOnce([gatewayLocation])
-    wsMockWithResolved(completedResponse, mockServer)
+    await client.queryFinal(runId, timeoutInSeconds)
 
-    const submitResponse = await client.queryFinal('12345', 1000)
-
-    expect(submitResponse).toEqual(completedResponse)
+    expect(mockSingleResponse).toBeCalledWith(
+      new GatewayComponentCommand(compId, msg),
+      M.SubmitResponse
+    )
   })
 })
