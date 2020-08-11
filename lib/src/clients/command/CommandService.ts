@@ -7,7 +7,8 @@ import { GatewayComponentCommand } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Req from './models/PostCommand'
 import * as WsReq from './models/WsCommand'
-import { getPostEndPoint } from '../../utils/Utils'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
 export interface CommandService {
   validate(command: M.ControlCommand): Promise<M.ValidateResponse>
@@ -29,14 +30,19 @@ export const CommandService = async (
   componentId: M.ComponentId,
   tokenFactory: TokenFactory
 ): Promise<CommandService> => {
-  const url = getPostEndPoint(await resolveGateway())
-  return new CommandServiceImpl(componentId, new HttpTransport(url, tokenFactory))
+  const { host, port } = await resolveGateway()
+  const postEndpoint = getPostEndPoint({ host, port })
+  const webSocketEndpoint = getWebSocketEndPoint({ host, port })
+  return new CommandServiceImpl(componentId, new HttpTransport(postEndpoint, tokenFactory), () =>
+    WebSocketTransport(webSocketEndpoint)
+  )
 }
 
 export class CommandServiceImpl implements CommandService {
   constructor(
     private readonly componentId: M.ComponentId,
-    private readonly httpTransport: HttpTransport<GatewayComponentCommand>
+    private readonly httpTransport: HttpTransport<GatewayComponentCommand>, // TODO use specific HTTP and Websocket commands in each transport
+    private readonly ws: () => Ws<GatewayComponentCommand>
   ) {}
 
   private componentCommand(msg: Req.CommandServiceHttpMessage | WsReq.CommandServiceWsMessage) {
@@ -63,13 +69,11 @@ export class CommandServiceImpl implements CommandService {
     return this.postComponentCmd(new Req.Query(runId), M.SubmitResponse)
   }
 
-  private async ws(): Promise<Ws<GatewayComponentCommand>> {
-    const { host, port } = await resolveGateway()
-    return new Ws(host, port)
-  }
-
-  private async subscribe(stateNames: Set<string>, onStateChange: (state: M.CurrentState) => void) {
-    return (await this.ws()).subscribe(
+  private subscribe(
+    stateNames: Set<string>,
+    onStateChange: (state: M.CurrentState) => void
+  ): Subscription {
+    return this.ws().subscribe(
       this.componentCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
       M.CurrentState
@@ -88,8 +92,8 @@ export class CommandServiceImpl implements CommandService {
     }
   }
 
-  async queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse> {
-    return (await this.ws()).singleResponse(
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse> {
+    return this.ws().singleResponse(
       this.componentCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
       M.SubmitResponse
     )
