@@ -10,7 +10,7 @@ import { Done } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
 import { TrackingEvent } from './models/TrackingEvent'
 import { Track } from './models/WsCommand'
-import { getOptionValue, getPostEndPoint } from '../../utils/Utils'
+import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
 
 export interface LocationService {
@@ -96,10 +96,8 @@ export class LocationServiceImpl implements LocationService {
   track = (connection: Connection) => (
     callBack: (trackingEvent: TrackingEvent) => void
   ): Subscription => {
-    return new Ws(LocationConfig.hostName, LocationConfig.port).subscribe(
-      new Track(connection),
-      callBack,
-      TrackingEvent
-    )
+    return new Ws(
+      getWebSocketEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
+    ).subscribe(new Track(connection), callBack, TrackingEvent)
   }
 }

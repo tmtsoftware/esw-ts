@@ -1,4 +1,4 @@
-import { Server } from 'mock-socket'
+import { Server, WebSocket } from 'mock-socket'
 import {
   KeycloakInstance,
   KeycloakResourceAccess,
@@ -6,6 +6,8 @@ import {
   KeycloakTokenParsed
 } from 'keycloak-js'
 import { Auth } from '../../src/clients/aas'
+import { Ws } from '../../src/utils/Ws'
+import { EventWebsocketRequest } from '../../src/clients/event/models/WebSocketMessages'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>
@@ -69,4 +71,15 @@ export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
     url: 'http://localhost:8080',
     tokenFactory: () => 'validToken'
   }
+}
+
+export const mockWsTransport = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
+  return Promise.resolve({
+    subscribe,
+    singleResponse,
+    send: jest.fn(),
+    subscription: { cancel: jest.fn() },
+    subscribeOnly: jest.fn(),
+    socket: Promise.resolve({})
+  })
 }

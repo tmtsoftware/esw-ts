@@ -12,7 +12,8 @@ import {
 } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { EventWebsocketRequest, Subscribe, SubscribeWithPattern } from './models/WebSocketMessages'
-import { getPostEndPoint } from '../../utils/Utils'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
 export interface EventService {
   publish(event: Event): Promise<Done>
@@ -32,12 +33,19 @@ export interface EventService {
 }
 
 export const EventService = async (): Promise<EventService> => {
-  const url = getPostEndPoint(await resolveGateway())
-  return new EventServiceImpl(new HttpTransport(url))
+  const { host, port } = await resolveGateway()
+  const postEndpoint = getPostEndPoint({ host, port })
+  const webSocketEndpoint = getWebSocketEndPoint({ host, port })
+  return new EventServiceImpl(new HttpTransport(postEndpoint), () =>
+    WebSocketTransport(webSocketEndpoint)
+  )
 }
 
 export class EventServiceImpl implements EventService {
-  constructor(private readonly httpTransport: HttpTransport<GatewayEventPostRequest>) {}
+  constructor(
+    private readonly httpTransport: HttpTransport<GatewayEventPostRequest>,
+    private readonly ws: () => Promise<Ws<EventWebsocketRequest>>
+  ) {}
 
   publish(event: Event): Promise<Done> {
     return this.httpTransport.requestRes(new GatewayPublishEvent(event), Done)
@@ -76,17 +84,17 @@ export class EventServiceImpl implements EventService {
     }
   }
 
-  private async ws(): Promise<Ws<EventWebsocketRequest>> {
-    const { host, port } = await resolveGateway()
-    return new Ws(host, port)
-  }
-
   private async resolveAndSubscribe(
     eventKeys: Set<EventKey>,
     maxFrequency: number,
     callback: (event: Event) => void
   ) {
-    return (await this.ws()).subscribe(new Subscribe([...eventKeys], maxFrequency), callback, Event)
+    let eventWebsocketRequestWs = await this.ws()
+    return eventWebsocketRequestWs.subscribe(
+      new Subscribe([...eventKeys], maxFrequency),
+      callback,
+      Event
+    )
   }
 
   private async resolveAndpSubscribe(
