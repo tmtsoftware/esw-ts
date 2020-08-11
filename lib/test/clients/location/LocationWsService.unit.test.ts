@@ -13,7 +13,7 @@ const locationService = new LocationServiceImpl(mockHttpTransport(), () =>
 )
 
 test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311', () => {
-  const callback = () => {}
+  const callback = () => ({})
 
   locationService.track(httpConnection)(callback)
 

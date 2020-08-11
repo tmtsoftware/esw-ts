@@ -1,4 +1,4 @@
-import { Server, WebSocket } from 'mock-socket'
+import { Server } from 'mock-socket'
 import {
   KeycloakInstance,
   KeycloakResourceAccess,
@@ -72,17 +72,10 @@ export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
   }
 }
 
-// @ts-ignore
-export const mockWsTransport: <T>(
-  subscribe?: jest.Mock<any, any>,
-  singleResponse?: jest.Mock<any, any>
-) => Ws<T> = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
-  return {
-    subscribe,
-    singleResponse,
-    send: jest.fn(),
-    subscription: { cancel: jest.fn() },
-    subscribeOnly: jest.fn(),
-    socket: Promise.resolve(new WebSocket('ws://'))
-  }
+export const mockWsTransport = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
+  jest.mock('../../src/utils/Ws')
+  const mock = new Ws('')
+  Ws.prototype.subscribe = subscribe
+  Ws.prototype.singleResponse = singleResponse
+  return mock
 }
