@@ -14,7 +14,7 @@ const subsystem: Subsystem = 'ESW'
 
 const httpTransport = mockHttpTransport()
 const mockSubscribe = jest.fn()
-const callback = () => {}
+const callback = () => ({})
 const eventServiceImpl = new EventServiceImpl(httpTransport, () => mockWsTransport(mockSubscribe))
 
 describe('Event Service', () => {

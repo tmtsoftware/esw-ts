@@ -5,7 +5,7 @@ import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gat
 import { QueryFinal } from '../../../src/clients/sequencer/models/WsCommand'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-let mockSingleResponse = jest.fn()
+const mockSingleResponse = jest.fn()
 const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(jest.fn()), () =>
   mockWsTransport(jest.fn(), mockSingleResponse)
 )

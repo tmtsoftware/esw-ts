@@ -9,7 +9,7 @@ const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly
 
 const mockSubscribe = jest.fn()
 const mockSingleResponse = jest.fn()
-const callback = () => {}
+const callback = () => ({})
 const client = new CommandServiceImpl(compId, mockHttpTransport(), () =>
   mockWsTransport(mockSubscribe, mockSingleResponse)
 )
