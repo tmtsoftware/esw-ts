@@ -12,7 +12,6 @@ import { TrackingEvent } from './models/TrackingEvent'
 import { LocationWebSocketMessage, Track } from './models/WsCommand'
 import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
-import { resolveGateway } from '../gateway/ResolveGateway'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
 export interface LocationService {

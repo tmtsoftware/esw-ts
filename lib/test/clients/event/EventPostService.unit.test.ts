@@ -7,7 +7,7 @@ import { Prefix } from '../../../src/models'
 
 const requestRes: jest.Mock = jest.fn()
 
-const client = new EventServiceImpl(mockHttpTransport(requestRes), mockWsTransport())
+const client = new EventServiceImpl(mockHttpTransport(requestRes), () => mockWsTransport())
 describe('Event Service', () => {
   test('should publish event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')

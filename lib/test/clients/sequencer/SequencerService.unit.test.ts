@@ -14,9 +14,7 @@ const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
 const mockRequestRes: jest.Mock = jest.fn()
-const sequencer = new SequencerServiceImpl(
-  componentId,
-  mockHttpTransport(mockRequestRes),
+const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
   mockWsTransport()
 )
 
