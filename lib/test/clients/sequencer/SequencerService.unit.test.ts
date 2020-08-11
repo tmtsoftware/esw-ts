@@ -2,7 +2,7 @@ import { ComponentId, Prefix, SequenceCommand, Setup, Wait } from '../../../src/
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
 import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerService'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
@@ -14,7 +14,11 @@ const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
 const mockRequestRes: jest.Mock = jest.fn()
-const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes))
+const sequencer = new SequencerServiceImpl(
+  componentId,
+  mockHttpTransport(mockRequestRes),
+  mockWsTransport()
+)
 
 const getGatewaySequencerCommand = (command: SequencerPostRequest) => {
   return new GatewaySequencerCommand(componentId, command)
