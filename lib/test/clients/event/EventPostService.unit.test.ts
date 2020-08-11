@@ -1,13 +1,13 @@
 import { EventKey, EventName, ObserveEvent } from '../../../src/clients/event'
 import { Done } from '../../../src/clients/location'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { EventServiceImpl } from '../../../src/clients/event/EventService'
 import { GatewayGetEvent, GatewayPublishEvent } from '../../../src/clients/gateway/models/Gateway'
 import { Prefix } from '../../../src/models'
 
 const requestRes: jest.Mock = jest.fn()
 
-const client = new EventServiceImpl(mockHttpTransport(requestRes))
+const client = new EventServiceImpl(mockHttpTransport(requestRes), mockWsTransport())
 describe('Event Service', () => {
   test('should publish event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')

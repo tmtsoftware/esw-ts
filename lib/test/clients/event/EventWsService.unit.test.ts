@@ -15,9 +15,8 @@ const subsystem: Subsystem = 'ESW'
 const httpTransport = mockHttpTransport()
 const mockSubscribe = jest.fn()
 const callback = () => {}
-const eventServiceImpl = new EventServiceImpl(httpTransport, (): any =>
-  mockWsTransport(mockSubscribe)
-)
+const eventServiceImpl = new EventServiceImpl(httpTransport, mockWsTransport(mockSubscribe))
+
 describe('Event Service', () => {
   test('should subscribe event without default parameters using websocket | ESW-318', async () => {
     await eventServiceImpl.subscribe(eventKeys, 1)(callback)
