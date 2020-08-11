@@ -1,41 +1,19 @@
-import {
-  HttpConnection,
-  HttpLocation,
-  LocationUpdated,
-  TrackingEvent
-} from '../../../src/clients/location'
-import { Server } from 'mock-socket'
+import { HttpConnection, TrackingEvent } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
-import { mockHttpTransport, wsMockWithResolved } from '../../helpers/MockHelpers'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
-let mockServer: Server
-const uri = 'http://someuri'
+import { Track } from '../../../src/clients/location/models/WsCommand'
+
 const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
-const httpLocation: HttpLocation = { _type: 'HttpLocation', connection: httpConnection, uri }
 
-const locationService = new LocationServiceImpl(mockHttpTransport(jest.fn()))
-
-beforeEach(() => {
-  mockServer = new Server('ws://localhost:7654/websocket-endpoint')
-})
-
-afterEach(() => {
-  mockServer.close()
-})
+const mockSubscribe = jest.fn()
+const locationService = new LocationServiceImpl(mockHttpTransport(), mockWsTransport(mockSubscribe))
 
 test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311', () => {
-  const expectedTrackingEvent: LocationUpdated = {
-    _type: 'LocationUpdated',
-    location: httpLocation
-  }
-  wsMockWithResolved(expectedTrackingEvent, mockServer)
+  const callback = () => {}
 
-  return new Promise((done) => {
-    const callback = (trackingEvent: TrackingEvent) => {
-      expect(trackingEvent).toEqual(expectedTrackingEvent)
-      done()
-    }
-    locationService.track(httpConnection)(callback)
-  })
+  locationService.track(httpConnection)(callback)
+
+  expect(mockSubscribe).toBeCalledWith(new Track(httpConnection), callback, TrackingEvent)
 })

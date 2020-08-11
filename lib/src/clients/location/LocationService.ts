@@ -9,9 +9,11 @@ import { Location } from './models/Location'
 import { Done } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
 import { TrackingEvent } from './models/TrackingEvent'
-import { Track } from './models/WsCommand'
+import { LocationWebSocketMessage, Track } from './models/WsCommand'
 import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
+import { resolveGateway } from '../gateway/ResolveGateway'
+import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
 export interface LocationService {
   list(): Promise<Location[]>
@@ -34,14 +36,24 @@ export interface LocationService {
 }
 
 export const LocationService = () => {
-  const url = getPostEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
-  return new LocationServiceImpl(new HttpTransport(url))
+  const webSocketEndpoint = getWebSocketEndPoint({
+    host: LocationConfig.hostName,
+    port: LocationConfig.port
+  })
+  const postEndpoint = getPostEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
+  return new LocationServiceImpl(
+    new HttpTransport(postEndpoint),
+    WebSocketTransport(webSocketEndpoint)
+  )
 }
 
 export class LocationServiceImpl implements LocationService {
   private readonly locationListD = D.array(Location)
 
-  constructor(private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>) {}
+  constructor(
+    private readonly httpTransport: HttpTransport<Req.LocationHttpMessage>,
+    private readonly ws: Ws<LocationWebSocketMessage>
+  ) {}
 
   list(): Promise<Location[]> {
     return this.httpTransport.requestRes(new Req.ListEntries(), this.locationListD)
@@ -96,8 +108,6 @@ export class LocationServiceImpl implements LocationService {
   track = (connection: Connection) => (
     callBack: (trackingEvent: TrackingEvent) => void
   ): Subscription => {
-    return new Ws(
-      getWebSocketEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
-    ).subscribe(new Track(connection), callBack, TrackingEvent)
+    return this.ws.subscribe(new Track(connection), callBack, TrackingEvent)
   }
 }
