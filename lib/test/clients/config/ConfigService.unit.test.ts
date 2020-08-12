@@ -76,9 +76,12 @@ describe('ConfigService', () => {
 
     getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
 
-    await expect(configService.getById(confPath, configId)).rejects.toThrowError(
-      new GenericError(500, 'Internal server error', '')
-    )
+    expect.assertions(3)
+    await configService.getById(confPath, configId).catch((e) => {
+      expect(e.status).toBe(500)
+      expect(e.message).toBe('Internal server error')
+      expect(e.reason).toBe('')
+    })
   })
 
   test('should get the conf of given path and given time from the config server | ESW-320', async () => {
@@ -134,9 +137,12 @@ describe('ConfigService', () => {
 
     headMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
 
-    await expect(configService.exists(confPath, configId)).rejects.toThrowError(
-      new GenericError(500, 'Internal server error', '')
-    )
+    expect.assertions(3)
+    await configService.exists(confPath, configId).catch((e) => {
+      expect(e.status).toBe(500)
+      expect(e.message).toBe('Internal server error')
+      expect(e.reason).toBe('')
+    })
   })
 
   test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
@@ -240,9 +246,12 @@ describe('ConfigService', () => {
 
     getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
 
-    await expect(configService.getActiveVersion(confPath)).rejects.toThrowError(
-      new GenericError(500, 'Internal server error', '')
-    )
+    expect.assertions(3)
+    await configService.getActiveVersion(confPath).catch((e) => {
+      expect(e.status).toBe(500)
+      expect(e.message).toBe('Internal server error')
+      expect(e.reason).toBe('')
+    })
   })
 
   test('should get metadata | ESW-320', async () => {

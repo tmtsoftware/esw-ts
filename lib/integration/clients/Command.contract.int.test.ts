@@ -2,7 +2,6 @@ import 'whatwg-fetch'
 import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { getToken } from '../utils/auth'
-import { GenericError } from '../../src/utils/GenericError'
 import { CommandService } from '../../src/clients/command'
 
 jest.setTimeout(70000)
@@ -41,9 +40,14 @@ describe('Command Client', () => {
     const commandService = await CommandService(componentId, () => '')
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
-    await expect(commandService.oneway(setupCommand)).rejects.toThrow(
-      new GenericError(401, 'Unauthorized', expect.any(String))
-    )
+    expect.assertions(3)
+    await commandService.oneway(setupCommand).catch((e) => {
+      expect(e.status).toBe(401)
+      expect(e.message).toBe('Unauthorized')
+      expect(e.reason).toBe(
+        'The resource requires authentication, which was not supplied with the request'
+      )
+    })
   })
 
   test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305, ESW-99', async () => {
@@ -57,9 +61,12 @@ describe('Command Client', () => {
     const commandService = await CommandService(componentId, () => tokenWithoutRole)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
-    await expect(commandService.oneway(setupCommand)).rejects.toThrow(
-      new GenericError(403, 'Forbidden', expect.any(String))
-    )
+    expect.assertions(3)
+    await commandService.oneway(setupCommand).catch((e) => {
+      expect(e.status).toBe(403)
+      expect(e.message).toBe('Forbidden')
+      expect(e.reason).toBe('The supplied authentication is not authorized to access this resource')
+    })
   })
 
   test('should be able to submit the given command | ESW-343, ESW-305, ESW-99', async () => {

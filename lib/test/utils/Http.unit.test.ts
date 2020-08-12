@@ -1,7 +1,6 @@
 import 'whatwg-fetch'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
-import { GenericError } from '../../src/utils/GenericError'
 
 const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
@@ -26,7 +25,12 @@ describe('Http util', () => {
     fetchMockFn.mockResolvedValueOnce(makeErrorResponse())
     const payload = 'hello'
 
-    await expect(post({ url, payload })).rejects.toThrow(new GenericError(404, 'bad request', ''))
+    expect.assertions(4)
+    await post({ url, payload }).catch((e) => {
+      expect(e.status).toBe(404)
+      expect(e.message).toBe('bad request')
+      expect(e.reason).toBe('')
+    })
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
 
