@@ -3,7 +3,7 @@ import { Prefix } from '../../../src/models'
 import * as Req from '../../../src/clients/location/models/PostCommand'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationService'
-import { Done } from '../../../src/clients/location/models/LocationResponses'
+import { Done } from '../../../src/clients/location'
 
 const mockRequestRes = jest.fn()
 const locationService = new LocationServiceImpl(mockHttpTransport(mockRequestRes), () =>
@@ -25,6 +25,7 @@ describe('LocationService', () => {
 
   test('should return location of given component | ESW-308, ESW-310, ESW-311', async () => {
     const duration = new Duration(5, 'seconds')
+    mockRequestRes.mockResolvedValueOnce([])
     await locationService.resolve(httpConnection, 5, 'seconds')
     expect(mockRequestRes).toBeCalledWith(new Req.Resolve(httpConnection, duration), LocationList)
   })
@@ -60,6 +61,7 @@ describe('LocationService', () => {
   })
 
   test('should find a location for given connection | ESW-308, ESW-310, ESW-311', async () => {
+    mockRequestRes.mockResolvedValueOnce([])
     await locationService.find(httpConnection)
     expect(mockRequestRes).toBeCalledWith(new Req.Find(httpConnection), LocationList)
   })

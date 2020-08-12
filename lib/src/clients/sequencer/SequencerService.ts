@@ -12,7 +12,7 @@ import * as Res from './models/SequencerRes'
 import { OptionOfStepList, StepList } from './models/StepList'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { Option } from '../../utils/Option'
-import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { headOption, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
 export interface SequencerService {
@@ -124,7 +124,7 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   async getSequence(): Promise<Option<StepList>> {
-    return getOptionValue(await this.postSequencerCmd(new Req.GetSequence(), OptionOfStepList))
+    return headOption(await this.postSequencerCmd(new Req.GetSequence(), OptionOfStepList))
   }
 
   isAvailable(): Promise<boolean> {

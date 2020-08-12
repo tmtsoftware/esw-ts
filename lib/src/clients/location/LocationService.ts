@@ -9,7 +9,7 @@ import { Done, LocationList } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
 import { TrackingEvent } from './models/TrackingEvent'
 import { LocationWebSocketMessage, Track } from './models/WsCommand'
-import { getOptionValue, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { headOption, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
 
@@ -72,7 +72,7 @@ export class LocationServiceImpl implements LocationService {
 
   async find(connection: Connection): Promise<Option<Location>> {
     const response = await this.httpTransport.requestRes(new Req.Find(connection), LocationList)
-    return getOptionValue(response)
+    return headOption(response)
   }
 
   unregister(connection: Connection): Promise<Done> {
@@ -88,7 +88,7 @@ export class LocationServiceImpl implements LocationService {
       new Req.Resolve(connection, new Duration(within, unit)),
       LocationList
     )
-    return getOptionValue(response)
+    return headOption(response)
   }
 
   track = (connection: Connection) => (

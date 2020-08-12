@@ -130,6 +130,7 @@ describe('SequencerService', () => {
   })
 
   test('should get a step list from sequencer | ESW-307', async () => {
+    mockRequestRes.mockResolvedValueOnce([])
     await sequencer.getSequence()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GetSequence()),

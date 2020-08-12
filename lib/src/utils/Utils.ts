@@ -1,6 +1,7 @@
 import * as E from 'fp-ts/lib/Either'
 import * as D from 'io-ts/lib/Decoder'
-//TODO add unit tests
+import { Option } from './Option'
+
 export const requirement = (assertion: boolean, msg: string) => {
   if (!assertion) throw Error(`Requirement failed - ${msg}`)
 }
@@ -11,9 +12,7 @@ export const extractHostPort = (uri: string) => {
   return { host, port }
 }
 
-export const getOptionValue = <T>(option: T[] | T): T => {
-  return Array.isArray(option) ? option[0] : option
-}
+export const headOption = <T>(arr: T[]): Option<T> => (arr.length > 0 ? arr[0] : undefined)
 
 export const getOrThrow = <A>(e: E.Either<D.DecodeError, A>): A =>
   E.getOrElse<D.DecodeError, A>((err) => {
