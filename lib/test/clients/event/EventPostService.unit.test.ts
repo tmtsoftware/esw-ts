@@ -1,9 +1,14 @@
-import { EventKey, EventName, ObserveEvent } from '../../../src/clients/event'
+import {
+  EventKey,
+  EventName,
+  GetEvent,
+  ObserveEvent,
+  PublishEvent
+} from '../../../src/clients/event'
 import { Done } from '../../../src/clients/location'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
-import { EventServiceImpl } from '../../../src/clients/event/EventService'
 import { Prefix } from '../../../src/models'
-import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
+import { EventServiceImpl } from '../../../src/clients/event/Impl'
 
 const requestRes: jest.Mock = jest.fn()
 
