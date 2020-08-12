@@ -1,8 +1,6 @@
 import { EventKey } from './EventKey'
 import { Subsystem } from '../../../models'
 
-export type EventWebsocketRequest = Subscribe | SubscribeWithPattern
-
 export class Subscribe {
   readonly _type: 'Subscribe' = 'Subscribe'
 

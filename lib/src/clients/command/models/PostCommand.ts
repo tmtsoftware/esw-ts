@@ -1,6 +1,6 @@
 import { ControlCommand } from '../../../models'
 
-export type CommandServiceHttpMessage = Submit | Validate | Oneway | Query
+export type CommandServicePostMessage = Submit | Validate | Oneway | Query
 
 export class Validate {
   readonly _type: 'Validate' = 'Validate'

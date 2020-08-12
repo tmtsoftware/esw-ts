@@ -41,16 +41,22 @@ export const CommandService = async (
 export class CommandServiceImpl implements CommandService {
   constructor(
     private readonly componentId: M.ComponentId,
-    private readonly httpTransport: HttpTransport<GatewayComponentCommand>, // TODO use specific HTTP and Websocket commands in each transport
-    private readonly ws: () => Ws<GatewayComponentCommand>
+    private readonly httpTransport: HttpTransport<
+      GatewayComponentCommand<Req.CommandServicePostMessage>
+    >, // TODO use specific HTTP and Websocket commands in each transport
+    private readonly ws: () => Ws<GatewayComponentCommand<WsReq.CommandServiceWsMessage>>
   ) {}
 
-  private componentCommand(msg: Req.CommandServiceHttpMessage | WsReq.CommandServiceWsMessage) {
+  private componentPostCommand(msg: Req.CommandServicePostMessage) {
     return new GatewayComponentCommand(this.componentId, msg)
   }
 
-  private postComponentCmd<Res>(msg: Req.CommandServiceHttpMessage, decoder: Decoder<Res>) {
-    return this.httpTransport.requestRes<Res>(this.componentCommand(msg), decoder)
+  private componentWsCommand(msg: WsReq.CommandServiceWsMessage) {
+    return new GatewayComponentCommand(this.componentId, msg)
+  }
+
+  private postComponentCmd<Res>(msg: Req.CommandServicePostMessage, decoder: Decoder<Res>) {
+    return this.httpTransport.requestRes<Res>(this.componentPostCommand(msg), decoder)
   }
 
   validate(command: M.ControlCommand): Promise<M.ValidateResponse> {
@@ -74,7 +80,7 @@ export class CommandServiceImpl implements CommandService {
     onStateChange: (state: M.CurrentState) => void
   ): Subscription {
     return this.ws().subscribe(
-      this.componentCommand(new WsReq.SubscribeCurrentState(stateNames)),
+      this.componentWsCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
       M.CurrentState
     )
@@ -94,7 +100,7 @@ export class CommandServiceImpl implements CommandService {
 
   queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse> {
     return this.ws().singleResponse(
-      this.componentCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
+      this.componentWsCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
       M.SubmitResponse
     )
   }

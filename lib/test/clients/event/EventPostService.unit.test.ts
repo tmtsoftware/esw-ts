@@ -2,8 +2,8 @@ import { EventKey, EventName, ObserveEvent } from '../../../src/clients/event'
 import { Done } from '../../../src/clients/location'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { EventServiceImpl } from '../../../src/clients/event/EventService'
-import { GatewayGetEvent, GatewayPublishEvent } from '../../../src/clients/gateway/models/Gateway'
 import { Prefix } from '../../../src/models'
+import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
 
 const requestRes: jest.Mock = jest.fn()
 
@@ -21,7 +21,7 @@ describe('Event Service', () => {
     )
     await client.publish(observeEvent)
 
-    expect(requestRes).toBeCalledWith(new GatewayPublishEvent(observeEvent), Done)
+    expect(requestRes).toBeCalledWith(new PublishEvent(observeEvent), Done)
   })
 
   test('should get event using post | ESW-318', async () => {
@@ -31,7 +31,7 @@ describe('Event Service', () => {
 
     await client.get(eventKeys)
 
-    expect(requestRes).toBeCalledWith(new GatewayGetEvent([...eventKeys]), expect.anything())
+    expect(requestRes).toBeCalledWith(new GetEvent([...eventKeys]), expect.anything())
   })
 })
 

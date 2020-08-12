@@ -5,15 +5,12 @@ import { EventKey } from './models/EventKey'
 import { Subscription, Ws } from '../../utils/Ws'
 import { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import {
-  GatewayEventPostRequest,
-  GatewayGetEvent,
-  GatewayPublishEvent
-} from '../gateway/models/Gateway'
+import { GatewayEventPostRequest, GatewayEventWsRequest } from '../gateway/models/Gateway'
 import { resolveGateway } from '../gateway/ResolveGateway'
-import { EventWebsocketRequest, Subscribe, SubscribeWithPattern } from './models/WebSocketMessages'
+import { Subscribe, SubscribeWithPattern } from './models/WsCommand'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
+import { GetEvent, PublishEvent } from './models/PostCommand'
 
 export interface EventService {
   publish(event: Event): Promise<Done>
@@ -44,15 +41,15 @@ export const EventService = async (): Promise<EventService> => {
 export class EventServiceImpl implements EventService {
   constructor(
     private readonly httpTransport: HttpTransport<GatewayEventPostRequest>,
-    private readonly ws: () => Ws<EventWebsocketRequest>
+    private readonly ws: () => Ws<GatewayEventWsRequest>
   ) {}
 
   publish(event: Event): Promise<Done> {
-    return this.httpTransport.requestRes(new GatewayPublishEvent(event), Done)
+    return this.httpTransport.requestRes(new PublishEvent(event), Done)
   }
 
   get(eventKeys: Set<EventKey>): Promise<Event[]> {
-    return this.httpTransport.requestRes(new GatewayGetEvent([...eventKeys]), D.array(Event))
+    return this.httpTransport.requestRes(new GetEvent([...eventKeys]), D.array(Event))
   }
 
   subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {

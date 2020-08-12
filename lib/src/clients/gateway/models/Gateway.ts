@@ -1,38 +1,25 @@
-import { CommandServiceHttpMessage } from '../../command/models/PostCommand'
+import { CommandServicePostMessage } from '../../command/models/PostCommand'
 import { CommandServiceWsMessage } from '../../command/models/WsCommand'
 import { SequencerPostRequest } from '../../sequencer/models/PostCommand'
 import { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
 import { ComponentId } from '../../../models'
-import { Event, EventKey } from '../../event'
+import { Subscribe, SubscribeWithPattern } from '../../event/models/WsCommand'
+import { GetEvent, PublishEvent } from '../../event/models/PostCommand'
 
-export class GatewayComponentCommand {
+export class GatewayComponentCommand<
+  T extends CommandServicePostMessage | CommandServiceWsMessage
+> {
   readonly _type: 'ComponentCommand' = 'ComponentCommand'
 
-  constructor(
-    readonly componentId: ComponentId,
-    readonly command: CommandServiceHttpMessage | CommandServiceWsMessage
-  ) {}
+  constructor(readonly componentId: ComponentId, readonly command: T) {}
 }
 
-export class GatewaySequencerCommand {
+export class GatewaySequencerCommand<T extends SequencerPostRequest | SequencerWebsocketRequest> {
   readonly _type: 'SequencerCommand' = 'SequencerCommand'
 
-  constructor(
-    readonly componentId: ComponentId,
-    readonly command: SequencerPostRequest | SequencerWebsocketRequest
-  ) {}
+  constructor(readonly componentId: ComponentId, readonly command: T) {}
 }
 
-export class GatewayPublishEvent {
-  readonly _type: 'PublishEvent' = 'PublishEvent'
+export type GatewayEventPostRequest = PublishEvent | GetEvent
 
-  constructor(readonly event: Event) {}
-}
-
-export class GatewayGetEvent {
-  readonly _type: 'GetEvent' = 'GetEvent'
-
-  constructor(readonly eventKeys: EventKey[]) {}
-}
-
-export type GatewayEventPostRequest = GatewayPublishEvent | GatewayGetEvent
+export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern
