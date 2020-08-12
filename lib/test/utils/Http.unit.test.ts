@@ -8,12 +8,13 @@ const host = 'localhost'
 const port = 1234
 const url = `http://${host}:${port}/`
 
-const resHeaders = new HeaderExt().withContentType('application/json')
+const jsonResHeaders = new HeaderExt().withContentType('application/json')
+const textResHeaders = new HeaderExt().withContentType('application/text')
 
 describe('Http util', () => {
   test('Post request', async () => {
     const expectedValue = { ok: true, status: 200 }
-    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, resHeaders))
+    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
     const payload = 'hello'
     const response = await post({ url, payload })
 
@@ -21,15 +22,18 @@ describe('Http util', () => {
     expect(response).toEqual(expectedValue)
   })
 
-  test('Post throws error', async () => {
-    fetchMockFn.mockResolvedValueOnce(makeErrorResponse())
+  test.each([
+    ['json', '{}', jsonResHeaders, {}],
+    ['text', 'error', textResHeaders, 'error']
+  ])('Post call throws error for %s error response', async (_, body, headers, expectedReason) => {
+    fetchMockFn.mockResolvedValueOnce(makeErrorResponse(body, headers))
     const payload = 'hello'
 
     expect.assertions(4)
     await post({ url, payload }).catch((e) => {
       expect(e.status).toBe(404)
       expect(e.message).toBe('bad request')
-      expect(e.reason).toBe('')
+      expect(e.reason).toEqual(expectedReason)
     })
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
@@ -42,7 +46,7 @@ describe('Http util', () => {
 
   test('should be able to serialize form body', async () => {
     const expectedValue = { ok: true, status: 200 }
-    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, resHeaders))
+    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
     const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
     const payload = 'hello'
     const response = await post({ url, payload, headers })
@@ -63,8 +67,8 @@ describe('Http util', () => {
 const makeResponse = <T>(response: T, headers?: Headers): Response =>
   new Response(JSON.stringify(response), { headers })
 
-const makeErrorResponse = (): Response =>
-  new Response('', { status: 404, statusText: 'bad request' })
+const makeErrorResponse = (body: string, headers: Headers): Response =>
+  new Response(body, { status: 404, statusText: 'bad request', headers: headers })
 
 const makeRequest = (request: string) => ({
   method: 'POST',
