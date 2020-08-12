@@ -64,7 +64,11 @@ export const mockAuth = (
   return auth
 }
 
-export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
+export const mockHttpTransport: (
+  requestRes?: jest.Mock
+) => { requestRes: jest.Mock<any, any>; url: string; tokenFactory: () => string } = (
+  requestRes: jest.Mock = jest.fn()
+) => {
   return {
     requestRes: requestRes,
     url: 'http://localhost:8080',
@@ -73,9 +77,8 @@ export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
 }
 
 export const mockWsTransport = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
-  jest.mock('../../src/utils/Ws')
-  const mock = new Ws('')
+  const stub = new Ws('')
   Ws.prototype.subscribe = subscribe
   Ws.prototype.singleResponse = singleResponse
-  return mock
+  return stub
 }

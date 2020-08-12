@@ -18,20 +18,20 @@ const callback = () => ({})
 const eventServiceImpl = new EventServiceImpl(httpTransport, () => mockWsTransport(mockSubscribe))
 
 describe('Event Service', () => {
-  test('should subscribe event without default parameters using websocket | ESW-318', async () => {
-    await eventServiceImpl.subscribe(eventKeys, 1)(callback)
+  test('should subscribe event without default parameters using websocket | ESW-318', () => {
+    eventServiceImpl.subscribe(eventKeys, 1)(callback)
 
     expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 1), callback, Event)
   })
 
-  test('should subscribe event with default parameters using websocket | ESW-318', async () => {
-    await eventServiceImpl.subscribe(eventKeys)(callback)
+  test('should subscribe event with default parameters using websocket | ESW-318', () => {
+    eventServiceImpl.subscribe(eventKeys)(callback)
 
     expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 0), callback, Event)
   })
 
-  test('should pattern subscribe event using websocket | ESW-318', async () => {
-    await eventServiceImpl.pSubscribe(subsystem, 1, '.*')(callback)
+  test('should pattern subscribe event using websocket | ESW-318', () => {
+    eventServiceImpl.pSubscribe(subsystem, 1, '.*')(callback)
 
     expect(mockSubscribe).toBeCalledWith(
       new SubscribeWithPattern(subsystem, 1, '.*'),
@@ -40,8 +40,8 @@ describe('Event Service', () => {
     )
   })
 
-  test('should pattern subscribe event with default parameters using websocket | ESW-318', async () => {
-    await eventServiceImpl.pSubscribe(subsystem)(callback)
+  test('should pattern subscribe event with default parameters using websocket | ESW-318', () => {
+    eventServiceImpl.pSubscribe(subsystem)(callback)
 
     expect(mockSubscribe).toBeCalledWith(
       new SubscribeWithPattern(subsystem, 0, '.*'),
