@@ -17,10 +17,15 @@ const ConfigServiceProvider = (props: ConfigServiceProps) => {
   const { auth } = useContext(authContext)
   // #use-auth-context
 
+  const resetConfigService = async () => {
+    const service = await ConfigService(auth ? auth.token : () => '')
+    setConfigService(service)
+  }
+
   useEffect(() => {
-    ConfigService(auth ? auth.token : () => '')
-      .then(setConfigService)
-      .catch(() => window.alert('config service not available'))
+    resetConfigService().catch(() =>
+      window.alert('config server is not available')
+    )
   }, [auth])
 
   return (
