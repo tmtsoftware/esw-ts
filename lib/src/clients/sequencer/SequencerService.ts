@@ -42,7 +42,10 @@ export interface SequencerService {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 }
 
-export const SequencerService = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
+export const SequencerService: (
+  componentId: ComponentId,
+  tokenFactory: TokenFactory
+) => Promise<SequencerService> = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
   const { host, port } = await resolveGateway()
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })

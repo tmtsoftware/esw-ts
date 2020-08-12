@@ -45,7 +45,7 @@ export interface ConfigService {
 
   getMetadata(): Promise<M.ConfigMetadata>
 }
-export const ConfigService = async (tokenFactory: TokenFactory) => {
+export const ConfigService = async (tokenFactory: TokenFactory): Promise<ConfigService> => {
   const { host, port } = await resolveConfigServer()
   return new ConfigServiceImpl(host, port, tokenFactory)
 }

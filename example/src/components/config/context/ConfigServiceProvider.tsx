@@ -10,13 +10,17 @@ export interface ConfigServiceProps {
 const ConfigServiceProvider = (props: ConfigServiceProps) => {
   const { authContext, children } = props
 
-  const [configService, setConfigService] = useState(defaultConfigServiceState)
+  const [configService, setConfigService] = useState<ConfigService>(
+    defaultConfigServiceState
+  )
   // #use-auth-context
   const { auth } = useContext(authContext)
   // #use-auth-context
 
   useEffect(() => {
-    setConfigService(new ConfigService(auth ? auth.token : () => ''))
+    ConfigService(auth ? auth.token : () => '')
+      .then(setConfigService)
+      .catch(() => window.alert('config service not available'))
   }, [auth])
 
   return (

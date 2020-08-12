@@ -1,8 +1,10 @@
 import { ConfigService } from 'esw-ts'
 import { createContext } from 'react'
 
-export const defaultConfigServiceState = new ConfigService(() => '')
-
-export const ConfigContext = createContext<ConfigService>(
-  defaultConfigServiceState
-)
+export let defaultConfigServiceState: ConfigService
+export let ConfigContext: React.Context<ConfigService>
+  //fixme try to use top-level await
+;(async () => {
+  defaultConfigServiceState = await ConfigService(() => '')
+  ConfigContext = createContext<ConfigService>(defaultConfigServiceState)
+})()

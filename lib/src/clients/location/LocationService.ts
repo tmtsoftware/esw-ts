@@ -33,7 +33,7 @@ export interface LocationService {
   track(connection: Connection): (callBack: (trackingEvent: TrackingEvent) => void) => Subscription
 }
 
-export const LocationService = () => {
+export const LocationService: () => LocationService = () => {
   const webSocketEndpoint = getWebSocketEndPoint({
     host: LocationConfig.hostName,
     port: LocationConfig.port
