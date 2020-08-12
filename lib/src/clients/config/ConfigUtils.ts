@@ -6,7 +6,6 @@ import { get, head } from '../../utils/Http'
 import { extractHostPort, getOrThrow } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 import * as M from './models/ConfigModels'
-import {constants as HttpStatusCodes} from 'http2'
 
 export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))
@@ -59,7 +58,7 @@ const map404 = async <T, U>(response: Promise<T>, on404: U) => {
   try {
     return await response
   } catch (e) {
-    if (e instanceof GenericError && e.status === HttpStatusCodes.HTTP_STATUS_NOT_FOUND) return on404
+    if (e instanceof GenericError && e.status === 404) return on404
     throw e
   }
 }
