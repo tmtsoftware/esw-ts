@@ -3,7 +3,6 @@ import { getToken } from '../utils/auth'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { SequencerService } from '../../src/clients/sequencer'
-import * as Res from '../../src/clients/sequencer/models/SequencerRes'
 
 jest.setTimeout(90000)
 
