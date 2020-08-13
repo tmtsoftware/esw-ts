@@ -47,10 +47,6 @@ export class LocationServiceImpl implements LocationService {
     return this.httpTransport.requestRes(new Req.Unregister(connection), Done)
   }
 
-  // todo:
-  // 1. decide on within withinSeconds to be in seconds or custom time interval --
-  // 2. see if it can return Promise<Location>?
-  // 3. add threshold check, take into consideration of http connection timeout at os/network layer --
   async resolve(connection: Connection, within: number, unit: TimeUnit): Promise<Option<Location>> {
     const response = await this.httpTransport.requestRes(
       new Req.Resolve(connection, new Duration(within, unit)),

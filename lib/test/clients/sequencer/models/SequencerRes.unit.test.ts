@@ -29,23 +29,19 @@ const unhandled: OkOrUnhandledResponse = {
 }
 
 const goOnlineHookFailed: GoOnlineResponse = {
-  _type: 'GoOnlineHookFailed',
-  msg: ''
+  _type: 'GoOnlineHookFailed'
 }
 
 const goOfflineHookFailed: GoOfflineResponse = {
-  _type: 'GoOfflineHookFailed',
-  msg: ''
+  _type: 'GoOfflineHookFailed'
 }
 
 const diagnosticHookFailed: DiagnosticModeResponse = {
-  _type: 'DiagnosticHookFailed',
-  msg: ''
+  _type: 'DiagnosticHookFailed'
 }
 
 const operationsHookFailed: OperationsModeResponse = {
-  _type: 'OperationsHookFailed',
-  msg: ''
+  _type: 'OperationsHookFailed'
 }
 
 describe('Sequencer Response Contract', () => {

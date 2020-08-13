@@ -243,7 +243,7 @@ describe('io-ts', () => {
         {
           CharKey: {
             keyName: 'CharKey',
-            values: ['65', '66'], // fixme: CharKey comes as number from scala
+            values: ['A', 'B'],
             units: 'NoUnits'
           }
         },

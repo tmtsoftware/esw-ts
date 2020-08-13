@@ -2,6 +2,7 @@ import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import * as Req from './models/PostCommand'
+import { QueryFinal } from './models/WsCommand'
 import { Ws } from '../../utils/Ws'
 import { SequencerWebsocketRequest } from './models/WsCommand'
 import { Decoder } from '../../utils/Decoder'
@@ -10,7 +11,6 @@ import { Option } from '../../utils/Option'
 import { OptionOfStepList, StepList } from './models/StepList'
 import { headOption } from '../../utils/Utils'
 import * as D from 'io-ts/lib/Decoder'
-import { QueryFinal } from '../command/models/WsCommand'
 import { SequencerService } from './SequencerService'
 
 export class SequencerServiceImpl implements SequencerService {
@@ -120,9 +120,9 @@ export class SequencerServiceImpl implements SequencerService {
     return this.postSequencerCmd(new Req.OperationsMode(), Res.OperationsModeResponse)
   }
 
-  async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
+  async queryFinal(runId: string, timeout: number): Promise<SubmitResponse> {
     return this.ws().singleResponse(
-      new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
+      new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeout)),
       SubmitResponse
     )
   }

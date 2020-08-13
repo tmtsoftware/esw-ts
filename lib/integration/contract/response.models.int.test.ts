@@ -16,6 +16,7 @@ import * as C from '../../src/clients/config/models/ConfigModels'
 import * as Seq from '../../src/clients/sequencer/models/SequencerRes'
 import { AlarmSeverity } from '../../src/clients/alarm'
 import { AlarmKeyD } from '../../src/clients/alarm/models/PostCommand'
+import { StepStatusD, StepD, StepListD } from '../../src/clients/sequencer/models/StepList'
 
 jest.setTimeout(100000)
 
@@ -134,5 +135,8 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
   OperationsModeResponse: Seq.OperationsModeResponse,
   OkOrUnhandledResponse: Seq.OkOrUnhandledResponse,
   DiagnosticModeResponse: Seq.DiagnosticModeResponse,
-  RemoveBreakpointResponse: Seq.RemoveBreakpointResponse
+  RemoveBreakpointResponse: Seq.RemoveBreakpointResponse,
+  StepStatus: StepStatusD,
+  Step: StepD,
+  StepList: StepListD
 }

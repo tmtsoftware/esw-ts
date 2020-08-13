@@ -31,23 +31,19 @@ const UnhandledD = D.type({
 })
 
 const GoOnlineHookFailedD = D.type({
-  _type: ciLiteral(GoOnlineHookFailed),
-  msg: D.string
+  _type: ciLiteral(GoOnlineHookFailed)
 })
 
 const GoOfflineHookFailedD = D.type({
-  _type: ciLiteral(GoOfflineHookFailed),
-  msg: D.string
+  _type: ciLiteral(GoOfflineHookFailed)
 })
 
 const DiagnosticHookFailedD = D.type({
-  _type: ciLiteral(DiagnosticHookFailed),
-  msg: D.string
+  _type: ciLiteral(DiagnosticHookFailed)
 })
 
 const OperationsHookFailedD = D.type({
-  _type: ciLiteral(OperationsHookFailed),
-  msg: D.string
+  _type: ciLiteral(OperationsHookFailed)
 })
 
 export const OkOrUnhandledResponse = D.sum('_type')({
