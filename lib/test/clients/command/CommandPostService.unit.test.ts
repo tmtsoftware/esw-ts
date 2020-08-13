@@ -1,5 +1,5 @@
 import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
-import { CommandServiceImpl } from '../../../src/clients/command/CommandService'
+import { CommandServiceImpl } from '../../../src/clients/command/Impl'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import * as Req from '../../../src/clients/command/models/PostCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
