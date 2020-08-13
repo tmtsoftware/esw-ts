@@ -2,7 +2,6 @@ import 'whatwg-fetch'
 import { getToken } from '../utils/auth'
 import { ComponentId, Prefix, SequenceCommand, Setup } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
-import { GenericError } from '../../src/utils/GenericError'
 import { SequencerService } from '../../src/clients/sequencer'
 
 jest.setTimeout(90000)
@@ -37,9 +36,14 @@ describe('Sequencer Client', () => {
 
   test('should get unauthorized error when invalid token is provided | ESW-307, ESW-99', async () => {
     sequencerService = await SequencerService(componentId, () => undefined)
-    await expect(() => sequencerService.goOffline()).rejects.toThrow(
-      new GenericError(401, 'Unauthorized', expect.any(String))
-    )
+    expect.assertions(3)
+    await sequencerService.goOffline().catch((e) => {
+      expect(e.status).toBe(401)
+      expect(e.message).toBe('Unauthorized')
+      expect(e.reason).toBe(
+        'The resource requires authentication, which was not supplied with the request'
+      )
+    })
   })
 
   test('should get ok response on load sequence | ESW-307, ESW-99', async () => {
