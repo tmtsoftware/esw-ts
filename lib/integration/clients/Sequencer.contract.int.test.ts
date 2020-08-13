@@ -3,14 +3,16 @@ import { getToken } from '../utils/auth'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 import { SequencerService } from '../../src/clients/sequencer'
+import * as Res from '../../src/clients/sequencer/models/SequencerRes'
 
 jest.setTimeout(90000)
 
 const eswTestPrefix = Prefix.fromString('ESW.test')
-const setupCommand2 = new Setup(eswTestPrefix, 'command-2', [])
-const sequence2: SequenceCommand[] = [setupCommand2]
+const setupCommand = new Setup(eswTestPrefix, 'command', [])
+const sequence: SequenceCommand[] = [setupCommand]
 let validToken = ''
 let sequencerServiceWithToken: SequencerService
+const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
@@ -19,14 +21,12 @@ beforeAll(async () => {
   await startServices(['AAS', 'Gateway'])
   validToken = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
   sequencerServiceWithToken = await SequencerService(componentId, () => validToken)
-  await sequencerServiceWithToken.goOnline()
 })
 
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
 })
-const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
 describe('Sequencer Client', () => {
   test('is up and available | ESW-307', async () => {
@@ -48,11 +48,11 @@ describe('Sequencer Client', () => {
   })
 
   test('should get ok response on load sequence | ESW-307, ESW-99', async () => {
-    const response = await sequencerServiceWithToken.loadSequence(sequence2)
+    const response = await sequencerServiceWithToken.loadSequence(sequence)
     expect(response._type).toEqual('Ok')
   })
 
-  test('should get ok response on startSequence | ESW-307, ESW-99', async () => {
+  test('should get submit response on startSequence | ESW-307, ESW-99', async () => {
     const expectedRes: SubmitResponse = {
       _type: 'Completed',
       result: { paramSet: [] },
@@ -63,14 +63,48 @@ describe('Sequencer Client', () => {
     expect(response).toEqual(expectedRes)
   })
 
-  test('should get ok response on startSequence | ESW-307, ESW-99', async () => {
-    const expectedRes: SubmitResponse = {
-      _type: 'Completed',
-      result: { paramSet: [] },
-      runId: '123'
-    }
+  test('should get ok response on add commands | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.add(sequence)
+    expect(response._type).toEqual('Ok')
+  })
 
-    const response = await sequencerServiceWithToken.startSequence()
-    expect(response).toEqual(expectedRes)
+  test('should get ok response on prepend commands | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.prepend(sequence)
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on replace | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.replace('123', sequence)
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on insertAfter | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.insertAfter('123', sequence)
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on delete | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.delete('123')
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on addBreakpoint | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.addBreakpoint('123')
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on removeBreakpoint | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.removeBreakpoint('123')
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on reset | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.reset()
+    expect(response._type).toEqual('Ok')
+  })
+
+  test('should get ok response on resume | ESW-307, ESW-99', async () => {
+    const response = await sequencerServiceWithToken.resume()
+    expect(response._type).toEqual('Ok')
   })
 })
