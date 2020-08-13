@@ -31,7 +31,7 @@ const commandServiceImpl = new CommandServiceImpl(
 )
 
 describe('Command Service Factory', () => {
-  test('create command service', async () => {
+  test('create command service | ESW-305', async () => {
     mockImpl.mockReturnValue(commandServiceImpl)
     const a = await CommandService(componentId, tokenFactory)
 

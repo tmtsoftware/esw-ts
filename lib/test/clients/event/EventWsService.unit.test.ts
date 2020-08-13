@@ -1,7 +1,13 @@
-import { Event, EventKey, EventName } from '../../../src/clients/event'
+import {
+  Event,
+  EventKey,
+  EventName,
+  Subscribe,
+  SubscribeWithPattern
+} from '../../../src/clients/event'
 import { Prefix, Subsystem } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
-import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event'
+
 import { EventServiceImpl } from '../../../src/clients/event/Impl'
 
 const prefix = new Prefix('ESW', 'eventComp')
