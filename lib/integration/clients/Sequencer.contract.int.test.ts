@@ -22,7 +22,7 @@ beforeAll(async () => {
   validToken = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
   sequencerServiceWithToken = await SequencerService(componentId, () => validToken)
 })
-
+const sequencerServiceWithoutToken = await SequencerService(componentId, () => undefined)
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
@@ -30,9 +30,8 @@ afterAll(async () => {
 
 describe('Sequencer Client', () => {
   test('should get unauthorized error when invalid token is provided | ESW-307, ESW-99', async () => {
-    const sequencerService = await SequencerService(componentId, () => undefined)
     expect.assertions(3)
-    await sequencerService.goOffline().catch((e) => {
+    await sequencerServiceWithoutToken.goOffline().catch((e) => {
       expect(e.status).toBe(401)
       expect(e.message).toBe('Unauthorized')
       expect(e.reason).toBe(
@@ -106,8 +105,8 @@ describe('Sequencer Client', () => {
     expect(response._type).toEqual('Ok')
   })
 
-  test('should get option of step list on getSequence from running sequencer | ESW-307, ESW-99', async () => {
-    const stepList: Option<StepList> = await sequencerServiceWithToken.getSequence()
+  test('should get option of step list on getSequence from running sequencer | ESW-307', async () => {
+    const stepList: Option<StepList> = await sequencerServiceWithoutToken.getSequence()
     const expected = [
       {
         command: {
@@ -125,13 +124,13 @@ describe('Sequencer Client', () => {
     expect(stepList).toEqual(expected)
   })
 
-  test('is up and available | ESW-307,  ESW-99', async () => {
+  test('is up and available | ESW-307', async () => {
     const available = await sequencerServiceWithToken.isAvailable()
 
     expect(available).toBeTruthy()
   })
 
-  test('is online | ESW-307,  ESW-99', async () => {
+  test('is online | ESW-307', async () => {
     const online = await sequencerServiceWithToken.isOnline()
 
     expect(online).toBeTruthy()
@@ -173,9 +172,9 @@ describe('Sequencer Client', () => {
     expect(res._type).toEqual('Ok')
   })
 
-  test('should get sequencer state on query final | ESW-307, ESW-99', async () => {
+  test('should get sequencer state on query final | ESW-307', async () => {
     const response: SubmitResponse = await sequencerServiceWithToken.startSequence()
-    const res = await sequencerServiceWithToken.queryFinal(response.runId, 10)
+    const res = await sequencerServiceWithoutToken.queryFinal(response.runId, 10)
 
     expect(res).toEqual(response)
   })
