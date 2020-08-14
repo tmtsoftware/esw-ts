@@ -161,12 +161,6 @@ describe('Sequencer Client', () => {
     expect(res._type).toEqual('Ok')
   })
 
-  test('should get ok response on stop sequence | ESW-307, ESW-99', async () => {
-    const res = await sequencerServiceWithToken.stop()
-
-    expect(res._type).toEqual('Ok')
-  })
-
   test('should get ok response on diagnosticMode | ESW-307, ESW-99', async () => {
     const res = await sequencerServiceWithToken.diagnosticMode(new Date(), 'starting')
 
