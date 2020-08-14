@@ -14,7 +14,7 @@ STORY_REQUIREMENT_FILE="./RTM/storyRequirementMapping.csv"
 
 OUTPUT_PATH="./RTM/testRequirementsMapping.txt"
 
-APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/apps/master/apps.json"
+APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/master/apps.json"
 
 STORY_REQUIREMENT_FILE_PATH="https://raw.githubusercontent.com/tmtsoftware/esw/master/tools/RTM/storyRequirementMapping.csv"
 

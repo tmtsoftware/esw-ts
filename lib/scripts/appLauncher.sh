@@ -8,7 +8,7 @@ SCRIPTPATH="$(
 
 COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/coursier"
 
-APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/apps/master/apps.json"
+APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/master/apps.json"
 
 APP_NAME="$1"
 APP_VERSION="$2"
