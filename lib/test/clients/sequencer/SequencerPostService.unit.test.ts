@@ -14,6 +14,10 @@ import * as Res from '../../../src/clients/sequencer/models/SequencerRes'
 import * as D from 'io-ts/lib/Decoder'
 import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/Impl'
+import {
+  QueryFinal,
+  SequencerWebsocketRequest
+} from '../../../src/clients/sequencer/models/WsCommand'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
@@ -24,11 +28,12 @@ const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
 const mockRequestRes: jest.Mock = jest.fn()
+const mockSingleResponse: jest.Mock = jest.fn()
 const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
-  mockWsTransport()
+  mockWsTransport(jest.fn(), mockSingleResponse)
 )
 
-const getGatewaySequencerCommand = (command: SequencerPostRequest) => {
+const getGatewaySequencerCommand = (command: SequencerPostRequest | SequencerWebsocketRequest) => {
   return new GatewaySequencerCommand(componentId, command)
 }
 
@@ -199,6 +204,35 @@ describe('SequencerService', () => {
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.OperationsMode()),
       Res.OperationsModeResponse
+    )
+  })
+
+  test('should submit sequence to sequencer | ESW-307 , ESW-344', async () => {
+    await sequencer.submit(sequence)
+    expect(mockRequestRes).toBeCalledWith(
+      getGatewaySequencerCommand(new Req.Submit(sequence)),
+      SubmitResponse
+    )
+  })
+
+  test('should submitAndWait sequence to sequencer | ESW-307 , ESW-344', async () => {
+    mockRequestRes.mockResolvedValueOnce({ _type: 'Started', runId: '123' })
+    await sequencer.submitAndWait(sequence)
+    expect(mockRequestRes).toBeCalledWith(
+      getGatewaySequencerCommand(new Req.Submit(sequence)),
+      SubmitResponse
+    )
+    expect(mockSingleResponse).toBeCalledWith(
+      getGatewaySequencerCommand(new QueryFinal('123', 5)),
+      SubmitResponse
+    )
+  })
+
+  test('should query to sequencer | ESW-307 , ESW-344', async () => {
+    await sequencer.query('123')
+    expect(mockRequestRes).toBeCalledWith(
+      getGatewaySequencerCommand(new Req.Query('123')),
+      SubmitResponse
     )
   })
 })

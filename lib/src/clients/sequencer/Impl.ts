@@ -120,9 +120,24 @@ export class SequencerServiceImpl implements SequencerService {
     return this.postSequencerCmd(new Req.OperationsMode(), Res.OperationsModeResponse)
   }
 
-  async queryFinal(runId: string, timeout: number): Promise<SubmitResponse> {
+  submit(sequence: SequenceCommand[]): Promise<SubmitResponse> {
+    return this.postSequencerCmd(new Req.Submit(sequence), SubmitResponse)
+  }
+
+  async submitAndWait(sequence: SequenceCommand[]): Promise<SubmitResponse> {
+    const submitResponse = await this.submit(sequence)
+    if (submitResponse._type == 'Started') {
+      return this.queryFinal(submitResponse.runId, 5)
+    } else return Promise.resolve(submitResponse)
+  }
+
+  query(id: string): Promise<SubmitResponse> {
+    return this.postSequencerCmd(new Req.Query(id), SubmitResponse)
+  }
+
+  async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
     return this.ws().singleResponse(
-      new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeout)),
+      new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
       SubmitResponse
     )
   }

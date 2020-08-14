@@ -2,6 +2,7 @@ import { SequenceCommand } from '../../../models'
 
 export class LoadSequence {
   readonly _type: 'LoadSequence' = 'LoadSequence'
+
   constructor(readonly sequence: SequenceCommand[]) {}
 }
 
@@ -55,45 +56,65 @@ export class OperationsMode {
 
 export class Add {
   readonly _type: 'Add' = 'Add'
+
   constructor(readonly commands: SequenceCommand[]) {}
 }
 
 export class Prepend {
   readonly _type: 'Prepend' = 'Prepend'
+
   constructor(readonly commands: SequenceCommand[]) {}
 }
 
 export class Replace {
   readonly _type: 'Replace' = 'Replace'
+
   constructor(readonly id: string, readonly commands: SequenceCommand[]) {}
 }
 
 export class InsertAfter {
   readonly _type: 'InsertAfter' = 'InsertAfter'
+
   constructor(readonly id: string, readonly commands: SequenceCommand[]) {}
 }
 
 export class Delete {
   readonly _type: 'Delete' = 'Delete'
+
   constructor(readonly id: string) {}
 }
 
 export class AddBreakpoint {
   readonly _type: 'AddBreakpoint' = 'AddBreakpoint'
+
   constructor(readonly id: string) {}
 }
 
 export class RemoveBreakpoint {
   readonly _type: 'RemoveBreakpoint' = 'RemoveBreakpoint'
+
   constructor(readonly id: string) {}
 }
 
 export class DiagnosticMode {
   readonly _type: 'DiagnosticMode' = 'DiagnosticMode'
   readonly startTime: string
+
   constructor(startTime: Date, readonly hint: string) {
     this.startTime = startTime.toJSON()
   }
+}
+
+export class Submit {
+  readonly _type: 'Submit' = 'Submit'
+
+  constructor(readonly sequence: SequenceCommand[]) {}
+}
+
+export class Query {
+  readonly _type: 'Query' = 'Query'
+
+  constructor(readonly runId: string) {}
 }
 
 export type SequencerPostRequest =
@@ -118,3 +139,5 @@ export type SequencerPostRequest =
   | Stop
   | DiagnosticMode
   | OperationsMode
+  | Submit
+  | Query

@@ -12,8 +12,12 @@ const setupCommand = new Setup(eswTestPrefix, 'command', [])
 const sequence: SequenceCommand[] = [setupCommand]
 let validToken = ''
 let sequencerServiceWithToken: SequencerService
+let sequencerServiceWithoutToken: SequencerService
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
-
+const startedResponse: SubmitResponse = {
+  _type: 'Started',
+  runId: '123'
+}
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
@@ -21,8 +25,8 @@ beforeAll(async () => {
   await startServices(['AAS', 'Gateway'])
   validToken = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
   sequencerServiceWithToken = await SequencerService(componentId, () => validToken)
+  sequencerServiceWithoutToken = await SequencerService(componentId, () => undefined)
 })
-const sequencerServiceWithoutToken = await SequencerService(componentId, () => undefined)
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
@@ -46,13 +50,8 @@ describe('Sequencer Client', () => {
   })
 
   test('should get submit response on startSequence | ESW-307, ESW-99', async () => {
-    const expectedRes: SubmitResponse = {
-      _type: 'Started',
-      runId: '123'
-    }
-
     const response = await sequencerServiceWithToken.startSequence()
-    expect(response).toEqual(expectedRes)
+    expect(response).toEqual(startedResponse)
   })
 
   test('should get ok response on add commands | ESW-307, ESW-99', async () => {
@@ -172,7 +171,22 @@ describe('Sequencer Client', () => {
     expect(res._type).toEqual('Ok')
   })
 
-  test('should get sequencer state on query final | ESW-307', async () => {
+  test('should submit sequence to sequencer | ESW-307, ESW-99, ESW-344', async () => {
+    const response = await sequencerServiceWithToken.submit(sequence)
+    expect(response).toEqual(startedResponse)
+  })
+
+  test('should submitAndWait sequence to sequencer | ESW-307, ESW-99, ESW-344', async () => {
+    const response = await sequencerServiceWithToken.submitAndWait(sequence)
+    expect(response).toEqual(startedResponse)
+  })
+
+  test('should query sequencer | ESW-307, ESW-99, ESW-344', async () => {
+    const response = await sequencerServiceWithToken.query('123')
+    expect(response).toEqual(startedResponse)
+  })
+
+  test('should get sequencer state on query final | ESW-307, ESW-99', async () => {
     const response: SubmitResponse = await sequencerServiceWithToken.startSequence()
     const res = await sequencerServiceWithoutToken.queryFinal(response.runId, 10)
 

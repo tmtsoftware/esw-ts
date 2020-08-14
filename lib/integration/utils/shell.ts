@@ -30,7 +30,7 @@ const appLauncher = (name: string, version = 'master-SNAPSHOT') =>
 const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
   executeScriptSync(appsLauncherScript, name, version)
 
-const backend_testkit_sha = '8e6445e8ca69'
+const backend_testkit_sha = 'e02120f523c0'
 
 export const executeServicesScript = appLauncher('backend-testkit-services', backend_testkit_sha)
 export const executeComponentScript = appLauncher('backend-testkit-component', backend_testkit_sha)
