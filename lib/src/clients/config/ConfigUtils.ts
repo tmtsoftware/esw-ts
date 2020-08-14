@@ -6,6 +6,7 @@ import { get, head } from '../../utils/Http'
 import { extractHostPort, getOrThrow } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 import * as M from './models/ConfigModels'
+import { ConfigData } from './models/ConfigData'
 
 export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))
@@ -15,7 +16,7 @@ export const resolveConfigServer = async () => {
   return extractHostPort(location.uri)
 }
 export const tryGetConfigBlob = (url: string) =>
-  map404(get({ url, responseMapper: (res) => res.blob() }), undefined)
+  map404(get({ url, responseMapper: async (res) => ConfigData.from(await res.blob()) }), undefined)
 
 export const tryConfigExists = async (url: string): Promise<boolean> => {
   return map404(

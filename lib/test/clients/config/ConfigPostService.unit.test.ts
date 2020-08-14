@@ -6,6 +6,7 @@ import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
 import { ConfigId } from '../../../src'
 import { GenericError } from '../../../src/utils/GenericError'
+import { ConfigData } from '../../../src/clients/config/models/ConfigData'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -382,10 +383,11 @@ describe('ConfigService', () => {
     const url = configEndpoint(confPath)
     const comment = 'something'
     const configId = { id: 'configId123' }
-    const configData: File = new File(['foo: Bar'], 'assembly.conf')
+    const file: File = new File(['foo: Bar'], 'assembly.conf')
 
     postMockFn.mockResolvedValueOnce(configId)
 
+    const configData = ConfigData.fromFile(file)
     const actualResConfigId = await configService.create(confPath, configData, true, comment)
 
     expect(actualResConfigId).toEqual(configId)
@@ -393,7 +395,7 @@ describe('ConfigService', () => {
       url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
       queryParams: { annex: 'true', comment },
-      payload: configData,
+      payload: new Blob([file]),
       decoder: expect.anything()
     })
   })
@@ -403,10 +405,11 @@ describe('ConfigService', () => {
     const url = configEndpoint(confPath)
     const comment = 'something'
     const configId = { id: 'configId123' }
-    const configData: File = new File(['foo: Bar'], 'assembly.conf')
+    const file: File = new File(['foo: Bar'], 'assembly.conf')
 
     putMockFn.mockResolvedValueOnce(configId)
 
+    const configData = ConfigData.fromFile(file)
     const actualResConfigId = await configService.update(confPath, configData, comment)
 
     expect(actualResConfigId).toEqual(configId)
@@ -414,7 +417,7 @@ describe('ConfigService', () => {
       url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
       queryParams: { comment },
-      payload: configData,
+      payload: new Blob([file]),
       decoder: expect.any(Function)
     })
   })

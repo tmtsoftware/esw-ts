@@ -6,6 +6,7 @@ import * as M from './models/ConfigModels'
 import * as ConfigUtils from './ConfigUtils'
 import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import * as D from 'io-ts/lib/Decoder'
+import { ConfigData } from './models/ConfigData'
 
 export class ConfigServiceImpl implements ConfigService {
   constructor(
@@ -22,17 +23,17 @@ export class ConfigServiceImpl implements ConfigService {
     return `http://${this.host}:${this.port}/${path}`
   }
 
-  async getLatest(confPath: string): Promise<Option<Blob>> {
+  async getLatest(confPath: string): Promise<Option<ConfigData>> {
     const url = this.endpoint(`config/${confPath}`)
     return await tryGetConfigBlob(url)
   }
 
-  async getById(confPath: string, configId: M.ConfigId): Promise<Option<Blob>> {
+  async getById(confPath: string, configId: M.ConfigId): Promise<Option<ConfigData>> {
     const url = this.endpoint(`config/${confPath}?id=${configId.id}`)
     return await tryGetConfigBlob(url)
   }
 
-  async getByTime(confPath: string, time: Date): Promise<Option<Blob>> {
+  async getByTime(confPath: string, time: Date): Promise<Option<ConfigData>> {
     const url = this.endpoint(`config/${confPath}?date=${time.toISOString()}`)
     return await tryGetConfigBlob(url)
   }
@@ -55,12 +56,12 @@ export class ConfigServiceImpl implements ConfigService {
     })
   }
 
-  async getActive(confPath: string): Promise<Option<Blob>> {
+  async getActive(confPath: string): Promise<Option<ConfigData>> {
     const url = this.endpoint(`active-config/${confPath}`)
     return await ConfigUtils.tryGetConfigBlob(url)
   }
 
-  async getActiveByTime(confPath: string, time: Date): Promise<Option<Blob>> {
+  async getActiveByTime(confPath: string, time: Date): Promise<Option<ConfigData>> {
     const url = this.endpoint(`active-config/${confPath}?date=${time.toISOString()}`)
     return await ConfigUtils.tryGetConfigBlob(url)
   }
@@ -109,12 +110,17 @@ export class ConfigServiceImpl implements ConfigService {
     return del({ url, headers, queryParams: { comment } })
   }
 
-  create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId> {
-    return this.createOrUpdate(path, configData, { annex: annex.toString(), comment }, post)
+  create(
+    path: string,
+    configData: ConfigData,
+    annex: boolean,
+    comment: string
+  ): Promise<M.ConfigId> {
+    return this.createOrUpdate(path, configData.blob, { annex: annex.toString(), comment }, post)
   }
 
-  update(path: string, configData: Blob, comment: string): Promise<M.ConfigId> {
-    return this.createOrUpdate(path, configData, { comment }, put)
+  update(path: string, configData: ConfigData, comment: string): Promise<M.ConfigId> {
+    return this.createOrUpdate(path, configData.blob, { comment }, put)
   }
 
   private async createOrUpdate(

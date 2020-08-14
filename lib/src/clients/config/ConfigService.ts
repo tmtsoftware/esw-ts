@@ -3,19 +3,20 @@ import { Option } from '../../utils/Option'
 import { resolveConfigServer } from './ConfigUtils'
 import * as M from './models/ConfigModels'
 import { ConfigServiceImpl } from './Impl'
+import { ConfigData } from './models/ConfigData'
 
 export interface ConfigService {
-  create(path: string, configData: Blob, annex: boolean, comment: string): Promise<M.ConfigId>
+  create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<M.ConfigId>
 
-  update(path: string, configData: Blob, comment: string): Promise<M.ConfigId>
+  update(path: string, configData: ConfigData, comment: string): Promise<M.ConfigId>
 
-  getActive(path: string): Promise<Option<Blob>>
+  getActive(path: string): Promise<Option<ConfigData>>
 
-  getLatest(path: string): Promise<Option<Blob>>
+  getLatest(path: string): Promise<Option<ConfigData>>
 
-  getById(path: string, configId: M.ConfigId): Promise<Option<Blob>>
+  getById(path: string, configId: M.ConfigId): Promise<Option<ConfigData>>
 
-  getByTime(path: string, time: Date): Promise<Option<Blob>>
+  getByTime(path: string, time: Date): Promise<Option<ConfigData>>
 
   exists(path: string, id?: M.ConfigId): Promise<boolean>
 
@@ -36,7 +37,7 @@ export interface ConfigService {
 
   resetActiveVersion(path: string, comment: string): Promise<void>
 
-  getActiveByTime(path: string, time: Date): Promise<Option<Blob>>
+  getActiveByTime(path: string, time: Date): Promise<Option<ConfigData>>
 
   getActiveVersion(path: string): Promise<Option<M.ConfigId>>
 
