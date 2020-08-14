@@ -22,7 +22,7 @@ export interface AuthContextProps {
   config: AuthContextConfig
   children: React.ReactNode
 }
-
+// TODO Add unit tests
 const AuthContextProvider = (props: AuthContextProps) => {
   const [auth, setAuth] = useState<Auth | null>(null)
 

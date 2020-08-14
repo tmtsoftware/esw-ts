@@ -126,7 +126,7 @@ export class SequencerServiceImpl implements SequencerService {
 
   async submitAndWait(sequence: SequenceCommand[]): Promise<SubmitResponse> {
     const submitResponse = await this.submit(sequence)
-    if (submitResponse._type == 'Started') {
+    if (submitResponse._type === 'Started') {
       return this.queryFinal(submitResponse.runId, 5)
     } else return Promise.resolve(submitResponse)
   }

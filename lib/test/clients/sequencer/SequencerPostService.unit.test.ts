@@ -215,7 +215,7 @@ describe('SequencerService', () => {
     )
   })
 
-  test('should submitAndWait sequence to sequencer | ESW-307 , ESW-344', async () => {
+  test('should get started response on submitAndWait when sequencer is started | ESW-307 , ESW-344', async () => {
     mockRequestRes.mockResolvedValueOnce({ _type: 'Started', runId: '123' })
     await sequencer.submitAndWait(sequence)
     expect(mockRequestRes).toBeCalledWith(
@@ -226,6 +226,16 @@ describe('SequencerService', () => {
       getGatewaySequencerCommand(new QueryFinal('123', 5)),
       SubmitResponse
     )
+  })
+
+  test('should not get started response on submitAndWait when sequencer not started | ESW-307 , ESW-344', async () => {
+    mockRequestRes.mockResolvedValueOnce({ _type: 'Completed', runId: '123', result: [] })
+    await sequencer.submitAndWait(sequence)
+    expect(mockRequestRes).toBeCalledWith(
+      getGatewaySequencerCommand(new Req.Submit(sequence)),
+      SubmitResponse
+    )
+    expect(mockSingleResponse).toBeCalledTimes(0)
   })
 
   test('should query to sequencer | ESW-307 , ESW-344', async () => {

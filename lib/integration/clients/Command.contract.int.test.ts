@@ -144,9 +144,12 @@ describe('Command Client', () => {
       const callback = (currentState: CurrentState) => {
         expect(currentState.prefix).toEqual(prefix)
         expect(currentState.paramSet).toEqual([])
+        subscription.cancel()
         done()
       }
-      commandService.subscribeCurrentState(new Set(['stateName1', 'stateName2']))(callback)
+      const subscription = commandService.subscribeCurrentState(
+        new Set(['stateName1', 'stateName2'])
+      )(callback)
     })
   })
 })
