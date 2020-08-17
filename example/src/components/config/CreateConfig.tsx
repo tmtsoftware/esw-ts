@@ -2,6 +2,7 @@ import React, { ChangeEvent, useContext, useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { ConfigContext } from './context/ConfigContext'
 import { ConfigId } from 'esw-ts'
+import { ConfigData } from 'esw-ts/dist/src/clients/config/models/ConfigData'
 
 export function CreateConfig() {
   const [response, setResponse] = useState('')
@@ -12,7 +13,7 @@ export function CreateConfig() {
   const createConfig = async (input: string) => {
     const config: ConfigId = await configService.create(
       input,
-      new Blob([fileContent]),
+      ConfigData.fromString(fileContent),
       false,
       'Sample commit message'
     )

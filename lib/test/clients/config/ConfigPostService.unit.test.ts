@@ -7,6 +7,7 @@ import { del, get, head, post, put } from '../../../src/utils/Http'
 import { ConfigId } from '../../../src'
 import { GenericError } from '../../../src/utils/GenericError'
 import { ConfigData } from '../../../src/clients/config/models/ConfigData'
+import { Option } from '../../../src/utils/Option'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -25,6 +26,8 @@ const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
 const listEndpoint = () => `http://localhost:8080/list`
 const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
 const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
+const blob = new Blob(['foo: bar'])
+const configDataValue = ConfigData.from(blob)
 
 beforeAll(async () => {
   postMockFn.mockResolvedValueOnce([configLocation])
@@ -40,10 +43,10 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const url = configEndpoint(confPath)
 
-    getMockFn.mockResolvedValueOnce('foo: bar')
+    getMockFn.mockResolvedValueOnce(blob)
 
-    const confData = await configService.getLatest(confPath)
-    expect(confData).toBe('foo: bar')
+    const confData: Option<ConfigData> = await configService.getLatest(confPath)
+    expect(confData).toEqual(configDataValue)
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
@@ -52,10 +55,10 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    getMockFn.mockResolvedValueOnce('foo: bar')
+    getMockFn.mockResolvedValueOnce(blob)
 
     const confData = await configService.getById(confPath, configId)
-    expect(confData).toBe('foo: bar')
+    expect(confData).toEqual(configDataValue)
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
@@ -90,10 +93,10 @@ describe('ConfigService', () => {
     const date = new Date()
     const url = configEndpoint(`${confPath}?date=${date.toISOString()}`)
 
-    getMockFn.mockResolvedValueOnce('foo: bar')
+    getMockFn.mockResolvedValueOnce(blob)
 
     const confData = await configService.getByTime(confPath, date)
-    expect(confData).toBe('foo: bar')
+    expect(confData).toEqual(configDataValue)
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
@@ -202,10 +205,10 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const url = activeConfigEndpoint(`${confPath}`)
 
-    getMockFn.mockResolvedValueOnce('foo: bar')
+    getMockFn.mockResolvedValueOnce(blob)
 
     const confData = await configService.getActive(confPath)
-    expect(confData).toBe('foo: bar')
+    expect(confData).toEqual(configDataValue)
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
@@ -214,10 +217,10 @@ describe('ConfigService', () => {
     const date = new Date()
     const url = activeConfigEndpoint(`${confPath}?date=${date.toISOString()}`)
 
-    getMockFn.mockResolvedValueOnce('foo: bar')
+    getMockFn.mockResolvedValueOnce(blob)
 
     const confData = await configService.getActiveByTime(confPath, date)
-    expect(confData).toBe('foo: bar')
+    expect(confData).toEqual(configDataValue)
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
