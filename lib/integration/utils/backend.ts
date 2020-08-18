@@ -29,11 +29,11 @@ export const stopServices = async () => {
 
 export const BackendServices = {
   Gateway: gatewayConnection,
-  Location: gatewayConnection,
   Alarm: gatewayConnection,
   Event: gatewayConnection,
   AAS: authConnection,
-  Config: configConnection
+  Config: configConnection,
+  LocationWithAuth: gatewayConnection
 }
 
 export type ServiceName = keyof typeof BackendServices

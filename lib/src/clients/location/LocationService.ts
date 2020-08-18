@@ -11,6 +11,8 @@ import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
 import { LocationServiceImpl } from './Impl'
+import { TokenFactory } from '../..'
+import { LocationConfigWithAuth } from '../../config/LocationConfig'
 
 export interface LocationService {
   list(): Promise<Location[]>
@@ -32,13 +34,32 @@ export interface LocationService {
   track(connection: Connection): (callBack: (trackingEvent: TrackingEvent) => void) => Subscription
 }
 
+export const LocationServiceWithAuth: (tokenFactory: TokenFactory) => LocationService = (
+  tokenFactory: TokenFactory
+) => {
+  return LocationServiceFactory({ locationConfig: LocationConfigWithAuth, tokenFactory })
+}
+
 export const LocationService: () => LocationService = () => {
+  return LocationServiceFactory({ locationConfig: LocationConfig })
+}
+
+function LocationServiceFactory({
+  locationConfig = LocationConfig,
+  tokenFactory
+}: {
+  locationConfig: typeof LocationConfig
+  tokenFactory?: TokenFactory
+}) {
   const webSocketEndpoint = getWebSocketEndPoint({
-    host: LocationConfig.hostName,
-    port: LocationConfig.port
+    host: locationConfig.hostName,
+    port: locationConfig.port
   })
-  const postEndpoint = getPostEndPoint({ host: LocationConfig.hostName, port: LocationConfig.port })
-  return new LocationServiceImpl(new HttpTransport(postEndpoint), () =>
+  const postEndpoint = getPostEndPoint({
+    host: locationConfig.hostName,
+    port: locationConfig.port
+  })
+  return new LocationServiceImpl(new HttpTransport(postEndpoint, tokenFactory), () =>
     WebSocketTransport(webSocketEndpoint)
   )
 }
