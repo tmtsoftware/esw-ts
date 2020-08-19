@@ -1,4 +1,4 @@
-export { LocationService } from './LocationService'
+export * from './LocationService'
 export * from './models/TrackingEvent'
 export * from './models/LocationResponses'
 export * from './models/Connection'

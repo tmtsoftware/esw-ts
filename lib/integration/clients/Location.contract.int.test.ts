@@ -12,7 +12,7 @@ import { Option } from '../../src/utils/Option'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
 import { getToken } from '../utils/auth'
-import { LocationServiceWithAuth } from '../../src/clients/location/LocationService'
+import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 
 jest.setTimeout(100000)
 
@@ -46,8 +46,10 @@ beforeAll(async () => {
   await startServices(['AAS', 'Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
   validToken = await getToken('tmt-frontend-app', 'location-admin1', 'location-admin1', 'TMT')
-  locationServiceWithToken = LocationServiceWithAuth(() => validToken)
-  locationServiceWithInvalidToken = LocationServiceWithAuth(() => undefined)
+  //Following 2 client connects to auth enabled location server instance
+  locationServiceWithToken = LocationService(() => validToken, LocationConfigWithAuth)
+  locationServiceWithInvalidToken = LocationService(() => undefined, LocationConfigWithAuth)
+  //Following 1 client connects to auth disabled location server instance
   locationService = LocationService()
 })
 

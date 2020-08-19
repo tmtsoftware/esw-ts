@@ -5,8 +5,7 @@ import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 import { LocationServiceImpl } from '../../../src/clients/location/Impl'
 import { LocationService } from '../../../src/clients/location'
 import { LocationConfig } from '../../../src/config'
-import { LocationServiceWithAuth } from '../../../src/clients/location/LocationService'
-import { LocationConfigWithAuth } from '../../../src/config/LocationConfig'
+import { LocationConfigWithAuth } from '../../helpers/LocationConfigWithAuth'
 
 jest.mock('../../../src/clients/location/Impl')
 jest.mock('../../../src/utils/Utils')
@@ -34,7 +33,7 @@ describe('Location Service Factory', () => {
     const uriWithAuth = { host: LocationConfigWithAuth.hostName, port: LocationConfigWithAuth.port }
 
     mockImpl.mockReturnValue(locationServiceImplWithAuth)
-    const actualLocationService = await LocationServiceWithAuth(tokenFactory)
+    const actualLocationService = await LocationService(tokenFactory, LocationConfigWithAuth)
 
     expect(actualLocationService).toEqual(locationServiceImplWithAuth)
     expect(postMockEndpoint).toBeCalledWith(uriWithAuth)

@@ -3,10 +3,10 @@ import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection } from '../../src/config/connections'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'
-import { LocationServiceWithAuth } from '../../src/clients/location/LocationService'
+import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 
 const locationService = LocationService()
-const locationServiceWithAuth = LocationServiceWithAuth(() => undefined)
+const locationServiceWithAuth = LocationService(() => undefined, LocationConfigWithAuth)
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
 const waitForLocationWithAuthToUp = () => eventually(() => locationServiceWithAuth.list())
