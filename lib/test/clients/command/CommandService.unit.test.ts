@@ -5,9 +5,9 @@ import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 import { ComponentId, Prefix } from '../../../src/models'
 import { CommandService } from '../../../src/clients/command'
-import { CommandServiceImpl } from '../../../src/clients/command/Impl'
+import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 
-jest.mock('../../../src/clients/command/Impl')
+jest.mock('../../../src/clients/command/CommandServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)

@@ -3,11 +3,11 @@ import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
-import { SequencerServiceImpl } from '../../../src/clients/sequencer/Impl'
+import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import { ComponentId, Prefix } from '../../../src/models'
 import { SequencerService } from '../../../src/clients/sequencer'
 
-jest.mock('../../../src/clients/sequencer/Impl')
+jest.mock('../../../src/clients/sequencer/SequencerServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)

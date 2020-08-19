@@ -1,7 +1,7 @@
 import { HttpConnection, TrackingEvent } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
-import { LocationServiceImpl } from '../../../src/clients/location/Impl'
+import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import { Track } from '../../../src/clients/location/models/WsCommand'
 
 const prefix = new Prefix('ESW', 'MoonNight')

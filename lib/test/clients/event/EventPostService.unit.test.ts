@@ -8,7 +8,7 @@ import {
 import { Done } from '../../../src/clients/location'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { Prefix } from '../../../src/models'
-import { EventServiceImpl } from '../../../src/clients/event/Impl'
+import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 
 const requestRes: jest.Mock = jest.fn()
 

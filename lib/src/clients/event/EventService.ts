@@ -7,7 +7,7 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { EventServiceImpl } from './Impl'
+import { EventServiceImpl } from './EventServiceImpl'
 
 export interface EventService {
   publish(event: Event): Promise<Done>

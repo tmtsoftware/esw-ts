@@ -2,7 +2,7 @@ import { TokenFactory } from '../..'
 import { Option } from '../../utils/Option'
 import { resolveConfigServer } from './ConfigUtils'
 import * as M from './models/ConfigModels'
-import { ConfigServiceImpl } from './Impl'
+import { ConfigServiceImpl } from './ConfigServiceImpl'
 import { ConfigData } from './models/ConfigData'
 
 export interface ConfigService {

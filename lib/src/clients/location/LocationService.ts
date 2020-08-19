@@ -10,7 +10,7 @@ import { TrackingEvent } from './models/TrackingEvent'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Option } from '../../utils/Option'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { LocationServiceImpl } from './Impl'
+import { LocationServiceImpl } from './LocationServiceImpl'
 import { TokenFactory } from '../..'
 
 export interface LocationService {

@@ -7,7 +7,7 @@ import { StepList } from './models/StepList'
 import { Option } from '../../utils/Option'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { SequencerServiceImpl } from './Impl'
+import { SequencerServiceImpl } from './SequencerServiceImpl'
 
 export interface SequencerService {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>

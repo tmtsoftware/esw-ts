@@ -5,7 +5,7 @@ import { Subscription } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { CommandServiceImpl } from './Impl'
+import { CommandServiceImpl } from './CommandServiceImpl'
 
 export interface CommandService {
   validate(command: M.ControlCommand): Promise<M.ValidateResponse>

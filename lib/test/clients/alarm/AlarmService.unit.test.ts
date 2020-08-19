@@ -3,9 +3,9 @@ import { getPostEndPoint } from '../../../src/utils/Utils'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { AlarmService } from '../../../src/clients/alarm'
-import { AlarmServiceImpl } from '../../../src/clients/alarm/Impl'
+import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
 
-jest.mock('../../../src/clients/alarm/Impl')
+jest.mock('../../../src/clients/alarm/AlarmServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)

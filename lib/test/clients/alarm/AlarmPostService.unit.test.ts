@@ -1,6 +1,6 @@
 import { AlarmKey } from '../../../src/clients/alarm'
 import { Prefix } from '../../../src/models'
-import { AlarmServiceImpl } from '../../../src/clients/alarm/Impl'
+import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
 import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'
 import { Done } from '../../../src/clients/location'
