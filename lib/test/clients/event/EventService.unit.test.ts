@@ -25,7 +25,7 @@ const eventServiceImpl = new EventServiceImpl(new HttpTransport(postEndpoint), (
 mockImpl.mockReturnValue(eventServiceImpl)
 
 describe('Event Service Factory', () => {
-  test('tt', async () => {
+  test('should create event service | ESW-318', async () => {
     const a = await EventService()
 
     expect(a).toEqual(eventServiceImpl)

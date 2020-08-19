@@ -17,6 +17,7 @@ import * as Seq from '../../src/clients/sequencer/models/SequencerRes'
 import { AlarmSeverity } from '../../src/clients/alarm'
 import { AlarmKeyD } from '../../src/clients/alarm/models/PostCommand'
 import { StepStatusD, StepD, StepListD } from '../../src/clients/sequencer/models/StepList'
+import { Level, LogMetadataD } from '../../src/clients/logger'
 
 jest.setTimeout(100000)
 
@@ -25,7 +26,7 @@ const eswDir = path.resolve(__dirname, '../jsons/esw')
 const cswDir = path.resolve(__dirname, '../jsons/csw')
 const commandModelsJsonPath = `${cswDir}/command-service/models.json`
 const locationModelsJsonPath = `${cswDir}/location-service/models.json`
-const eventModelsJsonPath = `${eswDir}/gateway-service/models.json`
+const gatewayModelsJsonPath = `${eswDir}/gateway-service/models.json`
 const configModelsJsonPath = `${cswDir}/config-service/models.json`
 const sequencerModelsJsonPath = `${eswDir}/sequencer-service/models.json`
 
@@ -51,7 +52,7 @@ describe('models contract test', () => {
   })
 
   test('should test Gateway models | ESW-317', () => {
-    verifyContract(eventModelsJsonPath, gatewayDecoders)
+    verifyContract(gatewayModelsJsonPath, gatewayDecoders)
   })
 
   test('should test Config models | ESW-319, ESW-320', () => {
@@ -113,7 +114,8 @@ const gatewayDecoders: Record<string, Decoder<any>> = {
   Event: Event,
   GatewayException: D.id(),
   Prefix: PrefixD,
-  LogMetadata: D.id()
+  LogMetadata: LogMetadataD,
+  Level: Level
 }
 
 const configDecoders: Record<string, Decoder<any>> = {

@@ -3,8 +3,8 @@ import { CommandServiceWsMessage } from '../../command/models/WsCommand'
 import { SequencerPostRequest } from '../../sequencer/models/PostCommand'
 import { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
 import { ComponentId } from '../../../models'
-import { Subscribe, SubscribeWithPattern } from '../../event/models/WsCommand'
-import { GetEvent, PublishEvent } from '../../event/models/PostCommand'
+import { Subscribe, SubscribeWithPattern, GetEvent, PublishEvent } from '../../event'
+import { Log } from '../../logger/models/PostCommand'
 
 export class GatewayComponentCommand<
   T extends CommandServicePostMessage | CommandServiceWsMessage
@@ -23,3 +23,5 @@ export class GatewaySequencerCommand<T extends SequencerPostRequest | SequencerW
 export type GatewayEventPostRequest = PublishEvent | GetEvent
 
 export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern
+
+export type GatewayLoggingPostRequest = Log
