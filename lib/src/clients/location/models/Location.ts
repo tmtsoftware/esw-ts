@@ -12,6 +12,7 @@ type LocationDecoder<L extends LocationType, C extends Connection> = Decoder<{
   _type: L
   connection: C
   uri: string
+  metadata: Record<string, string>
 }>
 
 const location = <L extends LocationType, C extends Connection>(
@@ -21,7 +22,8 @@ const location = <L extends LocationType, C extends Connection>(
   D.type({
     _type: ciLiteral(locationType),
     connection: connection,
-    uri: D.string
+    uri: D.string,
+    metadata: D.record(D.string)
   })
 
 const AkkaLocation = location(AkkaLocationL, AkkaConnectionD)

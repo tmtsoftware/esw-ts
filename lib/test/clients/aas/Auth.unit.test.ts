@@ -74,7 +74,8 @@ describe('Auth', () => {
     const authLocation: HttpLocation = {
       _type: 'HttpLocation',
       connection: HttpConnection(new Prefix('CSW', 'AAS'), 'Service'),
-      uri: 'http://localhost:8081/auth'
+      uri: 'http://localhost:8081/auth',
+      metadata: {}
     }
     mockedResolve.mockResolvedValueOnce(authLocation)
     // mockedResolve.mockRejectedValueOnce(Error('aas not found'))

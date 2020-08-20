@@ -17,7 +17,12 @@ const putMockFn = mocked(put, true)
 const deleteMockFn = mocked(del, true)
 
 const uri = 'http://localhost:8080'
-const configLocation: HttpLocation = { _type: 'HttpLocation', connection: configConnection, uri }
+const configLocation: HttpLocation = {
+  _type: 'HttpLocation',
+  connection: configConnection,
+  uri,
+  metadata: {}
+}
 
 const token = 'validToken'
 let configService: ConfigService
