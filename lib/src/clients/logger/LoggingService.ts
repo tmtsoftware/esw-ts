@@ -7,7 +7,7 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import { LoggingServiceImpl } from './LoggingServiceImpl'
 
 export interface LoggingService {
-  log(prefix: Prefix, level: Level, message: String, metadata: Record<string, any>): Promise<Done>
+  log(prefix: Prefix, level: Level, message: string, metadata: Record<string, any>): Promise<Done>
 }
 
 export const LoggingService: () => Promise<LoggingService> = async () => {

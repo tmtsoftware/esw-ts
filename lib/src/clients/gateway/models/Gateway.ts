@@ -5,6 +5,7 @@ import { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
 import { ComponentId } from '../../../models'
 import { Subscribe, SubscribeWithPattern, GetEvent, PublishEvent } from '../../event'
 import { Log } from '../../logger/models/PostCommand'
+import { GetLogMetadata, SetLogLevel } from '../../admin/models/PostCommand'
 
 export class GatewayComponentCommand<
   T extends CommandServicePostMessage | CommandServiceWsMessage
@@ -25,3 +26,5 @@ export type GatewayEventPostRequest = PublishEvent | GetEvent
 export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern
 
 export type GatewayLoggingPostRequest = Log
+
+export type GatewayAdminPostRequest = GetLogMetadata | SetLogLevel

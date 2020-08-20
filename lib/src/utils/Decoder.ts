@@ -11,6 +11,13 @@ export const char: Decoder<string> = pipe(
   D.refine((s): s is string => s.length == 1, 'single char')
 )
 
+export const voidDecoder: Decoder<void> = pipe(
+  D.number,
+  D.parse((n) => {
+    return n == 0 ? D.success(undefined) : D.failure(n, 'cannot decode void response')
+  })
+)
+
 export const ciLiteral = <L extends readonly [string, ...Array<string>]>(
   ...values: L
 ): Decoder<L[number]> => {
