@@ -14,7 +14,7 @@ object Libs {
 object CSW {
   val Version: String = {
     val env = sys.env ++ sys.props
-    env.getOrElse("CSW_VERSION", "5ce2d9f24")
+    env.getOrElse("CSW_VERSION", "51ef279e24b1e")
   }
 
   val `csw-location-server` = "com.github.tmtsoftware.csw" %% "csw-location-server" % Version
