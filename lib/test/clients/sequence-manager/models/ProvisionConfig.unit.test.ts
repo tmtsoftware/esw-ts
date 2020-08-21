@@ -18,7 +18,7 @@ describe('Provision config', () => {
 })
 
 describe('Agent Provision config', () => {
-  test('cannot have sequence component less than or equal to 0 | ESW-365', () => {
+  test('cannot have sequence component count less than or equal to 0 | ESW-365', () => {
     const eswAgentPrefix = new Prefix('ESW', 'agent1')
 
     expect(() => new AgentProvisionConfig(eswAgentPrefix, -1)).toThrow(

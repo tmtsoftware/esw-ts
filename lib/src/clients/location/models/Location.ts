@@ -26,9 +26,9 @@ const location = <L extends LocationType, C extends Connection>(
     metadata: D.record(D.string)
   })
 
-const AkkaLocation = location(AkkaLocationL, AkkaConnectionD)
-const HttpLocation = location(HttpLocationL, HttpConnectionD)
-const TcpLocation = location(TcpLocationL, TcpConnectionD)
+export const AkkaLocation = location(AkkaLocationL, AkkaConnectionD)
+export const HttpLocation = location(HttpLocationL, HttpConnectionD)
+export const TcpLocation = location(TcpLocationL, TcpConnectionD)
 
 export type AkkaLocation = D.TypeOf<typeof AkkaLocation>
 export type HttpLocation = D.TypeOf<typeof HttpLocation>
