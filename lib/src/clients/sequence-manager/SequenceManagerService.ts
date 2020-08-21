@@ -1,13 +1,15 @@
-import { TokenFactory } from '../..'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint } from '../../utils/Utils'
 import { ObsMode } from './models/ObsMode'
-import { ConfigureResponse } from './models/SequenceManagerRes'
+import { ConfigureResponse, ProvisionResponse } from './models/SequenceManagerRes'
+import { TokenFactory } from '../..'
+import { getPostEndPoint } from '../../utils/Utils'
+import { HttpTransport } from '../../utils/HttpTransport'
 import { resolveSequenceManager } from './ResolveSequenceManager'
 import { SequenceManagerImpl } from './SequenceManagerImpl'
+import { ProvisionConfig } from './models/ProvisionConfig'
 
 export interface SequenceManagerService {
   configure(obsMode: ObsMode): Promise<ConfigureResponse>
+  provision(config: ProvisionConfig): Promise<ProvisionResponse>
 }
 
 export const SequenceManagerService: (

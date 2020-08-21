@@ -3,6 +3,10 @@ import { ObsMode } from '../../src/clients/sequence-manager/models/ObsMode'
 import { SequenceManagerService } from '../../src/clients/sequence-manager/SequenceManagerService'
 import { ComponentId, Prefix } from '../../src/models'
 import { getToken } from '../utils/auth'
+import {
+  AgentProvisionConfig,
+  ProvisionConfig
+} from '../../src/clients/sequence-manager/models/ProvisionConfig'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -28,6 +32,18 @@ describe('Sequence Manager Client ', () => {
     expect(configureResponse).toEqual({
       _type: 'Success',
       masterSequencerComponentId: sequencerComponentId
+    })
+  })
+
+  test('provision sequence components | ESW-365', async () => {
+    const eswAgentPrefix = new Prefix('ESW', 'agent1')
+    const agentProvisionConfig = new AgentProvisionConfig(eswAgentPrefix, 2)
+    const provisionConfig = new ProvisionConfig([agentProvisionConfig])
+
+    const provisionResponse = await sequenceManagerService.provision(provisionConfig)
+
+    expect(provisionResponse).toEqual({
+      _type: 'Success'
     })
   })
 })

@@ -23,7 +23,7 @@ const sequenceManagerImpl = new SequenceManagerImpl(new HttpTransport(postEndpoi
 describe('Sequence manager factory', () => {
   test('should create sequence manager service | ESW-365', async () => {
     mockImpl.mockReturnValue(sequenceManagerImpl)
-    const response = SequenceManagerService(tokenFactory)
+    const response = await SequenceManagerService(tokenFactory)
 
     expect(response).toEqual(sequenceManagerImpl)
     expect(mockResolveSm).toBeCalledTimes(1)
