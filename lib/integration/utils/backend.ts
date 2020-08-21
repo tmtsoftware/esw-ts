@@ -1,6 +1,11 @@
 import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
-import { authConnection, configConnection, gatewayConnection } from '../../src/config/connections'
+import {
+  authConnection,
+  configConnection,
+  gatewayConnection,
+  sequenceManagerConnection
+} from '../../src/config/connections'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
 import { waitForLocationToStop, waitForServicesToUp } from './healthCheck'
 import * as sh from './shell'
@@ -33,7 +38,8 @@ export const BackendServices = {
   Event: gatewayConnection,
   AAS: authConnection,
   Config: configConnection,
-  LocationWithAuth: gatewayConnection
+  LocationWithAuth: gatewayConnection,
+  SequenceManager: sequenceManagerConnection
 }
 
 export type ServiceName = keyof typeof BackendServices
