@@ -1,3 +1,4 @@
+import * as D from 'io-ts/lib/Decoder'
 import {
   ComponentId,
   Prefix,
@@ -11,7 +12,6 @@ import { SequencerPostRequest } from '../../../src/clients/sequencer/models/Post
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import * as Res from '../../../src/clients/sequencer/models/SequencerRes'
-import * as D from 'io-ts/lib/Decoder'
 import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import {

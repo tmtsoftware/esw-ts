@@ -1,5 +1,5 @@
-import { EventService } from '../../../src/clients/event'
 import { mocked } from 'ts-jest/utils'
+import { EventService } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'

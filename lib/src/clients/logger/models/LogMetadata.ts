@@ -1,5 +1,5 @@
-import { Level } from './Level'
 import * as D from 'io-ts/lib/Decoder'
+import { Level } from './Level'
 
 export class LogMetadata {
   constructor(

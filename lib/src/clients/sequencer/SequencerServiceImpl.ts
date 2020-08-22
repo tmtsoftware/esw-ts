@@ -1,3 +1,4 @@
+import * as D from 'io-ts/lib/Decoder'
 import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
@@ -10,7 +11,6 @@ import * as Res from './models/SequencerRes'
 import { Option } from '../../utils/Option'
 import { OptionOfStepList, StepList } from './models/StepList'
 import { headOption } from '../../utils/Utils'
-import * as D from 'io-ts/lib/Decoder'
 import { SequencerService } from './SequencerService'
 
 export class SequencerServiceImpl implements SequencerService {

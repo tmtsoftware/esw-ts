@@ -1,5 +1,5 @@
-import { Ws } from '../../src/utils/Ws'
 import { Server } from 'mock-socket'
+import { Ws } from '../../src/utils/Ws'
 import { wsMockWithResolved } from '../helpers/MockHelpers'
 let mockServer: Server
 const host = 'localhost'

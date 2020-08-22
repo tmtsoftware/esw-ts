@@ -1,4 +1,4 @@
-import {ObsMode} from "./ObsMode";
+import { ObsMode } from './ObsMode'
 
 export class Configure {
   readonly _type: 'Configure' = 'Configure'

@@ -1,3 +1,5 @@
+import * as E from 'fp-ts/lib/Either'
+import * as D from 'io-ts/lib/Decoder'
 import {
   extractHostPort,
   getOrThrow,
@@ -6,8 +8,6 @@ import {
   headOption,
   requirement
 } from '../../src/utils/Utils'
-import * as E from 'fp-ts/lib/Either'
-import * as D from 'io-ts/lib/Decoder'
 
 describe('Utils', () => {
   describe('Requirement', () => {

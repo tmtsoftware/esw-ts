@@ -1,8 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
+import { v4 as uuidv4 } from 'uuid'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { Key, Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
 import { EventName, EventNameD } from './EventName'
-import { v4 as uuidv4 } from 'uuid'
 
 const ObserveEventL = 'ObserveEvent'
 const SystemEventL = 'SystemEvent'

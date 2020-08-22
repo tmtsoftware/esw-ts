@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ciLiteral } from '../../../utils/Decoder'
 import { pipe } from 'fp-ts/lib/pipeable'
+import { ciLiteral } from '../../../utils/Decoder'
 
 export const FileType = ciLiteral('Normal', 'Annex')
 export type FileType = D.TypeOf<typeof FileType>

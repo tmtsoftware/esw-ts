@@ -1,5 +1,5 @@
-import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { mocked } from 'ts-jest/utils'
+import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { post } from '../../../src/utils/Http'
 
 jest.mock('../../../src/utils/Http')

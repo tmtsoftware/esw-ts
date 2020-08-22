@@ -1,8 +1,8 @@
-import {HttpConnection} from "../location";
-import {Prefix} from "../../models";
-import {resolve} from "../location/LocationUtils";
-import {extractHostPort} from "../../utils/Utils";
-import {SequenceManagerConfig} from "../../config/SequenceManagerConfig";
+import { HttpConnection } from '../location'
+import { Prefix } from '../../models'
+import { resolve } from '../location/LocationUtils'
+import { extractHostPort } from '../../utils/Utils'
+import { SequenceManagerConfig } from '../../config/SequenceManagerConfig'
 
 export const SequenceManagerConnection = HttpConnection(
   new Prefix(SequenceManagerConfig.subsystem, SequenceManagerConfig.componentName),

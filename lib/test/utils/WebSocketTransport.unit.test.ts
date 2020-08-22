@@ -1,5 +1,5 @@
-import { WebSocketTransport } from '../../src/utils/WebSocketTransport'
 import { mocked } from 'ts-jest/utils'
+import { WebSocketTransport } from '../../src/utils/WebSocketTransport'
 import { Ws } from '../../src/utils/Ws'
 
 jest.mock('../../src/utils/Ws')
