@@ -1,7 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
-import { Parameter, ParameterD, Prefix, PrefixD, Key } from '../../../models'
+import { Key, Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
 import { EventName, EventNameD } from './EventName'
+import { v4 as uuidv4 } from 'uuid'
 
 const ObserveEventL = 'ObserveEvent'
 const SystemEventL = 'SystemEvent'
@@ -22,24 +23,24 @@ const EventD = (_type: EventTypes): Decoder<Event> =>
 
 export class ObserveEvent {
   readonly _type = ObserveEventL
+  readonly eventId: string = uuidv4()
+  readonly eventTime: string = new Date().toISOString()
 
   constructor(
-    readonly eventId: string,
     readonly source: Prefix,
     readonly eventName: EventName,
-    readonly eventTime: string,
     readonly paramSet: Parameter<Key>[]
   ) {}
 }
 
 export class SystemEvent {
   readonly _type = SystemEventL
+  readonly eventId: string = uuidv4()
+  readonly eventTime: string = new Date().toISOString()
 
   constructor(
-    readonly eventId: string,
     readonly source: Prefix,
     readonly eventName: EventName,
-    readonly eventTime: string,
     readonly paramSet: Parameter<Key>[]
   ) {}
 }
