@@ -2,8 +2,8 @@ import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { ComponentId, Prefix } from '../../../src/models'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
 import { LogMetadataD } from '../../../src/clients/logger'
-import { voidDecoder } from '../../../src/utils/Decoder'
 import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/PostCommand'
+import { Done } from '../../../src/clients/location'
 
 const requestRes: jest.Mock = jest.fn()
 const adminServiceImpl = new AdminServiceImpl(mockHttpTransport(requestRes))
@@ -19,7 +19,7 @@ describe('Admin Service', () => {
     const componentId = new ComponentId(new Prefix('ESW', 'filter'), 'HCD')
     const level = 'WARN'
     await adminServiceImpl.setLogLevel(componentId, level)
-    expect(requestRes).toBeCalledWith(new SetLogLevel(componentId, level), voidDecoder)
+    expect(requestRes).toBeCalledWith(new SetLogLevel(componentId, level), Done)
   })
 })
 

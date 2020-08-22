@@ -4,11 +4,12 @@ import { resolveGateway } from '../gateway/ResolveGateway'
 import { getPostEndPoint } from '../../utils/Utils'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { AdminServiceImpl } from './AdminServiceImpl'
+import { Done } from '../location'
 
 export interface AdminService {
   getLogMetadata(componentId: ComponentId): Promise<LogMetadata>
 
-  setLogLevel(componentId: ComponentId, level: Level): Promise<void>
+  setLogLevel(componentId: ComponentId, level: Level): Promise<Done>
 }
 
 export const AdminService: () => Promise<AdminService> = async () => {

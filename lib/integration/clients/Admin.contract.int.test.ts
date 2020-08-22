@@ -26,7 +26,7 @@ describe('Admin Client ', () => {
 
     const response = await adminService.setLogLevel(componentId, 'DEBUG')
 
-    expect(response).toEqual(undefined)
+    expect(response).toEqual('Done')
   })
 
   test('set getLogMetadata | ESW-372', async () => {
