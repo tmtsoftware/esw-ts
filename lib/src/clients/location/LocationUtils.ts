@@ -1,7 +1,7 @@
+import { LocationService } from './LocationService'
 import { Connection } from './models/Connection'
 import { TimeUnit } from './models/Duration'
 import { Location } from './models/Location'
-import { LocationService } from './LocationService'
 
 export const resolve: (
   connection: Connection,

@@ -1,10 +1,10 @@
-import { Server } from 'mock-socket'
 import {
   KeycloakInstance,
   KeycloakResourceAccess,
   KeycloakRoles,
   KeycloakTokenParsed
 } from 'keycloak-js'
+import { Server } from 'mock-socket'
 import { Auth } from '../../src/clients/aas'
 import { Ws } from '../../src/utils/Ws'
 

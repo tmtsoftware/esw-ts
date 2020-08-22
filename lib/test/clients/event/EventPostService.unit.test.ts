@@ -6,10 +6,10 @@ import {
   PublishEvent,
   SystemEvent
 } from '../../../src/clients/event'
-import { Done } from '../../../src/clients/location'
-import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
-import { Prefix } from '../../../src/models'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
+import { Done } from '../../../src/clients/location'
+import { Prefix } from '../../../src/models'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const requestRes: jest.Mock = jest.fn()
 

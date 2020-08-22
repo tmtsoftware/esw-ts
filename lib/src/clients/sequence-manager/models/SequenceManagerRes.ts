@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ComponentIdD, Subsystem } from '../../../models'
-import { ObsModeD } from './ObsMode'
 import { ciLiteral } from '../../../utils/Decoder'
+import { ObsModeD } from './ObsMode'
 
 const Unhandled = 'Unhandled'
 const SequenceComponentNotAvailable = 'SequenceComponentNotAvailable'

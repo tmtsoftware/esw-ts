@@ -1,8 +1,8 @@
+import { Done } from '../../../src/clients/location'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
+import { Log } from '../../../src/clients/logger/models/PostCommand'
 import { Prefix } from '../../../src/models'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
-import { Log } from '../../../src/clients/logger/models/PostCommand'
-import { Done } from '../../../src/clients/location'
 
 const requestRes: jest.Mock = jest.fn()
 const loggingServiceImpl = new LoggingServiceImpl(mockHttpTransport(requestRes))

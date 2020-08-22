@@ -1,12 +1,12 @@
 import { mocked } from 'ts-jest/utils'
+import { ConfigId } from '../../../src'
 import { ConfigService } from '../../../src/clients/config/'
+import { ConfigData } from '../../../src/clients/config/models/ConfigData'
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/connections'
+import { GenericError } from '../../../src/utils/GenericError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
-import { ConfigId } from '../../../src'
-import { GenericError } from '../../../src/utils/GenericError'
-import { ConfigData } from '../../../src/clients/config/models/ConfigData'
 import { Option } from '../../../src/utils/Option'
 
 jest.mock('../../../src/utils/Http')

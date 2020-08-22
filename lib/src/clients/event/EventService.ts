@@ -1,13 +1,13 @@
-import { Done } from '../location'
-import { Event } from './models/Event'
-import { EventKey } from './models/EventKey'
-import { Subscription } from '../../utils/Ws'
 import { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { resolveGateway } from '../gateway/ResolveGateway'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
+import { Subscription } from '../../utils/Ws'
+import { resolveGateway } from '../gateway/ResolveGateway'
+import { Done } from '../location'
 import { EventServiceImpl } from './EventServiceImpl'
+import { Event } from './models/Event'
+import { EventKey } from './models/EventKey'
 
 export interface EventService {
   publish(event: Event): Promise<Done>

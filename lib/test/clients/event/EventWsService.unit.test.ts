@@ -5,10 +5,9 @@ import {
   Subscribe,
   SubscribeWithPattern
 } from '../../../src/clients/event'
+import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { Prefix, Subsystem } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
-
-import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 
 const prefix = new Prefix('ESW', 'eventComp')
 const eventName = new EventName('offline')

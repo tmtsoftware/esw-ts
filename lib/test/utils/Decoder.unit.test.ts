@@ -1,6 +1,6 @@
 import { ParameterD } from '../../src/models'
-import { getOrThrow } from '../../src/utils/Utils'
 import { char } from '../../src/utils/Decoder'
+import { getOrThrow } from '../../src/utils/Utils'
 
 describe('Decode', () => {
   test('char', () => {

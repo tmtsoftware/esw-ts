@@ -1,6 +1,6 @@
 import { identity } from 'fp-ts/lib/function'
-import { HeaderExt } from './HeaderExt'
 import { GenericError } from './GenericError'
+import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 

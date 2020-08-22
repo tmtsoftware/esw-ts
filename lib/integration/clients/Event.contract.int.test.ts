@@ -1,6 +1,4 @@
 import 'whatwg-fetch'
-import { Prefix, Subsystem } from '../../src/models'
-import { startServices, stopServices } from '../utils/backend'
 import {
   Event,
   EventKey,
@@ -10,6 +8,8 @@ import {
   SystemEvent
 } from '../../src/clients/event'
 import { Done } from '../../src/clients/location'
+import { Prefix, Subsystem } from '../../src/models'
+import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(20000)
 let eventService: EventService

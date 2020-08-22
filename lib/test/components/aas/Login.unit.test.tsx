@@ -1,7 +1,7 @@
-import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
-import { Provider } from '../../../src/components/aas/context/AuthContext'
+import React from 'react'
 import { Login } from '../../../src/components'
+import { Provider } from '../../../src/components/aas/context/AuthContext'
 import { mockAuth } from '../../helpers/MockHelpers'
 
 // DEOPSCSW-630 - Javascript adapter for AAS

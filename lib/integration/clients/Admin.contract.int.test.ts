@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
-import { ComponentId, Prefix } from '../../src/models'
-import { startServices, stopServices } from '../utils/backend'
 import { AdminService } from '../../src/clients/admin'
 import { LogMetadata } from '../../src/clients/logger'
+import { ComponentId, Prefix } from '../../src/models'
+import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(30000)
 

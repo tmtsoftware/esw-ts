@@ -1,9 +1,9 @@
 import { TokenFactory } from '../..'
 import { Option } from '../../utils/Option'
-import { resolveConfigServer } from './ConfigUtils'
-import * as M from './models/ConfigModels'
 import { ConfigServiceImpl } from './ConfigServiceImpl'
+import { resolveConfigServer } from './ConfigUtils'
 import { ConfigData } from './models/ConfigData'
+import * as M from './models/ConfigModels'
 
 export interface ConfigService {
   create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<M.ConfigId>

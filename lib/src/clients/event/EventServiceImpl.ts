@@ -1,14 +1,14 @@
 import * as D from 'io-ts/lib/Decoder'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { GatewayEventPostRequest, GatewayEventWsRequest } from '../gateway/models/Gateway'
-import { Subscription, Ws } from '../../utils/Ws'
-import { Event } from './models/Event'
-import { Done } from '../location'
-import { GetEvent, PublishEvent } from './models/PostCommand'
-import { EventKey } from './models/EventKey'
 import { Subsystem } from '../../models'
-import { Subscribe, SubscribeWithPattern } from './models/WsCommand'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { Subscription, Ws } from '../../utils/Ws'
+import { GatewayEventPostRequest, GatewayEventWsRequest } from '../gateway/models/Gateway'
+import { Done } from '../location'
 import { EventService } from './EventService'
+import { Event } from './models/Event'
+import { EventKey } from './models/EventKey'
+import { GetEvent, PublishEvent } from './models/PostCommand'
+import { Subscribe, SubscribeWithPattern } from './models/WsCommand'
 
 export class EventServiceImpl implements EventService {
   constructor(

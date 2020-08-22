@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
+import { Decoder } from '../../../utils/Decoder'
 import { Connection } from './Connection'
 import { Location } from './Location'
-import { Decoder } from '../../../utils/Decoder'
 
 const LocationUpdated: Decoder<LocationUpdated> = D.type({
   _type: D.literal('LocationUpdated'),

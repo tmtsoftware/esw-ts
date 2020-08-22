@@ -1,8 +1,8 @@
-import React from 'react'
 import { render } from '@testing-library/react'
+import React from 'react'
+import { RealmRole } from '../../../../src/components'
 import { Provider } from '../../../../src/components/aas/context/AuthContext'
 import { mockAuth } from '../../../helpers/MockHelpers'
-import { RealmRole } from '../../../../src/components'
 // DEOPSCSW-630 - Javascript adapter for AAS
 // DEOPSCSW-636 - JS adapter support  for Authorization
 describe('<RealmRole />', () => {

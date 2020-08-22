@@ -1,11 +1,11 @@
 import { mocked } from 'ts-jest/utils'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
-import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
+import { SequencerService } from '../../../src/clients/sequencer'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import { ComponentId, Prefix } from '../../../src/models'
-import { SequencerService } from '../../../src/clients/sequencer'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
+import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 
 jest.mock('../../../src/clients/sequencer/SequencerServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')

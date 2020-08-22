@@ -1,4 +1,14 @@
 import * as D from 'io-ts/lib/Decoder'
+import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
+import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
+import * as Req from '../../../src/clients/sequencer/models/PostCommand'
+import * as Res from '../../../src/clients/sequencer/models/SequencerRes'
+import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
+import {
+  QueryFinal,
+  SequencerWebsocketRequest
+} from '../../../src/clients/sequencer/models/WsCommand'
+import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import {
   ComponentId,
   Prefix,
@@ -7,17 +17,7 @@ import {
   SubmitResponse,
   Wait
 } from '../../../src/models'
-import * as Req from '../../../src/clients/sequencer/models/PostCommand'
-import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
-import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
-import * as Res from '../../../src/clients/sequencer/models/SequencerRes'
-import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
-import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
-import {
-  QueryFinal,
-  SequencerWebsocketRequest
-} from '../../../src/clients/sequencer/models/WsCommand'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 

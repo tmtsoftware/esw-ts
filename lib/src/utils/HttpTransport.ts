@@ -1,8 +1,8 @@
-import { post } from './Http'
+import { Decoder } from './Decoder'
 import { HeaderExt } from './HeaderExt'
+import { post } from './Http'
 import type { TokenFactory } from './TokenFactory'
 import { getOrThrow } from './Utils'
-import { Decoder } from './Decoder'
 
 export class HttpTransport<Req> {
   constructor(readonly url: string, readonly tokenFactory: TokenFactory = () => undefined) {}

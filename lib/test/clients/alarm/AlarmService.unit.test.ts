@@ -1,9 +1,9 @@
 import { mocked } from 'ts-jest/utils'
-import { getPostEndPoint } from '../../../src/utils/Utils'
-import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
-import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { AlarmService } from '../../../src/clients/alarm'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
+import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { getPostEndPoint } from '../../../src/utils/Utils'
 
 jest.mock('../../../src/clients/alarm/AlarmServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')

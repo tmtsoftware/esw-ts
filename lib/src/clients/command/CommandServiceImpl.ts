@@ -1,11 +1,11 @@
 import * as M from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { GatewayComponentCommand } from '../gateway/models/Gateway'
-import * as Req from './models/PostCommand'
-import { Subscription, Ws } from '../../utils/Ws'
-import * as WsReq from './models/WsCommand'
 import { Decoder } from '../../utils/Decoder'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { Subscription, Ws } from '../../utils/Ws'
+import { GatewayComponentCommand } from '../gateway/models/Gateway'
 import { CommandService } from './CommandService'
+import * as Req from './models/PostCommand'
+import * as WsReq from './models/WsCommand'
 
 export class CommandServiceImpl implements CommandService {
   constructor(

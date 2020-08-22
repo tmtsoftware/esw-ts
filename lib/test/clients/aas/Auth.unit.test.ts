@@ -1,9 +1,9 @@
-import { mocked } from 'ts-jest/utils'
 import Keycloak from 'keycloak-js'
+import { mocked } from 'ts-jest/utils'
 import { TMTAuth } from '../../../src/clients/aas'
-import { AASConfig } from '../../../src/config'
-import { resolve } from '../../../src/clients/location/LocationUtils'
 import { HttpConnection, HttpLocation } from '../../../src/clients/location'
+import { resolve } from '../../../src/clients/location/LocationUtils'
+import { AASConfig } from '../../../src/config'
 import { Prefix } from '../../../src/models'
 import { mockedKeyCloakInstance } from '../../helpers/MockHelpers'
 

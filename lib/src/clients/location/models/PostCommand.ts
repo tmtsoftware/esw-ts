@@ -1,5 +1,5 @@
-import { Connection, ConnectionType } from './Connection'
 import { ComponentType, Prefix } from '../../../models'
+import { Connection, ConnectionType } from './Connection'
 import { Duration } from './Duration'
 
 export class ListEntries {

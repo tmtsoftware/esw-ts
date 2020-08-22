@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
 import { Prefix, PrefixD } from '../../../models'
-import { requirement } from '../../../utils/Utils'
 import { ciLiteral } from '../../../utils/Decoder'
+import { requirement } from '../../../utils/Utils'
 
 const invalidChars = new RegExp('.*[\\*\\[\\]\\^\\?\\-].*')
 

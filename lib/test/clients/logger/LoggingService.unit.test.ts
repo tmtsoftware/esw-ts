@@ -1,9 +1,9 @@
 import { mocked } from 'ts-jest/utils'
-import { getPostEndPoint } from '../../../src/utils/Utils'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
-import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { LoggingService } from '../../../src/clients/logger'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { getPostEndPoint } from '../../../src/utils/Utils'
 
 jest.mock('../../../src/clients/logger/LoggingServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')

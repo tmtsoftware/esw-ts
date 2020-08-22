@@ -1,9 +1,9 @@
-import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
-import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import * as Req from '../../../src/clients/command/models/PostCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
+import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
 import * as M from '../../../src/models'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 const eswTestPrefix = new Prefix('ESW', 'test')

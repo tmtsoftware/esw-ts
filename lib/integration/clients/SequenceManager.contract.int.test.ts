@@ -1,9 +1,9 @@
 import 'whatwg-fetch'
-import { ComponentId, Prefix } from '../../src/models'
-import { startServices, stopServices } from '../utils/backend'
-import { SequenceManagerService } from '../../src/clients/sequence-manager/SequenceManagerService'
-import { getToken } from '../utils/auth'
 import { ObsMode } from '../../src/clients/sequence-manager/models/ObsMode'
+import { SequenceManagerService } from '../../src/clients/sequence-manager/SequenceManagerService'
+import { ComponentId, Prefix } from '../../src/models'
+import { getToken } from '../utils/auth'
+import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
 let sequenceManagerService: SequenceManagerService

@@ -1,9 +1,9 @@
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
-import { ComponentId, Prefix } from '../../../src/models'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
-import { LogMetadataD } from '../../../src/clients/logger'
 import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/PostCommand'
 import { Done } from '../../../src/clients/location'
+import { LogMetadataD } from '../../../src/clients/logger'
+import { ComponentId, Prefix } from '../../../src/models'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
 
 const requestRes: jest.Mock = jest.fn()
 const adminServiceImpl = new AdminServiceImpl(mockHttpTransport(requestRes))

@@ -9,10 +9,10 @@ import {
 import { authConnection, gatewayConnection } from '../../src/config/connections'
 import { Prefix } from '../../src/models'
 import { Option } from '../../src/utils/Option'
+import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
+import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
-import { getToken } from '../utils/auth'
-import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 
 jest.setTimeout(100000)
 

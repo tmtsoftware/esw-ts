@@ -1,7 +1,7 @@
 import { HttpTransport } from '../../utils/HttpTransport'
-import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'
 import { Done } from '../location'
 import { AlarmService } from './AlarmService'
+import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'
 
 export class AlarmServiceImpl implements AlarmService {
   constructor(private readonly httpTransport: HttpTransport<SetAlarmSeverity>) {}

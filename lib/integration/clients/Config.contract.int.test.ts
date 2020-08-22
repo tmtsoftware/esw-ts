@@ -5,10 +5,10 @@ import {
   ConfigMetadata,
   ConfigService
 } from '../../src/clients/config'
+import { ConfigData } from '../../src/clients/config/models/ConfigData'
+import { Option } from '../../src/utils/Option'
 import { startServices, stopServices } from '../utils/backend'
 import { delay } from '../utils/eventually'
-import { Option } from '../../src/utils/Option'
-import { ConfigData } from '../../src/clients/config/models/ConfigData'
 
 jest.setTimeout(30000)
 

@@ -1,8 +1,8 @@
+import { TokenFactory } from '../..'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { getPostEndPoint } from '../../utils/Utils'
 import { ObsMode } from './models/ObsMode'
 import { ConfigureResponse } from './models/SequenceManagerRes'
-import { TokenFactory } from '../..'
-import { getPostEndPoint } from '../../utils/Utils'
-import { HttpTransport } from '../../utils/HttpTransport'
 import { resolveSequenceManager } from './ResolveSequenceManager'
 import { SequenceManagerImpl } from './SequenceManagerImpl'
 

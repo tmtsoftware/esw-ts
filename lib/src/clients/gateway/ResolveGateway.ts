@@ -1,7 +1,7 @@
-import { HttpConnection } from '../location'
 import { GatewayConfig } from '../../config'
 import { Prefix } from '../../models'
 import { extractHostPort } from '../../utils/Utils'
+import { HttpConnection } from '../location'
 import { resolve } from '../location/LocationUtils'
 
 export const GatewayConnection = HttpConnection(

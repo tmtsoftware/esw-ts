@@ -1,8 +1,8 @@
 import { HttpConnection, TrackingEvent } from '../../../src/clients/location'
-import { Prefix } from '../../../src/models'
-import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import { Track } from '../../../src/clients/location/models/WsCommand'
+import { Prefix } from '../../../src/models'
+import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')

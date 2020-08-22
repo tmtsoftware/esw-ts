@@ -1,11 +1,11 @@
 import { mocked } from 'ts-jest/utils'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
-import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
-import { ComponentId, Prefix } from '../../../src/models'
 import { CommandService } from '../../../src/clients/command'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
+import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
+import { ComponentId, Prefix } from '../../../src/models'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
+import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 
 jest.mock('../../../src/clients/command/CommandServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')

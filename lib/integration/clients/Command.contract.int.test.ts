@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
-import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
-import { startServices, stopServices } from '../utils/backend'
-import { getToken } from '../utils/auth'
 import { CommandService } from '../../src/clients/command'
+import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
+import { getToken } from '../utils/auth'
+import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(70000)
 

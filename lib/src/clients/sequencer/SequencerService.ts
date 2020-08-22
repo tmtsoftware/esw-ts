@@ -1,12 +1,12 @@
 import type { TokenFactory } from '../..'
 import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { resolveGateway } from '../gateway/ResolveGateway'
-import * as Res from './models/SequencerRes'
-import { StepList } from './models/StepList'
 import { Option } from '../../utils/Option'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
+import { resolveGateway } from '../gateway/ResolveGateway'
+import * as Res from './models/SequencerRes'
+import { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
 
 export interface SequencerService {

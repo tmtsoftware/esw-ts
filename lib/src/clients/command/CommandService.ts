@@ -1,10 +1,10 @@
 import type { TokenFactory } from '../../'
 import * as M from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { Subscription } from '../../utils/Ws'
-import { resolveGateway } from '../gateway/ResolveGateway'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { WebSocketTransport } from '../../utils/WebSocketTransport'
+import { Subscription } from '../../utils/Ws'
+import { resolveGateway } from '../gateway/ResolveGateway'
 import { CommandServiceImpl } from './CommandServiceImpl'
 
 export interface CommandService {

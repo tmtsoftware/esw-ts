@@ -1,9 +1,9 @@
 import { LocationService } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection } from '../../src/config/connections'
+import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'
-import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 
 const locationService = LocationService()
 const locationServiceWithAuth = LocationService(() => undefined, LocationConfigWithAuth)

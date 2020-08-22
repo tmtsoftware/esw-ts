@@ -1,9 +1,9 @@
 import { mocked } from 'ts-jest/utils'
-import { getPostEndPoint } from '../../../src/utils/Utils'
+import { AdminService } from '../../../src/clients/admin'
+import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
-import { AdminService } from '../../../src/clients/admin'
+import { getPostEndPoint } from '../../../src/utils/Utils'
 
 jest.mock('../../../src/clients/admin/AdminServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')

@@ -1,12 +1,12 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ConfigService, TokenFactory } from '../..'
 import { HeaderExt } from '../../utils/HeaderExt'
+import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import { Option } from '../../utils/Option'
 import { tryGetConfigBlob } from './ConfigUtils'
-import * as M from './models/ConfigModels'
 import * as ConfigUtils from './ConfigUtils'
-import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import { ConfigData } from './models/ConfigData'
+import * as M from './models/ConfigModels'
 
 export class ConfigServiceImpl implements ConfigService {
   constructor(

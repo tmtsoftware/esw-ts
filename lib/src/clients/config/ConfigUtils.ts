@@ -3,11 +3,11 @@ import * as D from 'io-ts/lib/Decoder'
 import { configConnection } from '../../config/connections'
 import { GenericError } from '../../utils/GenericError'
 import { get, head } from '../../utils/Http'
+import { Option } from '../../utils/Option'
 import { extractHostPort, getOrThrow } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
-import * as M from './models/ConfigModels'
 import { ConfigData } from './models/ConfigData'
-import { Option } from '../../utils/Option'
+import * as M from './models/ConfigModels'
 
 export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))

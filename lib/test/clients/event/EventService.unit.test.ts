@@ -2,8 +2,8 @@ import { mocked } from 'ts-jest/utils'
 import { EventService } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 jest.mock('../../../src/clients/event/EventServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')

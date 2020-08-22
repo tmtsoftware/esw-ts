@@ -1,17 +1,17 @@
+import { TokenFactory } from '../..'
 import { LocationConfig } from '../../config'
 import { ComponentType, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
+import { Option } from '../../utils/Option'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { WebSocketTransport } from '../../utils/WebSocketTransport'
 import { Subscription } from '../../utils/Ws'
+import { LocationServiceImpl } from './LocationServiceImpl'
 import { Connection, ConnectionType } from './models/Connection'
 import { TimeUnit } from './models/Duration'
 import { Location } from './models/Location'
 import { Done } from './models/LocationResponses'
 import { TrackingEvent } from './models/TrackingEvent'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
-import { Option } from '../../utils/Option'
-import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { LocationServiceImpl } from './LocationServiceImpl'
-import { TokenFactory } from '../..'
 
 export interface LocationService {
   list(): Promise<Location[]>

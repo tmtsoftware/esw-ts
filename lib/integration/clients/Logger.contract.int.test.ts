@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
 import { Done } from '../../src/clients/location'
+import { LoggingService } from '../../src/clients/logger'
 import { Prefix } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
-import { LoggingService } from '../../src/clients/logger'
 
 jest.setTimeout(30000)
 

@@ -1,10 +1,10 @@
 import { mocked } from 'ts-jest/utils'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
-import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import { LocationService } from '../../../src/clients/location'
+import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import { LocationConfig } from '../../../src/config'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
+import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 import { LocationConfigWithAuth } from '../../helpers/LocationConfigWithAuth'
 
 jest.mock('../../../src/clients/location/LocationServiceImpl')

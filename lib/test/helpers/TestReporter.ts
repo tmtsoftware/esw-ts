@@ -2,9 +2,9 @@ import BaseReporter from '@jest/reporters/build/base_reporter'
 import { Context, Test } from '@jest/reporters/build/types'
 import { AggregatedResult, TestResult } from '@jest/test-result'
 // eslint-disable-next-line import/no-nodejs-modules
-import os from 'os'
-// eslint-disable-next-line import/no-nodejs-modules
 import fs from 'fs'
+// eslint-disable-next-line import/no-nodejs-modules
+import os from 'os'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
 /**

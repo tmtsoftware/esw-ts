@@ -1,8 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
+import { ciLiteral, Decoder } from '../../utils/Decoder'
 import { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
 import { Prefix, PrefixD } from './Prefix'
-import { ciLiteral, Decoder } from '../../utils/Decoder'
 
 const SetupL = 'Setup'
 const ObserveL = 'Observe'

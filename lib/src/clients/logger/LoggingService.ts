@@ -1,10 +1,10 @@
 import { Prefix } from '../../models'
-import { Done } from '../location'
-import { Level } from './models/Level'
-import { resolveGateway } from '../gateway/ResolveGateway'
-import { getPostEndPoint } from '../../utils/Utils'
 import { HttpTransport } from '../../utils/HttpTransport'
+import { getPostEndPoint } from '../../utils/Utils'
+import { resolveGateway } from '../gateway/ResolveGateway'
+import { Done } from '../location'
 import { LoggingServiceImpl } from './LoggingServiceImpl'
+import { Level } from './models/Level'
 
 export interface LoggingService {
   log(prefix: Prefix, level: Level, message: string, metadata: Record<string, any>): Promise<Done>

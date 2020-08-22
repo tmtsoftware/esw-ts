@@ -1,9 +1,9 @@
 import { AlarmKey } from '../../../src/clients/alarm'
-import { Prefix } from '../../../src/models'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
 import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'
 import { Done } from '../../../src/clients/location'
+import { Prefix } from '../../../src/models'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
 
 describe('Alarm service', () => {
   test('should set alarm severity for a given prefix | ESW-314', async () => {
