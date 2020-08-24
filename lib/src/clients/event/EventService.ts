@@ -1,8 +1,7 @@
 import { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
-import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { Subscription } from '../../utils/Ws'
+import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { Done } from '../location'
 import { EventServiceImpl } from './EventServiceImpl'
@@ -30,7 +29,5 @@ export const EventService = async (): Promise<EventService> => {
   const { host, port } = await resolveGateway()
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
-  return new EventServiceImpl(new HttpTransport(postEndpoint), () =>
-    WebSocketTransport(webSocketEndpoint)
-  )
+  return new EventServiceImpl(new HttpTransport(postEndpoint), () => new Ws(webSocketEndpoint))
 }

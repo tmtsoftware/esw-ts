@@ -4,8 +4,8 @@ import { LocationServiceImpl } from '../../../src/clients/location/LocationServi
 import { LocationConfig } from '../../../src/config'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
 import { LocationConfigWithAuth } from '../../helpers/LocationConfigWithAuth'
+import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/location/LocationServiceImpl')
 jest.mock('../../../src/utils/Utils')
@@ -21,11 +21,12 @@ wsMockEndpoint.mockReturnValue(wsEndpoint)
 
 const locationServiceImplWithAuth = new LocationServiceImpl(
   new HttpTransport(postEndpoint, tokenFactory),
-  () => WebSocketTransport(wsEndpoint)
+  () => new Ws(wsEndpoint)
 )
 
-const locationServiceImpl = new LocationServiceImpl(new HttpTransport(postEndpoint), () =>
-  WebSocketTransport(wsEndpoint)
+const locationServiceImpl = new LocationServiceImpl(
+  new HttpTransport(postEndpoint),
+  () => new Ws(wsEndpoint)
 )
 
 describe('Location Service Factory', () => {

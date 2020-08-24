@@ -5,7 +5,7 @@ import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
+import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/command/CommandServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')
@@ -27,7 +27,7 @@ const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const commandServiceImpl = new CommandServiceImpl(
   componentId,
   new HttpTransport(postEndpoint, tokenFactory),
-  () => WebSocketTransport(wsEndpoint)
+  () => new Ws(wsEndpoint)
 )
 
 describe('Command Service Factory', () => {

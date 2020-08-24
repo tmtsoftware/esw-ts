@@ -4,8 +4,7 @@ import { ComponentType, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Option } from '../../utils/Option'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
-import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { Subscription } from '../../utils/Ws'
+import { Subscription, Ws } from '../../utils/Ws'
 import { LocationServiceImpl } from './LocationServiceImpl'
 import { Connection, ConnectionType } from './models/Connection'
 import { TimeUnit } from './models/Duration'
@@ -45,7 +44,8 @@ export const LocationService = (
     host: locationConfig.hostName,
     port: locationConfig.port
   })
-  return new LocationServiceImpl(new HttpTransport(postEndpoint, tokenFactory), () =>
-    WebSocketTransport(webSocketEndpoint)
+  return new LocationServiceImpl(
+    new HttpTransport(postEndpoint, tokenFactory),
+    () => new Ws(webSocketEndpoint)
   )
 }

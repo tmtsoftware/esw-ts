@@ -2,8 +2,7 @@ import type { TokenFactory } from '../../'
 import * as M from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
-import { WebSocketTransport } from '../../utils/WebSocketTransport'
-import { Subscription } from '../../utils/Ws'
+import { Subscription, Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import { CommandServiceImpl } from './CommandServiceImpl'
 
@@ -30,7 +29,9 @@ export const CommandService = async (
   const { host, port } = await resolveGateway()
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
-  return new CommandServiceImpl(componentId, new HttpTransport(postEndpoint, tokenFactory), () =>
-    WebSocketTransport(webSocketEndpoint)
+  return new CommandServiceImpl(
+    componentId,
+    new HttpTransport(postEndpoint, tokenFactory),
+    () => new Ws(webSocketEndpoint)
   )
 }

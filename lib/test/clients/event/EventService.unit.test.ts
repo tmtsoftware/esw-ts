@@ -4,7 +4,7 @@ import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
+import { Ws } from '../../../src/utils/Ws'
 jest.mock('../../../src/clients/event/EventServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')
 jest.mock('../../../src/utils/Utils')
@@ -19,8 +19,9 @@ const uri = { host: '123', port: 1234 }
 mockResolveGateway.mockResolvedValue(uri)
 postMockEndpoint.mockReturnValue(postEndpoint)
 wsMockEndpoint.mockReturnValue(wsEndpoint)
-const eventServiceImpl = new EventServiceImpl(new HttpTransport(postEndpoint), () =>
-  WebSocketTransport(wsEndpoint)
+const eventServiceImpl = new EventServiceImpl(
+  new HttpTransport(postEndpoint),
+  () => new Ws(wsEndpoint)
 )
 mockImpl.mockReturnValue(eventServiceImpl)
 

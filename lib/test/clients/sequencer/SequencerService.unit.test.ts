@@ -5,7 +5,7 @@ import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerSe
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { WebSocketTransport } from '../../../src/utils/WebSocketTransport'
+import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/sequencer/SequencerServiceImpl')
 jest.mock('../../../src/clients/gateway/ResolveGateway')
@@ -27,7 +27,7 @@ const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const seqServiceImpl = new SequencerServiceImpl(
   componentId,
   new HttpTransport(postEndpoint, tokenFactory),
-  () => WebSocketTransport(wsEndpoint)
+  () => new Ws(wsEndpoint)
 )
 mockImpl.mockReturnValue(seqServiceImpl)
 
