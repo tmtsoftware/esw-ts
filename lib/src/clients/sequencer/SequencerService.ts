@@ -3,11 +3,11 @@ import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Option } from '../../utils/Option'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
-import { Ws } from '../../utils/Ws'
 
 export interface SequencerService {
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>

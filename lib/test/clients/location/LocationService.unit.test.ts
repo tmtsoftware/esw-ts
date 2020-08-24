@@ -4,8 +4,8 @@ import { LocationServiceImpl } from '../../../src/clients/location/LocationServi
 import { LocationConfig } from '../../../src/config'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
-import { LocationConfigWithAuth } from '../../helpers/LocationConfigWithAuth'
 import { Ws } from '../../../src/utils/Ws'
+import { LocationConfigWithAuth } from '../../helpers/LocationConfigWithAuth'
 
 jest.mock('../../../src/clients/location/LocationServiceImpl')
 jest.mock('../../../src/utils/Utils')

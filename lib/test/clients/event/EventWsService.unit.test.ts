@@ -1,11 +1,6 @@
-import {
-  Event,
-  EventKey,
-  EventName,
-  Subscribe,
-  SubscribeWithPattern
-} from '../../../src/clients/event'
+import { Event, EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
+import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
 import { Prefix, Subsystem } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 

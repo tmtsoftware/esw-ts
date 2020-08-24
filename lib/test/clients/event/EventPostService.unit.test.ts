@@ -1,12 +1,6 @@
-import {
-  EventKey,
-  EventName,
-  GetEvent,
-  ObserveEvent,
-  PublishEvent,
-  SystemEvent
-} from '../../../src/clients/event'
+import { EventKey, EventName, ObserveEvent, SystemEvent } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
+import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
 import { Done } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
