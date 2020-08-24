@@ -8,7 +8,7 @@ import {
 } from '../../src/clients/location'
 import { authConnection, gatewayConnection } from '../../src/config/connections'
 import { Prefix } from '../../src/models'
-import { Option } from '../../src/utils/Option'
+import { Option } from '../../src/utils/types'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'

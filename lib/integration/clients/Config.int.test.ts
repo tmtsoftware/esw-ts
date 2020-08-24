@@ -6,7 +6,7 @@ import {
   ConfigService
 } from '../../src/clients/config'
 import { ConfigData } from '../../src/clients/config/models/ConfigData'
-import { Option } from '../../src/utils/Option'
+import { Option } from '../../src/utils/types'
 import { startServices, stopServices } from '../utils/backend'
 import { delay } from '../utils/eventually'
 

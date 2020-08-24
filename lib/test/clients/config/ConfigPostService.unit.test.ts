@@ -7,7 +7,7 @@ import { configConnection } from '../../../src/config/connections'
 import { GenericError } from '../../../src/utils/GenericError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
-import { Option } from '../../../src/utils/Option'
+import type { Option } from '../../../src/utils/types'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)

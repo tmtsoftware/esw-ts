@@ -1,5 +1,5 @@
 import { TokenFactory } from '../..'
-import { Option } from '../../utils/Option'
+import { Option } from '../../utils/types'
 import { ConfigServiceImpl } from './ConfigServiceImpl'
 import { resolveConfigServer } from './ConfigUtils'
 import { ConfigData } from './models/ConfigData'

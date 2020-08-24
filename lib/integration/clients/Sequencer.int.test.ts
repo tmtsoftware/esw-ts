@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import { SequencerService, StepList } from '../../src/clients/sequencer'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
-import { Option } from '../../src/utils/Option'
+import { Option } from '../../src/utils/types'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 

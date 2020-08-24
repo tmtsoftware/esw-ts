@@ -1,7 +1,7 @@
 import type { TokenFactory } from '../..'
 import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { Option } from '../../utils/Option'
+import type { Option } from '../../utils/types'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
 import { resolveGateway } from '../gateway/ResolveGateway'
