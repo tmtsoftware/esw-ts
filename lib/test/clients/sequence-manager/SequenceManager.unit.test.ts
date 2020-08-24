@@ -12,17 +12,17 @@ const postMockEndpoint = mocked(getPostEndPoint)
 const mockResolveSm = mocked(resolveSequenceManager)
 const mockImpl = mocked(SequenceManagerImpl)
 
-const postEndpoint = 'postEndpoint'
-const uri = { host: '123', port: 1234 }
-mockResolveSm.mockResolvedValue(uri)
-postMockEndpoint.mockReturnValue(postEndpoint)
 const tokenFactory = () => undefined
-
-const sequenceManagerImpl = new SequenceManagerImpl(new HttpTransport(postEndpoint, tokenFactory))
 
 describe('Sequence manager factory', () => {
   test('should create sequence manager service | ESW-365', async () => {
+    const postEndpoint = 'postEndpoint'
+    const uri = { host: '123', port: 1234 }
+    mockResolveSm.mockResolvedValue(uri)
+    postMockEndpoint.mockReturnValueOnce(postEndpoint)
+    const sequenceManagerImpl = new SequenceManagerImpl(new HttpTransport(postEndpoint, tokenFactory))
     mockImpl.mockReturnValue(sequenceManagerImpl)
+
     const response = await SequenceManagerService(tokenFactory)
 
     expect(response).toEqual(sequenceManagerImpl)

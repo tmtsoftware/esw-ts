@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import { ObsMode } from '../../src/clients/sequence-manager/models/ObsMode'
 import { SequenceManagerService } from '../../src/clients/sequence-manager/SequenceManagerService'
-import { ComponentId, Prefix } from '../../src/models'
+import {ComponentId, Prefix, Subsystem} from '../../src/models'
 import { getToken } from '../utils/auth'
 import {
   AgentProvisionConfig,
@@ -44,6 +44,33 @@ describe('Sequence Manager Client ', () => {
 
     expect(provisionResponse).toEqual({
       _type: 'Success'
+    })
+  })
+
+  test('getRunningObsModes | ESW-365', async () => {
+    const getRunningObsModesResponse = await sequenceManagerService.getRunningObsModes()
+
+    expect(getRunningObsModesResponse).toEqual({
+      _type: 'Success',
+      runningObsModes: ['darknight']
+    })
+  })
+
+  test('startSequencer | ESW-365', async () => {
+    const getRunningObsModesResponse = await sequenceManagerService.startSequencer('ESW', new ObsMode('darknight'))
+
+    expect(getRunningObsModesResponse).toEqual({
+      _type: 'Started',
+      componentId: new ComponentId(new Prefix('ESW', 'darknight'), 'Sequencer')
+    })
+  })
+
+  test('startSequencer | ESW-365', async () => {
+    const getRunningObsModesResponse = await sequenceManagerService.restartSequencer('ESW', new ObsMode('darknight'))
+
+    expect(getRunningObsModesResponse).toEqual({
+      _type: 'Success',
+      componentId: new ComponentId(new Prefix('ESW', 'darknight'), 'Sequencer')
     })
   })
 })
