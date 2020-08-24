@@ -1,8 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ComponentIdD, PrefixD, Subsystem } from '../../../models'
 import { ciLiteral } from '../../../utils/Decoder'
-import { ObsModeD } from './ObsMode'
 import { AkkaLocation } from '../../location'
+import { ObsModeD } from './ObsMode'
 
 const Unhandled = 'Unhandled'
 const SequenceComponentNotAvailable = 'SequenceComponentNotAvailable'
@@ -61,24 +61,29 @@ const ConfigureSuccessD = D.type({
   _type: ciLiteral(Success),
   masterSequencerComponentId: ComponentIdD
 })
+
 const FailedD = D.type({
   _type: ciLiteral(Failed),
   msg: D.string
 })
+
 const CouldNotFindMachinesD = D.type({
   _type: ciLiteral(CouldNotFindMachines),
   prefix: D.array(PrefixD)
 })
 
 const RestartSequencerSuccessD = D.type({ _type: ciLiteral(Success), componentId: ComponentIdD })
+
 const RunningObsModesSuccessD = D.type({
   _type: ciLiteral(Success),
   runningObsModes: D.array(ObsModeD)
 })
+
 const AlreadyRunningD = D.type({
   _type: ciLiteral(AlreadyRunning),
   componentId: ComponentIdD
 })
+
 const StartedD = D.type({
   _type: ciLiteral(Started),
   componentId: ComponentIdD
@@ -86,8 +91,9 @@ const StartedD = D.type({
 
 const SequenceComponentStatusD = D.type({
   seqCompId: ComponentIdD,
-  sequencerLocation: AkkaLocation
+  sequencerLocation: D.array(AkkaLocation)
 })
+
 const AgentStatusD = D.type({
   agentId: ComponentIdD,
   seqCompsStatus: D.array(SequenceComponentStatusD)

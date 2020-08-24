@@ -1,7 +1,9 @@
-import { mockHttpTransport } from '../../helpers/MockHelpers'
-import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
 import { ObsMode } from '../../../src/clients/sequence-manager/models/ObsMode'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
+import {
+  AgentProvisionConfig,
+  ProvisionConfig
+} from '../../../src/clients/sequence-manager/models/ProvisionConfig'
 import {
   AgentStatusResponseD,
   ConfigureResponseD,
@@ -11,11 +13,9 @@ import {
   ShutdownSequencersAndSeqCompResponseD,
   StartSequencerResponseD
 } from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
-import {
-  AgentProvisionConfig,
-  ProvisionConfig
-} from '../../../src/clients/sequence-manager/models/ProvisionConfig'
+import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
 import { Prefix, Subsystem } from '../../../src/models'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
 
 const requestRes: jest.Mock = jest.fn()
 const sequenceManager = new SequenceManagerImpl(mockHttpTransport(requestRes))
