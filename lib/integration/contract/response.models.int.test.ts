@@ -10,8 +10,19 @@ import { Event } from '../../src/clients/event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { Connection, ConnectionType, Location, TrackingEvent } from '../../src/clients/location'
 import { Level, LogMetadataD } from '../../src/clients/logger'
+import { ObsModeD } from '../../src/clients/sequence-manager/models/ObsMode'
+import { ProvisionConfigD } from '../../src/clients/sequence-manager/models/ProvisionConfig'
+import {
+  AgentStatusResponseD,
+  ConfigureResponseD,
+  GetRunningObsModesResponseD,
+  ProvisionResponseD,
+  RestartSequencerResponseD,
+  ShutdownSequencersAndSeqCompResponseD,
+  StartSequencerResponseD
+} from '../../src/clients/sequence-manager/models/SequenceManagerRes'
 import * as Seq from '../../src/clients/sequencer/models/SequencerRes'
-import { StepStatusD, StepD, StepListD } from '../../src/clients/sequencer/models/StepList'
+import { StepD, StepListD, StepStatusD } from '../../src/clients/sequencer/models/StepList'
 import * as M from '../../src/models'
 import { ComponentIdD, PrefixD } from '../../src/models'
 import { Decoder } from '../../src/utils/Decoder'
@@ -29,6 +40,7 @@ const locationModelsJsonPath = `${cswDir}/location-service/models.json`
 const gatewayModelsJsonPath = `${eswDir}/gateway-service/models.json`
 const configModelsJsonPath = `${cswDir}/config-service/models.json`
 const sequencerModelsJsonPath = `${eswDir}/sequencer-service/models.json`
+const sequenceManagerModelsJsonPath = `${eswDir}/sequence-manager-service/models.json`
 
 beforeAll(async () => {
   executeCswContract([cswDir])
@@ -61,6 +73,10 @@ describe('models contract test', () => {
 
   test('should test Sequencer models | ESW-307', () => {
     verifyContract(sequencerModelsJsonPath, sequencerDecoders)
+  })
+
+  test('should test Sequencer models | ESW-356', () => {
+    verifyContract(sequenceManagerModelsJsonPath, sequenceManagerDecoders)
   })
 })
 
@@ -141,4 +157,19 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
   StepStatus: StepStatusD,
   Step: StepD,
   StepList: StepListD
+}
+
+const sequenceManagerDecoders: Record<string, Decoder<any>> = {
+  ConfigureResponse: ConfigureResponseD,
+  ProvisionResponse: ProvisionResponseD,
+  GetRunningObsModesResponse: GetRunningObsModesResponseD,
+  StartSequencerResponse: StartSequencerResponseD,
+  RestartSequencerResponse: RestartSequencerResponseD,
+  ShutdownSequencersResponse: ShutdownSequencersAndSeqCompResponseD,
+  ShutdownSequenceComponentResponse: ShutdownSequencersAndSeqCompResponseD,
+  AgentStatusResponse: AgentStatusResponseD,
+  Prefix: PrefixD,
+  ObsMode: ObsModeD,
+  Subsystem: M.Subsystem,
+  ProvisionConfig: ProvisionConfigD
 }

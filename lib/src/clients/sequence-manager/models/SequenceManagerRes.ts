@@ -89,7 +89,7 @@ const StartedD = D.type({
   componentId: ComponentIdD
 })
 
-const SequenceComponentStatusD = D.type({
+export const SequenceComponentStatusD = D.type({
   seqCompId: ComponentIdD,
   sequencerLocation: D.array(AkkaLocation)
 })

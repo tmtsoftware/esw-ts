@@ -1,4 +1,13 @@
 export * from './SequenceManagerService'
-export * from './models/ObsMode'
-export * from './models/ProvisionConfig'
-export * from './models/SequenceManagerRes'
+export { ObsMode } from './models/ObsMode'
+export { AgentProvisionConfig, ProvisionConfig } from './models/ProvisionConfig'
+export {
+  ConfigureResponse,
+  ProvisionResponse,
+  GetRunningObsModesResponse,
+  StartSequencerResponse,
+  RestartSequencerResponse,
+  ShutdownSequencersResponse,
+  ShutdownSequenceComponentResponse,
+  AgentStatusResponse
+} from './models/SequenceManagerRes'
