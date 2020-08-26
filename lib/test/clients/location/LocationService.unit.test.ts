@@ -30,7 +30,7 @@ const locationServiceImpl = new LocationServiceImpl(
 )
 
 describe('Location Service Factory', () => {
-  test('create location service with auth | ESW-316', async () => {
+  test('create location service with auth | ESW-311', async () => {
     const uriWithAuth = { host: LocationConfigWithAuth.hostName, port: LocationConfigWithAuth.port }
 
     mockImpl.mockReturnValue(locationServiceImplWithAuth)
@@ -41,7 +41,7 @@ describe('Location Service Factory', () => {
     expect(wsMockEndpoint).toBeCalledWith(uriWithAuth)
   })
 
-  test('create location service without auth | ESW-316', async () => {
+  test('create location service without auth | ESW-311', async () => {
     const uri = { host: LocationConfig.hostName, port: LocationConfig.port }
 
     mockImpl.mockReturnValue(locationServiceImpl)
