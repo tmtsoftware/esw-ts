@@ -1,10 +1,10 @@
 import 'whatwg-fetch'
-import { ObsMode } from '../../src/clients/sequence-manager/models/ObsMode'
 import {
   AgentProvisionConfig,
-  ProvisionConfig
-} from '../../src/clients/sequence-manager/models/ProvisionConfig'
-import { SequenceManagerService } from '../../src/clients/sequence-manager/SequenceManagerService'
+  ObsMode,
+  ProvisionConfig,
+  SequenceManagerService
+} from '../../src/clients/sequence-manager'
 import { ComponentId, Prefix } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'

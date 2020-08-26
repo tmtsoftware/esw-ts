@@ -36,7 +36,7 @@ describe('Command Client', () => {
     expect(actualResponse._type).toEqual('Accepted')
   })
 
-  test('should get unauthorized error on sending invalid token | ESW-343, ESW-305, ESW-99', async () => {
+  test('should get unauthorized error on sending invalid token | ESW-343, ESW-305, ESW-99, ESW-321', async () => {
     const commandService = await CommandService(componentId, () => '')
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
 
@@ -50,7 +50,7 @@ describe('Command Client', () => {
     })
   })
 
-  test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305, ESW-99', async () => {
+  test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305, ESW-99, ESW-321', async () => {
     const tokenWithoutRole: string = await getToken(
       'tmt-frontend-app',
       'gateway-user2',
