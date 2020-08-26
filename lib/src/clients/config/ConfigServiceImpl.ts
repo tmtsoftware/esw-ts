@@ -116,11 +116,16 @@ export class ConfigServiceImpl implements ConfigService {
     annex: boolean,
     comment: string
   ): Promise<M.ConfigId> {
-    return this.createOrUpdate(path, configData.content, { annex: annex.toString(), comment }, post)
+    return this.createOrUpdate(
+      path,
+      configData.toBlob(),
+      { annex: annex.toString(), comment },
+      post
+    )
   }
 
   update(path: string, configData: ConfigData, comment: string): Promise<M.ConfigId> {
-    return this.createOrUpdate(path, configData.content, { comment }, put)
+    return this.createOrUpdate(path, configData.toBlob(), { comment }, put)
   }
 
   private async createOrUpdate(

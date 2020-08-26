@@ -89,7 +89,7 @@ describe('Config Client', () => {
       'creating file'
     )
     const actualFile = await configService.getLatest(path)
-    const actualFileContent = await new Response(actualFile?.content).text()
+    const actualFileContent = await new Response(actualFile?.toBlob()).text()
     expect(actualFileContent).toEqual(expectedFileContent)
   })
 
@@ -103,7 +103,7 @@ describe('Config Client', () => {
       'creating file'
     )
     const actualFile = await configService.getByTime(path, new Date())
-    const actualFileContent = await new Response(actualFile?.content).text()
+    const actualFileContent = await new Response(actualFile?.toBlob()).text()
     expect(actualFileContent).toEqual(expectedFileContent)
   })
 
@@ -247,9 +247,9 @@ describe('Config Client', () => {
 
     // verify file contents based on time (i.e before and after setting version)
     const maybeConfigData = await configService.getActiveByTime(path, updateTimeStamp)
-    expect(await new Response(maybeConfigData?.content).text()).toEqual(config2)
+    expect(await new Response(maybeConfigData?.toBlob()).text()).toEqual(config2)
     const maybeConfigData2 = await configService.getActiveByTime(path, new Date())
-    expect(await new Response(maybeConfigData2?.content).text()).toEqual(config1)
+    expect(await new Response(maybeConfigData2?.toBlob()).text()).toEqual(config1)
   })
 
   test('should reset active version of config | ESW-320', async () => {

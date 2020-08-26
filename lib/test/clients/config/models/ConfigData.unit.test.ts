@@ -22,4 +22,12 @@ describe('Config Data', () => {
     expect(configData).toBeInstanceOf(ConfigData)
     expect(await configData.fileContentAsString()).toEqual('File content')
   })
+
+  test('should be able to get the original from configData using toBlob | ESW-320', () => {
+    const blob = new Blob(['File content'])
+    const configData = ConfigData.from(blob)
+
+    expect(configData).toBeInstanceOf(ConfigData)
+    expect(configData.toBlob()).toEqual(blob)
+  })
 })
