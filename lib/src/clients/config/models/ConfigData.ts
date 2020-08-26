@@ -1,5 +1,5 @@
 export class ConfigData {
-  private constructor(readonly content: Blob) {}
+  private constructor(private readonly content: Blob) {}
 
   static fromString(str: string): ConfigData {
     return new ConfigData(new Blob([str]))
@@ -15,5 +15,9 @@ export class ConfigData {
 
   async fileContentAsString(): Promise<string> {
     return await new Response(this.content).text()
+  }
+
+  toBlob() {
+    return this.content
   }
 }
