@@ -25,18 +25,21 @@ describe('Http util', () => {
   test.each([
     ['json', '{}', jsonResHeaders, {}],
     ['text', 'error', textResHeaders, 'error']
-  ])('Post call throws error for %s error response', async (_, body, headers, expectedReason) => {
-    fetchMockFn.mockResolvedValueOnce(makeErrorResponse(body, headers))
-    const payload = 'hello'
+  ])(
+    'Post call throws error for %s error response | ESW-321',
+    async (_, body, headers, expectedReason) => {
+      fetchMockFn.mockResolvedValueOnce(makeErrorResponse(body, headers))
+      const payload = 'hello'
 
-    expect.assertions(4)
-    await post({ url, payload }).catch((e) => {
-      expect(e.status).toBe(404)
-      expect(e.message).toBe('bad request')
-      expect(e.reason).toEqual(expectedReason)
-    })
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
-  })
+      expect.assertions(4)
+      await post({ url, payload }).catch((e) => {
+        expect(e.status).toBe(404)
+        expect(e.message).toBe('bad request')
+        expect(e.reason).toEqual(expectedReason)
+      })
+      expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    }
+  )
 
   test('should be able to add Bearer token to Auth header', () => {
     const headers = new HeaderExt().withAuthorization('1234')

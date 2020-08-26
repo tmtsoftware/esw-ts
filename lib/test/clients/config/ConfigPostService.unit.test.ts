@@ -67,7 +67,7 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
-  test('should get undefined if config is not present for the given id | ESW-320', async () => {
+  test('should get undefined if config is not present for the given id | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
@@ -79,7 +79,7 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
-  test('should throw generic error if bad request is received on getById | ESW-320', async () => {
+  test('should throw generic error if bad request is received on getById | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
@@ -128,7 +128,7 @@ describe('ConfigService', () => {
     expect(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
   })
 
-  test('should return false if the given conf is not present | ESW-320', async () => {
+  test('should return false if the given conf is not present | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
@@ -140,7 +140,7 @@ describe('ConfigService', () => {
     expect(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
   })
 
-  test('should throw error if internal server error is received on check of config exists| ESW-320', async () => {
+  test('should throw error if internal server error is received on check of config exists| ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
@@ -241,7 +241,7 @@ describe('ConfigService', () => {
     expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
-  test('should get undefined if the active version not found for the config | ESW-320', async () => {
+  test('should get undefined if the active version not found for the config | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
 
     getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
@@ -250,7 +250,7 @@ describe('ConfigService', () => {
     expect(configId).toBeUndefined()
   })
 
-  test('should throw error if internal server error is received on getActiveVersion | ESW-320', async () => {
+  test('should throw error if internal server error is received on getActiveVersion | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
 
     getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
