@@ -1,6 +1,4 @@
-import * as D from 'io-ts/lib/Decoder'
-import { Prefix, PrefixD } from '../../../models'
-import { Decoder } from '../../../utils/Decoder'
+import { Prefix } from '../../../models'
 import { requirement } from '../../../utils/Utils'
 
 export class AgentProvisionConfig {
@@ -12,17 +10,12 @@ export class AgentProvisionConfig {
   }
 }
 
-export const AgentProvisionConfigD: Decoder<AgentProvisionConfig> = D.type({
-  agentPrefix: PrefixD,
-  countOfSeqComps: D.number
-})
-
 export class ProvisionConfig {
   constructor(readonly config: AgentProvisionConfig[]) {
     const mapOfPrefixes = config.reduce(
       (accumulator: Record<string, number>, b) => ({
         ...accumulator,
-        [b.agentPrefix.toJSON()]: (accumulator[b.agentPrefix.toJSON()] || 0) + 1
+        [b.agentPrefix.toJSON()]: (accumulator[b.agentPrefix.toJSON()] ?? 0) + 1
       }),
       {}
     )
@@ -36,7 +29,3 @@ export class ProvisionConfig {
     )
   }
 }
-
-export const ProvisionConfigD: Decoder<ProvisionConfig> = D.type({
-  config: D.array(AgentProvisionConfigD)
-})

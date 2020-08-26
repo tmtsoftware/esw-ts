@@ -89,5 +89,5 @@ const serializers = new Map([
   ['application/octet-stream', <Req>(req: Req) => req]
 ])
 
-const getContentType = (headers: Headers) => headers.get('Content-Type') || 'application/json'
-const bodySerializer = (contentType: string) => serializers.get(contentType) || JSON.stringify
+const getContentType = (headers: Headers) => headers.get('Content-Type') ?? 'application/json'
+const bodySerializer = (contentType: string) => serializers.get(contentType) ?? JSON.stringify

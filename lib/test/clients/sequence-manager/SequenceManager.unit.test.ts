@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
+import { SequenceManagerService } from '../../../src/clients/sequence-manager'
 import { resolveSequenceManager } from '../../../src/clients/sequence-manager/ResolveSequenceManager'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
-import { SequenceManagerService } from '../../../src/clients/sequence-manager/SequenceManagerService'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint } from '../../../src/utils/Utils'
 

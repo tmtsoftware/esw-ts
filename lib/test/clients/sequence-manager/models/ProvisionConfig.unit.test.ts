@@ -1,7 +1,4 @@
-import {
-  AgentProvisionConfig,
-  ProvisionConfig
-} from '../../../../src/clients/sequence-manager/models/ProvisionConfig'
+import { AgentProvisionConfig, ProvisionConfig } from '../../../../src/clients/sequence-manager'
 import { Prefix } from '../../../../src/models'
 
 describe('Provision config', () => {
