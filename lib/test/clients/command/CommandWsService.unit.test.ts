@@ -24,7 +24,7 @@ describe('CommandService', () => {
     expect(mockSubscribe).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
       callback,
-      M.CurrentState
+      M.CurrentStateD
     )
   })
 

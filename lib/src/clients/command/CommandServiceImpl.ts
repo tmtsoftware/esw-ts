@@ -51,7 +51,7 @@ export class CommandServiceImpl implements CommandService {
     return this.ws().subscribe(
       this.componentWsCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
-      M.CurrentState
+      M.CurrentStateD
     )
   }
 

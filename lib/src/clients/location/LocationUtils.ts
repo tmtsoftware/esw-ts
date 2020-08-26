@@ -15,6 +15,6 @@ export const resolve: (
   const locationService = LocationService()
   const location = await locationService.resolve(connection, timeout, timeoutUnit)
 
-  if (!location) throw new Error(`${connection.prefix.toJSON} not found`)
+  if (!location) throw new Error(`${connection.prefix.toJSON()} not found`)
   return location
 }

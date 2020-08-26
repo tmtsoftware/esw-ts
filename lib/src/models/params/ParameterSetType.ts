@@ -17,7 +17,6 @@ const deepEqual = (obj1: any, obj2: any): boolean => {
 }
 
 export abstract class ParameterSetType<T extends ParameterSetType<T>> {
-  readonly typeName: string = this.constructor.name
   readonly paramSet: Parameter<Key>[]
 
   protected constructor(paramSet: Parameter<Key>[]) {
@@ -25,6 +24,10 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   }
 
   abstract create(data: Parameter<Key>[]): T
+
+  typeName(): string {
+    return this.constructor.name
+  }
 
   size(): number {
     return this.paramSet.length

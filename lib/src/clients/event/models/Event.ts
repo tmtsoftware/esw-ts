@@ -1,4 +1,3 @@
-import * as E from 'fp-ts/Either'
 import { pipe } from 'fp-ts/pipeable'
 import * as D from 'io-ts/lib/Decoder'
 import { v4 as uuidv4 } from 'uuid'
@@ -23,7 +22,7 @@ interface EventI {
   paramSet: Parameter<Key>[]
 }
 
-type EventFactory = (
+type EventFactory = new (
   source: Prefix,
   eventName: EventName,
   paramSet: Parameter<Key>[],
@@ -31,20 +30,7 @@ type EventFactory = (
   eventTime: string
 ) => Event
 
-const parseEvent = (eventData: EventI, eventFactory: EventFactory): E.Either<Error, Event> =>
-  E.tryCatch(
-    () =>
-      eventFactory(
-        eventData.source,
-        eventData.eventName,
-        eventData.paramSet,
-        eventData.eventId,
-        eventData.eventTime
-      ),
-    (e) => (e instanceof Error ? e : new Error('unknown error'))
-  )
-
-const EventD = (_type: EventTypes, factory: EventFactory): Decoder<Event> =>
+const EventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
   pipe(
     D.type({
       _type: ciLiteral(_type),
@@ -54,10 +40,17 @@ const EventD = (_type: EventTypes, factory: EventFactory): Decoder<Event> =>
       eventTime: D.string,
       paramSet: D.array(ParameterD)
     }),
-    D.parse((eventData: EventI) => {
-      const event = parseEvent(eventData, factory)
-      return E.isRight(event) ? D.success(event.right) : D.failure(eventData, event.left.message)
-    })
+    D.parse((eventData: EventI) =>
+      D.success(
+        new apply(
+          eventData.source,
+          eventData.eventName,
+          eventData.paramSet,
+          eventData.eventId,
+          eventData.eventTime
+        )
+      )
+    )
   )
 
 export class ObserveEvent extends ParameterSetType<ObserveEvent> {
@@ -74,17 +67,7 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
   }
 
   create(data: Parameter<Key>[]): ObserveEvent {
-    return new ObserveEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
-  }
-
-  public static make(
-    source: Prefix,
-    eventName: EventName,
-    paramSet: Parameter<Key>[],
-    eventId: string,
-    eventTime: string
-  ): ObserveEvent {
-    return new ObserveEvent(source, eventName, paramSet, eventId, eventTime)
+    return new ObserveEvent(this.source, this.eventName, data)
   }
 
   static apply(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
@@ -106,21 +89,11 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
   }
 
   create(data: Parameter<Key>[]): SystemEvent {
-    return new SystemEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
-  }
-
-  static make(
-    source: Prefix,
-    eventName: EventName,
-    paramSet: Parameter<Key>[],
-    eventId: string,
-    eventTime: string
-  ): SystemEvent {
-    return new SystemEvent(source, eventName, paramSet, eventId, eventTime)
+    return new SystemEvent(this.source, this.eventName, data)
   }
 }
 
 export const Event = D.sum('_type')({
-  [ObserveEventL]: EventD(ObserveEventL, ObserveEvent.make),
-  [SystemEventL]: EventD(SystemEventL, SystemEvent.make)
+  [ObserveEventL]: EventD(ObserveEventL, ObserveEvent),
+  [SystemEventL]: EventD(SystemEventL, SystemEvent)
 })
