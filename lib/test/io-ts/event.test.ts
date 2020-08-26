@@ -1,4 +1,5 @@
-import { Event, EventName, SystemEvent } from '../../src/clients/event'
+import { EventName, SystemEvent } from '../../src/clients/event'
+import { EventD } from '../../src/clients/event/models/Event'
 import { BaseKey, Key, Parameter, Prefix } from '../../src/models'
 import { getOrThrow } from '../../src/utils/Utils'
 
@@ -51,7 +52,7 @@ test('parse event', () => {
     ]
   }
 
-  const event = getOrThrow(Event.decode(a))
+  const event = getOrThrow(EventD.decode(a))
   const key: BaseKey<Key> = new BaseKey('prim numbers', 'IntKey', 'NoUnits')
 
   console.log(event.get(key))
