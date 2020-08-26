@@ -11,7 +11,7 @@ function GetConfig() {
 
   const getConfig = async (input: string) => {
     const config: Option<ConfigData> = await configService.getLatest(input)
-    if (config) download(config.content, input)
+    if (config) download(config.toBlob(), input)
     else setErr('Config not found')
   }
 
