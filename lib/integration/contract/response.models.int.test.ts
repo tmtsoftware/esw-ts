@@ -96,7 +96,7 @@ const commandDecoders: Record<string, Decoder<any>> = {
   Units: M.UnitsD,
   Parameter: M.ParameterD,
   CommandName: D.string,
-  CurrentState: M.CurrentState,
+  CurrentState: M.CurrentStateD,
   CommandIssue: M.CommandIssueD,
   SubmitResponse: M.SubmitResponseD,
   OnewayResponse: M.OnewayResponseD,
