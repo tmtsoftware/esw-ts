@@ -11,7 +11,6 @@ import { EventKeyD } from '../../src/clients/event/models/EventKey'
 import { Connection, ConnectionType, Location, TrackingEvent } from '../../src/clients/location'
 import { Level, LogMetadataD } from '../../src/clients/logger'
 import { ObsModeD } from '../../src/clients/sequence-manager/models/ObsMode'
-import { ProvisionConfigD } from '../../src/clients/sequence-manager/models/ProvisionConfig'
 import {
   AgentStatusResponseD,
   ConfigureResponseD,
@@ -171,5 +170,5 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   Prefix: PrefixD,
   ObsMode: ObsModeD,
   Subsystem: M.Subsystem,
-  ProvisionConfig: ProvisionConfigD
+  ProvisionConfig: D.id()
 }

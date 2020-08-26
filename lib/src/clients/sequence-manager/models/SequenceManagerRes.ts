@@ -4,88 +4,88 @@ import { ciLiteral } from '../../../utils/Decoder'
 import { AkkaLocation } from '../../location'
 import { ObsModeD } from './ObsMode'
 
-const Unhandled = 'Unhandled'
-const SequenceComponentNotAvailable = 'SequenceComponentNotAvailable'
-const LoadScriptError = 'LoadScriptError'
-const ConfigurationMissing = 'ConfigurationMissing'
-const LocationServiceError = 'LocationServiceError'
-const FailedToStartSequencers = 'FailedToStartSequencers'
-const ConflictingResourcesWithRunningObsMode = 'ConflictingResourcesWithRunningObsMode'
-const SpawningSequenceComponentsFailed = 'SpawningSequenceComponentsFailed'
-const CouldNotFindMachines = 'CouldNotFindMachines'
-const Success = 'Success'
-const AlreadyRunning = 'AlreadyRunning'
-const Started = 'Started'
-const Failed = 'Failed'
+const UnhandledL = 'Unhandled'
+const SequenceComponentNotAvailableL = 'SequenceComponentNotAvailable'
+const LoadScriptErrorL = 'LoadScriptError'
+const ConfigurationMissingL = 'ConfigurationMissing'
+const LocationServiceErrorL = 'LocationServiceError'
+const FailedToStartSequencersL = 'FailedToStartSequencers'
+const ConflictingResourcesWithRunningObsModeL = 'ConflictingResourcesWithRunningObsMode'
+const SpawningSequenceComponentsFailedL = 'SpawningSequenceComponentsFailed'
+const CouldNotFindMachinesL = 'CouldNotFindMachines'
+const SuccessL = 'Success'
+const AlreadyRunningL = 'AlreadyRunning'
+const StartedL = 'Started'
+const FailedL = 'Failed'
 
 // common decoders
 const UnhandledD = D.type({
-  _type: ciLiteral(Unhandled),
+  _type: ciLiteral(UnhandledL),
   state: D.string,
   messageType: D.string,
   msg: D.string
 })
 const LocationServiceErrorD = D.type({
-  _type: ciLiteral(LocationServiceError),
+  _type: ciLiteral(LocationServiceErrorL),
   msg: D.string
 })
 const SequenceComponentNotAvailableD = D.type({
-  _type: ciLiteral(SequenceComponentNotAvailable),
+  _type: ciLiteral(SequenceComponentNotAvailableL),
   subsystems: D.array(Subsystem),
   msg: D.string
 })
 const ConfigurationMissingD = D.type({
-  _type: ciLiteral(ConfigurationMissing),
+  _type: ciLiteral(ConfigurationMissingL),
   obsMode: ObsModeD
 })
 const FailedToStartSequencersD = D.type({
-  _type: ciLiteral(FailedToStartSequencers),
+  _type: ciLiteral(FailedToStartSequencersL),
   reasons: D.array(D.string)
 })
 const ConflictingResourcesWithRunningObsModeD = D.type({
-  _type: ciLiteral(ConflictingResourcesWithRunningObsMode),
+  _type: ciLiteral(ConflictingResourcesWithRunningObsModeL),
   runningObsMode: D.array(ObsModeD)
 })
 const SpawningSequenceComponentsFailedD = D.type({
-  _type: ciLiteral(SpawningSequenceComponentsFailed),
+  _type: ciLiteral(SpawningSequenceComponentsFailedL),
   failureResponses: D.array(D.string)
 })
 const LoadScriptErrorD = D.type({
-  _type: ciLiteral(LoadScriptError),
+  _type: ciLiteral(LoadScriptErrorL),
   msg: D.string
 })
-const SuccessD = D.type({ _type: ciLiteral(Success) })
+const SuccessD = D.type({ _type: ciLiteral(SuccessL) })
 
 // api specific ADT decoders
 const ConfigureSuccessD = D.type({
-  _type: ciLiteral(Success),
+  _type: ciLiteral(SuccessL),
   masterSequencerComponentId: ComponentIdD
 })
 
 const FailedD = D.type({
-  _type: ciLiteral(Failed),
+  _type: ciLiteral(FailedL),
   msg: D.string
 })
 
 const CouldNotFindMachinesD = D.type({
-  _type: ciLiteral(CouldNotFindMachines),
+  _type: ciLiteral(CouldNotFindMachinesL),
   prefix: D.array(PrefixD)
 })
 
-const RestartSequencerSuccessD = D.type({ _type: ciLiteral(Success), componentId: ComponentIdD })
+const RestartSequencerSuccessD = D.type({ _type: ciLiteral(SuccessL), componentId: ComponentIdD })
 
 const RunningObsModesSuccessD = D.type({
-  _type: ciLiteral(Success),
+  _type: ciLiteral(SuccessL),
   runningObsModes: D.array(ObsModeD)
 })
 
 const AlreadyRunningD = D.type({
-  _type: ciLiteral(AlreadyRunning),
+  _type: ciLiteral(AlreadyRunningL),
   componentId: ComponentIdD
 })
 
 const StartedD = D.type({
-  _type: ciLiteral(Started),
+  _type: ciLiteral(StartedL),
   componentId: ComponentIdD
 })
 
@@ -100,7 +100,7 @@ const AgentStatusD = D.type({
 })
 
 const AgentStatusSuccessD = D.type({
-  _type: ciLiteral(Success),
+  _type: ciLiteral(SuccessL),
   agentStatus: D.array(AgentStatusD),
   seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
 })
@@ -130,54 +130,54 @@ export type AlreadyRunningD = D.TypeOf<typeof AlreadyRunningD>
 export type StartedD = D.TypeOf<typeof StartedD>
 
 export const ConfigureResponseD = D.sum('_type')({
-  [Unhandled]: UnhandledD,
-  [SequenceComponentNotAvailable]: SequenceComponentNotAvailableD,
-  [ConfigurationMissing]: ConfigurationMissingD,
-  [LocationServiceError]: LocationServiceErrorD,
-  [FailedToStartSequencers]: FailedToStartSequencersD,
-  [ConflictingResourcesWithRunningObsMode]: ConflictingResourcesWithRunningObsModeD,
-  [Success]: ConfigureSuccessD
+  [UnhandledL]: UnhandledD,
+  [SequenceComponentNotAvailableL]: SequenceComponentNotAvailableD,
+  [ConfigurationMissingL]: ConfigurationMissingD,
+  [LocationServiceErrorL]: LocationServiceErrorD,
+  [FailedToStartSequencersL]: FailedToStartSequencersD,
+  [ConflictingResourcesWithRunningObsModeL]: ConflictingResourcesWithRunningObsModeD,
+  [SuccessL]: ConfigureSuccessD
 })
 
 export const ProvisionResponseD = D.sum('_type')({
-  [Unhandled]: UnhandledD,
-  [Success]: SuccessD,
-  [LocationServiceError]: LocationServiceErrorD,
-  [SpawningSequenceComponentsFailed]: SpawningSequenceComponentsFailedD,
-  [CouldNotFindMachines]: CouldNotFindMachinesD
+  [UnhandledL]: UnhandledD,
+  [SuccessL]: SuccessD,
+  [LocationServiceErrorL]: LocationServiceErrorD,
+  [SpawningSequenceComponentsFailedL]: SpawningSequenceComponentsFailedD,
+  [CouldNotFindMachinesL]: CouldNotFindMachinesD
 })
 
 export const GetRunningObsModesResponseD = D.sum('_type')({
-  [Failed]: FailedD,
-  [Success]: RunningObsModesSuccessD
+  [FailedL]: FailedD,
+  [SuccessL]: RunningObsModesSuccessD
 })
 
 export const StartSequencerResponseD = D.sum('_type')({
-  [Unhandled]: UnhandledD,
-  [SequenceComponentNotAvailable]: SequenceComponentNotAvailableD,
-  [LoadScriptError]: LoadScriptErrorD,
-  [LocationServiceError]: LocationServiceErrorD,
-  [AlreadyRunning]: AlreadyRunningD,
-  [Started]: StartedD
+  [UnhandledL]: UnhandledD,
+  [SequenceComponentNotAvailableL]: SequenceComponentNotAvailableD,
+  [LoadScriptErrorL]: LoadScriptErrorD,
+  [LocationServiceErrorL]: LocationServiceErrorD,
+  [AlreadyRunningL]: AlreadyRunningD,
+  [StartedL]: StartedD
 })
 
 export const RestartSequencerResponseD = D.sum('_type')({
-  [Unhandled]: UnhandledD,
-  [LoadScriptError]: LoadScriptErrorD,
-  [LocationServiceError]: LocationServiceErrorD,
-  [Success]: RestartSequencerSuccessD
+  [UnhandledL]: UnhandledD,
+  [LoadScriptErrorL]: LoadScriptErrorD,
+  [LocationServiceErrorL]: LocationServiceErrorD,
+  [SuccessL]: RestartSequencerSuccessD
 })
 
 export const ShutdownSequencersAndSeqCompResponseD = D.sum('_type')({
-  [Unhandled]: UnhandledD,
-  [LocationServiceError]: LocationServiceErrorD,
-  [Success]: SuccessD
+  [UnhandledL]: UnhandledD,
+  [LocationServiceErrorL]: LocationServiceErrorD,
+  [SuccessL]: SuccessD
 })
 
 export const AgentStatusResponseD = D.sum('_type')({
-  [Unhandled]: UnhandledD,
-  [LocationServiceError]: LocationServiceErrorD,
-  [Success]: AgentStatusSuccessD
+  [UnhandledL]: UnhandledD,
+  [LocationServiceErrorL]: LocationServiceErrorD,
+  [SuccessL]: AgentStatusSuccessD
 })
 
 export type ConfigureResponse = D.TypeOf<typeof ConfigureResponseD>
