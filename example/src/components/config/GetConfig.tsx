@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
-import IOOperationComponent from './IOOperationComponent'
 import { download } from 'esw-ts'
-import { ConfigContext } from './context/ConfigContext'
 import { ConfigData } from 'esw-ts/dist/src/clients/config/models/ConfigData'
-import { Option } from 'esw-ts/dist/src/utils/Option'
+import { Option } from 'esw-ts/dist/src/utils/types'
+import React, { useContext, useState } from 'react'
+import { ConfigContext } from './context/ConfigContext'
+import IOOperationComponent from './IOOperationComponent'
 
 function GetConfig() {
   const [err, setErr] = useState('')
