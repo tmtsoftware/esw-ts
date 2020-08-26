@@ -8,16 +8,22 @@ const requestRes: jest.Mock = jest.fn()
 const loggingServiceImpl = new LoggingServiceImpl(mockHttpTransport(requestRes))
 
 describe('Logging Service', () => {
-  test('should call log api with correct arguments | ESW-316', async () => {
-    await loggingServiceImpl.log(
-      new Prefix('ESW', 'filter.wheel'),
-      'DEBUG',
-      'setting log level',
-      {}
-    )
+  test('should call log api with correct arguments without metadata | ESW-316', async () => {
+    await loggingServiceImpl.log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level')
 
     expect(requestRes).toBeCalledWith(
       new Log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level', {}),
+      Done
+    )
+  })
+
+  test('should call log api with correct arguments with metadata | ESW-316', async () => {
+    await loggingServiceImpl.log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level', {
+      key: 'value'
+    })
+
+    expect(requestRes).toBeCalledWith(
+      new Log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level', { key: 'value' }),
       Done
     )
   })
