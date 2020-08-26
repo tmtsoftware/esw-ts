@@ -1,7 +1,7 @@
 import { EventKey, EventName, ObserveEvent, SystemEvent } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
-import { Done } from '../../../src/clients/location'
+import { DoneD } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
@@ -15,7 +15,7 @@ describe('Event Service', () => {
     const systemEvent = new SystemEvent(prefix, eventName, [])
     await client.publish(systemEvent)
 
-    expect(requestRes).toBeCalledWith(new PublishEvent(systemEvent), Done)
+    expect(requestRes).toBeCalledWith(new PublishEvent(systemEvent), DoneD)
   })
 
   test('should publish observe event using post | ESW-318', async () => {
@@ -24,7 +24,7 @@ describe('Event Service', () => {
     const observeEvent = new ObserveEvent(prefix, eventName, [])
     await client.publish(observeEvent)
 
-    expect(requestRes).toBeCalledWith(new PublishEvent(observeEvent), Done)
+    expect(requestRes).toBeCalledWith(new PublishEvent(observeEvent), DoneD)
   })
 
   test('should get event using post | ESW-318', async () => {

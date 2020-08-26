@@ -7,9 +7,9 @@ import { LocationService } from './LocationService'
 import { Connection, ConnectionType } from './models/Connection'
 import { Duration, TimeUnit } from './models/Duration'
 import { Location } from './models/Location'
-import { Done, LocationList } from './models/LocationResponses'
+import { Done, DoneD, LocationListD } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
-import { TrackingEvent } from './models/TrackingEvent'
+import { TrackingEvent, TrackingEventD } from './models/TrackingEvent'
 import { LocationWebSocketMessage, Track } from './models/WsCommand'
 
 export class LocationServiceImpl implements LocationService {
@@ -19,38 +19,41 @@ export class LocationServiceImpl implements LocationService {
   ) {}
 
   list(): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListEntries(), LocationList)
+    return this.httpTransport.requestRes(new Req.ListEntries(), LocationListD)
   }
 
   listByComponentType(componentType: ComponentType): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByComponentType(componentType), LocationList)
+    return this.httpTransport.requestRes(new Req.ListByComponentType(componentType), LocationListD)
   }
 
   listByHostname(hostname: string): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByHostname(hostname), LocationList)
+    return this.httpTransport.requestRes(new Req.ListByHostname(hostname), LocationListD)
   }
 
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByConnectionType(connectionType), LocationList)
+    return this.httpTransport.requestRes(
+      new Req.ListByConnectionType(connectionType),
+      LocationListD
+    )
   }
 
   listByPrefix(prefix: Prefix): Promise<Location[]> {
-    return this.httpTransport.requestRes(new Req.ListByPrefix(prefix), LocationList)
+    return this.httpTransport.requestRes(new Req.ListByPrefix(prefix), LocationListD)
   }
 
   async find(connection: Connection): Promise<Option<Location>> {
-    const response = await this.httpTransport.requestRes(new Req.Find(connection), LocationList)
+    const response = await this.httpTransport.requestRes(new Req.Find(connection), LocationListD)
     return headOption(response)
   }
 
   unregister(connection: Connection): Promise<Done> {
-    return this.httpTransport.requestRes(new Req.Unregister(connection), Done)
+    return this.httpTransport.requestRes(new Req.Unregister(connection), DoneD)
   }
 
   async resolve(connection: Connection, within: number, unit: TimeUnit): Promise<Option<Location>> {
     const response = await this.httpTransport.requestRes(
       new Req.Resolve(connection, new Duration(within, unit)),
-      LocationList
+      LocationListD
     )
     return headOption(response)
   }
@@ -58,6 +61,6 @@ export class LocationServiceImpl implements LocationService {
   track = (connection: Connection) => (
     callBack: (trackingEvent: TrackingEvent) => void
   ): Subscription => {
-    return this.ws().subscribe(new Track(connection), callBack, TrackingEvent)
+    return this.ws().subscribe(new Track(connection), callBack, TrackingEventD)
   }
 }

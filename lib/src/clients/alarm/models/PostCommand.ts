@@ -12,16 +12,18 @@ export class AlarmKey {
   }
 }
 
-export const AlarmKeyD = D.type({
-  prefix: PrefixD,
-  name: D.string
-})
-
-export type AlarmSeverity = D.TypeOf<typeof AlarmSeverity>
-export const AlarmSeverity = ciLiteral('Okay', 'Warning', 'Major', 'Indeterminate', 'Critical')
+export type AlarmSeverity = D.TypeOf<typeof AlarmSeverityD>
 
 export class SetAlarmSeverity {
   readonly _type: 'SetAlarmSeverity' = 'SetAlarmSeverity'
 
   constructor(readonly alarmKey: AlarmKey, readonly severity: AlarmSeverity) {}
 }
+
+// ############## Decoders ##############
+export const AlarmKeyD = D.type({
+  prefix: PrefixD,
+  name: D.string
+})
+
+export const AlarmSeverityD = ciLiteral('Okay', 'Warning', 'Major', 'Indeterminate', 'Critical')

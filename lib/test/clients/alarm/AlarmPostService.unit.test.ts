@@ -1,7 +1,7 @@
 import { AlarmKey } from '../../../src/clients/alarm'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
 import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'
-import { Done } from '../../../src/clients/location'
+import { DoneD } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
 
@@ -13,6 +13,6 @@ describe('Alarm service', () => {
     const severity = 'Okay'
     await alarmService.setSeverity(alarmKey, severity)
 
-    expect(requestRes).toBeCalledWith(new SetAlarmSeverity(alarmKey, severity), Done)
+    expect(requestRes).toBeCalledWith(new SetAlarmSeverity(alarmKey, severity), DoneD)
   })
 })

@@ -3,7 +3,7 @@ import { pipe } from 'fp-ts/lib/pipeable'
 import * as D from 'io-ts/lib/Decoder'
 import { Decoder } from '../../utils/Decoder'
 import { requirement } from '../../utils/Utils'
-import { Subsystem } from './Subsystem'
+import { Subsystem, SubsystemD } from './Subsystem'
 
 const SEPARATOR = '.'
 
@@ -13,7 +13,7 @@ const validateComponentName = (name: string) => {
 }
 
 const parseSubsystemStr = (subsystem: string): Subsystem => {
-  const s = Subsystem.decode(subsystem)
+  const s = SubsystemD.decode(subsystem)
   if (E.isLeft(s)) throw Error(`Subsystem: ${subsystem} is invalid`)
   return s.right
 }

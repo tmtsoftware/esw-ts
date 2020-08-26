@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
+import { ComponentId, SequenceCommand, SubmitResponse, SubmitResponseD } from '../../models'
 import { Decoder } from '../../utils/Decoder'
 import { HttpTransport } from '../../utils/HttpTransport'
 import type { Option } from '../../utils/types'
@@ -33,51 +33,51 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.LoadSequence(sequence), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.LoadSequence(sequence), Res.OkOrUnhandledResponseD)
   }
 
   startSequence(): Promise<SubmitResponse> {
-    return this.postSequencerCmd(new Req.StartSequence(), SubmitResponse)
+    return this.postSequencerCmd(new Req.StartSequence(), SubmitResponseD)
   }
 
   add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Add(commands), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.Add(commands), Res.OkOrUnhandledResponseD)
   }
 
   prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Prepend(commands), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.Prepend(commands), Res.OkOrUnhandledResponseD)
   }
 
   replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.Replace(id, commands), Res.GenericResponse)
+    return this.postSequencerCmd(new Req.Replace(id, commands), Res.GenericResponseD)
   }
 
   insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.InsertAfter(id, commands), Res.GenericResponse)
+    return this.postSequencerCmd(new Req.InsertAfter(id, commands), Res.GenericResponseD)
   }
 
   delete(id: string): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.Delete(id), Res.GenericResponse)
+    return this.postSequencerCmd(new Req.Delete(id), Res.GenericResponseD)
   }
 
   addBreakpoint(id: string): Promise<Res.GenericResponse> {
-    return this.postSequencerCmd(new Req.AddBreakpoint(id), Res.GenericResponse)
+    return this.postSequencerCmd(new Req.AddBreakpoint(id), Res.GenericResponseD)
   }
 
   removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse> {
-    return this.postSequencerCmd(new Req.RemoveBreakpoint(id), Res.RemoveBreakpointResponse)
+    return this.postSequencerCmd(new Req.RemoveBreakpoint(id), Res.RemoveBreakpointResponseD)
   }
 
   reset(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Reset(), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.Reset(), Res.OkOrUnhandledResponseD)
   }
 
   resume(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Resume(), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.Resume(), Res.OkOrUnhandledResponseD)
   }
 
   pause(): Promise<Res.PauseResponse> {
-    return this.postSequencerCmd(new Req.Pause(), Res.PauseResponse)
+    return this.postSequencerCmd(new Req.Pause(), Res.PauseResponseD)
   }
 
   async getSequence(): Promise<Option<StepList>> {
@@ -93,34 +93,34 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   goOnline(): Promise<Res.GoOnlineResponse> {
-    return this.postSequencerCmd(new Req.GoOnline(), Res.GoOnlineResponse)
+    return this.postSequencerCmd(new Req.GoOnline(), Res.GoOnlineResponseD)
   }
 
   goOffline(): Promise<Res.GoOfflineResponse> {
-    return this.postSequencerCmd(new Req.GoOffline(), Res.GoOfflineResponse)
+    return this.postSequencerCmd(new Req.GoOffline(), Res.GoOfflineResponseD)
   }
 
   abortSequence(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.AbortSequence(), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.AbortSequence(), Res.OkOrUnhandledResponseD)
   }
 
   stop(): Promise<Res.OkOrUnhandledResponse> {
-    return this.postSequencerCmd(new Req.Stop(), Res.OkOrUnhandledResponse)
+    return this.postSequencerCmd(new Req.Stop(), Res.OkOrUnhandledResponseD)
   }
 
   diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse> {
     return this.postSequencerCmd(
       new Req.DiagnosticMode(startTime, hint),
-      Res.DiagnosticModeResponse
+      Res.DiagnosticModeResponseD
     )
   }
 
   operationsMode(): Promise<Res.OperationsModeResponse> {
-    return this.postSequencerCmd(new Req.OperationsMode(), Res.OperationsModeResponse)
+    return this.postSequencerCmd(new Req.OperationsMode(), Res.OperationsModeResponseD)
   }
 
   submit(sequence: SequenceCommand[]): Promise<SubmitResponse> {
-    return this.postSequencerCmd(new Req.Submit(sequence), SubmitResponse)
+    return this.postSequencerCmd(new Req.Submit(sequence), SubmitResponseD)
   }
 
   async submitAndWait(sequence: SequenceCommand[]): Promise<SubmitResponse> {
@@ -131,13 +131,13 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   query(id: string): Promise<SubmitResponse> {
-    return this.postSequencerCmd(new Req.Query(id), SubmitResponse)
+    return this.postSequencerCmd(new Req.Query(id), SubmitResponseD)
   }
 
   async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
     return this.ws().singleResponse(
       new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
-      SubmitResponse
+      SubmitResponseD
     )
   }
 }

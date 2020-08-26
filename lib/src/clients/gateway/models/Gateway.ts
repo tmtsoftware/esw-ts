@@ -23,7 +23,6 @@ export class GatewaySequencerCommand<T extends SequencerPostRequest | SequencerW
 }
 
 export type GatewayEventPostRequest = PublishEvent | GetEvent
-
 export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern
 
 export type GatewayLoggingPostRequest = Log

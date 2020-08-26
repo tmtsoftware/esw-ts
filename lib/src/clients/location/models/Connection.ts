@@ -1,13 +1,13 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ComponentType, Prefix, PrefixD } from '../../../models'
+import { ComponentType, ComponentTypeD, Prefix, PrefixD } from '../../../models'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 
-const akka = 'akka'
-const http = 'http'
-const tcp = 'tcp'
+// ##################### Decoders #####################
+const akkaL = 'akka'
+const httpL = 'http'
+const tcpL = 'tcp'
 
-export const ConnectionType = D.literal(akka, http, tcp)
-export type ConnectionType = D.TypeOf<typeof ConnectionType>
+export const ConnectionTypeD = D.literal(akkaL, httpL, tcpL)
 
 type ConnectionDecoder<L extends ConnectionType> = Decoder<{
   connectionType: L
@@ -15,34 +15,38 @@ type ConnectionDecoder<L extends ConnectionType> = Decoder<{
   componentType: ComponentType
 }>
 
-const connectionDecoder = <L extends ConnectionType>(connectionType: L): ConnectionDecoder<L> =>
+const mkConnectionD = <L extends ConnectionType>(connectionType: L): ConnectionDecoder<L> =>
   D.type({
     connectionType: ciLiteral(connectionType),
     prefix: PrefixD,
-    componentType: ComponentType
+    componentType: ComponentTypeD
   })
 
-export const AkkaConnectionD = connectionDecoder(akka)
-export const HttpConnectionD = connectionDecoder(http)
-export const TcpConnectionD = connectionDecoder(tcp)
+export const AkkaConnectionD = mkConnectionD(akkaL)
+export const HttpConnectionD = mkConnectionD(httpL)
+export const TcpConnectionD = mkConnectionD(tcpL)
 
+export const ConnectionD = D.sum('connectionType')({
+  [akkaL]: AkkaConnectionD,
+  [httpL]: HttpConnectionD,
+  [tcpL]: TcpConnectionD
+})
+
+// ######################################################
+
+export type ConnectionType = D.TypeOf<typeof ConnectionTypeD>
 export type AkkaConnection = D.TypeOf<typeof AkkaConnectionD>
 export type HttpConnection = D.TypeOf<typeof HttpConnectionD>
 export type TcpConnection = D.TypeOf<typeof TcpConnectionD>
 
-export const Connection = D.sum('connectionType')({
-  [akka]: AkkaConnectionD,
-  [http]: HttpConnectionD,
-  [tcp]: TcpConnectionD
-})
+export type Connection = D.TypeOf<typeof ConnectionD>
 
-export type Connection = D.TypeOf<typeof Connection>
-
-const makeConnection = <T extends ConnectionType>(connectionType: T) => (
+// ##################### factories #####################
+const mkConnection = <T extends ConnectionType>(connectionType: T) => (
   prefix: Prefix,
   componentType: ComponentType
 ) => ({ connectionType, prefix, componentType })
 
-export const AkkaConnection = makeConnection(akka)
-export const HttpConnection = makeConnection(http)
-export const TcpConnection = makeConnection(tcp)
+export const AkkaConnection = mkConnection(akkaL)
+export const HttpConnection = mkConnection(httpL)
+export const TcpConnection = mkConnection(tcpL)

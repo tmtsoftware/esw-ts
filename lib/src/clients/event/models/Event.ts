@@ -8,11 +8,51 @@ import { EventName, EventNameD } from './EventName'
 
 const ObserveEventL = 'ObserveEvent'
 const SystemEventL = 'SystemEvent'
-
 type EventTypes = typeof ObserveEventL | typeof SystemEventL
+
+export class ObserveEvent extends ParameterSetType<ObserveEvent> {
+  readonly _type = ObserveEventL
+
+  constructor(
+    readonly source: Prefix,
+    readonly eventName: EventName,
+    readonly paramSet: Parameter<Key>[],
+    readonly eventId: string = uuidv4(),
+    readonly eventTime: string = new Date().toISOString()
+  ) {
+    super()
+  }
+
+  create(data: Parameter<Key>[]): ObserveEvent {
+    return new ObserveEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
+  }
+
+  static apply(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+    return new ObserveEvent(source, eventName, paramSet)
+  }
+}
+
+export class SystemEvent extends ParameterSetType<SystemEvent> {
+  readonly _type = SystemEventL
+
+  constructor(
+    readonly source: Prefix,
+    readonly eventName: EventName,
+    readonly paramSet: Parameter<Key>[],
+    readonly eventId: string = uuidv4(),
+    readonly eventTime: string = new Date().toISOString()
+  ) {
+    super()
+  }
+
+  create(data: Parameter<Key>[]): SystemEvent {
+    return new SystemEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
+  }
+}
 
 export type Event = ObserveEvent | SystemEvent
 
+// ##################### Decoders #####################
 interface EventI {
   _type: EventTypes
   eventId: string
@@ -30,7 +70,7 @@ type EventFactory = new (
   eventTime: string
 ) => Event
 
-const EventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
+const mkEventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
   pipe(
     D.type({
       _type: ciLiteral(_type),
@@ -53,47 +93,9 @@ const EventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
     )
   )
 
-export class ObserveEvent extends ParameterSetType<ObserveEvent> {
-  readonly _type = ObserveEventL
-
-  constructor(
-    readonly source: Prefix,
-    readonly eventName: EventName,
-    readonly paramSet: Parameter<Key>[],
-    readonly eventId: string = uuidv4(),
-    readonly eventTime: string = new Date().toISOString()
-  ) {
-    super()
-  }
-
-  create(data: Parameter<Key>[]): ObserveEvent {
-    return new ObserveEvent(this.source, this.eventName, data)
-  }
-
-  static apply(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
-    return new ObserveEvent(source, eventName, paramSet)
-  }
-}
-
-export class SystemEvent extends ParameterSetType<SystemEvent> {
-  readonly _type = SystemEventL
-
-  constructor(
-    readonly source: Prefix,
-    readonly eventName: EventName,
-    readonly paramSet: Parameter<Key>[],
-    readonly eventId: string = uuidv4(),
-    readonly eventTime: string = new Date().toISOString()
-  ) {
-    super()
-  }
-
-  create(data: Parameter<Key>[]): SystemEvent {
-    return new SystemEvent(this.source, this.eventName, data)
-  }
-}
-
-export const Event = D.sum('_type')({
-  [ObserveEventL]: EventD(ObserveEventL, ObserveEvent),
-  [SystemEventL]: EventD(SystemEventL, SystemEvent)
+export const EventD = D.sum('_type')({
+  [ObserveEventL]: mkEventD(ObserveEventL, ObserveEvent),
+  [SystemEventL]: mkEventD(SystemEventL, SystemEvent)
 })
+
+// ######################################################

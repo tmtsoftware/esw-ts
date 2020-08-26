@@ -16,17 +16,17 @@ export const resolveConfigServer = async () => {
   const location = await resolve(configConnection)
   return extractHostPort(location.uri)
 }
+
 export const tryGetConfigBlob = async (url: string): Promise<Option<ConfigData>> => {
   const mayBeConfigData = await map404(get({ url, responseMapper: (res) => res.blob() }), undefined)
   return mayBeConfigData ? ConfigData.from(mayBeConfigData) : mayBeConfigData
 }
 
-export const tryConfigExists = async (url: string): Promise<boolean> => {
-  return map404(
+export const tryConfigExists = async (url: string): Promise<boolean> =>
+  map404(
     head({ url, decoder: decodeUsing(D.string) }).then(() => true),
     false
   )
-}
 
 export const tryGetActiveVersion = async (url: string) =>
   map404(get({ url, decoder: decodeUsing(M.ConfigIdD) }), undefined)
@@ -44,7 +44,7 @@ export const history = async (
       to: to.toISOString(),
       maxResults: maxResults.toString()
     },
-    decoder: decodeUsing(D.array(M.ConfigFileRevision))
+    decoder: decodeUsing(D.array(M.ConfigFileRevisionD))
   })
 
 const map404 = async <T, U>(response: Promise<T>, on404: U) => {

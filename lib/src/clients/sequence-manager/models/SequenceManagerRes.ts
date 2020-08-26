@@ -1,8 +1,10 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ComponentIdD, PrefixD, Subsystem } from '../../../models'
+import { ComponentIdD, PrefixD, SubsystemD } from '../../../models'
 import { ciLiteral } from '../../../utils/Decoder'
-import { AkkaLocation } from '../../location'
+import { AkkaLocationD } from '../../location'
 import { ObsModeD } from './ObsMode'
+
+// ##################### Decoders #####################
 
 const UnhandledL = 'Unhandled'
 const SequenceComponentNotAvailableL = 'SequenceComponentNotAvailable'
@@ -25,35 +27,43 @@ const UnhandledD = D.type({
   messageType: D.string,
   msg: D.string
 })
+
 const LocationServiceErrorD = D.type({
   _type: ciLiteral(LocationServiceErrorL),
   msg: D.string
 })
+
 const SequenceComponentNotAvailableD = D.type({
   _type: ciLiteral(SequenceComponentNotAvailableL),
-  subsystems: D.array(Subsystem),
+  subsystems: D.array(SubsystemD),
   msg: D.string
 })
+
 const ConfigurationMissingD = D.type({
   _type: ciLiteral(ConfigurationMissingL),
   obsMode: ObsModeD
 })
+
 const FailedToStartSequencersD = D.type({
   _type: ciLiteral(FailedToStartSequencersL),
   reasons: D.array(D.string)
 })
+
 const ConflictingResourcesWithRunningObsModeD = D.type({
   _type: ciLiteral(ConflictingResourcesWithRunningObsModeL),
   runningObsMode: D.array(ObsModeD)
 })
+
 const SpawningSequenceComponentsFailedD = D.type({
   _type: ciLiteral(SpawningSequenceComponentsFailedL),
   failureResponses: D.array(D.string)
 })
+
 const LoadScriptErrorD = D.type({
   _type: ciLiteral(LoadScriptErrorL),
   msg: D.string
 })
+
 const SuccessD = D.type({ _type: ciLiteral(SuccessL) })
 
 // api specific ADT decoders
@@ -91,7 +101,7 @@ const StartedD = D.type({
 
 export const SequenceComponentStatusD = D.type({
   seqCompId: ComponentIdD,
-  sequencerLocation: D.array(AkkaLocation)
+  sequencerLocation: D.array(AkkaLocationD)
 })
 
 const AgentStatusD = D.type({
@@ -104,30 +114,6 @@ const AgentStatusSuccessD = D.type({
   agentStatus: D.array(AgentStatusD),
   seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
 })
-
-// common types
-export type Unhandled = D.TypeOf<typeof UnhandledD>
-export type SequenceComponentNotAvailable = D.TypeOf<typeof SequenceComponentNotAvailableD>
-export type ConfigurationMissing = D.TypeOf<typeof ConfigurationMissingD>
-export type LocationServiceError = D.TypeOf<typeof LocationServiceErrorD>
-export type FailedToStartSequencers = D.TypeOf<typeof FailedToStartSequencersD>
-export type SpawningSequenceComponentsFailed = D.TypeOf<typeof SpawningSequenceComponentsFailedD>
-export type LoadScriptError = D.TypeOf<typeof LoadScriptErrorD>
-export type ConflictingResourcesWithRunningObsMode = D.TypeOf<
-  typeof ConflictingResourcesWithRunningObsModeD
->
-
-// api specific type's
-export type CouldNotFindMachines = D.TypeOf<typeof CouldNotFindMachinesD>
-export type Success = D.TypeOf<
-  | typeof ConfigureSuccessD
-  | typeof SuccessD
-  | typeof RestartSequencerSuccessD
-  | typeof RunningObsModesSuccessD
->
-export type Failed = D.TypeOf<typeof FailedD>
-export type AlreadyRunningD = D.TypeOf<typeof AlreadyRunningD>
-export type StartedD = D.TypeOf<typeof StartedD>
 
 export const ConfigureResponseD = D.sum('_type')({
   [UnhandledL]: UnhandledD,
@@ -180,20 +166,38 @@ export const AgentStatusResponseD = D.sum('_type')({
   [SuccessL]: AgentStatusSuccessD
 })
 
+// ######################################################
+
+// common types
+export type Unhandled = D.TypeOf<typeof UnhandledD>
+export type SequenceComponentNotAvailable = D.TypeOf<typeof SequenceComponentNotAvailableD>
+export type ConfigurationMissing = D.TypeOf<typeof ConfigurationMissingD>
+export type LocationServiceError = D.TypeOf<typeof LocationServiceErrorD>
+export type FailedToStartSequencers = D.TypeOf<typeof FailedToStartSequencersD>
+export type SpawningSequenceComponentsFailed = D.TypeOf<typeof SpawningSequenceComponentsFailedD>
+export type LoadScriptError = D.TypeOf<typeof LoadScriptErrorD>
+export type ConflictingResourcesWithRunningObsMode = D.TypeOf<
+  typeof ConflictingResourcesWithRunningObsModeD
+>
+
+// api specific type's
+export type CouldNotFindMachines = D.TypeOf<typeof CouldNotFindMachinesD>
+export type Success = D.TypeOf<
+  | typeof ConfigureSuccessD
+  | typeof SuccessD
+  | typeof RestartSequencerSuccessD
+  | typeof RunningObsModesSuccessD
+>
+export type Failed = D.TypeOf<typeof FailedD>
+export type AlreadyRunningD = D.TypeOf<typeof AlreadyRunningD>
+export type StartedD = D.TypeOf<typeof StartedD>
 export type ConfigureResponse = D.TypeOf<typeof ConfigureResponseD>
-
 export type ProvisionResponse = D.TypeOf<typeof ProvisionResponseD>
-
 export type GetRunningObsModesResponse = D.TypeOf<typeof GetRunningObsModesResponseD>
-
 export type StartSequencerResponse = D.TypeOf<typeof StartSequencerResponseD>
-
 export type RestartSequencerResponse = D.TypeOf<typeof RestartSequencerResponseD>
-
 export type ShutdownSequencersResponse = D.TypeOf<typeof ShutdownSequencersAndSeqCompResponseD>
-
 export type ShutdownSequenceComponentResponse = D.TypeOf<
   typeof ShutdownSequencersAndSeqCompResponseD
 >
-
 export type AgentStatusResponse = D.TypeOf<typeof AgentStatusResponseD>

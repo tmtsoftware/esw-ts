@@ -6,6 +6,7 @@ import { Parameter, ParameterD } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 import { Prefix, PrefixD } from './Prefix'
 
+// ######################################################
 const SetupL = 'Setup'
 const ObserveL = 'Observe'
 const WaitL = 'Wait'
@@ -24,25 +25,6 @@ type Constructor<L, T extends Command<L>> = new (
   paramSet: Parameter<Key>[],
   maybeObsId: string[]
 ) => T
-
-const Command = <L extends string, T extends Command<L>>(
-  _type: L,
-  apply: Constructor<L, T>
-): Decoder<T> =>
-  pipe(
-    D.type({
-      _type: ciLiteral(_type),
-      source: PrefixD,
-      commandName: D.string,
-      paramSet: D.array(ParameterD),
-      maybeObsId: D.array(D.string)
-    }),
-    D.parse((command) =>
-      D.success(
-        new apply(command.source, command.commandName, command.paramSet, command.maybeObsId)
-      )
-    )
-  )
 
 export class Setup extends ParameterSetType<Setup> implements Command<typeof SetupL> {
   readonly _type = SetupL
@@ -95,20 +77,40 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
   }
 }
 
-const SetupD: Decoder<Setup> = Command(SetupL, Setup)
-const ObserveD: Decoder<Observe> = Command(ObserveL, Observe)
-const WaitD: Decoder<Wait> = Command(WaitL, Wait)
+export type ControlCommand = Setup | Observe
+export type SequenceCommand = Setup | Observe | Wait
 
-export const SequenceCommand: Decoder<SequenceCommand> = D.sum('_type')({
+// ##################### Decoders #####################
+const mkCommandD = <L extends string, T extends Command<L>>(
+  _type: L,
+  apply: Constructor<L, T>
+): Decoder<T> =>
+  pipe(
+    D.type({
+      _type: ciLiteral(_type),
+      source: PrefixD,
+      commandName: D.string,
+      paramSet: D.array(ParameterD),
+      maybeObsId: D.array(D.string)
+    }),
+    D.parse((command) =>
+      D.success(
+        new apply(command.source, command.commandName, command.paramSet, command.maybeObsId)
+      )
+    )
+  )
+
+const SetupD: Decoder<Setup> = mkCommandD(SetupL, Setup)
+const ObserveD: Decoder<Observe> = mkCommandD(ObserveL, Observe)
+const WaitD: Decoder<Wait> = mkCommandD(WaitL, Wait)
+
+export const SequenceCommandD: Decoder<SequenceCommand> = D.sum('_type')({
   [SetupL]: SetupD,
   [ObserveL]: ObserveD,
   [WaitL]: WaitD
 })
 
-export const ControlCommand: Decoder<ControlCommand> = D.sum('_type')({
+export const ControlCommandD: Decoder<ControlCommand> = D.sum('_type')({
   [SetupL]: SetupD,
   [ObserveL]: ObserveD
 })
-
-export type ControlCommand = Setup | Observe
-export type SequenceCommand = Setup | Observe | Wait

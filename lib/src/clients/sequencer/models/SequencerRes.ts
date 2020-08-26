@@ -1,101 +1,105 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../../utils/Decoder'
 
-const Ok = 'Ok'
-const CannotOperateOnAnInFlightOrFinishedStep = 'CannotOperateOnAnInFlightOrFinishedStep'
-const IdDoesNotExist = 'IdDoesNotExist'
-const Unhandled = 'Unhandled'
-const GoOnlineHookFailed = 'GoOnlineHookFailed'
-const GoOfflineHookFailed = 'GoOfflineHookFailed'
-const DiagnosticHookFailed = 'DiagnosticHookFailed'
-const OperationsHookFailed = 'OperationsHookFailed'
+// ##################### Decoders #####################
+
+const OkL = 'Ok'
+const CannotOperateOnAnInFlightOrFinishedStepL = 'CannotOperateOnAnInFlightOrFinishedStep'
+const IdDoesNotExistL = 'IdDoesNotExist'
+const UnhandledL = 'Unhandled'
+const GoOnlineHookFailedL = 'GoOnlineHookFailed'
+const GoOfflineHookFailedL = 'GoOfflineHookFailed'
+const DiagnosticHookFailedL = 'DiagnosticHookFailed'
+const OperationsHookFailedL = 'OperationsHookFailed'
 
 const OkD = D.type({
-  _type: ciLiteral(Ok)
+  _type: ciLiteral(OkL)
 })
 
 const CannotOperateOnAnInFlightOrFinishedStepD = D.type({
-  _type: ciLiteral(CannotOperateOnAnInFlightOrFinishedStep)
+  _type: ciLiteral(CannotOperateOnAnInFlightOrFinishedStepL)
 })
 
 const IdDoesNotExistD = D.type({
-  _type: ciLiteral(IdDoesNotExist),
+  _type: ciLiteral(IdDoesNotExistL),
   id: D.string
 })
 
 const UnhandledD = D.type({
-  _type: ciLiteral(Unhandled),
+  _type: ciLiteral(UnhandledL),
   state: D.string,
   messageType: D.string,
   msg: D.string
 })
 
 const GoOnlineHookFailedD = D.type({
-  _type: ciLiteral(GoOnlineHookFailed)
+  _type: ciLiteral(GoOnlineHookFailedL)
 })
 
 const GoOfflineHookFailedD = D.type({
-  _type: ciLiteral(GoOfflineHookFailed)
+  _type: ciLiteral(GoOfflineHookFailedL)
 })
 
 const DiagnosticHookFailedD = D.type({
-  _type: ciLiteral(DiagnosticHookFailed)
+  _type: ciLiteral(DiagnosticHookFailedL)
 })
 
 const OperationsHookFailedD = D.type({
-  _type: ciLiteral(OperationsHookFailed)
+  _type: ciLiteral(OperationsHookFailedL)
 })
 
-export const OkOrUnhandledResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [Unhandled]: UnhandledD
+export const OkOrUnhandledResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [UnhandledL]: UnhandledD
 })
 
-export const RemoveBreakpointResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [Unhandled]: UnhandledD,
-  [IdDoesNotExist]: IdDoesNotExistD
+export const RemoveBreakpointResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [UnhandledL]: UnhandledD,
+  [IdDoesNotExistL]: IdDoesNotExistD
 })
-export const PauseResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [Unhandled]: UnhandledD,
-  [CannotOperateOnAnInFlightOrFinishedStep]: CannotOperateOnAnInFlightOrFinishedStepD
-})
-
-export const GenericResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [Unhandled]: UnhandledD,
-  [IdDoesNotExist]: IdDoesNotExistD,
-  [CannotOperateOnAnInFlightOrFinishedStep]: CannotOperateOnAnInFlightOrFinishedStepD
+export const PauseResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [UnhandledL]: UnhandledD,
+  [CannotOperateOnAnInFlightOrFinishedStepL]: CannotOperateOnAnInFlightOrFinishedStepD
 })
 
-export const GoOnlineResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [Unhandled]: UnhandledD,
-  [GoOnlineHookFailed]: GoOnlineHookFailedD
+export const GenericResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [UnhandledL]: UnhandledD,
+  [IdDoesNotExistL]: IdDoesNotExistD,
+  [CannotOperateOnAnInFlightOrFinishedStepL]: CannotOperateOnAnInFlightOrFinishedStepD
 })
 
-export const GoOfflineResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [Unhandled]: UnhandledD,
-  [GoOfflineHookFailed]: GoOfflineHookFailedD
+export const GoOnlineResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [UnhandledL]: UnhandledD,
+  [GoOnlineHookFailedL]: GoOnlineHookFailedD
 })
 
-export const DiagnosticModeResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [DiagnosticHookFailed]: DiagnosticHookFailedD
+export const GoOfflineResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [UnhandledL]: UnhandledD,
+  [GoOfflineHookFailedL]: GoOfflineHookFailedD
 })
 
-export const OperationsModeResponse = D.sum('_type')({
-  [Ok]: OkD,
-  [OperationsHookFailed]: OperationsHookFailedD
+export const DiagnosticModeResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [DiagnosticHookFailedL]: DiagnosticHookFailedD
 })
 
-export type OkOrUnhandledResponse = D.TypeOf<typeof OkOrUnhandledResponse>
-export type RemoveBreakpointResponse = D.TypeOf<typeof RemoveBreakpointResponse>
-export type PauseResponse = D.TypeOf<typeof PauseResponse>
-export type GenericResponse = D.TypeOf<typeof GenericResponse>
-export type GoOnlineResponse = D.TypeOf<typeof GoOnlineResponse>
-export type GoOfflineResponse = D.TypeOf<typeof GoOfflineResponse>
-export type DiagnosticModeResponse = D.TypeOf<typeof DiagnosticModeResponse>
-export type OperationsModeResponse = D.TypeOf<typeof OperationsModeResponse>
+export const OperationsModeResponseD = D.sum('_type')({
+  [OkL]: OkD,
+  [OperationsHookFailedL]: OperationsHookFailedD
+})
+
+// ######################################################
+
+export type OkOrUnhandledResponse = D.TypeOf<typeof OkOrUnhandledResponseD>
+export type RemoveBreakpointResponse = D.TypeOf<typeof RemoveBreakpointResponseD>
+export type PauseResponse = D.TypeOf<typeof PauseResponseD>
+export type GenericResponse = D.TypeOf<typeof GenericResponseD>
+export type GoOnlineResponse = D.TypeOf<typeof GoOnlineResponseD>
+export type GoOfflineResponse = D.TypeOf<typeof GoOfflineResponseD>
+export type DiagnosticModeResponse = D.TypeOf<typeof DiagnosticModeResponseD>
+export type OperationsModeResponse = D.TypeOf<typeof OperationsModeResponseD>

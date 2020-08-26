@@ -15,6 +15,5 @@ export interface AdminService {
 export const AdminService: () => Promise<AdminService> = async () => {
   const { host, port } = await resolveGateway()
   const postEndpoint = getPostEndPoint({ host, port })
-
   return new AdminServiceImpl(new HttpTransport(postEndpoint))
 }

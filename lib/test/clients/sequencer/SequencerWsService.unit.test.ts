@@ -1,7 +1,7 @@
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import { QueryFinal } from '../../../src/clients/sequencer/models/WsCommand'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
-import { ComponentId, Prefix, SubmitResponse } from '../../../src/models'
+import { ComponentId, Prefix, SubmitResponseD } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
@@ -15,6 +15,6 @@ test('SequencerService should receive submit response on query final using webso
 
   expect(mockSingleResponse).toBeCalledWith(
     new GatewaySequencerCommand(componentId, new QueryFinal('12345', 1000)),
-    SubmitResponse
+    SubmitResponseD
   )
 })

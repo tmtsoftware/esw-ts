@@ -29,19 +29,19 @@ export class CommandServiceImpl implements CommandService {
   }
 
   validate(command: M.ControlCommand): Promise<M.ValidateResponse> {
-    return this.postComponentCmd(new Req.Validate(command), M.ValidateResponse)
+    return this.postComponentCmd(new Req.Validate(command), M.ValidateResponseD)
   }
 
   submit(command: M.ControlCommand): Promise<M.SubmitResponse> {
-    return this.postComponentCmd(new Req.Submit(command), M.SubmitResponse)
+    return this.postComponentCmd(new Req.Submit(command), M.SubmitResponseD)
   }
 
   oneway(command: M.ControlCommand): Promise<M.OnewayResponse> {
-    return this.postComponentCmd(new Req.Oneway(command), M.OnewayResponse)
+    return this.postComponentCmd(new Req.Oneway(command), M.OnewayResponseD)
   }
 
   query(runId: string): Promise<M.SubmitResponse> {
-    return this.postComponentCmd(new Req.Query(runId), M.SubmitResponse)
+    return this.postComponentCmd(new Req.Query(runId), M.SubmitResponseD)
   }
 
   private subscribe(
@@ -70,7 +70,7 @@ export class CommandServiceImpl implements CommandService {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse> {
     return this.ws().singleResponse(
       this.componentWsCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
-      M.SubmitResponse
+      M.SubmitResponseD
     )
   }
 }

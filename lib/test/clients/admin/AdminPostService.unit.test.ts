@@ -1,6 +1,6 @@
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/PostCommand'
-import { Done } from '../../../src/clients/location'
+import { DoneD } from '../../../src/clients/location'
 import { LogMetadataD } from '../../../src/clients/logger'
 import { ComponentId, Prefix } from '../../../src/models'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
@@ -19,7 +19,7 @@ describe('Admin Service', () => {
     const componentId = new ComponentId(new Prefix('ESW', 'filter'), 'HCD')
     const level = 'WARN'
     await adminServiceImpl.setLogLevel(componentId, level)
-    expect(requestRes).toBeCalledWith(new SetLogLevel(componentId, level), Done)
+    expect(requestRes).toBeCalledWith(new SetLogLevel(componentId, level), DoneD)
   })
 })
 

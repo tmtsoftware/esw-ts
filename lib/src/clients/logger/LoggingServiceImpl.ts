@@ -1,7 +1,7 @@
 import { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { GatewayLoggingPostRequest } from '../gateway/models/Gateway'
-import { Done } from '../location'
+import { Done, DoneD } from '../location'
 import { LoggingService } from './LoggingService'
 import { Level } from './models/Level'
 import { Log } from './models/PostCommand'
@@ -17,7 +17,7 @@ export class LoggingServiceImpl implements LoggingService {
   ): Promise<Done> {
     return this.httpTransport.requestRes(
       new Log(prefix, level, message, metadata ? metadata : {}),
-      Done
+      DoneD
     )
   }
 }

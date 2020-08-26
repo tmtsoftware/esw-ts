@@ -1,9 +1,11 @@
 import * as D from 'io-ts/lib/Decoder'
-import { SequenceCommand } from '../../../models'
+import { SequenceCommand, SequenceCommandD } from '../../../models'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 
+// ##################### Decoders #####################
 const StepStatusOtherThanFailureL = ciLiteral('Pending', 'InFlight', 'Success')
 const StepStatusFailureL = ciLiteral('Failure')
+
 const StepStatusOtherThanFailureD: Decoder<StepStatus> = D.type({
   _type: StepStatusOtherThanFailureL
 })
@@ -20,10 +22,15 @@ export const StepStatusD: Decoder<StepStatus> = D.union(
 
 export const StepD: Decoder<Step> = D.type({
   id: D.string,
-  command: SequenceCommand,
+  command: SequenceCommandD,
   status: StepStatusD,
   hasBreakpoint: D.boolean
 })
+
+export const StepListD = D.array(StepD)
+export const OptionOfStepList = D.array(StepListD)
+
+// ######################################################
 
 export interface Step {
   readonly id: string
@@ -42,8 +49,5 @@ interface StepStatusFailure {
   readonly _type: 'Failure'
   readonly message: string
 }
-
-export const StepListD = D.array(StepD)
-export const OptionOfStepList = D.array(StepListD)
 
 export type StepList = D.TypeOf<typeof StepListD>

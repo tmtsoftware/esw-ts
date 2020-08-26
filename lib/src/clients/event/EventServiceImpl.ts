@@ -3,9 +3,9 @@ import { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
 import { GatewayEventPostRequest, GatewayEventWsRequest } from '../gateway/models/Gateway'
-import { Done } from '../location'
+import { Done, DoneD } from '../location'
 import { EventService } from './EventService'
-import { Event } from './models/Event'
+import { Event, EventD } from './models/Event'
 import { EventKey } from './models/EventKey'
 import { GetEvent, PublishEvent } from './models/PostCommand'
 import { Subscribe, SubscribeWithPattern } from './models/WsCommand'
@@ -17,11 +17,11 @@ export class EventServiceImpl implements EventService {
   ) {}
 
   publish(event: Event): Promise<Done> {
-    return this.httpTransport.requestRes(new PublishEvent(event), Done)
+    return this.httpTransport.requestRes(new PublishEvent(event), DoneD)
   }
 
   get(eventKeys: Set<EventKey>): Promise<Event[]> {
-    return this.httpTransport.requestRes(new GetEvent([...eventKeys]), D.array(Event))
+    return this.httpTransport.requestRes(new GetEvent([...eventKeys]), D.array(EventD))
   }
 
   subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {
@@ -58,7 +58,7 @@ export class EventServiceImpl implements EventService {
     maxFrequency: number,
     callback: (event: Event) => void
   ) {
-    return this.ws().subscribe(new Subscribe([...eventKeys], maxFrequency), callback, Event)
+    return this.ws().subscribe(new Subscribe([...eventKeys], maxFrequency), callback, EventD)
   }
 
   private async resolveAndpSubscribe(
@@ -70,7 +70,7 @@ export class EventServiceImpl implements EventService {
     return this.ws().subscribe(
       new SubscribeWithPattern(subsystem, maxFrequency, pattern),
       callback,
-      Event
+      EventD
     )
   }
 }
