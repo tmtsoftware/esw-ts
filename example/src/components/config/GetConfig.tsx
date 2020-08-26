@@ -1,6 +1,4 @@
-import { download } from 'esw-ts'
-import { ConfigData } from 'esw-ts/dist/src/clients/config/models/ConfigData'
-import { Option } from 'esw-ts/dist/src/utils/types'
+import { download, ConfigData, Option } from 'esw-ts'
 import React, { useContext, useState } from 'react'
 import { ConfigContext } from './context/ConfigContext'
 import IOOperationComponent from './IOOperationComponent'
