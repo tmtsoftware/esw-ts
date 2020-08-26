@@ -1,7 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
-import { Decoder, ciLiteral } from '../../../utils/Decoder'
+import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { AkkaConnectionD, Connection, HttpConnectionD, TcpConnectionD } from './Connection'
 
+// ##################### Decoders #####################
 const AkkaLocationL = 'AkkaLocation'
 const HttpLocationL = 'HttpLocation'
 const TcpLocationL = 'TcpLocation'
@@ -15,7 +16,7 @@ type LocationDecoder<L extends LocationType, C extends Connection> = Decoder<{
   metadata: Record<string, string>
 }>
 
-const location = <L extends LocationType, C extends Connection>(
+const mkLocationD = <L extends LocationType, C extends Connection>(
   locationType: L,
   connection: Decoder<C>
 ): LocationDecoder<L, C> =>
@@ -26,17 +27,19 @@ const location = <L extends LocationType, C extends Connection>(
     metadata: D.record(D.string)
   })
 
-export const AkkaLocation = location(AkkaLocationL, AkkaConnectionD)
-export const HttpLocation = location(HttpLocationL, HttpConnectionD)
-export const TcpLocation = location(TcpLocationL, TcpConnectionD)
+export const AkkaLocationD = mkLocationD(AkkaLocationL, AkkaConnectionD)
+export const HttpLocationD = mkLocationD(HttpLocationL, HttpConnectionD)
+export const TcpLocationD = mkLocationD(TcpLocationL, TcpConnectionD)
 
-export type AkkaLocation = D.TypeOf<typeof AkkaLocation>
-export type HttpLocation = D.TypeOf<typeof HttpLocation>
-export type TcpLocation = D.TypeOf<typeof TcpLocation>
-
-export const Location = D.sum('_type')({
-  [AkkaLocationL]: AkkaLocation,
-  [HttpLocationL]: HttpLocation,
-  [TcpLocationL]: TcpLocation
+export const LocationD = D.sum('_type')({
+  [AkkaLocationL]: AkkaLocationD,
+  [HttpLocationL]: HttpLocationD,
+  [TcpLocationL]: TcpLocationD
 })
-export type Location = D.TypeOf<typeof Location>
+
+// ######################################################
+
+export type AkkaLocation = D.TypeOf<typeof AkkaLocationD>
+export type HttpLocation = D.TypeOf<typeof HttpLocationD>
+export type TcpLocation = D.TypeOf<typeof TcpLocationD>
+export type Location = D.TypeOf<typeof LocationD>

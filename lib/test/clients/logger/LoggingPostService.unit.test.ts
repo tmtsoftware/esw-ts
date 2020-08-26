@@ -1,4 +1,4 @@
-import { Done } from '../../../src/clients/location'
+import { DoneD } from '../../../src/clients/location'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
 import { Log } from '../../../src/clients/logger/models/PostCommand'
 import { Prefix } from '../../../src/models'
@@ -13,7 +13,7 @@ describe('Logging Service', () => {
 
     expect(requestRes).toBeCalledWith(
       new Log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level', {}),
-      Done
+      DoneD
     )
   })
 
@@ -24,7 +24,7 @@ describe('Logging Service', () => {
 
     expect(requestRes).toBeCalledWith(
       new Log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level', { key: 'value' }),
-      Done
+      DoneD
     )
   })
 })

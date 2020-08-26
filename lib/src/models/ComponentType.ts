@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../utils/Decoder'
 
-export const ComponentType = ciLiteral(
+export const ComponentTypeD = ciLiteral(
   'HCD',
   'Assembly',
   'Service',
@@ -11,4 +11,4 @@ export const ComponentType = ciLiteral(
   'Machine'
 )
 
-export type ComponentType = D.TypeOf<typeof ComponentType>
+export type ComponentType = D.TypeOf<typeof ComponentTypeD>

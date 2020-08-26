@@ -4,14 +4,8 @@ import { Key, Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { EventName, EventNameD } from './EventName'
 
-const ObserveEventL = 'ObserveEvent'
-const SystemEventL = 'SystemEvent'
-
-type EventTypes = typeof ObserveEventL | typeof SystemEventL
-
-export type Event = ObserveEvent | SystemEvent
-
-const EventD = (_type: EventTypes): Decoder<Event> =>
+// ##################### Decoders #####################
+const mkEventD = (_type: EventTypes): Decoder<Event> =>
   D.type({
     _type: ciLiteral(_type),
     eventId: D.string,
@@ -20,6 +14,17 @@ const EventD = (_type: EventTypes): Decoder<Event> =>
     eventTime: D.string,
     paramSet: D.array(ParameterD)
   })
+
+const ObserveEventL = 'ObserveEvent'
+const SystemEventL = 'SystemEvent'
+type EventTypes = typeof ObserveEventL | typeof SystemEventL
+
+export const EventD = D.sum('_type')({
+  [ObserveEventL]: mkEventD(ObserveEventL),
+  [SystemEventL]: mkEventD(SystemEventL)
+})
+
+// ######################################################
 
 export class ObserveEvent {
   readonly _type = ObserveEventL
@@ -45,7 +50,4 @@ export class SystemEvent {
   ) {}
 }
 
-export const Event = D.sum('_type')({
-  [ObserveEventL]: EventD(ObserveEventL),
-  [SystemEventL]: EventD(SystemEventL)
-})
+export type Event = ObserveEvent | SystemEvent

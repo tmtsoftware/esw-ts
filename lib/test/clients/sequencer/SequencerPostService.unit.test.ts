@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
-import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
+import { SequencerPostRequest } from '../../../src/clients/sequencer/models/PostCommand'
 import * as Res from '../../../src/clients/sequencer/models/SequencerRes'
 import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
 import {
@@ -14,7 +14,7 @@ import {
   Prefix,
   SequenceCommand,
   Setup,
-  SubmitResponse,
+  SubmitResponseD,
   Wait
 } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
@@ -42,7 +42,7 @@ describe('SequencerService', () => {
     await sequencer.loadSequence(sequence)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.LoadSequence(sequence)),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -50,7 +50,7 @@ describe('SequencerService', () => {
     await sequencer.startSequence()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.StartSequence()),
-      SubmitResponse
+      SubmitResponseD
     )
   })
 
@@ -58,7 +58,7 @@ describe('SequencerService', () => {
     await sequencer.add(commands)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Add(commands)),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -66,7 +66,7 @@ describe('SequencerService', () => {
     await sequencer.prepend(commands)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Prepend(commands)),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -74,7 +74,7 @@ describe('SequencerService', () => {
     await sequencer.replace('id-123', commands)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Replace('id-123', commands)),
-      Res.GenericResponse
+      Res.GenericResponseD
     )
   })
 
@@ -82,7 +82,7 @@ describe('SequencerService', () => {
     await sequencer.insertAfter('id-123', commands)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.InsertAfter('id-123', commands)),
-      Res.GenericResponse
+      Res.GenericResponseD
     )
   })
 
@@ -90,7 +90,7 @@ describe('SequencerService', () => {
     await sequencer.delete('id-123')
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Delete('id-123')),
-      Res.GenericResponse
+      Res.GenericResponseD
     )
   })
 
@@ -98,7 +98,7 @@ describe('SequencerService', () => {
     await sequencer.addBreakpoint('id-123')
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.AddBreakpoint('id-123')),
-      Res.GenericResponse
+      Res.GenericResponseD
     )
   })
 
@@ -106,7 +106,7 @@ describe('SequencerService', () => {
     await sequencer.removeBreakpoint('id-123')
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.RemoveBreakpoint('id-123')),
-      Res.RemoveBreakpointResponse
+      Res.RemoveBreakpointResponseD
     )
   })
 
@@ -114,7 +114,7 @@ describe('SequencerService', () => {
     await sequencer.reset()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Reset()),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -122,7 +122,7 @@ describe('SequencerService', () => {
     await sequencer.resume()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Resume()),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -130,7 +130,7 @@ describe('SequencerService', () => {
     await sequencer.pause()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Pause()),
-      Res.PauseResponse
+      Res.PauseResponseD
     )
   })
 
@@ -160,7 +160,7 @@ describe('SequencerService', () => {
     await sequencer.goOnline()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GoOnline()),
-      Res.GoOnlineResponse
+      Res.GoOnlineResponseD
     )
   })
 
@@ -168,7 +168,7 @@ describe('SequencerService', () => {
     await sequencer.goOffline()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GoOffline()),
-      Res.GoOfflineResponse
+      Res.GoOfflineResponseD
     )
   })
 
@@ -176,7 +176,7 @@ describe('SequencerService', () => {
     await sequencer.abortSequence()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.AbortSequence()),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -184,7 +184,7 @@ describe('SequencerService', () => {
     await sequencer.stop()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Stop()),
-      Res.OkOrUnhandledResponse
+      Res.OkOrUnhandledResponseD
     )
   })
 
@@ -195,7 +195,7 @@ describe('SequencerService', () => {
     await sequencer.diagnosticMode(date, hint)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.DiagnosticMode(date, hint)),
-      Res.DiagnosticModeResponse
+      Res.DiagnosticModeResponseD
     )
   })
 
@@ -203,7 +203,7 @@ describe('SequencerService', () => {
     await sequencer.operationsMode()
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.OperationsMode()),
-      Res.OperationsModeResponse
+      Res.OperationsModeResponseD
     )
   })
 
@@ -211,7 +211,7 @@ describe('SequencerService', () => {
     await sequencer.submit(sequence)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Submit(sequence)),
-      SubmitResponse
+      SubmitResponseD
     )
   })
 
@@ -220,11 +220,11 @@ describe('SequencerService', () => {
     await sequencer.submitAndWait(sequence)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Submit(sequence)),
-      SubmitResponse
+      SubmitResponseD
     )
     expect(mockSingleResponse).toBeCalledWith(
       getGatewaySequencerCommand(new QueryFinal('123', 5)),
-      SubmitResponse
+      SubmitResponseD
     )
   })
 
@@ -233,7 +233,7 @@ describe('SequencerService', () => {
     await sequencer.submitAndWait(sequence)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Submit(sequence)),
-      SubmitResponse
+      SubmitResponseD
     )
     expect(mockSingleResponse).toBeCalledTimes(0)
   })
@@ -242,7 +242,7 @@ describe('SequencerService', () => {
     await sequencer.query('123')
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Query('123')),
-      SubmitResponse
+      SubmitResponseD
     )
   })
 })

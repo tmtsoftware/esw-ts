@@ -32,5 +32,4 @@ const decodeParameter = () =>
   )
 
 export const ParameterD: Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', decodeParameter)
-
-export const ParamSet = D.type({ paramSet: D.array(ParameterD) })
+export const ParamSetD = D.type({ paramSet: D.array(ParameterD) })

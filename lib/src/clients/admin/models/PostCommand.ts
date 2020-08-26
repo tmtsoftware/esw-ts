@@ -2,13 +2,13 @@ import { ComponentId } from '../../../models'
 import { Level } from '../../logger'
 
 export class GetLogMetadata {
-  private readonly _type: 'GetLogMetadata' = 'GetLogMetadata'
+  readonly _type: 'GetLogMetadata' = 'GetLogMetadata'
 
-  constructor(private readonly componentId: ComponentId) {}
+  constructor(readonly componentId: ComponentId) {}
 }
 
 export class SetLogLevel {
-  private readonly _type: 'SetLogLevel' = 'SetLogLevel'
+  readonly _type: 'SetLogLevel' = 'SetLogLevel'
 
-  constructor(private readonly componentId: ComponentId, private readonly level: Level) {}
+  constructor(readonly componentId: ComponentId, readonly level: Level) {}
 }

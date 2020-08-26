@@ -13,8 +13,8 @@ export class ConfigData {
     return new ConfigData(new Blob([file]))
   }
 
-  async fileContentAsString(): Promise<string> {
-    return await new Response(this.content).text()
+  fileContentAsString(): Promise<string> {
+    return new Response(this.content).text()
   }
 
   toBlob() {

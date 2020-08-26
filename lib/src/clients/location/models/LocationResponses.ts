@@ -1,8 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../../utils/Decoder'
-import { Location } from './Location'
+import { LocationD } from './Location'
 
-export const Done = ciLiteral('Done')
-export type Done = D.TypeOf<typeof Done>
+export const DoneD = ciLiteral('Done')
+export const LocationListD = D.array(LocationD)
 
-export const LocationList = D.array(Location)
+export type Done = D.TypeOf<typeof DoneD>

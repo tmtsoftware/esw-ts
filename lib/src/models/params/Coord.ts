@@ -1,7 +1,8 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../utils/Decoder'
 
-export const Tag = ciLiteral(
+// ##################### Decoders #####################
+export const TagD = ciLiteral(
   'BASE',
   'OIWFS1',
   'OIWFS2',
@@ -15,7 +16,7 @@ export const Tag = ciLiteral(
   'GUIDER2'
 )
 
-export const SolarSystemObject = ciLiteral(
+export const SolarSystemObjectD = ciLiteral(
   'Mercury',
   'Venus',
   'Moon',
@@ -27,31 +28,31 @@ export const SolarSystemObject = ciLiteral(
   'Pluto'
 )
 
-export const EqFrame = ciLiteral('ICRS', 'FK5')
+export const EqFrameD = ciLiteral('ICRS', 'FK5')
 
-export const RaDec = D.type({
+export const RaDecD = D.type({
   ra: D.number,
   dec: D.number
 })
 
-export const ProperMotion = D.type({
+export const ProperMotionD = D.type({
   pmx: D.number,
   pmy: D.number
 })
 
-export const EqCoord = D.type({
+export const EqCoordD = D.type({
   _type: ciLiteral('EqCoord'),
-  tag: Tag,
+  tag: TagD,
   ra: D.number,
   dec: D.number,
-  frame: EqFrame,
+  frame: EqFrameD,
   catalogName: D.string,
-  pm: ProperMotion
+  pm: ProperMotionD
 })
 
-export const MinorPlanetCoord = D.type({
+export const MinorPlanetCoordD = D.type({
   _type: ciLiteral('MinorPlanetCoord'),
-  tag: Tag,
+  tag: TagD,
   epoch: D.number,
   inclination: D.number,
   longAscendingNode: D.number,
@@ -61,15 +62,15 @@ export const MinorPlanetCoord = D.type({
   meanAnomaly: D.number
 })
 
-export const SolarSystemCoord = D.type({
+export const SolarSystemCoordD = D.type({
   _type: ciLiteral('SolarSystemCoord'),
-  tag: Tag,
-  body: SolarSystemObject
+  tag: TagD,
+  body: SolarSystemObjectD
 })
 
-export const CometCoord = D.type({
+export const CometCoordD = D.type({
   _type: ciLiteral('CometCoord'),
-  tag: Tag,
+  tag: TagD,
   epochOfPerihelion: D.number,
   inclination: D.number,
   longAscendingNode: D.number,
@@ -78,29 +79,31 @@ export const CometCoord = D.type({
   eccentricity: D.number
 })
 
-export const AltAzCoord = D.type({
+export const AltAzCoordD = D.type({
   _type: ciLiteral('AltAzCoord'),
-  tag: Tag,
+  tag: TagD,
   alt: D.number,
   az: D.number
 })
 
-export const Coord = D.sum('_type')({
-  EqCoord: EqCoord,
-  MinorPlanetCoord: MinorPlanetCoord,
-  SolarSystemCoord: SolarSystemCoord,
-  CometCoord: CometCoord,
-  AltAzCoord: AltAzCoord
+export const CoordD = D.sum('_type')({
+  EqCoord: EqCoordD,
+  MinorPlanetCoord: MinorPlanetCoordD,
+  SolarSystemCoord: SolarSystemCoordD,
+  CometCoord: CometCoordD,
+  AltAzCoord: AltAzCoordD
 })
 
-export type Tag = D.TypeOf<typeof Tag>
-export type SolarSystemObject = D.TypeOf<typeof SolarSystemObject>
-export type EqFrame = D.TypeOf<typeof EqFrame>
-export type RaDec = D.TypeOf<typeof RaDec>
-export type ProperMotion = D.TypeOf<typeof ProperMotion>
-export type EqCoord = D.TypeOf<typeof EqCoord>
-export type MinorPlanetCoord = D.TypeOf<typeof MinorPlanetCoord>
-export type SolarSystemCoord = D.TypeOf<typeof SolarSystemCoord>
-export type CometCoord = D.TypeOf<typeof CometCoord>
-export type AltAzCoord = D.TypeOf<typeof AltAzCoord>
-export type Coord = D.TypeOf<typeof Coord>
+// ######################################################
+
+export type Tag = D.TypeOf<typeof TagD>
+export type SolarSystemObject = D.TypeOf<typeof SolarSystemObjectD>
+export type EqFrame = D.TypeOf<typeof EqFrameD>
+export type RaDec = D.TypeOf<typeof RaDecD>
+export type ProperMotion = D.TypeOf<typeof ProperMotionD>
+export type EqCoord = D.TypeOf<typeof EqCoordD>
+export type MinorPlanetCoord = D.TypeOf<typeof MinorPlanetCoordD>
+export type SolarSystemCoord = D.TypeOf<typeof SolarSystemCoordD>
+export type CometCoord = D.TypeOf<typeof CometCoordD>
+export type AltAzCoord = D.TypeOf<typeof AltAzCoordD>
+export type Coord = D.TypeOf<typeof CoordD>

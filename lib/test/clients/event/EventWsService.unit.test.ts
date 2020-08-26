@@ -1,5 +1,6 @@
-import { Event, EventKey, EventName } from '../../../src/clients/event'
+import { EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
+import { EventD } from '../../../src/clients/event/models/Event'
 import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
 import { Prefix, Subsystem } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
@@ -18,13 +19,13 @@ describe('Event Service', () => {
   test('should subscribe event without default parameters using websocket | ESW-318', () => {
     eventServiceImpl.subscribe(eventKeys, 1)(callback)
 
-    expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 1), callback, Event)
+    expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 1), callback, EventD)
   })
 
   test('should subscribe event with default parameters using websocket | ESW-318', () => {
     eventServiceImpl.subscribe(eventKeys)(callback)
 
-    expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 0), callback, Event)
+    expect(mockSubscribe).toBeCalledWith(new Subscribe([...eventKeys], 0), callback, EventD)
   })
 
   test('should pattern subscribe event using websocket | ESW-318', () => {
@@ -33,7 +34,7 @@ describe('Event Service', () => {
     expect(mockSubscribe).toBeCalledWith(
       new SubscribeWithPattern(subsystem, 1, '.*'),
       callback,
-      Event
+      EventD
     )
   })
 
@@ -43,7 +44,7 @@ describe('Event Service', () => {
     expect(mockSubscribe).toBeCalledWith(
       new SubscribeWithPattern(subsystem, 0, '.*'),
       callback,
-      Event
+      EventD
     )
   })
 })

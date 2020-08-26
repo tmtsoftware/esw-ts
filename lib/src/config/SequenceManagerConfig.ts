@@ -1,4 +1,5 @@
 import { ComponentType, Subsystem } from '../models'
+
 export interface SequenceManagerConfig {
   readonly subsystem: Subsystem
   readonly componentName: string

@@ -1,9 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../utils/Decoder'
 
-export type Subsystem = D.TypeOf<typeof Subsystem>
+export type Subsystem = D.TypeOf<typeof SubsystemD>
 
-export const Subsystem = ciLiteral(
+export const SubsystemD = ciLiteral(
   'AOESW',
   'APS',
   'CIS',

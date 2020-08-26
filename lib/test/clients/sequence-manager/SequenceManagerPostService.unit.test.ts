@@ -1,6 +1,6 @@
 import {
-  ObsMode,
   AgentProvisionConfig,
+  ObsMode,
   ProvisionConfig
 } from '../../../src/clients/sequence-manager'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'

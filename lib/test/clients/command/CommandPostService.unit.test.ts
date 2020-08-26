@@ -1,8 +1,8 @@
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import * as Req from '../../../src/clients/command/models/PostCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
-import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
 import * as M from '../../../src/models'
+import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
@@ -20,7 +20,7 @@ describe('CommandService', () => {
 
     await client.validate(setupCommand)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.ValidateResponse)
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.ValidateResponseD)
   })
 
   test('should be able to submit command to assembly | ESW-305', async () => {
@@ -29,7 +29,7 @@ describe('CommandService', () => {
 
     await client.submit(setupCommand)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponse)
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponseD)
   })
 
   test('should be able to send oneway command | ESW-305', async () => {
@@ -38,7 +38,7 @@ describe('CommandService', () => {
 
     await client.oneway(observeCommand)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.OnewayResponse)
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.OnewayResponseD)
   })
 
   test('should be able to send query command | ESW-305', async () => {
@@ -46,7 +46,7 @@ describe('CommandService', () => {
     await client.query(runId)
     const msg = new Req.Query(runId)
 
-    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponse)
+    expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponseD)
   })
 })
 

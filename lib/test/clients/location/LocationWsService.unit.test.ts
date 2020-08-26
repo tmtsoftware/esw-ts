@@ -1,4 +1,4 @@
-import { HttpConnection, TrackingEvent } from '../../../src/clients/location'
+import { HttpConnection, TrackingEventD } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import { Track } from '../../../src/clients/location/models/WsCommand'
 import { Prefix } from '../../../src/models'
@@ -17,5 +17,5 @@ test('location service must track a location for given connection | ESW-308, ESW
 
   locationService.track(httpConnection)(callback)
 
-  expect(mockSubscribe).toBeCalledWith(new Track(httpConnection), callback, TrackingEvent)
+  expect(mockSubscribe).toBeCalledWith(new Track(httpConnection), callback, TrackingEventD)
 })

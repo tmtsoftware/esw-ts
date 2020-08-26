@@ -4,6 +4,7 @@ import { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
 import { Prefix, PrefixD } from './Prefix'
 
+// ##################### Decoders #####################
 const SetupL = 'Setup'
 const ObserveL = 'Observe'
 const WaitL = 'Wait'
@@ -16,7 +17,7 @@ interface Command<L> {
   readonly paramSet: Parameter<Key>[]
 }
 
-const Command = <L extends string>(_type: L): Decoder<Command<L>> =>
+const mkCommandD = <L extends string>(_type: L): Decoder<Command<L>> =>
   D.type({
     _type: ciLiteral(_type),
     source: PrefixD,
@@ -24,6 +25,23 @@ const Command = <L extends string>(_type: L): Decoder<Command<L>> =>
     paramSet: D.array(ParameterD),
     maybeObsId: D.array(D.string)
   })
+
+const SetupD: Decoder<Setup> = mkCommandD(SetupL)
+const ObserveD: Decoder<Observe> = mkCommandD(ObserveL)
+const WaitD: Decoder<Wait> = mkCommandD(WaitL)
+
+export const SequenceCommandD: Decoder<SequenceCommand> = D.sum('_type')({
+  [SetupL]: SetupD,
+  [ObserveL]: ObserveD,
+  [WaitL]: WaitD
+})
+
+export const ControlCommandD: Decoder<ControlCommand> = D.sum('_type')({
+  [SetupL]: SetupD,
+  [ObserveL]: ObserveD
+})
+
+// ######################################################
 
 export class Setup implements Command<typeof SetupL> {
   readonly _type = SetupL
@@ -54,21 +72,6 @@ export class Wait implements Command<typeof WaitL> {
     readonly maybeObsId: string[] = []
   ) {}
 }
-
-const SetupD: Decoder<Setup> = Command(SetupL)
-const ObserveD: Decoder<Observe> = Command(ObserveL)
-const WaitD: Decoder<Wait> = Command(WaitL)
-
-export const SequenceCommand: Decoder<SequenceCommand> = D.sum('_type')({
-  [SetupL]: SetupD,
-  [ObserveL]: ObserveD,
-  [WaitL]: WaitD
-})
-
-export const ControlCommand: Decoder<ControlCommand> = D.sum('_type')({
-  [SetupL]: SetupD,
-  [ObserveL]: ObserveD
-})
 
 export type ControlCommand = Setup | Observe
 export type SequenceCommand = Setup | Observe | Wait

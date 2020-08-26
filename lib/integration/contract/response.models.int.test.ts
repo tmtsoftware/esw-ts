@@ -3,12 +3,11 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
-import { AlarmSeverity } from '../../src/clients/alarm'
-import { AlarmKeyD } from '../../src/clients/alarm/models/PostCommand'
+import { AlarmKeyD, AlarmSeverityD } from '../../src/clients/alarm/models/PostCommand'
 import * as C from '../../src/clients/config/models/ConfigModels'
-import { Event } from '../../src/clients/event'
+import { EventD } from '../../src/clients/event/models/Event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
-import { Connection, ConnectionType, Location, TrackingEvent } from '../../src/clients/location'
+import { ConnectionD, ConnectionTypeD, LocationD, TrackingEventD } from '../../src/clients/location'
 import { Level, LogMetadataD } from '../../src/clients/logger'
 import { ObsModeD } from '../../src/clients/sequence-manager/models/ObsMode'
 import {
@@ -94,39 +93,39 @@ const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
 }
 
 const commandDecoders: Record<string, Decoder<any>> = {
-  Units: M.Units,
+  Units: M.UnitsD,
   Parameter: M.ParameterD,
   CommandName: D.string,
   CurrentState: M.CurrentState,
-  CommandIssue: M.CommandIssue,
-  SubmitResponse: M.SubmitResponse,
-  OnewayResponse: M.OnewayResponse,
-  ValidateResponse: M.ValidateResponse,
-  ControlCommand: M.ControlCommand,
-  Result: M.ParamSet,
+  CommandIssue: M.CommandIssueD,
+  SubmitResponse: M.SubmitResponseD,
+  OnewayResponse: M.OnewayResponseD,
+  ValidateResponse: M.ValidateResponseD,
+  ControlCommand: M.ControlCommandD,
+  Result: M.ParamSetD,
   KeyType: M.keyTagDecoder
 }
 
 const locationDecoders: Record<string, Decoder<any>> = {
-  TrackingEvent: TrackingEvent,
-  ComponentType: M.ComponentType,
-  Connection: Connection,
+  TrackingEvent: TrackingEventD,
+  ComponentType: M.ComponentTypeD,
+  Connection: ConnectionD,
   Registration: D.id(),
   ComponentId: M.ComponentIdD,
   Prefix: M.PrefixD,
   LocationServiceError: D.id(),
-  ConnectionType: ConnectionType,
-  Subsystem: M.Subsystem,
-  Location: Location
+  ConnectionType: ConnectionTypeD,
+  Subsystem: M.SubsystemD,
+  Location: LocationD
 }
 
 const gatewayDecoders: Record<string, Decoder<any>> = {
-  Subsystem: M.Subsystem,
-  AlarmSeverity: AlarmSeverity,
+  Subsystem: M.SubsystemD,
+  AlarmSeverity: AlarmSeverityD,
   AlarmKey: AlarmKeyD,
   ComponentId: ComponentIdD,
   EventKey: EventKeyD,
-  Event: Event,
+  Event: EventD,
   GatewayException: D.id(),
   Prefix: PrefixD,
   LogMetadata: LogMetadataD,
@@ -135,24 +134,24 @@ const gatewayDecoders: Record<string, Decoder<any>> = {
 
 const configDecoders: Record<string, Decoder<any>> = {
   ConfigId: C.ConfigIdD,
-  FileType: C.FileType,
-  ConfigMetadata: C.ConfigMetadata,
-  ConfigFileInfo: C.ConfigFileInfo,
-  ConfigFileRevision: C.ConfigFileRevision
+  FileType: C.FileTypeD,
+  ConfigMetadata: C.ConfigMetadataD,
+  ConfigFileInfo: C.ConfigFileInfoD,
+  ConfigFileRevision: C.ConfigFileRevisionD
 }
 
 const sequencerDecoders: Record<string, Decoder<any>> = {
-  SequenceCommand: M.SequenceCommand,
+  SequenceCommand: M.SequenceCommandD,
   AkkaLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
-  GenericResponse: Seq.GenericResponse,
-  PauseResponse: Seq.PauseResponse,
-  SubmitResponse: M.SubmitResponse,
-  GoOfflineResponse: Seq.GoOfflineResponse,
-  GoOnlineResponse: Seq.GoOnlineResponse,
-  OperationsModeResponse: Seq.OperationsModeResponse,
-  OkOrUnhandledResponse: Seq.OkOrUnhandledResponse,
-  DiagnosticModeResponse: Seq.DiagnosticModeResponse,
-  RemoveBreakpointResponse: Seq.RemoveBreakpointResponse,
+  GenericResponse: Seq.GenericResponseD,
+  PauseResponse: Seq.PauseResponseD,
+  SubmitResponse: M.SubmitResponseD,
+  GoOfflineResponse: Seq.GoOfflineResponseD,
+  GoOnlineResponse: Seq.GoOnlineResponseD,
+  OperationsModeResponse: Seq.OperationsModeResponseD,
+  OkOrUnhandledResponse: Seq.OkOrUnhandledResponseD,
+  DiagnosticModeResponse: Seq.DiagnosticModeResponseD,
+  RemoveBreakpointResponse: Seq.RemoveBreakpointResponseD,
   StepStatus: StepStatusD,
   Step: StepD,
   StepList: StepListD
@@ -169,6 +168,6 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   AgentStatusResponse: AgentStatusResponseD,
   Prefix: PrefixD,
   ObsMode: ObsModeD,
-  Subsystem: M.Subsystem,
+  Subsystem: M.SubsystemD,
   ProvisionConfig: D.id()
 }

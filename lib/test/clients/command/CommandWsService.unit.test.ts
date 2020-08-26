@@ -37,7 +37,7 @@ describe('CommandService', () => {
 
     expect(mockSingleResponse).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
-      M.SubmitResponse
+      M.SubmitResponseD
     )
   })
 })

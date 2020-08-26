@@ -1,3 +1,2 @@
 export { AlarmService } from './AlarmService'
-
-export { AlarmSeverity, AlarmKey } from './models/PostCommand'
+export { AlarmKey, AlarmSeverity } from './models/PostCommand'

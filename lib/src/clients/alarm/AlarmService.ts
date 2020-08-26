@@ -10,6 +10,7 @@ export interface AlarmService {
 }
 
 export const AlarmService = async (): Promise<AlarmService> => {
-  const url = getPostEndPoint(await resolveGateway())
+  const { host, port } = await resolveGateway()
+  const url = getPostEndPoint({ host, port })
   return new AlarmServiceImpl(new HttpTransport(url))
 }

@@ -1,6 +1,7 @@
-import { Prefix, Subsystem, TokenFactory } from '../..'
+import { Prefix, TokenFactory } from '../..'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
+import { Subsystem } from './../../models/params/Subsystem'
 import { ObsMode } from './models/ObsMode'
 import { ProvisionConfig } from './models/ProvisionConfig'
 import {

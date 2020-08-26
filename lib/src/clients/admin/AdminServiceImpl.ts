@@ -1,7 +1,7 @@
 import { ComponentId } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { GatewayAdminPostRequest } from '../gateway/models/Gateway'
-import { Done } from '../location'
+import { Done, DoneD } from '../location'
 import { Level, LogMetadata, LogMetadataD } from '../logger'
 import { AdminService } from './AdminService'
 import { GetLogMetadata, SetLogLevel } from './models/PostCommand'
@@ -14,6 +14,6 @@ export class AdminServiceImpl implements AdminService {
   }
 
   setLogLevel(componentId: ComponentId, level: Level): Promise<Done> {
-    return this.httpTransport.requestRes(new SetLogLevel(componentId, level), Done)
+    return this.httpTransport.requestRes(new SetLogLevel(componentId, level), DoneD)
   }
 }

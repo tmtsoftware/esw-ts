@@ -4,7 +4,7 @@ import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import * as C from './Coord'
 import { Struct } from './Struct'
-import { Units } from './Units'
+import { Units, UnitsD } from './Units'
 
 // ---------------------------------
 // Key, ParameterBody Schema
@@ -31,7 +31,7 @@ const ParamBodyDecoder = <T>(valuesDec: Decoder<T>): ParamDecoder<T> =>
   D.type({
     keyName: D.string,
     values: D.array(valuesDec),
-    units: Units
+    units: UnitsD
   })
 
 export const paramDecoders: Record<string, ParamDecoder<unknown>> = {}
@@ -86,13 +86,13 @@ export const DoubleMatrixKey = MatrixDataNumberKey('DoubleMatrixKey')
 export const ByteMatrixKey = MatrixDataNumberKey('ByteMatrixKey')
 
 // Coord Keys
-export const RaDecKey = RawKey(C.RaDec)('RaDecKey')
-export const EqCoordKey = RawKey(C.EqCoord)('EqCoordKey')
-export const SolarSystemCoordKey = RawKey(C.SolarSystemCoord)('SolarSystemCoordKey')
-export const MinorPlanetCoordKey = RawKey(C.MinorPlanetCoord)('MinorPlanetCoordKey')
-export const CometCoordKey = RawKey(C.CometCoord)('CometCoordKey')
-export const AltAzCoordKey = RawKey(C.AltAzCoord)('AltAzCoordKey')
-export const CoordKey = RawKey(C.Coord)('CoordKey')
+export const RaDecKey = RawKey(C.RaDecD)('RaDecKey')
+export const EqCoordKey = RawKey(C.EqCoordD)('EqCoordKey')
+export const SolarSystemCoordKey = RawKey(C.SolarSystemCoordD)('SolarSystemCoordKey')
+export const MinorPlanetCoordKey = RawKey(C.MinorPlanetCoordD)('MinorPlanetCoordKey')
+export const CometCoordKey = RawKey(C.CometCoordD)('CometCoordKey')
+export const AltAzCoordKey = RawKey(C.AltAzCoordD)('AltAzCoordKey')
+export const CoordKey = RawKey(C.CoordD)('CoordKey')
 
 export const StructKey = RawKey(Struct)('StructKey')
 export const ChoiceKey = RawKey(D.string)('ChoiceKey')
