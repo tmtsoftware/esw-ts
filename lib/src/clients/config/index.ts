@@ -6,3 +6,5 @@ export {
   ConfigFileRevision,
   ConfigFileInfo
 } from './models/ConfigModels'
+
+export { ConfigData } from './models/ConfigData'
