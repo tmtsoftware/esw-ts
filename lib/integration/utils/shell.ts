@@ -38,4 +38,4 @@ export const executeSequencerScript = appLauncher('backend-testkit-sequencer')
 
 export const executeStopServicesScript = executeScript(stopServicesScript) // fixme: make this executeScriptSync call
 export const executeCswContract = appLauncherSync('csw-contract', '51ef279e24b') //todo: should version be current master?
-export const executeEswContract = appLauncherSync('esw-contract', '8ed98e2970')
+export const executeEswContract = appLauncherSync('esw-contract', '7df82bede9')
