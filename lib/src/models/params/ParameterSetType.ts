@@ -3,25 +3,8 @@ import { BaseKey } from './BaseKey'
 import { Key } from './Key'
 import { Parameter } from './Parameter'
 
-const deepEqual = (obj1: any, obj2: any): boolean => {
-  if (obj1.constructor.name !== obj2.constructor.name) return false
-  if (typeof obj1 === 'object') {
-    if (Array.isArray(obj1)) return obj1.every((e, i) => deepEqual(e, obj2[i]))
-
-    const entries = Object.entries(obj1)
-    return entries.every(([key, value]) => {
-      return obj2.hasOwnProperty(key) && deepEqual(value, obj2[key])
-    })
-  }
-  return obj1 === obj2
-}
-
 export abstract class ParameterSetType<T extends ParameterSetType<T>> {
-  readonly paramSet: Parameter<Key>[]
-
-  protected constructor(paramSet: Parameter<Key>[]) {
-    this.paramSet = paramSet.slice()
-  }
+  abstract readonly paramSet: Parameter<Key>[]
 
   abstract create(data: Parameter<Key>[]): T
 
@@ -38,7 +21,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   }
 
   madd<P extends Parameter<Key>>(parametersToAdd: P[]): T {
-    return parametersToAdd.reduce<ParameterSetType<T>>(this.doAdd, this) as T
+    return parametersToAdd.reduce<ParameterSetType<T>>(this.doAdd.bind(this), this) as T
   }
 
   get<S extends Key>(key: BaseKey<S>): Option<Parameter<S>> {
@@ -56,7 +39,6 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   }
 
   private doAdd<P extends Parameter<Key>>(c: ParameterSetType<T>, parameter: P): T {
-    if (this.paramSet.some((p) => deepEqual(p, parameter))) return c as T
     return this.create(this.removeByKeyName(c, parameter.keyName).paramSet.concat(parameter))
   }
 
@@ -65,7 +47,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   }
 
   private removeParam(paramSet: Parameter<Key>[], param: Parameter<Key>) {
-    return paramSet.filter((p) => !deepEqual(p, param))
+    return paramSet.filter((p) => p !== param)
   }
 
   private removeByKeyName<P extends Parameter<Key>>(c: ParameterSetType<T>, keyName: string): T {

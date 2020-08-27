@@ -35,7 +35,7 @@ export class Setup extends ParameterSetType<Setup> implements Command<typeof Set
     readonly paramSet: Parameter<Key>[],
     readonly maybeObsId: string[] = []
   ) {
-    super(paramSet)
+    super()
   }
 
   create(data: Parameter<Key>[]): Setup {
@@ -52,7 +52,7 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
     readonly paramSet: Parameter<Key>[],
     readonly maybeObsId: string[] = []
   ) {
-    super(paramSet)
+    super()
   }
 
   create(data: Parameter<Key>[]): Observe {
@@ -69,7 +69,7 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
     readonly paramSet: Parameter<Key>[],
     readonly maybeObsId: string[] = []
   ) {
-    super(paramSet)
+    super()
   }
 
   create(data: Parameter<Key>[]): Wait {

@@ -23,7 +23,7 @@ export class CurrentState extends ParameterSetType<CurrentState> {
     readonly stateName: string,
     readonly paramSet: Parameter<Key>[]
   ) {
-    super(paramSet)
+    super()
   }
 
   create(data: Parameter<Key>[]): CurrentState {

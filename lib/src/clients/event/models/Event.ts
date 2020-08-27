@@ -20,7 +20,7 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
     readonly eventId: string = uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {
-    super(paramSet)
+    super()
   }
 
   create(data: Parameter<Key>[]): ObserveEvent {
@@ -42,7 +42,7 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
     readonly eventId: string = uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {
-    super(paramSet)
+    super()
   }
 
   create(data: Parameter<Key>[]): SystemEvent {
