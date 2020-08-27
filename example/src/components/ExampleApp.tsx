@@ -64,7 +64,7 @@ const ExampleApp = () => {
                           message={'User do not have role : person-role'}
                         />
                       }>
-                      <div>role specific functionality</div>
+                      <div>Person role specific functionality</div>
                     </RealmRole>
                     {/*// #realmRole-component-usage*/}
                   </CheckLogin>
