@@ -51,7 +51,6 @@ Javascript
  - [Logout](#logout)
  - [CheckLogin](#checklogin)
  - [RealmRole](#realmrole)
- - [ClientRole](#clientrole)
 
 Components can be imported as shown in code snippet below
 
@@ -95,7 +94,7 @@ Javascript
 
 The `Login` component instantiates an AAS server with the configurations provided. It redirects to an AAS server login page
 for the user to login. After login, the `auth` object in the context is updated with the appropriate values,
-e.g. token, realm & client roles etc.
+e.g. token, realm etc.
 
 Javascript
 :   @@snip [Login.tsx](../../../../example/src/components/NavComponent.tsx) { #login-component-usage }
@@ -143,21 +142,6 @@ Javascript
 #### Source code for RealmRole component
 
 * @github[RealmRole Component](/lib/src/components/aas/authorization/RealmRole.tsx)
-
-### ClientRole
-
-`ClientRole` components provide the ability to show something only if the user is logged in and has the specified client
-role for the specified client. In the following code snippet, the contents of the `div` block are shown only if
-the user is logged in and has the client role for specified client in the `clientRole` prop.  Similar to `RealmRole`,
-the behaviour if the user is not logged in can be optionally defined by an HTML element or React component
-that is passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
-
-Javascript
-:   @@snip [ClientRole.tsx](../../../../example/src/components/ExampleApp.tsx) { #clientRole-component-usage }
-
-#### Source code for ClientRole component
-
-* @github[ClientRole Component](/lib/src/components/aas/authorization/ClientRole.tsx)
 
 ## Technical Description
 See @ref:[csw-aas-js Technical Description](../technical/csw-aas-js.md).

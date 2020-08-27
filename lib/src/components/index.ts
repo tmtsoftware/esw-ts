@@ -1,5 +1,4 @@
 import CheckLogin from './aas/authentication/CheckLogin'
-import ClientRole from './aas/authorization/ClientRole'
 import RealmRole from './aas/authorization/RealmRole'
 import { Consumer, AuthContext } from './aas/context/AuthContext'
 import AuthContextProvider from './aas/context/AuthContextProvider'
@@ -12,7 +11,6 @@ export {
   Login,
   CheckLogin,
   RealmRole,
-  ClientRole,
   AuthContextProvider,
   Consumer,
   AuthContext

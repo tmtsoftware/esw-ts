@@ -19,7 +19,6 @@ This project provide following typescript clients for various TMT services, whic
 
 ### Aas Components in React
  * CheckLogin
- * ClientRole
  * RealmRole
  * AuthContextProvider
  * Login
