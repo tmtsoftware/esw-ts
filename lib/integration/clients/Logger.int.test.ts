@@ -32,4 +32,15 @@ describe('Logging Client ', () => {
 
     expect(response).toEqual('Done')
   })
+  test('set Logging level without metadata | ESW-316', async () => {
+    const loggingService = await LoggingService()
+
+    const response: Done = await loggingService.log(
+      trombonePrefix,
+      'DEBUG',
+      'setting log level'
+    )
+
+    expect(response).toEqual('Done')
+  })
 })

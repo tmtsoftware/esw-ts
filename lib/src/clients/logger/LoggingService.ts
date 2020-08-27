@@ -7,7 +7,7 @@ import { LoggingServiceImpl } from './LoggingServiceImpl'
 import { Level } from './models/Level'
 
 export interface LoggingService {
-  log(prefix: Prefix, level: Level, message: string, metadata: Record<string, any>): Promise<Done>
+  log(prefix: Prefix, level: Level, message: string, metadata?: Record<string, any>): Promise<Done>
 }
 
 export const LoggingService: () => Promise<LoggingService> = async () => {
