@@ -17,7 +17,8 @@ import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/Seque
 import { Prefix, Subsystem } from '../../../src/models'
 import { mockHttpTransport } from '../../helpers/MockHelpers'
 
-const requestRes: jest.Mock = jest.fn()
+const mockResponse = Math.random().toString()
+const requestRes: jest.Mock = jest.fn().mockReturnValue(Promise.resolve(mockResponse))
 const sequenceManager = new SequenceManagerImpl(mockHttpTransport(requestRes))
 const obsMode = new ObsMode('darknight')
 const subsystem: Subsystem = 'ESW'
@@ -26,8 +27,10 @@ const prefix: Prefix = new Prefix('ESW', 'sequencer1')
 describe('Sequence manager', function () {
   test('should call configure | ESW-365', async () => {
     const obsMode = new ObsMode('darknight')
-    await sequenceManager.configure(obsMode)
 
+    const response = await sequenceManager.configure(obsMode)
+
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new Req.Configure(obsMode), ConfigureResponseD)
   })
 
@@ -36,20 +39,23 @@ describe('Sequence manager', function () {
     const agentProvisionConfig = new AgentProvisionConfig(eswAgentPrefix, 2)
     const provisionConfig = new ProvisionConfig([agentProvisionConfig])
 
-    await sequenceManager.provision(provisionConfig)
+    const response = await sequenceManager.provision(provisionConfig)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new Req.Provision(provisionConfig), ProvisionResponseD)
   })
 
   test('should call getRunningObsMode | ESW-365', async () => {
-    await sequenceManager.getRunningObsModes()
+    const response = await sequenceManager.getRunningObsModes()
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new Req.GetRunningObsModes(), GetRunningObsModesResponseD)
   })
 
   test('should call start sequencer | ESW-365', async () => {
-    await sequenceManager.startSequencer(subsystem, obsMode)
+    const response = await sequenceManager.startSequencer(subsystem, obsMode)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.StartSequencer(subsystem, obsMode),
       StartSequencerResponseD
@@ -57,8 +63,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call restart sequencer | ESW-365', async () => {
-    await sequenceManager.restartSequencer(subsystem, obsMode)
+    const response = await sequenceManager.restartSequencer(subsystem, obsMode)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.RestartSequencer(subsystem, obsMode),
       RestartSequencerResponseD
@@ -66,8 +73,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown sequencer | ESW-365', async () => {
-    await sequenceManager.shutdownSequencer(subsystem, obsMode)
+    const response = await sequenceManager.shutdownSequencer(subsystem, obsMode)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.ShutdownSequencer(subsystem, obsMode),
       ShutdownSequencersAndSeqCompResponseD
@@ -75,8 +83,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown sequencers by subsystem | ESW-365', async () => {
-    await sequenceManager.shutdownSubsystemSequencers(subsystem)
+    const response = await sequenceManager.shutdownSubsystemSequencers(subsystem)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.ShutdownSubsystemSequencers(subsystem),
       ShutdownSequencersAndSeqCompResponseD
@@ -84,8 +93,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown sequencers by obsMode | ESW-365', async () => {
-    await sequenceManager.shutdownObsModeSequencers(obsMode)
+    const response = await sequenceManager.shutdownObsModeSequencers(obsMode)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.ShutdownObsModeSequencers(obsMode),
       ShutdownSequencersAndSeqCompResponseD
@@ -93,8 +103,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown all sequencers | ESW-365', async () => {
-    await sequenceManager.shutdownAllSequencers()
+    const response = await sequenceManager.shutdownAllSequencers()
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.ShutdownAllSequencers(),
       ShutdownSequencersAndSeqCompResponseD
@@ -102,8 +113,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown a sequence component | ESW-365', async () => {
-    await sequenceManager.shutdownSequenceComponent(prefix)
+    const response = await sequenceManager.shutdownSequenceComponent(prefix)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.ShutdownSequenceComponent(prefix),
       ShutdownSequencersAndSeqCompResponseD
@@ -111,8 +123,9 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown all sequence components | ESW-365', async () => {
-    await sequenceManager.shutdownAllSequenceComponents()
+    const response = await sequenceManager.shutdownAllSequenceComponents()
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(
       new Req.ShutdownAllSequenceComponents(),
       ShutdownSequencersAndSeqCompResponseD
@@ -120,10 +133,11 @@ describe('Sequence manager', function () {
   })
 
   test('should call get agent status | ESW-365', async () => {
-    await sequenceManager.getAgentStatus()
+    const response = await sequenceManager.getAgentStatus()
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new Req.GetAgentStatus(), AgentStatusResponseD)
   })
 })
 
-afterEach(() => jest.resetAllMocks())
+afterAll(() => jest.resetAllMocks())

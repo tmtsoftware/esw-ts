@@ -1,5 +1,5 @@
-import { ParameterSetType } from '../../src/models/params/ParameterSetType'
 import { intArrayKey, intKey, Key, Parameter, stringKey } from '../../src/models'
+import { ParameterSetType } from '../../src/models/params/ParameterSetType'
 
 class ParameterSetTypeTest extends ParameterSetType<ParameterSetTypeTest> {
   constructor(readonly paramSet: Parameter<Key>[]) {

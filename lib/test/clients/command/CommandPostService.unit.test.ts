@@ -8,7 +8,8 @@ import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 const eswTestPrefix = new Prefix('ESW', 'test')
 
-const requestRes: jest.Mock = jest.fn()
+const mockResponse = Math.random().toString()
+const requestRes: jest.Mock = jest.fn().mockReturnValue(mockResponse)
 const client = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
   mockWsTransport()
 )
@@ -18,8 +19,10 @@ describe('CommandService', () => {
     const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
     const msg = new Req.Validate(setupCommand)
 
-    await client.validate(setupCommand)
+    const response = await client.validate(setupCommand)
 
+    console.log(response)
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.ValidateResponseD)
   })
 
@@ -27,8 +30,9 @@ describe('CommandService', () => {
     const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
     const msg = new Req.Submit(setupCommand)
 
-    await client.submit(setupCommand)
+    const response = await client.submit(setupCommand)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponseD)
   })
 
@@ -36,16 +40,19 @@ describe('CommandService', () => {
     const observeCommand = new Observe(eswTestPrefix, 'c1', [])
     const msg = new Req.Oneway(observeCommand)
 
-    await client.oneway(observeCommand)
+    const response = await client.oneway(observeCommand)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.OnewayResponseD)
   })
 
   test('should be able to send query command | ESW-305', async () => {
     const runId = '1234124'
-    await client.query(runId)
     const msg = new Req.Query(runId)
 
+    const response = await client.query(runId)
+
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponseD)
   })
 })

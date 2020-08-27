@@ -3,8 +3,8 @@ import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral, Decoder } from '../../utils/Decoder'
 import { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
-import { Prefix, PrefixD } from './Prefix'
 import { ParameterSetType } from './ParameterSetType'
+import { Prefix, PrefixD } from './Prefix'
 
 // ######################################################
 const SetupL = 'Setup'

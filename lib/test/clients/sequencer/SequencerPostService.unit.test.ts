@@ -27,7 +27,8 @@ const waitCommand = new Wait(eswTestPrefix, 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
-const mockRequestRes: jest.Mock = jest.fn()
+const mockResponse = Math.random().toString()
+const mockRequestRes: jest.Mock = jest.fn().mockReturnValue(mockResponse)
 const mockSingleResponse: jest.Mock = jest.fn()
 const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
   mockWsTransport(jest.fn(), mockSingleResponse)
@@ -39,7 +40,9 @@ const getGatewaySequencerCommand = (command: SequencerPostRequest | SequencerWeb
 
 describe('SequencerService', () => {
   test('should load a sequence in given sequencer | ESW-307', async () => {
-    await sequencer.loadSequence(sequence)
+    const response = await sequencer.loadSequence(sequence)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.LoadSequence(sequence)),
       Res.OkOrUnhandledResponseD
@@ -47,7 +50,9 @@ describe('SequencerService', () => {
   })
 
   test('should start the sequence in given sequencer | ESW-307', async () => {
-    await sequencer.startSequence()
+    const response = await sequencer.startSequence()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.StartSequence()),
       SubmitResponseD
@@ -55,7 +60,9 @@ describe('SequencerService', () => {
   })
 
   test('should add given commands in the sequence of given sequencer | ESW-307', async () => {
-    await sequencer.add(commands)
+    const response = await sequencer.add(commands)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Add(commands)),
       Res.OkOrUnhandledResponseD
@@ -63,7 +70,9 @@ describe('SequencerService', () => {
   })
 
   test('should prepend given commands in the sequence of given sequencer | ESW-307', async () => {
-    await sequencer.prepend(commands)
+    const response = await sequencer.prepend(commands)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Prepend(commands)),
       Res.OkOrUnhandledResponseD
@@ -71,7 +80,9 @@ describe('SequencerService', () => {
   })
 
   test('should replace given id command with given commands | ESW-307', async () => {
-    await sequencer.replace('id-123', commands)
+    const response = await sequencer.replace('id-123', commands)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Replace('id-123', commands)),
       Res.GenericResponseD
@@ -79,7 +90,9 @@ describe('SequencerService', () => {
   })
 
   test('should insert the given commands after given command of given id | ESW-307', async () => {
-    await sequencer.insertAfter('id-123', commands)
+    const response = await sequencer.insertAfter('id-123', commands)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.InsertAfter('id-123', commands)),
       Res.GenericResponseD
@@ -87,7 +100,9 @@ describe('SequencerService', () => {
   })
 
   test('should delete the given command from sequence | ESW-307', async () => {
-    await sequencer.delete('id-123')
+    const response = await sequencer.delete('id-123')
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Delete('id-123')),
       Res.GenericResponseD
@@ -95,7 +110,9 @@ describe('SequencerService', () => {
   })
 
   test('should add a breakPoint on the given command from sequence | ESW-307', async () => {
-    await sequencer.addBreakpoint('id-123')
+    const response = await sequencer.addBreakpoint('id-123')
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.AddBreakpoint('id-123')),
       Res.GenericResponseD
@@ -103,7 +120,9 @@ describe('SequencerService', () => {
   })
 
   test('should remove the breakPoint on the given command from sequence | ESW-307', async () => {
-    await sequencer.removeBreakpoint('id-123')
+    const response = await sequencer.removeBreakpoint('id-123')
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.RemoveBreakpoint('id-123')),
       Res.RemoveBreakpointResponseD
@@ -111,7 +130,9 @@ describe('SequencerService', () => {
   })
 
   test('should reset the sequence in given sequencer | ESW-307', async () => {
-    await sequencer.reset()
+    const response = await sequencer.reset()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Reset()),
       Res.OkOrUnhandledResponseD
@@ -119,7 +140,9 @@ describe('SequencerService', () => {
   })
 
   test('should resume the sequence in given sequencer | ESW-307', async () => {
-    await sequencer.resume()
+    const response = await sequencer.resume()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Resume()),
       Res.OkOrUnhandledResponseD
@@ -127,16 +150,31 @@ describe('SequencerService', () => {
   })
 
   test('should pause the sequence in given sequencer | ESW-307', async () => {
-    await sequencer.pause()
+    const response = await sequencer.pause()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Pause()),
       Res.PauseResponseD
     )
   })
 
-  test('should get a step list from sequencer | ESW-307', async () => {
+  test('should get undefined when a step list from sequencer is empty | ESW-307', async () => {
     mockRequestRes.mockResolvedValueOnce([])
-    await sequencer.getSequence()
+    const response = await sequencer.getSequence()
+
+    expect(response).toEqual(undefined)
+    expect(mockRequestRes).toBeCalledWith(
+      getGatewaySequencerCommand(new Req.GetSequence()),
+      OptionOfStepList
+    )
+  })
+
+  test('should get step list from sequencer | ESW-307', async () => {
+    mockRequestRes.mockResolvedValueOnce([mockResponse])
+    const response = await sequencer.getSequence()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GetSequence()),
       OptionOfStepList
@@ -144,7 +182,9 @@ describe('SequencerService', () => {
   })
 
   test('should return whether a sequencer is available | ESW-307', async () => {
-    await sequencer.isAvailable()
+    const response = await sequencer.isAvailable()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.IsAvailable()),
       D.boolean
@@ -152,12 +192,16 @@ describe('SequencerService', () => {
   })
 
   test('should return whether a sequencer is online | ESW-307', async () => {
-    await sequencer.isOnline()
+    const response = await sequencer.isOnline()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(getGatewaySequencerCommand(new Req.IsOnline()), D.boolean)
   })
 
   test('should get a go online response from sequencer on GoOnline | ESW-307', async () => {
-    await sequencer.goOnline()
+    const response = await sequencer.goOnline()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GoOnline()),
       Res.GoOnlineResponseD
@@ -165,7 +209,9 @@ describe('SequencerService', () => {
   })
 
   test('should get a go offline response from sequencer on GoOffline | ESW-307', async () => {
-    await sequencer.goOffline()
+    const response = await sequencer.goOffline()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GoOffline()),
       Res.GoOfflineResponseD
@@ -173,7 +219,9 @@ describe('SequencerService', () => {
   })
 
   test('should abort a sequence from sequencer | ESW-307', async () => {
-    await sequencer.abortSequence()
+    const response = await sequencer.abortSequence()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.AbortSequence()),
       Res.OkOrUnhandledResponseD
@@ -181,7 +229,9 @@ describe('SequencerService', () => {
   })
 
   test('should stop a sequence from sequencer | ESW-307', async () => {
-    await sequencer.stop()
+    const response = await sequencer.stop()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Stop()),
       Res.OkOrUnhandledResponseD
@@ -192,7 +242,9 @@ describe('SequencerService', () => {
     const date = new Date('2020-10-08')
     const hint = 'hint for diagnostic mode'
 
-    await sequencer.diagnosticMode(date, hint)
+    const response = await sequencer.diagnosticMode(date, hint)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.DiagnosticMode(date, hint)),
       Res.DiagnosticModeResponseD
@@ -200,7 +252,9 @@ describe('SequencerService', () => {
   })
 
   test('should send operations mode to sequencer | ESW-307', async () => {
-    await sequencer.operationsMode()
+    const response = await sequencer.operationsMode()
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.OperationsMode()),
       Res.OperationsModeResponseD
@@ -208,7 +262,9 @@ describe('SequencerService', () => {
   })
 
   test('should submit sequence to sequencer | ESW-307 , ESW-344', async () => {
-    await sequencer.submit(sequence)
+    const response = await sequencer.submit(sequence)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Submit(sequence)),
       SubmitResponseD
@@ -216,8 +272,16 @@ describe('SequencerService', () => {
   })
 
   test('should get started response on submitAndWait when sequencer is started | ESW-307 , ESW-344', async () => {
-    mockRequestRes.mockResolvedValueOnce({ _type: 'Started', runId: '123' })
-    await sequencer.submitAndWait(sequence)
+    const mockSubmitResponse = { _type: 'Started', runId: '123' }
+    const mockQueryFinalResponse = { _type: 'Completed', runId: '123' }
+    mockRequestRes.mockResolvedValueOnce(mockSubmitResponse)
+    const mockSingleResponse: jest.Mock = jest.fn().mockResolvedValueOnce(mockQueryFinalResponse)
+    const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
+      mockWsTransport(jest.fn(), mockSingleResponse)
+    )
+    const response = await sequencer.submitAndWait(sequence)
+
+    expect(response).toEqual(mockQueryFinalResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Submit(sequence)),
       SubmitResponseD
@@ -229,8 +293,16 @@ describe('SequencerService', () => {
   })
 
   test('should not get started response on submitAndWait when sequencer not started | ESW-307 , ESW-344', async () => {
-    mockRequestRes.mockResolvedValueOnce({ _type: 'Completed', runId: '123', result: [] })
-    await sequencer.submitAndWait(sequence)
+    const mockResponse = { _type: 'Completed', runId: '123', result: [] }
+    mockRequestRes.mockResolvedValueOnce(mockResponse)
+    const mockSingleResponse: jest.Mock = jest.fn()
+    const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
+      mockWsTransport(jest.fn(), mockSingleResponse)
+    )
+
+    const response = await sequencer.submitAndWait(sequence)
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Submit(sequence)),
       SubmitResponseD
@@ -239,7 +311,9 @@ describe('SequencerService', () => {
   })
 
   test('should query to sequencer | ESW-307 , ESW-344', async () => {
-    await sequencer.query('123')
+    const response = await sequencer.query('123')
+
+    expect(response).toEqual(mockResponse)
     expect(mockRequestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.Query('123')),
       SubmitResponseD
@@ -247,6 +321,6 @@ describe('SequencerService', () => {
   })
 })
 
-afterEach(() => {
+afterAll(() => {
   jest.clearAllMocks()
 })

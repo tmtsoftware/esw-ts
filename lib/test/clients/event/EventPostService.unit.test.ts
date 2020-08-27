@@ -5,16 +5,18 @@ import { DoneD } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
-const requestRes: jest.Mock = jest.fn()
-
+const mockResponse = Math.random().toString()
+const requestRes: jest.Mock = jest.fn().mockReturnValue(Promise.resolve(mockResponse))
 const client = new EventServiceImpl(mockHttpTransport(requestRes), () => mockWsTransport())
+
 describe('Event Service', () => {
   test('should publish system event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
     const eventName = new EventName('offline')
     const systemEvent = new SystemEvent(prefix, eventName, [])
-    await client.publish(systemEvent)
+    const response = await client.publish(systemEvent)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new PublishEvent(systemEvent), DoneD)
   })
 
@@ -22,8 +24,9 @@ describe('Event Service', () => {
     const prefix = new Prefix('ESW', 'eventComp')
     const eventName = new EventName('offline')
     const observeEvent = new ObserveEvent(prefix, eventName, [])
-    await client.publish(observeEvent)
+    const response = await client.publish(observeEvent)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new PublishEvent(observeEvent), DoneD)
   })
 
@@ -32,8 +35,9 @@ describe('Event Service', () => {
     const eventName = new EventName('offline')
     const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
 
-    await client.get(eventKeys)
+    const response = await client.get(eventKeys)
 
+    expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new GetEvent([...eventKeys]), expect.anything())
   })
 })
