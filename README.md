@@ -99,18 +99,17 @@ Open App in browser -
 
 Go to http://localhost:3000 in Browser
 
-To use config Admin functionality
+Login with appropriate user as listed below to access functionality of each tab.
 
- * Login - Enter username : `config-admin1` and password : `config-admin1`.
- * Go To Config App.
- * This user can create new Config from UI as well get or list config.
-
-To use regular User functionality
-
- * Login - Enter username : `config-user1` and password : `config-user1`.
- * Go To Config App
- * This user can't create new Config from UI, but can get or list existing config
-
+| Example app tab  | requirement                               | Login username  |  Password        |
+| ---------------  | ---------------------------------------   | ------          |  ------          |
+| Public           | -does not requires login                  |                 |                  |
+| Secured          | -requires login                           | any user below  |  any user below  |
+| Config App(List) | -does not requires login                  |                 |                  |
+| Config App(Get)  | -does not requires login                  |                 |                  |
+| Config App(Create)| -requires login with role `config-admin` | config-admin1   | config-admin1    |
+| Admin App        | -requires login with `example-admin-role` | dummy-user      | dummy-user       |
+| User App         | -requires login with `person-role`        | dummy-user      | dummy-user       |
 
 ### Running Integration-UI test
 

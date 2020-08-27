@@ -21,7 +21,7 @@ const ConfigApp = () => {
               error={
                 <RoleError
                   message={
-                    "User do not required role 'config-admin' to create config"
+                    "User do not have role 'config-admin' to create config"
                   }
                 />
               }>
