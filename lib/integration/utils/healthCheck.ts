@@ -1,6 +1,6 @@
 import { LocationService } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
-import { authConnection } from '../../src/config/connections'
+import { authConnection } from '../../src/config/Connections'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'

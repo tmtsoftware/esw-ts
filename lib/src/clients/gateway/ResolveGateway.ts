@@ -1,15 +1,8 @@
-import { GatewayConfig } from '../../config'
-import { Prefix } from '../../models'
+import { gatewayConnection } from '../../config/Connections'
 import { extractHostPort } from '../../utils/Utils'
-import { HttpConnection } from '../location'
 import { resolve } from '../location/LocationUtils'
 
-export const GatewayConnection = HttpConnection(
-  new Prefix(GatewayConfig.subsystem, GatewayConfig.componentName),
-  GatewayConfig.componentType
-)
-
 export const resolveGateway: () => Promise<{ port: number; host: string }> = async () => {
-  const location = await resolve(GatewayConnection)
+  const location = await resolve(gatewayConnection)
   return extractHostPort(location.uri)
 }

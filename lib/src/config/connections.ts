@@ -8,3 +8,4 @@ export const sequenceManagerConnection = HttpConnection(
   new Prefix('ESW', 'sequence_manager'),
   'Service'
 )
+export const agentServerConnection = HttpConnection(new Prefix('ESW', 'agent_service'), 'Service')

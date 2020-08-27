@@ -5,7 +5,7 @@ import {
   configConnection,
   gatewayConnection,
   sequenceManagerConnection
-} from '../../src/config/connections'
+} from '../../src/config/Connections'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
 import { waitForLocationToStop, waitForServicesToUp } from './healthCheck'
 import * as sh from './shell'

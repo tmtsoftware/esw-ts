@@ -1,6 +1,6 @@
 import { Decoder } from 'io-ts/es6/Decoder'
 import * as D from 'io-ts/lib/Decoder'
-import { configConnection } from '../../config/connections'
+import { configConnection } from '../../config/Connections'
 import { GenericError } from '../../utils/GenericError'
 import { get, head } from '../../utils/Http'
 import type { Option } from '../../utils/types'

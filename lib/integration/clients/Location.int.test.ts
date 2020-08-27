@@ -6,7 +6,7 @@ import {
   LocationService,
   TrackingEvent
 } from '../../src/clients/location'
-import { authConnection, gatewayConnection } from '../../src/config/connections'
+import { authConnection, gatewayConnection } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
 import { Option } from '../../src/utils/types'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'

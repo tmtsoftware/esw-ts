@@ -1,12 +1,5 @@
 import { isRight } from 'fp-ts/lib/Either'
-import {
-  CurrentState,
-  CurrentStateD,
-  intArrayKey,
-  ParameterD,
-  StructD,
-  SubmitResponseD
-} from '../../src/models'
+import { CurrentStateD, intArrayKey, ParameterD, StructD, SubmitResponseD } from '../../src/models'
 import { getOrThrow } from '../../src/utils/Utils'
 
 describe('io-ts', () => {

@@ -1,6 +1,6 @@
 import { Location } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
-import { authConnection } from '../../src/config/connections'
+import { authConnection } from '../../src/config/Connections'
 import { post } from '../../src/utils/Http'
 import { extractHostPort } from '../../src/utils/Utils'
 
