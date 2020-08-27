@@ -30,7 +30,7 @@ const ConfigServiceProvider = (props: ConfigServiceProps) => {
 
   return (
     <ConfigContext.Provider value={configService}>
-      {children}{' '}
+      {children}
     </ConfigContext.Provider>
   )
 }

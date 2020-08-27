@@ -1,10 +1,11 @@
 import React from 'react'
 import CreateConfig from './CreateConfig'
-import ConfigError from './ConfigError'
 import ListConfig from './ListConfig'
 import GetConfig from './GetConfig'
-import { AuthContext, RealmRole } from 'esw-ts'
+import { AuthContext, CheckLogin, RealmRole } from 'esw-ts'
 import ConfigServiceProvider from './context/ConfigServiceProvider'
+import LoginError from '../LoginError'
+import RoleError from '../RoleError'
 
 const ConfigApp = () => {
   return (
@@ -13,11 +14,21 @@ const ConfigApp = () => {
         <ListConfig />
         <GetConfig />
         {
-          // #create-config-component
-          <RealmRole realmRole='config-admin' error={<ConfigError />}>
-            <CreateConfig />
-          </RealmRole>
-          // #create-config-component
+          <CheckLogin error={<LoginError />}>
+            {/*// #create-config-component*/}
+            <RealmRole
+              realmRole='config-admin'
+              error={
+                <RoleError
+                  message={
+                    "User do not required role 'config-admin' to create config"
+                  }
+                />
+              }>
+              <CreateConfig />
+            </RealmRole>
+            {/*// #create-config-component*/}
+          </CheckLogin>
         }
       </ConfigServiceProvider>
     </div>
