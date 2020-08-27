@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral, Decoder } from '../../utils/Decoder'
-import { ParamSetD } from './Parameter'
+import { ResultD } from './Result'
 
 // ##################### Decoders #####################
 
@@ -53,7 +53,7 @@ const InvalidD = D.type({
 const CompletedD = D.type({
   _type: ciLiteral(CompletedL),
   runId: D.string,
-  result: ParamSetD
+  result: ResultD
 })
 
 const mkCommandResD = <L extends string>(type: L): Decoder<{ _type: L; runId: string }> =>

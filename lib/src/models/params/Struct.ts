@@ -1,10 +1,25 @@
+import { pipe } from 'fp-ts/pipeable'
 import * as D from 'io-ts/lib/Decoder'
 import { Decoder } from '../../utils/Decoder'
 import { Key } from './Key'
-import { Parameter, ParamSetD } from './Parameter'
+import { Parameter, ParameterD } from './Parameter'
+import { ParameterSetType } from './ParameterSetType'
 
-export interface Struct {
-  paramSet: Parameter<Key>[]
+export class Struct extends ParameterSetType<Struct> {
+  constructor(readonly paramSet: Parameter<Key>[]) {
+    super()
+  }
+
+  create(data: Parameter<Key>[]): Struct {
+    return new Struct(data)
+  }
 }
 
-export const Struct: Decoder<Struct> = D.lazy('Struct', () => ParamSetD)
+export const StructD: Decoder<Struct> = D.lazy('Struct', () =>
+  pipe(
+    D.type({
+      paramSet: D.array(ParameterD)
+    }),
+    D.parse((s) => D.success(new Struct(s.paramSet)))
+  )
+)

@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import { CommandService } from '../../src/clients/command'
-import { ComponentId, CurrentState, Prefix, Setup, SubmitResponse } from '../../src/models'
+import { ComponentId, CurrentState, Prefix, Result, Setup, SubmitResponse } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -131,7 +131,7 @@ describe('Command Client', () => {
     const expectedRes: SubmitResponse = {
       _type: 'Completed',
       runId: submitRes.runId,
-      result: { paramSet: [] }
+      result: new Result()
     }
     expect(queryRes).toEqual(expectedRes)
   })

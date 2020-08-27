@@ -3,7 +3,7 @@ import { char, ciLiteral, Decoder } from '../../utils/Decoder'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import * as C from './Coord'
-import { Struct } from './Struct'
+import { StructD } from './Struct'
 import { Units, UnitsD } from './Units'
 
 // ---------------------------------
@@ -94,7 +94,7 @@ export const CometCoordKey = RawKey(C.CometCoordD)('CometCoordKey')
 export const AltAzCoordKey = RawKey(C.AltAzCoordD)('AltAzCoordKey')
 export const CoordKey = RawKey(C.CoordD)('CoordKey')
 
-export const StructKey = RawKey(Struct)('StructKey')
+export const StructKey = RawKey(StructD)('StructKey')
 export const ChoiceKey = RawKey(D.string)('ChoiceKey')
 
 export type Key =

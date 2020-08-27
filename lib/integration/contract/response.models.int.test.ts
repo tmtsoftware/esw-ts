@@ -102,7 +102,7 @@ const commandDecoders: Record<string, Decoder<any>> = {
   OnewayResponse: M.OnewayResponseD,
   ValidateResponse: M.ValidateResponseD,
   ControlCommand: M.ControlCommandD,
-  Result: M.ParamSetD,
+  Result: M.ResultD,
   KeyType: M.keyTagDecoder
 }
 

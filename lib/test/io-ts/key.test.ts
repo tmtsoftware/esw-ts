@@ -1,5 +1,12 @@
 import { isRight } from 'fp-ts/lib/Either'
-import { CurrentStateD, ParameterD, Struct, SubmitResponseD } from '../../src/models'
+import {
+  CurrentState,
+  CurrentStateD,
+  intArrayKey,
+  ParameterD,
+  StructD,
+  SubmitResponseD
+} from '../../src/models'
 import { getOrThrow } from '../../src/utils/Utils'
 
 describe('io-ts', () => {
@@ -323,7 +330,7 @@ describe('io-ts', () => {
       ]
     }
 
-    console.log(JSON.stringify(Struct.decode(paramSet)))
+    console.log(JSON.stringify(StructD.decode(paramSet)))
   })
 
   test('Struct', () => {
@@ -385,7 +392,7 @@ describe('io-ts', () => {
 
     const cs = CurrentStateD.decode(currentState)
     if (isRight(cs)) {
-      const ia = cs.right.paramSet.find((p) => p.keyName == 'intArrayKey')
+      const ia = cs.right.get(intArrayKey('intArrayKey'))
       if (ia) {
         expect(ia.values).toStrictEqual([
           [1, 2, 3, 4, 5],

@@ -11,13 +11,21 @@ import {
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import {
   ComponentId,
+  intKey,
+  Key,
+  Parameter,
   Prefix,
+  Result,
   SequenceCommand,
   Setup,
+  stringKey,
   SubmitResponseD,
   Wait
 } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
+
+const intParam: Parameter<Key> = intKey('number').set([1, 2, 3])
+const stringParam: Parameter<Key> = stringKey('string').set(['abc', 'def'])
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
@@ -271,9 +279,14 @@ describe('SequencerService', () => {
     )
   })
 
-  test('should get started response on submitAndWait when sequencer is started | ESW-307 , ESW-344', async () => {
+  test('should get started response on submitAndWait when sequencer is started | ESW-307 , ESW-344, ESW-380', async () => {
     const mockSubmitResponse = { _type: 'Started', runId: '123' }
-    const mockQueryFinalResponse = { _type: 'Completed', runId: '123' }
+    const mockQueryFinalResponse = {
+      _type: 'Completed',
+      runId: '123',
+      result: new Result().add(intParam)
+    }
+
     mockRequestRes.mockResolvedValueOnce(mockSubmitResponse)
     const mockSingleResponse: jest.Mock = jest.fn().mockResolvedValueOnce(mockQueryFinalResponse)
     const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
@@ -293,7 +306,11 @@ describe('SequencerService', () => {
   })
 
   test('should not get started response on submitAndWait when sequencer not started | ESW-307 , ESW-344', async () => {
-    const mockResponse = { _type: 'Completed', runId: '123', result: [] }
+    const mockResponse = {
+      _type: 'Completed',
+      runId: '123',
+      result: new Result([intParam]).add(stringParam)
+    }
     mockRequestRes.mockResolvedValueOnce(mockResponse)
     const mockSingleResponse: jest.Mock = jest.fn()
     const sequencer = new SequencerServiceImpl(componentId, mockHttpTransport(mockRequestRes), () =>
