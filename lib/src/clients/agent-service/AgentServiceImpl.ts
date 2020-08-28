@@ -21,7 +21,7 @@ export class AgentServiceImpl implements AgentService {
   spawnSequenceComponent(
     agentPrefix: Prefix,
     componentName: string,
-    version: Option<string>
+    version?: string
   ): Promise<SpawnResponse> {
     return this.httpTransport.requestRes(
       new SpawnSequenceComponent(agentPrefix, componentName, version),
@@ -33,7 +33,7 @@ export class AgentServiceImpl implements AgentService {
     agentPrefix: Prefix,
     obsModeConfigPath: string,
     isConfigLocal: boolean,
-    version: Option<string>
+    version?: string
   ): Promise<SpawnResponse> {
     return this.httpTransport.requestRes(
       new SpawnSequenceManager(agentPrefix, obsModeConfigPath, isConfigLocal, version),

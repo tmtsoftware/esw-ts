@@ -6,7 +6,7 @@ export class SpawnSequenceComponent {
   constructor(
     readonly agentPrefix: Prefix,
     readonly componentName: string,
-    readonly version: Option<string>
+    readonly version?: string
   ) {}
 }
 
@@ -16,7 +16,7 @@ export class SpawnSequenceManager {
     readonly agentPrefix: Prefix,
     readonly obsModeConfigPath: string,
     readonly isConfigLocal: boolean,
-    readonly version: Option<string>
+    readonly version?: string
   ) {}
 }
 

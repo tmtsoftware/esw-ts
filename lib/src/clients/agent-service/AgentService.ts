@@ -11,13 +11,13 @@ export interface AgentService {
     agentPrefix: Prefix,
     obsModeConfigPath: string,
     isConfigLocal: boolean,
-    version: Option<string>
+    version?: string
   ): Promise<SpawnResponse>
 
   spawnSequenceComponent(
     agentPrefix: Prefix,
     componentName: string,
-    version: Option<string>
+    version?: string
   ): Promise<SpawnResponse>
 
   killComponent(connection: Connection): Promise<KillResponse>
