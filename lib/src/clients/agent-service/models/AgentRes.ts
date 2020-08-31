@@ -13,7 +13,8 @@ const KilledD = D.type({
 })
 
 const FailedD = D.type({
-  _type: ciLiteral(FailedL)
+  _type: ciLiteral(FailedL),
+  msg: D.string
 })
 
 export const SpawnResponseD = D.sum('_type')({

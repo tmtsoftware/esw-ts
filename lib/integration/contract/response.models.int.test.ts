@@ -27,6 +27,7 @@ import { Decoder } from '../../src/utils/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
 import { executeCswContract, executeEswContract } from '../utils/shell'
+import { SpawnResponseD, KillResponseD } from '../../src/clients/agent-service/models/AgentRes'
 
 jest.setTimeout(100000)
 
@@ -39,6 +40,7 @@ const gatewayModelsJsonPath = `${eswDir}/gateway-service/models.json`
 const configModelsJsonPath = `${cswDir}/config-service/models.json`
 const sequencerModelsJsonPath = `${eswDir}/sequencer-service/models.json`
 const sequenceManagerModelsJsonPath = `${eswDir}/sequence-manager-service/models.json`
+const agentServiceModelsJsonPath = `${eswDir}/agent-service/models.json`
 
 beforeAll(async () => {
   executeCswContract([cswDir])
@@ -75,6 +77,10 @@ describe('models contract test', () => {
 
   test('should test Sequencer models | ESW-356', () => {
     verifyContract(sequenceManagerModelsJsonPath, sequenceManagerDecoders)
+  })
+
+  test('should test Agent service models | ESW-376', () => {
+    verifyContract(agentServiceModelsJsonPath, agentServiceDecoders)
   })
 })
 
@@ -170,4 +176,9 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   ObsMode: ObsModeD,
   Subsystem: M.SubsystemD,
   ProvisionConfig: D.id()
+}
+
+const agentServiceDecoders: Record<string, Decoder<any>> = {
+  SpawnResponse: SpawnResponseD,
+  KillResponse: KillResponseD
 }
