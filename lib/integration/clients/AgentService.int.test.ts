@@ -1,12 +1,11 @@
 import 'whatwg-fetch'
-import { AgentService } from '../../src/clients/agent-service'
-import { KillResponse, SpawnResponse } from '../../src/clients/agent-service/models/AgentRes'
+import { AgentService, KillResponse, SpawnResponse } from '../../src/clients/agent-service'
 import { HttpConnection } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
-jest.setTimeout(40000)
+jest.setTimeout(80000)
 
 let agentServiceWithValidToken: AgentService
 let agentServiceWithInValidToken: AgentService

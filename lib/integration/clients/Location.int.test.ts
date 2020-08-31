@@ -162,9 +162,9 @@ describe('LocationService', () => {
   })
 
   test('should be able to unregister a location from location server | ESW-343, ESW-308', async () => {
-    const hcdPrefix = new Prefix('IRIS', 'testHcd2')
+    const hcdPrefix = new Prefix('WFOS', 'testHcd')
     const connection = HttpConnection(hcdPrefix, 'HCD')
-    await startComponent(hcdPrefix, 'HCD', 'testHcd2.conf')
+    await startComponent(hcdPrefix, 'HCD', 'wfosHcd.conf')
 
     const response = await locationServiceWithToken.unregister(connection)
     expect(response).toBe('Done')
