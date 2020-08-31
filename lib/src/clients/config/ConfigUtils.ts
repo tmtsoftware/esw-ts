@@ -1,21 +1,14 @@
 import { Decoder } from 'io-ts/es6/Decoder'
 import * as D from 'io-ts/lib/Decoder'
-import { configConnection } from '../../config/Connections'
 import { GenericError } from '../../utils/GenericError'
 import { get, head } from '../../utils/Http'
 import type { Option } from '../../utils/types'
-import { extractHostPort, getOrThrow } from '../../utils/Utils'
-import { resolve } from '../location/LocationUtils'
+import { getOrThrow } from '../../utils/Utils'
 import { ConfigData } from './models/ConfigData'
 import * as M from './models/ConfigModels'
 
 export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))
-
-export const resolveConfigServer = async () => {
-  const location = await resolve(configConnection)
-  return extractHostPort(location.uri)
-}
 
 export const tryGetConfigBlob = async (url: string): Promise<Option<ConfigData>> => {
   const mayBeConfigData = await map404(get({ url, responseMapper: (res) => res.blob() }), undefined)

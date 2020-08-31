@@ -1,9 +1,9 @@
 import type { TokenFactory } from '../../'
+import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import * as M from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Subscription, Ws } from '../../utils/Ws'
-import { resolveGateway } from '../gateway/ResolveGateway'
 import { CommandServiceImpl } from './CommandServiceImpl'
 
 export interface CommandService {
@@ -26,7 +26,7 @@ export const CommandService = async (
   componentId: M.ComponentId,
   tokenFactory: TokenFactory = () => undefined
 ): Promise<CommandService> => {
-  const { host, port } = await resolveGateway()
+  const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
   return new CommandServiceImpl(

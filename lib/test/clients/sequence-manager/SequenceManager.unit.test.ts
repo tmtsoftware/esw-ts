@@ -1,15 +1,15 @@
 import { mocked } from 'ts-jest/utils'
 import { SequenceManagerService } from '../../../src/clients/sequence-manager'
-import { resolveSequenceManager } from '../../../src/clients/sequence-manager/ResolveSequenceManager'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
+import { resolveConnection } from '../../../src/config/Connections'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint } from '../../../src/utils/Utils'
 
 jest.mock('../../../src/clients/sequence-manager/SequenceManagerImpl')
-jest.mock('../../../src/clients/sequence-manager/ResolveSequenceManager')
+jest.mock('../../../src/config/Connections')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)
-const mockResolveSm = mocked(resolveSequenceManager)
+const mockResolveSm = mocked(resolveConnection)
 const mockImpl = mocked(SequenceManagerImpl)
 
 const tokenFactory = () => undefined

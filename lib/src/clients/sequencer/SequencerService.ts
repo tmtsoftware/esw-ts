@@ -1,10 +1,10 @@
 import type { TokenFactory } from '../..'
+import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import type { Option } from '../../utils/types'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
-import { resolveGateway } from '../gateway/ResolveGateway'
 import * as Res from './models/SequencerRes'
 import { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
@@ -66,7 +66,7 @@ export const SequencerService: (
   componentId: ComponentId,
   tokenFactory: TokenFactory
 ) => Promise<SequencerService> = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
-  const { host, port } = await resolveGateway()
+  const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
 

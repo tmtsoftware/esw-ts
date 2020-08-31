@@ -1,4 +1,5 @@
 import { Prefix, TokenFactory } from '../..'
+import { resolveConnection, sequenceManagerConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
 import { Subsystem } from './../../models/params/Subsystem'
@@ -14,7 +15,6 @@ import {
   ShutdownSequencersResponse,
   StartSequencerResponse
 } from './models/SequenceManagerRes'
-import { resolveSequenceManager } from './ResolveSequenceManager'
 import { SequenceManagerImpl } from './SequenceManagerImpl'
 
 export interface SequenceManagerService {
@@ -46,7 +46,7 @@ export interface SequenceManagerService {
 export const SequenceManagerService: (
   tokenFactory: TokenFactory
 ) => Promise<SequenceManagerService> = async (tokenFactory: TokenFactory) => {
-  const { host, port } = await resolveSequenceManager()
+  const { host, port } = await resolveConnection(sequenceManagerConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 
   return new SequenceManagerImpl(new HttpTransport(postEndpoint, tokenFactory))

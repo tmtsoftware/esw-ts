@@ -1,7 +1,7 @@
+import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
-import { resolveGateway } from '../gateway/ResolveGateway'
 import { Done } from '../location'
 import { LoggingServiceImpl } from './LoggingServiceImpl'
 import { Level } from './models/Level'
@@ -11,7 +11,7 @@ export interface LoggingService {
 }
 
 export const LoggingService: () => Promise<LoggingService> = async () => {
-  const { host, port } = await resolveGateway()
+  const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 
   return new LoggingServiceImpl(new HttpTransport(postEndpoint))

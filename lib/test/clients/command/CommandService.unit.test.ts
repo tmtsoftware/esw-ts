@@ -1,18 +1,18 @@
 import { mocked } from 'ts-jest/utils'
 import { CommandService } from '../../../src/clients/command'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
-import { resolveGateway } from '../../../src/clients/gateway/ResolveGateway'
+import { resolveConnection } from '../../../src/config/Connections'
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/command/CommandServiceImpl')
-jest.mock('../../../src/clients/gateway/ResolveGateway')
+jest.mock('../../../src/config/Connections')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)
 const wsMockEndpoint = mocked(getWebSocketEndPoint)
-const mockResolveGateway = mocked(resolveGateway)
+const mockResolveGateway = mocked(resolveConnection)
 const mockImpl = mocked(CommandServiceImpl)
 
 const postEndpoint = 'postEndpoint'
