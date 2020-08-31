@@ -58,9 +58,8 @@ export class LocationServiceImpl implements LocationService {
     return headOption(response)
   }
 
-  track = (connection: Connection) => (
-    callBack: (trackingEvent: TrackingEvent) => void
-  ): Subscription => {
-    return this.ws().subscribe(new Track(connection), callBack, TrackingEventD)
+  track(connection: Connection) {
+    return (callBack: (trackingEvent: TrackingEvent) => void): Subscription =>
+      this.ws().subscribe(new Track(connection), callBack, TrackingEventD)
   }
 }

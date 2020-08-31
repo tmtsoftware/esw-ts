@@ -8,10 +8,6 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
 
   abstract create(data: Parameter<Key>[]): T
 
-  typeName(): string {
-    return this.constructor.name
-  }
-
   size(): number {
     return this.paramSet.length
   }
