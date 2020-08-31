@@ -3,6 +3,8 @@ import { GenericError } from './GenericError'
 import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
+const HOSTNAME = 'hostname'
+const APP_NAME = 'app_name'
 
 export interface FetchRequest<Req, Res> {
   url: string
@@ -46,8 +48,15 @@ const fetchMethod = (method: Method): RequestResponse => {
     } = request
 
     const path = fullUrl(url, queryParams)
-    const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
-    const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body }))
+    const headersWithMetrics = new HeaderExt(headers)
+      .withHeader(HOSTNAME, window.location.hostname)
+      .withHeader(APP_NAME, 'someAppName')
+
+    const body = payload ? bodySerializer(getContentType(headersWithMetrics))(payload) : undefined
+    const fetchResponse = await withTimeout(
+      timeout,
+      fetch(path, { method, headers: headersWithMetrics, body })
+    )
     const response = await handleErrors(fetchResponse, responseMapper)
     return decoder(response)
   }

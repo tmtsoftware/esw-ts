@@ -12,16 +12,6 @@ const jsonResHeaders = new HeaderExt().withContentType('application/json')
 const textResHeaders = new HeaderExt().withContentType('application/text')
 
 describe('Http util', () => {
-  test('Post request', async () => {
-    const expectedValue = { ok: true, status: 200 }
-    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
-    const payload = 'hello'
-    const response = await post({ url, payload })
-
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
-    expect(response).toEqual(expectedValue)
-  })
-
   test.each([
     ['json', '{}', jsonResHeaders, {}],
     ['text', 'error', textResHeaders, 'error']
@@ -40,6 +30,31 @@ describe('Http util', () => {
       expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     }
   )
+
+  test('Post request', async () => {
+    const expectedValue = { ok: true, status: 200 }
+    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
+    const payload = 'hello'
+    const response = await post({ url, payload })
+
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(response).toEqual(expectedValue)
+  })
+
+  test('should add metric headers in request | ESW-312', async () => {
+    fetchMockFn.mockResolvedValueOnce(makeResponse(undefined))
+
+    await post({ url, payload: 'hello' })
+
+    const fetchArgument = 1
+    expect(fetchMockFn.mock.calls[0][fetchArgument].headers).toEqual(
+      new HeaderExt({
+        'Content-Type': 'application/json',
+        hostname: 'localhost',
+        app_name: 'someAppName'
+      })
+    )
+  })
 
   test('should be able to add Bearer token to Auth header', () => {
     const headers = new HeaderExt().withAuthorization('1234')
@@ -75,6 +90,10 @@ const makeErrorResponse = (body: string, headers: Headers): Response =>
 
 const makeRequest = (request: string) => ({
   method: 'POST',
-  headers: new HeaderExt({ 'Content-Type': 'application/json' }),
+  headers: new HeaderExt({
+    'Content-Type': 'application/json',
+    hostname: 'localhost',
+    app_name: 'someAppName'
+  }),
   body: JSON.stringify(request)
 })

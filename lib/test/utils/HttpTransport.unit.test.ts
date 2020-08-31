@@ -28,7 +28,11 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json').withAuthorization('validToken')
+      headers: new HeaderExt()
+        .withContentType('application/json')
+        .withAuthorization('validToken')
+        .withHeader('hostname', window.location.hostname)
+        .withHeader('app_name', 'someAppName')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
@@ -43,7 +47,10 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json')
+      headers: new HeaderExt()
+        .withContentType('application/json')
+        .withHeader('hostname', window.location.hostname)
+        .withHeader('app_name', 'someAppName')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
