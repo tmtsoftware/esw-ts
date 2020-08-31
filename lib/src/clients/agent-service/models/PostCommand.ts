@@ -1,4 +1,4 @@
-import { Connection, Option } from '../../..'
+import { Connection } from '../../..'
 import { Prefix } from '../../../models'
 
 export class SpawnSequenceComponent {
@@ -6,7 +6,7 @@ export class SpawnSequenceComponent {
   constructor(
     readonly agentPrefix: Prefix,
     readonly componentName: string,
-    readonly version?: string
+    readonly version: string[] // optional representation on wire
   ) {}
 }
 
@@ -16,7 +16,7 @@ export class SpawnSequenceManager {
     readonly agentPrefix: Prefix,
     readonly obsModeConfigPath: string,
     readonly isConfigLocal: boolean,
-    readonly version?: string
+    readonly version: string[] // optional representation on wire
   ) {}
 }
 

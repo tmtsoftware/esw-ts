@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import { Option } from '../../src'
 import {
   AkkaConnection,
   HttpConnection,
@@ -8,7 +9,6 @@ import {
 } from '../../src/clients/location'
 import { authConnection, gatewayConnection } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
-import { Option } from '../../src/utils/types'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'

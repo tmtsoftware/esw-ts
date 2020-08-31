@@ -1,4 +1,3 @@
-import { Option } from '../..'
 import { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Connection } from '../location'
@@ -24,7 +23,7 @@ export class AgentServiceImpl implements AgentService {
     version?: string
   ): Promise<SpawnResponse> {
     return this.httpTransport.requestRes(
-      new SpawnSequenceComponent(agentPrefix, componentName, version),
+      new SpawnSequenceComponent(agentPrefix, componentName, version ? [version] : []),
       SpawnResponseD
     )
   }
@@ -36,7 +35,12 @@ export class AgentServiceImpl implements AgentService {
     version?: string
   ): Promise<SpawnResponse> {
     return this.httpTransport.requestRes(
-      new SpawnSequenceManager(agentPrefix, obsModeConfigPath, isConfigLocal, version),
+      new SpawnSequenceManager(
+        agentPrefix,
+        obsModeConfigPath,
+        isConfigLocal,
+        version ? [version] : []
+      ),
       SpawnResponseD
     )
   }

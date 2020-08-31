@@ -1,7 +1,7 @@
-import { Prefix } from '../../../src/models'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
 import { HttpConnection } from '../../../src/clients/location'
+import { Prefix } from '../../../src/models'
+import { mockHttpTransport } from '../../helpers/MockHelpers'
 
 const mockResponse = Math.random().toString()
 const requestRes: jest.Mock = jest.fn().mockReturnValue(Promise.resolve(mockResponse))

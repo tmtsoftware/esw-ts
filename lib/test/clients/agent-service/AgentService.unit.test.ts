@@ -1,15 +1,15 @@
 import { mocked } from 'ts-jest/utils'
+import { AgentService } from '../../../src/clients/agent-service'
+import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
+import { resolveAgentService } from '../../../src/clients/agent-service/models/ResolveAgentService'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint } from '../../../src/utils/Utils'
-import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
-import { AgentService } from '../../../src/clients/agent-service'
-import { resolveAgentServer } from '../../../src/clients/agent-service/models/ResolveAgentServer'
 
 jest.mock('../../../src/clients/agent-service/models/ResolveAgentServer')
 jest.mock('../../../src/clients/agent-service/AgentServiceImpl')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)
-const mockResolveAgent = mocked(resolveAgentServer)
+const mockResolveAgent = mocked(resolveAgentService)
 const mockImpl = mocked(AgentServiceImpl)
 
 describe('Agent Service Factory', () => {

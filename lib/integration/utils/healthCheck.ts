@@ -11,7 +11,6 @@ const locationServiceWithAuth = LocationService(() => undefined, LocationConfigW
 const waitForLocationToUp = () => eventually(() => locationService.list())
 const waitForLocationWithAuthToUp = () => eventually(() => locationServiceWithAuth.list())
 const waitForAASToUp = () => eventually(() => resolve(authConnection))
-const gatewayServices: ServiceName[] = ['Alarm', 'Event']
 
 export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
@@ -21,12 +20,7 @@ export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   const filteredServices = serviceNames.filter(
     (name) => name != 'AAS' && name != 'LocationWithAuth'
   )
-  let servicesToHealthCheck = filteredServices
-
-  if (filteredServices.includes('Gateway')) {
-    servicesToHealthCheck = filteredServices.filter((name) => gatewayServices.includes(name))
-  }
-  return await Promise.all(servicesToHealthCheck.map((name) => resolve(BackendServices[name])))
+  return await Promise.all(filteredServices.map((name) => resolve(BackendServices[name])))
 }
 
 export const waitForLocationToStop = () =>
