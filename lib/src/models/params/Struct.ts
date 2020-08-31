@@ -6,7 +6,7 @@ import { Parameter, ParameterD } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 
 export class Struct extends ParameterSetType<Struct> {
-  constructor(readonly paramSet: Parameter<Key>[]) {
+  constructor(readonly paramSet: Parameter<Key>[] = []) {
     super()
   }
 

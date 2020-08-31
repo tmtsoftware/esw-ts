@@ -24,7 +24,7 @@ export interface CommandService {
 
 export const CommandService = async (
   componentId: M.ComponentId,
-  tokenFactory: TokenFactory
+  tokenFactory: TokenFactory = () => undefined
 ): Promise<CommandService> => {
   const { host, port } = await resolveGateway()
   const postEndpoint = getPostEndPoint({ host, port })

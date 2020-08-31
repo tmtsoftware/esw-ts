@@ -32,7 +32,7 @@ export class Setup extends ParameterSetType<Setup> implements Command<typeof Set
   constructor(
     readonly source: Prefix,
     readonly commandName: string,
-    readonly paramSet: Parameter<Key>[],
+    readonly paramSet: Parameter<Key>[] = [],
     readonly maybeObsId: string[] = []
   ) {
     super()
@@ -49,7 +49,7 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
   constructor(
     readonly source: Prefix,
     readonly commandName: string,
-    readonly paramSet: Parameter<Key>[],
+    readonly paramSet: Parameter<Key>[] = [],
     readonly maybeObsId: string[] = []
   ) {
     super()
@@ -66,7 +66,7 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
   constructor(
     readonly source: Prefix,
     readonly commandName: string,
-    readonly paramSet: Parameter<Key>[],
+    readonly paramSet: Parameter<Key>[] = [],
     readonly maybeObsId: string[] = []
   ) {
     super()

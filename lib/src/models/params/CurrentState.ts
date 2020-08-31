@@ -21,7 +21,7 @@ export class CurrentState extends ParameterSetType<CurrentState> {
   constructor(
     readonly prefix: Prefix,
     readonly stateName: string,
-    readonly paramSet: Parameter<Key>[]
+    readonly paramSet: Parameter<Key>[] = []
   ) {
     super()
   }

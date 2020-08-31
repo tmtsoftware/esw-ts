@@ -16,7 +16,7 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
   constructor(
     readonly source: Prefix,
     readonly eventName: EventName,
-    readonly paramSet: Parameter<Key>[],
+    readonly paramSet: Parameter<Key>[] = [],
     readonly eventId: string = uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {
@@ -38,7 +38,7 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
   constructor(
     readonly source: Prefix,
     readonly eventName: EventName,
-    readonly paramSet: Parameter<Key>[],
+    readonly paramSet: Parameter<Key>[] = [],
     readonly eventId: string = uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {

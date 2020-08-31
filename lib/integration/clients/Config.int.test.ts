@@ -40,25 +40,20 @@ beforeEach(async () => {
 })
 
 describe('Config Client', () => {
-
   test('should get unauthorized error on sending invalid token | ESW-99', async () => {
-      const expectedFileContent = '{key:filecontent}'
-      const invalidConfigService = await ConfigService(() => '')
-      expect.assertions(3)
-      await invalidConfigService.create(
-        path,
-        ConfigData.fromString(expectedFileContent),
-        false,
-        'creating file'
-      ).catch((e) => {
+    const expectedFileContent = '{key:filecontent}'
+    const invalidConfigService = await ConfigService(() => '')
+    expect.assertions(3)
+    await invalidConfigService
+      .create(path, ConfigData.fromString(expectedFileContent), false, 'creating file')
+      .catch((e) => {
         expect(e.status).toBe(401)
         expect(e.message).toBe('Unauthorized')
         expect(e.reason.message).toBe(
           'The resource requires authentication, which was not supplied with the request'
         )
       })
-    }
-  )
+  })
 
   test('should create, getById, update, delete config | ESW-320', async () => {
     const expectedFileContent = '{key:filecontent}'

@@ -1,4 +1,4 @@
-import { Option } from '../../utils/types'
+import { Option } from '../..'
 import { BaseKey } from './BaseKey'
 import { Key } from './Key'
 import { Parameter } from './Parameter'
