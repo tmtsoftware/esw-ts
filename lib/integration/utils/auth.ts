@@ -1,6 +1,7 @@
 import { Location } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection } from '../../src/config/Connections'
+import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
 import { extractHostPort } from '../../src/utils/Utils'
 
@@ -19,8 +20,8 @@ export const getToken = async (client: string, user: string, password: string, r
   }
 
   const url = await getKeycloakTokenUri(realm)
-  const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
+  const headers = new HeaderExt().withContentType('application/x-www-form-urlencoded')
 
-  const { access_token } = await post({ url, payload, headers })
+  const { access_token } = await post({ url, payload, headers, metricsEnabled: false })
   return access_token
 }

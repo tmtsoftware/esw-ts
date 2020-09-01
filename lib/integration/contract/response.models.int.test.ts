@@ -3,6 +3,7 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
+import { SpawnResponseD, KillResponseD } from '../../src/clients/agent-service/models/AgentRes'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/clients/alarm/models/PostCommand'
 import * as C from '../../src/clients/config/models/ConfigModels'
 import { EventD } from '../../src/clients/event/models/Event'
@@ -27,7 +28,6 @@ import { Decoder } from '../../src/utils/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
 import { executeCswContract, executeEswContract } from '../utils/shell'
-import { SpawnResponseD, KillResponseD } from '../../src/clients/agent-service/models/AgentRes'
 
 jest.setTimeout(100000)
 

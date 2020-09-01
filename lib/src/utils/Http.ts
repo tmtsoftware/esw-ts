@@ -14,6 +14,7 @@ export interface FetchRequest<Req, Res> {
   timeout?: number
   responseMapper?: (res: Response) => Promise<Res>
   decoder?: (a: any) => Res
+  metricsEnabled?: boolean
 }
 
 export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Promise<Res>
@@ -44,19 +45,19 @@ const fetchMethod = (method: Method): RequestResponse => {
       headers = jsonHeader(),
       timeout = 120000,
       responseMapper = defaultResponseMapper,
-      decoder = identity
+      decoder = identity,
+      metricsEnabled = true
     } = request
 
     const path = fullUrl(url, queryParams)
-    const headersWithMetrics = new HeaderExt(headers)
-      .withHeader(HOSTNAME, window.location.hostname)
-      .withHeader(APP_NAME, 'someAppName')
 
-    const body = payload ? bodySerializer(getContentType(headersWithMetrics))(payload) : undefined
-    const fetchResponse = await withTimeout(
-      timeout,
-      fetch(path, { method, headers: headersWithMetrics, body })
-    )
+    if (metricsEnabled) {
+      headers.append(HOSTNAME, window.location.hostname)
+      headers.append(APP_NAME, 'someAppName')
+    }
+
+    const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
+    const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body }))
     const response = await handleErrors(fetchResponse, responseMapper)
     return decoder(response)
   }
