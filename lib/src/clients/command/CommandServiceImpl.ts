@@ -1,4 +1,5 @@
 import * as M from '../../models'
+import { SubmitResponse } from '../../models'
 import { Decoder } from '../../utils/Decoder'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
@@ -72,5 +73,12 @@ export class CommandServiceImpl implements CommandService {
       this.componentWsCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
       M.SubmitResponseD
     )
+  }
+
+  async submitAndWait(command: M.ControlCommand): Promise<SubmitResponse> {
+    const submitResponse = await this.submit(command)
+    if (submitResponse._type === 'Started') {
+      return this.queryFinal(submitResponse.runId, 5)
+    } else return Promise.resolve(submitResponse)
   }
 }

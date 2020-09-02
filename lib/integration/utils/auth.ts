@@ -1,8 +1,6 @@
 import { Location } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection } from '../../src/config/Connections'
-import { HeaderExt } from '../../src/utils/HeaderExt'
-import { post } from '../../src/utils/Http'
 import { extractHostPort } from '../../src/utils/Utils'
 
 const getKeycloakTokenUri = async (realm: string) => {

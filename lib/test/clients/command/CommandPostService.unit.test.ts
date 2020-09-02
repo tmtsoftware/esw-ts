@@ -1,8 +1,9 @@
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import * as Req from '../../../src/clients/command/models/PostCommand'
+import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as M from '../../../src/models'
-import { ComponentId, Observe, Prefix, Setup } from '../../../src/models'
+import { ComponentId, Observe, Prefix, Result, Setup, SubmitResponseD } from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
@@ -54,6 +55,57 @@ describe('CommandService', () => {
 
     expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), M.SubmitResponseD)
+  })
+
+  test('should get completed response on submitAndWait with submit and then queried for final response of long running command | ESW-344', async () => {
+    const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const mockSubmitResponse = { _type: 'Started', runId: '123' }
+    const mockQueryFinalResponse = {
+      _type: 'Completed',
+      runId: '123',
+      result: new Result()
+    }
+
+    requestRes.mockResolvedValueOnce(mockSubmitResponse)
+    const mockSingleResponse: jest.Mock = jest.fn().mockResolvedValueOnce(mockQueryFinalResponse)
+    const assembly = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
+      mockWsTransport(jest.fn(), mockSingleResponse)
+    )
+    const response = await assembly.submitAndWait(setupCommand)
+
+    expect(response).toEqual(mockQueryFinalResponse)
+    expect(requestRes).toBeCalledWith(
+      new GatewayComponentCommand(compId, new Req.Submit(setupCommand)),
+      M.SubmitResponseD
+    )
+    expect(mockSingleResponse).toBeCalledWith(
+      new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 5)),
+      SubmitResponseD
+    )
+  })
+
+  test('should get completed when for submitAndWait when submit itself returns completed for short running commands| ESW-344', async () => {
+    const setupCommand = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const mockResponse = {
+      _type: 'Completed',
+      runId: '123',
+      result: new Result()
+    }
+    requestRes.mockResolvedValueOnce(mockResponse)
+    const mockSingleResponse: jest.Mock = jest.fn()
+    const assembly = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
+      mockWsTransport(jest.fn(), mockSingleResponse)
+    )
+
+    const response = await assembly.submitAndWait(setupCommand)
+
+    expect(response).toEqual(mockResponse)
+    expect(requestRes).toBeCalledWith(
+      new GatewayComponentCommand(compId, new Req.Submit(setupCommand)),
+      M.SubmitResponseD
+    )
+    // assert that query final is not needed as submit itself returns completed response (NOT started response)
+    expect(mockSingleResponse).toBeCalledTimes(0)
   })
 })
 
