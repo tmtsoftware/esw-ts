@@ -1,6 +1,12 @@
 import 'whatwg-fetch'
+import { mocked } from 'ts-jest/utils'
+import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
+
+jest.mock('../../src/utils/DynamicLoader')
+const mockLoader = mocked(dynamicImport)
+mockLoader.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
@@ -50,7 +56,7 @@ describe('Http util', () => {
     expect(fetchMockFn.mock.calls[0][fetchArgument].headers).toEqual(
       new HeaderExt({
         'Content-Type': 'application/json',
-        'App-Name': 'someAppName'
+        'App-Name': 'example'
       })
     )
   })
@@ -91,7 +97,7 @@ const makeRequest = (request: string) => ({
   method: 'POST',
   headers: new HeaderExt({
     'Content-Type': 'application/json',
-    'App-Name': 'someAppName'
+    'App-Name': 'example'
   }),
   body: JSON.stringify(request)
 })

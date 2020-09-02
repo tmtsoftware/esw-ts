@@ -1,4 +1,5 @@
 import { identity } from 'fp-ts/lib/function'
+import { load } from '../config/ConfigLoader'
 import { GenericError } from './GenericError'
 import { HeaderExt } from './HeaderExt'
 
@@ -49,7 +50,9 @@ const fetchMethod = (method: Method): RequestResponse => {
     const path = fullUrl(url, queryParams)
 
     // headers for metric
-    headers.append(APP_NAME, 'someAppName')
+    const { applicationName } = await load()
+
+    headers.append(APP_NAME, applicationName)
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
     const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body }))
