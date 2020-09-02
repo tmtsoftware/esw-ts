@@ -3,8 +3,7 @@ import { GenericError } from './GenericError'
 import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
-const HOSTNAME = 'hostname'
-const APP_NAME = 'app_name'
+const APP_NAME = 'App-Name'
 
 export interface FetchRequest<Req, Res> {
   url: string
@@ -14,7 +13,6 @@ export interface FetchRequest<Req, Res> {
   timeout?: number
   responseMapper?: (res: Response) => Promise<Res>
   decoder?: (a: any) => Res
-  metricsEnabled?: boolean
 }
 
 export type RequestResponse = <Req, Res>(request: FetchRequest<Req, Res>) => Promise<Res>
@@ -45,16 +43,13 @@ const fetchMethod = (method: Method): RequestResponse => {
       headers = jsonHeader(),
       timeout = 120000,
       responseMapper = defaultResponseMapper,
-      decoder = identity,
-      metricsEnabled = true
+      decoder = identity
     } = request
 
     const path = fullUrl(url, queryParams)
 
-    if (metricsEnabled) {
-      headers.append(HOSTNAME, window.location.hostname)
-      headers.append(APP_NAME, 'someAppName')
-    }
+    // headers for metric
+    headers.append(APP_NAME, 'someAppName')
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
     const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body }))

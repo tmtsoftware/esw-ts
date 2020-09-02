@@ -31,8 +31,7 @@ describe('Http transport', () => {
       headers: new HeaderExt()
         .withContentType('application/json')
         .withAuthorization('validToken')
-        .withHeader('hostname', window.location.hostname)
-        .withHeader('app_name', 'someAppName')
+        .withHeader('App-Name', 'someAppName')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
@@ -49,8 +48,7 @@ describe('Http transport', () => {
       body: JSON.stringify('hello'),
       headers: new HeaderExt()
         .withContentType('application/json')
-        .withHeader('hostname', window.location.hostname)
-        .withHeader('app_name', 'someAppName')
+        .withHeader('App-Name', 'someAppName')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })

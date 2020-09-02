@@ -50,8 +50,7 @@ describe('Http util', () => {
     expect(fetchMockFn.mock.calls[0][fetchArgument].headers).toEqual(
       new HeaderExt({
         'Content-Type': 'application/json',
-        hostname: 'localhost',
-        app_name: 'someAppName'
+        'App-Name': 'someAppName'
       })
     )
   })
@@ -92,8 +91,7 @@ const makeRequest = (request: string) => ({
   method: 'POST',
   headers: new HeaderExt({
     'Content-Type': 'application/json',
-    hostname: 'localhost',
-    app_name: 'someAppName'
+    'App-Name': 'someAppName'
   }),
   body: JSON.stringify(request)
 })

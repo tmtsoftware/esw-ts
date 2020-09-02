@@ -20,8 +20,15 @@ export const getToken = async (client: string, user: string, password: string, r
   }
 
   const url = await getKeycloakTokenUri(realm)
-  const headers = new HeaderExt().withContentType('application/x-www-form-urlencoded')
+  const headers = new Headers([['Content-type', 'application/x-www-form-urlencoded']])
 
-  const { access_token } = await post({ url, payload, headers, metricsEnabled: false })
+  const response = await fetch(url, {
+    method: 'POST',
+    body: new URLSearchParams(payload).toString(),
+    headers
+  })
+
+  if (!response.ok) throw new Error('auth token error')
+  const { access_token } = await response.json()
   return access_token
 }
