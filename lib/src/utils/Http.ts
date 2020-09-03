@@ -1,10 +1,10 @@
 import { identity } from 'fp-ts/lib/function'
-import { load } from '../config/ConfigLoader'
+import * as ConfigLoader from '../config/ConfigLoader'
+import { APP_NAME } from './Constants'
 import { GenericError } from './GenericError'
 import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
-const APP_NAME = 'App-Name'
 
 export interface FetchRequest<Req, Res> {
   url: string
@@ -50,7 +50,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     const path = fullUrl(url, queryParams)
 
     // headers for metric
-    const { applicationName } = await load()
+    const { applicationName } = await ConfigLoader.load()
 
     headers.append(APP_NAME, applicationName)
 

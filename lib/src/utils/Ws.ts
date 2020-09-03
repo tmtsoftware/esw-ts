@@ -1,14 +1,21 @@
+import * as ConfigLoader from '../config/ConfigLoader'
+import { APP_NAME } from './Constants'
 import { Decoder } from './Decoder'
 import { getOrThrow } from './Utils'
 
-const createWebsocket = (url: string) => new WebSocket(url)
+const createWebsocket = async (url: string) => {
+  const { applicationName } = await ConfigLoader.load()
+  const urlWithParams = new URL(url)
+  urlWithParams.searchParams.set(APP_NAME, applicationName)
+  return new WebSocket(urlWithParams.href)
+}
 
 export class Ws<Req> {
   private socket: Promise<WebSocket>
 
   constructor(url: string) {
-    this.socket = new Promise((resolve, reject) => {
-      const wss = createWebsocket(url)
+    this.socket = new Promise(async (resolve, reject) => {
+      const wss = await createWebsocket(url)
       wss.onopen = () => resolve(wss)
       wss.onerror = (event: Event) => reject({ message: 'error', ...event })
     })

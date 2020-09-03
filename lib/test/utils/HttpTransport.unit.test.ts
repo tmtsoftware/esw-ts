@@ -25,7 +25,7 @@ const expectedValue = { ok: true, status: 200 }
 afterEach(() => jest.clearAllMocks())
 
 describe('Http transport', () => {
-  test('sends request with auth headers on providing token', async () => {
+  test('sends request with auth headers on providing token | ESW-312', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
 
     const httpTransport = new HttpTransport(url, () => 'validToken')
