@@ -77,21 +77,25 @@ describe('Agent Service client ', () => {
 
   test('should get forbidden when invalid token is passed | ESW-376', async () => {
     const connection = HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
-    expect.assertions(3)
+    expect.assertions(4)
     await agentServiceWithInValidToken.killComponent(connection).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(403)
-      expect(e.message).toBe('Forbidden')
-      expect(e.reason).toBe('The supplied authentication is not authorized to access this resource')
+      expect(e.statusText).toBe('Forbidden')
+      expect(e.message).toBe(
+        'The supplied authentication is not authorized to access this resource'
+      )
     })
   })
 
   test('should get unauthorised when no token is passed | ESW-376', async () => {
     const connection = HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
-    expect.assertions(3)
+    expect.assertions(4)
     await agentServiceWithoutToken.killComponent(connection).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
-      expect(e.message).toBe('Unauthorized')
-      expect(e.reason).toBe(
+      expect(e.statusText).toBe('Unauthorized')
+      expect(e.message).toBe(
         'The resource requires authentication, which was not supplied with the request'
       )
     })

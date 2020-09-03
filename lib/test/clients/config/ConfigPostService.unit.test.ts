@@ -1,13 +1,13 @@
 import { mocked } from 'ts-jest/utils'
+import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'
-import { ConfigService } from '../../../src/clients/config/'
-import { ConfigData } from '../../../src/clients/config/models/ConfigData'
+import { ConfigData, ConfigService } from '../../../src/clients/config'
+
 import { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/Connections'
 import { GenericError } from '../../../src/utils/GenericError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
-import type { Option } from '../../../src/utils/types'
 
 jest.mock('../../../src/utils/Http')
 const getMockFn = mocked(get, true)
@@ -72,7 +72,7 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
+    getMockFn.mockRejectedValueOnce(new GenericError('TransportError', '', 404, 'Not Found'))
 
     const confData = await configService.getById(confPath, configId)
     expect(confData).toBeUndefined()
@@ -83,13 +83,16 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
-    getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
+    getMockFn.mockRejectedValueOnce(
+      new GenericError('ArithmeticException', '/ by 0', 500, 'Internal server error')
+    )
 
-    expect.assertions(3)
+    expect.assertions(4)
     await configService.getById(confPath, configId).catch((e) => {
+      expect(e.errorType).toBe('ArithmeticException')
+      expect(e.message).toBe('/ by 0')
       expect(e.status).toBe(500)
-      expect(e.message).toBe('Internal server error')
-      expect(e.reason).toBe('')
+      expect(e.statusText).toBe('Internal server error')
     })
   })
 
@@ -133,7 +136,7 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    headMockFn.mockRejectedValueOnce(new GenericError(404, 'not found', ''))
+    headMockFn.mockRejectedValueOnce(new GenericError('TransportError', '', 404, 'Not Found'))
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(false)
@@ -144,13 +147,16 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
-    headMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
+    headMockFn.mockRejectedValueOnce(
+      new GenericError('ArithmeticException', '/ by 0', 500, 'Internal server error')
+    )
 
-    expect.assertions(3)
+    expect.assertions(4)
     await configService.exists(confPath, configId).catch((e) => {
+      expect(e.errorType).toBe('ArithmeticException')
+      expect(e.message).toBe('/ by 0')
       expect(e.status).toBe(500)
-      expect(e.message).toBe('Internal server error')
-      expect(e.reason).toBe('')
+      expect(e.statusText).toBe('Internal server error')
     })
   })
 
@@ -244,7 +250,7 @@ describe('ConfigService', () => {
   test('should get undefined if the active version not found for the config | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
 
-    getMockFn.mockRejectedValueOnce(new GenericError(404, 'Not Found', ''))
+    getMockFn.mockRejectedValueOnce(new GenericError('TransportError', '', 404, 'Not Found'))
 
     const configId = await configService.getActiveVersion(confPath)
     expect(configId).toBeUndefined()
@@ -253,13 +259,16 @@ describe('ConfigService', () => {
   test('should throw error if internal server error is received on getActiveVersion | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
 
-    getMockFn.mockRejectedValueOnce(new GenericError(500, 'Internal server error', ''))
+    getMockFn.mockRejectedValueOnce(
+      new GenericError('ArithmeticException', '/ by 0', 500, 'Internal server error')
+    )
 
-    expect.assertions(3)
+    expect.assertions(4)
     await configService.getActiveVersion(confPath).catch((e) => {
+      expect(e.errorType).toBe('ArithmeticException')
+      expect(e.message).toBe('/ by 0')
       expect(e.status).toBe(500)
-      expect(e.message).toBe('Internal server error')
-      expect(e.reason).toBe('')
+      expect(e.statusText).toBe('Internal server error')
     })
   })
 

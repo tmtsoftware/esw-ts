@@ -18,20 +18,46 @@ const jsonResHeaders = new HeaderExt().withContentType('application/json')
 const textResHeaders = new HeaderExt().withContentType('application/text')
 
 describe('Http util', () => {
+  test('Post should throw generic error exception if there is an internal service error | ESW-321', async () => {
+    const invalidComponent = JSON.stringify({
+      _type: 'InvalidComponent',
+      msg: 'testHcd.hcd not found'
+    })
+    const internalError = new Response(invalidComponent, {
+      status: 500,
+      statusText: 'Internal Server Error',
+      headers: jsonResHeaders
+    })
+
+    fetchMockFn.mockResolvedValueOnce(internalError)
+    const payload = 'hello'
+
+    expect.assertions(5)
+    await post({ url, payload }).catch((e) => {
+      expect(e.errorType).toBe('InvalidComponent')
+      expect(e.message).toEqual('|msg: testHcd.hcd not found')
+      expect(e.status).toBe(500)
+      expect(e.statusText).toBe('Internal Server Error')
+    })
+
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+  })
+
   test.each([
-    ['json', '{}', jsonResHeaders, {}],
+    ['json', '{}', jsonResHeaders, ''],
     ['text', 'error', textResHeaders, 'error']
   ])(
     'Post call throws error for %s error response | ESW-321',
-    async (_, body, headers, expectedReason) => {
+    async (_, body, headers, expectedMessage) => {
       fetchMockFn.mockResolvedValueOnce(makeErrorResponse(body, headers))
       const payload = 'hello'
 
-      expect.assertions(4)
+      expect.assertions(5)
       await post({ url, payload }).catch((e) => {
+        expect(e.errorType).toBe('TransportError')
+        expect(e.message).toEqual(expectedMessage)
         expect(e.status).toBe(404)
-        expect(e.message).toBe('bad request')
-        expect(e.reason).toEqual(expectedReason)
+        expect(e.statusText).toBe('bad request')
       })
       expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
     }

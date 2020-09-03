@@ -44,11 +44,12 @@ afterAll(async () => {
 
 describe('Sequencer Client', () => {
   test('should get unauthorized error when invalid token is provided | ESW-307, ESW-99', async () => {
-    expect.assertions(3)
+    expect.assertions(4)
     await sequencerServiceWithoutToken.goOffline().catch((e) => {
+      expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
-      expect(e.message).toBe('Unauthorized')
-      expect(e.reason).toBe(
+      expect(e.statusText).toBe('Unauthorized')
+      expect(e.message).toBe(
         'The resource requires authentication, which was not supplied with the request'
       )
     })

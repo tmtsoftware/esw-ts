@@ -187,22 +187,26 @@ describe('Sequence Manager Client ', () => {
   })
 
   test('should get unauthorized error when token is not provided | ESW-365', async () => {
-    expect.assertions(3)
+    expect.assertions(4)
     await sequenceManagerServiceWithoutToken.configure(new ObsMode('darknight')).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
-      expect(e.message).toBe('Unauthorized')
-      expect(e.reason).toBe(
+      expect(e.statusText).toBe('Unauthorized')
+      expect(e.message).toBe(
         'The resource requires authentication, which was not supplied with the request'
       )
     })
   })
 
   test('should get forbidden error when token provided does not have correct access| ESW-365', async () => {
-    expect.assertions(3)
+    expect.assertions(4)
     await sequenceManagerServiceWithInValidToken.configure(new ObsMode('darknight')).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(403)
-      expect(e.message).toBe('Forbidden')
-      expect(e.reason).toBe('The supplied authentication is not authorized to access this resource')
+      expect(e.statusText).toBe('Forbidden')
+      expect(e.message).toBe(
+        'The supplied authentication is not authorized to access this resource'
+      )
     })
   })
 })

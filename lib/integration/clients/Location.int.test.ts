@@ -186,13 +186,14 @@ describe('LocationService', () => {
   test('should return Unauthorized when unregister called without token to auth protected location service instance | ESW-343, ESW-308', async () => {
     // const location = await locationService.find(httpHcdConnection)
     // expect(location).toBeDefined()
-    expect.assertions(3)
+    expect.assertions(4)
     await locationServiceWithInvalidToken.unregister(httpHcdConnection).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
-      expect(e.message).toBe('Unauthorized')
-      expect(e.reason).toBe(
+      expect(e.message).toBe(
         'The resource requires authentication, which was not supplied with the request'
       )
+      expect(e.statusText).toBe('Unauthorized')
     })
   })
 })

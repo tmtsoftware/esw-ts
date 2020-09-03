@@ -1,5 +1,10 @@
 export class GenericError extends Error {
-  constructor(readonly status: number, readonly message: string, readonly reason: any) {
+  constructor(
+    readonly errorType: string,
+    readonly message: string,
+    readonly status: number,
+    readonly statusText: string
+  ) {
     super(message)
   }
 }
