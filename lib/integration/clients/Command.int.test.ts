@@ -55,7 +55,9 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1')
+    setupCommand.create([keyParameter])
+
     const actualResponse = await commandService.oneway(setupCommand)
     expect(actualResponse._type).toEqual('Accepted')
   })
@@ -84,7 +86,8 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => tokenWithoutRole)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1')
+    setupCommand.add(keyParameter)
 
     expect.assertions(4)
     await commandService.oneway(setupCommand).catch((e) => {
@@ -149,7 +152,9 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1')
+    setupCommand.madd([keyParameter])
+
     const submitRes: SubmitResponse = await commandService.submit(setupCommand)
     expect(submitRes._type).toEqual('Started')
 
