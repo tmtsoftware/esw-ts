@@ -3,7 +3,10 @@ import { intArrayKey, intKey, Key, Parameter, Result, stringKey } from '../../sr
 describe('Result', () => {
   const intParam: Parameter<Key> = intKey('number').set([1, 2, 3])
   const stringParam: Parameter<Key> = stringKey('string').set(['abc', 'def'])
-  const intArrayParam = intArrayKey('array_key').set([[1, 2], 3, 4])
+  const intArrayParam = intArrayKey('array_key').set([
+    [1, 2],
+    [3, 4]
+  ])
 
   test('get | ESW-380', () => {
     const paramSet = [intParam, stringParam]
