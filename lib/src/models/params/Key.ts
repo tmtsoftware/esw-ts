@@ -204,8 +204,8 @@ export const structKey = keyFactory<StructKey>('StructKey')
 export const utcTimeKey = keyFactory<UTCTimeKey>('UTCTimeKey', 'second')
 export const taiTimeKey = keyFactory<TAITimeKey>('TAITimeKey', 'second')
 
-export const choiceKey = (name: string, units: Units = 'NoUnits') =>
-  new ChoiceKeyFactory<ChoiceKey>(name, 'ChoiceKey', units)
+export const choiceKey = <L extends string[]>(name: string, choices: L, units: Units = 'NoUnits') =>
+  new ChoiceKeyFactory<ChoiceKey, L>(name, 'ChoiceKey', choices, units)
 
 // Coord Keys
 export const raDecKey = keyFactory<RaDecKey>('RaDecKey')
