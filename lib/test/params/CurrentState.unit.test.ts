@@ -17,58 +17,12 @@ const intArrayParam = intArrayKey('array_key').set([
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 
 describe('CurrentState', () => {
-  test('get | ESW-380', () => {
+  test('create | ESW-380', () => {
     const paramSet = [intParam, stringParam]
-
     const currentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd(paramSet)
+    const data = [intParam, stringParam, intArrayParam]
 
-    expect(currentState.get(intKey('number'))).toEqual(intParam)
-  })
-
-  test('size | ESW-380', () => {
-    const paramSet = [intParam, stringParam]
-
-    const currentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd(paramSet)
-
-    expect(currentState.size()).toEqual(2)
-  })
-
-  test('add | ESW-380', () => {
-    const currentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd([intParam])
-
-    expect(currentState.add(stringParam)).toEqual(
-      new CurrentState(hcdPrefix, 'CurrentState-1').madd([intParam, stringParam])
-    )
-  })
-
-  test('madd | ESW-380', () => {
-    const currentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd([intParam])
-
-    expect(currentState.madd([stringParam, intArrayParam])).toEqual(
-      new CurrentState(hcdPrefix, 'CurrentState-1').madd([intParam, stringParam, intArrayParam])
-    )
-  })
-
-  test('exists | ESW-380', () => {
-    const currentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd([
-      intParam,
-      stringParam,
-      intArrayParam
-    ])
-
-    expect(currentState.exists(intKey('number'))).toBe(true)
-    expect(currentState.exists(intKey('number1'))).toBe(false)
-  })
-
-  test('remove | ESW-380', () => {
-    const currentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd([
-      intParam,
-      stringParam,
-      intArrayParam
-    ])
-
-    expect(currentState.remove(intKey('number'))).toEqual(
-      new CurrentState(hcdPrefix, 'CurrentState-1').madd([stringParam, intArrayParam])
-    )
+    const expectedCurrentState = new CurrentState(hcdPrefix, 'CurrentState-1').madd(data)
+    expect(currentState.create(data)).toEqual(expectedCurrentState)
   })
 })

@@ -8,46 +8,10 @@ describe('Result', () => {
     [3, 4]
   ])
 
-  test('get | ESW-380', () => {
-    const paramSet = [intParam, stringParam]
+  test('create | ESW-380', () => {
+    const result = new Result().add(intParam)
 
-    const result = new Result().madd(paramSet)
-
-    expect(result.get(intKey('number'))).toEqual(intParam)
-  })
-
-  test('size | ESW-380', () => {
-    const paramSet = [intParam, stringParam]
-
-    const result = new Result(paramSet)
-
-    expect(result.size()).toEqual(2)
-  })
-
-  test('add | ESW-380', () => {
-    const result = new Result([intParam])
-
-    expect(result.add(stringParam)).toEqual(new Result([intParam, stringParam]))
-  })
-
-  test('madd | ESW-380', () => {
-    const result = new Result([intParam])
-
-    expect(result.madd([stringParam, intArrayParam])).toEqual(
-      new Result([intParam, stringParam, intArrayParam])
-    )
-  })
-
-  test('exists | ESW-380', () => {
-    const result = new Result([intParam, stringParam, intArrayParam])
-
-    expect(result.exists(intKey('number'))).toBe(true)
-    expect(result.exists(intKey('number1'))).toBe(false)
-  })
-
-  test('remove | ESW-380', () => {
-    const result = new Result([intParam, stringParam, intArrayParam])
-
-    expect(result.remove(intKey('number'))).toEqual(new Result([stringParam, intArrayParam]))
+    const expectedResult = new Result([intParam]).madd([stringParam, intArrayParam])
+    expect(result.create([intParam, stringParam, intArrayParam])).toEqual(expectedResult)
   })
 })

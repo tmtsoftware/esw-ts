@@ -6,9 +6,7 @@ class ParameterSetTypeTest extends ParameterSetType<ParameterSetTypeTest> {
     super()
   }
 
-  create(data: Parameter<Key>[]): ParameterSetTypeTest {
-    return new ParameterSetTypeTest(data)
-  }
+  create = jest.fn() as jest.MockedFunction<(data: Parameter<Key>[]) => ParameterSetTypeTest>
 }
 
 describe('ParameterSetType', () => {
@@ -36,19 +34,31 @@ describe('ParameterSetType', () => {
   })
 
   test('add | ESW-380', () => {
+    const expectedParameterSet = [intParam, stringParam]
     const parameterSetType = new ParameterSetTypeTest([intParam])
+    parameterSetType.create.mockReturnValue(new ParameterSetTypeTest(expectedParameterSet))
 
-    expect(parameterSetType.add(stringParam)).toEqual(
-      new ParameterSetTypeTest([intParam, stringParam])
-    )
+    const actualParameterSet: ParameterSetTypeTest = parameterSetType.add(stringParam)
+    expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
+    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
   })
 
   test('madd | ESW-380', () => {
+    const expectedParameterSet = [intParam, stringParam, intArrayParam]
     const parameterSetType = new ParameterSetTypeTest([intParam])
 
-    expect(parameterSetType.madd([stringParam, intArrayParam])).toEqual(
-      new ParameterSetTypeTest([intParam, stringParam, intArrayParam])
-    )
+    parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest([intParam, stringParam]))
+    parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest(expectedParameterSet))
+
+    const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([
+      stringParam,
+      intArrayParam
+    ])
+
+    expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
+    expect(parameterSetType.create).toBeCalledTimes(2)
+    expect(parameterSetType.create).toBeCalledWith([intParam, stringParam])
+    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
   })
 
   test('exists | ESW-380', () => {
@@ -59,10 +69,13 @@ describe('ParameterSetType', () => {
   })
 
   test('remove | ESW-380', () => {
+    const expectedParameterSet = [stringParam, intArrayParam]
     const parameterSetType = new ParameterSetTypeTest([intParam, stringParam, intArrayParam])
 
-    expect(parameterSetType.remove(intKey('number'))).toEqual(
-      new ParameterSetTypeTest([stringParam, intArrayParam])
-    )
+    parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest(expectedParameterSet))
+
+    const actualParameterSet: ParameterSetTypeTest = parameterSetType.remove(intKey('number'))
+    expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
+    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
   })
 })
