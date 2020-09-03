@@ -5,21 +5,12 @@ export const load = async (): Promise<AppConfig> => {
   const path = '/_dist_/config/AppConfig.js'
 
   const module = <AppConfigModule>await dynamicImport(path).catch(() => {
-    return { AppConfig: { applicationName: 'unknown' } }
+    throw new Error(`App Config not found at '${path}'`)
   })
 
   if (module.AppConfig && module.AppConfig.applicationName) {
     return module.AppConfig
   }
 
-  return { applicationName: 'unknown' }
+  throw new Error(`'applicationName' key not found inside 'AppConfig'`)
 }
-
-// approach 1
-// load().then((x) => (APP_CONFIG = x))
-
-// approach 2
-// document this thing like taking a app name at load time.
-// const init = async (appname: string) => {
-//    load().then((x) => (APP_CONFIG = x))
-// }

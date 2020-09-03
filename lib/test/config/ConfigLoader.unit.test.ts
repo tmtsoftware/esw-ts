@@ -17,27 +17,27 @@ describe('Config Loader', () => {
   test('should return unknown when application name does not exist', async () => {
     mockLoader.mockResolvedValueOnce({ AppConfig: {} })
 
-    const expected = { applicationName: 'unknown' }
-
-    const config = await load()
-    expect(config).toEqual(expected)
+    expect.assertions(1)
+    await load().catch((e) => {
+      expect(e.message).toBe("'applicationName' key not found inside 'AppConfig'")
+    })
   })
 
   test('should return unknown when AppConfig does not exist', async () => {
     mockLoader.mockResolvedValueOnce({})
 
-    const expected = { applicationName: 'unknown' }
-
-    const config = await load()
-    expect(config).toEqual(expected)
+    expect.assertions(1)
+    await load().catch((e) => {
+      expect(e.message).toBe("'applicationName' key not found inside 'AppConfig'")
+    })
   })
 
   test('should return unknown when module does not exist', async () => {
     mockLoader.mockRejectedValueOnce(Error('File not found'))
 
-    const expected = { applicationName: 'unknown' }
-
-    const config = await load()
-    expect(config).toEqual(expected)
+    expect.assertions(1)
+    await load().catch((e) => {
+      expect(e.message).toBe("App Config not found at '/_dist_/config/AppConfig.js'")
+    })
   })
 })

@@ -9,8 +9,8 @@ const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM
 
 jest.mock('../../src/utils/DynamicLoader')
-const mockLoader = mocked(dynamicImport)
-mockLoader.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
+const mockImport = mocked(dynamicImport)
+mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 const host = 'localhost'
 const port = 1234

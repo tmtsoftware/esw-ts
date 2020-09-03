@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import { mocked } from 'ts-jest/utils'
 import { CommandService } from '../../src/clients/command'
 import {
   BaseKey,
@@ -11,10 +12,19 @@ import {
   Setup,
   SubmitResponse
 } from '../../src/models'
+import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(70000)
+
+/** Web application name loading is mocked at integration level
+ * since the application config does not exist in library and
+ * it will be coming at runtime from application source code
+ */
+jest.mock('../../src/utils/DynamicLoader')
+const mockImport = mocked(dynamicImport)
+mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')

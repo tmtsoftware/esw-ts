@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import { mocked } from 'ts-jest/utils'
 import { Option } from '../../src'
 import {
   AkkaConnection,
@@ -9,12 +10,21 @@ import {
 } from '../../src/clients/location'
 import { authConnection, gatewayConnection } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
+import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
 
 jest.setTimeout(100000)
+
+/** Web application name loading is mocked at integration level
+ * since the application config does not exist in library and
+ * it will be coming at runtime from application source code
+ */
+jest.mock('../../src/utils/DynamicLoader')
+const mockImport = mocked(dynamicImport)
+mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 let validToken: string

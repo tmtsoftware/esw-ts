@@ -5,8 +5,8 @@ import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
 
 jest.mock('../../src/utils/DynamicLoader')
-const mockLoader = mocked(dynamicImport)
-mockLoader.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
+const mockImport = mocked(dynamicImport)
+mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM

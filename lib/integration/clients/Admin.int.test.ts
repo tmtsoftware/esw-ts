@@ -1,8 +1,18 @@
 import 'whatwg-fetch'
+import { mocked } from 'ts-jest/utils'
 import { AdminService } from '../../src/clients/admin'
 import { LogMetadata } from '../../src/clients/logger'
 import { ComponentId, Prefix } from '../../src/models'
+import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { startServices, stopServices } from '../utils/backend'
+
+/** Web application name loading is mocked at integration level
+ * since the application config does not exist in library and
+ * it will be coming at runtime from application source code
+ */
+jest.mock('../../src/utils/DynamicLoader')
+const mockImport = mocked(dynamicImport)
+mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 jest.setTimeout(30000)
 
