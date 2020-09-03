@@ -7,7 +7,7 @@
     "esw-ts": "file:../lib",
     "react": "file:../lib/node_modules/react",
     "react-dom": "file:../lib/node_modules/react-dom",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.2.0"
   },
   "scripts": {
     "start": "snowpack dev",
@@ -20,15 +20,15 @@
     "last 1 chrome version"
   ],
   "devDependencies": {
-    "@types/react": "^16.9.43",
+    "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-react": "^9.2.0",
-    "eslint-plugin-react": "^7.20.5",
-    "pm2": "^4.4.0",
-    "prettier": "^2.0.5",
-    "snowpack": "^2.7.3",
-    "typescript": "^3.9.7"
+    "eslint-plugin-react": "^7.20.6",
+    "pm2": "^4.4.1",
+    "prettier": "^2.1.1",
+    "snowpack": "^2.10.1",
+    "typescript": "^4.0.2"
   }
 }

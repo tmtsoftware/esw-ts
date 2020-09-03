@@ -1,8 +1,9 @@
+import { requirement } from '../../utils/Utils'
 import { Key, KTag } from './Key'
 import { Parameter } from './Parameter'
 import { Units } from './Units'
 
-export class ChoiceKeyFactory<T extends Key, L extends string[]> {
+export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
   constructor(
     readonly keyName: string,
     readonly keyTag: KTag<T>,
@@ -10,7 +11,12 @@ export class ChoiceKeyFactory<T extends Key, L extends string[]> {
     readonly units: Units
   ) {}
 
-  set = (...values: L[number][]) => new Parameter(this.keyName, this.keyTag, values, this.units)
-}
+  set = (...values: L[number][]) => {
+    requirement(
+      values.every((v) => this.choices.includes(v)),
+      `Bad choice for key: ${this.keyName} which must be one of: ${this.choices}`
+    )
 
-export const makeChoices = <L extends string[]>(...args: L) => args
+    return new Parameter(this.keyName, this.keyTag, values, this.units)
+  }
+}
