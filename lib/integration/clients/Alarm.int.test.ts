@@ -1,24 +1,18 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
 import { AlarmKey, AlarmService } from '../../src/clients/alarm'
 import { Done } from '../../src/clients/location'
+import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { Prefix } from '../../src/models'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(30000)
 
-/** Web application name loading is mocked at integration level
- * since the application config does not exist in library and
- * it will be coming at runtime from application source code
- */
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
+  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   // setup location service and gateway
   await startServices(['Gateway'])
 })
@@ -26,6 +20,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
+  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Alarm Client ', () => {

@@ -1,6 +1,5 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
-import { Option } from '../../src'
+import { Option, setAppConfigPath } from '../../src'
 import {
   ConfigData,
   ConfigFileRevision,
@@ -8,24 +7,18 @@ import {
   ConfigMetadata,
   ConfigService
 } from '../../src/clients/config'
-
-import { dynamicImport } from '../../src/utils/DynamicLoader'
+import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 import { delay } from '../utils/eventually'
 
 jest.setTimeout(30000)
 
-/** Web application name loading is mocked at integration level
- * since the application config does not exist in library and
- * it will be coming at runtime from application source code
- */
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
+  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['Config'])
   await delay(5000) // wait for svn repo to initialise
   configService = await ConfigService(() => token)
@@ -34,6 +27,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
+  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 const token = 'valid'

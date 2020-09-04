@@ -1,26 +1,24 @@
 import 'whatwg-fetch'
 import * as D from 'io-ts/lib/Decoder'
-import { mocked } from 'ts-jest/utils'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
+import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM
 
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
-
 const host = 'localhost'
 const port = 1234
 const url = `http://${host}:${port}/post-endpoint`
+const expectedValue = { ok: true, status: 200 }
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
 const makeResponse = <T>(response: T): Response => {
   return new Response(JSON.stringify(response))
 }
 
-const expectedValue = { ok: true, status: 200 }
+beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
+afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
 
 afterEach(() => jest.clearAllMocks())
 
@@ -38,7 +36,7 @@ describe('Http transport', () => {
       headers: new HeaderExt()
         .withContentType('application/json')
         .withAuthorization('validToken')
-        .withHeader('App-Name', 'example')
+        .withHeader('App-Name', 'test-app')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
@@ -53,7 +51,9 @@ describe('Http transport', () => {
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
-      headers: new HeaderExt().withContentType('application/json').withHeader('App-Name', 'example')
+      headers: new HeaderExt()
+        .withContentType('application/json')
+        .withHeader('App-Name', 'test-app')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })

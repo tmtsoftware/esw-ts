@@ -1,28 +1,23 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
 import { AgentService, KillResponse, SpawnResponse } from '../../src/clients/agent-service'
 import { HttpConnection } from '../../src/clients/location'
+import { setAppConfigPath } from '../../src/config'
+import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { Prefix } from '../../src/models'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
 
-/** Web application name loading is mocked at integration level
- * since the application config does not exist in library and
- * it will be coming at runtime from application source code
- */
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
-
 let agentServiceWithValidToken: AgentService
 let agentServiceWithInValidToken: AgentService
 let agentServiceWithoutToken: AgentService
 
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+
 beforeAll(async () => {
   console.error = jest.fn()
+  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'AgentService'])
   const validToken: string = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
   const inValidToken: string = await getToken(
@@ -39,6 +34,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
+  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Agent Service client ', () => {

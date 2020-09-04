@@ -4,7 +4,7 @@ import { Decoder } from './Decoder'
 import { getOrThrow } from './Utils'
 
 const createWebsocket = async (url: string) => {
-  const { applicationName } = await ConfigLoader.load()
+  const { applicationName } = await ConfigLoader.loadAppConfig()
   const urlWithParams = new URL(url)
   urlWithParams.searchParams.set(APP_NAME, applicationName)
   return new WebSocket(urlWithParams.href)

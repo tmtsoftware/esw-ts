@@ -1,6 +1,5 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
-import { Option } from '../../src'
+import { Option, setAppConfigPath } from '../../src'
 import {
   AkkaConnection,
   HttpConnection,
@@ -8,9 +7,9 @@ import {
   LocationService,
   TrackingEvent
 } from '../../src/clients/location'
+import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { authConnection, gatewayConnection } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
@@ -18,14 +17,7 @@ import { publicIPv4Address } from '../utils/networkUtils'
 
 jest.setTimeout(100000)
 
-/** Web application name loading is mocked at integration level
- * since the application config does not exist in library and
- * it will be coming at runtime from application source code
- */
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
-
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 let validToken: string
 let locationServiceWithToken: LocationService
@@ -48,10 +40,12 @@ const httpHcdConnection: HttpConnection = {
   componentType: 'HCD',
   connectionType: 'http'
 }
+
 //TODO handle public location service with Auth
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
+  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   // setup location service and gateway
   await startServices(['AAS', 'Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
@@ -66,6 +60,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
+  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('LocationService', () => {

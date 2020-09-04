@@ -1,21 +1,12 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
-import { Option } from '../../src'
+import { Option, setAppConfigPath } from '../../src'
 import { SequencerService, StepList } from '../../src/clients/sequencer'
+import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(90000)
-
-/** Web application name loading is mocked at integration level
- * since the application config does not exist in library and
- * it will be coming at runtime from application source code
- */
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
 
 const eswTestPrefix = Prefix.fromString('ESW.test')
 const setupCommand = new Setup(eswTestPrefix, 'command', [])
@@ -28,10 +19,13 @@ const startedResponse: SubmitResponse = {
   _type: 'Started',
   runId: '123'
 }
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
+  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'Gateway'])
   validToken = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
   sequencerServiceWithToken = await SequencerService(componentId, () => validToken)
@@ -40,6 +34,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
+  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Sequencer Client', () => {

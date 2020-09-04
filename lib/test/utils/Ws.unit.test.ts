@@ -1,5 +1,6 @@
 import { Server } from 'mock-socket'
 import { delay } from '../../integration/utils/eventually'
+import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { Ws } from '../../src/utils/Ws'
 import { wsMockWithResolved } from '../helpers/MockHelpers'
 
@@ -7,11 +8,12 @@ let mockServer: Server
 const host = 'localhost'
 const port = 8080
 
-jest.mock('../../src/config/ConfigLoader', () => {
-  return { load: () => Promise.resolve({ applicationName: 'example' }) }
-})
-
 const url = `ws://${host}:${port}/websocket-endpoint`
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+
+beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
+afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
+
 beforeEach(() => {
   mockServer = new Server(url)
 })
@@ -28,7 +30,7 @@ describe('Web socket util', () => {
       const expectedData = 'hello'
       const callBack = (data: string) => {
         expect(data).toEqual(expectedData)
-        expect(mockServer.clients()[0].url).toEqual(`${url}?App-Name=example`)
+        expect(mockServer.clients()[0].url).toEqual(`${url}?App-Name=test-app`)
         done()
       }
       wsMockWithResolved(expectedData, mockServer)

@@ -1,5 +1,5 @@
 import { identity } from 'fp-ts/lib/function'
-import * as ConfigLoader from '../config/ConfigLoader'
+import { loadAppConfig } from '../config/ConfigLoader'
 import { APP_NAME } from './Constants'
 import { GenericError } from './GenericError'
 import { HeaderExt } from './HeaderExt'
@@ -50,7 +50,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     const path = fullUrl(url, queryParams)
 
     // headers for metric
-    const { applicationName } = await ConfigLoader.load()
+    const { applicationName } = await loadAppConfig()
 
     headers.append(APP_NAME, applicationName)
 

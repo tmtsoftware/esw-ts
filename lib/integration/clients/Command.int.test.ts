@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
 import { CommandService } from '../../src/clients/command'
+import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import {
   BaseKey,
   ComponentId,
@@ -12,35 +12,29 @@ import {
   Setup,
   SubmitResponse
 } from '../../src/models'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(70000)
 
-/** Web application name loading is mocked at integration level
- * since the application config does not exist in library and
- * it will be coming at runtime from application source code
- */
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
-
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
 const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
 const key: BaseKey<Key> = new BaseKey('prime numbers', 'IntKey', 'NoUnits')
-
 const keyParameter: Parameter<Key> = key.set([1, 2, 3])
+
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
+  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'Gateway'])
 })
 
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
+  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Command Client', () => {

@@ -1,21 +1,20 @@
 import 'whatwg-fetch'
-import { mocked } from 'ts-jest/utils'
-import { dynamicImport } from '../../src/utils/DynamicLoader'
+import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
 
-jest.mock('../../src/utils/DynamicLoader')
-const mockImport = mocked(dynamicImport)
-mockImport.mockResolvedValue({ AppConfig: { applicationName: 'example' } })
-
 const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
+
 const host = 'localhost'
 const port = 1234
 const url = `http://${host}:${port}/`
-
 const jsonResHeaders = new HeaderExt().withContentType('application/json')
 const textResHeaders = new HeaderExt().withContentType('application/text')
+const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+
+beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
+afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
 
 describe('Http util', () => {
   test('Post should throw generic error exception if there is an internal service error | ESW-321', async () => {
@@ -82,7 +81,7 @@ describe('Http util', () => {
     expect(fetchMockFn.mock.calls[0][fetchArgument].headers).toEqual(
       new HeaderExt({
         'Content-Type': 'application/json',
-        'App-Name': 'example'
+        'App-Name': 'test-app'
       })
     )
   })
@@ -123,7 +122,7 @@ const makeRequest = (request: string) => ({
   method: 'POST',
   headers: new HeaderExt({
     'Content-Type': 'application/json',
-    'App-Name': 'example'
+    'App-Name': 'test-app'
   }),
   body: JSON.stringify(request)
 })

@@ -1,12 +1,8 @@
-import { dynamicImport } from '../utils/DynamicLoader'
-import { AppConfig, AppConfigModule } from './ApplicationConfig'
+import type { AppConfig, AppConfigModule } from '../utils/types'
+import { APP_CONFIG_PATH } from './AppConfigPath'
 
-export const load = async (): Promise<AppConfig> => {
-  const path = '/_dist_/config/AppConfig.js'
-
-  const module = <AppConfigModule>await dynamicImport(path).catch(() => {
-    throw new Error(`App Config not found at '${path}'`)
-  })
+export const loadAppConfig = async (path: string = APP_CONFIG_PATH): Promise<AppConfig> => {
+  const module = <AppConfigModule>await import(path)
 
   if (module.AppConfig && module.AppConfig.applicationName) {
     return module.AppConfig
