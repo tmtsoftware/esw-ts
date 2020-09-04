@@ -172,7 +172,7 @@ describe('Command Client', () => {
 
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
-    const actualResponse = await commandService.submitAndWait(setupCommand)
+    const actualResponse = await commandService.submitAndWait(setupCommand, 5)
     expect(actualResponse._type).toEqual('Completed')
   })
 

@@ -30,6 +30,8 @@ const appLauncher = (name: string, version = 'master-SNAPSHOT') =>
 const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
   executeScriptSync(appsLauncherScript, name, version)
 
+// Put SHA of 10 characters to make it consistent with Git api for latest SHA
+// This consistency avoids multiple jitpack triggers for same commit
 const csw_sha = 'f35eeb81f3' //todo: should version be current master?
 const esw_sha = '69140071d0'
 

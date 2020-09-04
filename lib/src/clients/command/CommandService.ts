@@ -21,7 +21,7 @@ export interface CommandService {
     stateNames: Set<string>
   ): (onStateChange: (state: M.CurrentState) => void) => Subscription
 
-  submitAndWait(command: M.ControlCommand): Promise<M.SubmitResponse>
+  submitAndWait(command: M.ControlCommand, timeoutInSeconds: number): Promise<M.SubmitResponse>
 }
 
 export const CommandService = async (

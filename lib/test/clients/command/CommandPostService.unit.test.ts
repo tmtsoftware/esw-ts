@@ -71,7 +71,7 @@ describe('CommandService', () => {
     const assembly = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
       mockWsTransport(jest.fn(), mockSingleResponse)
     )
-    const response = await assembly.submitAndWait(setupCommand)
+    const response = await assembly.submitAndWait(setupCommand, 10)
 
     expect(response).toEqual(mockQueryFinalResponse)
     expect(requestRes).toBeCalledWith(
@@ -79,7 +79,7 @@ describe('CommandService', () => {
       M.SubmitResponseD
     )
     expect(mockSingleResponse).toBeCalledWith(
-      new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 5)),
+      new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 10)),
       SubmitResponseD
     )
   })
@@ -97,7 +97,7 @@ describe('CommandService', () => {
       mockWsTransport(jest.fn(), mockSingleResponse)
     )
 
-    const response = await assembly.submitAndWait(setupCommand)
+    const response = await assembly.submitAndWait(setupCommand, 10)
 
     expect(response).toEqual(mockResponse)
     expect(requestRes).toBeCalledWith(

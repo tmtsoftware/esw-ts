@@ -75,10 +75,13 @@ export class CommandServiceImpl implements CommandService {
     )
   }
 
-  async submitAndWait(command: M.ControlCommand): Promise<SubmitResponse> {
+  async submitAndWait(
+    command: M.ControlCommand,
+    timeoutInSeconds: number
+  ): Promise<SubmitResponse> {
     const submitResponse = await this.submit(command)
     if (submitResponse._type === 'Started') {
-      return this.queryFinal(submitResponse.runId, 5)
+      return this.queryFinal(submitResponse.runId, timeoutInSeconds)
     } else return Promise.resolve(submitResponse)
   }
 }
