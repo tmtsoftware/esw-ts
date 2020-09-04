@@ -100,6 +100,14 @@ export const OnewayResponseD = D.sum('_type')({
 
 // ######################################################
 
+export type Completed = D.TypeOf<typeof CompletedD>
+export type Started = D.TypeOf<typeof StartedD>
+export type Accepted = D.TypeOf<typeof AcceptedD>
+export type Error = D.TypeOf<typeof ErrorD>
+export type Invalid = D.TypeOf<typeof InvalidD>
+export type Cancelled = D.TypeOf<typeof CancelledD>
+export type Locked = D.TypeOf<typeof LockedD>
+
 export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
 export type ErrorResponse = D.TypeOf<typeof ErrorD>
 export type InvalidResponse = D.TypeOf<typeof InvalidD>

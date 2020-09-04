@@ -3,9 +3,12 @@ import { CommandService } from '../../src/clients/command'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import {
   BaseKey,
+  Completed,
   CompletedL,
   ComponentId,
   CurrentState,
+  intArrayKey,
+  intKey,
   Key,
   Parameter,
   Prefix,
@@ -24,6 +27,10 @@ const componentId = new ComponentId(hcdPrefix, 'HCD')
 const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
 const key: BaseKey<Key> = new BaseKey('prime numbers', 'IntKey', 'NoUnits')
 const keyParameter: Parameter<Key> = key.set([1, 2, 3])
+const intArrayParam = intArrayKey('array_key').set([
+  [1, 2],
+  [3, 4]
+])
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
@@ -90,7 +97,7 @@ describe('Command Client', () => {
     })
   })
 
-  test('should be able to submit the given command | ESW-343, ESW-305, ESW-99', async () => {
+  test('should be able to submit the given command | ESW-343, ESW-305, ESW-99, ESW-380', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -99,7 +106,7 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1').add(keyParameter)
     const actualResponse = await commandService.submit(setupCommand)
     expect(actualResponse._type).toEqual('Started')
   })
@@ -119,7 +126,7 @@ describe('Command Client', () => {
     expect(actualResponse[0]._type).toEqual(CompletedL)
   })
 
-  test('should be able to send the validate command | ESW-343, ESW-305, ESW-99', async () => {
+  test('should be able to send the validate command | ESW-343, ESW-305, ESW-99, ESW-380', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -128,7 +135,7 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1').madd([keyParameter, intArrayParam])
     const actualResponse = await commandService.validate(setupCommand)
     expect(actualResponse._type).toEqual('Accepted')
   })
@@ -150,7 +157,7 @@ describe('Command Client', () => {
     expect(queryRes._type).toEqual('Started')
   })
 
-  test('should be able to query the final response for the given runId | ESW-343, ESW-305', async () => {
+  test('should be able to query the final response for the given runId | ESW-343, ESW-305, ESW-380', async () => {
     const validToken: string = await getToken(
       'tmt-frontend-app',
       'gateway-user1',
@@ -167,9 +174,13 @@ describe('Command Client', () => {
     const expectedRes: SubmitResponse = {
       _type: 'Completed',
       runId: submitRes.runId,
-      result: new Result()
+      result: new Result().add(intKey('numbers').set([1, 2, 3]))
     }
     expect(queryRes).toEqual(expectedRes)
+
+    expect((queryRes as Completed).result.get(intKey('numbers'))).toEqual(
+      intKey('numbers').set([1, 2, 3])
+    )
   })
 
   test('should be able to submit and wait for final result of the given command | ESW-344', async () => {
