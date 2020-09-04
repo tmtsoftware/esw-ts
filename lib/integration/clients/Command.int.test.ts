@@ -162,6 +162,20 @@ describe('Command Client', () => {
     expect(queryRes).toEqual(expectedRes)
   })
 
+  test('should be able to submit and wait for final result of the given command | ESW-344', async () => {
+    const validToken: string = await getToken(
+      'tmt-frontend-app',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT'
+    )
+
+    const commandService = await CommandService(componentId, () => validToken)
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const actualResponse = await commandService.submitAndWait(setupCommand)
+    expect(actualResponse._type).toEqual('Completed')
+  })
+
   test('should be able to subscribe to the current state | ESW-343, ESW-305', () => {
     return new Promise(async (done) => {
       const commandService = await CommandService(componentId, () => undefined)
