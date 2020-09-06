@@ -1,9 +1,22 @@
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import * as Req from '../../../src/clients/command/models/PostCommand'
+import { Submit } from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as M from '../../../src/models'
-import { ComponentId, Observe, Prefix, Result, Setup, SubmitResponseD } from '../../../src/models'
+import {
+  CompletedL,
+  CompletedResponse,
+  ComponentId,
+  LockedL,
+  LockedResponse,
+  Observe,
+  Prefix,
+  Result,
+  Setup,
+  SubmitResponse,
+  SubmitResponseD
+} from '../../../src/models'
 import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
@@ -106,6 +119,89 @@ describe('CommandService', () => {
     )
     // assert that query final is not needed as submit itself returns completed response (NOT started response)
     expect(mockSingleResponse).toBeCalledTimes(0)
+  })
+
+  test('should submit all commands and wait for final response | ESW-344', async () => {
+    const setupCommand1 = new Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const setupCommand2 = new Setup(eswTestPrefix, 'c2', [], ['obsId'])
+    const mockSubmitResponse = { _type: 'Started', runId: '123' }
+    const mockQueryFinalResponse = {
+      _type: 'Completed',
+      runId: '123',
+      result: new Result()
+    }
+
+    requestRes.mockResolvedValue(mockSubmitResponse)
+    const mockSingleResponse: jest.Mock = jest.fn().mockResolvedValue(mockQueryFinalResponse)
+    const assembly = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
+      mockWsTransport(jest.fn(), mockSingleResponse)
+    )
+    const response = await assembly.submitAllAndWait([setupCommand1, setupCommand2], 10)
+
+    expect(response).toEqual([mockQueryFinalResponse, mockQueryFinalResponse])
+    expect(requestRes).toBeCalledWith(
+      new GatewayComponentCommand(compId, new Req.Submit(setupCommand1)),
+      M.SubmitResponseD
+    )
+    expect(requestRes).toBeCalledWith(
+      new GatewayComponentCommand(compId, new Req.Submit(setupCommand2)),
+      M.SubmitResponseD
+    )
+    expect(mockSingleResponse).toBeCalledWith(
+      new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 10)),
+      SubmitResponseD
+    )
+    expect(requestRes).toBeCalledTimes(2)
+    expect(mockSingleResponse).toBeCalledTimes(2)
+  })
+
+  test('should submit commands till each command response is Non negative | ESW-344', async () => {
+    const setupCommand1 = new Setup(eswTestPrefix, 'c1', [], ['obsId1'])
+    const setupCommand2 = new Setup(eswTestPrefix, 'c2', [], ['obsId2'])
+    const setupCommand3 = new Setup(eswTestPrefix, 'c3', [], ['obsId3'])
+    const completedResponse = (runId: string): CompletedResponse => ({
+      _type: CompletedL,
+      runId: runId,
+      result: new Result()
+    })
+
+    const lockedResponse: LockedResponse = {
+      _type: LockedL,
+      runId: '567'
+    }
+    const expectedResponse: SubmitResponse[] = [completedResponse('c1')]
+
+    requestRes.mockImplementation((gatewayComponentCommand: GatewayComponentCommand<Submit>) => {
+      let response: SubmitResponse
+      switch (gatewayComponentCommand.command.controlCommand.commandName) {
+        case 'c1':
+          response = completedResponse('c1')
+          break
+        case 'c2':
+          response = lockedResponse
+          break
+        case 'c3':
+          throw 'command c3 should not be submitted as c2 command response is negative command response'
+        default:
+          response = completedResponse('random')
+      }
+      return Promise.resolve(response)
+    })
+    const assembly = new CommandServiceImpl(compId, mockHttpTransport(requestRes), () =>
+      mockWsTransport()
+    )
+
+    const response = await assembly.submitAllAndWait(
+      [setupCommand1, setupCommand2, setupCommand3],
+      10
+    )
+
+    expect(requestRes).toBeCalledWith(
+      new GatewayComponentCommand(compId, new Req.Submit(setupCommand1)),
+      M.SubmitResponseD
+    )
+    expect(requestRes).toBeCalledTimes(2)
+    expect(response).toEqual(expectedResponse)
   })
 })
 

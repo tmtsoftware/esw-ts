@@ -1,5 +1,5 @@
 import * as M from '../../models'
-import { SubmitResponse } from '../../models'
+import { isNegative, SubmitResponse } from '../../models'
 import { Decoder } from '../../utils/Decoder'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
@@ -78,10 +78,24 @@ export class CommandServiceImpl implements CommandService {
   async submitAndWait(
     command: M.ControlCommand,
     timeoutInSeconds: number
-  ): Promise<SubmitResponse> {
+  ): Promise<M.SubmitResponse> {
     const submitResponse = await this.submit(command)
     if (submitResponse._type === 'Started') {
       return this.queryFinal(submitResponse.runId, timeoutInSeconds)
     } else return Promise.resolve(submitResponse)
+  }
+
+  async submitAllAndWait(
+    commands: M.ControlCommand[],
+    timeoutInSeconds: number
+  ): Promise<M.SubmitResponse[]> {
+    const responses: M.SubmitResponse[] = []
+    let latestResponse: M.SubmitResponse
+    for (const command of commands) {
+      latestResponse = await this.submitAndWait(command, timeoutInSeconds)
+      if (isNegative(latestResponse)) break
+      else responses.push(latestResponse)
+    }
+    return Promise.resolve(responses)
   }
 }

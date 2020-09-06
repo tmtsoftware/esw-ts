@@ -25,12 +25,12 @@ export const IssueTypesD = ciLiteral(
   'WrongUnitsIssue'
 )
 
-const ErrorL = 'Error'
-const InvalidL = 'Invalid'
-const CompletedL = 'Completed'
-const LockedL = 'Locked'
-const StartedL = 'Started'
-const CancelledL = 'Cancelled'
+export const ErrorL = 'Error'
+export const InvalidL = 'Invalid'
+export const CompletedL = 'Completed'
+export const LockedL = 'Locked'
+export const StartedL = 'Started'
+export const CancelledL = 'Cancelled'
 const AcceptedL = 'Accepted'
 
 export const CommandIssueD = D.type({
@@ -101,6 +101,17 @@ export const OnewayResponseD = D.sum('_type')({
 // ######################################################
 
 export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
+export type ErrorResponse = D.TypeOf<typeof ErrorD>
+export type InvalidResponse = D.TypeOf<typeof InvalidD>
+export type LockedResponse = D.TypeOf<typeof LockedD>
+export type StartedResponse = D.TypeOf<typeof StartedD>
+export type CompletedResponse = D.TypeOf<typeof CompletedD>
+export type CancelledResponse = D.TypeOf<typeof CancelledD>
 export type CommandResponse = D.TypeOf<typeof CommandResponseD>
 export type ValidateResponse = D.TypeOf<typeof ValidateResponseD>
 export type OnewayResponse = D.TypeOf<typeof OnewayResponseD>
+
+const isPositive = (response: SubmitResponse) => response._type === CompletedL
+const isIntermediate = (response: SubmitResponse) => response._type === StartedL
+export const isNegative = (response: SubmitResponse) =>
+  !(isPositive(response) || isIntermediate(response))

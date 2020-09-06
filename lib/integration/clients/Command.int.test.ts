@@ -3,6 +3,7 @@ import { CommandService } from '../../src/clients/command'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import {
   BaseKey,
+  CompletedL,
   ComponentId,
   CurrentState,
   Key,
@@ -101,6 +102,21 @@ describe('Command Client', () => {
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
     const actualResponse = await commandService.submit(setupCommand)
     expect(actualResponse._type).toEqual('Started')
+  })
+
+  test('should be able to submitAll the given commands | ESW-344', async () => {
+    const validToken: string = await getToken(
+      'tmt-frontend-app',
+      'gateway-user1',
+      'gateway-user1',
+      'TMT'
+    )
+
+    const commandService = await CommandService(componentId, () => validToken)
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const actualResponse = await commandService.submitAllAndWait([setupCommand], 10)
+    expect(actualResponse.length).toEqual(1)
+    expect(actualResponse[0]._type).toEqual(CompletedL)
   })
 
   test('should be able to send the validate command | ESW-343, ESW-305, ESW-99', async () => {
