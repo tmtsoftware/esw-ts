@@ -18,11 +18,11 @@ afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
 
 describe('Http util', () => {
   test('Post should throw generic error exception if there is an internal service error | ESW-321', async () => {
-    const invalidComponent = JSON.stringify({
+    const invalidComponent = {
       _type: 'InvalidComponent',
       msg: 'testHcd.hcd not found'
-    })
-    const internalError = new Response(invalidComponent, {
+    }
+    const internalError = new Response(JSON.stringify(invalidComponent), {
       status: 500,
       statusText: 'Internal Server Error',
       headers: jsonResHeaders
@@ -34,7 +34,7 @@ describe('Http util', () => {
     expect.assertions(5)
     await post({ url, payload }).catch((e) => {
       expect(e.errorType).toBe('InvalidComponent')
-      expect(e.message).toEqual('|msg: testHcd.hcd not found')
+      expect(e.message).toEqual(invalidComponent)
       expect(e.status).toBe(500)
       expect(e.statusText).toBe('Internal Server Error')
     })
@@ -43,7 +43,7 @@ describe('Http util', () => {
   })
 
   test.each([
-    ['json', '{}', jsonResHeaders, ''],
+    ['json', '{}', jsonResHeaders, {}],
     ['text', 'error', textResHeaders, 'error']
   ])(
     'Post call throws error for %s error response | ESW-321',

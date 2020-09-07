@@ -7,4 +7,14 @@ export class GenericError extends Error {
   ) {
     super(message)
   }
+
+  static make(status: number, statusText: string, responseBody: any): GenericError {
+    const errorType: string =
+      status == 500
+        ? responseBody._type
+          ? responseBody._type
+          : responseBody.errorName
+        : 'TransportError'
+    return new GenericError(errorType, responseBody, status, statusText)
+  }
 }

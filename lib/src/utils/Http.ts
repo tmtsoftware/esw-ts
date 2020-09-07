@@ -76,32 +76,12 @@ const defaultResponseMapper = (response: Response) => {
   }
 }
 
-const errorTypeAndMessage = (status: number, error: any) => {
-  let message: string = error
-  const errorType: string =
-    status == 500 ? (error._type ? error._type : error.errorName) : 'TransportError'
-
-  if (typeof error === 'object') {
-    message = Object.entries(error)
-      .map(([k, v]) => {
-        if (k === '_type') return ''
-        return `|${k}: ${v}`
-      })
-      .join('\n')
-      .trim()
-  }
-  return { errorType, message }
-}
-
 const handleErrors = async <Res>(
   res: Response,
   responseMapper: (res: Response) => Promise<Res>
 ): Promise<Res> => {
   const responseBody = await responseMapper(res)
-  if (!res.ok) {
-    const { errorType, message } = errorTypeAndMessage(res.status, responseBody)
-    throw new GenericError(errorType, message, res.status, res.statusText)
-  }
+  if (!res.ok) throw GenericError.make(res.status, res.statusText, responseBody)
   return responseBody
 }
 
