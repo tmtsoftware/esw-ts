@@ -13,7 +13,7 @@ export class GenericError extends Error {
       status == 500
         ? responseBody._type
           ? responseBody._type
-          : responseBody.errorName
+          : responseBody.error_name
         : 'TransportError'
     return new GenericError(errorType, responseBody, status, statusText)
   }
