@@ -279,7 +279,7 @@ describe('SequencerService', () => {
     )
   })
 
-  test('should get started response on submitAndWait when sequencer is started | ESW-307 , ESW-344, ESW-380', async () => {
+  test('should get started response on submitAndWait when sequencer is started | ESW-307 , ESW-344', async () => {
     const mockSubmitResponse = { _type: 'Started', runId: '123' }
     const mockQueryFinalResponse = {
       _type: 'Completed',

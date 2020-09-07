@@ -31,11 +31,11 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   }
 
   remove<S extends Key>(key: BaseKey<S>): T {
-    return this.removeByKeyName(this, key.keyName)
+    return this.create(this.removeByKeyName(this.paramSet, key.keyName))
   }
 
   private doAdd<P extends Parameter<Key>>(c: ParameterSetType<T>, parameter: P): T {
-    return this.create(this.removeByKeyName(c, parameter.keyName).paramSet.concat(parameter))
+    return this.create(this.removeByKeyName(c.paramSet, parameter.keyName).concat(parameter))
   }
 
   private getByKeyName<P>(parametersIn: Parameter<Key>[], keyName: string): Option<P> {
@@ -46,8 +46,8 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
     return paramSet.filter((p) => p !== param)
   }
 
-  private removeByKeyName<P extends Parameter<Key>>(c: ParameterSetType<T>, keyName: string): T {
-    const f: Option<P> = this.getByKeyName(c.paramSet, keyName)
-    return f ? this.create(this.removeParam(c.paramSet, f)) : (c as T)
+  private removeByKeyName(paramSet: Parameter<Key>[], keyName: string): Parameter<Key>[] {
+    const maybeParameter: Option<Parameter<Key>> = this.getByKeyName(paramSet, keyName)
+    return maybeParameter ? this.removeParam(paramSet, maybeParameter) : paramSet
   }
 }
