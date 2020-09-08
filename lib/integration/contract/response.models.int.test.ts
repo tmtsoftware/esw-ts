@@ -75,7 +75,7 @@ describe('models contract test', () => {
     verifyContract(sequencerModelsJsonPath, sequencerDecoders)
   })
 
-  test('should test Sequencer models | ESW-356', () => {
+  test('should test Sequence Manager models | ESW-356', () => {
     verifyContract(sequenceManagerModelsJsonPath, sequenceManagerDecoders)
   })
 
