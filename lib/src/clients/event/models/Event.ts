@@ -13,11 +13,11 @@ type EventTypes = typeof ObserveEventL | typeof SystemEventL
 export class ObserveEvent extends ParameterSetType<ObserveEvent> {
   readonly _type = ObserveEventL
 
-  constructor(
+  private constructor(
     readonly source: Prefix,
     readonly eventName: EventName,
     readonly paramSet: Parameter<Key>[] = [],
-    readonly eventId: string = uuidv4(),
+    readonly eventId: string =  uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {
     super()
@@ -27,15 +27,19 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
     return new ObserveEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
   }
 
-  static apply(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
     return new ObserveEvent(source, eventName, paramSet)
+  }
+
+  static _makeForTestingOnly(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[], eventId: string, eventTime: string) {
+    return new ObserveEvent(source, eventName, paramSet, eventId, eventTime)
   }
 }
 
 export class SystemEvent extends ParameterSetType<SystemEvent> {
   readonly _type = SystemEventL
 
-  constructor(
+  private constructor(
     readonly source: Prefix,
     readonly eventName: EventName,
     readonly paramSet: Parameter<Key>[] = [],
@@ -48,6 +52,15 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
   create(data: Parameter<Key>[]): SystemEvent {
     return new SystemEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
   }
+
+  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+    return new SystemEvent(source, eventName, paramSet)
+  }
+
+  static _makeForTestingOnly(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[], eventId: string, eventTime: string) {
+    return new SystemEvent(source, eventName, paramSet, eventId, eventTime)
+  }
+
 }
 
 export type Event = ObserveEvent | SystemEvent
@@ -62,7 +75,7 @@ interface EventI {
   paramSet: Parameter<Key>[]
 }
 
-type EventFactory = new (
+type EventFactory = (
   source: Prefix,
   eventName: EventName,
   paramSet: Parameter<Key>[],
@@ -82,7 +95,7 @@ const mkEventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
     }),
     D.parse((eventData: EventI) =>
       D.success(
-        new apply(
+        apply(
           eventData.source,
           eventData.eventName,
           eventData.paramSet,
@@ -94,8 +107,8 @@ const mkEventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
   )
 
 export const EventD = D.sum('_type')({
-  [ObserveEventL]: mkEventD(ObserveEventL, ObserveEvent),
-  [SystemEventL]: mkEventD(SystemEventL, SystemEvent)
+  [ObserveEventL]: mkEventD(ObserveEventL, ObserveEvent._makeForTestingOnly),
+  [SystemEventL]: mkEventD(SystemEventL, SystemEvent._makeForTestingOnly)
 })
 
 // ######################################################
