@@ -13,7 +13,7 @@ describe('Event Service', () => {
   test('should publish system event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
     const eventName = new EventName('offline')
-    const systemEvent = new SystemEvent(prefix, eventName, [])
+    const systemEvent = SystemEvent.apply(prefix, eventName, [])
     const response = await client.publish(systemEvent)
 
     expect(response).toEqual(mockResponse)
@@ -23,7 +23,7 @@ describe('Event Service', () => {
   test('should publish observe event using post | ESW-318', async () => {
     const prefix = new Prefix('ESW', 'eventComp')
     const eventName = new EventName('offline')
-    const observeEvent = new ObserveEvent(prefix, eventName, [])
+    const observeEvent = ObserveEvent.apply(prefix, eventName, [])
     const response = await client.publish(observeEvent)
 
     expect(response).toEqual(mockResponse)

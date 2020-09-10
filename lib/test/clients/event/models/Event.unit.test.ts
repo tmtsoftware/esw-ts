@@ -11,32 +11,36 @@ const hcdPrefix = new Prefix('IRIS', 'testHcd')
 
 describe('ObserveEvent', () => {
   test('create | ESW-380', () => {
-    const observeEvent = new ObserveEvent(hcdPrefix, new EventName('Event-1'), [intParam])
+    const observeEvent = ObserveEvent.apply(hcdPrefix, new EventName('Event-1'), [intParam])
 
-    const expected = new ObserveEvent(
-      hcdPrefix,
-      new EventName('Event-1'),
-      [stringParam, intArrayParam],
-      observeEvent.eventId,
-      observeEvent.eventTime
-    )
+    const expected = {
+      _type: 'ObserveEvent',
+      source: hcdPrefix,
+      eventName: new EventName('Event-1'),
+      paramSet: [stringParam, intArrayParam],
+      eventId: observeEvent.eventId,
+      eventTime: observeEvent.eventTime
+    }
 
-    expect(observeEvent.create([stringParam, intArrayParam])).toEqual(expected)
+    const newObserveEvent: ObserveEvent = observeEvent.create([stringParam, intArrayParam])
+    expect(newObserveEvent).toEqual(expected)
   })
 })
 
 describe('SystemEvent', () => {
   test('create | ESW-380', () => {
-    const systemEvent = new SystemEvent(hcdPrefix, new EventName('Event-1'), [intParam])
+    const systemEvent = SystemEvent.apply(hcdPrefix, new EventName('Event-1'), [intParam])
 
-    const expected = new SystemEvent(
-      hcdPrefix,
-      new EventName('Event-1'),
-      [intParam, stringParam, intArrayParam],
-      systemEvent.eventId,
-      systemEvent.eventTime
-    )
+    const expected = {
+      _type: 'SystemEvent',
+      source: hcdPrefix,
+      eventName: new EventName('Event-1'),
+      paramSet: [intParam, stringParam, intArrayParam],
+      eventId: systemEvent.eventId,
+      eventTime: systemEvent.eventTime
+    }
 
-    expect(systemEvent.create([intParam, stringParam, intArrayParam])).toEqual(expected)
+    const newSystemEvent: SystemEvent = systemEvent.create([intParam, stringParam, intArrayParam])
+    expect(newSystemEvent).toEqual(expected)
   })
 })
