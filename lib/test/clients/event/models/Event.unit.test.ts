@@ -11,7 +11,7 @@ const hcdPrefix = new Prefix('IRIS', 'testHcd')
 
 describe('ObserveEvent', () => {
   test('create | ESW-380', () => {
-    const observeEvent = ObserveEvent.apply(hcdPrefix, new EventName('Event-1'), [intParam])
+    const observeEvent = ObserveEvent.make(hcdPrefix, new EventName('Event-1'), [intParam])
 
     const expected = {
       _type: 'ObserveEvent',
@@ -29,7 +29,7 @@ describe('ObserveEvent', () => {
 
 describe('SystemEvent', () => {
   test('create | ESW-380', () => {
-    const systemEvent = SystemEvent.apply(hcdPrefix, new EventName('Event-1'), [intParam])
+    const systemEvent = SystemEvent.make(hcdPrefix, new EventName('Event-1'), [intParam])
 
     const expected = {
       _type: 'SystemEvent',

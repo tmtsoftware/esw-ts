@@ -38,7 +38,7 @@ describe('Event Client', () => {
     const prefix = new Prefix('ESW', 'ncc.trombone1')
     const eventName = new EventName('offline')
     const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
-    const systemEvent = SystemEvent.apply(prefix, eventName, [])
+    const systemEvent = SystemEvent.make(prefix, eventName, [])
     const done = await eventService.publish(systemEvent)
 
     const expected: Done = 'Done'
@@ -53,7 +53,7 @@ describe('Event Client', () => {
       const prefix = new Prefix('ESW', 'ncc.trombone2')
       const eventName = new EventName('offline')
       const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
-      const observeEvent = ObserveEvent.apply(prefix, eventName, [])
+      const observeEvent = ObserveEvent.make(prefix, eventName, [])
       expect.assertions(1)
 
       const callback = (event: Event) => {
@@ -72,7 +72,7 @@ describe('Event Client', () => {
       const prefix = new Prefix('CSW', 'ncc.trombone')
       const eventName = new EventName('offline')
       const subsystem: Subsystem = 'CSW'
-      const observeEvent = ObserveEvent.apply(prefix, eventName, [])
+      const observeEvent = ObserveEvent.make(prefix, eventName, [])
       expect.assertions(1)
 
       const callback = (event: Event) => {

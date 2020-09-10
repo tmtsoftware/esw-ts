@@ -3,15 +3,15 @@ import * as D from 'io-ts/lib/Decoder'
 import { v4 as uuidv4 } from 'uuid'
 import { Key, Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
 import { ParameterSetType } from '../../../models/params/ParameterSetType'
-import { ciLiteral, Decoder } from '../../../utils/Decoder'
+import { ciLiteral, Decoder } from './../../../utils/Decoder'
 import { EventName, EventNameD } from './EventName'
 
 const ObserveEventL = 'ObserveEvent'
 const SystemEventL = 'SystemEvent'
-type EventTypes = typeof ObserveEventL | typeof SystemEventL
+type EventType = typeof ObserveEventL | typeof SystemEventL
 
 interface EventI {
-  _type: EventTypes
+  _type: EventType
   eventId: string
   source: Prefix
   eventName: EventName
@@ -36,17 +36,14 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
     return new ObserveEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
   }
 
-  static apply(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
     return new ObserveEvent(source, eventName, paramSet)
   }
 
-  static decode(data: EventI): ObserveEvent {
-    return new ObserveEvent(
-      data.source,
-      data.eventName,
-      data.paramSet,
-      data.eventId,
-      data.eventTime
+  static decoder(): Decoder<ObserveEvent> {
+    return mkEventD(
+      ObserveEventL,
+      (e) => new ObserveEvent(e.source, e.eventName, e.paramSet, e.eventId, e.eventTime)
     )
   }
 }
@@ -68,12 +65,15 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
     return new SystemEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
   }
 
-  static apply(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
     return new SystemEvent(source, eventName, paramSet)
   }
 
-  static decode(data: EventI): SystemEvent {
-    return new SystemEvent(data.source, data.eventName, data.paramSet, data.eventId, data.eventTime)
+  static decoder(): Decoder<SystemEvent> {
+    return mkEventD(
+      SystemEventL,
+      (e) => new SystemEvent(e.source, e.eventName, e.paramSet, e.eventId, e.eventTime)
+    )
   }
 }
 
@@ -81,9 +81,7 @@ export type Event = ObserveEvent | SystemEvent
 
 // ##################### Decoders #####################
 
-type EventFactory = (data: EventI) => Event
-
-const mkEventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
+const mkEventD = <T extends Event>(_type: EventType, factory: (e: EventI) => T) =>
   pipe(
     D.type({
       _type: ciLiteral(_type),
@@ -93,12 +91,12 @@ const mkEventD = (_type: EventTypes, apply: EventFactory): Decoder<Event> =>
       eventTime: D.string,
       paramSet: D.array(ParameterD)
     }),
-    D.parse((eventData) => D.success(apply(eventData)))
+    D.parse((e) => D.success(factory(e)))
   )
 
-export const EventD = D.sum('_type')({
-  [ObserveEventL]: mkEventD(ObserveEventL, ObserveEvent.decode),
-  [SystemEventL]: mkEventD(SystemEventL, SystemEvent.decode)
+export const EventD: Decoder<Event> = D.sum('_type')({
+  [ObserveEventL]: ObserveEvent.decoder(),
+  [SystemEventL]: SystemEvent.decoder()
 })
 
 // ######################################################
