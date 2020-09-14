@@ -4,34 +4,39 @@ import {
   ProvisionConfig
 } from '../../../src/clients/sequence-manager'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
-import {
-  AgentStatusResponseD,
-  ConfigureResponseD,
-  GetRunningObsModesResponseD,
-  ProvisionResponseD,
-  RestartSequencerResponseD,
-  ShutdownSequencersAndSeqCompResponseD,
-  StartSequencerResponseD
-} from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
+import * as Res from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
-import { Prefix, Subsystem } from '../../../src/models'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { ComponentId, Prefix, Subsystem } from '../../../src/models'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { mockClass, MockOf, verify } from '../../helpers/JestMockHelpers'
 
-const mockResponse = Math.random().toString()
-const requestRes: jest.Mock = jest.fn().mockReturnValue(Promise.resolve(mockResponse))
-const sequenceManager = new SequenceManagerImpl(mockHttpTransport(requestRes))
+const httpTransport: MockOf<HttpTransport<Req.SequenceManagerPostRequest>> = mockClass(
+  HttpTransport
+)
+const sequenceManager = new SequenceManagerImpl(httpTransport)
+
 const obsMode = new ObsMode('darknight')
 const subsystem: Subsystem = 'ESW'
 const prefix: Prefix = new Prefix('ESW', 'sequencer1')
+const masterSequencerComponentId = new ComponentId(prefix, 'Sequencer')
 
 describe('Sequence manager', function () {
   test('should call configure | ESW-365', async () => {
     const obsMode = new ObsMode('darknight')
 
+    const expectedConfigureResponse: Res.ConfigureResponse = {
+      _type: 'Success',
+      masterSequencerComponentId
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedConfigureResponse)
     const response = await sequenceManager.configure(obsMode)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(new Req.Configure(obsMode), ConfigureResponseD)
+    expect(response).toEqual(expectedConfigureResponse)
+    verify(httpTransport.requestRes).toBeCalledWith(
+      new Req.Configure(obsMode),
+      Res.ConfigureResponseD
+    )
   })
 
   test('should call provision | ESW-365', async () => {
@@ -39,104 +44,186 @@ describe('Sequence manager', function () {
     const agentProvisionConfig = new AgentProvisionConfig(eswAgentPrefix, 2)
     const provisionConfig = new ProvisionConfig([agentProvisionConfig])
 
+    const expectedProvisionRes: Res.ProvisionResponse = { _type: 'Success' }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedProvisionRes)
     const response = await sequenceManager.provision(provisionConfig)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(new Req.Provision(provisionConfig), ProvisionResponseD)
+    expect(response).toEqual(expectedProvisionRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
+      new Req.Provision(provisionConfig),
+      Res.ProvisionResponseD
+    )
   })
 
   test('should call getRunningObsMode | ESW-365', async () => {
+    const expectedRes: Res.GetRunningObsModesResponse = {
+      _type: 'Success',
+      runningObsModes: [new ObsMode('moonnight')]
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.getRunningObsModes()
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(new Req.GetRunningObsModes(), GetRunningObsModesResponseD)
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
+      new Req.GetRunningObsModes(),
+      Res.GetRunningObsModesResponseD
+    )
   })
 
   test('should call start sequencer | ESW-365', async () => {
+    const expectedRes: Res.StartSequencerResponse = {
+      _type: 'Started',
+      componentId: masterSequencerComponentId
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.startSequencer(subsystem, obsMode)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.StartSequencer(subsystem, obsMode),
-      StartSequencerResponseD
+      Res.StartSequencerResponseD
     )
   })
 
   test('should call restart sequencer | ESW-365', async () => {
+    const expectedRes: Res.RestartSequencerResponse = {
+      _type: 'Success',
+      componentId: masterSequencerComponentId
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.restartSequencer(subsystem, obsMode)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.RestartSequencer(subsystem, obsMode),
-      RestartSequencerResponseD
+      Res.RestartSequencerResponseD
     )
   })
 
   test('should call shutdown sequencer | ESW-365', async () => {
+    const expectedRes: Res.ShutdownSequencersResponse = {
+      _type: 'Success'
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.shutdownSequencer(subsystem, obsMode)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSequencer(subsystem, obsMode),
-      ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersAndSeqCompResponseD
     )
   })
 
   test('should call shutdown sequencers by subsystem | ESW-365', async () => {
+    const expectedRes: Res.ShutdownSequencersResponse = {
+      _type: 'Success'
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.shutdownSubsystemSequencers(subsystem)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSubsystemSequencers(subsystem),
-      ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersAndSeqCompResponseD
     )
   })
 
   test('should call shutdown sequencers by obsMode | ESW-365', async () => {
+    const expectedRes: Res.ShutdownSequencersResponse = {
+      _type: 'Success'
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.shutdownObsModeSequencers(obsMode)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownObsModeSequencers(obsMode),
-      ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersAndSeqCompResponseD
     )
   })
 
   test('should call shutdown all sequencers | ESW-365', async () => {
+    const expectedRes: Res.ShutdownSequencersResponse = {
+      _type: 'Success'
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.shutdownAllSequencers()
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownAllSequencers(),
-      ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersAndSeqCompResponseD
     )
   })
 
   test('should call shutdown a sequence component | ESW-365', async () => {
+    const expectedRes: Res.ShutdownSequenceComponentResponse = {
+      _type: 'Success'
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.shutdownSequenceComponent(prefix)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSequenceComponent(prefix),
-      ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersAndSeqCompResponseD
     )
   })
 
   test('should call shutdown all sequence components | ESW-365', async () => {
+    const expectedRes: Res.ShutdownSequenceComponentResponse = {
+      _type: 'Success'
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.shutdownAllSequenceComponents()
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownAllSequenceComponents(),
-      ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersAndSeqCompResponseD
     )
   })
 
   test('should call get agent status | ESW-365', async () => {
+    const expectedRes: Res.AgentStatusResponse = {
+      _type: 'Success',
+      agentStatus: [
+        {
+          agentId: new ComponentId(new Prefix('IRIS', 'Agent'), 'Machine'),
+          seqCompsStatus: [
+            {
+              seqCompId: new ComponentId(new Prefix('IRIS', 'IRIS_123'), 'SequenceComponent'),
+              sequencerLocation: []
+            }
+          ]
+        }
+      ],
+      seqCompsWithoutAgent: [
+        {
+          seqCompId: new ComponentId(new Prefix('ESW', 'ESW_45'), 'SequenceComponent'),
+          sequencerLocation: []
+        }
+      ]
+    }
+
+    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
     const response = await sequenceManager.getAgentStatus()
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(new Req.GetAgentStatus(), AgentStatusResponseD)
+    expect(response).toEqual(expectedRes)
+    verify(httpTransport.requestRes).toBeCalledWith(
+      new Req.GetAgentStatus(),
+      Res.AgentStatusResponseD
+    )
   })
 })
 

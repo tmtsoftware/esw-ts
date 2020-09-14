@@ -5,12 +5,11 @@ import { resolveConnection } from '../../../src/config/Connections'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint } from '../../../src/utils/Utils'
 
-jest.mock('../../../src/clients/sequence-manager/SequenceManagerImpl')
 jest.mock('../../../src/config/Connections')
 jest.mock('../../../src/utils/Utils')
+
 const postMockEndpoint = mocked(getPostEndPoint)
 const mockResolveSm = mocked(resolveConnection)
-const mockImpl = mocked(SequenceManagerImpl)
 
 const tokenFactory = () => undefined
 
@@ -23,7 +22,6 @@ describe('Sequence manager factory', () => {
     const sequenceManagerImpl = new SequenceManagerImpl(
       new HttpTransport(postEndpoint, tokenFactory)
     )
-    mockImpl.mockReturnValue(sequenceManagerImpl)
 
     const response = await SequenceManagerService(tokenFactory)
 
