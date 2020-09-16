@@ -46,7 +46,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-describe('Sequence Manager Client ', () => {
+describe('Sequence Manager Client', () => {
   test('configure sequence components | ESW-365', async () => {
     const response = await sequenceManagerServiceWithValidToken.configure(new ObsMode('darknight'))
 

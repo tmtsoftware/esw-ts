@@ -37,7 +37,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-describe('Agent Service client ', () => {
+describe('Agent Service client', () => {
   test('spawn sequence component | ESW-376', async () => {
     const agentPrefix = new Prefix('ESW', 'esw_machine')
 

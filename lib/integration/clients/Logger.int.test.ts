@@ -24,7 +24,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-describe('Logging Client ', () => {
+describe('Logging Client', () => {
   const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
   test('set Logging level | ESW-316', async () => {
     const loggingService = await LoggingService()

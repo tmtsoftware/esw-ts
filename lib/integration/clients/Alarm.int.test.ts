@@ -23,7 +23,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-describe('Alarm Client ', () => {
+describe('Alarm Client', () => {
   const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
   test('set severity for the given component | ESW-314', async () => {
     const alarmService = await AlarmService()

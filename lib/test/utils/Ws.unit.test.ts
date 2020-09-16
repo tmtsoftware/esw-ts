@@ -47,7 +47,7 @@ describe('Web socket util', () => {
     expect(data).toEqual(expectedData)
   })
 
-  test('should cancel subscription ', async () => {
+  test('should cancel subscription', async () => {
     wsMockWithResolved('', mockServer)
     expect.assertions(3)
 

@@ -24,7 +24,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-describe('Admin Client ', () => {
+describe('Admin Client', () => {
   const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
   const componentId = new ComponentId(trombonePrefix, 'HCD')
   test('set setLogLevel | ESW-372', async () => {

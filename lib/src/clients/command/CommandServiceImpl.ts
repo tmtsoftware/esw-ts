@@ -1,5 +1,5 @@
 import * as M from '../../models'
-import { isNegative, SubmitResponse } from '../../models'
+import { isNegative } from '../../models'
 import { Decoder } from '../../utils/Decoder'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { Subscription, Ws } from '../../utils/Ws'
