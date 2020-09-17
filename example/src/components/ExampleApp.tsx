@@ -37,7 +37,7 @@ const ExampleApp = () => {
                 path='/example_admin'
                 render={(_) => (
                   <CheckLogin error={<LoginError />}>
-                    {/*// #realmRole-component-usage*/}
+                    {/*// #realmRole-component-usage */}
                     <RealmRole
                       realmRole='example-admin-role'
                       error={
@@ -47,7 +47,7 @@ const ExampleApp = () => {
                       }>
                       <div>Example admin role specific functionality</div>
                     </RealmRole>
-                    {/*// #realmRole-component-usage*/}
+                    {/*// #realmRole-component-usage */}
                   </CheckLogin>
                 )}
               />
@@ -56,7 +56,7 @@ const ExampleApp = () => {
                 path='/example_user'
                 render={(_) => (
                   <CheckLogin error={<LoginError />}>
-                    {/*#realmRole-component-usage*/}
+                    {/*// #realmRole-component-usage */}
                     <RealmRole
                       realmRole='person-role'
                       error={
@@ -66,7 +66,7 @@ const ExampleApp = () => {
                       }>
                       <div>Person role specific functionality</div>
                     </RealmRole>
-                    {/*// #realmRole-component-usage*/}
+                    {/*// #realmRole-component-usage */}
                   </CheckLogin>
                 )}
               />
