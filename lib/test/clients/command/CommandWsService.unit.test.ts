@@ -3,16 +3,25 @@ import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as M from '../../../src/models'
 import { ComponentId, Prefix } from '../../../src/models'
-import { mockHttpTransport, mockWsTransport } from '../../helpers/MockHelpers'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { Ws } from '../../../src/utils/Ws'
+import { mocked } from 'ts-jest/utils'
+import { CommandServicePostMessage } from '../../../src/clients/command/models/PostCommand'
+import { verify } from '../../helpers/JestMockHelpers'
+
+jest.mock('../../../src/utils/Ws')
+jest.mock('../../../src/utils/HttpTransport')
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
-
-const mockSubscribe = jest.fn()
-const mockSingleResponse = jest.fn()
 const callback = () => ({})
-const client = new CommandServiceImpl(compId, mockHttpTransport(), () =>
-  mockWsTransport(mockSubscribe, mockSingleResponse)
-)
+const httpTransport: HttpTransport<GatewayComponentCommand<
+  CommandServicePostMessage
+>> = new HttpTransport('')
+const ws = new Ws('')
+
+const mockedWsTransport = mocked(ws)
+
+const client = new CommandServiceImpl(compId, httpTransport, () => ws)
 
 describe('CommandService', () => {
   test('should subscribe to current state using websocket | ESW-305', () => {
@@ -21,7 +30,7 @@ describe('CommandService', () => {
 
     client.subscribeCurrentState(stateNames)(callback)
 
-    expect(mockSubscribe).toBeCalledWith(
+    verify(mockedWsTransport.subscribe).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
       callback,
       M.CurrentStateD
@@ -35,7 +44,7 @@ describe('CommandService', () => {
 
     await client.queryFinal(runId, timeoutInSeconds)
 
-    expect(mockSingleResponse).toBeCalledWith(
+    verify(mockedWsTransport.singleResponse).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
       M.SubmitResponseD
     )

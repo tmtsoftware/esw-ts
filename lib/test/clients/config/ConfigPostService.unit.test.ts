@@ -8,13 +8,14 @@ import { configConnection } from '../../../src/config/Connections'
 import { GenericError } from '../../../src/utils/GenericError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
+import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Http')
-const getMockFn = mocked(get, true)
-const postMockFn = mocked(post, true)
-const headMockFn = mocked(head, true)
-const putMockFn = mocked(put, true)
-const deleteMockFn = mocked(del, true)
+const getMockFn = mocked(get)
+const postMockFn = mocked(post)
+const headMockFn = mocked(head)
+const putMockFn = mocked(put)
+const deleteMockFn = mocked(del)
 
 const uri = 'http://localhost:8080'
 const configLocation: HttpLocation = {
@@ -52,7 +53,7 @@ describe('ConfigService', () => {
 
     const confData: Option<ConfigData> = await configService.getLatest(confPath)
     expect(confData).toEqual(configDataValue)
-    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the conf of given path and given id from the config server | ESW-320', async () => {
@@ -64,7 +65,7 @@ describe('ConfigService', () => {
 
     const confData = await configService.getById(confPath, configId)
     expect(confData).toEqual(configDataValue)
-    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get undefined if config is not present for the given id | ESW-320, ESW-321', async () => {
@@ -76,7 +77,7 @@ describe('ConfigService', () => {
 
     const confData = await configService.getById(confPath, configId)
     expect(confData).toBeUndefined()
-    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should throw generic error if bad request is received on getById | ESW-320, ESW-321', async () => {
@@ -105,7 +106,7 @@ describe('ConfigService', () => {
 
     const confData = await configService.getByTime(confPath, date)
     expect(confData).toEqual(configDataValue)
-    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should check if the given conf is present | ESW-320', async () => {
@@ -128,7 +129,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(true)
-    expect(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
+    verify(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
   })
 
   test('should return false if the given conf is not present | ESW-320, ESW-321', async () => {
@@ -140,7 +141,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(false)
-    expect(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
+    verify(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
   })
 
   test('should throw error if internal server error is received on check of config exists| ESW-320, ESW-321', async () => {
@@ -181,7 +182,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.list()
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
-    expect(getMockFn).toBeCalledWith({ url, queryParams: {}, decoder: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, queryParams: {}, decoder: expect.any(Function) })
   })
 
   test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
@@ -205,7 +206,7 @@ describe('ConfigService', () => {
 
     const actualRes = await configService.list('Annex', '.*')
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
-    expect(getMockFn).toBeCalledWith({
+    verify(getMockFn).toBeCalledWith({
       url,
       queryParams: { type: 'Annex', pattern: '.*' },
       decoder: expect.any(Function)
@@ -220,7 +221,7 @@ describe('ConfigService', () => {
 
     const confData = await configService.getActive(confPath)
     expect(confData).toEqual(configDataValue)
-    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the active conf of given path and given time from the config server | ESW-320', async () => {
@@ -232,7 +233,7 @@ describe('ConfigService', () => {
 
     const confData = await configService.getActiveByTime(confPath, date)
     expect(confData).toEqual(configDataValue)
-    expect(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
   })
 
   test('should get the active version of the conf | ESW-320', async () => {
@@ -244,7 +245,7 @@ describe('ConfigService', () => {
 
     const actualConfId = await configService.getActiveVersion(confPath)
     expect(actualConfId).toEqual(configId)
-    expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
   test('should get undefined if the active version not found for the config | ESW-320, ESW-321', async () => {
@@ -287,7 +288,7 @@ describe('ConfigService', () => {
 
     const configMetadata = await configService.getMetadata()
     expect(configMetadata).toEqual(expectedConfigMetadata)
-    expect(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
+    verify(getMockFn).toBeCalledWith({ url, decoder: expect.any(Function) })
   })
 
   test('should get the history for the given config path | ESW-320', async () => {
@@ -308,7 +309,7 @@ describe('ConfigService', () => {
 
     const history = await configService.history(confPath, from, to, maxResults)
     expect(history).toEqual([revision])
-    expect(getMockFn).toBeCalledWith({
+    verify(getMockFn).toBeCalledWith({
       url,
       queryParams: {
         from: from.toISOString(),
@@ -337,7 +338,7 @@ describe('ConfigService', () => {
 
     const history = await configService.historyActive(confPath, from, to, maxResults)
     expect(history).toEqual([revision])
-    expect(getMockFn).toBeCalledWith({
+    verify(getMockFn).toBeCalledWith({
       url,
       queryParams: {
         from: from.toISOString(),
@@ -357,7 +358,7 @@ describe('ConfigService', () => {
     putMockFn.mockResolvedValueOnce({})
 
     await configService.setActiveVersion(confPath, configId, comment)
-    expect(putMockFn).toBeCalledWith({
+    verify(putMockFn).toBeCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token),
       queryParams: { id: configId.id, comment }
@@ -372,7 +373,7 @@ describe('ConfigService', () => {
     putMockFn.mockResolvedValue({})
 
     await configService.resetActiveVersion(confPath, comment)
-    expect(putMockFn).toBeCalledWith({
+    verify(putMockFn).toBeCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token),
       queryParams: { comment }
@@ -388,7 +389,7 @@ describe('ConfigService', () => {
 
     await configService.delete(confPath, comment)
 
-    expect(deleteMockFn).toBeCalledWith({
+    verify(deleteMockFn).toBeCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token),
       queryParams: { comment }
@@ -430,7 +431,7 @@ describe('ConfigService', () => {
     const actualResConfigId = await configService.update(confPath, configData, comment)
 
     expect(actualResConfigId).toEqual(configId)
-    expect(putMockFn).toBeCalledWith({
+    verify(putMockFn).toBeCalledWith({
       url,
       headers: new HeaderExt().withAuthorization(token).withContentType('application/octet-stream'),
       queryParams: { comment },

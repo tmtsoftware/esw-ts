@@ -3,29 +3,50 @@ import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/P
 import { DoneD } from '../../../src/clients/location'
 import { LogMetadata, LogMetadataD } from '../../../src/clients/logger'
 import { ComponentId, Prefix } from '../../../src/models'
-import { mockHttpTransport } from '../../helpers/MockHelpers'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { mocked } from 'ts-jest/utils'
+import { verify } from '../../helpers/JestMockHelpers'
+import { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
 
-const mockResponse = Math.random().toString()
-const requestRes: jest.Mock = jest.fn().mockReturnValue(mockResponse)
-const adminServiceImpl = new AdminServiceImpl(mockHttpTransport(requestRes))
+jest.mock('../../../src/utils/HttpTransport')
+
+const httpTransport: HttpTransport<GatewayAdminPostRequest> = new HttpTransport('')
+const mockedHttpTransport = mocked(httpTransport)
+const adminServiceImpl = new AdminServiceImpl(httpTransport)
 
 describe('Admin Service', () => {
   test('should call getLogMetadata api with correct arguments | ESW-372', async () => {
     const componentId = new ComponentId(new Prefix('ESW', 'filter'), 'HCD')
+    const expectedLogMetadata: LogMetadata = {
+      akkaLevel: 'DEBUG',
+      componentLevel: 'TRACE',
+      defaultLevel: 'INFO',
+      slf4jLevel: 'WARN'
+    }
+    mockedHttpTransport.requestRes.mockResolvedValueOnce(expectedLogMetadata)
 
     const response: LogMetadata = await adminServiceImpl.getLogMetadata(componentId)
 
-    expect(response).toEqual(mockResponse)
-    expect(requestRes).toBeCalledWith(new GetLogMetadata(componentId), LogMetadataD)
+    expect(response).toEqual(expectedLogMetadata)
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(
+      new GetLogMetadata(componentId),
+      LogMetadataD
+    )
   })
 
   test('should call log setLogLevel with correct arguments | ESW-372', async () => {
     const componentId = new ComponentId(new Prefix('ESW', 'filter'), 'HCD')
     const level = 'WARN'
 
+    mockedHttpTransport.requestRes.mockResolvedValueOnce('Done')
+
     const response = await adminServiceImpl.setLogLevel(componentId, level)
-    expect(requestRes).toBeCalledWith(new SetLogLevel(componentId, level), DoneD)
-    expect(response).toEqual(mockResponse)
+
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(
+      new SetLogLevel(componentId, level),
+      DoneD
+    )
+    expect(response).toEqual('Done')
   })
 })
 
