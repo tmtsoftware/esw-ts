@@ -6,7 +6,6 @@ import {
 } from 'keycloak-js'
 import { Server } from 'mock-socket'
 import { Auth } from '../../src/clients/aas'
-import { Ws } from '../../src/utils/Ws'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>
@@ -62,19 +61,4 @@ export const mockAuth = (
     loadUserProfile: jest.fn()
   }
   return auth
-}
-
-export const mockHttpTransport = (requestRes: jest.Mock = jest.fn()) => {
-  return {
-    requestRes: requestRes,
-    url: 'http://localhost:8080',
-    tokenFactory: () => 'validToken'
-  }
-}
-
-export const mockWsTransport = (subscribe = jest.fn(), singleResponse = jest.fn()) => {
-  const stub = new Ws('')
-  Ws.prototype.subscribe = subscribe
-  Ws.prototype.singleResponse = singleResponse
-  return stub
 }
