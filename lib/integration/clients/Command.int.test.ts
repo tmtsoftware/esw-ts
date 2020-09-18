@@ -124,9 +124,10 @@ describe('Command Client', () => {
 
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
-    const actualResponse = await commandService.submitAllAndWait([setupCommand], 10)
-    expect(actualResponse.length).toEqual(1)
+    const actualResponse = await commandService.submitAllAndWait([setupCommand, setupCommand], 10)
+    expect(actualResponse.length).toEqual(2)
     expect(actualResponse[0]._type).toEqual(CompletedL)
+    expect(actualResponse[1]._type).toEqual(CompletedL)
   })
 
   test('should be able to send the validate command | ESW-343, ESW-305, ESW-99, ESW-380', async () => {
