@@ -1,11 +1,11 @@
+import { mocked } from 'ts-jest/utils'
 import { AlarmKey } from '../../../src/clients/alarm'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
 import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'
 import { DoneD } from '../../../src/clients/location'
 import { Prefix } from '../../../src/models'
-import { verify } from '../../helpers/JestMockHelpers'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { mocked } from 'ts-jest/utils'
+import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/HttpTransport')
 

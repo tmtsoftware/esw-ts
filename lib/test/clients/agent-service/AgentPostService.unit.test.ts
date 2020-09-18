@@ -1,21 +1,21 @@
-import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
-import { HttpConnection } from '../../../src/clients/location'
-import { Prefix } from '../../../src/models'
-import { HttpTransport } from '../../../src/utils/HttpTransport'
-import {
-  AgentServiceRequest,
-  KillComponent,
-  SpawnSequenceComponent,
-  SpawnSequenceManager
-} from '../../../src/clients/agent-service/models/PostCommand'
 import { mocked } from 'ts-jest/utils'
-import { verify } from '../../helpers/JestMockHelpers'
+import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
 import {
   Killed,
   KillResponseD,
   Spawned,
   SpawnResponseD
 } from '../../../src/clients/agent-service/models/AgentRes'
+import {
+  AgentServiceRequest,
+  KillComponent,
+  SpawnSequenceComponent,
+  SpawnSequenceManager
+} from '../../../src/clients/agent-service/models/PostCommand'
+import { HttpConnection } from '../../../src/clients/location'
+import { Prefix } from '../../../src/models'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/HttpTransport')
 

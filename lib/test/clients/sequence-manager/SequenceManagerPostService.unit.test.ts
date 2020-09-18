@@ -1,3 +1,4 @@
+import { mocked } from 'ts-jest/utils'
 import {
   AgentProvisionConfig,
   ObsMode,
@@ -8,11 +9,14 @@ import * as Res from '../../../src/clients/sequence-manager/models/SequenceManag
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
 import { ComponentId, Prefix, Subsystem } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { mockClass, MockOf, verify } from '../../helpers/JestMockHelpers'
+import { verify } from '../../helpers/JestMockHelpers'
 
-const httpTransport: MockOf<HttpTransport<Req.SequenceManagerPostRequest>> = mockClass(
-  HttpTransport
-)
+jest.mock('../../../src/utils/Ws')
+jest.mock('../../../src/utils/HttpTransport')
+
+const httpTransport = new HttpTransport('url', () => undefined)
+const mockHttpTransport = mocked(httpTransport)
+
 const sequenceManager = new SequenceManagerImpl(httpTransport)
 
 const obsMode = new ObsMode('darknight')
@@ -29,11 +33,12 @@ describe('Sequence manager', function () {
       masterSequencerComponentId
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedConfigureResponse)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedConfigureResponse)
+
     const response = await sequenceManager.configure(obsMode)
 
     expect(response).toEqual(expectedConfigureResponse)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.Configure(obsMode),
       Res.ConfigureResponseD
     )
@@ -43,14 +48,14 @@ describe('Sequence manager', function () {
     const eswAgentPrefix = new Prefix('ESW', 'agent1')
     const agentProvisionConfig = new AgentProvisionConfig(eswAgentPrefix, 2)
     const provisionConfig = new ProvisionConfig([agentProvisionConfig])
-
     const expectedProvisionRes: Res.ProvisionResponse = { _type: 'Success' }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedProvisionRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedProvisionRes)
+
     const response = await sequenceManager.provision(provisionConfig)
 
     expect(response).toEqual(expectedProvisionRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.Provision(provisionConfig),
       Res.ProvisionResponseD
     )
@@ -62,11 +67,12 @@ describe('Sequence manager', function () {
       runningObsModes: [new ObsMode('moonnight')]
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.getRunningObsModes()
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.GetRunningObsModes(),
       Res.GetRunningObsModesResponseD
     )
@@ -78,11 +84,12 @@ describe('Sequence manager', function () {
       componentId: masterSequencerComponentId
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.startSequencer(subsystem, obsMode)
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.StartSequencer(subsystem, obsMode),
       Res.StartSequencerResponseD
     )
@@ -94,11 +101,12 @@ describe('Sequence manager', function () {
       componentId: masterSequencerComponentId
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.restartSequencer(subsystem, obsMode)
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.RestartSequencer(subsystem, obsMode),
       Res.RestartSequencerResponseD
     )
@@ -109,11 +117,12 @@ describe('Sequence manager', function () {
       _type: 'Success'
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.shutdownSequencer(subsystem, obsMode)
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSequencer(subsystem, obsMode),
       Res.ShutdownSequencersAndSeqCompResponseD
     )
@@ -124,11 +133,12 @@ describe('Sequence manager', function () {
       _type: 'Success'
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.shutdownSubsystemSequencers(subsystem)
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSubsystemSequencers(subsystem),
       Res.ShutdownSequencersAndSeqCompResponseD
     )
@@ -139,11 +149,12 @@ describe('Sequence manager', function () {
       _type: 'Success'
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.shutdownObsModeSequencers(obsMode)
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownObsModeSequencers(obsMode),
       Res.ShutdownSequencersAndSeqCompResponseD
     )
@@ -154,11 +165,12 @@ describe('Sequence manager', function () {
       _type: 'Success'
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.shutdownAllSequencers()
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownAllSequencers(),
       Res.ShutdownSequencersAndSeqCompResponseD
     )
@@ -169,11 +181,12 @@ describe('Sequence manager', function () {
       _type: 'Success'
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.shutdownSequenceComponent(prefix)
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSequenceComponent(prefix),
       Res.ShutdownSequencersAndSeqCompResponseD
     )
@@ -184,11 +197,12 @@ describe('Sequence manager', function () {
       _type: 'Success'
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.shutdownAllSequenceComponents()
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownAllSequenceComponents(),
       Res.ShutdownSequencersAndSeqCompResponseD
     )
@@ -216,15 +230,16 @@ describe('Sequence manager', function () {
       ]
     }
 
-    httpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
     const response = await sequenceManager.getAgentStatus()
 
     expect(response).toEqual(expectedRes)
-    verify(httpTransport.requestRes).toBeCalledWith(
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.GetAgentStatus(),
       Res.AgentStatusResponseD
     )
   })
 })
 
-afterAll(() => jest.resetAllMocks())
+afterEach(() => jest.resetAllMocks())

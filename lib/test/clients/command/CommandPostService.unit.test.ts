@@ -1,3 +1,4 @@
+import { mocked } from 'ts-jest/utils'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import * as Req from '../../../src/clients/command/models/PostCommand'
 import { CommandServicePostMessage, Submit } from '../../../src/clients/command/models/PostCommand'
@@ -6,7 +7,6 @@ import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gat
 import * as M from '../../../src/models'
 import { OnewayResponse, SubmitResponse, ValidateResponse } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { mocked } from 'ts-jest/utils'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'
 

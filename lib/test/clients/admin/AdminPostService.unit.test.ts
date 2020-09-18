@@ -1,12 +1,12 @@
+import { mocked } from 'ts-jest/utils'
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/PostCommand'
+import { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { DoneD } from '../../../src/clients/location'
 import { LogMetadata, LogMetadataD } from '../../../src/clients/logger'
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { mocked } from 'ts-jest/utils'
 import { verify } from '../../helpers/JestMockHelpers'
-import { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
 
 jest.mock('../../../src/utils/HttpTransport')
 
