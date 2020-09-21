@@ -1,5 +1,5 @@
-import { Connection } from '../../..'
-import { Prefix } from '../../../models'
+import type { Connection } from '../../..'
+import type { Prefix } from '../../../models'
 
 export class SpawnSequenceComponent {
   readonly _type: 'SpawnSequenceComponent' = 'SpawnSequenceComponent'

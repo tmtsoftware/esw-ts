@@ -1,4 +1,4 @@
-import KC from 'keycloak-js'
+import type KC from 'keycloak-js'
 
 export interface Auth {
   logout: (options?: KC.KeycloakLogoutOptions) => KC.KeycloakPromise<void, void>

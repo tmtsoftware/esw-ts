@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
-import { CommandServicePostMessage } from '../../../src/clients/command/models/PostCommand'
+import type { CommandServicePostMessage } from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as M from '../../../src/models'

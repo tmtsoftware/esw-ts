@@ -1,16 +1,16 @@
-import { TokenFactory } from '../..'
-import type { Option } from '../..'
+import type { TokenFactory, Option } from '../..'
+
 import { LocationConfig } from '../../config'
-import { ComponentType, Prefix } from '../../models'
+import type { ComponentType, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Subscription, Ws } from '../../utils/Ws'
 import { LocationServiceImpl } from './LocationServiceImpl'
-import { Connection, ConnectionType } from './models/Connection'
-import { TimeUnit } from './models/Duration'
-import { Location } from './models/Location'
-import { Done } from './models/LocationResponses'
-import { TrackingEvent } from './models/TrackingEvent'
+import type { Connection, ConnectionType } from './models/Connection'
+import type { TimeUnit } from './models/Duration'
+import type { Location } from './models/Location'
+import type { Done } from './models/LocationResponses'
+import type { TrackingEvent } from './models/TrackingEvent'
 
 export interface LocationService {
   list(): Promise<Location[]>

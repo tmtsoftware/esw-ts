@@ -1,6 +1,6 @@
 import type { TokenFactory } from '../../'
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
-import * as M from '../../models'
+import type * as M from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Subscription, Ws } from '../../utils/Ws'

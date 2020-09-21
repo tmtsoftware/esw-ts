@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import { AdminService } from '../../src/clients/admin'
-import { LogMetadata } from '../../src/clients/logger'
+import type { LogMetadata } from '../../src/clients/logger'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix } from '../../src/models'

@@ -1,5 +1,5 @@
-import { Event } from './Event'
-import { EventKey } from './EventKey'
+import type { Event } from './Event'
+import type { EventKey } from './EventKey'
 
 export class PublishEvent {
   readonly _type: 'PublishEvent' = 'PublishEvent'

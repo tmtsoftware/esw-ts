@@ -1,7 +1,7 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
 import * as D from 'io-ts/lib/Decoder'
-import { Decoder } from '../../utils/Decoder'
+import type { Decoder } from '../../utils/Decoder'
 import { requirement } from '../../utils/Utils'
 import { Subsystem, SubsystemD } from './Subsystem'
 

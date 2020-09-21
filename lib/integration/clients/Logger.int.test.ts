@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { Done } from '../../src/clients/location'
+import type { Done } from '../../src/clients/location'
 import { LoggingService } from '../../src/clients/logger'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'

@@ -1,11 +1,11 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ConfigService, TokenFactory } from '../..'
-import type { Option } from '../..'
+import type { ConfigService, TokenFactory, Option } from '../..'
+
 import { HeaderExt } from '../../utils/HeaderExt'
 import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import * as ConfigUtils from './ConfigUtils'
 import { tryGetConfigBlob } from './ConfigUtils'
-import { ConfigData } from './models/ConfigData'
+import type { ConfigData } from './models/ConfigData'
 import * as M from './models/ConfigModels'
 
 export class ConfigServiceImpl implements ConfigService {

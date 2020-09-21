@@ -1,9 +1,9 @@
-import { Prefix } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { GatewayLoggingPostRequest } from '../gateway/models/Gateway'
+import type { Prefix } from '../../models'
+import type { HttpTransport } from '../../utils/HttpTransport'
+import type { GatewayLoggingPostRequest } from '../gateway/models/Gateway'
 import { Done, DoneD } from '../location'
-import { LoggingService } from './LoggingService'
-import { Level } from './models/Level'
+import type { LoggingService } from './LoggingService'
+import type { Level } from './models/Level'
 import { Log } from './models/PostCommand'
 
 export class LoggingServiceImpl implements LoggingService {

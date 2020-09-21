@@ -1,9 +1,9 @@
-import { ComponentId } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { GatewayAdminPostRequest } from '../gateway/models/Gateway'
+import type { ComponentId } from '../../models'
+import type { HttpTransport } from '../../utils/HttpTransport'
+import type { GatewayAdminPostRequest } from '../gateway/models/Gateway'
 import { Done, DoneD } from '../location'
 import { Level, LogMetadata, LogMetadataD } from '../logger'
-import { AdminService } from './AdminService'
+import type { AdminService } from './AdminService'
 import { GetLogMetadata, SetLogLevel } from './models/PostCommand'
 
 export class AdminServiceImpl implements AdminService {

@@ -1,11 +1,11 @@
-import { Prefix, TokenFactory } from '../..'
+import type { Prefix, TokenFactory } from '../..'
 import { resolveConnection, sequenceManagerConnection } from '../../config/Connections'
+import type { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
-import { Subsystem } from './../../models/params/Subsystem'
-import { ObsMode } from './models/ObsMode'
-import { ProvisionConfig } from './models/ProvisionConfig'
-import {
+import type { ObsMode } from './models/ObsMode'
+import type { ProvisionConfig } from './models/ProvisionConfig'
+import type {
   AgentStatusResponse,
   ConfigureResponse,
   GetRunningObsModesResponse,

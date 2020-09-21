@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
 import { Prefix, PrefixD } from '../../../models'
-import { Decoder } from '../../../utils/Decoder'
+import type { Decoder } from '../../../utils/Decoder'
 import { EventName, EventNameD } from './EventName'
 
 export class EventKey {

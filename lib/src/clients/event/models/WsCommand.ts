@@ -1,5 +1,5 @@
-import { Subsystem } from '../../../models'
-import { EventKey } from './EventKey'
+import type { Subsystem } from '../../../models'
+import type { EventKey } from './EventKey'
 
 export class Subscribe {
   readonly _type: 'Subscribe' = 'Subscribe'

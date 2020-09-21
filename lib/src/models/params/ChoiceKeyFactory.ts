@@ -1,7 +1,7 @@
 import { requirement } from '../../utils/Utils'
-import { Key, KTag } from './Key'
+import type { Key, KTag } from './Key'
 import { Parameter } from './Parameter'
-import { Units } from './Units'
+import type { Units } from './Units'
 
 export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
   constructor(

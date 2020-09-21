@@ -1,4 +1,4 @@
-import * as D from 'io-ts/lib/Decoder'
+import type * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../utils/Decoder'
 
 export type Units = D.TypeOf<typeof UnitsD>

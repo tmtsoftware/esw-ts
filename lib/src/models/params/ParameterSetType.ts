@@ -1,7 +1,7 @@
-import { Option } from '../..'
-import { BaseKey } from './BaseKey'
-import { Key } from './Key'
-import { Parameter } from './Parameter'
+import type { Option } from '../..'
+import type { BaseKey } from './BaseKey'
+import type { Key } from './Key'
+import type { Parameter } from './Parameter'
 
 export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   abstract readonly paramSet: Parameter<Key>[]

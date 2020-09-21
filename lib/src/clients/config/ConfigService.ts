@@ -1,9 +1,9 @@
-import { TokenFactory, Option } from '../..'
+import type { TokenFactory, Option } from '../..'
 
 import { configConnection, resolveConnection } from '../../config/Connections'
 import { ConfigServiceImpl } from './ConfigServiceImpl'
-import { ConfigData } from './models/ConfigData'
-import * as M from './models/ConfigModels'
+import type { ConfigData } from './models/ConfigData'
+import type * as M from './models/ConfigModels'
 
 export interface ConfigService {
   create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<M.ConfigId>

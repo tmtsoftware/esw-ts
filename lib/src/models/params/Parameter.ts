@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import { Decoder, object } from '../../utils/Decoder'
 import { Key, KTag, KType, paramDecoders } from './Key'
-import { Units } from './Units'
+import type { Units } from './Units'
 
 export class Parameter<T extends Key> {
   constructor(

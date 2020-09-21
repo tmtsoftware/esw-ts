@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/PostCommand'
-import { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
+import type { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { DoneD } from '../../../src/clients/location'
 import { LogMetadata, LogMetadataD } from '../../../src/clients/logger'
 import { ComponentId, Prefix } from '../../../src/models'

@@ -1,4 +1,4 @@
-import { Prefix } from '../../../models'
+import type { Prefix } from '../../../models'
 import { requirement } from '../../../utils/Utils'
 
 export class AgentProvisionConfig {

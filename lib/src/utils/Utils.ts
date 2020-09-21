@@ -1,6 +1,6 @@
 import * as E from 'fp-ts/lib/Either'
 import * as D from 'io-ts/lib/Decoder'
-import { Option } from './types'
+import type { Option } from './types'
 
 export const requirement = (assertion: boolean, msg: string) => {
   if (!assertion) throw Error(`Requirement failed - ${msg}`)

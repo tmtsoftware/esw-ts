@@ -1,9 +1,9 @@
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
-import { Done } from '../location'
+import type { Done } from '../location'
 import { AlarmServiceImpl } from './AlarmServiceImpl'
-import { AlarmKey, AlarmSeverity } from './models/PostCommand'
+import type { AlarmKey, AlarmSeverity } from './models/PostCommand'
 
 export interface AlarmService {
   setSeverity(alarmKey: AlarmKey, severity: AlarmSeverity): Promise<Done>

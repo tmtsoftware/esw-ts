@@ -3,7 +3,7 @@ import { AASConfig } from '../../config'
 import { Prefix } from '../../models'
 import { HttpConnection } from '../location'
 import { resolve } from '../location/LocationUtils'
-import { Auth, AuthContextConfig, AuthenticateResult } from './Models'
+import type { Auth, AuthContextConfig, AuthenticateResult } from './Models'
 
 /**
  * Adapter for authentication and authorization service

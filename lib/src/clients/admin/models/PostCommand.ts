@@ -1,5 +1,5 @@
-import { ComponentId } from '../../../models'
-import { Level } from '../../logger'
+import type { ComponentId } from '../../../models'
+import type { Level } from '../../logger'
 
 export class GetLogMetadata {
   readonly _type: 'GetLogMetadata' = 'GetLogMetadata'

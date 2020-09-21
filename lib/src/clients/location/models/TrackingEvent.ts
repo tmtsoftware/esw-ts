@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { Decoder } from '../../../utils/Decoder'
+import type { Decoder } from '../../../utils/Decoder'
 import { Connection, ConnectionD } from './Connection'
 import { Location, LocationD } from './Location'
 

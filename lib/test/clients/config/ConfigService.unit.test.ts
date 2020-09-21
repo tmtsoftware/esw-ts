@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { TokenFactory } from '../../../src'
+import type { TokenFactory } from '../../../src'
 import { ConfigService } from '../../../src/clients/config'
 import { ConfigServiceImpl } from '../../../src/clients/config/ConfigServiceImpl'
 import { resolveConnection } from '../../../src/config/Connections'

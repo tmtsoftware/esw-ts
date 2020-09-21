@@ -1,5 +1,5 @@
-import { Prefix } from '../../../models'
-import { Level } from './Level'
+import type { Prefix } from '../../../models'
+import type { Level } from './Level'
 
 export class Log {
   readonly _type: 'Log' = 'Log'

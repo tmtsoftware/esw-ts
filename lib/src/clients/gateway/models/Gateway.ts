@@ -1,12 +1,12 @@
-import { ComponentId } from '../../../models'
-import { GetLogMetadata, SetLogLevel } from '../../admin/models/PostCommand'
-import { CommandServicePostMessage } from '../../command/models/PostCommand'
-import { CommandServiceWsMessage } from '../../command/models/WsCommand'
-import { GetEvent, PublishEvent } from '../../event/models/PostCommand'
-import { Subscribe, SubscribeWithPattern } from '../../event/models/WsCommand'
-import { Log } from '../../logger/models/PostCommand'
-import { SequencerPostRequest } from '../../sequencer/models/PostCommand'
-import { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
+import type { ComponentId } from '../../../models'
+import type { GetLogMetadata, SetLogLevel } from '../../admin/models/PostCommand'
+import type { CommandServicePostMessage } from '../../command/models/PostCommand'
+import type { CommandServiceWsMessage } from '../../command/models/WsCommand'
+import type { GetEvent, PublishEvent } from '../../event/models/PostCommand'
+import type { Subscribe, SubscribeWithPattern } from '../../event/models/WsCommand'
+import type { Log } from '../../logger/models/PostCommand'
+import type { SequencerPostRequest } from '../../sequencer/models/PostCommand'
+import type { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
 
 export class GatewayComponentCommand<
   T extends CommandServicePostMessage | CommandServiceWsMessage

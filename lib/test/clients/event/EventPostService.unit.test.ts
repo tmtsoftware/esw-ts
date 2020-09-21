@@ -2,7 +2,7 @@ import { mocked } from 'ts-jest/utils'
 import { EventKey, EventName, ObserveEvent, SystemEvent } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
-import {
+import type {
   GatewayEventPostRequest,
   GatewayEventWsRequest
 } from '../../../src/clients/gateway/models/Gateway'

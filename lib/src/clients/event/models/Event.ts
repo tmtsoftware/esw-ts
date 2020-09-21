@@ -3,7 +3,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { v4 as uuidv4 } from 'uuid'
 import { Key, Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
 import { ParameterSetType } from '../../../models/params/ParameterSetType'
-import { ciLiteral, Decoder } from './../../../utils/Decoder'
+import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { EventName, EventNameD } from './EventName'
 
 const ObserveEventL = 'ObserveEvent'

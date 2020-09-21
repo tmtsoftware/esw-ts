@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
-import * as Req from '../../../src/clients/sequencer/models/PostCommand'
+import type * as Req from '../../../src/clients/sequencer/models/PostCommand'
 import {
   QueryFinal,
   SequencerWebsocketRequest

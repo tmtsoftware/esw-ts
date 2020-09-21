@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 import { HttpConnection, TrackingEventD } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
-import { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
+import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
 import { LocationWebSocketMessage, Track } from '../../../src/clients/location/models/WsCommand'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'

@@ -3,7 +3,7 @@ import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'
 import { ConfigData, ConfigService } from '../../../src/clients/config'
 
-import { HttpLocation } from '../../../src/clients/location'
+import type { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/Connections'
 import { GenericError } from '../../../src/utils/GenericError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'

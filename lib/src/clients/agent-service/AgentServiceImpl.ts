@@ -1,7 +1,7 @@
-import { Prefix } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { Connection } from '../location'
-import { AgentService } from './AgentService'
+import type { Prefix } from '../../models'
+import type { HttpTransport } from '../../utils/HttpTransport'
+import type { Connection } from '../location'
+import type { AgentService } from './AgentService'
 import { KillResponse, KillResponseD, SpawnResponse, SpawnResponseD } from './models/AgentRes'
 import {
   AgentServiceRequest,

@@ -1,4 +1,4 @@
-import { Location } from '../../src/clients/location'
+import type { Location } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import { authConnection } from '../../src/config/Connections'
 import { extractHostPort } from '../../src/utils/Utils'

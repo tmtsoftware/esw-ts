@@ -1,6 +1,6 @@
-import { Prefix, Subsystem } from '../../../models'
-import { ObsMode } from './ObsMode'
-import { ProvisionConfig } from './ProvisionConfig'
+import type { Prefix, Subsystem } from '../../../models'
+import type { ObsMode } from './ObsMode'
+import type { ProvisionConfig } from './ProvisionConfig'
 
 export class Configure {
   readonly _type: 'Configure' = 'Configure'

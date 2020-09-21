@@ -1,6 +1,6 @@
-import { ComponentType, Prefix } from '../../../models'
-import { Connection, ConnectionType } from './Connection'
-import { Duration } from './Duration'
+import type { ComponentType, Prefix } from '../../../models'
+import type { Connection, ConnectionType } from './Connection'
+import type { Duration } from './Duration'
 
 export class ListEntries {
   readonly _type: 'ListEntries' = 'ListEntries'

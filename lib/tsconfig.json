@@ -28,6 +28,7 @@
     /* Additional Checks from jest*/
     "jsx": "react",
     "esModuleInterop": true,
+    "importsNotUsedAsValues": "error",
     "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

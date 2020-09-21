@@ -1,10 +1,10 @@
-import { Connection, TokenFactory } from '../..'
+import type { Connection, TokenFactory } from '../..'
 import { agentServiceConnection, resolveConnection } from '../../config/Connections'
-import { Prefix } from '../../models'
+import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
 import { AgentServiceImpl } from './AgentServiceImpl'
-import { KillResponse, SpawnResponse } from './models/AgentRes'
+import type { KillResponse, SpawnResponse } from './models/AgentRes'
 
 export interface AgentService {
   spawnSequenceManager(

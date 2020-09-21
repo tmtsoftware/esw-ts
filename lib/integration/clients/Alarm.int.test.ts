@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import { AlarmKey, AlarmService } from '../../src/clients/alarm'
-import { Done } from '../../src/clients/location'
+import type { Done } from '../../src/clients/location'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { Prefix } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'

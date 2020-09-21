@@ -1,16 +1,16 @@
 import * as D from 'io-ts/lib/Decoder'
+import type { Option } from '../..'
 import { ComponentId, SequenceCommand, SubmitResponse, SubmitResponseD } from '../../models'
-import { Decoder } from '../../utils/Decoder'
-import { HttpTransport } from '../../utils/HttpTransport'
-import type { Option } from '../../utils/types'
+import type { Decoder } from '../../utils/Decoder'
+import type { HttpTransport } from '../../utils/HttpTransport'
 import { headOption } from '../../utils/Utils'
-import { Ws } from '../../utils/Ws'
+import type { Ws } from '../../utils/Ws'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import * as Req from './models/PostCommand'
 import * as Res from './models/SequencerRes'
 import { OptionOfStepList, StepList } from './models/StepList'
 import { QueryFinal, SequencerWebsocketRequest } from './models/WsCommand'
-import { SequencerService } from './SequencerService'
+import type { SequencerService } from './SequencerService'
 
 export class SequencerServiceImpl implements SequencerService {
   constructor(

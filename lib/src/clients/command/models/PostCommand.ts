@@ -1,4 +1,4 @@
-import { ControlCommand } from '../../../models'
+import type { ControlCommand } from '../../../models'
 
 export type CommandServicePostMessage = Submit | Validate | Oneway | Query
 

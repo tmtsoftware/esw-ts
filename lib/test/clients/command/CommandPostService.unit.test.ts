@@ -1,11 +1,14 @@
 import { mocked } from 'ts-jest/utils'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import * as Req from '../../../src/clients/command/models/PostCommand'
-import { CommandServicePostMessage, Submit } from '../../../src/clients/command/models/PostCommand'
+import type {
+  CommandServicePostMessage,
+  Submit
+} from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as M from '../../../src/models'
-import { OnewayResponse, SubmitResponse, ValidateResponse } from '../../../src/models'
+import type { OnewayResponse, SubmitResponse, ValidateResponse } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'

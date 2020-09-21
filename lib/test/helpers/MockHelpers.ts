@@ -1,11 +1,11 @@
-import {
+import type {
   KeycloakInstance,
   KeycloakResourceAccess,
   KeycloakRoles,
   KeycloakTokenParsed
 } from 'keycloak-js'
-import { Server } from 'mock-socket'
-import { Auth } from '../../src/clients/aas'
+import type { Server } from 'mock-socket'
+import type { Auth } from '../../src/clients/aas'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>

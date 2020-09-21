@@ -1,12 +1,12 @@
-import type { TokenFactory } from '../..'
+import type { TokenFactory, Option } from '../..'
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
-import { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
+import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import type { Option } from '../../utils/types'
+
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
-import * as Res from './models/SequencerRes'
-import { StepList } from './models/StepList'
+import type * as Res from './models/SequencerRes'
+import type { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
 
 export interface SequencerService {

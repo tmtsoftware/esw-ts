@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/pipeable'
 import * as D from 'io-ts/lib/Decoder'
-import { Decoder } from '../../../utils/Decoder'
+import type { Decoder } from '../../../utils/Decoder'
 
 export class EventName {
   constructor(readonly name: string) {}

@@ -1,4 +1,4 @@
-import { Decoder } from './Decoder'
+import type { Decoder } from './Decoder'
 import { HeaderExt } from './HeaderExt'
 import { post } from './Http'
 import type { TokenFactory } from './types'

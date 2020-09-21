@@ -1,4 +1,4 @@
-import { Connection } from './Connection'
+import type { Connection } from './Connection'
 
 export class Track {
   readonly _type: 'Track' = 'Track'

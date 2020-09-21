@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/pipeable'
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral, Decoder } from '../../utils/Decoder'
-import { Key } from './Key'
+import type { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 import { Prefix, PrefixD } from './Prefix'

@@ -1,6 +1,6 @@
-import { Key, KTag, KType } from './Key'
+import type { Key, KTag, KType } from './Key'
 import { Parameter } from './Parameter'
-import { Units } from './Units'
+import type { Units } from './Units'
 
 export class BaseKey<T extends Key> {
   constructor(readonly keyName: string, readonly keyTag: KTag<T>, readonly units: Units) {}

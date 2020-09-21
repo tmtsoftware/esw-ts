@@ -1,10 +1,10 @@
-import { Prefix, Subsystem } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { ObsMode } from './models/ObsMode'
+import type { Prefix, Subsystem } from '../../models'
+import type { HttpTransport } from '../../utils/HttpTransport'
+import type { ObsMode } from './models/ObsMode'
 import * as Req from './models/PostCommand'
-import { ProvisionConfig } from './models/ProvisionConfig'
+import type { ProvisionConfig } from './models/ProvisionConfig'
 import * as Res from './models/SequenceManagerRes'
-import { SequenceManagerService } from './SequenceManagerService'
+import type { SequenceManagerService } from './SequenceManagerService'
 
 export class SequenceManagerImpl implements SequenceManagerService {
   constructor(private readonly httpTransport: HttpTransport<Req.SequenceManagerPostRequest>) {}
