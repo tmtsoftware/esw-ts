@@ -1,12 +1,12 @@
 # Command Service
 This service provides a handle to send commands to a component which is registered in location service.
 
-Command service has following APIs:
+Command service has following [APIs](#apis):
 
 |        API                |      Input args                       |          Returns                |     
 | ------------------------- | ------------------------------------- | ----------------------------
-| validate                  |   ControlCommand                      |     ValidateResponse            |   
-| submit                    |   ControlCommand                      |     SubmitResponse              |                               
+| [validate](#validate)     |   ControlCommand                      |     ValidateResponse            |   
+| [submit](#submit)           |   ControlCommand                      |     SubmitResponse              |                               
 | oneway                    |   ControlCommand                      |     OnewayResponse              | 
 | query                     |   runId                               |     SubmitResponse              |
 | queryFinal                |   runId, timeoutInSeconds             |     SubmitResponse              |
@@ -15,14 +15,14 @@ Command service has following APIs:
 | submitAllAndWait          |   ControlCommand[ ], timeoutInSeconds |     SubmitResponse[ ]           |
 
 
-## Creation of Command Service
-### Pre-requisite
+##Creation of Command Service
+###Pre-requisite
 In order to use command client for a specific component:
 
   1. The component needs to be up and running behind the gateway server.
     `GatewayException(InvalidComponent)` will be thrown if the specified component is not found.
   2. Authorization Token with correct access role. 
-     Examples of how to fetch access token can be found [here](../aas/token-factory.html).
+     To read more on how to fetch access token. [link](../../aas/csw-aas-js.html).
           
 For the given example : `Prefix(ESW.Component1)` needs to be registered in the location service as any of the component type (`HCD`, `Assembly`, etc.).
 
@@ -33,7 +33,7 @@ Typescript
 
 ##APIs
 
-### Validate
+###Validate
 
    This api takes Control command as input parameter and return a promise of `ValidateResponse`.
    
@@ -46,6 +46,20 @@ Typescript
    
 Typescript
 :   @@snip [control-command](../../../../../example/src/documentation/command/CommandExamples.ts) { #validate-call }
+
+###Submit
+
+   This api takes Control command as input parameter and return a promise of `SubmitResponse`.
+   
+   In order to call this api, one of the control command is required. Depending on your use case, you will be sending either Setup or Observe Command.
+   
+Typescript
+:   @@snip [control-command](../../../../../example/src/documentation/command/CommandExamples.ts) { #Control-commands }
+
+  The following example shows how to call submit api :
+   
+Typescript
+:   @@snip [control-command](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-call }
 
 
 

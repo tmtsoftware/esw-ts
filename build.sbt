@@ -30,8 +30,7 @@ lazy val docs = project
       "aas/csw-aas-js.html",
       "clients/command/command-service.html",
       "index.html",
-      "technical/csw-aas-js.html",
-      "clients/aas/token-factory.html"
+      "technical/csw-aas-js.html"
     )
   )
 
