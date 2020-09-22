@@ -1,6 +1,11 @@
-# Deprecated
-# TMT CSW JavaScript Adapters
+# TMT JavaScript Library
 
-`csw-js` provides following JavaScript adapters. 
+`esw-ts` provides following JavaScript adapters and typescript definitions.
 
-* @ref:[AAS Javascript Adapter (csw-aas-js)](aas/csw-aas-js.md)
+AAS (Authentication and Authorization Support for web application)
+
+- @ref:[AAS Javascript Adapter (aas)](aas/csw-aas-js.md)
+
+Clients:
+
+- @ref:[Command Client](clients/command/command-service.md)
