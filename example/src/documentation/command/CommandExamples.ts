@@ -9,8 +9,13 @@ import {
 
 // @ts-ignore
 //#Command-Service-creation
+const token = 'valid token fetched from aas'
+
+const tokenFactory = () => token
+
 const commandService: CommandService = await CommandService(
-  new ComponentId(new Prefix('ESW', 'Component1'), 'HCD')
+  new ComponentId(new Prefix('ESW', 'Component1'), 'HCD'),
+  tokenFactory
 )
 //#Command-Service-creation
 

@@ -25,7 +25,14 @@ lazy val docs = project
   .settings(
     docsRepo := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
     docsParentDir := "esw-ts",
-    gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts"
+    gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts",
+    paradoxRoots := List(
+      "aas/csw-aas-js.html",
+      "clients/command/command-service.html",
+      "index.html",
+      "technical/csw-aas-js.html",
+      "clients/aas/token-factory.html"
+    )
   )
 
 lazy val `integration-ui` = project
