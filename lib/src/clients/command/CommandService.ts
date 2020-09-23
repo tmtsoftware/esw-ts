@@ -13,57 +13,57 @@ import { CommandServiceImpl } from './CommandServiceImpl'
 export interface CommandService {
   /**
    * Send a validate command to a component which returns a promise of ValidateResponse.
-   * @return ValidateResponse which will be one of Accepted, Invalid or Locked.
-   * @param command
+   * @param command can be of type either Setup or Observe command.
+   * @return Promise of ValidateResponse
    */
   validate(command: M.ControlCommand): Promise<M.ValidateResponse>
   /**
    * Submit a command to a component which returns a promise of SubmitResponse.
-   * @param{ControlCommand} command can be of type either Setup or Observe command.
-   * @return a Promise of SubmitResponse which will be one of Started, Completed, Error, Invalid, Locked or Cancelled
+   * @param command can be of type either Setup or Observe command.
+   * @return Promise of SubmitResponse
    */
   submit(command: M.ControlCommand): Promise<M.SubmitResponse>
   /**
    * Submit a oneway command to a component which returns a promise of OnewayResponse.
    * This api is used when completion is provided through CurrentState or status values and eventService.
-   * @param{ControlCommand} command can be of type either Setup or Observe command.
-   * @return a Promise of OnewayResponse which will be one of Accepted, Invalid or Locked.
+   * @param command can be of type either Setup or Observe command.
+   * @return Promise of OnewayResponse
    */
   oneway(command: M.ControlCommand): Promise<M.OnewayResponse>
   /**
    * This api is used to get the result of a long running command which was submitted and returns a promise of SubmitResponse.
-   * @param{string} runId The runId of the command for which response is required
-   * @return a Promise of SubmitResponse which will be one of Started, Completed, Error, Invalid, Locked or Cancelled
+   * @param runId The runId of the command for which response is required
+   * @return Promise of SubmitResponse
    */
   query(runId: string): Promise<M.SubmitResponse>
   /**
    * This api is used to get the final result of a long running command which was submitted and returns a promise of SubmitResponse.
-   * @param{string} runId The runId of the command for which response is required
-   * @param{number} timeoutInSeconds time to wait for a final response
-   * @return a Promise of SubmitResponse which will be one of Started, Completed, Error, Invalid, Locked or Cancelled
+   * @param runId The runId of the command for which response is required
+   * @param timeoutInSeconds time to wait for a final response
+   * @return Promise of SubmitResponse
    */
   queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse>
   /**
    * Subscribe to the current state of a component corresponding to the AkkaLocation of the component
-   * @param {Set<string>} stateNames Subscribe to the set of currentStates. If no states are provided, all the current states will be received.
-   * @param {@callback} onStateChange - a callback which gets called on change of any of the subscribed currentState
-   * @return{Subscription} which can be used to cancel to the subscription in future.
+   * @param stateNames Subscribe to the set of currentStates. If no states are provided, all the current states will be received.
+   * @param onStateChange - a callback which gets called on change of any of the subscribed currentState
+   * @return Subscription which can be used to cancel to the subscription in future.
    */
   subscribeCurrentState(
     stateNames: Set<string>
   ): (onStateChange: (state: M.CurrentState) => void) => Subscription
   /**
    * Submit a single command and wait for the result of the submitted command
-   * @param{ControlCommand} command
-   * @param{number} timeoutInSeconds time to wait for a final response
-   * @return a promise of SubmitResponse which will be one of Started, Completed, Error, Invalid, Locked or Cancelled
+   * @param command
+   * @param timeoutInSeconds time to wait for a final response
+   * @return Promise of SubmitResponse
    */
   submitAndWait(command: M.ControlCommand, timeoutInSeconds: number): Promise<M.SubmitResponse>
   /**
    * Submit multiple commands and wait for the result of the all submitted commands
    * @param commands a list of commands to be submitted
    * @param timeoutInSeconds time to wait for a final response
-   * @return Promise of List of submitResponse where each of which will be one of Started, Completed, Error, Invalid, Locked or Cancelled
+   * @return Promise of List of submitResponse
    */
   submitAllAndWait(
     commands: M.ControlCommand[],
@@ -75,7 +75,7 @@ export interface CommandService {
  * Instantiate command service to enable interaction with the component.
  * @param componentId Component id for which command service is to be instantiated.
  * @param tokenFactory a function that returns a valid token which has correct access roles and permissions for the specified componentId.
- * @return {Promise<CommandService>} Promise of CommandService
+ * @return Promise of CommandService
  * @constructor
  */
 export const CommandService = async (

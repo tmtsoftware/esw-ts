@@ -1,6 +1,7 @@
 import {
   CommandService,
   ComponentId,
+  CurrentState,
   IntKey,
   Observe,
   OnewayResponse,
@@ -10,21 +11,22 @@ import {
   SubmitResponse,
   ValidateResponse
 } from 'esw-ts'
+import { Subscription } from 'esw-ts/dist/src/utils/Ws'
 
 const auth = { token: '' }
 const paramSet: Parameter<IntKey>[] = []
 
 // @ts-ignore
-//#Command-Service-creation
+//#command-service-creation
 const tokenFactory = () => auth.token
 
 const commandService: CommandService = await CommandService(
   new ComponentId(new Prefix('ESW', 'Component1'), 'HCD'),
   tokenFactory
 )
-//#Command-Service-creation
+//#command-service-creation
 
-//#Control-commands
+//#control-commands
 // Definition of control command looks like following
 type ControlCommand = Setup | Observe
 
@@ -43,9 +45,9 @@ const observeCommand: Observe = new Observe(
   'obs-id'
 )
 
-//#Control-commands
+//#control-commands
 
-//#validate-call
+//#validate
 
 const validateResponse1: ValidateResponse = await commandService.validate(
   setupCommand
@@ -55,9 +57,9 @@ const validateResponse2: ValidateResponse = await commandService.validate(
   observeCommand
 )
 
-//#validate-call
+//#validate
 
-//#submit-call
+//#submit
 const submitResponse1: SubmitResponse = await commandService.submit(
   setupCommand
 )
@@ -66,9 +68,9 @@ const submitResponse2: SubmitResponse = await commandService.submit(
   observeCommand
 )
 
-//#submit-call
+//#submit
 
-//#oneway-call
+//#oneway
 const onewayResponse1: OnewayResponse = await commandService.oneway(
   setupCommand
 )
@@ -77,4 +79,68 @@ const onewayResponse2: OnewayResponse = await commandService.oneway(
   observeCommand
 )
 
-//#oneway-call
+//#oneway
+
+//#query
+// Submit a long running command
+const res: SubmitResponse = await commandService.submit(setupCommand)
+// .
+// .
+// .
+// Get the current result of long running command as :
+const queryResponse: SubmitResponse = await commandService.query(res.runId)
+//#query
+
+//#query-final
+// Submit a long running command
+const result: SubmitResponse = await commandService.submit(setupCommand)
+// .
+// .
+// .
+// Get the final result of long running command within 10 seconds :
+const queryFinalResponse: SubmitResponse = await commandService.queryFinal(
+  result.runId,
+  10
+)
+//#query-final
+
+//#subscribe-current-state
+// subscribe to this set of current states
+const currentStates = new Set(['stateName1', 'stateName2'])
+
+// this callback gets called whenever the state changes
+const onStateChangeCallback = (currentState: CurrentState) => {
+  // do something when state changes
+  console.log('changed state:', currentState)
+}
+
+// subscribe call
+const subscription: Subscription = await commandService.subscribeCurrentState(
+  currentStates
+)(onStateChangeCallback)
+
+// .
+// .
+// .
+// subscription can be cancelled when it is not required any more
+subscription.cancel()
+
+//#subscribe-current-state
+
+//#submit-and-wait
+// Submit a long running command and wait for the result for specific time
+
+const submitAndWaitResponse: SubmitResponse = await commandService.submitAndWait(
+  setupCommand,
+  10
+)
+//#submit-and-wait
+
+//#submit-all-and-wait
+// Submit multiple commands and wait for the result of each submitted command for specific time
+
+const submitAllAndWaitResponse: SubmitResponse[] = await commandService.submitAllAndWait(
+  [setupCommand, observeCommand],
+  10
+)
+//#submit-all-and-wait
