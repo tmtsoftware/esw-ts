@@ -134,7 +134,7 @@ export class SequencerServiceImpl implements SequencerService {
     return this.postSequencerCmd(new Req.Query(id), SubmitResponseD)
   }
 
-  async queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse> {
     return this.ws().singleResponse(
       new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
       SubmitResponseD
