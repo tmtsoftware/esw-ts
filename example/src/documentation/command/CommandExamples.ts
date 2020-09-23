@@ -3,6 +3,7 @@ import {
   ComponentId,
   IntKey,
   Observe,
+  OnewayResponse,
   Parameter,
   Prefix,
   Setup,
@@ -12,7 +13,8 @@ import {
 
 const auth = { token: '' }
 const paramSet: Parameter<IntKey>[] = []
-// @ts-ignor
+
+// @ts-ignore
 //#Command-Service-creation
 const tokenFactory = () => auth.token
 
@@ -31,14 +33,14 @@ const setupCommand: Setup = new Setup(
   new Prefix('ESW', 'Component1'),
   'move-command',
   paramSet,
-  ['obsid']
+  'obs-id'
 )
 
 const observeCommand: Observe = new Observe(
   new Prefix('ESW', 'Component1'),
   'c1',
   paramSet,
-  ['obsid']
+  'obs-id'
 )
 
 //#Control-commands
@@ -65,3 +67,14 @@ const submitResponse2: SubmitResponse = await commandService.submit(
 )
 
 //#submit-call
+
+//#oneway-call
+const onewayResponse1: OnewayResponse = await commandService.oneway(
+  setupCommand
+)
+// or
+const onewayResponse2: OnewayResponse = await commandService.oneway(
+  observeCommand
+)
+
+//#oneway-call

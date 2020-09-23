@@ -1,5 +1,6 @@
 import { pipe } from 'fp-ts/pipeable'
 import * as D from 'io-ts/lib/Decoder'
+import type { Option } from '../..'
 import { ciLiteral, Decoder } from '../../utils/Decoder'
 import type { Key } from './Key'
 import { Parameter, ParameterD } from './Parameter'
@@ -15,7 +16,7 @@ interface Command<L> {
   readonly _type: L
   readonly source: Prefix
   readonly commandName: string
-  readonly maybeObsId: string[]
+  readonly maybeObsId: Option<string>
   readonly paramSet: Parameter<Key>[]
 }
 
@@ -23,7 +24,7 @@ type Constructor<L, T extends Command<L>> = new (
   source: Prefix,
   commandName: string,
   paramSet: Parameter<Key>[],
-  maybeObsId: string[]
+  maybeObsId: Option<string>
 ) => T
 
 export class Setup extends ParameterSetType<Setup> implements Command<typeof SetupL> {
@@ -33,7 +34,7 @@ export class Setup extends ParameterSetType<Setup> implements Command<typeof Set
     readonly source: Prefix,
     readonly commandName: string,
     readonly paramSet: Parameter<Key>[] = [],
-    readonly maybeObsId: string[] = []
+    readonly maybeObsId: Option<string> = undefined
   ) {
     super()
   }
@@ -50,7 +51,7 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
     readonly source: Prefix,
     readonly commandName: string,
     readonly paramSet: Parameter<Key>[] = [],
-    readonly maybeObsId: string[] = []
+    readonly maybeObsId: Option<string> = undefined
   ) {
     super()
   }
@@ -67,7 +68,7 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
     readonly source: Prefix,
     readonly commandName: string,
     readonly paramSet: Parameter<Key>[] = [],
-    readonly maybeObsId: string[] = []
+    readonly maybeObsId: Option<string> = undefined
   ) {
     super()
   }
@@ -86,13 +87,14 @@ const mkCommandD = <L extends string, T extends Command<L>>(
   apply: Constructor<L, T>
 ): Decoder<T> =>
   pipe(
-    D.type({
-      _type: ciLiteral(_type),
-      source: PrefixD,
-      commandName: D.string,
-      paramSet: D.array(ParameterD),
-      maybeObsId: D.array(D.string)
-    }),
+    D.intersect(
+      D.type({
+        _type: ciLiteral(_type),
+        source: PrefixD,
+        commandName: D.string,
+        paramSet: D.array(ParameterD)
+      })
+    )(D.partial({ maybeObsId: D.string })),
     D.parse((command) =>
       D.success(
         new apply(command.source, command.commandName, command.paramSet, command.maybeObsId)

@@ -64,7 +64,7 @@ describe('Command Client', () => {
 
   test('should get unauthorized error on sending invalid token | ESW-343, ESW-305, ESW-99, ESW-321', async () => {
     const commandService = await CommandService(componentId, () => '')
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
 
     expect.assertions(4)
     await commandService.oneway(setupCommand).catch((e) => {
@@ -123,7 +123,7 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
     const actualResponse = await commandService.submitAllAndWait([setupCommand, setupCommand], 10)
     expect(actualResponse.length).toEqual(2)
     expect(actualResponse[0]._type).toEqual(CompletedL)
@@ -172,7 +172,7 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
     const submitRes: SubmitResponse = await commandService.submit(setupCommand)
     expect(submitRes._type).toEqual('Started')
 
@@ -198,7 +198,7 @@ describe('Command Client', () => {
     )
 
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], ['obsId'])
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
     const actualResponse = await commandService.submitAndWait(setupCommand, 5)
     expect(actualResponse._type).toEqual('Completed')
   })

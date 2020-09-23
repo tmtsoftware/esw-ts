@@ -117,7 +117,6 @@ describe('Sequencer Client', () => {
         command: {
           _type: 'Setup',
           commandName: 'command-1',
-          maybeObsId: [],
           paramSet: [],
           source: { componentName: 'IRIS', subsystem: 'CSW' }
         },

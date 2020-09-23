@@ -35,7 +35,7 @@ describe('CommandService', () => {
     }
     mockedHttpTransport.requestRes.mockResolvedValueOnce(expectedResponse)
 
-    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], 'obsId')
     const msg = new Req.Validate(setupCommand)
 
     const response = await client.validate(setupCommand)
@@ -54,7 +54,7 @@ describe('CommandService', () => {
     }
     mockedHttpTransport.requestRes.mockResolvedValueOnce(expectedResponse)
 
-    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], 'obsId')
     const msg = new Req.Submit(setupCommand)
 
     const response = await client.submit(setupCommand)
@@ -105,7 +105,7 @@ describe('CommandService', () => {
   })
 
   test('should get completed response on submitAndWait with submit and then queried for final response of long running command | ESW-344', async () => {
-    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], 'obsId')
     const mockSubmitResponse = { _type: 'Started', runId: '123' }
     const mockQueryFinalResponse = {
       _type: 'Completed',
@@ -130,7 +130,7 @@ describe('CommandService', () => {
   })
 
   test('should get completed when for submitAndWait when submit itself returns completed for short running commands| ESW-344', async () => {
-    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], ['obsId'])
+    const setupCommand = new M.Setup(eswTestPrefix, 'c1', [], 'obsId')
     const mockResponse = {
       _type: 'Completed',
       runId: '123',
@@ -150,8 +150,8 @@ describe('CommandService', () => {
   })
 
   test('should submit all commands and wait for final response | ESW-344', async () => {
-    const setupCommand1 = new M.Setup(eswTestPrefix, 'c1', [], ['obsId'])
-    const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], ['obsId'])
+    const setupCommand1 = new M.Setup(eswTestPrefix, 'c1', [], 'obsId')
+    const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], 'obsId')
     const mockSubmitResponse = { _type: 'Started', runId: '123' }
     const mockQueryFinalResponse = {
       _type: 'Completed',
@@ -182,9 +182,9 @@ describe('CommandService', () => {
   })
 
   test('should submit commands till each command response is Non negative | ESW-344', async () => {
-    const setupCommand1 = new M.Setup(eswTestPrefix, 'c1', [], ['obsId1'])
-    const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], ['obsId2'])
-    const setupCommand3 = new M.Setup(eswTestPrefix, 'c3', [], ['obsId3'])
+    const setupCommand1 = new M.Setup(eswTestPrefix, 'c1', [], 'obsId1')
+    const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], 'obsId2')
+    const setupCommand3 = new M.Setup(eswTestPrefix, 'c3', [], 'obsId3')
     const completedResponse = (runId: string): M.CompletedResponse => ({
       _type: M.CompletedL,
       runId: runId,
