@@ -9,13 +9,13 @@ Command service has following [APIs](#apis):
 | [submit](#submit)         |   ControlCommand                      |     SubmitResponse         |                               
 | [oneway](#oneway)         |   ControlCommand                      |     OnewayResponse         | 
 | [query](#query)           |   runId                               |     SubmitResponse         |
-| [queryFinal](#queryfinal) |   runId, timeoutInSeconds             |     SubmitResponse         |
+| [queryFinal](#query-final) |   runId, timeoutInSeconds             |     SubmitResponse         |
 | [subscribeCurrentState]
-  (#subscribecurrentstate)  |   stateNames, onStateChangeCallback   |     Subscription           |
+  (#subscribe-current-state)  |   stateNames, onStateChangeCallback   |     Subscription           |
 | [submitAndWait]
-   (#submitandwait)         |   ControlCommand, timeoutInSeconds    |     SubmitResponse         |          
+   (#submit-and-wait)         |   ControlCommand, timeoutInSeconds    |     SubmitResponse         |          
 | [submitAllAndWait]
-  (#submitallandwait)       |   ControlCommand[ ], timeoutInSeconds |     SubmitResponse[ ]      |
+  (#submit-all-and-wait)       |   ControlCommand[ ], timeoutInSeconds |     SubmitResponse[ ]      |
 
 
 ##Creation of Command Service
@@ -88,7 +88,7 @@ Typescript
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #query }
 
-###QueryFinal
+###Query Final
     
   This api is same as query , only difference is takes time-out (seconds) along with runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
    
@@ -97,7 +97,7 @@ Typescript
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #query-final }
 
-###SubscribeCurrentState
+###Subscribe Current State
     
   This api takes set of current states to be subscribed along with a callback which will get triggered on change of the mentioned states.(`stateName1`,`stateName2`) 
    
@@ -106,7 +106,7 @@ Typescript
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #subscribe-current-state }
 
-###SubmitAndWait
+###Submit And Wait
     
   This api takes Control command as input parameter along with time-out(seconds) and return a promise of `SubmitResponse` after waiting for a specified amount of time.
   
@@ -115,7 +115,7 @@ Typescript
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-and-wait }
 
-###SubmitAllAndWait
+###Submit All And Wait
     
   This api takes multiple control commands as input parameter along with time-out(seconds) and return a promise of `SubmitResponse[]` after waiting for a specified amount of time.
   
