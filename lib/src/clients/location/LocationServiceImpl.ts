@@ -1,7 +1,7 @@
-import type { Option } from '../..'
+import type { Option, Subscription } from '../..'
 import type { ComponentType, Prefix } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
-import type { Subscription } from '../..'
+
 import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
 import type { LocationService } from './LocationService'

@@ -1,4 +1,4 @@
-import { ChoiceKeyFactory, Parameter, StringKey } from '../../src/models'
+import { ChoiceKeyFactory } from '../../src/models'
 
 describe('Choice Key factory', () => {
   test('set returns a Parameter', () => {
