@@ -16,6 +16,8 @@ const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
 afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
 
+afterEach(() => jest.clearAllMocks())
+
 describe('Http util', () => {
   test('Post should throw generic error exception if there is an internal service error | ESW-321', async () => {
     const invalidComponent = {
@@ -95,11 +97,18 @@ describe('Http util', () => {
   test('should be able to serialize form body', async () => {
     const expectedValue = { ok: true, status: 200 }
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
-    const headers = new Headers([['Content-Type', 'application/x-www-form-urlencoded']])
+    const headers = new HeaderExt({ 'Content-Type': 'application/x-www-form-urlencoded' })
     const payload = 'hello'
     const response = await post({ url, payload, headers })
 
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toBeCalledWith(url, {
+      method: 'POST',
+      headers: new HeaderExt({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'App-Name': 'test-app'
+      }),
+      body: 'hello='
+    })
     expect(response).toEqual(expectedValue)
   })
 
@@ -109,6 +118,19 @@ describe('Http util', () => {
 
     await expect(post({ url, payload })).rejects.toThrow(Error)
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+  })
+
+  test('should be able to make url with query params', async () => {
+    const expectedValue = { ok: true, status: 200 }
+    fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
+    const payload = 'hello'
+    const queryParams = {
+      a: 'b'
+    }
+
+    await post({ url, payload, queryParams })
+
+    expect(window.fetch).toBeCalledWith(`${url}?a=b`, makeRequest(payload))
   })
 })
 
