@@ -2,7 +2,7 @@
 
 ### Project overview :
 
- * Typescript library clients - /lib/src/clients
+ * Typescript library clients - /lib/src/clients 
  * Aas Components - /lib/src/components
  * Example App - /example/src
  * UI Integration tests - /integration-ui/src/test/scala/csw/aas/js/config
