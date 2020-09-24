@@ -1,5 +1,6 @@
 import type { HttpTransport } from '../../utils/HttpTransport'
-import { Done, DoneD } from '../location'
+import type { Done } from '../location'
+import { DoneD } from '../location/models/LocationResponses'
 import type { AlarmService } from './AlarmService'
 import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'
 

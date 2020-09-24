@@ -1,4 +1,5 @@
-import { Prefix, PrefixD } from '../../src/models'
+import { Prefix } from '../../src/models'
+import { PrefixD } from '../../src/models/params/Prefix'
 import { getOrThrow } from '../../src/utils/Utils'
 
 describe('Prefix', () => {

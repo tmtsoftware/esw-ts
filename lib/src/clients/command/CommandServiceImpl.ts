@@ -1,8 +1,14 @@
-import * as M from '../../models'
-import { isNegative } from '../../models'
+import type { Subscription } from '../..'
+import type * as M from '../../models'
+import {
+  isNegative,
+  OnewayResponseD,
+  SubmitResponseD,
+  ValidateResponseD
+} from '../../models/params/CommandResponse'
+import { CurrentStateD } from '../../models/params/CurrentState'
 import type { Decoder } from '../../utils/Decoder'
 import type { HttpTransport } from '../../utils/HttpTransport'
-import type { Subscription } from '../../utils/types'
 import type { Ws } from '../../utils/Ws'
 import { GatewayComponentCommand } from '../gateway/models/Gateway'
 import type { CommandService } from './CommandService'
@@ -31,19 +37,19 @@ export class CommandServiceImpl implements CommandService {
   }
 
   validate(command: M.ControlCommand): Promise<M.ValidateResponse> {
-    return this.postComponentCmd(new Req.Validate(command), M.ValidateResponseD)
+    return this.postComponentCmd(new Req.Validate(command), ValidateResponseD)
   }
 
   submit(command: M.ControlCommand): Promise<M.SubmitResponse> {
-    return this.postComponentCmd(new Req.Submit(command), M.SubmitResponseD)
+    return this.postComponentCmd(new Req.Submit(command), SubmitResponseD)
   }
 
   oneway(command: M.ControlCommand): Promise<M.OnewayResponse> {
-    return this.postComponentCmd(new Req.Oneway(command), M.OnewayResponseD)
+    return this.postComponentCmd(new Req.Oneway(command), OnewayResponseD)
   }
 
   query(runId: string): Promise<M.SubmitResponse> {
-    return this.postComponentCmd(new Req.Query(runId), M.SubmitResponseD)
+    return this.postComponentCmd(new Req.Query(runId), SubmitResponseD)
   }
 
   private subscribe(
@@ -53,7 +59,7 @@ export class CommandServiceImpl implements CommandService {
     return this.ws().subscribe(
       this.componentWsCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
-      M.CurrentStateD
+      CurrentStateD
     )
   }
 
@@ -72,7 +78,7 @@ export class CommandServiceImpl implements CommandService {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse> {
     return this.ws().singleResponse(
       this.componentWsCommand(new WsReq.QueryFinal(runId, timeoutInSeconds)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
   }
 

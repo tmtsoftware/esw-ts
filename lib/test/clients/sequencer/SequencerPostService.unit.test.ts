@@ -19,9 +19,9 @@ import {
   SequenceCommand,
   Setup,
   stringKey,
-  SubmitResponseD,
   Wait
 } from '../../../src/models'
+import { SubmitResponseD } from '../../../src/models/params/CommandResponse'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'

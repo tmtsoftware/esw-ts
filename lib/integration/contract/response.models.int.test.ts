@@ -3,13 +3,16 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
-import { SpawnResponseD, KillResponseD } from '../../src/clients/agent-service/models/AgentRes'
+import { KillResponseD, SpawnResponseD } from '../../src/clients/agent-service/models/AgentRes'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/clients/alarm/models/PostCommand'
 import * as C from '../../src/clients/config/models/ConfigModels'
 import { EventD } from '../../src/clients/event/models/Event'
 import { EventKeyD } from '../../src/clients/event/models/EventKey'
-import { ConnectionD, ConnectionTypeD, LocationD, TrackingEventD } from '../../src/clients/location'
-import { Level, LogMetadataD } from '../../src/clients/logger'
+import { ConnectionD, ConnectionTypeD } from '../../src/clients/location/models/Connection'
+import { LocationD } from '../../src/clients/location/models/Location'
+import { TrackingEventD } from '../../src/clients/location/models/TrackingEvent'
+import { LevelD } from '../../src/clients/logger/models/Level'
+import { LogMetadataD } from '../../src/clients/logger/models/LogMetadata'
 import { ObsModeD } from '../../src/clients/sequence-manager/models/ObsMode'
 import {
   AgentStatusResponseD,
@@ -22,8 +25,22 @@ import {
 } from '../../src/clients/sequence-manager/models/SequenceManagerRes'
 import * as Seq from '../../src/clients/sequencer/models/SequencerRes'
 import { StepD, StepListD, StepStatusD } from '../../src/clients/sequencer/models/StepList'
-import * as M from '../../src/models'
-import { ComponentIdD, PrefixD } from '../../src/models'
+import { ComponentIdD } from '../../src/models/ComponentId'
+import { ComponentTypeD } from '../../src/models/ComponentType'
+import { ControlCommandD, SequenceCommandD } from '../../src/models/params/Command'
+import {
+  CommandIssueD,
+  OnewayResponseD,
+  SubmitResponseD,
+  ValidateResponseD
+} from '../../src/models/params/CommandResponse'
+import { CurrentStateD } from '../../src/models/params/CurrentState'
+import * as M from '../../src/models/params/Key'
+import { ParameterD } from '../../src/models/params/Parameter'
+import { PrefixD } from '../../src/models/params/Prefix'
+import { ResultD } from '../../src/models/params/Result'
+import { SubsystemD } from '../../src/models/params/Subsystem'
+import { UnitsD } from '../../src/models/params/Units'
 import type { Decoder } from '../../src/utils/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
@@ -99,34 +116,34 @@ const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
 }
 
 const commandDecoders: Record<string, Decoder<any>> = {
-  Units: M.UnitsD,
-  Parameter: M.ParameterD,
+  Units: UnitsD,
+  Parameter: ParameterD,
   CommandName: D.string,
-  CurrentState: M.CurrentStateD,
-  CommandIssue: M.CommandIssueD,
-  SubmitResponse: M.SubmitResponseD,
-  OnewayResponse: M.OnewayResponseD,
-  ValidateResponse: M.ValidateResponseD,
-  ControlCommand: M.ControlCommandD,
-  Result: M.ResultD,
+  CurrentState: CurrentStateD,
+  CommandIssue: CommandIssueD,
+  SubmitResponse: SubmitResponseD,
+  OnewayResponse: OnewayResponseD,
+  ValidateResponse: ValidateResponseD,
+  ControlCommand: ControlCommandD,
+  Result: ResultD,
   KeyType: M.keyTagDecoder
 }
 
 const locationDecoders: Record<string, Decoder<any>> = {
   TrackingEvent: TrackingEventD,
-  ComponentType: M.ComponentTypeD,
+  ComponentType: ComponentTypeD,
   Connection: ConnectionD,
   Registration: D.id(),
-  ComponentId: M.ComponentIdD,
-  Prefix: M.PrefixD,
+  ComponentId: ComponentIdD,
+  Prefix: PrefixD,
   LocationServiceError: D.id(),
   ConnectionType: ConnectionTypeD,
-  Subsystem: M.SubsystemD,
+  Subsystem: SubsystemD,
   Location: LocationD
 }
 
 const gatewayDecoders: Record<string, Decoder<any>> = {
-  Subsystem: M.SubsystemD,
+  Subsystem: SubsystemD,
   AlarmSeverity: AlarmSeverityD,
   AlarmKey: AlarmKeyD,
   ComponentId: ComponentIdD,
@@ -135,7 +152,7 @@ const gatewayDecoders: Record<string, Decoder<any>> = {
   GatewayException: D.id(),
   Prefix: PrefixD,
   LogMetadata: LogMetadataD,
-  Level: Level
+  Level: LevelD
 }
 
 const configDecoders: Record<string, Decoder<any>> = {
@@ -147,11 +164,11 @@ const configDecoders: Record<string, Decoder<any>> = {
 }
 
 const sequencerDecoders: Record<string, Decoder<any>> = {
-  SequenceCommand: M.SequenceCommandD,
+  SequenceCommand: SequenceCommandD,
   AkkaLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
   GenericResponse: Seq.GenericResponseD,
   PauseResponse: Seq.PauseResponseD,
-  SubmitResponse: M.SubmitResponseD,
+  SubmitResponse: SubmitResponseD,
   GoOfflineResponse: Seq.GoOfflineResponseD,
   GoOnlineResponse: Seq.GoOnlineResponseD,
   OperationsModeResponse: Seq.OperationsModeResponseD,
@@ -174,7 +191,7 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   AgentStatusResponse: AgentStatusResponseD,
   Prefix: PrefixD,
   ObsMode: ObsModeD,
-  Subsystem: M.SubsystemD,
+  Subsystem: SubsystemD,
   ProvisionConfig: D.id()
 }
 

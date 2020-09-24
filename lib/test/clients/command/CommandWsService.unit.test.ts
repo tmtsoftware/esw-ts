@@ -3,8 +3,9 @@ import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceI
 import type { CommandServicePostMessage } from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
-import * as M from '../../../src/models'
 import { ComponentId, Prefix } from '../../../src/models'
+import { SubmitResponseD } from '../../../src/models/params/CommandResponse'
+import { CurrentStateD } from '../../../src/models/params/CurrentState'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -33,7 +34,7 @@ describe('CommandService', () => {
     verify(mockedWsTransport.subscribe).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
       callback,
-      M.CurrentStateD
+      CurrentStateD
     )
   })
 
@@ -46,7 +47,7 @@ describe('CommandService', () => {
 
     verify(mockedWsTransport.singleResponse).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
-      M.SubmitResponseD
+      SubmitResponseD
     )
   })
 })

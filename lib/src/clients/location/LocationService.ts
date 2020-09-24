@@ -1,9 +1,9 @@
-import type { TokenFactory, Option } from '../..'
+import type { TokenFactory, Option, Subscription } from '../..'
 
 import { LocationConfig } from '../../config'
 import type { ComponentType, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import type { Subscription } from '../../utils/types'
+
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
 import { LocationServiceImpl } from './LocationServiceImpl'

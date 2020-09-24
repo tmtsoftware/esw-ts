@@ -9,6 +9,13 @@ import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as M from '../../../src/models'
 import type { OnewayResponse, SubmitResponse, ValidateResponse } from '../../../src/models'
+import {
+  CompletedL,
+  LockedL,
+  OnewayResponseD,
+  SubmitResponseD,
+  ValidateResponseD
+} from '../../../src/models/params/CommandResponse'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -43,7 +50,7 @@ describe('CommandService', () => {
     expect(response).toEqual(expectedResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
-      M.ValidateResponseD
+      ValidateResponseD
     )
   })
 
@@ -62,7 +69,7 @@ describe('CommandService', () => {
     expect(response).toEqual(expectedResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
-      M.SubmitResponseD
+      SubmitResponseD
     )
   })
 
@@ -81,7 +88,7 @@ describe('CommandService', () => {
     expect(response).toEqual(expectedResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
-      M.OnewayResponseD
+      OnewayResponseD
     )
   })
 
@@ -100,7 +107,7 @@ describe('CommandService', () => {
     expect(response).toEqual(expectedResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
-      M.SubmitResponseD
+      SubmitResponseD
     )
   })
 
@@ -121,11 +128,11 @@ describe('CommandService', () => {
     expect(response).toEqual(mockQueryFinalResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
     verify(mockedWsTransport.singleResponse).toBeCalledWith(
       new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 10)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
   })
 
@@ -143,7 +150,7 @@ describe('CommandService', () => {
     expect(response).toEqual(mockResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
     // assert that query final is not needed as submit itself returns completed response (NOT started response)
     expect(mockedWsTransport.singleResponse).toBeCalledTimes(0)
@@ -167,15 +174,15 @@ describe('CommandService', () => {
     expect(response).toEqual([mockQueryFinalResponse, mockQueryFinalResponse])
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand1)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand2)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
     verify(mockedWsTransport.singleResponse).toBeCalledWith(
       new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 10)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
     expect(mockedHttpTransport.requestRes).toBeCalledTimes(2)
     expect(mockedWsTransport.singleResponse).toBeCalledTimes(2)
@@ -186,13 +193,13 @@ describe('CommandService', () => {
     const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], 'obsId2')
     const setupCommand3 = new M.Setup(eswTestPrefix, 'c3', [], 'obsId3')
     const completedResponse = (runId: string): M.CompletedResponse => ({
-      _type: M.CompletedL,
+      _type: CompletedL,
       runId: runId,
       result: new M.Result()
     })
 
     const lockedResponse: M.LockedResponse = {
-      _type: M.LockedL,
+      _type: LockedL,
       runId: '567'
     }
     const expectedResponse: M.SubmitResponse[] = [completedResponse('c1')]
@@ -225,7 +232,7 @@ describe('CommandService', () => {
 
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand1)),
-      M.SubmitResponseD
+      SubmitResponseD
     )
     expect(mockedHttpTransport.requestRes).toBeCalledTimes(2)
     expect(response).toEqual(expectedResponse)

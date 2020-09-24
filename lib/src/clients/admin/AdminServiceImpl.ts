@@ -1,8 +1,10 @@
 import type { ComponentId } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { GatewayAdminPostRequest } from '../gateway/models/Gateway'
-import { Done, DoneD } from '../location'
-import { Level, LogMetadata, LogMetadataD } from '../logger'
+import type { Done } from '../location'
+import { DoneD } from '../location/models/LocationResponses'
+import type { Level, LogMetadata } from '../logger'
+import { LogMetadataD } from '../logger/models/LogMetadata'
 import type { AdminService } from './AdminService'
 import { GetLogMetadata, SetLogLevel } from './models/PostCommand'
 

@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 import type { GatewayLoggingPostRequest } from '../../../src/clients/gateway/models/Gateway'
-import { DoneD } from '../../../src/clients/location'
+import { DoneD } from '../../../src/clients/location/models/LocationResponses'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
 import { Log } from '../../../src/clients/logger/models/PostCommand'
 import { Prefix } from '../../../src/models'

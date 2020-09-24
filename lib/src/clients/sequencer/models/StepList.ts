@@ -1,5 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
-import { SequenceCommand, SequenceCommandD } from '../../../models'
+import type { SequenceCommand } from '../../../models'
+import { SequenceCommandD } from '../../../models/params/Command'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 
 // ##################### Decoders #####################

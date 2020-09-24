@@ -1,8 +1,10 @@
 import { pipe } from 'fp-ts/pipeable'
 import * as D from 'io-ts/lib/Decoder'
 import { v4 as uuidv4 } from 'uuid'
-import { Key, Parameter, ParameterD, Prefix, PrefixD } from '../../../models'
+import type { Key, Parameter, Prefix } from '../../../models'
+import { ParameterD } from '../../../models/params/Parameter'
 import { ParameterSetType } from '../../../models/params/ParameterSetType'
+import { PrefixD } from '../../../models/params/Prefix'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 import { EventName, EventNameD } from './EventName'
 

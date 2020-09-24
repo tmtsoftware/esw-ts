@@ -1,4 +1,4 @@
-import { ParameterD } from '../../src/models'
+import { ParameterD } from '../../src/models/params/Parameter'
 import { char } from '../../src/utils/Decoder'
 import { getOrThrow } from '../../src/utils/Utils'
 

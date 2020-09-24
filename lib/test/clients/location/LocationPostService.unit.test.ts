@@ -1,12 +1,7 @@
 import { mocked } from 'ts-jest/utils'
-import {
-  AkkaLocation,
-  DoneD,
-  Duration,
-  HttpConnection,
-  LocationListD
-} from '../../../src/clients/location'
+import { AkkaLocation, Duration, HttpConnection } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
+import { DoneD, LocationListD } from '../../../src/clients/location/models/LocationResponses'
 import * as Req from '../../../src/clients/location/models/PostCommand'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
 import type { LocationWebSocketMessage } from '../../../src/clients/location/models/WsCommand'

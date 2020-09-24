@@ -4,7 +4,6 @@ import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPat
 import {
   BaseKey,
   Completed,
-  CompletedL,
   ComponentId,
   CurrentState,
   intArrayKey,
@@ -16,6 +15,7 @@ import {
   Setup,
   SubmitResponse
 } from '../../src/models'
+import { CompletedL } from '../../src/models/params/CommandResponse'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 

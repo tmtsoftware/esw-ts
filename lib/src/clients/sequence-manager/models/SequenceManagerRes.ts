@@ -1,7 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
-import { ComponentIdD, PrefixD, SubsystemD } from '../../../models'
+import { ComponentIdD } from '../../../models/ComponentId'
+import { PrefixD } from '../../../models/params/Prefix'
+import { SubsystemD } from '../../../models/params/Subsystem'
 import { ciLiteral } from '../../../utils/Decoder'
-import { AkkaLocationD } from '../../location'
+import { AkkaLocationD } from '../../location/models/Location'
 import { ObsModeD } from './ObsMode'
 
 // ##################### Decoders #####################

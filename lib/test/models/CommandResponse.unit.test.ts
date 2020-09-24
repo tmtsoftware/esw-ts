@@ -1,20 +1,22 @@
 import {
-  CancelledL,
   CancelledResponse,
-  CompletedL,
   CompletedResponse,
-  ErrorL,
   ErrorResponse,
-  InvalidL,
   InvalidResponse,
-  isNegative,
-  LockedL,
   LockedResponse,
   Result,
-  StartedL,
   StartedResponse,
   SubmitResponse
 } from '../../src/models'
+import {
+  CancelledL,
+  CompletedL,
+  ErrorL,
+  InvalidL,
+  isNegative,
+  LockedL,
+  StartedL
+} from '../../src/models/params/CommandResponse'
 
 describe('CommandResponse', () => {
   const errorResponse: ErrorResponse = { _type: ErrorL, runId: '1234', message: 'error reponse' }

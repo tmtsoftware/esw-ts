@@ -1,6 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
 import type { Option } from '../..'
-import { ComponentId, SequenceCommand, SubmitResponse, SubmitResponseD } from '../../models'
+import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
+import { SubmitResponseD } from '../../models/params/CommandResponse'
 import type { Decoder } from '../../utils/Decoder'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import { headOption } from '../../utils/Utils'
