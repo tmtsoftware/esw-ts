@@ -1,6 +1,6 @@
 {
   "name": "esw-ts",
-  "version": "1.0.0",
+  "version": "0.1.0-M1",
   "description": "Typescript client for gateway",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",

@@ -41,7 +41,7 @@ jobs:
       - name: Selenium Test
         run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM clean test
         env:
-          CSW_VERSION: "50b46f322f" # Change before releasing (before tagging repo)
+          CSW_VERSION: "3.0.0-M1" # Change before releasing (before tagging repo)
 
       - name: Generate RTM
         if: always()
