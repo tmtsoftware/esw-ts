@@ -124,10 +124,13 @@ export class SequencerServiceImpl implements SequencerService {
     return this.postSequencerCmd(new Req.Submit(sequence), SubmitResponseD)
   }
 
-  async submitAndWait(sequence: SequenceCommand[]): Promise<SubmitResponse> {
+  async submitAndWait(
+    sequence: SequenceCommand[],
+    timeoutInSeconds: number
+  ): Promise<SubmitResponse> {
     const submitResponse = await this.submit(sequence)
     if (submitResponse._type === 'Started') {
-      return this.queryFinal(submitResponse.runId, 5)
+      return this.queryFinal(submitResponse.runId, timeoutInSeconds)
     } else return Promise.resolve(submitResponse)
   }
 

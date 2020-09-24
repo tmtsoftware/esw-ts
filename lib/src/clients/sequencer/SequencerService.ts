@@ -181,9 +181,10 @@ export interface SequencerService {
    * and returns the final SubmitResponse
    *
    * @param sequence - sequence to run on the sequencer
+   * @param timeoutInSeconds - timeout
    * @return [SubmitResponse] as a Promise value
    */
-  submitAndWait(sequence: SequenceCommand[]): Promise<SubmitResponse>
+  submitAndWait(sequence: SequenceCommand[], timeoutInSeconds: number): Promise<SubmitResponse>
 
   /**
    * Queries the response of sequence of the given runId

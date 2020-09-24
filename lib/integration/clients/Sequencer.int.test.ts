@@ -182,7 +182,7 @@ describe('Sequencer Client', () => {
   })
 
   test('should submitAndWait sequence to sequencer | ESW-307, ESW-99, ESW-344', async () => {
-    const response = await sequencerServiceWithToken.submitAndWait(sequence)
+    const response = await sequencerServiceWithToken.submitAndWait(sequence, 10)
     expect(response).toEqual(startedResponse)
   })
 

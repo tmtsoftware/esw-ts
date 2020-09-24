@@ -344,7 +344,7 @@ describe('SequencerService', () => {
     mockHttpTransport.requestRes.mockResolvedValueOnce(mockSubmitResponse)
     mockWs.singleResponse.mockResolvedValueOnce(mockQueryFinalResponse)
 
-    const response = await sequencer.submitAndWait(sequence)
+    const response = await sequencer.submitAndWait(sequence, 5)
 
     expect(response).toEqual(mockQueryFinalResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
@@ -365,7 +365,7 @@ describe('SequencerService', () => {
     }
     mockHttpTransport.requestRes.mockResolvedValueOnce(mockResponse)
 
-    const response = await sequencer.submitAndWait(sequence)
+    const response = await sequencer.submitAndWait(sequence, 5)
 
     expect(response).toEqual(mockResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
