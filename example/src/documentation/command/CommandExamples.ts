@@ -3,15 +3,18 @@ import {
   ComponentId,
   CurrentState,
   IntKey,
-  Observe,
-  OnewayResponse,
-  Parameter,
-  Prefix,
   Setup,
+  Observe,
+  Parameter,
+  Prefix
+} from 'esw-ts'
+
+import type {
+  Subscription,
+  OnewayResponse,
   SubmitResponse,
   ValidateResponse
 } from 'esw-ts'
-import { Subscription } from 'esw-ts/dist/src/utils/Ws'
 
 const auth = { token: '' }
 const paramSet: Parameter<IntKey>[] = []

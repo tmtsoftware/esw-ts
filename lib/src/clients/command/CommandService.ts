@@ -2,8 +2,9 @@ import type { TokenFactory } from '../../'
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import type * as M from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
+import type { Subscription } from '../../utils/types'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
-import { Subscription, Ws } from '../../utils/Ws'
+import { Ws } from '../../utils/Ws'
 import { CommandServiceImpl } from './CommandServiceImpl'
 
 /**

@@ -9,3 +9,7 @@ export type AppConfig = {
 export type AppConfigModule = {
   AppConfig: AppConfig
 }
+
+export interface Subscription {
+  cancel: () => void
+}

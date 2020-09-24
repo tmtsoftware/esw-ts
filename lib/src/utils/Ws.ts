@@ -1,6 +1,7 @@
 import * as ConfigLoader from '../config/ConfigLoader'
 import { APP_NAME } from './Constants'
 import type { Decoder } from './Decoder'
+import type { Subscription } from './types'
 import { getOrThrow } from './Utils'
 
 const createWebsocket = async (url: string) => {
@@ -53,9 +54,4 @@ export class Ws<Req> {
   private readonly subscription: Subscription = {
     cancel: () => this.socket.then((wss) => wss.close())
   }
-}
-
-// fixme
-export interface Subscription {
-  cancel: () => void
 }
