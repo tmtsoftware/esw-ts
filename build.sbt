@@ -29,6 +29,7 @@ lazy val docs = project
     paradoxRoots := List(
       "aas/csw-aas-js.html",
       "clients/command/command-service.html",
+      "clients/sequencer/sequencer-service.html",
       "index.html",
       "technical/csw-aas-js.html"
     )
