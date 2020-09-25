@@ -56,7 +56,6 @@ const ExampleApp = () => {
                 path='/example_user'
                 render={(_) => (
                   <CheckLogin error={<LoginError />}>
-                    {/*// #realmRole-component-usage */}
                     <RealmRole
                       realmRole='person-role'
                       error={
@@ -66,7 +65,6 @@ const ExampleApp = () => {
                       }>
                       <div>Person role specific functionality</div>
                     </RealmRole>
-                    {/*// #realmRole-component-usage */}
                   </CheckLogin>
                 )}
               />

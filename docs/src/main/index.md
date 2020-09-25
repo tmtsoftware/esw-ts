@@ -7,10 +7,16 @@
 
 `esw-ts` library is available on npm registry.
 
-###Installation:
-  To install latest version node. visit this node's official [website](https://nodejs.org/).
+ It is recommended to use giter8 template [`esw-ui-template.g8`](https://github.com/tmtsoftware/esw-ui-template.g8)  to get started with building web application.
 
-  To install latest version of esw-ts from npm
+ `esw-ts` is comes pre-packaged as a dependency in the template. You can skip the installation step and make use of the services directly in the application. [Jump to library features](#features)
+
+
+### Installation
+
+  To install the latest version node. visit this node's official [website](https://nodejs.org/).
+
+  To install the latest version of esw-ts from npm
 
     npm install esw-ts
 

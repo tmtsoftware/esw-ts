@@ -3,19 +3,16 @@ This client side service provides a handle to send commands to a component which
 
 Command service has following [APIs](#apis):
 
-|        API                |      Input args                       |          Returns           |
-| ------------------------- | ------------------------------------- | ---------------------------
-| [validate](#validate)     |   ControlCommand                      |     ValidateResponse       |
-| [submit](#submit)         |   ControlCommand                      |     SubmitResponse         |
-| [oneway](#oneway)         |   ControlCommand                      |     OnewayResponse         |
-| [query](#query)           |   runId                               |     SubmitResponse         |
-| [queryFinal](#query-final) |   runId, timeoutInSeconds             |     SubmitResponse         |
-| [subscribeCurrentState]
-  (#subscribe-current-state)  |   stateNames, onStateChangeCallback   |     Subscription           |
-| [submitAndWait]
-   (#submit-and-wait)         |   ControlCommand, timeoutInSeconds    |     SubmitResponse         |
-| [submitAllAndWait]
-  (#submit-all-and-wait)       |   ControlCommand[ ], timeoutInSeconds |     SubmitResponse[ ]      |
+| API                                               | Input args                                            | Returns               |
+| --------------------------------------------------| ----------------------------------------------------- | --------------------- |
+| [validate](#validate)                             | ControlCommand                                        | ValidateResponse      |
+| [submit](#submit)                                 | ControlCommand                                        | SubmitResponse        |
+| [oneway](#oneway)                                 | ControlCommand                                        | OnewayResponse        |
+| [query](#query)                                   | runId                                                 | SubmitResponse        |
+| [queryFinal](#queryfinal)                         | runId, timeoutInSeconds                               | SubmitResponse        |
+| [subscribeCurrentState](#subscribecurrentstate)   | stateNames, onStateChangeCallback                     | Subscription          |
+| [submitAndWait](#submitandwait)                   | ControlCommand, timeoutInSeconds                      | SubmitResponse        |
+| [submitAllAndWait](#submitallandwait)             | ControlCommand [ ], timeoutInSeconds                  | SubmitResponse[ ]     |
 
 
 ##Creation of Command Service
@@ -36,7 +33,7 @@ Typescript
 :   @@snip [Command-Service](../../../../../example/src/documentation/command/CommandExamples.ts) { #command-service-creation }
 
 ## Control Commands
-   In order to call following api, one of the control command needs to be sent. Depending on your use case, you will be sending either Setup or Observe Command.
+   In order to call following API, one of the control command needs to be sent. Depending on your use case, you will be sending either Setup or Observe Command.
 
    Following examples show how to create control commands:
 
@@ -53,18 +50,18 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ###Validate
 
-  This api takes Control command as input parameter and return a promise of `ValidateResponse`.
+  This API takes Control command as input parameter and return a promise of `ValidateResponse`.
 
-  The following example shows how to call validate api :
+  The following example shows how to call validate API :
 
 Typescript
 :   @@snip [validate](../../../../../example/src/documentation/command/CommandExamples.ts) { #validate }
 
 ###Submit
 
-  This api takes Control command as input parameter and return a promise of `SubmitResponse`.
+  This API takes Control command as input parameter and return a promise of `SubmitResponse`.
 
-  The following example shows how to call submit api :
+  The following example shows how to call submit API :
 
 Typescript
 :   @@snip [submit](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit }
@@ -72,54 +69,54 @@ Typescript
 
 ###Oneway
 
-  This api takes Control command as input parameter and return a promise of `OnewayResponse`.
+  This API takes Control command as input parameter and return a promise of `OnewayResponse`.
 
-  The following example shows how to call oneway api :
+  The following example shows how to call oneway API :
 
 Typescript
 :   @@snip [oneway](../../../../../example/src/documentation/command/CommandExamples.ts) { #oneway }
 
 ###Query
 
-  This api takes runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
+  This API takes runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
 
-  The following example shows how to call query api :
+  The following example shows how to call query API :
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #query }
 
-###Query Final
+###QueryFinal
 
-  This api is same as query , only difference is takes time-out (seconds) along with runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
+  This API is same as query , only difference is takes time-out (seconds) along with runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
 
-  The following example shows how to call query final api :
+  The following example shows how to call query final API :
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #query-final }
 
-###Subscribe Current State
+###SubscribeCurrentState
 
-  This api takes set of current states to be subscribed along with a callback which will get triggered on change of the mentioned states.(`stateName1`,`stateName2`)
+  This API takes set of current states to be subscribed along with a callback which will get triggered on change of the mentioned states.(`stateName1`,`stateName2`)
 
-  The following example shows how subscribeCurrentState api call would look like :
+  The following example shows how subscribeCurrentState API call would look like :
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #subscribe-current-state }
 
-###Submit And Wait
+###SubmitAndWait
 
-  This api takes Control command as input parameter along with time-out(seconds) and return a promise of `SubmitResponse` after waiting for a specified amount of time.
+  This API takes Control command as input parameter along with time-out(seconds) and return a promise of `SubmitResponse` after waiting for a specified amount of time.
 
-  The following example shows how submitAndWait api call would look like :
+  The following example shows how submitAndWait API call would look like :
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-and-wait }
 
-###Submit All And Wait
+###SubmitAllAndWait
 
-  This api takes multiple control commands as input parameter along with time-out(seconds) and return a promise of `SubmitResponse[]` after waiting for a specified amount of time.
+  This API takes multiple control commands as input parameter along with time-out(seconds) and return a promise of `SubmitResponse[]` after waiting for a specified amount of time.
 
-  The following example shows how submitAllAndWait api call would look like :
+  The following example shows how submitAllAndWait API call would look like :
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-all-and-wait }

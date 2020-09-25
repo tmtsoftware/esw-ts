@@ -74,7 +74,7 @@ application via a `Consumer`.
 Javascript
 :   @@snip [AuthContextProvider.tsx](../../../../example/src/components/ExampleApp.tsx) { #AuthContextProvider-component-usage }
 
-#### Source code for RealmRole component
+#### Source code for AuthContextProvider component
 
 * @github[AuthContextProvider Component](../../../../lib/src/components/aas/context/AuthContextProvider.tsx)
 
@@ -86,7 +86,7 @@ The shared `auth` object from the `AuthContextProvider` can be accessed using a 
 Javascript
 :   @@snip [Consumer.jsx](../../../../example/src/components/Read.tsx) { #Consumer-component-usage }
 
-#### Source code for RealmRole component
+#### Source code for Consumer component
 
 * @github[Consumer Component](/lib/src/components/aas/context/AuthContext.ts)
 
