@@ -16,9 +16,9 @@ Agent service has following [APIs](#apis):
 
   1. Agent machine should be up and running. Its location should be registered with location service.
   2. Authorization Token with correct access role.
-     To read more on how to fetch access token, [click here](../../aas/csw-aas-js.html).
+     Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
 
-####To create Agent client
+####To create Agent client:
 
 Typescript
 :   @@snip [Agent-Service](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #agent-service-creation }
@@ -29,7 +29,7 @@ Typescript
 
    This API spawns new sequence manager on given agent machine.
 
-   It takes prefix of the agent machine on which sequence manager needs to be spawned. Observation mode config file can
+   It takes a prefix of the agent machine on which sequence manager needs to be spawned. Observation mode config file can
    be present on local(agent machine) or on config server. In case of local file, absolute path should be provided.
    Sequence manager version is an optional field. When version isn't specified, default version gets picked up.
 
@@ -51,7 +51,7 @@ Typescript
    API returns `Spawned` as a response when sequence component has spawned successfully.
    API returns `Failed` as a response if a sequence component with given component name and agent's subsystem is already present on any agent machine.
 
-The following example shows how to call spawnSeqeunceComponent API :
+The following example shows how to call spawnSequenceComponent API :
 
 Typescript
 :   @@snip [spawnSeqeunceComponent](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #spawnSeqeunceComponent }

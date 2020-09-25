@@ -38,7 +38,7 @@ Sequencer service has following [APIs](#apis):
   1. The sequencer and gateway server should be running.
     `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the location service.
   2. Authorization Token with correct access role.
-     To read more on how to fetch access token. [link](../../aas/csw-aas-js.html).
+     Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
 
 ####Here is an example:
 

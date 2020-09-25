@@ -23,7 +23,7 @@ Command service has following [APIs](#apis):
   1. The component needs to be up and running behind the gateway server.
     `GatewayException(InvalidComponent)` will be thrown if the specified component is not found.
   2. Authorization Token with correct access role.
-     To read more on how to fetch access token. [link](../../aas/csw-aas-js.html).
+     Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
 
 For the given example : `Prefix(ESW.Component1)` needs to be registered in the location service as any of the component type (`HCD`, `Assembly`, etc.).
 
