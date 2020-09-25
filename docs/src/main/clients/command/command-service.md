@@ -18,7 +18,7 @@ Command service has following [APIs](#apis):
 ##Creation of Command Service
 
 ###Pre-requisite
-In order to use command service for a specific component:
+####In order to use command service for a specific component:
 
   1. The component needs to be up and running behind the gateway server.
     `GatewayException(InvalidComponent)` will be thrown if the specified component is not found.
@@ -27,7 +27,7 @@ In order to use command service for a specific component:
 
 For the given example : `Prefix(ESW.Component1)` needs to be registered in the location service as any of the component type (`HCD`, `Assembly`, etc.).
 
-To create Command service client for a component
+####To create Command service client for a component
 
 Typescript
 :   @@snip [Command-Service](../../../../../example/src/documentation/command/CommandExamples.ts) { #command-service-creation }
@@ -122,5 +122,7 @@ Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-all-and-wait }
 
 
+#### Error Handling
 
+- @ref:[Reference](../../common/error-handling.md)
 

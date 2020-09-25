@@ -33,14 +33,14 @@ Sequencer service has following [APIs](#apis):
 
 ##Creation of Sequencer Service
 ###Pre-requisite
-In order to use sequencer service client for a specific sequencer:
+####In order to use sequencer service client for a specific sequencer:
 
   1. The sequencer and gateway server should be running.
     `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the location service.
   2. Authorization Token with correct access role.
      To read more on how to fetch access token. [link](../../aas/csw-aas-js.html).
 
-Here is an example:
+####Here is an example:
 
 Typescript
 : @@snip [Sequencer-Service](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #Sequencer-Service-creation }
