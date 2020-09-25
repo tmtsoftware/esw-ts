@@ -7,13 +7,13 @@
 
 `esw-ts` library is available on npm registry.
 
-###Installation: 
+###Installation:
   To install latest version node. visit this node's official [website](https://nodejs.org/).
-    
+
   To install latest version of esw-ts from npm
-    
+
     npm install esw-ts
-    
+
   To install a specific version
 
     npm install esw-ts@{version}
@@ -26,5 +26,6 @@ AAS (Authentication and Authorization Support for web application)
 
 Clients:
 
+- @ref:[Agent Client](clients/agent/agent-service.md)
 - @ref:[Command Service](clients/command/command-service.md)
 - @ref:[Sequencer Service](clients/sequencer/sequencer-service.md)

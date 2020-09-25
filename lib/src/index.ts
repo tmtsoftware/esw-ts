@@ -1,6 +1,7 @@
 export * from './clients/aas'
 export * from './clients/alarm'
 export * from './clients/command'
+export * from './clients/agent-service'
 export * from './clients/config'
 export * from './clients/event'
 export * from './clients/location'
