@@ -26,7 +26,7 @@ export interface SequencerService {
   startSequence(): Promise<SubmitResponse>
 
   /**
-   * Adds the given list of sequence commands in the sequence of sequencer
+   * Adds the given list of sequence commands at the end of the sequence of sequencer
    *
    * @param commands - list of SequenceCommand to add in the sequence of sequencer
    * @returns [OkOrUnhandledResponse] as a Promise value

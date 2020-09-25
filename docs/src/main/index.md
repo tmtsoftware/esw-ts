@@ -26,4 +26,5 @@ AAS (Authentication and Authorization Support for web application)
 
 Clients:
 
-- @ref:[Command Client](clients/command/command-service.md)
+- @ref:[Command Service](clients/command/command-service.md)
+- @ref:[Sequencer Service](clients/sequencer/sequencer-service.md)
