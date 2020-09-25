@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: increase file watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
       - uses: olafurpg/setup-scala@v7
         with:
           java-version: adopt@1.11
@@ -18,11 +21,13 @@ jobs:
           node-version: "14.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Check library
+      - name: Install
         working-directory: ./lib
-        run: |
-          npm ci
-          npm run build
+        run: npm ci
+
+      - name: Build
+        working-directory: ./lib
+        run: npm run build
 
       - name: Unit tests
         working-directory: ./lib
@@ -32,7 +37,7 @@ jobs:
         working-directory: ./lib
         run: npm run test:integration:ci
 
-      - name: Check Example App
+      - name: Build - Example App
         working-directory: ./example
         run: |
           npm ci

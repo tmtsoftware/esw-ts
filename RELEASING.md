@@ -9,4 +9,4 @@
 7. Update csw and esw versions in `shell.ts`
 8. Update `embedded-keycloak` version in `Libs.scala`
 9. Run `release.sh $VERSION$` script by providing version number argument (This triggers release workflow)
-    Note: `PROD=true` environment varibale needs to be set before running `release.sh`
+    Note: `PROD=true` environment variable needs to be set before running `release.sh`
