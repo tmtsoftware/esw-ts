@@ -53,55 +53,48 @@ const okOrUnhandledResponse: OkOrUnhandledResponse = await sequencerService.load
 const startSequenceRes: SubmitResponse = await sequencerService.startSequence()
 //#startSequence
 
-// @ts-ignore
 //#add
-const response: OkOrUnhandledResponse = await sequencerService.add([
+const addResponse: OkOrUnhandledResponse = await sequencerService.add([
   observeCommand2,
   setupCommand2
 ])
 //#add
 
-// @ts-ignore
 //#prepend
-const response: OkOrUnhandledResponse = await sequencerService.prepend([
+const prependResponse: OkOrUnhandledResponse = await sequencerService.prepend([
   observeCommand2,
   setupCommand2
 ])
 //#prepend
 
-// @ts-ignore
 //#replace
-const response: GenericResponse = await sequencerService.replace(
+const replaceResponse: GenericResponse = await sequencerService.replace(
   'd99b6cf6-553c-49e9-9089-aaa494f116e9',
   [observeCommand2, setupCommand2]
 )
 //#replace
 
-// @ts-ignore
 //#insertAfter
-const response: GenericResponse = await sequencerService.insertAfter(
+const insertAfterResponse: GenericResponse = await sequencerService.insertAfter(
   'd99b6cf6-553c-49e9-9089-aaa494f116e9',
   [observeCommand2, setupCommand2]
 )
 //#insertAfter
 
-// @ts-ignore
 //#delete
-const response: GenericResponse = await sequencerService.delete(
+const deleteResponse: GenericResponse = await sequencerService.delete(
   'd99b6cf6-553c-49e9-9089-aaa494f116e9'
 )
 //#delete
 
-// @ts-ignore
 //#addBreakpoint
-const response: GenericResponse = await sequencerService.addBreakpoint(
+const addBreakpointResponse: GenericResponse = await sequencerService.addBreakpoint(
   'd99b6cf6-553c-49e9-9089-aaa494f116e9'
 )
 //#addBreakpoint
 
-// @ts-ignore
 //#removeBreakpoint
-const response: RemoveBreakpointResponse = await sequencerService.removeBreakpoint(
+const removeBreakpointResponse: RemoveBreakpointResponse = await sequencerService.removeBreakpoint(
   'd99b6cf6-553c-49e9-9089-aaa494f116e9'
 )
 //#removeBreakpoint
@@ -122,26 +115,21 @@ const pauseResponse: PauseResponse = await sequencerService.pause()
 const getSequenceRes: Option<StepList> = await sequencerService.getSequence()
 //#getSequence
 
-// @ts-ignore
 //#isAvailable
-const response: boolean = await sequencerService.isAvailable()
+const isAvailable: boolean = await sequencerService.isAvailable()
 //#isAvailable
 
-// @ts-ignore
 //#isOnline
-const response: boolean = await sequencerService.isOnline()
+const isOnline: boolean = await sequencerService.isOnline()
 //#isOnline
 
-// @ts-ignore
 //#goOnline
-const response: GoOnlineResponse = await sequencerService.goOnline()
+const goOnlineResponse: GoOnlineResponse = await sequencerService.goOnline()
 //#goOnline
 
-// @ts-ignore
 //#goOffline
-const response: GoOfflineResponse = await sequencerService.goOffline()
+const goOfflineResponse: GoOfflineResponse = await sequencerService.goOffline()
 //#goOffline
-// @ts-ignore
 
 //#abortSequence
 const abortResponse: OkOrUnhandledResponse = await sequencerService.abortSequence()
