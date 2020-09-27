@@ -6,9 +6,23 @@ import type { Done } from '../location'
 import type { Level, LogMetadata } from '../logger'
 import { AdminServiceImpl } from './AdminServiceImpl'
 
+/**
+ * Admin service provides admin related APIs which includes logging related APIs
+ */
 export interface AdminService {
+  /**
+   * Get basic logging configuration values of the component.
+   * @param componentId The component id of the component.
+   * @return LogMetadata containing all the log configuration values
+   */
   getLogMetadata(componentId: ComponentId): Promise<LogMetadata>
 
+  /**
+   * Set new log level of a component.
+   * @param componentId  The component id of the component
+   * @param level Expected Log level for the component.
+   * @return Promise of Done as a confirmation of action.
+   */
   setLogLevel(componentId: ComponentId, level: Level): Promise<Done>
 }
 

@@ -28,6 +28,7 @@ lazy val docs = project
     gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts",
     paradoxRoots := List(
       "aas/csw-aas-js.html",
+      "clients/admin/admin-service.html",
       "clients/agent/agent-service.html",
       "clients/command/command-service.html",
       "clients/sequencer/sequencer-service.html",
