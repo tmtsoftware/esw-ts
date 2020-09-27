@@ -24,3 +24,4 @@ target
 lib/src/**/*.js
 lib/integration/jsons
 RTM/testStoryMapping.txt
+.bsp
