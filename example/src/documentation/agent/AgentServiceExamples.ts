@@ -1,4 +1,4 @@
-import { AgentService, HttpConnection, Prefix } from 'esw-ts'
+import { AgentService, HttpConnection, KillResponse, Prefix, SpawnResponse } from 'esw-ts'
 
 const auth = { token: '' }
 
@@ -13,7 +13,7 @@ const agentPrefix = new Prefix('ESW', 'agent1')
 const obsModeConfigPath = '/obs-mode.conf'
 const sequenceManagerVersion = '1.0.0'
 
-const spawnResponse1 = agentService.spawnSequenceManager(
+const spawnResponse1: SpawnResponse = await agentService.spawnSequenceManager(
   agentPrefix,
   obsModeConfigPath,
   false,
@@ -23,7 +23,7 @@ const spawnResponse1 = agentService.spawnSequenceManager(
 
 //#spawnSeqeunceComponent
 const ocsAppVersion = '1.2.1'
-const spawnResponse2 = agentService.spawnSequenceComponent(
+const spawnResponse2: SpawnResponse = await agentService.spawnSequenceComponent(
   agentPrefix,
   'component1',
   ocsAppVersion
@@ -36,5 +36,5 @@ const httpConnection: HttpConnection = HttpConnection(
   componentPrefix,
   'SequenceComponent'
 )
-const killResponse = agentService.killComponent(httpConnection)
+const killResponse: KillResponse = await agentService.killComponent(httpConnection)
 //#killComponent

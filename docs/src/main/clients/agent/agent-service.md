@@ -39,13 +39,13 @@ Typescript
 The following example shows how to call spawnSequenceManager API :
 
 Typescript
-:   @@snip [spawnSeqeunceManager](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #spawnSeqeunceManager }
+:   @@snip [spawnSequenceManager](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #spawnSeqeunceManager }
 
 ###spawnSequenceComponent
 
    This API spawns new sequence component on given agent machine.
 
-   It takes prefix of the agent machine, component name and ocs-app library version. Version is an optional field.
+   It takes a prefix of the agent machine, component name and ocs-app library version. Version is an optional field.
     When version isn't specified, default version gets picked up.
 
    API returns `Spawned` as a response when sequence component has spawned successfully.
@@ -54,11 +54,11 @@ Typescript
 The following example shows how to call spawnSequenceComponent API :
 
 Typescript
-:   @@snip [spawnSeqeunceComponent](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #spawnSeqeunceComponent }
+:   @@snip [spawnSequenceComponent](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #spawnSeqeunceComponent }
 
 ###killComponent
 
-   This API is used to kill any component registered with location service. It takes `Connection` as a input which can be
+   This API allows to kill any component registered with location service. It takes `Connection` as a input which can be
    either of following: `AkkaConnection`, `HttpConnection`, `TcpConnection`.
 
    API returns `Killed` as a response if component is killed successfully.
