@@ -1,5 +1,5 @@
 {
-  "name": "esw-ts",
+  "name": "@tmtsoftware/esw-ts",
   "version": "0.1.0-M1",
   "description": "Typescript client for gateway",
   "main": "dist/src/index.js",
