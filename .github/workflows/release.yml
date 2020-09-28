@@ -70,14 +70,14 @@ jobs:
 
       - name: Docs Publish
         run: |
-          echo 'echo $GITHUB_RELEASE' > /tmp/.git-askpass
+          echo 'echo $RELEASE_TOKEN' > /tmp/.git-askpass
           chmod +x /tmp/.git-askpass
           git config --global user.email "actions@github.com"
           git config --global user.name "Github Action"
           sbt -Dprod.publish=true clean ghpagesPushSite
 
         env:
-          GITHUB_RELEASE: ${{ secrets.GITHUB_RELEASE }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           GIT_ASKPASS: /tmp/.git-askpass
 
       - name: Notify slack
