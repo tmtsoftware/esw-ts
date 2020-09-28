@@ -1,0 +1,41 @@
+name: Test docs publish
+
+on:
+  push:
+    branches: [ poorva/test-docs-publish ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: increase file watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+      - uses: olafurpg/setup-scala@v7
+        with:
+          java-version: adopt@1.11
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install
+        working-directory: ./lib
+        run: npm ci
+
+      - name: Build
+        working-directory: ./lib
+        run: npm run build
+
+      - name: Docs Publish
+        run: |
+          echo 'echo $RELEASE_TOKEN' > /tmp/.git-askpass
+          chmod +x /tmp/.git-askpass
+          git config --global user.email "actions@github.com"
+          git config --global user.name "Github Action"
+          sbt -Dprod.publish=true clean ghpagesPushSite
+
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GIT_ASKPASS: /tmp/.git-askpass
