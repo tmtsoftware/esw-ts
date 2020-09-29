@@ -1,5 +1,9 @@
 #Agent Service
-This service provides a handle to spawn sequence manager and sequence components, to kill the components.
+
+Agent service provides HTTP interface to interact with all agent machines uniquely located using agent prefix.
+APIs to spawn components takes agent prefix as parameter. Agent prefix is used to locate agent machine using location service.
+After agent is located, command like spawn sequence manager or spwan sequence component is forwarded to that agent machine.
+Agent service provides APIs to spawn sequence manager, sequence components and to kill spawned components.
 
 Agent service has following [APIs](#apis):
 
@@ -14,8 +18,9 @@ Agent service has following [APIs](#apis):
 ###Pre-requisite
 ####In order to use agent service APIs:
 
-  1. Agent machine should be up and running. Its location should be registered with location service.
-  2. Authorization Token with correct access role.
+  1. Agent machines should be up and running.
+  2. Locations of agent machines should be registered in Location Service.
+  3. Authorization Token with correct access role.
      Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
 
 ####To create Agent client:
@@ -43,7 +48,7 @@ Typescript
 
 ###spawnSequenceComponent
 
-   This API spawns new sequence component on given agent machine.
+   This API spawns new sequence component on agent machine which is located using agent prefix provided.
 
    It takes a prefix of the agent machine, component name and ocs-app library version. Version is an optional field.
     When version isn't specified, default version gets picked up.
