@@ -147,3 +147,15 @@ const submitAllAndWaitResponse: SubmitResponse[] = await commandService.submitAl
   10
 )
 //#submit-all-and-wait
+
+//#folder-structure
+```
+/components
+  /landing
+    /Landing.tsx
+    /Landing.css
+  /Command
+    /CommandClient.tsx
+    /CommandClient.css
+```
+//#folder-structure
