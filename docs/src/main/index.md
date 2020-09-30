@@ -35,5 +35,6 @@
 - @ref:[Admin Client](clients/admin/admin-service.md)
 - @ref:[Agent Client](clients/agent/agent-service.md)
 - @ref:[Command Service](clients/command/command-service.md)
+- @ref:[Location Service](clients/location/location-service.md)
 - @ref:[Sequencer Service](clients/sequencer/sequencer-service.md)
 
