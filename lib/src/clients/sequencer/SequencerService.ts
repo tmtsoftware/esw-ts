@@ -13,7 +13,7 @@ export interface SequencerService {
   /**
    * Loads the given sequence to the sequencer
    *
-   * @param sequence - a sequence to load in the sequencer
+   * @param sequence a sequence to load in the sequencer
    * @returns OkOrUnhandledResponse as a Promise
    */
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -28,7 +28,7 @@ export interface SequencerService {
   /**
    * Adds the given list of sequence commands at the end of the sequence
    *
-   * @param commands - list of SequenceCommand to add in the sequence of sequencer
+   * @param commands list of SequenceCommand to add in the sequence of sequencer
    * @returns OkOrUnhandledResponse as a Promise
    */
   add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -36,7 +36,7 @@ export interface SequencerService {
   /**
    * Prepends the given list of sequence commands in the sequence
    *
-   * @param commands - list of SequenceCommand to prepend in the sequence of sequencer
+   * @param commands list of SequenceCommand to prepend in the sequence of sequencer
    * @returns OkOrUnhandledResponse as a Promise
    */
   prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
@@ -44,8 +44,8 @@ export interface SequencerService {
   /**
    * Replaces the command of the given id with the given list of sequence commands in the sequence
    *
-   * @param id - runId of command which is to be replaced
-   * @param commands - list of SequenceCommand to replace with
+   * @param id runId of command which is to be replaced
+   * @param commands list of SequenceCommand to replace with
    * @returns GenericResponse as a Promise
    */
   replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
@@ -53,8 +53,8 @@ export interface SequencerService {
   /**
    * Inserts the given list of sequence commands after the command of given id in the sequence
    *
-   * @param id - runId of command after which the given list of commands is to be inserted
-   * @param commands - list of SequenceCommand to be inserted
+   * @param id runId of command after which the given list of commands is to be inserted
+   * @param commands list of SequenceCommand to be inserted
    * @returns GenericResponse as a Promise
    */
   insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
@@ -62,7 +62,7 @@ export interface SequencerService {
   /**
    * Deletes the command of the given id in the sequence
    *
-   * @param id - runId of the command which is to be deleted
+   * @param id runId of the command which is to be deleted
    * @returns GenericResponse as a Promise
    */
   delete(id: string): Promise<Res.GenericResponse>
@@ -70,7 +70,7 @@ export interface SequencerService {
   /**
    * Adds a breakpoint at the command of the given id in the sequence
    *
-   * @param id - runId of the command where breakpoint is to be added
+   * @param id runId of the command where breakpoint is to be added
    * @returns GenericResponse as a Promise
    */
   addBreakpoint(id: string): Promise<Res.GenericResponse>
@@ -78,7 +78,7 @@ export interface SequencerService {
   /**
    * Removes a breakpoint from the command of the given id in the sequence
    *
-   * @param id - runId of command where breakpoint is
+   * @param id runId of command where breakpoint is
    * @returns GenericResponse as a Promise
    */
   removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse>
@@ -171,7 +171,7 @@ export interface SequencerService {
    * Submit the given sequence to the sequencer
    * and returns the immediate SubmitResponse.
    *
-   * @param sequence - sequence to run on the sequencer
+   * @param sequence sequence to run on the sequencer
    * @return SubmitResponse as a Promise
    */
   submit(sequence: SequenceCommand[]): Promise<SubmitResponse>
@@ -180,8 +180,8 @@ export interface SequencerService {
    * Submit the given sequence to the sequencer and waits until sequence execution completed
    * and returns the final SubmitResponse
    *
-   * @param sequence - sequence to run on the sequencer
-   * @param timeoutInSeconds - timeout
+   * @param sequence sequence to run on the sequencer
+   * @param timeoutInSeconds timeout
    * @return SubmitResponse as a Promise
    */
   submitAndWait(sequence: SequenceCommand[], timeoutInSeconds: number): Promise<SubmitResponse>
@@ -190,7 +190,7 @@ export interface SequencerService {
    * Queries the response of sequence of the given runId
    * and returns the immediate SubmitResponse
    *
-   * @param runId - runId of the sequence
+   * @param runId runId of the sequence
    * @return SubmitResponse as a Promise
    */
   query(runId: string): Promise<SubmitResponse>
@@ -201,8 +201,8 @@ export interface SequencerService {
    * and returns the final SubmitResponse
    * If sequence is not finished it waits till the given timeout
    *
-   * @param runId - runId of the sequence
-   * @param timeoutInSeconds - timeout
+   * @param runId runId of the sequence
+   * @param timeoutInSeconds timeout
    * @return SubmitResponse as a Promise
    */
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
@@ -211,8 +211,8 @@ export interface SequencerService {
 /**
  * Instantiate SequencerService to enable interaction with the sequencer
  *
- * @param componentId - component id for which sequencer service is to be instantiated.
- * @param tokenFactory - a function that returns a valid token which has correct access roles and permissions for the specified componentId.
+ * @param componentId component id for which sequencer service is to be instantiated.
+ * @param tokenFactory a function that returns a valid token which has correct access roles and permissions for the specified componentId.
  * @return SequencerService as Promise
  * @constructor
  */

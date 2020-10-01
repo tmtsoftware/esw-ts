@@ -12,6 +12,7 @@ import { AdminServiceImpl } from './AdminServiceImpl'
 export interface AdminService {
   /**
    * Get basic logging configuration values of the component.
+   *
    * @param componentId The component id of the component.
    * @return LogMetadata containing all the log configuration values
    */
@@ -19,6 +20,7 @@ export interface AdminService {
 
   /**
    * Set new log level of a component.
+   *
    * @param componentId  The component id of the component
    * @param level Expected Log level for the component.
    * @return Promise of Done as a confirmation of action.

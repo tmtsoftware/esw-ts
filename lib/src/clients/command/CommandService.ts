@@ -53,7 +53,7 @@ export interface CommandService {
    * Subscribe to the current state of a component corresponding to the AkkaLocation of the component
    *
    * @param stateNames Subscribe to the set of currentStates. If no states are provided, all the current states will be received.
-   * @param onStateChange - a callback which gets called on change of any of the subscribed currentState
+   * @param onStateChange a callback which gets called on change of any of the subscribed currentState
    * @return Subscription which can be used to cancel to the subscription in future.
    */
   subscribeCurrentState(
