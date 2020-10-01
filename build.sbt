@@ -33,6 +33,7 @@ lazy val docs = project
       "clients/command/command-service.html",
       "clients/sequencer/sequencer-service.html",
       "clients/location/location-service.html",
+      "clients/config/config-service.html",
       "index.html",
       "common/error-handling.html",
       "technical/csw-aas-js.html"
