@@ -11,17 +11,17 @@ A component’s location information can be used by other components and service
 Location service has following [APIs](#apis):
 
 
-|  API                                          | Input args                          | Returns           |
-| --------------------------------------------- | ----------------------------------- | ----------------- |
+|  API                                          | Input args                          | Returns            |
+| --------------------------------------------- | ----------------------------------- | ------------------ |
 | [list](#list)                                 |                                     | Location[ ]        |
 | [listByComponentType](#listbycomponenttype)   | ComponentType                       | Location[ ]        |
-| [listByHostname](#listbyhostname)             | hostname: string                    | Location[ ]        |
-| [listByConnectionType](#listbyconnectiontype) | ConnectionType                      |  Location[ ]       |
-| [listByPrefix](#listbyprefix)                 | prefix: string                      | Location[ ]        |
-| [find](#find)                                 | Connection                          | Option< Location >  |
-| [unregister](#unregister)                     | Connection                          | Done              |
-| [resolve](#resolve)                           | Connection, within:number, TimeUnit | Option< Location >  |
-| [track](#track)                               | Connection, onTrackingEventCallback | Subscription      |
+| [listByHostname](#listbyhostname)             | hostname                            | Location[ ]        |
+| [listByConnectionType](#listbyconnectiontype) | ConnectionType                      | Location[ ]        |
+| [listByPrefix](#listbyprefix)                 | prefix                              | Location[ ]        |
+| [find](#find)                                 | Connection                          | Option< Location > |
+| [unregister](#unregister)                     | Connection                          | Done               |
+| [resolve](#resolve)                           | Connection, within, TimeUnit        | Option< Location > |
+| [track](#track)                               | Connection, onTrackingEventCallback | Subscription       |
 
 
 ## Creation of Location Service

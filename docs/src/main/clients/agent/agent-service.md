@@ -30,6 +30,12 @@ Typescript
 
 ##APIs
 
+@@@ note {title="Async-Await" }
+
+Note that the examples are using async/await which makes handling of promises more readable.
+
+@@@
+
 ###spawnSequenceManager
 
    This API spawns new sequence manager on given agent machine.
