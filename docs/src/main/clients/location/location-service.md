@@ -106,7 +106,7 @@ Typescript
 : @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #unregister }
 
 ### resolve
-This API takes a type of Connection along with the timeout value(within) and the timeout unit(TimeUnit) as arguments to resolve connection and it returns the option of location.
+This API takes a type of Connection along with the timeout value(within), and the timeout unit(TimeUnit) as arguments to resolve connection, and it returns the Option of location.
 
 The following example shows resolve API can be called:
 
@@ -114,7 +114,7 @@ Typescript
 : @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #resolve }
 
 ### track
-This API takes a type of Connection to be tracked and the calback function for that connection which will be called when the connection's location is updated or removed.
+This API takes a type of Connection to be tracked, and the callback function for that connection which will be called when the connection's location is updated or removed.
 
 The following example shows track API can be called:
 
