@@ -16,6 +16,7 @@ import type { EventKey } from './models/EventKey'
 export interface EventService {
   /**
    * Publishes an event
+   *
    * @param event the event to be published
    * @return Done as a promise
    */
@@ -23,12 +24,14 @@ export interface EventService {
 
   /**
    * Gets the list of event for the given set of event keys
+   *
    * @param eventKeys Set of event keys against which event are fetched.
    * @return Event[] as a promise
    */
   get(eventKeys: Set<EventKey>): Promise<Event[]>
   /**
    * Subscribes to given set of event keys
+   *
    * @param eventKeys Set of event keys to be subscribed.
    * @param maxFrequency the duration which determines the frequency with which events are received
    * @param callback the function which gets triggered on receiving an event
@@ -43,7 +46,12 @@ export interface EventService {
    *
    * @param subsystem subscription to be made under the subsystem
    * @param maxFrequency the duration which determines the frequency with which events are received
-   * @param pattern optional pattern to match against the event key
+   * @param pattern optional pattern to match against the event key.supported glob-style patterns
+   *
+   *                  * h?llo subscribes to hello, hallo and hxllo
+   *                  - h*llo subscribes to hllo and heeeello
+   *                  - h[ae]llo subscribes to hello and hallo, but not hillo
+   *
    * @param callback the function which gets triggered on receiving an event
    * @return Subscription
    */
@@ -56,6 +64,7 @@ export interface EventService {
 
 /**
  * Instantiate Event service to enable interaction with the event server.
+ *
  * @constructor
  */
 export const EventService = async (): Promise<EventService> => {

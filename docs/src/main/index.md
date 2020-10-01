@@ -36,6 +36,7 @@
 - @ref:[Agent Client](clients/agent/agent-service.md)
 - @ref:[Command Service](clients/command/command-service.md)
 - @ref:[Config Service](clients/config/config-service.md)
+- @ref:[Event Service](clients/event/event-service.md)
 - @ref:[Location Service](clients/location/location-service.md)
 - @ref:[Sequencer Service](clients/sequencer/sequencer-service.md)
 
