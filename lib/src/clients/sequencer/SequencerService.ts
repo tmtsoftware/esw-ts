@@ -156,6 +156,8 @@ export interface SequencerService {
   /**
    * Sends command to the sequencer to call the diagnostic mode handler of the sequencer's script
    *
+   * @param startTime time at which the diagnostic mode will take effect
+   * @param hint supported diagnostic data mode
    * @returns DiagnosticModeResponse as a Promise
    */
   diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse>
