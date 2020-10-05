@@ -1,4 +1,10 @@
-import { AgentService, HttpConnection, KillResponse, Prefix, SpawnResponse } from 'esw-ts'
+import {
+  AgentService,
+  HttpConnection,
+  KillResponse,
+  Prefix,
+  SpawnResponse
+} from 'esw-ts'
 
 const auth = { token: '' }
 
@@ -36,5 +42,7 @@ const httpConnection: HttpConnection = HttpConnection(
   componentPrefix,
   'SequenceComponent'
 )
-const killResponse: KillResponse = await agentService.killComponent(httpConnection)
+const killResponse: KillResponse = await agentService.killComponent(
+  httpConnection
+)
 //#killComponent

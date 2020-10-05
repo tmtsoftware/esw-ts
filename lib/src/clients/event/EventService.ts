@@ -1,7 +1,7 @@
+import type { Subscription } from '../..'
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import type { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import type { Subscription } from '../..'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
 import type { Done } from '../location'
