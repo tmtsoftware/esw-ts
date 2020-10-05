@@ -36,7 +36,7 @@ Typescript
 
 ###publish
 
-This API publishes an event to the event server.
+This API publishes an event to the event server and returns Done as a promise.
 
 Example for publish looks like following:
 
@@ -46,7 +46,7 @@ Typescript
 
 ###get
 
-This API receives the list of events against the specific set of EventKeys from a source of prefix.
+This API takes set of EventKeys as input and receives the list of events against those specific set of EventKeys.
 
 Example for get looks like following:
 
@@ -55,7 +55,7 @@ Typescript
 
 ###subscribe
 
-This API subscribe to multiple `eventKeys` and receive events at `every` frequency to given callback and return subscription handle which can be used as a kill switch.
+This API subscribes to multiple `eventKeys` and receive events at `every` frequency to given callback and return subscription handle which can be used as a kill switch.
 It takes callback function which gets triggered when ever the events are received.
 The latest events available for the given Event Keys will be received first.
 
@@ -66,7 +66,7 @@ Typescript
 
 ###pSubscribe
 
-This API subscribe to events from Event Keys specified using a `subsystem` and a `pattern` to match the remaining Event Key and return subscription handle which can be used as a kill switch.
+This API subscribes to events of a EventKey specified using a `subsystem` and a `pattern` to match the remaining Event Key and return subscription handle which can be used as a kill switch.
 It takes callback function which gets triggered when ever the events are received.
 The latest events available for the given Event Keys will be received first.
 
