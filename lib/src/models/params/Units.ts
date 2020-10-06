@@ -1,6 +1,8 @@
 import type * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../utils/Decoder'
-
+/**
+ * A union type representing units for TMT
+ */
 export type Units = D.TypeOf<typeof UnitsD>
 
 export const UnitsD = ciLiteral(

@@ -36,6 +36,9 @@ lazy val docs = project
       "clients/config/config-service.html",
       "clients/event/event-service.html",
       "params/keys-and-parameters.html",
+      "params/subsystem.html",
+      "params/units.html",
+      "params/commands.html",
       "index.html",
       "common/error-handling.html",
       "technical/csw-aas-js.html"

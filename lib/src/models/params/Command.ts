@@ -12,6 +12,10 @@ const SetupL = 'Setup'
 const ObserveL = 'Observe'
 const WaitL = 'Wait'
 
+/**
+ * Common trait representing commands in TMT like Setup, Observe and Wait
+ * @interface
+ */
 interface Command<L> {
   readonly _type: L
   readonly source: Prefix
@@ -27,9 +31,23 @@ type Constructor<L, T extends Command<L>> = new (
   maybeObsId: Option<string>
 ) => T
 
+/**
+ * Setup Command
+ * @class
+ */
 export class Setup extends ParameterSetType<Setup> implements Command<typeof SetupL> {
   readonly _type = SetupL
 
+  /**
+   * A parameter set for setting telescope and instrument parameters.
+   *
+   * @param source prefix representing source of the command
+   * @param commandName the name of the command
+   * @param maybeObsId an optional obsId for command
+   * @param paramSet an optional set of parameters
+   * @return a new instance of Setup
+   * @constructor
+   */
   constructor(
     readonly source: Prefix,
     readonly commandName: string,
@@ -39,14 +57,33 @@ export class Setup extends ParameterSetType<Setup> implements Command<typeof Set
     super()
   }
 
+  /**
+   * Create a new Setup instance when a parameter is added or removed
+   *
+   * @param data set of parameters
+   * @return a new instance of Setup with provided data
+   */
   create(data: Parameter<Key>[]): Setup {
     return new Setup(this.source, this.commandName, data, this.maybeObsId)
   }
 }
 
+/**
+ * Observe Command
+ * @class
+ */
 export class Observe extends ParameterSetType<Observe> implements Command<typeof ObserveL> {
   readonly _type = ObserveL
-
+  /**
+   * A parameter set for setting telescope and instrument parameters.
+   *
+   * @param source prefix representing source of the command
+   * @param commandName the name of the command
+   * @param maybeObsId an optional obsId for command
+   * @param paramSet an optional set of parameters
+   * @return a new instance of Observe
+   * @constructor
+   */
   constructor(
     readonly source: Prefix,
     readonly commandName: string,
@@ -55,7 +92,12 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
   ) {
     super()
   }
-
+  /**
+   * Create a new Observe instance when a parameter is added or removed
+   *
+   * @param data set of parameters
+   * @return a new instance of Observe with provided data
+   */
   create(data: Parameter<Key>[]): Observe {
     return new Observe(this.source, this.commandName, data, this.maybeObsId)
   }
@@ -63,7 +105,16 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
 
 export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL> {
   readonly _type = WaitL
-
+  /**
+   * A parameter set for setting telescope and instrument parameters.
+   *
+   * @param source prefix representing source of the command
+   * @param commandName the name of the command
+   * @param maybeObsId an optional obsId for command
+   * @param paramSet an optional set of parameters
+   * @return a new instance of Wait
+   * @constructor
+   */
   constructor(
     readonly source: Prefix,
     readonly commandName: string,
@@ -72,13 +123,25 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
   ) {
     super()
   }
-
+  /**
+   * Create a new Wait instance when a parameter is added or removed
+   *
+   * @param data set of parameters
+   * @return a new instance of Wait with provided data
+   */
   create(data: Parameter<Key>[]): Wait {
     return new Wait(this.source, this.commandName, data, this.maybeObsId)
   }
 }
 
+/**
+ * Marker type for control parameter sets which is applicable to Assembly and HCD type of components
+ */
 export type ControlCommand = Setup | Observe
+
+/**
+ * Marker type for sequence parameter sets which is applicable to Sequencer type of components
+ */
 export type SequenceCommand = Setup | Observe | Wait
 
 // ##################### Decoders #####################
