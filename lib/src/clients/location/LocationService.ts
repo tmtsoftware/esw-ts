@@ -19,49 +19,49 @@ export interface LocationService {
   /**
    * List the registered components in location service
    *
-   * @return Location[] as a Promise
+   * @return Location[] as Promise
    */
   list(): Promise<Location[]>
   /**
    * List the registered components based on this component type
    *
    * @param componentType list components of this componentType
-   * @return Location[] as a Promise
+   * @return Location[] as Promise
    */
   listByComponentType(componentType: ComponentType): Promise<Location[]>
   /**
    * List the registered components based on the hostname
    *
    * @param hostname list components of this hostname
-   * @return Location[] as a Promise
+   * @return Location[] as Promise
    */
   listByHostname(hostname: string): Promise<Location[]>
   /**
    * List the registered components based on the connection type
    *
    * @param connectionType list components of this connection type
-   * @return Location[] as a Promise
+   * @return Location[] as Promise
    */
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]>
   /**
    * List the registered components based on the prefix
    *
    * @param prefix list components of this prefix
-   * @return Location[] as a Promise
+   * @return Location[] as Promise
    */
   listByPrefix(prefix: Prefix): Promise<Location[]>
   /**
    * Find a location for the given Connection
    *
    * @param connection to be located
-   * @return Option<Location> as a Promise
+   * @return Option<Location> as Promise
    */
   find(connection: Connection): Promise<Option<Location>>
   /**
    * A secured api which unregisters a connection from the location service
    *
    * @param connection to be unregistered.
-   * @return Done as a Promise
+   * @return Done as Promise
    */
   unregister(connection: Connection): Promise<Done>
   /**
@@ -71,7 +71,7 @@ export interface LocationService {
    * @param connection to be located.
    * @param within time within which the connection to be resolved
    * @param unit TimeUnit
-   * @return Option<Location> as a Promise
+   * @return Option<Location> as Promise
    */
   resolve(connection: Connection, within: number, unit: TimeUnit): Promise<Option<Location>>
   /**

@@ -18,7 +18,7 @@ export interface EventService {
    * Publishes an event
    *
    * @param event the event to be published
-   * @return Done as a promise
+   * @return Done as Promise
    */
   publish(event: Event): Promise<Done>
 
@@ -26,7 +26,7 @@ export interface EventService {
    * Gets the list of event for the given set of event keys
    *
    * @param eventKeys Set of event keys against which event are fetched.
-   * @return Event[] as a promise
+   * @return Event[] as Promise
    */
   get(eventKeys: Set<EventKey>): Promise<Event[]>
   /**

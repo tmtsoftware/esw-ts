@@ -14,14 +14,14 @@ export interface SequencerService {
    * Loads the given sequence to the sequencer
    *
    * @param sequence a sequence to load in the sequencer
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
 
   /**
    * Runs the loaded sequence
    *
-   * @returns SubmitResponse as a Promise
+   * @returns SubmitResponse as Promise
    */
   startSequence(): Promise<SubmitResponse>
 
@@ -29,7 +29,7 @@ export interface SequencerService {
    * Adds the given list of sequence commands at the end of the sequence
    *
    * @param commands list of SequenceCommand to add in the sequence of sequencer
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
 
@@ -37,7 +37,7 @@ export interface SequencerService {
    * Prepends the given list of sequence commands in the sequence
    *
    * @param commands list of SequenceCommand to prepend in the sequence of sequencer
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
 
@@ -46,7 +46,7 @@ export interface SequencerService {
    *
    * @param id runId of command which is to be replaced
    * @param commands list of SequenceCommand to replace with
-   * @returns GenericResponse as a Promise
+   * @returns GenericResponse as Promise
    */
   replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
 
@@ -55,7 +55,7 @@ export interface SequencerService {
    *
    * @param id runId of command after which the given list of commands is to be inserted
    * @param commands list of SequenceCommand to be inserted
-   * @returns GenericResponse as a Promise
+   * @returns GenericResponse as Promise
    */
   insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
 
@@ -63,7 +63,7 @@ export interface SequencerService {
    * Deletes the command of the given id in the sequence
    *
    * @param id runId of the command which is to be deleted
-   * @returns GenericResponse as a Promise
+   * @returns GenericResponse as Promise
    */
   delete(id: string): Promise<Res.GenericResponse>
 
@@ -71,7 +71,7 @@ export interface SequencerService {
    * Adds a breakpoint at the command of the given id in the sequence
    *
    * @param id runId of the command where breakpoint is to be added
-   * @returns GenericResponse as a Promise
+   * @returns GenericResponse as Promise
    */
   addBreakpoint(id: string): Promise<Res.GenericResponse>
 
@@ -79,77 +79,77 @@ export interface SequencerService {
    * Removes a breakpoint from the command of the given id in the sequence
    *
    * @param id runId of command where breakpoint is
-   * @returns GenericResponse as a Promise
+   * @returns GenericResponse as Promise
    */
   removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse>
 
   /**
    * Resets the sequence by discarding all the pending steps of the sequence
    *
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   reset(): Promise<Res.OkOrUnhandledResponse>
 
   /**
    * Resumes the paused sequence
    *
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   resume(): Promise<Res.OkOrUnhandledResponse>
 
   /**
    * Pauses the sequence
    *
-   * @returns PauseResponse as a Promise
+   * @returns PauseResponse as Promise
    */
   pause(): Promise<Res.PauseResponse>
 
   /**
    * Gets the sequence present in the sequencer
    *
-   * @returns Option<StepList> as a Promise
+   * @returns Option<StepList> as Promise
    */
   getSequence(): Promise<Option<StepList>>
 
   /**
    * Checks if sequencer is in Idle state
    *
-   * @returns boolean as a Promise
+   * @returns boolean as Promise
    */
   isAvailable(): Promise<boolean>
 
   /**
    * Checks if sequencer is in Online(any state except Offline) state
    *
-   * @returns boolean as a Promise
+   * @returns boolean as Promise
    */
   isOnline(): Promise<boolean>
 
   /**
    * sends command to the sequencer to go in Online state if it is in Offline state
    *
-   * @returns GoOnlineResponse as a Promise
+   * @returns GoOnlineResponse as Promise
    */
   goOnline(): Promise<Res.GoOnlineResponse>
 
   /**
    * sends command to the sequencer to go in Offline state if it is in Online state
    *
-   * @returns GoOfflineResponse as a Promise
+   * @returns GoOfflineResponse as Promise
    */
   goOffline(): Promise<Res.GoOfflineResponse>
 
   /**
    * Discards all the pending steps of the sequence and call the abort handler of the sequencer's script
    *
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   abortSequence(): Promise<Res.OkOrUnhandledResponse>
 
   /**
    * Discards all the pending steps of the sequence and call the stop handler of the sequencer's script
    *
-   * @returns OkOrUnhandledResponse as a Promise
+   * @returns OkOrUnhandledResponse as Promise
    */
   stop(): Promise<Res.OkOrUnhandledResponse>
 
@@ -158,14 +158,14 @@ export interface SequencerService {
    *
    * @param startTime time at which the diagnostic mode will take effect
    * @param hint supported diagnostic data mode
-   * @returns DiagnosticModeResponse as a Promise
+   * @returns DiagnosticModeResponse as Promise
    */
   diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse>
 
   /**
    * Sends command to the sequencer to call the operations mode handler of the sequencer's script
    *
-   * @returns OperationsModeResponse as a Promise
+   * @returns OperationsModeResponse as Promise
    */
   operationsMode(): Promise<Res.OperationsModeResponse>
 
@@ -174,7 +174,7 @@ export interface SequencerService {
    * and returns the immediate SubmitResponse.
    *
    * @param sequence sequence to run on the sequencer
-   * @return SubmitResponse as a Promise
+   * @return SubmitResponse as Promise
    */
   submit(sequence: SequenceCommand[]): Promise<SubmitResponse>
 
@@ -184,7 +184,7 @@ export interface SequencerService {
    *
    * @param sequence sequence to run on the sequencer
    * @param timeoutInSeconds timeout
-   * @return SubmitResponse as a Promise
+   * @return SubmitResponse as Promise
    */
   submitAndWait(sequence: SequenceCommand[], timeoutInSeconds: number): Promise<SubmitResponse>
 
@@ -193,7 +193,7 @@ export interface SequencerService {
    * and returns the immediate SubmitResponse
    *
    * @param runId runId of the sequence
-   * @return SubmitResponse as a Promise
+   * @return SubmitResponse as Promise
    */
   query(runId: string): Promise<SubmitResponse>
 
@@ -205,7 +205,7 @@ export interface SequencerService {
    *
    * @param runId runId of the sequence
    * @param timeoutInSeconds timeout
-   * @return SubmitResponse as a Promise
+   * @return SubmitResponse as Promise
    */
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 }

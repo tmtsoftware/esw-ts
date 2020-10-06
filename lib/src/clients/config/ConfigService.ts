@@ -17,7 +17,7 @@ export interface ConfigService {
    * @param configData contents of the file
    * @param annex true if the file is annex and requires special handling (external storage)
    * @param comment comment to associate with this operation
-   * @return ConfigId as a promise
+   * @return ConfigId as Promise
    */
   create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<M.ConfigId>
   /**
@@ -26,21 +26,21 @@ export interface ConfigService {
    * @param path the file path relative to the repository root
    * @param configData contents of the file
    * @param comment comment to associate with this operation
-   * @return ConfigId as a promise
+   * @return ConfigId as Promise
    */
   update(path: string, configData: ConfigData, comment: string): Promise<M.ConfigId>
   /**
    * Gets and returns the content of active version of the file stored under the given path.
    *
    * @param path the file path relative to the repository root
-   * @return Option<ConfigData> as a promise
+   * @return Option<ConfigData> as Promise
    */
   getActive(path: string): Promise<Option<ConfigData>>
   /**
    * Gets and returns the content of latest version of the file stored under the given path.
    *
    * @param path the file path relative to the repository root
-   * @return Option<ConfigData> as a promise
+   * @return Option<ConfigData> as Promise
    */
   getLatest(path: string): Promise<Option<ConfigData>>
   /**
@@ -48,7 +48,7 @@ export interface ConfigService {
    *
    * @param path the file path relative to the repository root
    * @param configId id used to specify a specific version to fetch
-   * @return Option<ConfigData> as a promise
+   * @return Option<ConfigData> as Promise
    */
   getById(path: string, configId: M.ConfigId): Promise<Option<ConfigData>>
   /**
@@ -58,7 +58,7 @@ export interface ConfigService {
    *
    * @param path the file path relative to the repository root
    * @param time the target instant
-   * @return Option<ConfigData> as a promise
+   * @return Option<ConfigData> as Promise
    */
   getByTime(path: string, time: Date): Promise<Option<ConfigData>>
   /**
@@ -66,7 +66,7 @@ export interface ConfigService {
    *
    * @param path the file path relative to the repository root
    * @param id revision of the file
-   * @return boolean as a promise
+   * @return boolean as Promise
    */
   exists(path: string, id?: M.ConfigId): Promise<boolean>
   /**
@@ -81,7 +81,7 @@ export interface ConfigService {
    *
    * @param fileType optional file type(Annex or Normal)
    * @param pattern optional pattern to match against the file name
-   * @return ConfigFileInfo[] as a promise
+   * @return ConfigFileInfo[] as Promise
    */
   list(fileType?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]>
   /**
@@ -92,7 +92,7 @@ export interface ConfigService {
    * @param from the start of the history range
    * @param to the end of the history range
    * @param maxResults the maximum number of history results to return (default: unlimited)
-   * @return ConfigFileRevision[] as a promise
+   * @return ConfigFileRevision[] as Promise
    */
   history(path: string, from: Date, to: Date, maxResults: number): Promise<M.ConfigFileRevision[]>
   /**
@@ -103,7 +103,7 @@ export interface ConfigService {
    * @param from the start of the history range
    * @param to the end of the history range
    * @param maxResults the maximum number of history results to return (default: unlimited)
-   * @return ConfigFileRevision[] as a promise
+   * @return ConfigFileRevision[] as Promise
    */
   historyActive(
     path: string,
@@ -134,20 +134,20 @@ export interface ConfigService {
    *
    * @param path the file path relative to the repository root
    * @param time the target instant
-   * @return Option<ConfigId> as a promise
+   * @return Option<ConfigId> as Promise
    */
   getActiveByTime(path: string, time: Date): Promise<Option<ConfigData>>
   /**
    * Returns the version which represents the "active version" of the file at the given path.
    *
    * @param path the file path relative to the repository root
-   * @return Option<ConfigId> as a promise
+   * @return Option<ConfigId> as Promise
    */
   getActiveVersion(path: string): Promise<Option<M.ConfigId>>
   /**
    * Query the metadata of config server
    *
-   * @return ConfigMetadata as a promise
+   * @return ConfigMetadata as Promise
    */
   getMetadata(): Promise<M.ConfigMetadata>
 }
