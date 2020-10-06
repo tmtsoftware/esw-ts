@@ -17,7 +17,15 @@ export const CurrentStateD: Decoder<CurrentState> = pipe(
   D.parse((cs) => D.success(new CurrentState(cs.prefix, cs.stateName, cs.paramSet)))
 )
 
+/**
+ * A State variable that indicates the 'current' or actual state.
+ */
 export class CurrentState extends ParameterSetType<CurrentState> {
+  /**
+   * @param prefix    identifies the target subsystem
+   * @param stateName identifies the name of the state
+   * @param paramSet  an optional initial set of items (keys with values)
+   */
   constructor(
     readonly prefix: Prefix,
     readonly stateName: string,
@@ -25,7 +33,12 @@ export class CurrentState extends ParameterSetType<CurrentState> {
   ) {
     super()
   }
-
+  /**
+   * Create a new CurrentState instance when a parameter is added or removed
+   *
+   * @param data set of parameters
+   * @return a new instance of CurrentState with provided data
+   */
   create(data: Parameter<Key>[]): CurrentState {
     return new CurrentState(this.prefix, this.stateName, data)
   }

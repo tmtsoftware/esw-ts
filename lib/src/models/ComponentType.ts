@@ -11,4 +11,7 @@ export const ComponentTypeD = ciLiteral(
   'Machine'
 )
 
+/**
+ * Represents a type of the Component.
+ */
 export type ComponentType = D.TypeOf<typeof ComponentTypeD>

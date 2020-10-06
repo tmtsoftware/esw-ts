@@ -16,6 +16,11 @@ type ParamDecoder<T> = Decoder<{
   units: Units
 }>
 
+/**
+ * Generic marker type for creating various types of Keys.
+ *
+ * @param L the type of values that will sit against the key in Parameter
+ */
 type KeyType<L extends string, T> = {
   keyTag: L
   keyType: T
@@ -130,6 +135,9 @@ export type CometCoordKey = D.TypeOf<typeof CometCoordKeyD>
 export type AltAzCoordKey = D.TypeOf<typeof AltAzCoordKeyD>
 export type CoordKey = D.TypeOf<typeof CoordKeyD>
 
+/**
+ * Keys defined for consumption in Typescript code
+ */
 export type Key =
   | IntKey
   | LongKey
@@ -167,12 +175,23 @@ export type Key =
 // ---------------------------------
 // Key Factories
 // ---------------------------------
+/**
+ * A Key factory that allows name and unit to be specified during creation. Holds instances of primitives such as
+ * char, int, String etc.
+ *
+ * @tparam K the type of key that will sit against the keyTag in Parameter
+ * @param keyTag  the type of values that will sit against the key in Parameter
+ * @param defaultUnit applicable units
+ */
 const keyFactory = <K extends Key>(keyTag: KTag<K>, defaultUnit: Units = 'NoUnits') => (
   name: string,
   units: Units = defaultUnit
 ) => new BaseKey<K>(name, keyTag, units)
 
 // Simple Key's
+/**
+ * Helper functions to create primitive parameters
+ */
 export const intKey = keyFactory<IntKey>('IntKey')
 export const longKey = keyFactory<LongKey>('LongKey')
 export const shortKey = keyFactory<ShortKey>('ShortKey')
@@ -184,6 +203,11 @@ export const charKey = keyFactory<CharKey>('CharKey')
 export const booleanKey = keyFactory<BooleanKey>('BooleanKey')
 
 // Matrix Keys
+
+/**
+ * A KeyType that has suffix *-MatrixKey holds Matrices
+ * Helper functions to create Matrix parameters
+ */
 export const byteMatrixKey = keyFactory<ByteMatrixKey>('ByteMatrixKey')
 export const intMatrixKey = keyFactory<IntMatrixKey>('IntMatrixKey')
 export const longMatrixKey = keyFactory<LongMatrixKey>('LongMatrixKey')
@@ -192,6 +216,11 @@ export const floatMatrixKey = keyFactory<FloatMatrixKey>('FloatMatrixKey')
 export const doubleMatrixKey = keyFactory<DoubleMatrixKey>('DoubleMatrixKey')
 
 // Array Keys
+
+/**
+ * A KeyType that has suffix *-ArrayKey holds Arrays
+ * Helper functions to create Array parameters
+ */
 export const byteArrayKey = keyFactory<ByteArrayKey>('ByteArrayKey')
 export const intArrayKey = keyFactory<IntArrayKey>('IntArrayKey')
 export const longArrayKey = keyFactory<LongArrayKey>('LongArrayKey')
@@ -200,10 +229,20 @@ export const floatArrayKey = keyFactory<FloatArrayKey>('FloatArrayKey')
 export const doubleArrayKey = keyFactory<DoubleArrayKey>('DoubleArrayKey')
 
 // Time, Choice and Struct Keys
+/**
+ * Helper function to create struct parameter
+ */
 export const structKey = keyFactory<StructKey>('StructKey')
 export const utcTimeKey = keyFactory<UTCTimeKey>('UTCTimeKey', 'second')
 export const taiTimeKey = keyFactory<TAITimeKey>('TAITimeKey', 'second')
 
+/**
+ * A KeyType that holds Choices
+ * @param name a strig for the choice key
+ * @param choices list of options to be made available for the choice key
+ * @param units the units for the key
+ * @return an instance of ChoiceKey for the given name, choices and units
+ */
 export const choiceKey = <L extends string>(
   name: string,
   choices: readonly L[],

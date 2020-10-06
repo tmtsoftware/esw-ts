@@ -4,7 +4,18 @@ import { Decoder, object } from '../../utils/Decoder'
 import { Key, KTag, KType, paramDecoders } from './Key'
 import type { Units } from './Units'
 
+/**
+ * Parameter represents a KeyName, KeyTag, array of values and units applicable to values. Parameter sits as payload for
+ * sending commands and events between components.
+ */
 export class Parameter<T extends Key> {
+  /**
+   * @tparam T the type of items this parameter holds
+   * @param keyName the name of the key
+   * @param keyTag reference to an object of type KeyType[S]
+   * @param values an Array of values of type S
+   * @param units applicable units
+   */
   constructor(
     readonly keyName: string,
     readonly keyTag: KTag<T>,

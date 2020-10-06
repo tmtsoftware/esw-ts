@@ -96,9 +96,20 @@ export const CoordD = D.sum('_type')({
 
 // ######################################################
 
+/**
+ * All coordinates are a Coord.
+ * i.e CometCoord, AltAzCoord, SolarSystemCoord, MinorPlanetCoord & EqCoord
+ */
+export type Coord = D.TypeOf<typeof CoordD>
+
+/**
+ * A Tag is a label to indicate the use of the coordinate
+ */
 export type Tag = D.TypeOf<typeof TagD>
-export type SolarSystemObject = D.TypeOf<typeof SolarSystemObjectD>
-export type EqFrame = D.TypeOf<typeof EqFrameD>
+
+/**
+ * RaDec holds Ra(Right Ascension) and Dec(Declination) values
+ */
 export type RaDec = D.TypeOf<typeof RaDecD>
 export type ProperMotion = D.TypeOf<typeof ProperMotionD>
 export type EqCoord = D.TypeOf<typeof EqCoordD>
@@ -106,4 +117,5 @@ export type MinorPlanetCoord = D.TypeOf<typeof MinorPlanetCoordD>
 export type SolarSystemCoord = D.TypeOf<typeof SolarSystemCoordD>
 export type CometCoord = D.TypeOf<typeof CometCoordD>
 export type AltAzCoord = D.TypeOf<typeof AltAzCoordD>
-export type Coord = D.TypeOf<typeof CoordD>
+export type SolarSystemObject = D.TypeOf<typeof SolarSystemObjectD>
+export type EqFrame = D.TypeOf<typeof EqFrameD>
