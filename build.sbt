@@ -27,18 +27,6 @@ lazy val docs = project
     docsParentDir := "esw-ts",
     gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts",
     paradoxRoots := List(
-      "aas/csw-aas-js.html",
-      "clients/admin/admin-service.html",
-      "clients/agent/agent-service.html",
-      "clients/command/command-service.html",
-      "clients/sequencer/sequencer-service.html",
-      "clients/location/location-service.html",
-      "clients/config/config-service.html",
-      "clients/event/event-service.html",
-      "params/keys-and-parameters.html",
-      "params/subsystem.html",
-      "params/units.html",
-      "params/commands.html",
       "index.html",
       "common/error-handling.html",
       "technical/csw-aas-js.html"

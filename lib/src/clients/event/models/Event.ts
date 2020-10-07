@@ -27,7 +27,7 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
   private constructor(
     readonly source: Prefix,
     readonly eventName: EventName,
-    readonly paramSet: Parameter<Key>[] = [],
+    readonly paramSet: Parameter<Key>[],
     readonly eventId: string = uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {
@@ -38,7 +38,7 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
     return new ObserveEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
   }
 
-  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[] = []) {
     return new ObserveEvent(source, eventName, paramSet)
   }
 
@@ -56,7 +56,7 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
   private constructor(
     readonly source: Prefix,
     readonly eventName: EventName,
-    readonly paramSet: Parameter<Key>[] = [],
+    readonly paramSet: Parameter<Key>[],
     readonly eventId: string = uuidv4(),
     readonly eventTime: string = new Date().toISOString()
   ) {
@@ -67,7 +67,7 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
     return new SystemEvent(this.source, this.eventName, data, this.eventId, this.eventTime)
   }
 
-  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[]) {
+  static make(source: Prefix, eventName: EventName, paramSet: Parameter<Key>[] = []) {
     return new SystemEvent(source, eventName, paramSet)
   }
 

@@ -1,5 +1,12 @@
 # TMT JavaScript/Typescript Library
 
+@@@ index
+ - [Clients](clients/index.md)
+ - [Params](params/index.md)
+ - [AAS](aas/csw-aas-js.md)
+
+@@@
+
 `esw-ts` provides following JavaScript adapters and typescript definitions for esw and csw services.
 
 ##Getting Started
@@ -26,22 +33,8 @@
 
 ## Features
 
-#### AAS (Authentication and Authorization Support for web application)
-
 - @ref:[AAS Javascript Adapter (aas)](aas/csw-aas-js.md)
 
-#### Clients:
+- @ref:[Clients](clients/index.md)
 
-- @ref:[Admin Client](clients/admin/admin-service.md)
-- @ref:[Agent Client](clients/agent/agent-service.md)
-- @ref:[Command Service](clients/command/command-service.md)
-- @ref:[Config Service](clients/config/config-service.md)
-- @ref:[Event Service](clients/event/event-service.md)
-- @ref:[Location Service](clients/location/location-service.md)
-- @ref:[Sequencer Service](clients/sequencer/sequencer-service.md)
-
-#### Params
-- @ref:[Keys and Parameters](params/keys-and-parameters.md)
-- @ref:[Commands](params/commands.md)
-- @ref:[Subsystem](params/subsystem.md)
-- @ref:[Units](params/units.md)
+- @ref:[Params](params/index.md)
