@@ -33,10 +33,10 @@ This command is used to describe a goal that a system should match. The componen
 following arguments to create a `Setup` command.
 
 
- * **[Prefix:](commands.html#prefix)** the source of the command as described above
- * **CommandName:** a simple string name for the command (no spaces)
- * **[ObsId:](commands.html#obsId)** an optional observation Id.
- * **paramSet:** Optional Set of Parameters. Default is empty.
+ * Prefix: the source of the command as described above
+ * CommandName: a simple string name for the command (no spaces)
+ * ObsId: an optional observation id.
+ * paramSet: Optional Set of Parameters. Default is empty.
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #setup }
