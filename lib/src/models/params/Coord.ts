@@ -1,6 +1,11 @@
 import * as D from 'io-ts/lib/Decoder'
 import { ciLiteral } from '../../utils/Decoder'
 
+const EqCoordL = 'EqCoord'
+const MinorPlanetCoordL = 'MinorPlanetCoord'
+const SolarSystemCoordL = 'SolarSystemCoord'
+const AltAzCoordL = 'AltAzCoord'
+const CometCoordL = 'CometCoord'
 // ##################### Decoders #####################
 export const TagD = ciLiteral(
   'BASE',
@@ -41,7 +46,7 @@ export const ProperMotionD = D.type({
 })
 
 export const EqCoordD = D.type({
-  _type: ciLiteral('EqCoord'),
+  _type: ciLiteral(EqCoordL),
   tag: TagD,
   ra: D.number,
   dec: D.number,
@@ -87,20 +92,81 @@ export const AltAzCoordD = D.type({
 })
 
 export const CoordD = D.sum('_type')({
-  EqCoord: EqCoordD,
-  MinorPlanetCoord: MinorPlanetCoordD,
-  SolarSystemCoord: SolarSystemCoordD,
-  CometCoord: CometCoordD,
-  AltAzCoord: AltAzCoordD
+  [EqCoordL]: EqCoordD,
+  [MinorPlanetCoordL]: MinorPlanetCoordD,
+  [SolarSystemCoordL]: SolarSystemCoordD,
+  [CometCoordL]: CometCoordD,
+  [AltAzCoordL]: AltAzCoordD
 })
-
-// ######################################################
 
 /**
  * All coordinates are a Coord.
  * i.e CometCoord, AltAzCoord, SolarSystemCoord, MinorPlanetCoord & EqCoord
  */
-export type Coord = D.TypeOf<typeof CoordD>
+interface Coord {
+  tag: Tag
+}
+
+/**
+ *  Equatorial coordinates.
+ */
+export class EqCoord implements Coord {
+  readonly _type: typeof EqCoordL = EqCoordL
+
+  constructor(
+    readonly tag: Tag,
+    readonly ra: number,
+    readonly dec: number,
+    readonly frame: EqFrame,
+    readonly catalogName: string,
+    readonly pm: ProperMotion
+  ) {}
+}
+
+export class MinorPlanetCoord implements Coord {
+  readonly _type: typeof MinorPlanetCoordL = MinorPlanetCoordL
+
+  constructor(
+    readonly tag: Tag,
+    readonly epoch: number, // TT as a Modified Julian Date
+    readonly inclination: number, // degrees
+    readonly longAscendingNode: number, // degrees
+    readonly argOfPerihelion: number, // degrees
+    readonly meanDistance: number, // AU
+    readonly eccentricity: number,
+    readonly meanAnomaly: number
+  ) {}
+}
+
+export class SolarSystemCoord implements Coord {
+  readonly _type: typeof SolarSystemCoordL = SolarSystemCoordL
+  constructor(readonly tag: Tag, readonly body: SolarSystemObject) {}
+}
+
+export class CometCoord implements Coord {
+  readonly _type: typeof CometCoordL = CometCoordL
+
+  constructor(
+    readonly tag: Tag,
+    readonly epochOfPerihelion: number, // TT as a Modified Julian Date
+    readonly inclination: number, // degrees
+    readonly longAscendingNode: number, // degrees
+    readonly argOfPerihelion: number, // degrees
+    readonly perihelionDistance: number, // AU
+    readonly eccentricity: number
+  ) {}
+}
+
+/**
+ *  Altitude Azimuth Coordinates
+ */
+export class AltAzCoord implements Coord {
+  readonly _type: typeof AltAzCoordL = AltAzCoordL
+
+  constructor(readonly tag: Tag, readonly alt: number, readonly az: number) {}
+}
+
+// ######################################################
 
 /**
  * A Tag is a label to indicate the use of the coordinate
@@ -112,10 +178,5 @@ export type Tag = D.TypeOf<typeof TagD>
  */
 export type RaDec = D.TypeOf<typeof RaDecD>
 export type ProperMotion = D.TypeOf<typeof ProperMotionD>
-export type EqCoord = D.TypeOf<typeof EqCoordD>
-export type MinorPlanetCoord = D.TypeOf<typeof MinorPlanetCoordD>
-export type SolarSystemCoord = D.TypeOf<typeof SolarSystemCoordD>
-export type CometCoord = D.TypeOf<typeof CometCoordD>
-export type AltAzCoord = D.TypeOf<typeof AltAzCoordD>
 export type SolarSystemObject = D.TypeOf<typeof SolarSystemObjectD>
 export type EqFrame = D.TypeOf<typeof EqFrameD>

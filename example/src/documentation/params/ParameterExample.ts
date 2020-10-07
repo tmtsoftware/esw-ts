@@ -14,11 +14,11 @@ import {
   stringKey,
   Struct,
   StringKey,
-  CometCoord,
   cometCoordKey,
   CometCoordKey,
   CoordKey,
-  coordKey
+  coordKey,
+  CometCoord
 } from 'esw-ts'
 
 //#param-from-key
@@ -83,16 +83,15 @@ const structParameter = structKey('my struct').set([struct])
 
 //#coordinate-key
 
-const cometCoord: CometCoord = {
-  _type: 'CometCoord',
-  tag: 'BASE',
-  epochOfPerihelion: 2000,
-  inclination: 324000000000,
-  longAscendingNode: 7200000000,
-  argOfPerihelion: 360000000000,
-  perihelionDistance: 1.4,
-  eccentricity: 0.234
-}
+const cometCoord = new CometCoord(
+  'BASE',
+  2000,
+  324000000000,
+  7200000000,
+  360000000000,
+  1.4,
+  0.234
+)
 const cometParam: Parameter<CometCoordKey> = cometCoordKey(
   'comet key',
   'degree'

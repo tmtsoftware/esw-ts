@@ -122,19 +122,8 @@ export type {
   StartedResponse,
   CommandResponse
 } from './params/CommandResponse'
-export type {
-  AltAzCoord,
-  CometCoord,
-  Coord,
-  EqCoord,
-  EqFrame,
-  MinorPlanetCoord,
-  RaDec,
-  SolarSystemCoord,
-  SolarSystemObject,
-  ProperMotion,
-  Tag
-} from './params/Coord'
+export { AltAzCoord, CometCoord, SolarSystemCoord, MinorPlanetCoord, EqCoord } from './params/Coord'
+export type { EqFrame, RaDec, SolarSystemObject, ProperMotion, Tag } from './params/Coord'
 
 // export only types
 export type {
