@@ -1,13 +1,10 @@
+import com.lightbend.paradox.sbt.ParadoxPlugin.autoImport.paradoxRoots
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
+import org.tmt.sbt.docs.DocKeys.{docsParentDir, docsRepo, gitCurrentRepo}
 import sbt.Keys._
 import sbt._
-import sbt.plugins.JvmPlugin
 
-object Common extends AutoPlugin {
-
-  override def trigger: PluginTrigger = allRequirements
-
-  override def requires: Plugins = JvmPlugin
+object Common {
 
   val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
 
@@ -16,16 +13,19 @@ object Common extends AutoPlugin {
     if (storyReport) Seq(Tests.Argument(TestFrameworks.ScalaTest, "-oDF", "-C", "tmt.test.reporter.TestReporter"))
     else Seq(Tests.Argument("-oDF"))
 
-  override lazy val projectSettings: Seq[Setting[_]] = Seq(
+  lazy val DocsSettings = Seq(
+    docsRepo := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
+    docsParentDir := "esw-ts",
+    gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts"
+  )
+
+  lazy val CommonSettings: Seq[Setting[_]] = DocsSettings ++ Seq(
     organization := "com.github.tmtsoftware.esw-ts",
     organizationName := "TMT Org",
     scalaVersion := Libs.ScalaVersion,
     concurrentRestrictions in Global += Tags.limit(Tags.All, 1),
     homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
-    resolvers ++= Seq(
-      "jitpack" at "https://jitpack.io",
-      "bintray" at "https://jcenter.bintray.com"
-    ),
+    resolvers ++= Seq("jitpack" at "https://jitpack.io"),
     scmInfo := Some(
       ScmInfo(url("https://github.com/tmtsoftware/esw-ts"), "git@github.com:tmtsoftware/esw-ts.git")
     ),

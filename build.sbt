@@ -1,6 +1,9 @@
-import ohnosequences.sbt.GithubRelease.keys.ghreleaseAssets
-import ohnosequences.sbt.SbtGithubReleasePlugin
-import org.tmt.sbt.docs.DocKeys._
+import Common.CommonSettings
+import org.tmt.sbt.docs.Settings
+
+inThisBuild(
+  CommonSettings
+)
 
 lazy val aggregatedProjects: Seq[ProjectReference] = Seq(
   `integration-ui`,
@@ -10,22 +13,14 @@ lazy val aggregatedProjects: Seq[ProjectReference] = Seq(
 /* ================= Root Project ============== */
 lazy val `esw-ts` = project
   .in(file("."))
-  .enablePlugins(SbtGithubReleasePlugin)
-  .settings(
-    ghreleaseRepoOrg := "tmtsoftware",
-    ghreleaseRepoName := "esw-ts",
-    ghreleaseAssets := Seq()
-  )
+  .enablePlugins(GithubPublishPlugin)
   .aggregate(aggregatedProjects: _*)
+  .settings(Settings.makeSiteMappings(docs))
 
 /* ================= Paradox Docs ============== */
 lazy val docs = project
-  .enablePlugins(DocsPlugin)
-  .disablePlugins(SbtGithubReleasePlugin)
+  .enablePlugins(ParadoxMaterialSitePlugin)
   .settings(
-    docsRepo := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
-    docsParentDir := "esw-ts",
-    gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts",
     paradoxRoots := List(
       "index.html",
       "common/error-handling.html",
@@ -38,4 +33,3 @@ lazy val `integration-ui` = project
   .settings(
     libraryDependencies ++= Dependencies.Integration.value
   )
-  .disablePlugins(SbtGithubReleasePlugin)
