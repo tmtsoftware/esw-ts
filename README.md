@@ -2,7 +2,7 @@
 
 ### Project overview :
 
- * Typescript library clients - /lib/src/clients 
+ * Typescript library clients - /lib/src/clients
  * Aas Components - /lib/src/components
  * Example App - /example/src
  * UI Integration tests - /integration-ui/src/test/scala/csw/aas/js/config
@@ -120,3 +120,12 @@ This module includes E2E test which demonstrate following flow which is all auto
 4. Create configuration file
 
 To run this test, execute `sbt test` or `sbt integration-ui/test` command
+
+### Generate paradox documentation
+
+To generate paradox documentation for the esw-ts, run the following command
+
+  `sbt makeSite`
+
+Above command will generate the paradox site at `target/site/esw-ts/0.1.0-SNAPSHOT` location.
+open `index.html` file in browser to view paradox documentation.
