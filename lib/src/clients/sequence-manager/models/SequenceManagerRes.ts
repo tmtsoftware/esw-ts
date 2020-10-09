@@ -1,205 +1,139 @@
-import * as D from 'io-ts/lib/Decoder'
-import { ComponentIdD } from '../../../models/ComponentId'
-import { PrefixD } from '../../../models/params/Prefix'
-import { SubsystemD } from '../../../models/params/Subsystem'
-import { ciLiteral } from '../../../utils/Decoder'
-import { AkkaLocationD } from '../../location/models/Location'
-import { ObsModeD } from './ObsMode'
+import type { ComponentId } from '../../../models/ComponentId'
+import type { Prefix } from '../../../models/params/Prefix'
+import type { Subsystem } from '../../../models/params/Subsystem'
+import type { AkkaLocation } from '../../location/models/Location'
+import type { ObsMode } from './ObsMode'
 
-// ##################### Decoders #####################
+export type Unhandled = {
+  _type: 'Unhandled'
+  state: string
+  messageType: string
+  msg: string
+}
 
-const UnhandledL = 'Unhandled'
-const SequenceComponentNotAvailableL = 'SequenceComponentNotAvailable'
-const LoadScriptErrorL = 'LoadScriptError'
-const ConfigurationMissingL = 'ConfigurationMissing'
-const LocationServiceErrorL = 'LocationServiceError'
-const FailedToStartSequencersL = 'FailedToStartSequencers'
-const ConflictingResourcesWithRunningObsModeL = 'ConflictingResourcesWithRunningObsMode'
-const SpawningSequenceComponentsFailedL = 'SpawningSequenceComponentsFailed'
-const CouldNotFindMachinesL = 'CouldNotFindMachines'
-const SuccessL = 'Success'
-const AlreadyRunningL = 'AlreadyRunning'
-const StartedL = 'Started'
-const FailedL = 'Failed'
+export type LocationServiceError = {
+  _type: 'LocationServiceError'
+  msg: string
+}
 
-// common decoders
-const UnhandledD = D.type({
-  _type: ciLiteral(UnhandledL),
-  state: D.string,
-  messageType: D.string,
-  msg: D.string
-})
+export type SequenceComponentNotAvailable = {
+  _type: 'SequenceComponentNotAvailable'
+  subsystems: Subsystem[]
+  msg: string
+}
 
-const LocationServiceErrorD = D.type({
-  _type: ciLiteral(LocationServiceErrorL),
-  msg: D.string
-})
+export type ConfigurationMissing = {
+  _type: 'ConfigurationMissing'
+  obsMode: ObsMode
+}
 
-const SequenceComponentNotAvailableD = D.type({
-  _type: ciLiteral(SequenceComponentNotAvailableL),
-  subsystems: D.array(SubsystemD),
-  msg: D.string
-})
+export type FailedToStartSequencers = {
+  _type: 'FailedToStartSequencers'
+  reasons: string[]
+}
 
-const ConfigurationMissingD = D.type({
-  _type: ciLiteral(ConfigurationMissingL),
-  obsMode: ObsModeD
-})
+export type ConflictingResourcesWithRunningObsMode = {
+  _type: 'ConflictingResourcesWithRunningObsMode'
+  runningObsMode: ObsMode[]
+}
 
-const FailedToStartSequencersD = D.type({
-  _type: ciLiteral(FailedToStartSequencersL),
-  reasons: D.array(D.string)
-})
+export type SpawningSequenceComponentsFailed = {
+  _type: 'SpawningSequenceComponentsFailed'
+  failureResponses: string[]
+}
 
-const ConflictingResourcesWithRunningObsModeD = D.type({
-  _type: ciLiteral(ConflictingResourcesWithRunningObsModeL),
-  runningObsMode: D.array(ObsModeD)
-})
+export type LoadScriptError = {
+  _type: 'LoadScriptError'
+  msg: string
+}
 
-const SpawningSequenceComponentsFailedD = D.type({
-  _type: ciLiteral(SpawningSequenceComponentsFailedL),
-  failureResponses: D.array(D.string)
-})
-
-const LoadScriptErrorD = D.type({
-  _type: ciLiteral(LoadScriptErrorL),
-  msg: D.string
-})
-
-const SuccessD = D.type({ _type: ciLiteral(SuccessL) })
+export type Success = { _type: 'Success' }
 
 // api specific ADT decoders
-const ConfigureSuccessD = D.type({
-  _type: ciLiteral(SuccessL),
-  masterSequencerComponentId: ComponentIdD
-})
+export type ConfigureSuccess = {
+  _type: 'Success'
+  masterSequencerComponentId: ComponentId
+}
 
-const FailedD = D.type({
-  _type: ciLiteral(FailedL),
-  msg: D.string
-})
+export type Failed = {
+  _type: 'Failed'
+  msg: string
+}
 
-const CouldNotFindMachinesD = D.type({
-  _type: ciLiteral(CouldNotFindMachinesL),
-  prefix: D.array(PrefixD)
-})
+export type CouldNotFindMachines = {
+  _type: 'CouldNotFindMachines'
+  prefix: Prefix[]
+}
 
-const RestartSequencerSuccessD = D.type({ _type: ciLiteral(SuccessL), componentId: ComponentIdD })
+export type RestartSequencerSuccess = {
+  _type: 'Success'
+  componentId: ComponentId
+}
 
-const RunningObsModesSuccessD = D.type({
-  _type: ciLiteral(SuccessL),
-  runningObsModes: D.array(ObsModeD)
-})
+export type RunningObsModesSuccess = {
+  _type: 'Success'
+  runningObsModes: ObsMode[]
+}
 
-const AlreadyRunningD = D.type({
-  _type: ciLiteral(AlreadyRunningL),
-  componentId: ComponentIdD
-})
+export type AlreadyRunning = {
+  _type: 'AlreadyRunning'
+  componentId: ComponentId
+}
 
-const StartedD = D.type({
-  _type: ciLiteral(StartedL),
-  componentId: ComponentIdD
-})
+export type Started = {
+  _type: 'Started'
+  componentId: ComponentId
+}
 
-export const SequenceComponentStatusD = D.type({
-  seqCompId: ComponentIdD,
-  sequencerLocation: D.array(AkkaLocationD)
-})
+export type SequenceComponentStatus = {
+  seqCompId: ComponentId
+  sequencerLocation: AkkaLocation[]
+}
 
-const AgentStatusD = D.type({
-  agentId: ComponentIdD,
-  seqCompsStatus: D.array(SequenceComponentStatusD)
-})
+export type AgentStatus = {
+  agentId: ComponentId
+  seqCompsStatus: SequenceComponentStatus[]
+}
 
-const AgentStatusSuccessD = D.type({
-  _type: ciLiteral(SuccessL),
-  agentStatus: D.array(AgentStatusD),
-  seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
-})
-
-export const ConfigureResponseD = D.sum('_type')({
-  [UnhandledL]: UnhandledD,
-  [SequenceComponentNotAvailableL]: SequenceComponentNotAvailableD,
-  [ConfigurationMissingL]: ConfigurationMissingD,
-  [LocationServiceErrorL]: LocationServiceErrorD,
-  [FailedToStartSequencersL]: FailedToStartSequencersD,
-  [ConflictingResourcesWithRunningObsModeL]: ConflictingResourcesWithRunningObsModeD,
-  [SuccessL]: ConfigureSuccessD
-})
-
-export const ProvisionResponseD = D.sum('_type')({
-  [UnhandledL]: UnhandledD,
-  [SuccessL]: SuccessD,
-  [LocationServiceErrorL]: LocationServiceErrorD,
-  [SpawningSequenceComponentsFailedL]: SpawningSequenceComponentsFailedD,
-  [CouldNotFindMachinesL]: CouldNotFindMachinesD
-})
-
-export const GetRunningObsModesResponseD = D.sum('_type')({
-  [FailedL]: FailedD,
-  [SuccessL]: RunningObsModesSuccessD
-})
-
-export const StartSequencerResponseD = D.sum('_type')({
-  [UnhandledL]: UnhandledD,
-  [SequenceComponentNotAvailableL]: SequenceComponentNotAvailableD,
-  [LoadScriptErrorL]: LoadScriptErrorD,
-  [LocationServiceErrorL]: LocationServiceErrorD,
-  [AlreadyRunningL]: AlreadyRunningD,
-  [StartedL]: StartedD
-})
-
-export const RestartSequencerResponseD = D.sum('_type')({
-  [UnhandledL]: UnhandledD,
-  [LoadScriptErrorL]: LoadScriptErrorD,
-  [LocationServiceErrorL]: LocationServiceErrorD,
-  [SuccessL]: RestartSequencerSuccessD
-})
-
-export const ShutdownSequencersAndSeqCompResponseD = D.sum('_type')({
-  [UnhandledL]: UnhandledD,
-  [LocationServiceErrorL]: LocationServiceErrorD,
-  [SuccessL]: SuccessD
-})
-
-export const AgentStatusResponseD = D.sum('_type')({
-  [UnhandledL]: UnhandledD,
-  [LocationServiceErrorL]: LocationServiceErrorD,
-  [SuccessL]: AgentStatusSuccessD
-})
-
-// ######################################################
-
-// common types
-export type Unhandled = D.TypeOf<typeof UnhandledD>
-export type SequenceComponentNotAvailable = D.TypeOf<typeof SequenceComponentNotAvailableD>
-export type ConfigurationMissing = D.TypeOf<typeof ConfigurationMissingD>
-export type LocationServiceError = D.TypeOf<typeof LocationServiceErrorD>
-export type FailedToStartSequencers = D.TypeOf<typeof FailedToStartSequencersD>
-export type SpawningSequenceComponentsFailed = D.TypeOf<typeof SpawningSequenceComponentsFailedD>
-export type LoadScriptError = D.TypeOf<typeof LoadScriptErrorD>
-export type ConflictingResourcesWithRunningObsMode = D.TypeOf<
-  typeof ConflictingResourcesWithRunningObsModeD
->
+export type AgentStatusSuccess = {
+  _type: 'Success'
+  agentStatus: AgentStatus[]
+  seqCompsWithoutAgent: SequenceComponentStatus[]
+}
 
 // api specific type's
-export type CouldNotFindMachines = D.TypeOf<typeof CouldNotFindMachinesD>
-export type Success = D.TypeOf<
-  | typeof ConfigureSuccessD
-  | typeof SuccessD
-  | typeof RestartSequencerSuccessD
-  | typeof RunningObsModesSuccessD
->
-export type Failed = D.TypeOf<typeof FailedD>
-export type AlreadyRunningD = D.TypeOf<typeof AlreadyRunningD>
-export type StartedD = D.TypeOf<typeof StartedD>
-export type ConfigureResponse = D.TypeOf<typeof ConfigureResponseD>
-export type ProvisionResponse = D.TypeOf<typeof ProvisionResponseD>
-export type GetRunningObsModesResponse = D.TypeOf<typeof GetRunningObsModesResponseD>
-export type StartSequencerResponse = D.TypeOf<typeof StartSequencerResponseD>
-export type RestartSequencerResponse = D.TypeOf<typeof RestartSequencerResponseD>
-export type ShutdownSequencersResponse = D.TypeOf<typeof ShutdownSequencersAndSeqCompResponseD>
-export type ShutdownSequenceComponentResponse = D.TypeOf<
-  typeof ShutdownSequencersAndSeqCompResponseD
->
-export type AgentStatusResponse = D.TypeOf<typeof AgentStatusResponseD>
+export type ConfigureResponse =
+  | Unhandled
+  | SequenceComponentNotAvailable
+  | ConfigurationMissing
+  | LocationServiceError
+  | FailedToStartSequencers
+  | ConflictingResourcesWithRunningObsMode
+  | ConfigureSuccess
+
+export type ProvisionResponse =
+  | Unhandled
+  | Success
+  | LocationServiceError
+  | SpawningSequenceComponentsFailed
+  | CouldNotFindMachines
+
+export type GetRunningObsModesResponse = Failed | RunningObsModesSuccess
+
+export type StartSequencerResponse =
+  | Unhandled
+  | SequenceComponentNotAvailable
+  | LoadScriptError
+  | LocationServiceError
+  | AlreadyRunning
+  | Started
+
+export type RestartSequencerResponse =
+  | Unhandled
+  | LoadScriptError
+  | LocationServiceError
+  | RestartSequencerSuccess
+
+export type ShutdownSequencersResponse = Unhandled | LocationServiceError | Success
+export type ShutdownSequenceComponentResponse = ShutdownSequencersResponse
+export type AgentStatusResponse = Unhandled | LocationServiceError | AgentStatusSuccess

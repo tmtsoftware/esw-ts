@@ -5,8 +5,9 @@ import {
   ProvisionConfig
 } from '../../../src/clients/sequence-manager'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
-import * as Res from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
+import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
+import * as Res from '../../../src/decoders/SequenceManagerDecoders'
 import { ComponentId, Prefix, Subsystem } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -28,7 +29,7 @@ describe('Sequence manager', function () {
   test('should call configure | ESW-365', async () => {
     const obsMode = new ObsMode('darknight')
 
-    const expectedConfigureResponse: Res.ConfigureResponse = {
+    const expectedConfigureResponse: T.ConfigureResponse = {
       _type: 'Success',
       masterSequencerComponentId
     }
@@ -48,7 +49,7 @@ describe('Sequence manager', function () {
     const eswAgentPrefix = new Prefix('ESW', 'agent1')
     const agentProvisionConfig = new AgentProvisionConfig(eswAgentPrefix, 2)
     const provisionConfig = new ProvisionConfig([agentProvisionConfig])
-    const expectedProvisionRes: Res.ProvisionResponse = { _type: 'Success' }
+    const expectedProvisionRes: T.ProvisionResponse = { _type: 'Success' }
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedProvisionRes)
 
@@ -62,7 +63,7 @@ describe('Sequence manager', function () {
   })
 
   test('should call getRunningObsMode | ESW-365', async () => {
-    const expectedRes: Res.GetRunningObsModesResponse = {
+    const expectedRes: T.GetRunningObsModesResponse = {
       _type: 'Success',
       runningObsModes: [new ObsMode('moonnight')]
     }
@@ -79,7 +80,7 @@ describe('Sequence manager', function () {
   })
 
   test('should call start sequencer | ESW-365', async () => {
-    const expectedRes: Res.StartSequencerResponse = {
+    const expectedRes: T.StartSequencerResponse = {
       _type: 'Started',
       componentId: masterSequencerComponentId
     }
@@ -96,7 +97,7 @@ describe('Sequence manager', function () {
   })
 
   test('should call restart sequencer | ESW-365', async () => {
-    const expectedRes: Res.RestartSequencerResponse = {
+    const expectedRes: T.RestartSequencerResponse = {
       _type: 'Success',
       componentId: masterSequencerComponentId
     }
@@ -113,7 +114,7 @@ describe('Sequence manager', function () {
   })
 
   test('should call shutdown sequencer | ESW-365', async () => {
-    const expectedRes: Res.ShutdownSequencersResponse = {
+    const expectedRes: T.ShutdownSequencersResponse = {
       _type: 'Success'
     }
 
@@ -124,12 +125,12 @@ describe('Sequence manager', function () {
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSequencer(subsystem, obsMode),
-      Res.ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
 
   test('should call shutdown sequencers by subsystem | ESW-365', async () => {
-    const expectedRes: Res.ShutdownSequencersResponse = {
+    const expectedRes: T.ShutdownSequencersResponse = {
       _type: 'Success'
     }
 
@@ -140,12 +141,12 @@ describe('Sequence manager', function () {
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSubsystemSequencers(subsystem),
-      Res.ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
 
   test('should call shutdown sequencers by obsMode | ESW-365', async () => {
-    const expectedRes: Res.ShutdownSequencersResponse = {
+    const expectedRes: T.ShutdownSequencersResponse = {
       _type: 'Success'
     }
 
@@ -156,12 +157,12 @@ describe('Sequence manager', function () {
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownObsModeSequencers(obsMode),
-      Res.ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
 
   test('should call shutdown all sequencers | ESW-365', async () => {
-    const expectedRes: Res.ShutdownSequencersResponse = {
+    const expectedRes: T.ShutdownSequencersResponse = {
       _type: 'Success'
     }
 
@@ -172,12 +173,12 @@ describe('Sequence manager', function () {
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownAllSequencers(),
-      Res.ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
 
   test('should call shutdown a sequence component | ESW-365', async () => {
-    const expectedRes: Res.ShutdownSequenceComponentResponse = {
+    const expectedRes: T.ShutdownSequenceComponentResponse = {
       _type: 'Success'
     }
 
@@ -188,12 +189,12 @@ describe('Sequence manager', function () {
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownSequenceComponent(prefix),
-      Res.ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
 
   test('should call shutdown all sequence components | ESW-365', async () => {
-    const expectedRes: Res.ShutdownSequenceComponentResponse = {
+    const expectedRes: T.ShutdownSequenceComponentResponse = {
       _type: 'Success'
     }
 
@@ -204,12 +205,12 @@ describe('Sequence manager', function () {
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.ShutdownAllSequenceComponents(),
-      Res.ShutdownSequencersAndSeqCompResponseD
+      Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
 
   test('should call get agent status | ESW-365', async () => {
-    const expectedRes: Res.AgentStatusResponse = {
+    const expectedRes: T.AgentStatusResponse = {
       _type: 'Success',
       agentStatus: [
         {
