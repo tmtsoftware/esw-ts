@@ -1,11 +1,11 @@
 import type { Decoder } from 'io-ts/es6/Decoder'
 import * as D from 'io-ts/lib/Decoder'
-import type { Option } from '../..'
+import type { ConfigFileRevision, Option } from '../..'
+import { ConfigFileRevisionD, ConfigIdD } from '../../decoders/ConfigDecoders'
 import { GenericError } from '../../utils/GenericError'
 import { get, head } from '../../utils/Http'
 import { getOrThrow } from '../../utils/Utils'
 import { ConfigData } from './models/ConfigData'
-import * as M from './models/ConfigModels'
 
 export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))
@@ -22,14 +22,14 @@ export const tryConfigExists = async (url: string): Promise<boolean> =>
   )
 
 export const tryGetActiveVersion = async (url: string) =>
-  map404(get({ url, decoder: decodeUsing(M.ConfigIdD) }), undefined)
+  map404(get({ url, decoder: decodeUsing(ConfigIdD) }), undefined)
 
 export const history = async (
   path: string,
   from: Date,
   to: Date,
   maxResults: number
-): Promise<M.ConfigFileRevision[]> =>
+): Promise<ConfigFileRevision[]> =>
   get({
     url: path,
     queryParams: {
@@ -37,7 +37,7 @@ export const history = async (
       to: to.toISOString(),
       maxResults: maxResults.toString()
     },
-    decoder: decodeUsing(D.array(M.ConfigFileRevisionD))
+    decoder: decodeUsing(D.array(ConfigFileRevisionD))
   })
 
 const map404 = async <T, U>(response: Promise<T>, on404: U) => {

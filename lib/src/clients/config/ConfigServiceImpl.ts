@@ -1,12 +1,20 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { ConfigService, TokenFactory, Option } from '../..'
-
+import type {
+  ConfigFileInfo,
+  ConfigFileRevision,
+  ConfigId,
+  ConfigMetadata,
+  ConfigService,
+  FileType,
+  Option,
+  TokenFactory
+} from '../..'
+import { ConfigFileInfoD, ConfigIdD, ConfigMetadataD } from '../../decoders/ConfigDecoders'
 import { HeaderExt } from '../../utils/HeaderExt'
 import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import * as ConfigUtils from './ConfigUtils'
 import { tryGetConfigBlob } from './ConfigUtils'
 import type { ConfigData } from './models/ConfigData'
-import * as M from './models/ConfigModels'
 
 export class ConfigServiceImpl implements ConfigService {
   constructor(
@@ -28,7 +36,7 @@ export class ConfigServiceImpl implements ConfigService {
     return tryGetConfigBlob(url)
   }
 
-  getById(confPath: string, configId: M.ConfigId): Promise<Option<ConfigData>> {
+  getById(confPath: string, configId: ConfigId): Promise<Option<ConfigData>> {
     const url = this.endpoint(`config/${confPath}?id=${configId.id}`)
     return tryGetConfigBlob(url)
   }
@@ -38,13 +46,13 @@ export class ConfigServiceImpl implements ConfigService {
     return tryGetConfigBlob(url)
   }
 
-  exists(confPath: string, configId?: M.ConfigId): Promise<boolean> {
+  exists(confPath: string, configId?: ConfigId): Promise<boolean> {
     const path = configId ? `${confPath}?id=${configId.id}` : confPath
     const url = this.endpoint(`config/${path}`)
     return ConfigUtils.tryConfigExists(url)
   }
 
-  list(type?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]> {
+  list(type?: FileType, pattern?: string): Promise<ConfigFileInfo[]> {
     const queryParams: Record<string, string> = {}
     if (type) queryParams['type'] = type
     if (pattern) queryParams['pattern'] = pattern
@@ -52,7 +60,7 @@ export class ConfigServiceImpl implements ConfigService {
     return get({
       url,
       queryParams,
-      decoder: ConfigUtils.decodeUsing(D.array(M.ConfigFileInfoD))
+      decoder: ConfigUtils.decodeUsing(D.array(ConfigFileInfoD))
     })
   }
 
@@ -66,17 +74,17 @@ export class ConfigServiceImpl implements ConfigService {
     return ConfigUtils.tryGetConfigBlob(url)
   }
 
-  getActiveVersion(path: string): Promise<Option<M.ConfigId>> {
+  getActiveVersion(path: string): Promise<Option<ConfigId>> {
     const url = this.endpoint(`active-version/${path}`)
     return ConfigUtils.tryGetActiveVersion(url)
   }
 
-  getMetadata(): Promise<M.ConfigMetadata> {
+  getMetadata(): Promise<ConfigMetadata> {
     const url = this.endpoint('metadata')
-    return get({ url, decoder: ConfigUtils.decodeUsing(M.ConfigMetadataD) })
+    return get({ url, decoder: ConfigUtils.decodeUsing(ConfigMetadataD) })
   }
 
-  history(path: string, from: Date, to: Date, maxResults: number): Promise<M.ConfigFileRevision[]> {
+  history(path: string, from: Date, to: Date, maxResults: number): Promise<ConfigFileRevision[]> {
     const url = this.endpoint(`history/${path}`)
     return ConfigUtils.history(url, from, to, maxResults)
   }
@@ -86,7 +94,7 @@ export class ConfigServiceImpl implements ConfigService {
     from: Date,
     to: Date,
     maxResults: number
-  ): Promise<M.ConfigFileRevision[]> {
+  ): Promise<ConfigFileRevision[]> {
     const url = this.endpoint(`history-active/${path}`)
     return ConfigUtils.history(url, from, to, maxResults)
   }
@@ -97,7 +105,7 @@ export class ConfigServiceImpl implements ConfigService {
     return put({ url, headers, queryParams: { comment } })
   }
 
-  setActiveVersion(path: string, configId: M.ConfigId, comment: string): Promise<void> {
+  setActiveVersion(path: string, configId: ConfigId, comment: string): Promise<void> {
     const url = this.endpoint(`active-version/${path}`)
     const headers = this.getAuthHeader()
     return put({ url, headers, queryParams: { id: configId.id, comment } })
@@ -110,12 +118,7 @@ export class ConfigServiceImpl implements ConfigService {
     return del({ url, headers, queryParams: { comment } })
   }
 
-  create(
-    path: string,
-    configData: ConfigData,
-    annex: boolean,
-    comment: string
-  ): Promise<M.ConfigId> {
+  create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId> {
     return this.createOrUpdate(
       path,
       configData.toBlob(),
@@ -124,7 +127,7 @@ export class ConfigServiceImpl implements ConfigService {
     )
   }
 
-  update(path: string, configData: ConfigData, comment: string): Promise<M.ConfigId> {
+  update(path: string, configData: ConfigData, comment: string): Promise<ConfigId> {
     return this.createOrUpdate(path, configData.toBlob(), { comment }, put)
   }
 
@@ -133,10 +136,10 @@ export class ConfigServiceImpl implements ConfigService {
     payload: Blob,
     queryParams: Record<string, string>,
     fetchReq: RequestResponse
-  ): Promise<M.ConfigId> {
+  ): Promise<ConfigId> {
     const url = this.endpoint(`config/${path}`)
     const headers = this.getAuthHeader().withContentType('application/octet-stream')
-    const decoder = ConfigUtils.decodeUsing(M.ConfigIdD)
+    const decoder = ConfigUtils.decodeUsing(ConfigIdD)
     return fetchReq({ url, headers, queryParams, payload, decoder })
   }
 }
