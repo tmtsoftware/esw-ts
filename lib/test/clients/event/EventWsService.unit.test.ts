@@ -1,12 +1,12 @@
 import { mocked } from 'ts-jest/utils'
 import { EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
-import { EventD } from '../../../src/clients/event/models/Event'
 import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
 import type {
   GatewayEventPostRequest,
   GatewayEventWsRequest
 } from '../../../src/clients/gateway/models/Gateway'
+import { EventD } from '../../../src/decoders/EventDecoders'
 import { Prefix, Subsystem } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'

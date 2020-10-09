@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { EventService } from '../../../src/clients/event'
+import { EventService } from '../../../src/clients/event/EventService'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { resolveConnection } from '../../../src/config/Connections'
 import { HttpTransport } from '../../../src/utils/HttpTransport'

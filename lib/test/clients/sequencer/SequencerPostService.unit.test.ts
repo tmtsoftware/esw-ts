@@ -2,13 +2,13 @@ import * as D from 'io-ts/lib/Decoder'
 import { mocked } from 'ts-jest/utils'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
-import * as Res from '../../../src/clients/sequencer/models/SequencerRes'
 import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
 import {
   QueryFinal,
   SequencerWebsocketRequest
 } from '../../../src/clients/sequencer/models/WsCommand'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
+import * as Res from '../../../src/decoders/SequencerDecoders'
 import {
   ComponentId,
   intKey,
@@ -50,9 +50,8 @@ const sequencer = new SequencerServiceImpl(componentId, httpTransport, () => ws)
 
 const getGatewaySequencerCommand = (
   command: Req.SequencerPostRequest
-): GatewaySequencerCommand<Req.SequencerPostRequest> => {
-  return new GatewaySequencerCommand(componentId, command)
-}
+): GatewaySequencerCommand<Req.SequencerPostRequest> =>
+  new GatewaySequencerCommand(componentId, command)
 
 describe('SequencerService', () => {
   test('should load a sequence in given sequencer | ESW-307', async () => {

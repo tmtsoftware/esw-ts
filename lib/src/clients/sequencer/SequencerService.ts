@@ -1,11 +1,10 @@
-import type { TokenFactory, Option } from '../..'
+import type { Option, TokenFactory } from '../..'
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
-import type * as Res from './models/SequencerRes'
+import type * as T from './models/SequencerRes'
 import type { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
 
@@ -16,7 +15,7 @@ export interface SequencerService {
    * @param sequence a sequence to load in the sequencer
    * @returns OkOrUnhandledResponse as Promise
    */
-  loadSequence(sequence: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
+  loadSequence(sequence: SequenceCommand[]): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Runs the loaded sequence
@@ -31,7 +30,7 @@ export interface SequencerService {
    * @param commands list of SequenceCommand to add in the sequence of sequencer
    * @returns OkOrUnhandledResponse as Promise
    */
-  add(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
+  add(commands: SequenceCommand[]): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Prepends the given list of sequence commands in the sequence
@@ -39,7 +38,7 @@ export interface SequencerService {
    * @param commands list of SequenceCommand to prepend in the sequence of sequencer
    * @returns OkOrUnhandledResponse as Promise
    */
-  prepend(commands: SequenceCommand[]): Promise<Res.OkOrUnhandledResponse>
+  prepend(commands: SequenceCommand[]): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Replaces the command of the given id with the given list of sequence commands in the sequence
@@ -48,7 +47,7 @@ export interface SequencerService {
    * @param commands list of SequenceCommand to replace with
    * @returns GenericResponse as Promise
    */
-  replace(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
+  replace(id: string, commands: SequenceCommand[]): Promise<T.GenericResponse>
 
   /**
    * Inserts the given list of sequence commands after the command of given id in the sequence
@@ -57,7 +56,7 @@ export interface SequencerService {
    * @param commands list of SequenceCommand to be inserted
    * @returns GenericResponse as Promise
    */
-  insertAfter(id: string, commands: SequenceCommand[]): Promise<Res.GenericResponse>
+  insertAfter(id: string, commands: SequenceCommand[]): Promise<T.GenericResponse>
 
   /**
    * Deletes the command of the given id in the sequence
@@ -65,7 +64,7 @@ export interface SequencerService {
    * @param id runId of the command which is to be deleted
    * @returns GenericResponse as Promise
    */
-  delete(id: string): Promise<Res.GenericResponse>
+  delete(id: string): Promise<T.GenericResponse>
 
   /**
    * Adds a breakpoint at the command of the given id in the sequence
@@ -73,7 +72,7 @@ export interface SequencerService {
    * @param id runId of the command where breakpoint is to be added
    * @returns GenericResponse as Promise
    */
-  addBreakpoint(id: string): Promise<Res.GenericResponse>
+  addBreakpoint(id: string): Promise<T.GenericResponse>
 
   /**
    * Removes a breakpoint from the command of the given id in the sequence
@@ -81,28 +80,28 @@ export interface SequencerService {
    * @param id runId of command where breakpoint is
    * @returns GenericResponse as Promise
    */
-  removeBreakpoint(id: string): Promise<Res.RemoveBreakpointResponse>
+  removeBreakpoint(id: string): Promise<T.RemoveBreakpointResponse>
 
   /**
    * Resets the sequence by discarding all the pending steps of the sequence
    *
    * @returns OkOrUnhandledResponse as Promise
    */
-  reset(): Promise<Res.OkOrUnhandledResponse>
+  reset(): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Resumes the paused sequence
    *
    * @returns OkOrUnhandledResponse as Promise
    */
-  resume(): Promise<Res.OkOrUnhandledResponse>
+  resume(): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Pauses the sequence
    *
    * @returns PauseResponse as Promise
    */
-  pause(): Promise<Res.PauseResponse>
+  pause(): Promise<T.PauseResponse>
 
   /**
    * Gets the sequence present in the sequencer
@@ -130,28 +129,28 @@ export interface SequencerService {
    *
    * @returns GoOnlineResponse as Promise
    */
-  goOnline(): Promise<Res.GoOnlineResponse>
+  goOnline(): Promise<T.GoOnlineResponse>
 
   /**
    * sends command to the sequencer to go in Offline state if it is in Online state
    *
    * @returns GoOfflineResponse as Promise
    */
-  goOffline(): Promise<Res.GoOfflineResponse>
+  goOffline(): Promise<T.GoOfflineResponse>
 
   /**
    * Discards all the pending steps of the sequence and call the abort handler of the sequencer's script
    *
    * @returns OkOrUnhandledResponse as Promise
    */
-  abortSequence(): Promise<Res.OkOrUnhandledResponse>
+  abortSequence(): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Discards all the pending steps of the sequence and call the stop handler of the sequencer's script
    *
    * @returns OkOrUnhandledResponse as Promise
    */
-  stop(): Promise<Res.OkOrUnhandledResponse>
+  stop(): Promise<T.OkOrUnhandledResponse>
 
   /**
    * Sends command to the sequencer to call the diagnostic mode handler of the sequencer's script
@@ -160,14 +159,14 @@ export interface SequencerService {
    * @param hint supported diagnostic data mode
    * @returns DiagnosticModeResponse as Promise
    */
-  diagnosticMode(startTime: Date, hint: string): Promise<Res.DiagnosticModeResponse>
+  diagnosticMode(startTime: Date, hint: string): Promise<T.DiagnosticModeResponse>
 
   /**
    * Sends command to the sequencer to call the operations mode handler of the sequencer's script
    *
    * @returns OperationsModeResponse as Promise
    */
-  operationsMode(): Promise<Res.OperationsModeResponse>
+  operationsMode(): Promise<T.OperationsModeResponse>
 
   /**
    * Submit the given sequence to the sequencer
