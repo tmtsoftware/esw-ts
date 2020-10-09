@@ -4,7 +4,7 @@ import { GetLogMetadata, SetLogLevel } from '../../../src/clients/admin/models/P
 import type { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { DoneD } from '../../../src/clients/location/models/LocationResponses'
 import type { LogMetadata } from '../../../src/clients/logger'
-import { LogMetadataD } from '../../../src/clients/logger/models/LogMetadata'
+import { LogMetadataD } from '../../../src/decoders/LoggerDecoders'
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'

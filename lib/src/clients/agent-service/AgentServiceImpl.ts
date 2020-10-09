@@ -1,8 +1,9 @@
+import type { KillResponse, SpawnResponse } from '.'
+import { KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
 import type { Prefix } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Connection } from '../location'
 import type { AgentService } from './AgentService'
-import { KillResponse, KillResponseD, SpawnResponse, SpawnResponseD } from './models/AgentRes'
 import {
   AgentServiceRequest,
   KillComponent,

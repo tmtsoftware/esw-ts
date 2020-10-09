@@ -1,11 +1,6 @@
 import { mocked } from 'ts-jest/utils'
+import type { Killed, Spawned } from '../../../src'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
-import {
-  Killed,
-  KillResponseD,
-  Spawned,
-  SpawnResponseD
-} from '../../../src/clients/agent-service/models/AgentRes'
 import {
   AgentServiceRequest,
   KillComponent,
@@ -13,6 +8,7 @@ import {
   SpawnSequenceManager
 } from '../../../src/clients/agent-service/models/PostCommand'
 import { HttpConnection } from '../../../src/clients/location'
+import { KillResponseD, SpawnResponseD } from '../../../src/decoders/AgentDecoders'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'
