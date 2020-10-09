@@ -1,5 +1,6 @@
 import {
   AgentService,
+  GenericError,
   HttpConnection,
   KillResponse,
   Prefix,
@@ -45,4 +46,90 @@ const httpConnection: HttpConnection = HttpConnection(
 const killResponse: KillResponse = await agentService.killComponent(
   httpConnection
 )
+
 //#killComponent
+const d = async () => {
+  //#response-handling
+  // common function to handle error scenario's
+  const handleError = (err: Error) => {
+    if (err instanceof GenericError) {
+      // depending on use case, error can be handled on following fields
+      //  - err.status      ( 5XX, 4XX, 3XX)
+      //  - err.statusText  (http status associated with status)
+      //  - err.errorType   (TransportError, InternalServerError, TokenMissingError, AuthorizationError, AuthenticationError)
+
+      switch (err.errorType) {
+        case 'AgentNotFoundException':
+          // do something on getting AgentNotFoundException'
+          break
+        case 'TransportError':
+          // console.log(err.message)
+          // do something on getting TransportError (4XX, 3XX, etc)
+          break
+        case 'InternalServerError':
+          // it could be null pointer exception, / by zero exceptions,etc.
+          break
+        case 'TokenMissingError':
+          // do something on getting TokenMissingError
+          break
+        case 'AuthorizationError':
+          // do something on getting AuthorizationError
+          break
+        case 'AuthenticationError':
+          // do something on getting AuthenticationError
+          break
+      }
+    }
+  }
+
+  const componentPrefix = new Prefix('ESW', 'component1')
+  const httpConnection: HttpConnection = HttpConnection(
+    componentPrefix,
+    'SequenceComponent'
+  )
+
+  // ---- spawn api example starts here ---
+  try {
+    const spawnResponse: SpawnResponse = await agentService.spawnSequenceManager(
+      agentPrefix,
+      obsModeConfigPath,
+      false,
+      sequenceManagerVersion
+    )
+
+    // spawn response handling (200 status code)
+    switch (spawnResponse._type) {
+      case 'Spawned':
+        // do something on successful spawn operation
+        break
+      case 'Failed':
+        // do something on failed response
+        break
+    }
+  } catch (err) {
+    handleError(err)
+  }
+
+  // ---- spawn example ends here ---
+
+  // ---- kill example starts here ---
+  try {
+    const killResponse: KillResponse = await agentService.killComponent(
+      httpConnection
+    )
+    // kill response handling (200 status code)
+    switch (killResponse._type) {
+      case 'Killed':
+        // do something on successful kill operation
+        break
+      case 'Failed':
+        // do something on failed response
+        break
+    }
+  } catch (err) {
+    handleError(err)
+  }
+  // ---- kill example ends here ---
+
+  //#response-handling
+}

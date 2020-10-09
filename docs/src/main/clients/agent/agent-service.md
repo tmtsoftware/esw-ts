@@ -7,11 +7,9 @@ Agent service provides APIs to spawn sequence manager, sequence components and t
 
 Agent service has following [APIs](#apis):
 
-|        API                                        |      Input args                                        |          Returns   |
-| ------------------------------------------------- | -----------------------------------------------------  | ------------------
-| [spawnSequenceManager](#spawnsequencemanager)     | agentPrefix, obsModeConfigPath, isConfigLocal, version |     SpawnResponse  |
-| [spawnSequenceComponent](#spawnsequencecomponent) | agentPrefix, componentName, version                    |     SpawnResponse  |
-| [killComponent](#killcomponent)                   | connection                                             |     KillResponse   |
+* [spawnSequenceManager](#spawnsequencemanager)
+* [spawnSequenceComponent](#spawnsequencecomponent)
+* [killComponent](#killcomponent)
 
 
 ##Creation of Agent Service
@@ -44,8 +42,13 @@ Note that the examples are using async/await which makes handling of promises mo
    be present on local(agent machine) or on config server. In case of local file, absolute path should be provided.
    Sequence manager version is an optional field. When version isn't specified, default version gets picked up.
 
-   API returns `Spawned` as a response when sequence manager has spawned successfully.
-   API returns `Failed` as a response if a sequence manager is already present.
+
+| Arguments                                                  | Description                                                                | Required/Optional |Default |
+|-----------------------                                     | -------------------------------------------------------------------------  | ------------ | ----------- |
+| agentPrefix: [Prefix](../../params/commands.html#prefix)   | prefix of the agent machine on which sequence manager needs to be spawned  | Required |   |
+| obsModeConfigPath: **string**                              | path of the observation mode (local path or remote i.e config server path) | Required |  |
+| isConfigLocal: **boolean**                                 | true if configPath is local path, false in case of remote path.            | Required |  |
+| version: **string**                                        | The sequence manager version.           | Optional |  latest |
 
 The following example shows how to call spawnSequenceManager API :
 
@@ -59,8 +62,11 @@ Typescript
    It takes a prefix of the agent machine, component name and ocs-app library version. Version is an optional field.
     When version isn't specified, default version gets picked up.
 
-   API returns `Spawned` as a response when sequence component has spawned successfully.
-   API returns `Failed` as a response if a sequence component with given component name and agent's subsystem is already present on any agent machine.
+| Arguments                                                  | Description                                                                | Required/Optional | Default|
+|-----------------------                                     | -------------------------------------------------------------------------  | ------------      |--------|
+| agentPrefix: [Prefix](../../params/commands.html#prefix)   | prefix of the agent machine on which sequence manager needs to be spawned  | Required          |      |
+| componentName: **string**                                  |The name of the component                                                   | Required          |      |
+| version: **string**                                        | The OCS App version.                                                       | Optional          | latest |
 
 The following example shows how to call spawnSequenceComponent API :
 
@@ -69,13 +75,24 @@ Typescript
 
 ###killComponent
 
-   This API allows to kill any component registered with location service. It takes `Connection` as a input which can be
-   either of following: `AkkaConnection`, `HttpConnection`, `TcpConnection`.
+   This API allows to kill any component registered with location service.
 
-   API returns `Killed` as a response if component is killed successfully.
-   API returns `Failed` as a response if it fails to kill the component.
+   It takes `Connection` as a input which can be either of following: `AkkaConnection`, `HttpConnection`, `TcpConnection`.
+
+| Arguments                                                  | Description                                                                | Required/Optional | Default|
+|-----------------------                                     | -------------------------------------------------------------------------  | ------------      |--------|
+| connection: [Connection](../../clients/location/location-service.html#connections)   | The Connection of the machine where component is spawned. | Required |      |
 
 The following example shows how to call killComponent API :
 
 Typescript
 :   @@snip [killComponent](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #killComponent }
+
+
+## Sample usage
+
+The following examples shows how to call agent api's and handling errors and different response types that are received from the server
+
+Typescript
+:   @@snip [Response](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #response-handling }
+

@@ -1,4 +1,7 @@
 # Clients
+These are javascript adapters for each of public facing TMT services. They provide a handle to interact with backend server while adhering to the service contract.
+
+These are following clients available :
 
 @@toc { .main depth=1 }
 

@@ -48,6 +48,10 @@ Typescript
 Note that the examples are using async/await which makes handling of promises more readable.
 
 @@@
+## Models
+### Components
+### Connections
+### Resolving connections
 
 ### list
 This API returns a list of Locations of components that are registered in the location service.
