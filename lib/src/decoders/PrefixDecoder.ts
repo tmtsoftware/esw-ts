@@ -1,7 +1,7 @@
 import * as E from 'fp-ts/Either'
 import { pipe } from 'fp-ts/pipeable'
 import * as D from 'io-ts/Decoder'
-import { Prefix } from '../models'
+import { Prefix } from '../models/params/Prefix'
 import type { Decoder } from '../utils/Decoder'
 
 const parsePrefix = (prefixStr: string): E.Either<Error, Prefix> =>
