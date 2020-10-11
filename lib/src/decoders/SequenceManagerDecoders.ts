@@ -3,9 +3,9 @@ import { AkkaLocationD } from '../clients/location/models/Location'
 import { ObsModeD } from '../clients/sequence-manager/models/ObsMode'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { ComponentIdD } from '../models/ComponentId'
-import { PrefixD } from '../models/params/Prefix'
 import { SubsystemD } from '../models/params/Subsystem'
 import { ciLiteral, Decoder } from '../utils/Decoder'
+import { PrefixD } from './PrefixDecoder'
 
 const UnhandledD: Decoder<T.Unhandled> = D.type({
   _type: ciLiteral('Unhandled'),

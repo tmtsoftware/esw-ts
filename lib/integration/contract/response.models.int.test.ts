@@ -13,6 +13,7 @@ import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import * as C from '../../src/decoders/ConfigDecoders'
 import { EventD, EventKeyD } from '../../src/decoders/EventDecoders'
 import { LevelD, LogMetadataD } from '../../src/decoders/LoggerDecoders'
+import { PrefixD } from '../../src/decoders/PrefixDecoder'
 import {
   AgentStatusResponseD,
   ConfigureResponseD,
@@ -35,7 +36,6 @@ import {
 import { CurrentStateD } from '../../src/models/params/CurrentState'
 import * as M from '../../src/models/params/Key'
 import { ParameterD } from '../../src/models/params/Parameter'
-import { PrefixD } from '../../src/models/params/Prefix'
 import { ResultD } from '../../src/models/params/Result'
 import { SubsystemD } from '../../src/models/params/Subsystem'
 import { UnitsD } from '../../src/models/params/Units'

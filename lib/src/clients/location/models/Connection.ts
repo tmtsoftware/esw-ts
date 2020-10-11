@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
+import { PrefixD } from '../../../decoders/PrefixDecoder'
 import type { ComponentType, Prefix } from '../../../models'
 import { ComponentTypeD } from '../../../models/ComponentType'
-import { PrefixD } from '../../../models/params/Prefix'
 import { ciLiteral, Decoder } from '../../../utils/Decoder'
 
 // ##################### Decoders #####################

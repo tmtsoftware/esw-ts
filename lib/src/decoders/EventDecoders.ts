@@ -3,8 +3,9 @@ import * as D from 'io-ts/lib/Decoder'
 import { EventKey, EventName, Key, Parameter } from '..'
 import { Event, ObserveEvent, SystemEvent } from '../clients/event/models/Event'
 import { ParameterD } from '../models/params/Parameter'
-import { Prefix, PrefixD } from '../models/params/Prefix'
+import type { Prefix } from '../models/params/Prefix'
 import { ciLiteral, Decoder } from '../utils/Decoder'
+import { PrefixD } from './PrefixDecoder'
 
 export const EventNameD: Decoder<EventName> = pipe(
   D.string,
