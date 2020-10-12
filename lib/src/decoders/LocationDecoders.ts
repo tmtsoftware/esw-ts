@@ -12,8 +12,6 @@ const akkaL = 'akka'
 const httpL = 'http'
 const tcpL = 'tcp'
 
-export const ConnectionTypeD = D.literal(akkaL, httpL, tcpL)
-
 type ConnectionDecoder<L extends ConnectionType> = Decoder<{
   connectionType: L
   prefix: Prefix
@@ -27,6 +25,8 @@ const mkConnectionD = <L extends ConnectionType>(connectionType: L): ConnectionD
     componentType: ComponentTypeD
   })
 
+export const ConnectionTypeD = D.literal(akkaL, httpL, tcpL)
+
 export const AkkaConnectionD = mkConnectionD(akkaL)
 export const HttpConnectionD = mkConnectionD(httpL)
 export const TcpConnectionD = mkConnectionD(tcpL)
@@ -37,7 +37,6 @@ export const ConnectionD = D.sum('connectionType')({
   [tcpL]: TcpConnectionD
 })
 
-////////
 const AkkaLocationL = 'AkkaLocation'
 const HttpLocationL = 'HttpLocation'
 const TcpLocationL = 'TcpLocation'
