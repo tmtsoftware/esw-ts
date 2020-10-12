@@ -1,24 +1,5 @@
-import * as D from 'io-ts/lib/Decoder'
-import type { Decoder } from '../../../utils/Decoder'
-import { Connection, ConnectionD } from './Connection'
-import { Location, LocationD } from './Location'
-
-// ##################### Decoders #####################
-const LocationUpdatedD: Decoder<LocationUpdated> = D.type({
-  _type: D.literal('LocationUpdated'),
-  location: LocationD
-})
-
-const LocationRemovedD: Decoder<LocationRemoved> = D.type({
-  _type: D.literal('LocationRemoved'),
-  connection: ConnectionD
-})
-
-export const TrackingEventD: Decoder<TrackingEvent> = D.sum('_type')({
-  LocationUpdated: LocationUpdatedD,
-  LocationRemoved: LocationRemovedD
-})
-// ######################################################
+import type { Connection } from './Connection'
+import type { Location } from './Location'
 
 export interface LocationUpdated {
   readonly _type: 'LocationUpdated'

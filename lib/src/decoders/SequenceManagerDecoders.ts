@@ -1,10 +1,10 @@
 import * as D from 'io-ts/lib/Decoder'
-import { AkkaLocationD } from '../clients/location/models/Location'
 import { ObsModeD } from '../clients/sequence-manager/models/ObsMode'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { ComponentIdD } from '../models/ComponentId'
 import { SubsystemD } from '../models/params/Subsystem'
 import { ciLiteral, Decoder } from '../utils/Decoder'
+import { AkkaLocationD } from './LocationDecoders'
 import { PrefixD } from './PrefixDecoder'
 
 const UnhandledD: Decoder<T.Unhandled> = D.type({
