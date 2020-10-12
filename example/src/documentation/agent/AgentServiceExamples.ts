@@ -55,33 +55,25 @@ const d = async () => {
     if (err instanceof GenericError) {
       // depending on use case, error can be handled on following fields
       //  - err.status      ( 5XX, 4XX, 3XX)
-      //  - err.statusText  (http status associated with status)
-      //  - err.errorType   (TransportError, InternalServerError, TokenMissingError, AuthorizationError, AuthenticationError)
+      //  - err.errorType   (AgentNotFoundException, TransportError, InternalServerError)
 
       switch (err.errorType) {
         case 'AgentNotFoundException':
-          // do something on getting AgentNotFoundException'
+          console.log('do something on getting AgentNotFoundException')
           break
         case 'TransportError':
-          // console.log(err.message)
-          // do something on getting TransportError (4XX, 3XX, etc)
+          console.log('do something on getting TransportError (4XX, 3XX, etc))')
           break
         case 'InternalServerError':
-          // it could be null pointer exception, / by zero exceptions,etc.
-          break
-        case 'TokenMissingError':
-          // do something on getting TokenMissingError
-          break
-        case 'AuthorizationError':
-          // do something on getting AuthorizationError
-          break
-        case 'AuthenticationError':
-          // do something on getting AuthenticationError
+          console.log(
+            'do something on null pointer exception, / by zero exceptions,etc.'
+          )
           break
       }
     }
   }
 
+  // setup
   const componentPrefix = new Prefix('ESW', 'component1')
   const httpConnection: HttpConnection = HttpConnection(
     componentPrefix,

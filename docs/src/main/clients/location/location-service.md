@@ -41,6 +41,26 @@ Typescript
 : @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #location-service-creation }
 
 
+## Location Models
+
+### Location Info
+An Application, Sequencer, Assembly, HCD, or Service may need to be used by another component as part of normal observatory operations. It must register its location information with Location Service so that other components can find it.
+ Location information comprises:
+
+**ComponentId** : A component ID consisting of
+
+**ComponentName** : a name describing the component.
+
+**ComponentType** : such as Container, Sequencer, HCD, Assembly, Service.
+
+## Connections
+The means to reach components. These are categorized as Akka, HTTP, or Tcp type connections.
+
+Examples of Connection looks like following :
+
+Typescript
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #connections }
+
 ##APIs
 
 @@@ note {title="Async-Await" }
@@ -48,10 +68,6 @@ Typescript
 Note that the examples are using async/await which makes handling of promises more readable.
 
 @@@
-## Models
-### Components
-### Connections
-### Resolving connections
 
 ### list
 This API returns a list of Locations of components that are registered in the location service.

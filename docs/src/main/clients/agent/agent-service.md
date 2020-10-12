@@ -79,8 +79,8 @@ Typescript
 
    It takes `Connection` as a input which can be either of following: `AkkaConnection`, `HttpConnection`, `TcpConnection`.
 
-| Arguments                                                  | Description                                                                | Required/Optional | Default|
-|-----------------------                                     | -------------------------------------------------------------------------  | ------------      |--------|
+| Arguments                                                   | Description                                                                | Required/Optional | Default|
+|------------------------------------------------------------ | -------------------------------------------------------------------------  | ------------      |--------|
 | connection: [Connection](../../clients/location/location-service.html#connections)   | The Connection of the machine where component is spawned. | Required |      |
 
 The following example shows how to call killComponent API :
@@ -91,7 +91,11 @@ Typescript
 
 ## Sample usage
 
-The following examples shows how to call agent api's and handling errors and different response types that are received from the server
+The following examples shows how to call AgentService api's and handle the response `SpawnResponse` and `KillResponse`.
+
+This example also illustrates error handling of service specific exception `AgentNotFoundException` along with the generic errors `TransportError` and `InternalServerError` will look like.
+
+
 
 Typescript
 :   @@snip [Response](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #response-handling }

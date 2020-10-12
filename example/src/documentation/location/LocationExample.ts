@@ -5,7 +5,10 @@ import {
   HttpConnection,
   Option,
   Done,
-  TrackingEvent
+  TrackingEvent,
+  AkkaConnection,
+  TcpConnection,
+  HttpLocation
 } from 'esw-ts'
 
 const auth = { token: '' }
@@ -135,3 +138,19 @@ const httpConnection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
 locationService.track(httpConnection)(onTrackingEvent)
 
 //#track
+const g = () => {
+  //#connections
+  const httpConnection: HttpConnection = HttpConnection(
+    new Prefix('ESW', 'component'),
+    'HCD'
+  )
+  const akkaConnection: AkkaConnection = AkkaConnection(
+    new Prefix('ESW', 'component'),
+    'HCD'
+  )
+  const tcpConnection: TcpConnection = TcpConnection(
+    new Prefix('ESW', 'component'),
+    'HCD'
+  )
+  //#connections
+}
