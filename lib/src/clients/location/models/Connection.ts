@@ -1,5 +1,4 @@
-import type { ComponentType } from '../../../models/ComponentType'
-import type { Prefix } from '../../../models/params/Prefix'
+import type { ComponentType, Prefix } from '../../../models'
 
 const mkConnection = <T extends ConnectionType>(connectionType: T) => (
   prefix: Prefix,
@@ -23,7 +22,7 @@ export type TcpConnection = {
   prefix: Prefix
   componentType: ComponentType
 }
-export type Connection = AkkaConnection | TcpConnection | HttpConnection
+export type Connection = AkkaConnection | HttpConnection | TcpConnection
 
 export const AkkaConnection = mkConnection('akka')
 export const HttpConnection = mkConnection('http')
