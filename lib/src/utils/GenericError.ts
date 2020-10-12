@@ -15,6 +15,10 @@ export class GenericError extends Error {
           ? responseBody._type
           : responseBody.error_name
         : 'TransportError'
-    return new GenericError(errorType, responseBody, status, statusText)
+
+    const message =
+      status == 500 && responseBody.error_message ? responseBody.error_message : responseBody
+
+    return new GenericError(errorType, message, status, statusText)
   }
 }
