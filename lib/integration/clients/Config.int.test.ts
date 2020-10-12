@@ -64,7 +64,6 @@ describe('Config Client', () => {
 
   test('should create, getById, update, delete config | ESW-320', async () => {
     const expectedFileContent = '{key:filecontent}'
-
     // create file
     const configId = await configService.create(
       path,
@@ -84,6 +83,7 @@ describe('Config Client', () => {
 
     const configData2 = await configService.getLatest(path)
     const updatedFileContent = await configData2?.fileContentAsString()
+
     expect(updatedFileContent).toEqual(newFileContent)
   })
 

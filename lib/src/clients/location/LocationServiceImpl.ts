@@ -1,4 +1,5 @@
 import type { Option, Subscription } from '../..'
+import { LocationListD, TrackingEventD } from '../../decoders/LocationDecoders'
 import type { ComponentType, Prefix } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 
@@ -8,9 +9,9 @@ import type { LocationService } from './LocationService'
 import type { Connection, ConnectionType } from './models/Connection'
 import { Duration, TimeUnit } from './models/Duration'
 import type { Location } from './models/Location'
-import { Done, DoneD, LocationListD } from './models/LocationResponses'
+import { Done, DoneD } from './models/LocationResponses'
 import * as Req from './models/PostCommand'
-import { TrackingEvent, TrackingEventD } from './models/TrackingEvent'
+import type { TrackingEvent } from './models/TrackingEvent'
 import { LocationWebSocketMessage, Track } from './models/WsCommand'
 
 export class LocationServiceImpl implements LocationService {

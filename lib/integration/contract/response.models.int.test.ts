@@ -3,15 +3,18 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
-import { ConnectionD, ConnectionTypeD } from '../../src/clients/location/models/Connection'
-import { LocationD } from '../../src/clients/location/models/Location'
-import { TrackingEventD } from '../../src/clients/location/models/TrackingEvent'
 import { ObsModeD } from '../../src/clients/sequence-manager/models/ObsMode'
 import { StepD, StepListD, StepStatusD } from '../../src/clients/sequencer/models/StepList'
 import { KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import * as C from '../../src/decoders/ConfigDecoders'
 import { EventD, EventKeyD } from '../../src/decoders/EventDecoders'
+import {
+  ConnectionD,
+  ConnectionTypeD,
+  LocationD,
+  TrackingEventD
+} from '../../src/decoders/LocationDecoders'
 import { LevelD, LogMetadataD } from '../../src/decoders/LoggerDecoders'
 import { PrefixD } from '../../src/decoders/PrefixDecoder'
 import {
