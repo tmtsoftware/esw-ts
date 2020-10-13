@@ -1,5 +1,14 @@
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
+import type {
+  EqCoord,
+  Coord,
+  RaDec,
+  AltAzCoord,
+  CometCoord,
+  MinorPlanetCoord,
+  SolarSystemCoord
+} from './Coord'
 import type { Struct } from './Struct'
 import type { Units } from './Units'
 
@@ -71,19 +80,19 @@ export interface UTCTimeKey extends BaseStringKey<'UTCTimeKey'> {}
 
 export interface TAITimeKey extends BaseStringKey<'TAITimeKey'> {}
 
-export interface RaDecKey extends mkRawKey<'RaDecKey', RaDecKey> {}
+export interface RaDecKey extends mkRawKey<'RaDecKey', RaDec> {}
 
-export interface EqCoordKey extends mkRawKey<'EqCoordKey', EqCoordKey> {}
+export interface EqCoordKey extends mkRawKey<'EqCoordKey', EqCoord> {}
 
-export interface SolarSystemCoordKey extends mkRawKey<'SolarSystemCoordKey', SolarSystemCoordKey> {}
+export interface SolarSystemCoordKey extends mkRawKey<'SolarSystemCoordKey', SolarSystemCoord> {}
 
-export interface MinorPlanetCoordKey extends mkRawKey<'MinorPlanetCoordKey', MinorPlanetCoordKey> {}
+export interface MinorPlanetCoordKey extends mkRawKey<'MinorPlanetCoordKey', MinorPlanetCoord> {}
 
-export interface CometCoordKey extends mkRawKey<'CometCoordKey', CometCoordKey> {}
+export interface CometCoordKey extends mkRawKey<'CometCoordKey', CometCoord> {}
 
-export interface AltAzCoordKey extends mkRawKey<'AltAzCoordKey', AltAzCoordKey> {}
+export interface AltAzCoordKey extends mkRawKey<'AltAzCoordKey', AltAzCoord> {}
 
-export interface CoordKey extends mkRawKey<'CoordKey', CoordKey> {}
+export interface CoordKey extends mkRawKey<'CoordKey', Coord> {}
 
 /**
  * Keys defined for consumption in Typescript code
