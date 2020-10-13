@@ -1,22 +1,7 @@
-import { pipe } from 'fp-ts/pipeable'
-import * as D from 'io-ts/lib/Decoder'
-import { PrefixD } from '../../decoders/PrefixDecoder'
-import type { Decoder } from '../../utils/Decoder'
 import type { Key } from './Key'
-import { Parameter, ParameterD } from './Parameter'
+import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 import type { Prefix } from './Prefix'
-
-// todo: scala has state variable ADT (CurrentState | DemandState)
-// _type: "CurrentState" prop present in json coming from scala
-export const CurrentStateD: Decoder<CurrentState> = pipe(
-  D.type({
-    prefix: PrefixD,
-    stateName: D.string,
-    paramSet: D.array(ParameterD)
-  }),
-  D.parse((cs) => D.success(new CurrentState(cs.prefix, cs.stateName, cs.paramSet)))
-)
 
 /**
  * A State variable that indicates the 'current' or actual state.

@@ -1,9 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
+import { StructD } from '../../decoders/StructDecoder'
 import { char, ciLiteral, Decoder } from '../../utils/Decoder'
 import * as C from './../../decoders/CoordDecoders'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
-import { StructD } from './Struct'
 import { Units, UnitsD } from './Units'
 
 // ---------------------------------

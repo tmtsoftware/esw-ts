@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
+import { ResultD } from '../../decoders/ResultDecoder'
 import { ciLiteral, Decoder } from '../../utils/Decoder'
-import { ResultD } from './Result'
 
 // ##################### Decoders #####################
 

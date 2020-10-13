@@ -1,8 +1,5 @@
-import { pipe } from 'fp-ts/pipeable'
-import * as D from 'io-ts/lib/Decoder'
-import type { Decoder } from '../../utils/Decoder'
 import type { Key } from './Key'
-import { Parameter, ParameterD } from './Parameter'
+import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 /**
  * A result containing parameters for command response
@@ -25,10 +22,3 @@ export class Result extends ParameterSetType<Result> {
     return new Result(data)
   }
 }
-
-export const ResultD: Decoder<Result> = pipe(
-  D.type({
-    paramSet: D.array(ParameterD)
-  }),
-  D.parse((r) => D.success(new Result(r.paramSet)))
-)
