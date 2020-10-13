@@ -38,7 +38,7 @@ If You are using location service to unregister a component, you would need to h
 Location service constructor takes optional tokenFactory and optional location server configuration(host/port pair).
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #location-service-creation }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #location-service-creation }
 
 
 ##APIs
@@ -59,7 +59,7 @@ This API returns a list of Locations of components that are registered in the lo
 The following example shows how to call list API :
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #list }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list }
 
 ### listByComponentType
 This API takes a component type as an argument and returns a list of Locations for that specific component type which are registered in the location service.
@@ -67,7 +67,7 @@ This API takes a component type as an argument and returns a list of Locations f
 The following examples shows various ways listByComponentType API can be called
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #list-by-component-type }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-component-type }
 
 ### listByConnectionType
 This API takes a connection type as an argument and returns a list of Locations for that specific connection type which are registered in the location service.
@@ -75,7 +75,7 @@ This API takes a connection type as an argument and returns a list of Locations 
 The following examples shows various ways listByConnectionType API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #list-by-connection-type }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-connection-type }
 
 ### listByHostname
 This API takes a hostname as an argument and returns a list of Locations registered with that host in the location service.
@@ -83,7 +83,7 @@ This API takes a hostname as an argument and returns a list of Locations registe
 The following examples shows various ways listByHostname API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #list-by-hostname }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-hostname }
 
 ### listByPrefix
 This API takes a prefix of a component as an argument and returns a list of Locations registered with that prefix in the location service.
@@ -91,7 +91,7 @@ This API takes a prefix of a component as an argument and returns a list of Loca
 The following example shows listByPrefix API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #list-by-prefix }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-prefix }
 
 ### find
 This API takes a type of Connection as an argument to be located and returns a Option of Location.
@@ -99,7 +99,7 @@ This API takes a type of Connection as an argument to be located and returns a O
 The following example shows find API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #find }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #find }
 
 ### unregister
 This is a secure API and takes a type of Connection as an input argument to be unregistered from the location service and returns Done once unregistered.
@@ -107,7 +107,7 @@ This is a secure API and takes a type of Connection as an input argument to be u
 The following example shows unregister API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #unregister }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #unregister }
 
 ### resolve
 This API takes a type of Connection along with the timeout value(within), and the timeout unit(TimeUnit) as arguments to resolve connection, and it returns the Option of location.
@@ -115,7 +115,7 @@ This API takes a type of Connection along with the timeout value(within), and th
 The following example shows resolve API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #resolve }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
 
 ### track
 This API takes a type of Connection to be tracked, and the callback function for that connection which will be called when the connection's location is updated or removed.
@@ -123,4 +123,4 @@ This API takes a type of Connection to be tracked, and the callback function for
 The following example shows track API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/locationExample.ts) { #track }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #track }
