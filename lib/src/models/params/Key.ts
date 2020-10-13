@@ -1,139 +1,89 @@
-import * as D from 'io-ts/lib/Decoder'
-import { StructD } from '../../decoders/StructDecoder'
-import { char, ciLiteral, Decoder } from '../../utils/Decoder'
-import * as C from './../../decoders/CoordDecoders'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
-import { Units, UnitsD } from './Units'
-
-// ---------------------------------
-// Key, ParameterBody Schema
-// ---------------------------------
-
-type ParamDecoder<T> = Decoder<{
-  keyName: string
-  values: T[]
-  units: Units
-}>
+import type { Struct } from './Struct'
+import type { Units } from './Units'
 
 /**
  * Generic marker type for creating various types of Keys.
  *
  * @param L the type of values that will sit against the key in Parameter
  */
-type KeyType<L extends string, T> = {
-  keyTag: L
-  keyType: T
-}
 
 export type KTag<T extends Key> = T['keyTag']
 export type KType<T extends Key> = T['keyType']
 
-// ---------------------------------
-// Key, ParameterBody Decoders
-// ---------------------------------
-const ParamBodyDecoder = <T>(valuesDec: Decoder<T>): ParamDecoder<T> =>
-  D.type({
-    keyName: D.string,
-    values: D.array(valuesDec),
-    units: UnitsD
-  })
-
-export const paramDecoders: Record<string, ParamDecoder<unknown>> = {}
-
-const mkRawKeyD = <KType>(kType: Decoder<KType>) => <KTag extends string>(
-  kTag: KTag
-): Decoder<KeyType<KTag, KType>> => {
-  // populate [key -> decoder] record, used while decoding parameter
-  paramDecoders[kTag] = ParamBodyDecoder(kType)
-
-  return D.type({
-    keyTag: ciLiteral(kTag),
-    keyType: kType
-  })
+type mkRawKey<KeyTag, KeyType> = {
+  keyTag: KeyTag
+  keyType: KeyType
 }
+type NumberKey<KeyTag> = mkRawKey<KeyTag, number>
+type ArrayKey<KeyTag> = mkRawKey<KeyTag, number[]>
+type MatrixKey<KeyTag> = mkRawKey<KeyTag, number[][]>
+type BaseStringKey<KeyTag> = mkRawKey<KeyTag, string>
 
-// Simple Keys
-const mkNumberKeyD = mkRawKeyD<number>(D.number)
-const IntKeyD = mkNumberKeyD('IntKey')
-const LongKeyD = mkNumberKeyD('LongKey')
-const ShortKeyD = mkNumberKeyD('ShortKey')
-const FloatKeyD = mkNumberKeyD('FloatKey')
-const DoubleKeyD = mkNumberKeyD('DoubleKey')
-const ByteKeyD = mkNumberKeyD('ByteKey')
+export interface IntKey extends NumberKey<'IntKey'> {}
 
-const BooleanKeyD = mkRawKeyD(D.boolean)('BooleanKey')
+export interface LongKey extends NumberKey<'LongKey'> {}
 
-const CharKeyD = mkRawKeyD(char)('CharKey')
+export interface ShortKey extends NumberKey<'ShortKey'> {}
 
-const mkRawStringKeyD = mkRawKeyD(D.string)
-const StringKeyD = mkRawStringKeyD('StringKey')
+export interface FloatKey extends NumberKey<'FloatKey'> {}
 
-const UTCTimeKeyD = mkRawStringKeyD('UTCTimeKey') // todo: Maybe in future if we implement Time models, use those here
-const TAITimeKeyD = mkRawStringKeyD('TAITimeKey') // todo: Maybe in future if we implement Time models, use those here
+export interface DoubleKey extends NumberKey<'DoubleKey'> {}
 
-// Array Keys
-const mkArrayNumberKeyD = mkRawKeyD(D.array(D.number))
-const IntArrayKeyD = mkArrayNumberKeyD('IntArrayKey')
-const LongArrayKeyD = mkArrayNumberKeyD('LongArrayKey')
-const ShortArrayKeyD = mkArrayNumberKeyD('ShortArrayKey')
-const FloatArrayKeyD = mkArrayNumberKeyD('FloatArrayKey')
-const DoubleArrayKeyD = mkArrayNumberKeyD('DoubleArrayKey')
-const ByteArrayKeyD = mkArrayNumberKeyD('ByteArrayKey')
+export interface ByteKey extends NumberKey<'ByteKey'> {}
 
-// Matrix Keys
-const mkMatrixDataNumberKeyD = mkRawKeyD(D.array(D.array(D.number)))
-const IntMatrixKeyD = mkMatrixDataNumberKeyD('IntMatrixKey')
-const LongMatrixKeyD = mkMatrixDataNumberKeyD('LongMatrixKey')
-const ShortMatrixKeyD = mkMatrixDataNumberKeyD('ShortMatrixKey')
-const FloatMatrixKeyD = mkMatrixDataNumberKeyD('FloatMatrixKey')
-const DoubleMatrixKeyD = mkMatrixDataNumberKeyD('DoubleMatrixKey')
-const ByteMatrixKeyD = mkMatrixDataNumberKeyD('ByteMatrixKey')
+export interface StringKey extends BaseStringKey<'StringKey'> {}
 
-// Coord Keys
-const RaDecKeyD = mkRawKeyD(C.RaDecD)('RaDecKey')
-const EqCoordKeyD = mkRawKeyD(C.EqCoordD)('EqCoordKey')
-const SolarSystemCoordKeyD = mkRawKeyD(C.SolarSystemCoordD)('SolarSystemCoordKey')
-const MinorPlanetCoordKeyD = mkRawKeyD(C.MinorPlanetCoordD)('MinorPlanetCoordKey')
-const CometCoordKeyD = mkRawKeyD(C.CometCoordD)('CometCoordKey')
-const AltAzCoordKeyD = mkRawKeyD(C.AltAzCoordD)('AltAzCoordKey')
-const CoordKeyD = mkRawKeyD(C.CoordD)('CoordKey')
+export interface CharKey extends BaseStringKey<'CharKey'> {}
 
-const StructKeyD = mkRawKeyD(StructD)('StructKey')
-const ChoiceKeyD = mkRawKeyD(D.string)('ChoiceKey')
+export interface StructKey extends mkRawKey<'StructKey', Struct> {}
 
-export type IntKey = D.TypeOf<typeof IntKeyD>
-export type LongKey = D.TypeOf<typeof LongKeyD>
-export type ShortKey = D.TypeOf<typeof ShortKeyD>
-export type FloatKey = D.TypeOf<typeof FloatKeyD>
-export type DoubleKey = D.TypeOf<typeof DoubleKeyD>
-export type ByteKey = D.TypeOf<typeof ByteKeyD>
-export type StringKey = D.TypeOf<typeof StringKeyD>
-export type CharKey = D.TypeOf<typeof CharKeyD>
-export type StructKey = D.TypeOf<typeof StructKeyD>
-export type ChoiceKey = D.TypeOf<typeof ChoiceKeyD>
-export type IntMatrixKey = D.TypeOf<typeof IntMatrixKeyD>
-export type ByteMatrixKey = D.TypeOf<typeof ByteMatrixKeyD>
-export type LongMatrixKey = D.TypeOf<typeof LongMatrixKeyD>
-export type ShortMatrixKey = D.TypeOf<typeof ShortMatrixKeyD>
-export type FloatMatrixKey = D.TypeOf<typeof FloatMatrixKeyD>
-export type DoubleMatrixKey = D.TypeOf<typeof DoubleMatrixKeyD>
-export type IntArrayKey = D.TypeOf<typeof IntArrayKeyD>
-export type ByteArrayKey = D.TypeOf<typeof ByteArrayKeyD>
-export type LongArrayKey = D.TypeOf<typeof LongArrayKeyD>
-export type ShortArrayKey = D.TypeOf<typeof ShortArrayKeyD>
-export type FloatArrayKey = D.TypeOf<typeof FloatArrayKeyD>
-export type DoubleArrayKey = D.TypeOf<typeof DoubleArrayKeyD>
-export type BooleanKey = D.TypeOf<typeof BooleanKeyD>
-export type UTCTimeKey = D.TypeOf<typeof UTCTimeKeyD>
-export type TAITimeKey = D.TypeOf<typeof TAITimeKeyD>
-export type RaDecKey = D.TypeOf<typeof RaDecKeyD>
-export type EqCoordKey = D.TypeOf<typeof EqCoordKeyD>
-export type SolarSystemCoordKey = D.TypeOf<typeof SolarSystemCoordKeyD>
-export type MinorPlanetCoordKey = D.TypeOf<typeof MinorPlanetCoordKeyD>
-export type CometCoordKey = D.TypeOf<typeof CometCoordKeyD>
-export type AltAzCoordKey = D.TypeOf<typeof AltAzCoordKeyD>
-export type CoordKey = D.TypeOf<typeof CoordKeyD>
+export interface ChoiceKey extends mkRawKey<'ChoiceKey', ChoiceKey> {}
+
+export interface IntMatrixKey extends MatrixKey<'IntMatrixKey'> {}
+
+export interface ByteMatrixKey extends MatrixKey<'ByteMatrixKey'> {}
+
+export interface LongMatrixKey extends MatrixKey<'LongMatrixKey'> {}
+
+export interface ShortMatrixKey extends MatrixKey<'ShortMatrixKey'> {}
+
+export interface FloatMatrixKey extends MatrixKey<'FloatMatrixKey'> {}
+
+export interface DoubleMatrixKey extends MatrixKey<'DoubleMatrixKey'> {}
+
+export interface IntArrayKey extends ArrayKey<'IntArrayKey'> {}
+
+export interface ByteArrayKey extends ArrayKey<'ByteArrayKey'> {}
+
+export interface LongArrayKey extends ArrayKey<'LongArrayKey'> {}
+
+export interface ShortArrayKey extends ArrayKey<'ShortArrayKey'> {}
+
+export interface FloatArrayKey extends ArrayKey<'FloatArrayKey'> {}
+
+export interface DoubleArrayKey extends ArrayKey<'DoubleArrayKey'> {}
+
+export interface BooleanKey extends mkRawKey<'BooleanKey', boolean> {}
+
+export interface UTCTimeKey extends BaseStringKey<'UTCTimeKey'> {}
+
+export interface TAITimeKey extends BaseStringKey<'TAITimeKey'> {}
+
+export interface RaDecKey extends mkRawKey<'RaDecKey', RaDecKey> {}
+
+export interface EqCoordKey extends mkRawKey<'EqCoordKey', EqCoordKey> {}
+
+export interface SolarSystemCoordKey extends mkRawKey<'SolarSystemCoordKey', SolarSystemCoordKey> {}
+
+export interface MinorPlanetCoordKey extends mkRawKey<'MinorPlanetCoordKey', MinorPlanetCoordKey> {}
+
+export interface CometCoordKey extends mkRawKey<'CometCoordKey', CometCoordKey> {}
+
+export interface AltAzCoordKey extends mkRawKey<'AltAzCoordKey', AltAzCoordKey> {}
+
+export interface CoordKey extends mkRawKey<'CoordKey', CoordKey> {}
 
 /**
  * Keys defined for consumption in Typescript code
@@ -257,9 +207,3 @@ export const minorPlanetCoordKey = keyFactory<MinorPlanetCoordKey>('MinorPlanetC
 export const cometCoordKey = keyFactory<CometCoordKey>('CometCoordKey')
 export const altAzCoordKey = keyFactory<AltAzCoordKey>('AltAzCoordKey')
 export const coordKey = keyFactory<CoordKey>('CoordKey')
-
-// -----------------------------------------------------------
-// Key Literals Decoder, for ex. 'IntKey', 'StringKey' etc.
-// -----------------------------------------------------------
-const keys = Object.keys(paramDecoders)
-export const keyTagDecoder = ciLiteral(keys[0], ...keys.slice(1))

@@ -1,6 +1,6 @@
-import * as E from 'fp-ts/Either'
-import { pipe } from 'fp-ts/pipeable'
-import * as D from 'io-ts/Decoder'
+import * as E from 'fp-ts/lib/Either'
+import { pipe } from 'fp-ts/lib/function'
+import * as D from 'io-ts/lib/Decoder'
 import { Prefix } from '../models/params/Prefix'
 import type { Decoder } from '../utils/Decoder'
 

@@ -8,6 +8,7 @@ import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import * as C from '../../src/decoders/ConfigDecoders'
 import { CurrentStateD } from '../../src/decoders/CurrentStateDecoder'
 import { EventD, EventKeyD } from '../../src/decoders/EventDecoders'
+import { keyTagDecoder } from '../../src/decoders/KeyDecoders'
 import {
   ConnectionD,
   ConnectionTypeD,
@@ -15,6 +16,7 @@ import {
   TrackingEventD
 } from '../../src/decoders/LocationDecoders'
 import { LevelD, LogMetadataD } from '../../src/decoders/LoggerDecoders'
+import { ParameterD } from '../../src/decoders/ParameterDecoder'
 import { PrefixD } from '../../src/decoders/PrefixDecoder'
 import { ResultD } from '../../src/decoders/ResultDecoder'
 import {
@@ -38,7 +40,8 @@ import {
   ValidateResponseD
 } from '../../src/models/params/CommandResponse'
 import * as M from '../../src/models/params/Key'
-import { ParameterD } from '../../src/models/params/Parameter'
+import { CurrentStateD } from '../../src/models/params/CurrentState'
+import { ResultD } from '../../src/models/params/Result'
 import { SubsystemD } from '../../src/models/params/Subsystem'
 import { UnitsD } from '../../src/models/params/Units'
 import type { Decoder } from '../../src/utils/Decoder'
@@ -126,7 +129,7 @@ const commandDecoders: Record<string, Decoder<any>> = {
   ValidateResponse: ValidateResponseD,
   ControlCommand: ControlCommandD,
   Result: ResultD,
-  KeyType: M.keyTagDecoder
+  KeyType: keyTagDecoder
 }
 
 const locationDecoders: Record<string, Decoder<any>> = {

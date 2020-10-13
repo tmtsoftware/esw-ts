@@ -1,7 +1,4 @@
-import { pipe } from 'fp-ts/lib/function'
-import * as D from 'io-ts/lib/Decoder'
-import { Decoder, object } from '../../utils/Decoder'
-import { Key, KTag, KType, paramDecoders } from './Key'
+import type { Key, KTag, KType } from './Key'
 import type { Units } from './Units'
 
 /**
@@ -33,13 +30,3 @@ export class Parameter<T extends Key> {
     }
   }
 }
-
-const decodeParameter = () =>
-  pipe(
-    object(paramDecoders),
-    D.parse(([key, body]) =>
-      D.success(new Parameter(body.keyName, key as any, body.values as any, body.units))
-    )
-  )
-
-export const ParameterD: Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', decodeParameter)
