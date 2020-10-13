@@ -1,5 +1,6 @@
 # Event Service
-This service provides methods to interact with the event server which implements the publish/subscribe messaging paradigm where one component publishes an event and all clients that have subscribed receive the event.
+This service provides methods to interact with the event server which implements the publish/subscribe messaging paradigm
+where one component publishes an event and all clients that have subscribed receive the event.
 
 Event service has the following [APIs](#apis):
 
@@ -15,7 +16,7 @@ Event service has the following [APIs](#apis):
 
 ### Pre-requisite
 
-1. The Location Service and Event Service Server needs to be running in the network
+1. The Location Service, Event Service and Gateway Server needs to be running in the network
 2. The necessary configuration, environment variables or system properties should be defined to point to the correct host and port number(s) for the Location Service nodes.
 
 #### Examples to create client for Event service
@@ -55,7 +56,8 @@ Typescript
 
 ###subscribe
 
-This API subscribes to multiple `eventKeys` and receive events at `every` frequency to given callback and return subscription handle which can be used as a kill switch.
+This API subscribes to multiple `eventKeys` and receive events at `every` frequency
+and return subscription handle which can be used as a kill switch.
 It takes callback function which gets triggered when ever the events are received.
 The latest events available for the given Event Keys will be received first.
 
@@ -66,7 +68,9 @@ Typescript
 
 ###pSubscribe
 
-This API subscribes to events of a EventKey specified using a `subsystem` and a `pattern` to match the remaining Event Key and return subscription handle which can be used as a kill switch.
+This API subscribes to events of all the EventKeys specified using a `Subsystem`
+and a `pattern` to match the remaining Event Key and return subscription handle
+which can be used as a kill switch.
 It takes callback function which gets triggered when ever the events are received.
 The latest events available for the given Event Keys will be received first.
 

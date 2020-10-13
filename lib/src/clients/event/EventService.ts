@@ -29,6 +29,7 @@ export interface EventService {
    * @return Event[] as Promise
    */
   get(eventKeys: Set<EventKey>): Promise<Event[]>
+
   /**
    * Subscribes to given set of event keys
    *
@@ -41,6 +42,7 @@ export interface EventService {
     eventKeys: Set<EventKey>,
     maxFrequency: number
   ): (callback: (event: Event) => void) => Subscription
+
   /**
    * Subscribes to given subsystem and optional pattern string.
    *
