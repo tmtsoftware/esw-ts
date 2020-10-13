@@ -25,11 +25,11 @@
 
   To install the latest version of esw-ts from npm
 
-    npm install esw-ts
+    npm install @tmtsoftware/esw-ts
 
   To install a specific version
 
-    npm install esw-ts@{version}
+    npm install @tmtsoftware/esw-ts@{version}
 
 ## Features
 
