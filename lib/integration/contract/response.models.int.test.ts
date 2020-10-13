@@ -39,9 +39,6 @@ import {
   SubmitResponseD,
   ValidateResponseD
 } from '../../src/models/params/CommandResponse'
-import * as M from '../../src/models/params/Key'
-import { CurrentStateD } from '../../src/models/params/CurrentState'
-import { ResultD } from '../../src/models/params/Result'
 import { SubsystemD } from '../../src/models/params/Subsystem'
 import { UnitsD } from '../../src/models/params/Units'
 import type { Decoder } from '../../src/utils/Decoder'

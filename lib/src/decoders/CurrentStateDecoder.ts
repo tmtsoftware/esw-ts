@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import { CurrentState } from '..'
 import type { Decoder } from '../utils/Decoder'
-import { ParameterD } from './../models/params/Parameter'
+import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
 
 // todo: scala has state variable ADT (CurrentState | DemandState)

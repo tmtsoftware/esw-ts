@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import { Struct } from '..'
 import type { Decoder } from '../utils/Decoder'
-import { ParameterD } from './../models/params/Parameter'
+import { ParameterD } from './ParameterDecoder'
 
 export const StructD: Decoder<Struct> = D.lazy('Struct', () =>
   pipe(

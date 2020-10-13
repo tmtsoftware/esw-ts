@@ -1,9 +1,9 @@
 import * as D from 'io-ts/Decoder'
 import * as C from '../decoders/CoordDecoders'
 import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey } from '../models'
-import { StructD } from '../models/params/Struct'
 import { Units, UnitsD } from '../models/params/Units'
 import { char, ciLiteral, Decoder } from '../utils/Decoder'
+import { StructD } from './StructDecoder'
 
 type KeyType<L extends string, T> = {
   keyTag: L
