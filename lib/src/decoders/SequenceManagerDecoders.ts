@@ -1,11 +1,17 @@
+import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { ObsModeD } from '../clients/sequence-manager/models/ObsMode'
+import { ObsMode } from '../clients/sequence-manager/models/ObsMode'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { ComponentIdD } from '../models/ComponentId'
 import { SubsystemD } from '../models/params/Subsystem'
 import { ciLiteral, Decoder } from '../utils/Decoder'
 import { AkkaLocationD } from './LocationDecoders'
 import { PrefixD } from './PrefixDecoder'
+
+export const ObsModeD: Decoder<ObsMode> = pipe(
+  D.string,
+  D.parse((name) => D.success(new ObsMode(name)))
+)
 
 const UnhandledD: Decoder<T.Unhandled> = D.type({
   _type: ciLiteral('Unhandled'),

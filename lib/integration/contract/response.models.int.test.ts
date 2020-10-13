@@ -3,8 +3,6 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
-import { ObsModeD } from '../../src/clients/sequence-manager/models/ObsMode'
-import { StepD, StepListD, StepStatusD } from '../../src/clients/sequencer/models/StepList'
 import { KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import * as C from '../../src/decoders/ConfigDecoders'
@@ -21,6 +19,7 @@ import {
   AgentStatusResponseD,
   ConfigureResponseD,
   GetRunningObsModesResponseD,
+  ObsModeD,
   ProvisionResponseD,
   RestartSequencerResponseD,
   ShutdownSequencersOrSeqCompResponseD,
@@ -176,9 +175,9 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
   OkOrUnhandledResponse: Seq.OkOrUnhandledResponseD,
   DiagnosticModeResponse: Seq.DiagnosticModeResponseD,
   RemoveBreakpointResponse: Seq.RemoveBreakpointResponseD,
-  StepStatus: StepStatusD,
-  Step: StepD,
-  StepList: StepListD
+  StepStatus: Seq.StepStatusD,
+  Step: Seq.StepD,
+  StepList: Seq.StepListD
 }
 
 const sequenceManagerDecoders: Record<string, Decoder<any>> = {

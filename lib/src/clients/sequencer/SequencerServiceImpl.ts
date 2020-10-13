@@ -9,7 +9,7 @@ import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import * as Req from './models/PostCommand'
-import { OptionOfStepList, StepList } from './models/StepList'
+import type { StepList } from './models/StepList'
 import { QueryFinal, SequencerWebsocketRequest } from './models/WsCommand'
 import type { SequencerService } from './SequencerService'
 
@@ -82,7 +82,7 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   async getSequence(): Promise<T.Option<StepList>> {
-    return headOption(await this.postSequencerCmd(new Req.GetSequence(), OptionOfStepList))
+    return headOption(await this.postSequencerCmd(new Req.GetSequence(), Res.OptionOfStepList))
   }
 
   isAvailable(): Promise<boolean> {

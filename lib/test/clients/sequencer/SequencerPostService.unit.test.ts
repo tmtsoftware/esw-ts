@@ -2,7 +2,6 @@ import * as D from 'io-ts/lib/Decoder'
 import { mocked } from 'ts-jest/utils'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
-import { OptionOfStepList } from '../../../src/clients/sequencer/models/StepList'
 import {
   QueryFinal,
   SequencerWebsocketRequest
@@ -206,7 +205,7 @@ describe('SequencerService', () => {
     expect(response).toEqual(undefined)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GetSequence()),
-      OptionOfStepList
+      Res.OptionOfStepList
     )
   })
 
@@ -218,7 +217,7 @@ describe('SequencerService', () => {
     expect(response).toEqual(mockResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GetSequence()),
-      OptionOfStepList
+      Res.OptionOfStepList
     )
   })
 
