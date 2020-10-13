@@ -30,7 +30,7 @@ export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
    * @param values one or more values
    * @return Parameter containing the key name, values, key tag and units
    */
-  set = (...values: L[number][]) => {
+  set(...values: L[number][]) {
     /**
      * Validates the input Seq of choices
      */

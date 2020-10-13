@@ -1,30 +1,22 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Failed, Killed, KillResponse, Spawned, SpawnResponse } from '..'
+import type { Killed, KillResponse, Spawned, SpawnResponse } from '..'
 import { ciLiteral, Decoder } from '../utils/Decoder'
-
-const SpawnedL = 'Spawned'
-const KilledL = 'Killed'
-const FailedL = 'Failed'
+import { FailedD } from './CommonDecoders'
 
 const SpawnedD: Decoder<Spawned> = D.type({
-  _type: ciLiteral(SpawnedL)
+  _type: ciLiteral('Spawned')
 })
 
 const KilledD: Decoder<Killed> = D.type({
-  _type: ciLiteral(KilledL)
-})
-
-const FailedD: Decoder<Failed> = D.type({
-  _type: ciLiteral(FailedL),
-  msg: D.string
+  _type: ciLiteral('Killed')
 })
 
 export const SpawnResponseD: Decoder<SpawnResponse> = D.sum('_type')({
-  [SpawnedL]: SpawnedD,
-  [FailedL]: FailedD
+  Spawned: SpawnedD,
+  Failed: FailedD
 })
 
 export const KillResponseD: Decoder<KillResponse> = D.sum('_type')({
-  [KilledL]: KilledD,
-  [FailedL]: FailedD
+  Killed: KilledD,
+  Failed: FailedD
 })

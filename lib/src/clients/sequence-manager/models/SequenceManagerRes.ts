@@ -1,3 +1,4 @@
+import type { Failed } from '../../../models/common'
 import type { ComponentId } from '../../../models/ComponentId'
 import type { Prefix } from '../../../models/params/Prefix'
 import type { Subsystem } from '../../../models/params/Subsystem'
@@ -55,11 +56,6 @@ export type ConfigureSuccess = {
   masterSequencerComponentId: ComponentId
 }
 
-export type Failed = {
-  _type: 'Failed'
-  msg: string
-}
-
 export type CouldNotFindMachines = {
   _type: 'CouldNotFindMachines'
   prefix: Prefix[]
@@ -80,7 +76,7 @@ export type AlreadyRunning = {
   componentId: ComponentId
 }
 
-export type Started = {
+export type SequencerStarted = {
   _type: 'Started'
   componentId: ComponentId
 }
@@ -126,7 +122,7 @@ export type StartSequencerResponse =
   | LoadScriptError
   | LocationServiceError
   | AlreadyRunning
-  | Started
+  | SequencerStarted
 
 export type RestartSequencerResponse =
   | Unhandled

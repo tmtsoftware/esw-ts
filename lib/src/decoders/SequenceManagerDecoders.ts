@@ -5,6 +5,7 @@ import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { ComponentIdD } from '../models/ComponentId'
 import { SubsystemD } from '../models/params/Subsystem'
 import { ciLiteral, Decoder } from '../utils/Decoder'
+import { FailedD } from './CommonDecoders'
 import { AkkaLocationD } from './LocationDecoders'
 import { PrefixD } from './PrefixDecoder'
 
@@ -66,11 +67,6 @@ const ConfigureSuccessD: Decoder<T.ConfigureSuccess> = D.type({
   masterSequencerComponentId: ComponentIdD
 })
 
-const FailedD: Decoder<T.Failed> = D.type({
-  _type: ciLiteral('Failed'),
-  msg: D.string
-})
-
 const CouldNotFindMachinesD: Decoder<T.CouldNotFindMachines> = D.type({
   _type: ciLiteral('CouldNotFindMachines'),
   prefix: D.array(PrefixD)
@@ -91,7 +87,7 @@ const AlreadyRunningD: Decoder<T.AlreadyRunning> = D.type({
   componentId: ComponentIdD
 })
 
-const StartedD: Decoder<T.Started> = D.type({
+const StartedD: Decoder<T.SequencerStarted> = D.type({
   _type: ciLiteral('Started'),
   componentId: ComponentIdD
 })
