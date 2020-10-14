@@ -63,12 +63,6 @@ export type Accepted = {
 }
 
 export type SubmitResponse = Error | Invalid | Locked | Started | Completed | Cancelled
-export type ErrorResponse = Error
-export type InvalidResponse = Invalid
-export type LockedResponse = Locked
-export type StartedResponse = Started
-export type CompletedResponse = Completed
-export type CancelledResponse = Cancelled
 export type CommandResponse = Error | Invalid | Locked | Started | Completed | Cancelled | Accepted
 export type ValidateResponse = Accepted | Invalid | Locked
 export type OnewayResponse = Accepted | Invalid | Locked

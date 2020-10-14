@@ -1,10 +1,10 @@
 import { mocked } from 'ts-jest/utils'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
-import * as Req from '../../../src/clients/command/models/PostCommand'
 import type {
   CommandServicePostMessage,
   Submit
 } from '../../../src/clients/command/models/PostCommand'
+import * as Req from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
 import {
@@ -194,13 +194,13 @@ describe('CommandService', () => {
     const setupCommand1 = new M.Setup(eswTestPrefix, 'c1', [], 'obsId1')
     const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], 'obsId2')
     const setupCommand3 = new M.Setup(eswTestPrefix, 'c3', [], 'obsId3')
-    const completedResponse = (runId: string): M.CompletedResponse => ({
+    const completedResponse = (runId: string): M.Completed => ({
       _type: 'Completed',
       runId: runId,
       result: new M.Result()
     })
 
-    const lockedResponse: M.LockedResponse = {
+    const lockedResponse: M.Locked = {
       _type: 'Locked',
       runId: '567'
     }
