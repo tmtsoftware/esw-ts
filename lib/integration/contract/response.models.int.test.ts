@@ -5,6 +5,14 @@ import * as D from 'io-ts/lib/Decoder'
 import path from 'path'
 import { KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
+import {
+  ControlCommandD,
+  OnewayResponseD,
+  SequenceCommandD,
+  SubmitResponseD,
+  ValidateResponseD,
+  CommandIssueD
+} from '../../src/decoders/CommandDecoders'
 import { ComponentIdD } from '../../src/decoders/ComponentIdDecoder'
 import { ComponentTypeD } from '../../src/decoders/ComponentTypeDecoder'
 import * as C from '../../src/decoders/ConfigDecoders'
@@ -32,13 +40,6 @@ import {
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
 import * as Seq from '../../src/decoders/SequencerDecoders'
-import { ControlCommandD, SequenceCommandD } from '../../src/models/params/Command'
-import {
-  CommandIssueD,
-  OnewayResponseD,
-  SubmitResponseD,
-  ValidateResponseD
-} from '../../src/models/params/CommandResponse'
 import { SubsystemD } from '../../src/models/params/Subsystem'
 import { UnitsD } from '../../src/models/params/Units'
 import type { Decoder } from '../../src/utils/Decoder'

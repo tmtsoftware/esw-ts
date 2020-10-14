@@ -6,9 +6,9 @@ import type {
   MinorPlanetCoord,
   ProperMotion,
   RaDec,
-  SolarSystemCoord
-} from '..'
-import type { Coord } from '../models/params/Coord'
+  SolarSystemCoord,
+  Coord
+} from '../models/params/Coord'
 import { ciLiteral, Decoder } from '../utils/Decoder'
 
 export const TagD = ciLiteral(

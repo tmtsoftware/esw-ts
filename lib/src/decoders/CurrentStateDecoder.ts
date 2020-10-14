@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { CurrentState } from '..'
+import { CurrentState } from '../models/params/CurrentState'
 import type { Decoder } from '../utils/Decoder'
 import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'

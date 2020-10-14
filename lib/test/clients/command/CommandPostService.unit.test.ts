@@ -7,14 +7,16 @@ import type {
 } from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
-import * as M from '../../../src/models'
-import type { OnewayResponse, SubmitResponse, ValidateResponse } from '../../../src/models'
 import {
-  CompletedL,
-  LockedL,
   OnewayResponseD,
   SubmitResponseD,
   ValidateResponseD
+} from '../../../src/decoders/CommandDecoders'
+import * as M from '../../../src/models'
+import type {
+  OnewayResponse,
+  SubmitResponse,
+  ValidateResponse
 } from '../../../src/models/params/CommandResponse'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
@@ -193,13 +195,13 @@ describe('CommandService', () => {
     const setupCommand2 = new M.Setup(eswTestPrefix, 'c2', [], 'obsId2')
     const setupCommand3 = new M.Setup(eswTestPrefix, 'c3', [], 'obsId3')
     const completedResponse = (runId: string): M.CompletedResponse => ({
-      _type: CompletedL,
+      _type: 'Completed',
       runId: runId,
       result: new M.Result()
     })
 
     const lockedResponse: M.LockedResponse = {
-      _type: LockedL,
+      _type: 'Locked',
       runId: '567'
     }
     const expectedResponse: M.SubmitResponse[] = [completedResponse('c1')]

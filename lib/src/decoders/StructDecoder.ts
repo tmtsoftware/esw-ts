@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { Struct } from '..'
+import { Struct } from '../models/params/Struct'
 import type { Decoder } from '../utils/Decoder'
 import { ParameterD } from './ParameterDecoder'
 

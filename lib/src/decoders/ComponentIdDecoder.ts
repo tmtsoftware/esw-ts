@@ -1,5 +1,5 @@
-import * as D from 'io-ts/Decoder'
-import type { ComponentId } from '../models'
+import * as D from 'io-ts/lib/Decoder'
+import type { ComponentId } from '../models/ComponentId'
 import type { Decoder } from '../utils/Decoder'
 import { ComponentTypeD } from './ComponentTypeDecoder'
 import { PrefixD } from './PrefixDecoder'

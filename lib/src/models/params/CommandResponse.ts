@@ -1,124 +1,64 @@
-import * as D from 'io-ts/lib/Decoder'
-import { ResultD } from '../../decoders/ResultDecoder'
-import { ciLiteral, Decoder } from '../../utils/Decoder'
+import type * as D from 'io-ts/lib/Decoder'
+import type { IssueTypesD } from '../../decoders/CommandDecoders'
+import type { Result } from './Result'
 
-// ##################### Decoders #####################
+export type IssueTypes = D.TypeOf<typeof IssueTypesD>
 
-export const IssueTypesD = ciLiteral(
-  'AssemblyBusyIssue',
-  'HCDBusyIssue',
-  'IdNotAvailableIssue',
-  'MissingKeyIssue',
-  'OtherIssue',
-  'ParameterValueOutOfRangeIssue',
-  'RequiredAssemblyUnavailableIssue',
-  'RequiredHCDUnavailableIssue',
-  'RequiredSequencerUnavailableIssue',
-  'RequiredServiceUnavailableIssue',
-  'UnresolvedLocationsIssue',
-  'UnsupportedCommandInStateIssue',
-  'UnsupportedCommandIssue',
-  'WrongInternalStateIssue',
-  'WrongNumberOfParametersIssue',
-  'WrongParameterTypeIssue',
-  'WrongPrefixIssue',
-  'WrongUnitsIssue'
-)
+export type CommandIssue = {
+  _type: IssueTypes
+  reason: string
+}
 
-export const ErrorL = 'Error'
-export const InvalidL = 'Invalid'
-export const CompletedL = 'Completed'
-export const LockedL = 'Locked'
-export const StartedL = 'Started'
-export const CancelledL = 'Cancelled'
-const AcceptedL = 'Accepted'
+export type Error = {
+  _type: 'Error'
+  runId: string
+  message: string
+}
 
-export const CommandIssueD = D.type({
-  _type: IssueTypesD,
-  reason: D.string
-})
+export type Invalid = {
+  _type: 'Invalid'
+  runId: string
+  issue: CommandIssue
+}
 
-const ErrorD = D.type({
-  _type: ciLiteral(ErrorL),
-  runId: D.string,
-  message: D.string
-})
+export type Completed = {
+  _type: 'Completed'
+  runId: string
+  result: Result
+}
 
-const InvalidD = D.type({
-  _type: ciLiteral(InvalidL),
-  runId: D.string,
-  issue: CommandIssueD
-})
+export type Locked = {
+  _type: 'Locked'
+  runId: string
+}
 
-const CompletedD = D.type({
-  _type: ciLiteral(CompletedL),
-  runId: D.string,
-  result: ResultD
-})
+export type Started = {
+  _type: 'Started'
+  runId: string
+}
 
-const mkCommandResD = <L extends string>(type: L): Decoder<{ _type: L; runId: string }> =>
-  D.type({
-    _type: ciLiteral(type),
-    runId: D.string
-  })
+export type Cancelled = {
+  _type: 'Cancelled'
+  runId: string
+}
+export type Accepted = {
+  _type: 'Accepted'
+  runId: string
+}
 
-const LockedD = mkCommandResD(LockedL)
-const StartedD = mkCommandResD(StartedL)
-const CancelledD = mkCommandResD(CancelledL)
-const AcceptedD = mkCommandResD(AcceptedL)
+export type SubmitResponse = Error | Invalid | Locked | Started | Completed | Cancelled
+export type ErrorResponse = Error
+export type InvalidResponse = Invalid
+export type LockedResponse = Locked
+export type StartedResponse = Started
+export type CompletedResponse = Completed
+export type CancelledResponse = Cancelled
+export type CommandResponse = Error | Invalid | Locked | Started | Completed | Cancelled | Accepted
+export type ValidateResponse = Accepted | Invalid | Locked
+export type OnewayResponse = Accepted | Invalid | Locked
 
-export const SubmitResponseD = D.sum('_type')({
-  [ErrorL]: ErrorD,
-  [InvalidL]: InvalidD,
-  [LockedL]: LockedD,
-  [StartedL]: StartedD,
-  [CompletedL]: CompletedD,
-  [CancelledL]: CancelledD
-})
-
-export const CommandResponseD = D.sum('_type')({
-  [ErrorL]: ErrorD,
-  [InvalidL]: InvalidD,
-  [LockedL]: LockedD,
-  [StartedL]: StartedD,
-  [CompletedL]: CompletedD,
-  [CancelledL]: CancelledD,
-  [AcceptedL]: AcceptedD
-})
-
-export const ValidateResponseD = D.sum('_type')({
-  [AcceptedL]: AcceptedD,
-  [InvalidL]: InvalidD,
-  [LockedL]: LockedD
-})
-
-export const OnewayResponseD = D.sum('_type')({
-  [AcceptedL]: AcceptedD,
-  [InvalidL]: InvalidD,
-  [LockedL]: LockedD
-})
-
-// ######################################################
-
-export type Completed = D.TypeOf<typeof CompletedD>
-export type Started = D.TypeOf<typeof StartedD>
-export type Accepted = D.TypeOf<typeof AcceptedD>
-export type Error = D.TypeOf<typeof ErrorD>
-export type Invalid = D.TypeOf<typeof InvalidD>
-export type Cancelled = D.TypeOf<typeof CancelledD>
-export type Locked = D.TypeOf<typeof LockedD>
-
-export type SubmitResponse = D.TypeOf<typeof SubmitResponseD>
-export type ErrorResponse = D.TypeOf<typeof ErrorD>
-export type InvalidResponse = D.TypeOf<typeof InvalidD>
-export type LockedResponse = D.TypeOf<typeof LockedD>
-export type StartedResponse = D.TypeOf<typeof StartedD>
-export type CompletedResponse = D.TypeOf<typeof CompletedD>
-export type CancelledResponse = D.TypeOf<typeof CancelledD>
-export type CommandResponse = D.TypeOf<typeof CommandResponseD>
-export type ValidateResponse = D.TypeOf<typeof ValidateResponseD>
-export type OnewayResponse = D.TypeOf<typeof OnewayResponseD>
-
+const CompletedL = 'Completed'
+const StartedL = 'Started'
 const isPositive = (response: SubmitResponse) => response._type === CompletedL
 const isIntermediate = (response: SubmitResponse) => response._type === StartedL
 export const isNegative = (response: SubmitResponse) =>

@@ -1,24 +1,18 @@
-import { pipe } from 'fp-ts/pipeable'
-import * as D from 'io-ts/lib/Decoder'
 import type { Option } from '../..'
-import { ParameterD } from '../../decoders/ParameterDecoder'
-import { PrefixD } from '../../decoders/PrefixDecoder'
-import { ciLiteral, Decoder } from '../../utils/Decoder'
 import type { Key } from './Key'
 import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 import type { Prefix } from './Prefix'
 
-// ######################################################
 const SetupL = 'Setup'
 const ObserveL = 'Observe'
 const WaitL = 'Wait'
 
 /**
- * Common trait representing commands in TMT like Setup, Observe and Wait
+ * A common trait representing commands in TMT like Setup, Observe and Wait
  * @interface
  */
-interface Command<L> {
+export interface Command<L> {
   readonly _type: L
   readonly source: Prefix
   readonly commandName: string
@@ -26,7 +20,7 @@ interface Command<L> {
   readonly paramSet: Parameter<Key>[]
 }
 
-type Constructor<L, T extends Command<L>> = new (
+export type Constructor<L, T extends Command<L>> = new (
   source: Prefix,
   commandName: string,
   paramSet: Parameter<Key>[],
@@ -76,6 +70,7 @@ export class Setup extends ParameterSetType<Setup> implements Command<typeof Set
  */
 export class Observe extends ParameterSetType<Observe> implements Command<typeof ObserveL> {
   readonly _type = ObserveL
+
   /**
    * A parameter set for setting telescope and instrument parameters.
    *
@@ -94,6 +89,7 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
   ) {
     super()
   }
+
   /**
    * Create a new Observe instance when a parameter is added or removed
    *
@@ -107,6 +103,7 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
 
 export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL> {
   readonly _type = WaitL
+
   /**
    * A parameter set for setting telescope and instrument parameters.
    *
@@ -125,6 +122,7 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
   ) {
     super()
   }
+
   /**
    * Create a new Wait instance when a parameter is added or removed
    *
@@ -145,39 +143,3 @@ export type ControlCommand = Setup | Observe
  * Marker type for sequence parameter sets which is applicable to Sequencer type of components
  */
 export type SequenceCommand = Setup | Observe | Wait
-
-// ##################### Decoders #####################
-const mkCommandD = <L extends string, T extends Command<L>>(
-  _type: L,
-  apply: Constructor<L, T>
-): Decoder<T> =>
-  pipe(
-    D.intersect(
-      D.type({
-        _type: ciLiteral(_type),
-        source: PrefixD,
-        commandName: D.string,
-        paramSet: D.array(ParameterD)
-      })
-    )(D.partial({ maybeObsId: D.string })),
-    D.parse((command) =>
-      D.success(
-        new apply(command.source, command.commandName, command.paramSet, command.maybeObsId)
-      )
-    )
-  )
-
-const SetupD: Decoder<Setup> = mkCommandD(SetupL, Setup)
-const ObserveD: Decoder<Observe> = mkCommandD(ObserveL, Observe)
-const WaitD: Decoder<Wait> = mkCommandD(WaitL, Wait)
-
-export const SequenceCommandD: Decoder<SequenceCommand> = D.sum('_type')({
-  [SetupL]: SetupD,
-  [ObserveL]: ObserveD,
-  [WaitL]: WaitD
-})
-
-export const ControlCommandD: Decoder<ControlCommand> = D.sum('_type')({
-  [SetupL]: SetupD,
-  [ObserveL]: ObserveD
-})

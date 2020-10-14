@@ -6,8 +6,8 @@ import {
   SequencerWebsocketRequest
 } from '../../../src/clients/sequencer/models/WsCommand'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
+import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
 import { ComponentId, Prefix } from '../../../src/models'
-import { SubmitResponseD } from '../../../src/models/params/CommandResponse'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'

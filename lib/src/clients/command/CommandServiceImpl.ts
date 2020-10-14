@@ -1,12 +1,8 @@
 import type { Subscription } from '../..'
+import { OnewayResponseD, SubmitResponseD, ValidateResponseD } from '../../decoders/CommandDecoders'
 import { CurrentStateD } from '../../decoders/CurrentStateDecoder'
 import type * as M from '../../models'
-import {
-  isNegative,
-  OnewayResponseD,
-  SubmitResponseD,
-  ValidateResponseD
-} from '../../models/params/CommandResponse'
+import { isNegative } from '../../models/params/CommandResponse'
 import type { Decoder } from '../../utils/Decoder'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Ws } from '../../utils/Ws'

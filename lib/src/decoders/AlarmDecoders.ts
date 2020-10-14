@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { AlarmKey } from '..'
+import type { AlarmKey } from '../clients/alarm/models/PostCommand'
 import { ciLiteral, Decoder } from '../utils/Decoder'
 import { PrefixD } from './PrefixDecoder'
 

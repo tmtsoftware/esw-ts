@@ -1,6 +1,11 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { ConfigFileInfo, ConfigFileRevision, ConfigId, ConfigMetadata } from '..'
+import {
+  ConfigFileInfo,
+  ConfigFileRevision,
+  ConfigId,
+  ConfigMetadata
+} from '../clients/config/models/ConfigModels'
 import { ciLiteral, Decoder } from '../utils/Decoder'
 
 export const FileTypeD = ciLiteral('Normal', 'Annex')

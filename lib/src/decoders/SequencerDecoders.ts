@@ -1,14 +1,16 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Step, StepList, StepStatus } from '..'
 import type * as T from '../clients/sequencer/models/SequencerRes'
 import type {
+  Step,
+  StepList,
+  StepStatus,
   StepStatusFailure,
   StepStatusInFlight,
   StepStatusPending,
   StepStatusSuccess
 } from '../clients/sequencer/models/StepList'
-import { SequenceCommandD } from '../models/params/Command'
 import { ciLiteral, Decoder } from '../utils/Decoder'
+import { SequenceCommandD } from './CommandDecoders'
 import { UnhandledD } from './CommonDecoders'
 
 const OkD: Decoder<T.Ok> = D.type({
