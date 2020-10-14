@@ -1,16 +1,9 @@
-import type { Failed } from '../../../models/common'
+import type { Failed, Unhandled } from '../../../models/common'
 import type { ComponentId } from '../../../models/ComponentId'
 import type { Prefix } from '../../../models/params/Prefix'
 import type { Subsystem } from '../../../models/params/Subsystem'
 import type { AkkaLocation } from '../../location/models/Location'
 import type { ObsMode } from './ObsMode'
-
-export type Unhandled = {
-  _type: 'Unhandled'
-  state: string
-  messageType: string
-  msg: string
-}
 
 export type LocationServiceError = {
   _type: 'LocationServiceError'

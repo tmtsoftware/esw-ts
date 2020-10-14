@@ -1,3 +1,5 @@
+import type { Unhandled } from '../../../models'
+
 export type Ok = {
   _type: 'Ok'
 }
@@ -9,13 +11,6 @@ export type CannotOperateOnAnInFlightOrFinishedStep = {
 export type IdDoesNotExist = {
   _type: 'IdDoesNotExist'
   id: string
-}
-
-export type Unhandled = {
-  _type: 'Unhandled'
-  state: string
-  messageType: string
-  msg: string
 }
 
 export type GoOnlineHookFailed = {

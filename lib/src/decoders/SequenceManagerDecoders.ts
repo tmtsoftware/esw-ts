@@ -2,6 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import { ObsMode } from '../clients/sequence-manager/models/ObsMode'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
+import type { Unhandled } from '../models'
 import { SubsystemD } from '../models/params/Subsystem'
 import { ciLiteral, Decoder } from '../utils/Decoder'
 import { FailedD } from './CommonDecoders'
@@ -14,7 +15,7 @@ export const ObsModeD: Decoder<ObsMode> = pipe(
   D.parse((name) => D.success(new ObsMode(name)))
 )
 
-const UnhandledD: Decoder<T.Unhandled> = D.type({
+const UnhandledD: Decoder<Unhandled> = D.type({
   _type: ciLiteral('Unhandled'),
   state: D.string,
   messageType: D.string,

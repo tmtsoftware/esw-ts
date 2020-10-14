@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Step, StepList, StepStatus } from '..'
+import type { Step, StepList, StepStatus, Unhandled } from '..'
 import type * as T from '../clients/sequencer/models/SequencerRes'
 import type {
   StepStatusFailure,
@@ -25,7 +25,7 @@ const IdDoesNotExistD: Decoder<T.IdDoesNotExist> = D.type({
   id: D.string
 })
 
-const UnhandledD: Decoder<T.Unhandled> = D.type({
+const UnhandledD: Decoder<Unhandled> = D.type({
   _type: ciLiteral('Unhandled'),
   state: D.string,
   messageType: D.string,
