@@ -1,7 +1,7 @@
+import type { Done } from '../..'
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
-import type { Done } from '../location'
 import { AlarmServiceImpl } from './AlarmServiceImpl'
 import type { AlarmKey, AlarmSeverity } from './models/PostCommand'
 

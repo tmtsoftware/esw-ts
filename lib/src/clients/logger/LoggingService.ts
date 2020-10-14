@@ -1,8 +1,7 @@
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
-import type { Prefix } from '../../models'
+import type { Done, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
-import type { Done } from '../location'
 import { LoggingServiceImpl } from './LoggingServiceImpl'
 import type { Level } from './models/Level'
 

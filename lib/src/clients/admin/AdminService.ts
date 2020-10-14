@@ -1,8 +1,7 @@
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
-import type { ComponentId } from '../../models'
+import type { ComponentId, Done } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
-import type { Done } from '../location'
 import type { Level, LogMetadata } from '../logger'
 import { AdminServiceImpl } from './AdminServiceImpl'
 

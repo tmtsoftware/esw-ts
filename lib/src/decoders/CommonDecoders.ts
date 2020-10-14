@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Failed } from '../models/common'
+import type { Failed, Unhandled } from '../models/common'
 import { ciLiteral, Decoder } from '../utils/Decoder'
 
 export const FailedD: Decoder<Failed> = D.type({
@@ -8,3 +8,10 @@ export const FailedD: Decoder<Failed> = D.type({
 })
 
 export const DoneD = ciLiteral('Done')
+
+export const UnhandledD: Decoder<Unhandled> = D.type({
+  _type: ciLiteral('Unhandled'),
+  state: D.string,
+  messageType: D.string,
+  msg: D.string
+})

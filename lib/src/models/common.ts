@@ -1,3 +1,5 @@
+export type Done = 'Done'
+
 export type Failed = {
   _type: 'Failed'
   msg: string

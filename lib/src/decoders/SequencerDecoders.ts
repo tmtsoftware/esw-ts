@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Step, StepList, StepStatus, Unhandled } from '..'
+import type { Step, StepList, StepStatus } from '..'
 import type * as T from '../clients/sequencer/models/SequencerRes'
 import type {
   StepStatusFailure,
@@ -9,6 +9,7 @@ import type {
 } from '../clients/sequencer/models/StepList'
 import { SequenceCommandD } from '../models/params/Command'
 import { ciLiteral, Decoder } from '../utils/Decoder'
+import { UnhandledD } from './CommonDecoders'
 
 const OkD: Decoder<T.Ok> = D.type({
   _type: ciLiteral('Ok')
@@ -23,13 +24,6 @@ const CannotOperateOnAnInFlightOrFinishedStepD: Decoder<T.CannotOperateOnAnInFli
 const IdDoesNotExistD: Decoder<T.IdDoesNotExist> = D.type({
   _type: ciLiteral('IdDoesNotExist'),
   id: D.string
-})
-
-const UnhandledD: Decoder<Unhandled> = D.type({
-  _type: ciLiteral('Unhandled'),
-  state: D.string,
-  messageType: D.string,
-  msg: D.string
 })
 
 const GoOnlineHookFailedD: Decoder<T.GoOnlineHookFailed> = D.type({
@@ -106,12 +100,12 @@ const StepStatusFailureD: Decoder<StepStatusFailure> = D.type({
   message: D.string
 })
 
-export const StepStatusD: Decoder<StepStatus> = D.union(
-  StepStatusPendingD,
-  StepStatusInFlightD,
-  StepStatusSuccessD,
-  StepStatusFailureD
-)
+export const StepStatusD: Decoder<StepStatus> = D.sum('_type')({
+  Pending: StepStatusPendingD,
+  InFlight: StepStatusInFlightD,
+  Success: StepStatusSuccessD,
+  Failure: StepStatusFailureD
+})
 
 export const StepD: Decoder<Step> = D.type({
   id: D.string,

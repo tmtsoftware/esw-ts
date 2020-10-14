@@ -1,6 +1,6 @@
-import type { TokenFactory, Option, Subscription } from '../..'
+import type { Option, Subscription, TokenFactory } from '../..'
 import { LocationConfig } from '../../config'
-import type { ComponentType, Prefix } from '../../models'
+import type { ComponentType, Done, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
@@ -8,7 +8,6 @@ import { LocationServiceImpl } from './LocationServiceImpl'
 import type { Connection, ConnectionType } from './models/Connection'
 import type { TimeUnit } from './models/Duration'
 import type { Location } from './models/Location'
-import type { Done } from './models/LocationResponses'
 import type { TrackingEvent } from './models/TrackingEvent'
 
 /**

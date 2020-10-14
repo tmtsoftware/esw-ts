@@ -7,10 +7,9 @@ import {
   ObserveEvent,
   SystemEvent
 } from '../../src/clients/event'
-import type { Done } from '../../src/clients/location'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { Prefix, Subsystem } from '../../src/models'
+import { Done, Prefix, Subsystem } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(30000)
