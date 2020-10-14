@@ -6,7 +6,7 @@ import type {
   GatewayEventPostRequest,
   GatewayEventWsRequest
 } from '../../../src/clients/gateway/models/Gateway'
-import { DoneD } from '../../../src/clients/location/models/LocationResponses'
+import { DoneD } from '../../../src/decoders/CommonDecoders'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'

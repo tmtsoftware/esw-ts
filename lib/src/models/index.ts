@@ -99,6 +99,7 @@ export * from './params/Command'
 export * from './params/CommandResponse'
 export * from './params/Coord'
 export * from './params/CurrentState'
+export * from './common'
 // helpers functions
 export * from './params/Key'
 export * from './params/Parameter'

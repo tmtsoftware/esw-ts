@@ -6,3 +6,5 @@ export const FailedD: Decoder<Failed> = D.type({
   _type: ciLiteral('Failed'),
   msg: D.string
 })
+
+export const DoneD = ciLiteral('Done')

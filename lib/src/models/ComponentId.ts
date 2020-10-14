@@ -1,8 +1,6 @@
-import * as D from 'io-ts/lib/Decoder'
-import { PrefixD } from '../decoders/PrefixDecoder'
-import type { Decoder } from '../utils/Decoder'
-import { ComponentType, ComponentTypeD } from './ComponentType'
+import type { ComponentType } from './ComponentType'
 import type { Prefix } from './params/Prefix'
+
 /**
  * Represents a component based on its prefix and type.
  * @class
@@ -15,8 +13,3 @@ export class ComponentId {
    */
   constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
 }
-
-export const ComponentIdD: Decoder<ComponentId> = D.type({
-  prefix: PrefixD,
-  componentType: ComponentTypeD
-})

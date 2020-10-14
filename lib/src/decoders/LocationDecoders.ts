@@ -1,11 +1,10 @@
 import * as D from 'io-ts/lib/Decoder'
 import type { LocationRemoved, LocationUpdated, TrackingEvent } from '../clients/location'
 import type { ConnectionType, Connection } from '../clients/location/models/Connection'
-
-import { ComponentType, ComponentTypeD } from '../models/ComponentType'
+import type { ComponentType } from '../models/ComponentType'
 import type { Prefix } from '../models/params/Prefix'
 import { ciLiteral, Decoder } from '../utils/Decoder'
-
+import { ComponentTypeD } from './ComponentTypeDecoder'
 import { PrefixD } from './PrefixDecoder'
 
 const akkaL = 'akka'

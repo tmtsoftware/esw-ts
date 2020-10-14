@@ -1,3 +1,3 @@
-export { ConfigService } from './ConfigService'
-export { ConfigData } from './models/ConfigData'
+export * from './ConfigService'
+export * from './models/ConfigData'
 export * from './models/ConfigModels'

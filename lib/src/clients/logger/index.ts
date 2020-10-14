@@ -1,3 +1,3 @@
-export { Level } from './models/Level'
-export { LogMetadata } from './models/LogMetadata'
-export { LoggingService } from './LoggingService'
+export * from './models/Level'
+export * from './models/LogMetadata'
+export * from './LoggingService'

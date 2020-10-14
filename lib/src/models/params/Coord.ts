@@ -25,14 +25,12 @@ export type EqFrame = D.TypeOf<typeof EqFrameD>
  * All coordinates are a Coord.
  * i.e CometCoord, AltAzCoord, SolarSystemCoord, MinorPlanetCoord & EqCoord
  */
-export interface Coord {
-  tag: Tag
-}
+export type Coord = EqCoord | MinorPlanetCoord | SolarSystemCoord | CometCoord | AltAzCoord
 
 /**
  *  Equatorial coordinates.
  */
-export class EqCoord implements Coord {
+export class EqCoord {
   readonly _type: 'EqCoord' = 'EqCoord'
 
   constructor(
@@ -45,7 +43,7 @@ export class EqCoord implements Coord {
   ) {}
 }
 
-export class MinorPlanetCoord implements Coord {
+export class MinorPlanetCoord {
   readonly _type: 'MinorPlanetCoord' = 'MinorPlanetCoord'
 
   constructor(
@@ -60,12 +58,12 @@ export class MinorPlanetCoord implements Coord {
   ) {}
 }
 
-export class SolarSystemCoord implements Coord {
+export class SolarSystemCoord {
   readonly _type: 'SolarSystemCoord' = 'SolarSystemCoord'
   constructor(readonly tag: Tag, readonly body: SolarSystemObject) {}
 }
 
-export class CometCoord implements Coord {
+export class CometCoord {
   readonly _type: 'CometCoord' = 'CometCoord'
 
   constructor(
@@ -82,7 +80,7 @@ export class CometCoord implements Coord {
 /**
  *  Altitude Azimuth Coordinates
  */
-export class AltAzCoord implements Coord {
+export class AltAzCoord {
   readonly _type: 'AltAzCoord' = 'AltAzCoord'
 
   constructor(readonly tag: Tag, readonly alt: number, readonly az: number) {}

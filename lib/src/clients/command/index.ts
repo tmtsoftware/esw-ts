@@ -1,1 +1,1 @@
-export { CommandService } from './CommandService'
+export * from './CommandService'
