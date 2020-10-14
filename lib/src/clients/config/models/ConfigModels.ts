@@ -1,6 +1,3 @@
-import type * as D from 'io-ts/lib/Decoder'
-import type { FileTypeD } from '../../../decoders/ConfigDecoders'
-
 export class ConfigId {
   constructor(readonly id: string) {}
 
@@ -29,4 +26,4 @@ export type ConfigMetadata = {
   annexMinFileSize: string
   maxConfigFileSize: string
 }
-export type FileType = D.TypeOf<typeof FileTypeD>
+export type FileType = 'Normal' | 'Annex'

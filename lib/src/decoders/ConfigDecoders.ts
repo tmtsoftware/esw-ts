@@ -4,11 +4,12 @@ import {
   ConfigFileInfo,
   ConfigFileRevision,
   ConfigId,
-  ConfigMetadata
+  ConfigMetadata,
+  FileType
 } from '../clients/config/models/ConfigModels'
-import { ciLiteral, Decoder } from '../utils/Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 
-export const FileTypeD = ciLiteral('Normal', 'Annex')
+export const FileTypeD: Decoder<FileType> = ciLiteral('Normal', 'Annex')
 
 export const ConfigIdD: Decoder<ConfigId> = pipe(
   D.string,

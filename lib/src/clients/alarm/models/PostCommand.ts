@@ -1,5 +1,3 @@
-import type * as D from 'io-ts/lib/Decoder'
-import type { AlarmSeverityD } from '../../../decoders/AlarmDecoders'
 import type { Prefix } from '../../../models'
 import { requirement } from '../../../utils/Utils'
 
@@ -12,7 +10,7 @@ export class AlarmKey {
   }
 }
 
-export type AlarmSeverity = D.TypeOf<typeof AlarmSeverityD>
+export type AlarmSeverity = 'Okay' | 'Warning' | 'Major' | 'Indeterminate' | 'Critical'
 
 export class SetAlarmSeverity {
   readonly _type: 'SetAlarmSeverity' = 'SetAlarmSeverity'

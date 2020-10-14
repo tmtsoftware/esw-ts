@@ -6,18 +6,19 @@ import path from 'path'
 import { KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import {
+  CommandIssueD,
+  CommandResponseD,
   ControlCommandD,
   OnewayResponseD,
   SequenceCommandD,
   SubmitResponseD,
-  ValidateResponseD,
-  CommandIssueD,
-  CommandResponseD
+  ValidateResponseD
 } from '../../src/decoders/CommandDecoders'
 import { ComponentIdD } from '../../src/decoders/ComponentIdDecoder'
 import { ComponentTypeD } from '../../src/decoders/ComponentTypeDecoder'
 import * as C from '../../src/decoders/ConfigDecoders'
 import { CurrentStateD } from '../../src/decoders/CurrentStateDecoder'
+import type { Decoder } from '../../src/decoders/Decoder'
 import { EventD, EventKeyD } from '../../src/decoders/EventDecoders'
 import { keyTagDecoder } from '../../src/decoders/KeyDecoders'
 import {
@@ -41,9 +42,8 @@ import {
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
 import * as Seq from '../../src/decoders/SequencerDecoders'
-import { SubsystemD } from '../../src/models/params/Subsystem'
-import { UnitsD } from '../../src/models/params/Units'
-import type { Decoder } from '../../src/utils/Decoder'
+import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
+import { UnitsD } from '../../src/decoders/UnitsDecoder'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
 import { executeCswContract, executeEswContract } from '../utils/shell'

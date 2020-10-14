@@ -2,16 +2,19 @@ import * as D from 'io-ts/lib/Decoder'
 import type {
   AltAzCoord,
   CometCoord,
+  Coord,
   EqCoord,
+  EqFrame,
   MinorPlanetCoord,
   ProperMotion,
   RaDec,
   SolarSystemCoord,
-  Coord
+  SolarSystemObject,
+  Tag
 } from '../models/params/Coord'
-import { ciLiteral, Decoder } from '../utils/Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 
-export const TagD = ciLiteral(
+export const TagD: Decoder<Tag> = ciLiteral(
   'BASE',
   'OIWFS1',
   'OIWFS2',
@@ -25,7 +28,7 @@ export const TagD = ciLiteral(
   'GUIDER2'
 )
 
-export const SolarSystemObjectD = ciLiteral(
+export const SolarSystemObjectD: Decoder<SolarSystemObject> = ciLiteral(
   'Mercury',
   'Venus',
   'Moon',
@@ -37,7 +40,7 @@ export const SolarSystemObjectD = ciLiteral(
   'Pluto'
 )
 
-export const EqFrameD = ciLiteral('ICRS', 'FK5')
+export const EqFrameD: Decoder<EqFrame> = ciLiteral('ICRS', 'FK5')
 
 export const RaDecD: Decoder<RaDec> = D.type({
   ra: D.number,

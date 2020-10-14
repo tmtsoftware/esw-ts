@@ -1,5 +1,3 @@
-import type * as D from 'io-ts/lib/Decoder'
-import type { EqFrameD, SolarSystemObjectD, TagD } from '../../decoders/CoordDecoders'
 /**
  * RaDec holds Ra(Right Ascension) and Dec(Declination) values
  */
@@ -16,10 +14,31 @@ export type ProperMotion = {
 /**
  * A Tag is a label to indicate the use of the coordinate
  */
-export type Tag = D.TypeOf<typeof TagD>
+export type Tag =
+  | 'BASE'
+  | 'OIWFS1'
+  | 'OIWFS2'
+  | 'OIWFS3'
+  | 'OIWFS4'
+  | 'ODGW1'
+  | 'ODGW2'
+  | 'ODGW3'
+  | 'ODGW4'
+  | 'GUIDER1'
+  | 'GUIDER2'
 
-export type SolarSystemObject = D.TypeOf<typeof SolarSystemObjectD>
-export type EqFrame = D.TypeOf<typeof EqFrameD>
+export type SolarSystemObject =
+  | 'Mercury'
+  | 'Venus'
+  | 'Moon'
+  | 'Mars'
+  | 'Jupiter'
+  | 'Saturn'
+  | 'Neptune'
+  | 'Uranus'
+  | 'Pluto'
+
+export type EqFrame = 'ICRS' | 'FK5'
 
 /**
  * All coordinates are a Coord.

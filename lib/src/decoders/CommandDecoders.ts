@@ -1,6 +1,5 @@
-import { pipe } from 'fp-ts/pipeable'
+import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-
 import type {
   Command,
   Constructor,
@@ -9,7 +8,7 @@ import type {
 } from '../models/params/Command'
 import { Observe, Setup, Wait } from '../models/params/Command'
 import type * as CR from '../models/params/CommandResponse'
-import { ciLiteral, Decoder } from '../utils/Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
 import { ResultD } from './ResultDecoder'
@@ -63,7 +62,7 @@ const StartedL = 'Started'
 const CancelledL = 'Cancelled'
 const AcceptedL = 'Accepted'
 
-export const IssueTypesD = ciLiteral(
+export const IssueTypesD: Decoder<CR.IssueTypes> = ciLiteral(
   'AssemblyBusyIssue',
   'HCDBusyIssue',
   'IdNotAvailableIssue',

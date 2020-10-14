@@ -9,9 +9,9 @@ import type {
   StepStatusPending,
   StepStatusSuccess
 } from '../clients/sequencer/models/StepList'
-import { ciLiteral, Decoder } from '../utils/Decoder'
 import { SequenceCommandD } from './CommandDecoders'
 import { UnhandledD } from './CommonDecoders'
+import { ciLiteral, Decoder } from './Decoder'
 
 const OkD: Decoder<T.Ok> = D.type({
   _type: ciLiteral('Ok')

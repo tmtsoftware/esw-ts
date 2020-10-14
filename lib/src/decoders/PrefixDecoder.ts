@@ -2,7 +2,7 @@ import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import { Prefix } from '../models/params/Prefix'
-import type { Decoder } from '../utils/Decoder'
+import type { Decoder } from './Decoder'
 
 const parsePrefix = (prefixStr: string): E.Either<Error, Prefix> =>
   E.tryCatch(

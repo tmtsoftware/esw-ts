@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
+import type { Decoder } from '../../../decoders/Decoder'
 import { mkEventD } from '../../../decoders/EventDecoders'
 import type { Key, Parameter, Prefix } from '../../../models'
 import { ParameterSetType } from '../../../models/params/ParameterSetType'
-import type { Decoder } from '../../../utils/Decoder'
 import type { EventName } from './EventName'
 
 export class ObserveEvent extends ParameterSetType<ObserveEvent> {

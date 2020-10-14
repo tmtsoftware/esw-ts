@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { AlarmKey } from '../clients/alarm/models/PostCommand'
-import { ciLiteral, Decoder } from '../utils/Decoder'
+import type { AlarmKey, AlarmSeverity } from '../clients/alarm/models/PostCommand'
+import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
 
 export const AlarmKeyD: Decoder<AlarmKey> = D.type({
@@ -8,4 +8,10 @@ export const AlarmKeyD: Decoder<AlarmKey> = D.type({
   name: D.string
 })
 
-export const AlarmSeverityD = ciLiteral('Okay', 'Warning', 'Major', 'Indeterminate', 'Critical')
+export const AlarmSeverityD: Decoder<AlarmSeverity> = ciLiteral(
+  'Okay',
+  'Warning',
+  'Major',
+  'Indeterminate',
+  'Critical'
+)

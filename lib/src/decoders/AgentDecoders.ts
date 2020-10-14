@@ -5,8 +5,8 @@ import type {
   Spawned,
   SpawnResponse
 } from '../clients/agent-service/models/AgentRes'
-import { ciLiteral, Decoder } from '../utils/Decoder'
 import { FailedD } from './CommonDecoders'
+import { ciLiteral, Decoder } from './Decoder'
 
 const SpawnedD: Decoder<Spawned> = D.type({
   _type: ciLiteral('Spawned')

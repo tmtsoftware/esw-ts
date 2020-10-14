@@ -1,8 +1,24 @@
-import type * as D from 'io-ts/lib/Decoder'
-import type { IssueTypesD } from '../../decoders/CommandDecoders'
 import type { Result } from './Result'
 
-export type IssueTypes = D.TypeOf<typeof IssueTypesD>
+export type IssueTypes =
+  | 'AssemblyBusyIssue'
+  | 'HCDBusyIssue'
+  | 'IdNotAvailableIssue'
+  | 'MissingKeyIssue'
+  | 'OtherIssue'
+  | 'ParameterValueOutOfRangeIssue'
+  | 'RequiredAssemblyUnavailableIssue'
+  | 'RequiredHCDUnavailableIssue'
+  | 'RequiredSequencerUnavailableIssue'
+  | 'RequiredServiceUnavailableIssue'
+  | 'UnresolvedLocationsIssue'
+  | 'UnsupportedCommandInStateIssue'
+  | 'UnsupportedCommandIssue'
+  | 'WrongInternalStateIssue'
+  | 'WrongNumberOfParametersIssue'
+  | 'WrongParameterTypeIssue'
+  | 'WrongPrefixIssue'
+  | 'WrongUnitsIssue'
 
 export type CommandIssue = {
   _type: IssueTypes

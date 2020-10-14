@@ -1,6 +1,7 @@
 import * as E from 'fp-ts/lib/Either'
+import { SubsystemD } from '../../decoders/SubsystemDecoder'
 import { requirement } from '../../utils/Utils'
-import { Subsystem, SubsystemD } from './Subsystem'
+import type { Subsystem } from './Subsystem'
 
 const SEPARATOR = '.'
 

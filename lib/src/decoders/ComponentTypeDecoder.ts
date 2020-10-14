@@ -1,6 +1,7 @@
-import { ciLiteral } from '../utils/Decoder'
+import type { ComponentType } from '..'
+import { ciLiteral, Decoder } from './Decoder'
 
-export const ComponentTypeD = ciLiteral(
+export const ComponentTypeD: Decoder<ComponentType> = ciLiteral(
   'HCD',
   'Assembly',
   'Service',

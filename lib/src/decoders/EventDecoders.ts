@@ -6,7 +6,7 @@ import { EventName } from '../clients/event/models/EventName'
 import type { Key } from '../models/params/Key'
 import type { Parameter } from '../models/params/Parameter'
 import type { Prefix } from '../models/params/Prefix'
-import { ciLiteral, Decoder } from '../utils/Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
 

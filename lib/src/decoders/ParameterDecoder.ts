@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/function'
 import * as D from 'io-ts/lib/Decoder'
 import type { Key } from '../models/params/Key'
 import { Parameter } from '../models/params/Parameter'
-import { Decoder, object } from '../utils/Decoder'
+import { Decoder, object } from './Decoder'
 import { paramDecoders } from './KeyDecoders'
 
 const decodeParameter = () =>

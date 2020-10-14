@@ -1,6 +1,6 @@
 import * as ConfigLoader from '../config/ConfigLoader'
+import type { Decoder } from '../decoders/Decoder'
 import { APP_NAME } from './Constants'
-import type { Decoder } from './Decoder'
 import type { Subscription } from './types'
 import { getOrThrow } from './Utils'
 
