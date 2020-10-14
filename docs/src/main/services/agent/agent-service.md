@@ -81,7 +81,7 @@ Typescript
 
 | Arguments                                                   | Description                                                                | Required/Optional | Default|
 |------------------------------------------------------------ | -------------------------------------------------------------------------  | ------------      |--------|
-| connection: [Connection](../../clients/location/location-service.html#connections)   | The Connection of the machine where component is spawned. | Required |      |
+| connection: [Connection](../../services/location/location-service.html#connections)   | The Connection of the machine where component is spawned. | Required |      |
 
 The following example shows how to call killComponent API :
 
@@ -93,10 +93,25 @@ Typescript
 
 The following examples shows how to call AgentService api's and handle the response `SpawnResponse` and `KillResponse`.
 
-This example also illustrates error handling of service specific exception `AgentNotFoundException` along with the generic errors `TransportError` and `InternalServerError` will look like.
+This example also illustrates error handling of service specific exception `AgentNotFoundException` along with the generic errors like `TransportError` and `ArithmeticException` will look like.
 
+@@@ note {title=try-catch is anti-pattern}
+The example uses `try-catch` to handle errors and exceptions. Generally those errors/exceptions are handled at UI framework level on boundaries of service calls.
+This example will be updated once we have frontend framework setup in place.
+@@@
 
+A function whose responsibility is to handle errors & exceptions
 
 Typescript
-:   @@snip [Response](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #response-handling }
+:   @@snip [Response](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #handle-error }
+
+Example for spawnSequenceManager api with error handling looks like following:
+
+Typescript
+:   @@snip [Response](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #response-handling-spawn }
+
+Example for killComponent api with error handling looks like following:
+
+Typescript
+:   @@snip [Response](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #response-handling-kill }
 

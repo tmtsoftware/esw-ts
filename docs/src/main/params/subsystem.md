@@ -40,4 +40,4 @@ They are identified using an abbreviation typically of 3 or 4 letters.
 |  Container    | Container subsystem |
 
 ## Usage Examples
-The usage examples can be found in [Events](../clients/event/event-service.html), [Commands](commands.html), [States](states.html)
+The usage examples can be found in [Events](../services/event/event-service.html), [Commands](commands.html), [States](states.html)

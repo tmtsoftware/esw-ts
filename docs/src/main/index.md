@@ -1,7 +1,7 @@
 # TMT JavaScript/Typescript Library
 
 @@@ index
- - [Clients](clients/index.md)
+ - [Services](services/index.md)
  - [Params](params/index.md)
  - [AAS](aas/csw-aas-js.md)
 
@@ -35,6 +35,6 @@
 
 - @ref:[AAS Javascript Adapter (aas)](aas/csw-aas-js.md)
 
-- @ref:[Clients](clients/index.md)
+- @ref:[Services](services/index.md)
 
 - @ref:[Params](params/index.md)

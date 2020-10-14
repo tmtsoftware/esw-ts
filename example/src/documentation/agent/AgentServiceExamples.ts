@@ -48,39 +48,48 @@ const killResponse: KillResponse = await agentService.killComponent(
 )
 
 //#killComponent
-const d = async () => {
-  //#response-handling
-  // common function to handle error scenario's
-  const handleError = (err: Error) => {
-    if (err instanceof GenericError) {
-      // depending on use case, error can be handled on following fields
-      //  - err.status      ( 5XX, 4XX, 3XX)
-      //  - err.errorType   (AgentNotFoundException, TransportError, InternalServerError)
+//#handle-error
+// common function to handle error scenario's
+const handleError = (err: Error) => {
+  if (err instanceof GenericError) {
+    // depending on use case, error can be handled on following fields
+    //  - err.status      (5XX, 4XX, 3XX)
+    //  - err.errorType   (AgentNotFoundException, TransportError, ArithmeticException, NullPointerException, etc)
 
-      switch (err.errorType) {
-        case 'AgentNotFoundException':
-          console.log('do something on getting AgentNotFoundException')
-          break
-        case 'TransportError':
-          console.log('do something on getting TransportError (4XX, 3XX, etc))')
-          break
-        case 'InternalServerError':
-          console.log(
-            'do something on null pointer exception, / by zero exceptions,etc.'
-          )
-          break
-      }
+    // Other fields present in error model
+    // err.message : contains the reason which can be used to show on UI
+    // err.statusText :  Forbidden , Unauthorised, BadRequest, Not Found, etc.
+
+    switch (err.errorType) {
+      case 'AgentNotFoundException':
+        console.log(err.message) // Location not found for $agentPrefix
+        console.log('do something on getting AgentNotFoundException')
+        break
+      case 'TransportError':
+        console.log(err.statusText)
+        console.log('do something on getting TransportError (4XX, 3XX, etc))')
+        break
+      case 'ArithmeticException':
+        console.log(err.statusText) // InternalServerError
+        console.log(err.message) // Reason : / by zero
+        break
+      default:
+        throw Error(err.message)
     }
+  } else {
+    // client side error occurred at validations and operations before making api call to the server
+    // for ex: Prefix can throw runtime error if componentName is invalid.
   }
+}
+//#handle-error
 
+const d = async () => {
+  //#response-handling-spawn
   // setup
-  const componentPrefix = new Prefix('ESW', 'component1')
-  const httpConnection: HttpConnection = HttpConnection(
-    componentPrefix,
-    'SequenceComponent'
-  )
+  const agentPrefix = new Prefix('ESW', 'agent1')
+  const obsModeConfigPath = '/obs-mode.conf'
+  const sequenceManagerVersion = '1.0.0'
 
-  // ---- spawn api example starts here ---
   try {
     const spawnResponse: SpawnResponse = await agentService.spawnSequenceManager(
       agentPrefix,
@@ -101,13 +110,18 @@ const d = async () => {
   } catch (err) {
     handleError(err)
   }
-
-  // ---- spawn example ends here ---
-
-  // ---- kill example starts here ---
+  //#response-handling-spawn
+}
+const dd = async () => {
+  //#response-handling-kill
+  const eswPrefix = new Prefix('ESW', 'component1')
+  const eswComponentConnection: HttpConnection = HttpConnection(
+    eswPrefix,
+    'SequenceComponent'
+  )
   try {
     const killResponse: KillResponse = await agentService.killComponent(
-      httpConnection
+      eswComponentConnection
     )
     // kill response handling (200 status code)
     switch (killResponse._type) {
@@ -121,7 +135,5 @@ const d = async () => {
   } catch (err) {
     handleError(err)
   }
-  // ---- kill example ends here ---
-
-  //#response-handling
+  //#response-handling-kill
 }
