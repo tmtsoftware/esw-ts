@@ -11,7 +11,8 @@ import {
   SequenceCommandD,
   SubmitResponseD,
   ValidateResponseD,
-  CommandIssueD
+  CommandIssueD,
+  CommandResponseD
 } from '../../src/decoders/CommandDecoders'
 import { ComponentIdD } from '../../src/decoders/ComponentIdDecoder'
 import { ComponentTypeD } from '../../src/decoders/ComponentTypeDecoder'
@@ -124,6 +125,7 @@ const commandDecoders: Record<string, Decoder<any>> = {
   CommandIssue: CommandIssueD,
   SubmitResponse: SubmitResponseD,
   OnewayResponse: OnewayResponseD,
+  CommandResponseD: CommandResponseD,
   ValidateResponse: ValidateResponseD,
   ControlCommand: ControlCommandD,
   Result: ResultD,
