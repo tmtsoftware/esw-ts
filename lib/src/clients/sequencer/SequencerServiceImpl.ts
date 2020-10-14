@@ -1,6 +1,6 @@
-import * as D from 'io-ts/lib/Decoder'
 import type * as T from '../..'
 import { SubmitResponseD } from '../../decoders/CommandDecoders'
+import { BooleanD } from '../../decoders/CommonDecoders'
 import type { Decoder } from '../../decoders/Decoder'
 import * as Res from '../../decoders/SequencerDecoders'
 import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
@@ -86,11 +86,11 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   isAvailable(): Promise<boolean> {
-    return this.postSequencerCmd(new Req.IsAvailable(), D.boolean)
+    return this.postSequencerCmd(new Req.IsAvailable(), BooleanD)
   }
 
   isOnline(): Promise<boolean> {
-    return this.postSequencerCmd(new Req.IsOnline(), D.boolean)
+    return this.postSequencerCmd(new Req.IsOnline(), BooleanD)
   }
 
   goOnline(): Promise<T.GoOnlineResponse> {

@@ -1,4 +1,3 @@
-import * as D from 'io-ts/lib/Decoder'
 import type {
   ConfigFileInfo,
   ConfigFileRevision,
@@ -9,7 +8,7 @@ import type {
   Option,
   TokenFactory
 } from '../..'
-import { ConfigFileInfoD, ConfigIdD, ConfigMetadataD } from '../../decoders/ConfigDecoders'
+import { ConfigFileInfosD, ConfigIdD, ConfigMetadataD } from '../../decoders/ConfigDecoders'
 import { HeaderExt } from '../../utils/HeaderExt'
 import { del, get, post, put, RequestResponse } from '../../utils/Http'
 import * as ConfigUtils from './ConfigUtils'
@@ -60,7 +59,7 @@ export class ConfigServiceImpl implements ConfigService {
     return get({
       url,
       queryParams,
-      decoder: ConfigUtils.decodeUsing(D.array(ConfigFileInfoD))
+      decoder: ConfigUtils.decodeUsing(ConfigFileInfosD)
     })
   }
 

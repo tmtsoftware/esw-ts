@@ -45,3 +45,5 @@ export const EventD: Decoder<Event> = D.sum('_type')({
   ObserveEvent: ObserveEvent.decoder(),
   SystemEvent: SystemEvent.decoder()
 })
+
+export const EventsD: Decoder<Event[]> = D.array(EventD)

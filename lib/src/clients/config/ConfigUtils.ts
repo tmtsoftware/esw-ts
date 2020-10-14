@@ -1,13 +1,13 @@
-import type { Decoder } from 'io-ts/es6/Decoder'
-import * as D from 'io-ts/lib/Decoder'
 import type { ConfigFileRevision, Option } from '../..'
-import { ConfigFileRevisionD, ConfigIdD } from '../../decoders/ConfigDecoders'
+import { StringD } from '../../decoders/CommonDecoders'
+import { ConfigFileRevisionsD, ConfigIdD } from '../../decoders/ConfigDecoders'
+import type { Decoder } from '../../decoders/Decoder'
 import { GenericError } from '../../utils/GenericError'
 import { get, head } from '../../utils/Http'
 import { getOrThrow } from '../../utils/Utils'
 import { ConfigData } from './models/ConfigData'
 
-export const decodeUsing = <T>(decoder: Decoder<unknown, T>) => (obj: unknown) =>
+export const decodeUsing = <T>(decoder: Decoder<T>) => (obj: unknown) =>
   getOrThrow(decoder.decode(obj))
 
 export const tryGetConfigBlob = async (url: string): Promise<Option<ConfigData>> => {
@@ -17,7 +17,7 @@ export const tryGetConfigBlob = async (url: string): Promise<Option<ConfigData>>
 
 export const tryConfigExists = async (url: string): Promise<boolean> =>
   map404(
-    head({ url, decoder: decodeUsing(D.string) }).then(() => true),
+    head({ url, decoder: decodeUsing(StringD) }).then(() => true),
     false
   )
 
@@ -37,7 +37,7 @@ export const history = async (
       to: to.toISOString(),
       maxResults: maxResults.toString()
     },
-    decoder: decodeUsing(D.array(ConfigFileRevisionD))
+    decoder: decodeUsing(ConfigFileRevisionsD)
   })
 
 const map404 = async <T, U>(response: Promise<T>, on404: U) => {

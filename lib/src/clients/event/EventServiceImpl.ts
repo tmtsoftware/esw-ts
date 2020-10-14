@@ -1,7 +1,6 @@
-import * as D from 'io-ts/lib/Decoder'
 import type { Subscription } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
-import { EventD } from '../../decoders/EventDecoders'
+import { EventD, EventsD } from '../../decoders/EventDecoders'
 import type { Done, Subsystem } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Ws } from '../../utils/Ws'
@@ -23,7 +22,7 @@ export class EventServiceImpl implements EventService {
   }
 
   get(eventKeys: Set<EventKey>): Promise<Event[]> {
-    return this.httpTransport.requestRes(new GetEvent([...eventKeys]), D.array(EventD))
+    return this.httpTransport.requestRes(new GetEvent([...eventKeys]), EventsD)
   }
 
   subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {

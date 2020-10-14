@@ -2,6 +2,9 @@ import * as D from 'io-ts/lib/Decoder'
 import type { Failed, Unhandled } from '../models/common'
 import { ciLiteral, Decoder } from './Decoder'
 
+export const BooleanD = D.boolean
+export const StringD = D.string
+
 export const FailedD: Decoder<Failed> = D.type({
   _type: ciLiteral('Failed'),
   msg: D.string

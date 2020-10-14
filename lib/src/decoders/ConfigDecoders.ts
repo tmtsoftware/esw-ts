@@ -23,12 +23,16 @@ export const ConfigFileInfoD: Decoder<ConfigFileInfo> = D.type({
   comment: D.string
 })
 
+export const ConfigFileInfosD: Decoder<ConfigFileInfo[]> = D.array(ConfigFileInfoD)
+
 export const ConfigFileRevisionD: Decoder<ConfigFileRevision> = D.type({
   id: ConfigIdD,
   author: D.string,
   comment: D.string,
   time: D.string
 })
+
+export const ConfigFileRevisionsD: Decoder<ConfigFileRevision[]> = D.array(ConfigFileRevisionD)
 
 export const ConfigMetadataD: Decoder<ConfigMetadata> = D.type({
   repoPath: D.string,
