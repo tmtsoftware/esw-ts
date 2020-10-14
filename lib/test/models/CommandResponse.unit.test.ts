@@ -1,30 +1,30 @@
+import { Result } from '../../src/models'
 import {
-  CancelledResponse,
-  CompletedResponse,
-  ErrorResponse,
-  InvalidResponse,
-  LockedResponse,
-  Result,
-  StartedResponse,
+  Cancelled,
+  Completed,
+  Error,
+  Invalid,
+  isNegative,
+  Locked,
+  Started,
   SubmitResponse
-} from '../../src/models'
-import { isNegative } from '../../src/models/params/CommandResponse'
+} from '../../src/models/params/CommandResponse'
 
 describe('CommandResponse', () => {
-  const errorResponse: ErrorResponse = { _type: 'Error', runId: '1234', message: 'error reponse' }
-  const invalidResponse: InvalidResponse = {
+  const errorResponse: Error = { _type: 'Error', runId: '1234', message: 'error response' }
+  const invalidResponse: Invalid = {
     _type: 'Invalid',
     runId: '1234',
     issue: { _type: 'AssemblyBusyIssue', reason: 'invalid response' }
   }
-  const lockedResponse: LockedResponse = { _type: 'Locked', runId: '1234' }
-  const startedResponse: StartedResponse = { _type: 'Started', runId: '1234' }
-  const completedResponse: CompletedResponse = {
+  const lockedResponse: Locked = { _type: 'Locked', runId: '1234' }
+  const startedResponse: Started = { _type: 'Started', runId: '1234' }
+  const completedResponse: Completed = {
     _type: 'Completed',
     runId: '1234',
     result: new Result()
   }
-  const cancelledResponse: CancelledResponse = { _type: 'Cancelled', runId: '1234' }
+  const cancelledResponse: Cancelled = { _type: 'Cancelled', runId: '1234' }
 
   test('should return true if negative response | ESW-344', () => {
     const responses: Map<SubmitResponse, boolean> = new Map()
