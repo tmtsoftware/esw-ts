@@ -1,10 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type {
-  Killed,
-  KillResponse,
-  Spawned,
-  SpawnResponse
-} from '../clients/agent-service/models/AgentRes'
+import type { Killed, KillResponse, Spawned, SpawnResponse } from '../clients/agent-service'
 import { FailedD } from './CommonDecoders'
 import { ciLiteral, Decoder, sum } from './Decoder'
 

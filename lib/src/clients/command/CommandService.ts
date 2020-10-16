@@ -1,7 +1,13 @@
 import type { Subscription, TokenFactory } from '../..'
-
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
-import type * as M from '../../models'
+import type {
+  ComponentId,
+  ControlCommand,
+  CurrentState,
+  OnewayResponse,
+  SubmitResponse,
+  ValidateResponse
+} from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
@@ -18,14 +24,14 @@ export interface CommandService {
    * @param command can be of type either Setup or Observe command.
    * @return ValidateResponse as Promise
    */
-  validate(command: M.ControlCommand): Promise<M.ValidateResponse>
+  validate(command: ControlCommand): Promise<ValidateResponse>
   /**
    * Submit a command to a component which returns a promise of SubmitResponse.
    *
    * @param command can be of type either Setup or Observe command.
    * @return SubmitResponse as Promise
    */
-  submit(command: M.ControlCommand): Promise<M.SubmitResponse>
+  submit(command: ControlCommand): Promise<SubmitResponse>
   /**
    * Submit a oneway command to a component which returns a promise of OnewayResponse.
    * This api is used when completion is provided through CurrentState or status values and eventService.
@@ -33,14 +39,14 @@ export interface CommandService {
    * @param command can be of type either Setup or Observe command.
    * @return OnewayResponse as Promise
    */
-  oneway(command: M.ControlCommand): Promise<M.OnewayResponse>
+  oneway(command: ControlCommand): Promise<OnewayResponse>
   /**
    * This api is used to get the result of a long running command which was submitted and returns a promise of SubmitResponse.
    *
    * @param runId The runId of the command for which response is required
    * @return SubmitResponse as Promise
    */
-  query(runId: string): Promise<M.SubmitResponse>
+  query(runId: string): Promise<SubmitResponse>
   /**
    * This api is used to get the final result of a long running command which was submitted and returns a promise of SubmitResponse.
    *
@@ -48,7 +54,7 @@ export interface CommandService {
    * @param timeoutInSeconds time to wait for a final response
    * @return SubmitResponse as Promise
    */
-  queryFinal(runId: string, timeoutInSeconds: number): Promise<M.SubmitResponse>
+  queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
   /**
    * Subscribe to the current state of a component corresponding to the AkkaLocation of the component
    *
@@ -58,7 +64,7 @@ export interface CommandService {
    */
   subscribeCurrentState(
     stateNames: Set<string>
-  ): (onStateChange: (state: M.CurrentState) => void) => Subscription
+  ): (onStateChange: (state: CurrentState) => void) => Subscription
   /**
    * Submit a single command and wait for the result of the submitted command
    *
@@ -66,7 +72,7 @@ export interface CommandService {
    * @param timeoutInSeconds time to wait for a final response
    * @return SubmitResponse as Promise
    */
-  submitAndWait(command: M.ControlCommand, timeoutInSeconds: number): Promise<M.SubmitResponse>
+  submitAndWait(command: ControlCommand, timeoutInSeconds: number): Promise<SubmitResponse>
   /**
    * Submit multiple commands and wait for the result of the all submitted commands
    *
@@ -74,10 +80,7 @@ export interface CommandService {
    * @param timeoutInSeconds time to wait for a final response
    * @return List of SubmitResponse as Promise
    */
-  submitAllAndWait(
-    commands: M.ControlCommand[],
-    timeoutInSeconds: number
-  ): Promise<M.SubmitResponse[]>
+  submitAllAndWait(commands: ControlCommand[], timeoutInSeconds: number): Promise<SubmitResponse[]>
 }
 
 /**
@@ -89,7 +92,7 @@ export interface CommandService {
  * @constructor
  */
 export const CommandService = async (
-  componentId: M.ComponentId,
+  componentId: ComponentId,
   tokenFactory: TokenFactory = () => undefined
 ): Promise<CommandService> => {
   const { host, port } = await resolveConnection(gatewayConnection)

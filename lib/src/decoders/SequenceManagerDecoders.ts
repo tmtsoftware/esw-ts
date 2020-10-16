@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { ObsMode } from '../clients/sequence-manager/models/ObsMode'
+import { ObsMode } from '../clients/sequence-manager'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { FailedD, UnhandledD } from './CommonDecoders'
 import { ComponentIdD } from './ComponentIdDecoder'

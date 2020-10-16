@@ -1,4 +1,4 @@
-import type { Failed } from '../../../models/common'
+import type { Failed } from '../../../models'
 
 export type Spawned = {
   _type: 'Spawned'

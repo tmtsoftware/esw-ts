@@ -1,7 +1,7 @@
 import * as D from 'io-ts/lib/Decoder'
 import * as C from '../decoders/CoordDecoders'
-import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey } from '../models/params/Key'
-import type { Units } from '../models/params/Units'
+import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey , Units } from '../models'
+
 import { char, ciLiteral, Decoder } from './Decoder'
 import { StructD } from './StructDecoder'
 import { UnitsD } from './UnitsDecoder'

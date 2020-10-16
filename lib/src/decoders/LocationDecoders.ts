@@ -1,22 +1,19 @@
 import * as D from 'io-ts/lib/Decoder'
 import type {
+  AkkaConnection,
   AkkaLocation,
+  Connection,
+  ConnectionType,
+  HttpConnection,
   HttpLocation,
   Location,
   LocationRemoved,
   LocationUpdated,
+  TcpConnection,
   TcpLocation,
   TrackingEvent
 } from '../clients/location'
-import type {
-  AkkaConnection,
-  Connection,
-  ConnectionType,
-  HttpConnection,
-  TcpConnection
-} from '../clients/location/models/Connection'
-import type { ComponentType } from '../models/ComponentType'
-import type { Prefix } from '../models/params/Prefix'
+import type { ComponentType, Prefix } from '../models'
 import { ComponentTypeD } from './ComponentTypeDecoder'
 import { ciLiteral, Decoder, sum } from './Decoder'
 import { PrefixD } from './PrefixDecoder'

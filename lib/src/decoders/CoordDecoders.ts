@@ -11,7 +11,7 @@ import type {
   SolarSystemCoord,
   SolarSystemObject,
   Tag
-} from '../models/params/Coord'
+} from '../models'
 import { ciLiteral, Decoder, sum } from './Decoder'
 
 export const TagD: Decoder<Tag> = ciLiteral(

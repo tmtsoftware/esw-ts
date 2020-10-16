@@ -1,12 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import type {
-  Command,
-  Constructor,
-  ControlCommand,
-  SequenceCommand
-} from '../models/params/Command'
-import { Observe, Setup, Wait } from '../models/params/Command'
+import type { Command, Constructor, ControlCommand, SequenceCommand } from '../models'
+import { Observe, Setup, Wait } from '../models'
 import type * as CR from '../models/params/CommandResponse'
 import { ciLiteral, Decoder, sum } from './Decoder'
 import { ParameterD } from './ParameterDecoder'

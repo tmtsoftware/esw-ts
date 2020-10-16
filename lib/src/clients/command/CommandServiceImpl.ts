@@ -3,7 +3,7 @@ import { OnewayResponseD, SubmitResponseD, ValidateResponseD } from '../../decod
 import { CurrentStateD } from '../../decoders/CurrentStateDecoder'
 import type { Decoder } from '../../decoders/Decoder'
 import type * as M from '../../models'
-import { isNegative } from '../../models/params/CommandResponse'
+import { isNegative } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Ws } from '../../utils/Ws'
 import { GatewayComponentCommand } from '../gateway/models/Gateway'

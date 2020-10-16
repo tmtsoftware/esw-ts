@@ -1,6 +1,6 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { LogMetadata } from '../clients/logger'
-import type { Level } from './../clients/logger/models/Level'
+import type { LogMetadata, Level } from '../clients/logger'
+
 import { ciLiteral, Decoder } from './Decoder'
 
 export const LevelD: Decoder<Level> = ciLiteral('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL')

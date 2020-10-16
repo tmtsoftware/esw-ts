@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Failed, Unhandled } from '../models/common'
+import type { Failed, Unhandled } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
 
 export const BooleanD = D.boolean
