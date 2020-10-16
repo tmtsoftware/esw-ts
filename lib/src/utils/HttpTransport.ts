@@ -1,7 +1,7 @@
 import type { Decoder } from '../decoders/Decoder'
+import type { TokenFactory } from '../models'
 import { HeaderExt } from './HeaderExt'
 import { post } from './Http'
-import type { TokenFactory } from './types'
 import { getOrThrow } from './Utils'
 
 export class HttpTransport<Req> {

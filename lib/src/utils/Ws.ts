@@ -1,7 +1,7 @@
 import * as ConfigLoader from '../config/ConfigLoader'
 import type { Decoder } from '../decoders/Decoder'
+import type { Subscription } from '../models'
 import { APP_NAME } from './Constants'
-import type { Subscription } from './types'
 import { getOrThrow } from './Utils'
 
 const createWebsocket = async (url: string) => {

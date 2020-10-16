@@ -1,4 +1,4 @@
-import type { AppConfig, AppConfigModule } from '../utils/types'
+import type { AppConfig, AppConfigModule } from '../models'
 import { APP_CONFIG_PATH } from './AppConfigPath'
 
 export const loadAppConfig = async (path: string = APP_CONFIG_PATH): Promise<AppConfig> => {
