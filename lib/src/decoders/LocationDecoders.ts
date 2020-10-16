@@ -1,15 +1,25 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { LocationRemoved, LocationUpdated, TrackingEvent } from '../clients/location'
-import type { Connection, ConnectionType } from '../clients/location/models/Connection'
+import type {
+  AkkaLocation,
+  HttpLocation,
+  Location,
+  LocationRemoved,
+  LocationUpdated,
+  TcpLocation,
+  TrackingEvent
+} from '../clients/location'
+import type {
+  AkkaConnection,
+  Connection,
+  ConnectionType,
+  HttpConnection,
+  TcpConnection
+} from '../clients/location/models/Connection'
 import type { ComponentType } from '../models/ComponentType'
 import type { Prefix } from '../models/params/Prefix'
 import { ComponentTypeD } from './ComponentTypeDecoder'
-import { ciLiteral, Decoder } from './Decoder'
+import { ciLiteral, Decoder, sum } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
-
-const akkaL = 'akka'
-const httpL = 'http'
-const tcpL = 'tcp'
 
 type ConnectionDecoder<L extends ConnectionType> = Decoder<{
   connectionType: L
@@ -24,22 +34,19 @@ const mkConnectionD = <L extends ConnectionType>(connectionType: L): ConnectionD
     componentType: ComponentTypeD
   })
 
-export const ConnectionTypeD = D.literal(akkaL, httpL, tcpL)
+export const ConnectionTypeD: Decoder<ConnectionType> = D.literal('akka', 'http', 'tcp')
 
-export const AkkaConnectionD = mkConnectionD(akkaL)
-export const HttpConnectionD = mkConnectionD(httpL)
-export const TcpConnectionD = mkConnectionD(tcpL)
+export const AkkaConnectionD: Decoder<AkkaConnection> = mkConnectionD('akka')
+export const HttpConnectionD: Decoder<HttpConnection> = mkConnectionD('http')
+export const TcpConnectionD: Decoder<TcpConnection> = mkConnectionD('tcp')
 
-export const ConnectionD = D.sum('connectionType')({
-  [akkaL]: AkkaConnectionD,
-  [httpL]: HttpConnectionD,
-  [tcpL]: TcpConnectionD
+export const ConnectionD: Decoder<Connection> = sum('connectionType')({
+  akka: AkkaConnectionD,
+  http: HttpConnectionD,
+  tcp: TcpConnectionD
 })
 
-const AkkaLocationL = 'AkkaLocation'
-const HttpLocationL = 'HttpLocation'
-const TcpLocationL = 'TcpLocation'
-type LocationType = typeof AkkaLocationL | typeof HttpLocationL | typeof TcpLocationL
+type LocationType = 'AkkaLocation' | 'HttpLocation' | 'TcpLocation'
 
 type LocationDecoder<L extends LocationType, C extends Connection> = Decoder<{
   _type: L
@@ -59,17 +66,17 @@ const mkLocationD = <L extends LocationType, C extends Connection>(
     metadata: D.record(D.string)
   })
 
-export const AkkaLocationD = mkLocationD(AkkaLocationL, AkkaConnectionD)
-export const HttpLocationD = mkLocationD(HttpLocationL, HttpConnectionD)
-export const TcpLocationD = mkLocationD(TcpLocationL, TcpConnectionD)
+export const AkkaLocationD: Decoder<AkkaLocation> = mkLocationD('AkkaLocation', AkkaConnectionD)
+export const HttpLocationD: Decoder<HttpLocation> = mkLocationD('HttpLocation', HttpConnectionD)
+export const TcpLocationD: Decoder<TcpLocation> = mkLocationD('TcpLocation', TcpConnectionD)
 
-export const LocationD = D.sum('_type')({
-  [AkkaLocationL]: AkkaLocationD,
-  [HttpLocationL]: HttpLocationD,
-  [TcpLocationL]: TcpLocationD
+export const LocationD: Decoder<Location> = sum('_type')({
+  AkkaLocation: AkkaLocationD,
+  HttpLocation: HttpLocationD,
+  TcpLocation: TcpLocationD
 })
 
-export const LocationListD = D.array(LocationD)
+export const LocationListD: Decoder<Location[]> = D.array(LocationD)
 
 const LocationUpdatedD: Decoder<LocationUpdated> = D.type({
   _type: D.literal('LocationUpdated'),
@@ -81,7 +88,7 @@ const LocationRemovedD: Decoder<LocationRemoved> = D.type({
   connection: ConnectionD
 })
 
-export const TrackingEventD: Decoder<TrackingEvent> = D.sum('_type')({
+export const TrackingEventD: Decoder<TrackingEvent> = sum('_type')({
   LocationUpdated: LocationUpdatedD,
   LocationRemoved: LocationRemovedD
 })

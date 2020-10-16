@@ -11,7 +11,7 @@ import type {
 } from '../clients/sequencer/models/StepList'
 import { SequenceCommandD } from './CommandDecoders'
 import { UnhandledD } from './CommonDecoders'
-import { ciLiteral, Decoder } from './Decoder'
+import { ciLiteral, Decoder, sum } from './Decoder'
 
 const OkD: Decoder<T.Ok> = D.type({
   _type: ciLiteral('Ok')
@@ -44,47 +44,47 @@ const OperationsHookFailedD: Decoder<T.OperationsHookFailed> = D.type({
   _type: ciLiteral('OperationsHookFailed')
 })
 
-export const OkOrUnhandledResponseD: Decoder<T.OkOrUnhandledResponse> = D.sum('_type')({
+export const OkOrUnhandledResponseD: Decoder<T.OkOrUnhandledResponse> = sum('_type')({
   Ok: OkD,
   Unhandled: UnhandledD
 })
 
-export const RemoveBreakpointResponseD: Decoder<T.RemoveBreakpointResponse> = D.sum('_type')({
+export const RemoveBreakpointResponseD: Decoder<T.RemoveBreakpointResponse> = sum('_type')({
   Ok: OkD,
   Unhandled: UnhandledD,
   IdDoesNotExist: IdDoesNotExistD
 })
-export const PauseResponseD: Decoder<T.PauseResponse> = D.sum('_type')({
+export const PauseResponseD: Decoder<T.PauseResponse> = sum('_type')({
   Ok: OkD,
   Unhandled: UnhandledD,
   CannotOperateOnAnInFlightOrFinishedStep: CannotOperateOnAnInFlightOrFinishedStepD
 })
 
-export const GenericResponseD: Decoder<T.GenericResponse> = D.sum('_type')({
+export const GenericResponseD: Decoder<T.GenericResponse> = sum('_type')({
   Ok: OkD,
   Unhandled: UnhandledD,
   IdDoesNotExist: IdDoesNotExistD,
   CannotOperateOnAnInFlightOrFinishedStep: CannotOperateOnAnInFlightOrFinishedStepD
 })
 
-export const GoOnlineResponseD: Decoder<T.GoOnlineResponse> = D.sum('_type')({
+export const GoOnlineResponseD: Decoder<T.GoOnlineResponse> = sum('_type')({
   Ok: OkD,
   Unhandled: UnhandledD,
   GoOnlineHookFailed: GoOnlineHookFailedD
 })
 
-export const GoOfflineResponseD: Decoder<T.GoOfflineResponse> = D.sum('_type')({
+export const GoOfflineResponseD: Decoder<T.GoOfflineResponse> = sum('_type')({
   Ok: OkD,
   Unhandled: UnhandledD,
   GoOfflineHookFailed: GoOfflineHookFailedD
 })
 
-export const DiagnosticModeResponseD: Decoder<T.DiagnosticModeResponse> = D.sum('_type')({
+export const DiagnosticModeResponseD: Decoder<T.DiagnosticModeResponse> = sum('_type')({
   Ok: OkD,
   DiagnosticHookFailed: DiagnosticHookFailedD
 })
 
-export const OperationsModeResponseD: Decoder<T.OperationsModeResponse> = D.sum('_type')({
+export const OperationsModeResponseD: Decoder<T.OperationsModeResponse> = sum('_type')({
   Ok: OkD,
   OperationsHookFailed: OperationsHookFailedD
 })
@@ -102,7 +102,7 @@ const StepStatusFailureD: Decoder<StepStatusFailure> = D.type({
   message: D.string
 })
 
-export const StepStatusD: Decoder<StepStatus> = D.sum('_type')({
+export const StepStatusD: Decoder<StepStatus> = sum('_type')({
   Pending: StepStatusPendingD,
   InFlight: StepStatusInFlightD,
   Success: StepStatusSuccessD,

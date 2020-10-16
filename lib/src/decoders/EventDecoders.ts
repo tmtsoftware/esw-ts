@@ -6,7 +6,7 @@ import { EventName } from '../clients/event/models/EventName'
 import type { Key } from '../models/params/Key'
 import type { Parameter } from '../models/params/Parameter'
 import type { Prefix } from '../models/params/Prefix'
-import { ciLiteral, Decoder } from './Decoder'
+import { ciLiteral, Decoder, sum } from './Decoder'
 import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
 
@@ -41,7 +41,7 @@ export const mkEventD = <T extends Event>(_type: T['_type'], factory: (e: BaseEv
     D.parse((e) => D.success(factory(e)))
   )
 
-export const EventD: Decoder<Event> = D.sum('_type')({
+export const EventD: Decoder<Event> = sum('_type')({
   ObserveEvent: ObserveEvent.decoder(),
   SystemEvent: SystemEvent.decoder()
 })
