@@ -1,5 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 import type { Killed, Spawned } from '../../../src'
+import { ComponentId } from '../../../src'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
 import {
   AgentServiceRequest,
@@ -7,7 +8,6 @@ import {
   SpawnSequenceComponent,
   SpawnSequenceManager
 } from '../../../src/clients/agent-service/models/PostCommand'
-import { HttpConnection } from '../../../src/clients/location'
 import { KillResponseD, SpawnResponseD } from '../../../src/decoders/AgentDecoders'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
@@ -88,12 +88,12 @@ describe('Agent service', () => {
     mockedHttpTransport.requestRes.mockResolvedValueOnce(expectedResponse)
 
     const response = await agentService.killComponent(
-      HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
+      new ComponentId(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
     )
 
     expect(response).toEqual(expectedResponse)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new KillComponent(HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')),
+      new KillComponent(new ComponentId(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')),
       KillResponseD
     )
   })

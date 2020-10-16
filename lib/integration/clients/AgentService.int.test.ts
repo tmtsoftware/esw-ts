@@ -1,9 +1,8 @@
 import 'whatwg-fetch'
 import { AgentService, KillResponse, SpawnResponse } from '../../src/clients/agent-service'
-import { HttpConnection } from '../../src/clients/location'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { Prefix } from '../../src/models'
+import { ComponentId, Prefix } from '../../src/models'
 import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -65,16 +64,16 @@ describe('Agent Service client', () => {
 
   test('kill component | ESW-376', async () => {
     const response: KillResponse = await agentServiceWithValidToken.killComponent(
-      HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
+      new ComponentId(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
     )
 
     expect(response._type).toStrictEqual('Killed')
   })
 
   test('should get forbidden when invalid token is passed | ESW-376', async () => {
-    const connection = HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
+    const componentId = new ComponentId(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
     expect.assertions(4)
-    await agentServiceWithInValidToken.killComponent(connection).catch((e) => {
+    await agentServiceWithInValidToken.killComponent(componentId).catch((e) => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(403)
       expect(e.statusText).toBe('Forbidden')
@@ -85,9 +84,9 @@ describe('Agent Service client', () => {
   })
 
   test('should get unauthorised when no token is passed | ESW-376', async () => {
-    const connection = HttpConnection(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
+    const componentId = new ComponentId(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')
     expect.assertions(4)
-    await agentServiceWithoutToken.killComponent(connection).catch((e) => {
+    await agentServiceWithoutToken.killComponent(componentId).catch((e) => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')

@@ -1,8 +1,8 @@
 import type { KillResponse, SpawnResponse } from '.'
 import { KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
-import type { Prefix } from '../../models'
+import type { Prefix, ComponentId } from '../../models'
+
 import type { HttpTransport } from '../../utils/HttpTransport'
-import type { Connection } from '../location'
 import type { AgentService } from './AgentService'
 import {
   AgentServiceRequest,
@@ -14,8 +14,8 @@ import {
 export class AgentServiceImpl implements AgentService {
   constructor(private readonly httpTransport: HttpTransport<AgentServiceRequest>) {}
 
-  killComponent(connection: Connection): Promise<KillResponse> {
-    return this.httpTransport.requestRes(new KillComponent(connection), KillResponseD)
+  killComponent(componentId: ComponentId): Promise<KillResponse> {
+    return this.httpTransport.requestRes(new KillComponent(componentId), KillResponseD)
   }
 
   spawnSequenceComponent(

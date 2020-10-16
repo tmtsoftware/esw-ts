@@ -1,4 +1,4 @@
-import type { Connection } from '../../..'
+import type { ComponentId } from '../../..'
 import type { Prefix } from '../../../models'
 
 export class SpawnSequenceComponent {
@@ -22,7 +22,7 @@ export class SpawnSequenceManager {
 
 export class KillComponent {
   readonly _type: 'KillComponent' = 'KillComponent'
-  constructor(readonly connection: Connection) {}
+  constructor(readonly componentId: ComponentId) {}
 }
 
 export type AgentServiceRequest = SpawnSequenceComponent | SpawnSequenceManager | KillComponent

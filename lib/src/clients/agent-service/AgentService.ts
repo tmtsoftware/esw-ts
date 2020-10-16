@@ -1,4 +1,4 @@
-import type { Connection, TokenFactory } from '../..'
+import type { ComponentId, TokenFactory } from '../..'
 import { agentServiceConnection, resolveConnection } from '../../config/Connections'
 import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
@@ -45,10 +45,10 @@ export interface AgentService {
   /**
    * This API is used to kill component present on any machine and returns a promise of KillResponse.
    *
-   * @param connection The AkkaConnection, HttpConnection or TcpConnection of the machine where component is spawned.
+   * @param componentId of the component.
    * @return KillResponse which can be either `Killed` or `Failed` as Promise
    */
-  killComponent(connection: Connection): Promise<KillResponse>
+  killComponent(componentId: ComponentId): Promise<KillResponse>
 }
 
 export const AgentService: (tokenFactory: TokenFactory) => Promise<AgentService> = async (
