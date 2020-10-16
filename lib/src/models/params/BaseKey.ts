@@ -5,6 +5,7 @@ import type { Units } from './Units'
 /**
  * A Generic Key class. Never meant to be instantiated directly.
  * @class
+ * @private
  */
 export class BaseKey<T extends Key> {
   /**

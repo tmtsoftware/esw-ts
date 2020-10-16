@@ -18,7 +18,7 @@ export interface AgentService {
    * @param agentPrefix The prefix of the agent machine where sequence manager needs to be spawned.
    * @param obsModeConfigPath The path of the observation mode config path which should be present on agent machine or on config server.
    * @param isConfigLocal Boolean value to know if config file is present on local(agent) machine.
-   * @param version The sequence manager version.
+   * @param version The sequence manager version. @default [3.0.0-M1]
    * @return SpawnResponse which can be either `Spawned` or `Failed` as Promise
    */
   spawnSequenceManager(
@@ -33,7 +33,7 @@ export interface AgentService {
    *
    * @param agentPrefix The prefix of the agent machine where sequence component needs to be spawned.
    * @param componentName The name of the component.
-   * @param version The OCS App version.
+   * @param version The OCS App version. default value is '3.0.0-M1'
    * @return SpawnResponse which can be either `Spawned` or `Failed` as Promise
    */
   spawnSequenceComponent(
@@ -47,6 +47,7 @@ export interface AgentService {
    *
    * @param componentId of the component.
    * @return KillResponse which can be either `Killed` or `Failed` as Promise
+   *
    */
   killComponent(componentId: ComponentId): Promise<KillResponse>
 }

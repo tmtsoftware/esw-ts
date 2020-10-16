@@ -1,4 +1,8 @@
-export class GenericError extends Error {
+/**
+ * ServiceError is a model which captures all types of errors/exceptions received while making service calls
+ * @class
+ */
+export class ServiceError extends Error {
   constructor(
     readonly errorType: string,
     readonly message: string,
@@ -8,7 +12,7 @@ export class GenericError extends Error {
     super(message)
   }
 
-  static make(status: number, statusText: string, responseBody: any): GenericError {
+  static make(status: number, statusText: string, responseBody: any): ServiceError {
     const errorType: string =
       status == 500
         ? responseBody._type
@@ -19,6 +23,6 @@ export class GenericError extends Error {
     const message =
       status == 500 && responseBody.error_message ? responseBody.error_message : responseBody
 
-    return new GenericError(errorType, message, status, statusText)
+    return new ServiceError(errorType, message, status, statusText)
   }
 }

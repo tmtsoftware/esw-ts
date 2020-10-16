@@ -5,9 +5,9 @@ import { ConfigData, ConfigService } from '../../../src/clients/config'
 
 import type { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/Connections'
-import { GenericError } from '../../../src/utils/GenericError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
+import { ServiceError } from '../../../src/utils/ServiceError'
 import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Http')
@@ -73,7 +73,7 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    getMockFn.mockRejectedValueOnce(new GenericError('TransportError', '', 404, 'Not Found'))
+    getMockFn.mockRejectedValueOnce(new ServiceError('TransportError', '', 404, 'Not Found'))
 
     const confData = await configService.getById(confPath, configId)
     expect(confData).toBeUndefined()
@@ -85,7 +85,7 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
 
     getMockFn.mockRejectedValueOnce(
-      new GenericError('ArithmeticException', '/ by 0', 500, 'Internal server error')
+      new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error')
     )
 
     expect.assertions(4)
@@ -137,7 +137,7 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
     const url = configEndpoint(`${confPath}?id=${configId.id}`)
 
-    headMockFn.mockRejectedValueOnce(new GenericError('TransportError', '', 404, 'Not Found'))
+    headMockFn.mockRejectedValueOnce(new ServiceError('TransportError', '', 404, 'Not Found'))
 
     const actualRes = await configService.exists(confPath, configId)
     expect(actualRes).toBe(false)
@@ -149,7 +149,7 @@ describe('ConfigService', () => {
     const configId = new ConfigId('configId123')
 
     headMockFn.mockRejectedValueOnce(
-      new GenericError('ArithmeticException', '/ by 0', 500, 'Internal server error')
+      new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error')
     )
 
     expect.assertions(4)
@@ -251,7 +251,7 @@ describe('ConfigService', () => {
   test('should get undefined if the active version not found for the config | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
 
-    getMockFn.mockRejectedValueOnce(new GenericError('TransportError', '', 404, 'Not Found'))
+    getMockFn.mockRejectedValueOnce(new ServiceError('TransportError', '', 404, 'Not Found'))
 
     const configId = await configService.getActiveVersion(confPath)
     expect(configId).toBeUndefined()
@@ -261,7 +261,7 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
 
     getMockFn.mockRejectedValueOnce(
-      new GenericError('ArithmeticException', '/ by 0', 500, 'Internal server error')
+      new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error')
     )
 
     expect.assertions(4)

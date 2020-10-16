@@ -1,5 +1,5 @@
 import type { ConfigFileRevision, Option } from '../..'
-import { GenericError } from '../..'
+import { ServiceError } from '../..'
 import { StringD } from '../../decoders/CommonDecoders'
 import { ConfigFileRevisionsD, ConfigIdD } from '../../decoders/ConfigDecoders'
 import type { Decoder } from '../../decoders/Decoder'
@@ -44,7 +44,7 @@ const map404 = async <T, U>(response: Promise<T>, on404: U) => {
   try {
     return await response
   } catch (e) {
-    if (e instanceof GenericError && e.status === 404) return on404
+    if (e instanceof ServiceError && e.status === 404) return on404
     throw e
   }
 }

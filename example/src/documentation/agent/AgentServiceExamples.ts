@@ -1,6 +1,6 @@
 import {
   AgentService,
-  GenericError,
+  ServiceError,
   HttpConnection,
   KillResponse,
   Prefix,
@@ -51,7 +51,7 @@ const killResponse: KillResponse = await agentService.killComponent(
 //#handle-error
 // common function to handle error scenario's
 const handleError = (err: Error) => {
-  if (err instanceof GenericError) {
+  if (err instanceof ServiceError) {
     // depending on use case, error can be handled on following fields
     //  - err.status      (5XX, 4XX, 3XX)
     //  - err.errorType   (AgentNotFoundException, TransportError, ArithmeticException, NullPointerException, etc)
@@ -111,29 +111,4 @@ const d = async () => {
     handleError(err)
   }
   //#response-handling-spawn
-}
-const dd = async () => {
-  //#response-handling-kill
-  const eswPrefix = new Prefix('ESW', 'component1')
-  const eswComponentConnection: HttpConnection = HttpConnection(
-    eswPrefix,
-    'SequenceComponent'
-  )
-  try {
-    const killResponse: KillResponse = await agentService.killComponent(
-      eswComponentConnection
-    )
-    // kill response handling (200 status code)
-    switch (killResponse._type) {
-      case 'Killed':
-        // do something on successful kill operation
-        break
-      case 'Failed':
-        // do something on failed response
-        break
-    }
-  } catch (err) {
-    handleError(err)
-  }
-  //#response-handling-kill
 }

@@ -1,13 +1,14 @@
-import type { Subscription, TokenFactory } from '../..'
-import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import type {
   ComponentId,
   ControlCommand,
   CurrentState,
   OnewayResponse,
   SubmitResponse,
+  Subscription,
+  TokenFactory,
   ValidateResponse
-} from '../../models'
+} from '../..'
+import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'

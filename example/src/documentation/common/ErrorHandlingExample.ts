@@ -3,12 +3,12 @@ const someService = {
 }
 
 //#generic-error
-import { GenericError } from 'esw-ts'
+import { ServiceError } from 'esw-ts'
 
 try {
   const response = await someService.api()
 } catch (e) {
-  if (e instanceof GenericError) {
+  if (e instanceof ServiceError) {
     console.log(e.errorType)
     console.log(e.message)
     console.log(e.status)

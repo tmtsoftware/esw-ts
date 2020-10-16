@@ -1,8 +1,8 @@
 import { identity } from 'fp-ts/lib/function'
 import { loadAppConfig } from '../config/ConfigLoader'
 import { APP_NAME } from './Constants'
-import { GenericError } from './GenericError'
 import { HeaderExt } from './HeaderExt'
+import { ServiceError } from './ServiceError'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 
@@ -81,7 +81,7 @@ const handleErrors = async <Res>(
   responseMapper: (res: Response) => Promise<Res>
 ): Promise<Res> => {
   const responseBody = await responseMapper(res)
-  if (!res.ok) throw GenericError.make(res.status, res.statusText, responseBody)
+  if (!res.ok) throw ServiceError.make(res.status, res.statusText, responseBody)
   return responseBody
 }
 
