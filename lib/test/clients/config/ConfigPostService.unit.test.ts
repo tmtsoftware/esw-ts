@@ -5,9 +5,9 @@ import { ConfigData, ConfigService } from '../../../src/clients/config'
 
 import type { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/Connections'
+import { ServiceError } from '../../../src/models/ServiceError'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
-import { ServiceError } from '../../../src/utils/ServiceError'
 import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Http')

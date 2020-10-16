@@ -1,8 +1,8 @@
 import { identity } from 'fp-ts/lib/function'
 import { loadAppConfig } from '../config/ConfigLoader'
+import { ServiceError } from '../models'
 import { APP_NAME } from './Constants'
 import { HeaderExt } from './HeaderExt'
-import { ServiceError } from './ServiceError'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 

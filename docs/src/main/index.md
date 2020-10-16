@@ -4,6 +4,7 @@
  - [Services](services/index.md)
  - [Params](params/index.md)
  - [AAS](aas/csw-aas-js.md)
+ - [Technical design documentation](technical/index.md)
 
 @@@
 
@@ -16,7 +17,8 @@
 
  It is recommended to use giter8 template [`esw-ui-template.g8`](https://github.com/tmtsoftware/esw-ui-template.g8)  to get started with building web application.
 
- `esw-ts` is comes pre-packaged as a dependency in the template. You can skip the installation step and make use of the services directly in the application. [Jump to library features](#features)
+ `esw-ts` comes pre-packaged as a dependency in the template. You can skip the installation step and make use of the services directly in the application. [Jump to library features](#features)
+
 
 
 ### Installation

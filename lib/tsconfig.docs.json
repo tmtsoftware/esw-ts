@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "allowJs": true,    /* Report errors in .js files. */
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": true,
+    "baseUrl": "..",
+    "paths": {
+      "*": ["*"]
+    },
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": ["node_modules", "dist"],
+  "typedocOptions": {
+    "inputFiles": ["src/clients", "src/components", "src/models"],
+    "mode": "modules",
+    "out": "../docs/ts-docs",
+    "exclude": ["**/*+(**Impl|**PostCommand|**WsCommand|**index).ts","**/decoders/*"],
+    "excludePrivate": true
+  }
+}

@@ -1,6 +1,6 @@
 import { AkkaConnection, Connection, HttpConnection } from '../clients/location'
 import { resolve } from '../clients/location/LocationUtils'
-import { Prefix } from '../models/params/Prefix'
+import { Prefix } from '../models'
 import { extractHostPort } from '../utils/Utils'
 
 export const gatewayConnection: Connection = HttpConnection(

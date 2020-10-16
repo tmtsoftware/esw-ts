@@ -27,7 +27,7 @@ Sequence Manager service has following [APIs](#apis):
 
 ####In order to create sequence manager service APIs:
 1. Subsystem's agent machines should be up and running.
-2. Sequence Manager should be spawned. Documentation on how to spawn sequence manager could be found @ref[here](../../services/agent/agent-service.md#spawnsequencemanager).
+2. Sequence Manager should be spawned. Documentation on how to spawn sequence manager could be found @ref[here](../../services/agent-service/agent-service.md).
 3. Authorization Token with correct access role.
  Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
 

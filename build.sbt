@@ -21,10 +21,12 @@ lazy val `esw-ts` = project
 lazy val docs = project
   .enablePlugins(ParadoxMaterialSitePlugin)
   .settings(
+    paradoxProperties ++= Map(
+      "extref.esw.base_url" -> s"https://tmtsoftware.github.io/esw/%s"
+    ),
     paradoxRoots := List(
       "index.html",
-      "common/error-handling.html",
-      "technical/csw-aas-js.html"
+      "common/error-handling.html"
     )
   )
 
