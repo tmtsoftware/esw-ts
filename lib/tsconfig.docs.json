@@ -2,27 +2,48 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "allowJs": true,    /* Report errors in .js files. */
+    "allowJs": true,
+    /* Report errors in .js files. */
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "strict": true,
     "baseUrl": "..",
     "paths": {
-      "*": ["*"]
+      "*": [
+        "*"
+      ]
     },
     "jsx": "react",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*"
   ],
-  "exclude": ["node_modules", "dist"],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
   "typedocOptions": {
-    "inputFiles": ["src/clients", "src/components", "src/models"],
-    "mode": "modules",
+    "inputFiles": [
+      "src/clients",
+      "src/components",
+      "src/models"
+    ],
+    "mode": "library",
     "out": "../docs/ts-docs",
-    "exclude": ["**/*+(**Impl|**PostCommand|**WsCommand|**index).ts","**/decoders/*"],
-    "excludePrivate": true
+    "exclude": [
+      "**/*+(**Impl|**PostCommand|**WsCommand|**index).ts",
+      "**/decoders/*"
+    ],
+    "excludePrivate": true,
+    "plugin" : "typedoc-plugin-external-module-map",
+    "external-modulemap" : ".*\/(clients|components|models)\/",
+    "categorizeByGroup": true,
+    "categoryOrder": [
+      "Services",
+      "Agent-Service",
+      "*"
+    ]
   }
 }
