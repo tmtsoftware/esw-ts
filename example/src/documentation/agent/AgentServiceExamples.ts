@@ -1,9 +1,7 @@
 import {
   AgentService,
-  ServiceError,
-  HttpConnection,
-  KillResponse,
   Prefix,
+  ServiceError,
   SpawnResponse
 } from '@tmtsoftware/esw-ts'
 
@@ -37,17 +35,6 @@ const spawnResponse2: SpawnResponse = await agentService.spawnSequenceComponent(
 )
 //#spawnSeqeunceComponent
 
-//#killComponent
-const componentPrefix = new Prefix('ESW', 'component1')
-const httpConnection: HttpConnection = HttpConnection(
-  componentPrefix,
-  'SequenceComponent'
-)
-const killResponse: KillResponse = await agentService.killComponent(
-  httpConnection
-)
-
-//#killComponent
 //#handle-error
 // common function to handle error scenario's
 const handleError = (err: Error) => {
