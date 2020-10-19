@@ -120,6 +120,9 @@ This module includes E2E test which demonstrate following flow which is all auto
 4. Create configuration file
 
 To run this test, execute `sbt test` or `sbt integration-ui/test` command
+### Generate typescript documentation
+
+  `cd lib && npm run build && npm run doc`
 
 ### Generate paradox documentation
 

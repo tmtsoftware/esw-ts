@@ -4,7 +4,9 @@ import { mkEventD } from '../../../decoders/EventDecoders'
 import type { Key, Parameter, Prefix } from '../../../models'
 import { ParameterSetType } from '../../../models/params/ParameterSetType'
 import type { EventName } from './EventName'
-
+/**
+ * @category Event Service
+ */
 export class ObserveEvent extends ParameterSetType<ObserveEvent> {
   readonly _type = 'ObserveEvent'
 
@@ -33,7 +35,9 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
     )
   }
 }
-
+/**
+ * @category Event Service
+ */
 export class SystemEvent extends ParameterSetType<SystemEvent> {
   readonly _type = 'SystemEvent'
 
@@ -62,5 +66,7 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
     )
   }
 }
-
+/**
+ * @category Event Service
+ */
 export type Event = ObserveEvent | SystemEvent

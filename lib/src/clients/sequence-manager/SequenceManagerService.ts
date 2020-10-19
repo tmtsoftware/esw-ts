@@ -17,6 +17,9 @@ import type {
 } from './models/SequenceManagerRes'
 import { SequenceManagerImpl } from './SequenceManagerImpl'
 
+/**
+ * @category Service
+ */
 export interface SequenceManagerService {
   /**
    * For given observation mode, if all the required resources are available,

@@ -11,6 +11,7 @@ import type { EventKey } from './models/EventKey'
 /**
  * A Event Service API provides client side methods to interact with the event server.
  * @interface
+ * @category Service
  */
 export interface EventService {
   /**

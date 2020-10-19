@@ -2,15 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { TMTAuth, Auth } from '../../../clients/aas'
 import { Provider } from './AuthContext'
 
-/**
- * React component which is wrapper over provider of react context api.
- * Responsible for instantiating keycloak and provide context value to consumers
- * props -
- * config json specific to UI application e.g. realm and clientId
- * children - react component or html element which can have consumer to access
- * context provided
- */
-
 export interface AuthContextConfig {
   realm: string
   clientId: string
@@ -23,6 +14,14 @@ export interface AuthContextProps {
   children: React.ReactNode
 }
 // TODO Add unit tests
+/**
+ * React component which is wrapper over provider of react context api.
+ * Responsible for instantiating keycloak and provide context value to consumers
+ * props -
+ * config json specific to UI application e.g. realm and clientId
+ * children - react component or html element which can have consumer to access
+ * context provided
+ */
 const AuthContextProvider = (props: AuthContextProps) => {
   const [auth, setAuth] = useState<Auth | null>(null)
 

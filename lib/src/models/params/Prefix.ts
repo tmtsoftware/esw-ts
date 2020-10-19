@@ -27,6 +27,7 @@ const splitSubsystemComponentName = (prefixStr: string) => {
  * A top level key for a parameter set: combination of subsystem and the subsystem's prefix
  * e.g. tcs.filter.wheel, wfos.prog.cloudcover, etc
  * @class
+ * @category Params
  */
 export class Prefix {
   /**

@@ -1,5 +1,6 @@
 /**
  * A union type representing units for TMT
+ * @category Params
  */
 export type Units =
   // SI units

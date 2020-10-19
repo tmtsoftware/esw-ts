@@ -5,6 +5,9 @@ import { getPostEndPoint } from '../../utils/Utils'
 import { AlarmServiceImpl } from './AlarmServiceImpl'
 import type { AlarmKey, AlarmSeverity } from './models/PostCommand'
 
+/**
+ * @category Service
+ */
 export interface AlarmService {
   setSeverity(alarmKey: AlarmKey, severity: AlarmSeverity): Promise<Done>
 }

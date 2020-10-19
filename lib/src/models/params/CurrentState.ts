@@ -5,6 +5,7 @@ import type { Prefix } from './Prefix'
 
 /**
  * A State variable that indicates the 'current' or actual state.
+ * @category Params
  */
 export class CurrentState extends ParameterSetType<CurrentState> {
   /**

@@ -7,6 +7,8 @@ import { AdminServiceImpl } from './AdminServiceImpl'
 
 /**
  * Admin service provides admin related APIs which includes logging APIs
+ * @interface
+ * @category Service
  */
 export interface AdminService {
   /**

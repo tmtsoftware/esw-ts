@@ -1,3 +1,6 @@
+/**
+ * @category Config Service
+ */
 export class ConfigData {
   private constructor(private readonly content: Blob) {}
 

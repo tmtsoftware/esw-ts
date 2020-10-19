@@ -13,6 +13,7 @@ import type { TrackingEvent } from './models/TrackingEvent'
 /**
  *  A Location Service Client API. This model provides promise based APIs for managing service registrations.
  *  @interface
+ *  @category Service
  */
 export interface LocationService {
   /**

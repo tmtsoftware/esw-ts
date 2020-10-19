@@ -13,6 +13,7 @@ export type ProperMotion = {
 
 /**
  * A Tag is a label to indicate the use of the coordinate
+ * @category Params
  */
 export type Tag =
   | 'BASE'
@@ -43,6 +44,7 @@ export type EqFrame = 'ICRS' | 'FK5'
 /**
  * All coordinates are a Coord.
  * i.e CometCoord, AltAzCoord, SolarSystemCoord, MinorPlanetCoord & EqCoord
+ * @category Params
  */
 export type Coord = EqCoord | MinorPlanetCoord | SolarSystemCoord | CometCoord | AltAzCoord
 

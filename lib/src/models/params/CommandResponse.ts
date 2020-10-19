@@ -62,14 +62,32 @@ export type Accepted = {
   runId: string
 }
 
+/**
+ * @category Command Service
+ */
 export type SubmitResponse = Error | Invalid | Locked | Started | Completed | Cancelled
+
+/**
+ * @category Command Service
+ */
 export type CommandResponse = Error | Invalid | Locked | Started | Completed | Cancelled | Accepted
+
+/**
+ * @category Command Service
+ */
 export type ValidateResponse = Accepted | Invalid | Locked
+
+/**
+ * @category Command Service
+ */
 export type OnewayResponse = Accepted | Invalid | Locked
 
 const CompletedL = 'Completed'
 const StartedL = 'Started'
 const isPositive = (response: SubmitResponse) => response._type === CompletedL
 const isIntermediate = (response: SubmitResponse) => response._type === StartedL
+/**
+ * @private
+ */
 export const isNegative = (response: SubmitResponse) =>
   !(isPositive(response) || isIntermediate(response))

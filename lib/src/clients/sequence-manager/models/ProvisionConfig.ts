@@ -1,6 +1,8 @@
 import type { Prefix } from '../../../models'
 import { requirement } from '../../../utils/Utils'
-
+/**
+ * @category Sequence Manager Service
+ */
 export class AgentProvisionConfig {
   constructor(readonly agentPrefix: Prefix, readonly countOfSeqComps: number) {
     requirement(
@@ -9,7 +11,9 @@ export class AgentProvisionConfig {
     )
   }
 }
-
+/**
+ * @category Sequence Manager Service
+ */
 export class ProvisionConfig {
   constructor(readonly config: AgentProvisionConfig[]) {
     const mapOfPrefixes = config.reduce(

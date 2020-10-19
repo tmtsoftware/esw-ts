@@ -10,6 +10,7 @@ import type { KillResponse, SpawnResponse } from './models/AgentRes'
  *  Agent Service provides method based API related to spawn sequence manager and sequence component,
  *  also to kill spawned components
  *  @interface
+ *  @category Service
  */
 export interface AgentService {
   /**

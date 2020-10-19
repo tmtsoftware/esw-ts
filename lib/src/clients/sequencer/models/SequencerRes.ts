@@ -29,14 +29,38 @@ export type OperationsHookFailed = {
   _type: 'OperationsHookFailed'
 }
 
+/**
+ * @category Sequencer Service
+ */
 export type OkOrUnhandledResponse = Ok | Unhandled
+/**
+ * @category Sequencer Service
+ */
 export type RemoveBreakpointResponse = OkOrUnhandledResponse | IdDoesNotExist
+/**
+ * @category Sequencer Service
+ */
 export type PauseResponse = OkOrUnhandledResponse | CannotOperateOnAnInFlightOrFinishedStep
+/**
+ * @category Sequencer Service
+ */
 export type GenericResponse =
   | OkOrUnhandledResponse
   | IdDoesNotExist
   | CannotOperateOnAnInFlightOrFinishedStep
+/**
+ * @category Sequencer Service
+ */
 export type GoOnlineResponse = OkOrUnhandledResponse | GoOnlineHookFailed
+/**
+ * @category Sequencer Service
+ */
 export type GoOfflineResponse = OkOrUnhandledResponse | GoOfflineHookFailed
+/**
+ * @category Sequencer Service
+ */
 export type DiagnosticModeResponse = Ok | DiagnosticHookFailed
+/**
+ * @category Sequencer Service
+ */
 export type OperationsModeResponse = Ok | OperationsHookFailed

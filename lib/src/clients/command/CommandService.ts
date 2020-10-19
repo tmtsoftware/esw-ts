@@ -17,6 +17,7 @@ import { CommandServiceImpl } from './CommandServiceImpl'
 /**
  *  A Command Service API of a csw component. This model provides method based APIs for command interactions with a component.
  *  @interface
+ *  @category Service
  */
 export interface CommandService {
   /**

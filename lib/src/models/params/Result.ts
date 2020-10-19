@@ -3,6 +3,7 @@ import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 /**
  * A result containing parameters for command response
+ * @category Params
  */
 export class Result extends ParameterSetType<Result> {
   /**

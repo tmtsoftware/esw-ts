@@ -91,6 +91,9 @@ export type AgentStatusSuccess = {
 }
 
 // api specific type's
+/**
+ * @category Sequence Manager Service
+ */
 export type ConfigureResponse =
   | Unhandled
   | SequenceComponentNotAvailable
@@ -99,16 +102,22 @@ export type ConfigureResponse =
   | FailedToStartSequencers
   | ConflictingResourcesWithRunningObsMode
   | ConfigureSuccess
-
+/**
+ * @category Sequence Manager Service
+ */
 export type ProvisionResponse =
   | Unhandled
   | Success
   | LocationServiceError
   | SpawningSequenceComponentsFailed
   | CouldNotFindMachines
-
+/**
+ * @category Sequence Manager Service
+ */
 export type GetRunningObsModesResponse = Failed | RunningObsModesSuccess
-
+/**
+ * @category Sequence Manager Service
+ */
 export type StartSequencerResponse =
   | Unhandled
   | SequenceComponentNotAvailable
@@ -116,13 +125,23 @@ export type StartSequencerResponse =
   | LocationServiceError
   | AlreadyRunning
   | SequencerStarted
-
+/**
+ * @category Sequence Manager Service
+ */
 export type RestartSequencerResponse =
   | Unhandled
   | LoadScriptError
   | LocationServiceError
   | RestartSequencerSuccess
-
+/**
+ * @category Sequence Manager Service
+ */
 export type ShutdownSequencersResponse = Unhandled | LocationServiceError | Success
+/**
+ * @category Sequence Manager Service
+ */
 export type ShutdownSequenceComponentResponse = ShutdownSequencersResponse
+/**
+ * @category Sequence Manager Service
+ */
 export type AgentStatusResponse = Unhandled | LocationServiceError | AgentStatusSuccess

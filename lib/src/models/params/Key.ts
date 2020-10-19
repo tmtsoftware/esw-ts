@@ -96,6 +96,7 @@ export interface CoordKey extends mkRawKey<'CoordKey', Coord> {}
 
 /**
  * Keys defined for consumption in Typescript code
+ * @category Params
  */
 export type Key =
   | IntKey
@@ -141,6 +142,7 @@ export type Key =
  * @tparam K the type of key that will sit against the keyTag in Parameter
  * @param keyTag  the type of values that will sit against the key in Parameter
  * @param defaultUnit applicable units
+ * @private
  */
 const keyFactory = <K extends Key>(keyTag: KTag<K>, defaultUnit: Units = 'NoUnits') => (
   name: string,

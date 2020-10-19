@@ -4,6 +4,7 @@ import type { Prefix } from './params/Prefix'
 /**
  * Represents a component based on its prefix and type.
  * @class
+ * @category Common
  */
 export class ComponentId {
   /**

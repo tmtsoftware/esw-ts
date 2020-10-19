@@ -8,6 +8,9 @@ import type * as T from './models/SequencerRes'
 import type { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
 
+/**
+ * @category Service
+ */
 export interface SequencerService {
   /**
    * Loads the given sequence to the sequencer

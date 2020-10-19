@@ -6,16 +6,15 @@ export interface AuthContextType {
   logout: () => void
 }
 
-/**
- * Default state for AuthContextProvider
- * @type {{auth: undefined, login: (function(): boolean), logout: (function(): boolean)}}
- */
 const AuthContextDefaultState = {
   auth: null,
   login: () => undefined,
   logout: () => undefined
 }
-
+/**
+ * Default state for AuthContextProvider
+ * @type {{auth: undefined, login: (function(): boolean), logout: (function(): boolean)}}
+ */
 const AuthContext = createContext<AuthContextType>(AuthContextDefaultState)
 const { Provider, Consumer } = AuthContext
 

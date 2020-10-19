@@ -1,6 +1,7 @@
 /**
  * ServiceError is a model which captures all types of errors/exceptions received while making service calls
  * @class
+ * @category Common
  */
 export class ServiceError extends Error {
   constructor(

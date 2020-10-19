@@ -1,5 +1,6 @@
 /**
  * A union type representing TMT Subsystems
+ * @category Params
  */
 export type Subsystem =
   | 'AOESW'

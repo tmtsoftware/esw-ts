@@ -8,6 +8,7 @@ import type * as M from './models/ConfigModels'
 /**
  * A Config Service API which provides client side methods to manage configuration files residing in config server repository.
  * @interface
+ * @category Service
  */
 export interface ConfigService {
   /**

@@ -4,6 +4,7 @@ import type { Units } from './Units'
 /**
  * Parameter represents a KeyName, KeyTag, array of values and units applicable to values. Parameter sits as payload for
  * sending commands and events between components.
+ * @Category Params
  */
 export class Parameter<T extends Key> {
   /**

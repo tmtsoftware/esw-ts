@@ -1,6 +1,6 @@
 #Agent Service
 
-Agent service provides HTTP interface to interact with all agent machines uniquely located using agent prefix.
+[Agent service](../../../../../ts-docs/interfaces/clients.agentservice.html) provides HTTP interface to interact with all agent machines uniquely located using agent prefix.
 APIs to spawn components takes agent prefix as parameter. Agent prefix is used to locate agent machine using location service.
 After agent is located, command like spawn sequence manager or spwan sequence component is forwarded to that agent machine.
 Agent service provides APIs to spawn sequence manager, sequence components and to kill spawned components.
@@ -29,6 +29,6 @@ Note that the examples are using async/await which makes handling of promises mo
 
 Agent service has following APIs :
 
-- [spawnSequenceManager](../../../../ts-docs/interfaces/_lib_src_clients_agent_service_agentservice_.agentservice.html#spawnsequencemanager)
-- [spawnSequenceComponent](../../../../ts-docs/interfaces/_lib_src_clients_agent_service_agentservice_.agentservice.html#spawnsequencecomponent)
-- [killComponent](../../../../ts-docs/interfaces/_lib_src_clients_agent_service_agentservice_.agentservice.html#killcomponent)
+- [spawnSequenceManager](../../../../../ts-docs/interfaces/clients.agentservice.html#spawnsequencemanager)
+- [spawnSequenceComponent](../../../../../ts-docs/interfaces/clients.agentservice.html#spawnsequencecomponent)
+- [killComponent](../../../../../ts-docs/interfaces/clients.agentservice.html#killcomponent)

@@ -5,6 +5,9 @@ import { getPostEndPoint } from '../../utils/Utils'
 import { LoggingServiceImpl } from './LoggingServiceImpl'
 import type { Level } from './models/Level'
 
+/**
+ * @category Service
+ */
 export interface LoggingService {
   log(prefix: Prefix, level: Level, message: string, metadata?: Record<string, any>): Promise<Done>
 }

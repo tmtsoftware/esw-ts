@@ -136,10 +136,12 @@ export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL
 
 /**
  * Marker type for control parameter sets which is applicable to Assembly and HCD type of components
+ * @category Command Service
  */
 export type ControlCommand = Setup | Observe
 
 /**
  * Marker type for sequence parameter sets which is applicable to Sequencer type of components
+ * @category Sequencer Service
  */
 export type SequenceCommand = Setup | Observe | Wait

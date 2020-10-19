@@ -5,6 +5,7 @@ import { ParameterSetType } from './ParameterSetType'
 /**
  * A configuration for setting telescope and instrument parameters
  * @class
+ * @category Params
  */
 export class Struct extends ParameterSetType<Struct> {
   /**
