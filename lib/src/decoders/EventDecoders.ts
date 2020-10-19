@@ -1,8 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import type { EventKey } from '../clients/event'
-import { EventName } from '../clients/event'
-import { Event, ObserveEvent, SystemEvent } from '../clients/event/models/Event'
+import { Event, EventName, ObserveEvent, SystemEvent } from '../clients/event'
 import type { Key, Parameter, Prefix } from '../models'
 import { ciLiteral, Decoder, sum } from './Decoder'
 import { ParameterD } from './ParameterDecoder'
@@ -39,9 +38,11 @@ export const mkEventD = <T extends Event>(_type: T['_type'], factory: (e: BaseEv
     D.parse((e) => D.success(factory(e)))
   )
 
-export const EventD: Decoder<Event> = sum('_type')({
-  ObserveEvent: ObserveEvent.decoder(),
-  SystemEvent: SystemEvent.decoder()
-})
+export const EventD: Decoder<Event> = D.lazy('Decoder<Event>', () =>
+  sum('_type')({
+    ObserveEvent: ObserveEvent.decoder(),
+    SystemEvent: SystemEvent.decoder()
+  })
+)
 
 export const EventsD: Decoder<Event[]> = D.array(EventD)
