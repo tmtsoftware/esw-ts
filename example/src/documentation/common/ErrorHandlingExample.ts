@@ -3,7 +3,7 @@ const someService = {
 }
 
 //#generic-error
-import { ServiceError } from 'esw-ts'
+import { ServiceError } from '@tmtsoftware/esw-ts'
 
 try {
   const response = await someService.api()

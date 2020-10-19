@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AuthContext } from 'esw-ts'
+import { AuthContext } from '@tmtsoftware/esw-ts'
 
 const Read = () => {
   // #Consumer-component-usage

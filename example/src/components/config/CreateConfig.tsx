@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
 import IOOperationComponent from './IOOperationComponent'
 import { ConfigContext } from './context/ConfigContext'
-import { ConfigData, ConfigId } from 'esw-ts'
+import { ConfigData, ConfigId } from '@tmtsoftware/esw-ts'
 
 export function CreateConfig() {
   const [response, setResponse] = useState('')

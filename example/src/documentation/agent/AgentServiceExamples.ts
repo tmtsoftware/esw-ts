@@ -5,7 +5,7 @@ import {
   KillResponse,
   Prefix,
   SpawnResponse
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
 

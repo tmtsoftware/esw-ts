@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 // #import-components-example
-import { AuthContextProvider, CheckLogin, RealmRole } from 'esw-ts'
+import { AuthContextProvider, CheckLogin, RealmRole } from '@tmtsoftware/esw-ts'
 // #import-components-example
 import NavComponent from './NavComponent'
 import { AppConfig } from '../config/AppConfig'

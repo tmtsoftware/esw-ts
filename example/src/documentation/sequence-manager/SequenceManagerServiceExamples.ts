@@ -12,7 +12,7 @@ import {
   ShutdownSequenceComponentResponse,
   ShutdownSequencersResponse,
   StartSequencerResponse
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
 

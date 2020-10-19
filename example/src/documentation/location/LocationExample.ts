@@ -9,7 +9,7 @@ import {
   AkkaConnection,
   TcpConnection,
   HttpLocation
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
 

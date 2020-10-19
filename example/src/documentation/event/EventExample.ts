@@ -10,7 +10,7 @@ import {
   Parameter,
   Prefix,
   Subscription
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 //#event-service
 const eventService: EventService = await EventService()

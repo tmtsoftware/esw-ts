@@ -1,4 +1,10 @@
-import { AdminService, ComponentId, Done, LogMetadata, Prefix } from 'esw-ts'
+import {
+  AdminService,
+  ComponentId,
+  Done,
+  LogMetadata,
+  Prefix
+} from '@tmtsoftware/esw-ts'
 
 //#admin-service-creation
 const adminService: AdminService = await AdminService()

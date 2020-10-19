@@ -19,7 +19,7 @@ import {
   CoordKey,
   coordKey,
   CometCoord
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 //#param-from-key
 

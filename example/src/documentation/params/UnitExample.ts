@@ -1,5 +1,15 @@
-import type { BooleanKey, ShortKey, UTCTimeKey, Units } from 'esw-ts'
-import { booleanKey, Parameter, shortKey, utcTimeKey } from 'esw-ts'
+import type {
+  BooleanKey,
+  ShortKey,
+  UTCTimeKey,
+  Units
+} from '@tmtsoftware/esw-ts'
+import {
+  booleanKey,
+  Parameter,
+  shortKey,
+  utcTimeKey
+} from '@tmtsoftware/esw-ts'
 //#units
 //#primitives
 //declare keyName

@@ -7,14 +7,14 @@ import {
   Observe,
   Parameter,
   Prefix
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 import type {
   Subscription,
   OnewayResponse,
   SubmitResponse,
   ValidateResponse
-} from 'esw-ts'
+} from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
 const paramSet: Parameter<IntKey>[] = []
