@@ -11,10 +11,17 @@ object Libs {
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-3-141"    % "3.2.2.0"
 }
 
+object ESW {
+  val Version: String = {
+    val env = sys.env ++ sys.props
+    env.getOrElse("ESW_VERSION", "0.1.0-SNAPSHOT")
+  }
+}
+
 object CSW {
   val Version: String = {
     val env = sys.env ++ sys.props
-    env.getOrElse("CSW_VERSION", "3.0.0-M1")
+    env.getOrElse("CSW_VERSION", "0.1.0-SNAPSHOT")
   }
 
   val `csw-location-server` = "com.github.tmtsoftware.csw" %% "csw-location-server" % Version

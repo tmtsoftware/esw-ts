@@ -28,22 +28,35 @@
     "inputFiles": [
       "src/clients",
       "src/components",
-      "src/models"
+      "src/models",
+      "src/config"
     ],
-    "mode": "library",
-    "out": "../docs/ts-docs",
+    "mode": "modules",
+    "out": "../docs/target/ts-docs",
     "exclude": [
       "**/*+(**Impl|**PostCommand|**WsCommand|**index).ts",
-      "**/decoders/*"
+      "**/decoders/*",
+      "**/utils/*",
+      "**/clients/gateway/**",
+      "**/*+(**Utils).ts"
     ],
     "excludePrivate": true,
     "plugin" : "typedoc-plugin-external-module-map",
-    "external-modulemap" : ".*\/(clients|components|models)\/",
+    "external-modulemap" : ".*\/(clients|components|models|config)\/",
     "categorizeByGroup": true,
     "categoryOrder": [
-      "Services",
-      "Agent-Service",
-      "*"
+      "Service",
+      "Common",
+      "Admin Service",
+      "Agent Service",
+      "Sequence Manager Service",
+      "Sequencer Service",
+      "Location Service",
+      "Event Service",
+      "Command Service",
+      "Config Service",
+      "Logger Service",
+      "Others"
     ]
   }
 }
