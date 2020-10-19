@@ -2,10 +2,6 @@
 
 These are javascript adapters for each of public facing TMT services. They provide a handle to interact with backend server while adhering to the service contract.
 
-- Service contracts for esw services : [ESW Services Contract](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts)
-
-- Service contracts for csw services : [CSW Services Contract ](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/csw/$csw-version$/contracts)
-
 ## Architecture
 
 TMT Services are behind @extref:[ESW Gateway Server](esw:eswgateway/esw-gateway.html) except Location and Config Server.
