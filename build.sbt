@@ -1,7 +1,6 @@
 import Common.CommonSettings
+import TsDocPlugin.autoImport.tsDocPath
 import org.tmt.sbt.docs.Settings
-import Common.{typeDocs, typeDocsTask, tsDocspath}
-import Libs._
 
 inThisBuild(
   CommonSettings
@@ -21,18 +20,11 @@ lazy val `esw-ts` = project
 
 /* ================= Paradox Docs ============== */
 lazy val docs = project
-  .enablePlugins(ParadoxMaterialSitePlugin)
+  .enablePlugins(ParadoxMaterialSitePlugin, TsDocPlugin)
   .settings(
-    typeDocs := typeDocsTask().value,
-    makeSite := makeSite.dependsOn(typeDocs).value,
-    tsDocspath := s"${target.value}/site/esw-ts/${version.value}/ts-docs",
-    Seq(mappings in makeSite := {
-      val tsDocs = Path.allSubpaths(new File(target.value, "ts-docs"))
-      (mappings in makeSite).value ++ tsDocs.map { case (file, output) => (file, s"/ts-docs/" + output) }
-    }),
     paradoxProperties ++= Map(
       "extref.esw.base_url"     -> s"https://tmtsoftware.github.io/esw/%s",
-      "extref.ts-docs.base_url" -> s"../../ts-docs/%s",
+      "extref.ts-docs.base_url" -> tsDocPath.value,
       "esw-version"             -> CSW.Version,
       "csw-version"             -> ESW.Version
     ),
