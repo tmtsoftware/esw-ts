@@ -62,4 +62,13 @@ object Common {
       case _             => true
     }
 
+  val typeDocs = taskKey[Unit]("Create esw-ts typescript documentation using typedoc.")
+
+  val tsDocspath = taskKey[String]("Path of generated typescript documentation.")
+
+  def typeDocsTask() =
+    Def.task {
+      new ProcessBuilder("bash", "-c", "cd lib && npm run doc").inheritIO().start().waitFor()
+    }
+
 }

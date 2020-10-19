@@ -9,7 +9,9 @@
 
 ## Architectural overview
 
-Following diagram explains UI application flow for making request to TMT backend component and explains where does the ESW-TS service fit in the TMT architecture.
+Following diagram explains UI application flow for making request to TMT backend component and explains where does the ESW-TS service fits in the whole TMT architecture.
+
+![esw-ts-overview](../assets/esw-ts-architecture-overview.png)
 
 For example:
 A web app specifically created for sending control command to a HCD component.
@@ -21,6 +23,3 @@ A web app specifically created for sending control command to a HCD component.
 5. On successfully handling of command by HCD component, GatewayServer returns a SuccessResponse.
 6. esw-ts handles the response and returns it, as it was received to the caller web-ui component
    or in case of error `throw's ServiceError`.
-
-
-![esw-ts-overview](../assets/esw-ts-architecture-overview.png)

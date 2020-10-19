@@ -52,6 +52,8 @@ Javascript
  - [CheckLogin](#checklogin)
  - [RealmRole](#realmrole)
 
+Type definition for all components used by services can be found [here](../../../ts-docs/modules/components.html)
+
 Components can be imported as shown in code snippet below
 
 Javascript

@@ -14,20 +14,12 @@ Follow the instructions in the first step of our [quickstart](../common/getting-
 
 ![esw-ts-overview](../assets/esw-ts-architecture-overview.png)
 
-## Common models
-
-These common set of models which enables the interoperability and communication between services.
-
-For Ex: When a @extref:[control command](ts-docs:modules/models.html#controlcommand) is going to be submitted to a component via Command service's [Submit Api](ts-docs:interfaces/clients.commandservice.html#submit), it can receives [SubmitResponse](modules/models.html#submitresponse) of Completed type which has ParamSet in the Result field.
-the parameter then can be used by @extref:[LoggingService](ts-docs:interfaces/clients.loggingservice.html) to log it.
-
-Type definition for all common models used by services can be found [here](ts-docs:modules/models.html)
-
 These are following services available:
 
 @@toc { .main depth=0 }
 
 @@@ index
+
 - @ref:[Admin Service](admin/admin-service.md)
 - @ref:[Agent Service](agent-service/agent-service.md)
 - @ref:[Command Service](command/command-service.md)
@@ -38,3 +30,14 @@ These are following services available:
 - @ref:[Sequencer Service](sequencer/sequencer-service.md)
 - @ref:[Sequence Manager Service](sequence-manager/sequence-manager-service.md)
 @@@
+
+Type definition for all services can be found [here](../../../ts-docs/modules/clients.html)
+
+- Admin Service : This service provides a handle to admin related APIs which includes logging related APIs
+- Agent Service : The Agent Service is used to spawn a component of machine or kill a running component. To do so, it uses the agent running on that specific machine where component is to be spawned or killed.
+- Command Service : This client side service provides a handle to send commands to a component which is registered in location service.
+- Config Service : The Config Service wraps the low level communication with Configuration Service Server and exposes simple to use methods to access and manage configuration files.
+- Event Service : The Event Service enables users to publish events and subscribe to events which are published by underlying TMT components.
+- Location Service : The Location Service provides access to location information of various components which are currently running the TMT cluster.
+- Sequencer Service : This service provides a handle to send commands to a sequencer which is registered in location service.
+- Sequence Manager Service : The Sequence Manager Service manages all the operation related to the observations. It manages all sequence components and sequencers required for the observations.
