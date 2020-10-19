@@ -34,6 +34,7 @@ These are following services available:
 - @ref:[Config Service](config/config-service.md)
 - @ref:[Event Service](event/event-service.md)
 - @ref:[Location Service](location/location-service.md)
+- @ref:[Logging Service](logging-service/logging-service.md)
 - @ref:[Sequencer Service](sequencer/sequencer-service.md)
 - @ref:[Sequence Manager Service](sequence-manager/sequence-manager-service.md)
 @@@

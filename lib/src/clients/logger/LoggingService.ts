@@ -9,6 +9,15 @@ import type { Level } from './models/Level'
  * @category Service
  */
 export interface LoggingService {
+  /**
+   * Writes the given message of the given level for the component
+   *
+   * @param prefix the prefix of the component
+   * @param level the log Level. Example - INFO, TRACE etc
+   * @param message the message to be logged
+   * @param metadata optional key-value pairs to be logged along with message
+   * @return Done as Promise value
+   */
   log(prefix: Prefix, level: Level, message: string, metadata?: Record<string, any>): Promise<Done>
 }
 
