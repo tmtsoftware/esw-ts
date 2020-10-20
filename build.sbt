@@ -1,5 +1,4 @@
 import Common.CommonSettings
-import TsDocPlugin.autoImport.tsDocPath
 import org.tmt.sbt.docs.Settings
 
 inThisBuild(
@@ -24,7 +23,7 @@ lazy val docs = project
   .settings(
     paradoxProperties ++= Map(
       "extref.esw.base_url"     -> s"https://tmtsoftware.github.io/esw/%s",
-      "extref.ts-docs.base_url" -> tsDocPath.value,
+      "extref.ts-docs.base_url" -> TsDocPlugin.tsDocPath.value,
       "esw-version"             -> ESW.Version,
       "csw-version"             -> CSW.Version
     ),

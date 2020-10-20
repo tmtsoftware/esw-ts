@@ -7,8 +7,7 @@ object TsDocPlugin extends AutoPlugin {
   private val tsDocParentDir = "ts-docs"
 
   object autoImport {
-    val typeDocs  = taskKey[Int]("Create esw-ts typescript documentation using typedoc.")
-    val tsDocPath = settingKey[String]("path of the folder for the generated ts-doc")
+    val typeDocs = taskKey[Int]("Create esw-ts typescript documentation using typedoc.")
   }
 
   import autoImport._
@@ -18,7 +17,6 @@ object TsDocPlugin extends AutoPlugin {
   override def projectSettings: Seq[Setting[_]] =
     Seq(
       typeDocs := typeDocsTask.value,
-      tsDocPath := tsDocPathTask.value,
       makeSite := makeSite.dependsOn(typeDocs).value,
       mappings in makeSite := {
         val tsDocs = Path.allSubpaths(new File(target.value, tsDocParentDir))
@@ -31,11 +29,11 @@ object TsDocPlugin extends AutoPlugin {
       new ProcessBuilder("sh", "-c", "cd lib && npm run doc").inheritIO().start().waitFor()
     }
 
-  private def tsDocPathTask =
+  def tsDocPath: Def.Initialize[String] =
     Def.setting {
       sys.props.get("prod.docs") match {
         case Some("true") => s"https://tmtsoftware.github.io/esw-ts/${version.value}/$tsDocParentDir/%s"
-        case _            => (target.value / tsDocParentDir).getAbsolutePath
+        case _            => s"/esw-ts/target/site/esw-ts/${version.value}/ts-docs/%s"
       }
     }
 }
