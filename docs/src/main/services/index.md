@@ -18,6 +18,7 @@ These are following services available:
 
 - @ref:[Admin Service](admin/admin-service.md)
 - @ref:[Agent Service](agent-service/agent-service.md)
+- @ref:[Alarm Service](alarm/alarm-service.md)
 - @ref:[Command Service](command/command-service.md)
 - @ref:[Config Service](config/config-service.md)
 - @ref:[Event Service](event/event-service.md)

@@ -12,7 +12,7 @@ export interface LoggingService {
   /**
    * Writes the given message of the given level for the component
    *
-   * @param prefix the prefix of the component
+   * @param prefix the Prefix of the component
    * @param level the log Level. Example - INFO, TRACE etc
    * @param message the message to be logged
    * @param metadata optional key-value pairs to be logged along with message

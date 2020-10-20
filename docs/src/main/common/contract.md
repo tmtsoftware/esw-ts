@@ -3,6 +3,7 @@
 - [ESW Services Contract](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts)
     - [Event service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts/gateway-service)
     - [Admin service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts/gateway-service)
+    - [Alarm service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts/gateway-service)
     - [Logging service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts/gateway-service)
     - [Sequencer service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts/sequencer-service)
     - [Agent service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/esw/$esw-version$/contracts/agent-service)

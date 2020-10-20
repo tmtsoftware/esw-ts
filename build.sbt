@@ -25,8 +25,8 @@ lazy val docs = project
     paradoxProperties ++= Map(
       "extref.esw.base_url"     -> s"https://tmtsoftware.github.io/esw/%s",
       "extref.ts-docs.base_url" -> tsDocPath.value,
-      "esw-version"             -> CSW.Version,
-      "csw-version"             -> ESW.Version
+      "esw-version"             -> ESW.Version,
+      "csw-version"             -> CSW.Version
     ),
     paradoxRoots := List(
       "index.html"
