@@ -25,4 +25,4 @@ Note that the examples are using async/await which makes handling of promises mo
 
 Alarm Service has following API:
 
-- [setSeverity](../../../ts-docs/interfaces/clients.alarmservice.html#setseverity)
+- @extref:[setSeverity](ts-docs:interfaces/clients.alarmservice.html#setseverity)

@@ -26,4 +26,4 @@ Note that the examples are using async/await which makes handling of promises mo
 
 Logging Service has following API:
 
-- [log](../../../ts-docs/interfaces/clients.loggingservice.html#log)
+- @extref:[log](ts-docs:interfaces/clients.loggingservice.html#log)

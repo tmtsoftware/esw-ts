@@ -26,9 +26,6 @@ lazy val docs = project
       "extref.ts-docs.base_url" -> TsDocPlugin.tsDocPath.value,
       "esw-version"             -> ESW.Version,
       "csw-version"             -> CSW.Version
-    ),
-    paradoxRoots := List(
-      "index.html"
     )
   )
 

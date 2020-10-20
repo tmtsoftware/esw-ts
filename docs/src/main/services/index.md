@@ -2,13 +2,9 @@
 
 These are javascript adapters for each of public facing TMT services. They provide a handle to interact with backend server while adhering to the service contract.
 
-## Architecture
-
 TMT Services are behind @extref:[ESW Gateway Server](esw:eswgateway/esw-gateway.html) except Location and Config Server.
 
 Follow the instructions in the first step of our [quickstart](../common/getting-started.html) guide to integrate one or more services in the UI application.
-
-![esw-ts-overview](../assets/esw-ts-architecture-overview.png)
 
 These are following services available:
 
@@ -17,7 +13,6 @@ These are following services available:
 @@@ index
 
 - @ref:[Admin Service](admin/admin-service.md)
-- @ref:[Agent Service](agent-service/agent-service.md)
 - @ref:[Alarm Service](alarm/alarm-service.md)
 - @ref:[Command Service](command/command-service.md)
 - @ref:[Config Service](config/config-service.md)
@@ -25,10 +20,9 @@ These are following services available:
 - @ref:[Location Service](location/location-service.md)
 - @ref:[Logging Service](logging-service/logging-service.md)
 - @ref:[Sequencer Service](sequencer/sequencer-service.md)
-- @ref:[Sequence Manager Service](sequence-manager/sequence-manager-service.md)
 @@@
 
-Type definition for all services can be found [here](../../../ts-docs/modules/clients.html)
+Type definition for all services can be found @extref[here](ts-docs:modules/clients.html)
 
 - Admin Service : This service provides a handle to admin related APIs which includes logging related APIs
 - Agent Service : The Agent Service is used to spawn a component of machine or kill a running component. To do so, it uses the agent running on that specific machine where component is to be spawned or killed.

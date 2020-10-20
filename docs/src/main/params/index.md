@@ -18,4 +18,4 @@ Params has following models :
 
 @@@
 
-Type definition for all common models used by services can be found [here](../../../ts-docs/modules/models.html)
+Type definition for all common models used by services can be found @extref:[here](ts-docs:modules/models.html)
