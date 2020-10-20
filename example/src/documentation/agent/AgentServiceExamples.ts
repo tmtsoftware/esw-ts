@@ -1,5 +1,7 @@
 import {
   AgentService,
+  ComponentId,
+  KillResponse,
   Prefix,
   ServiceError,
   SpawnResponse
@@ -34,6 +36,13 @@ const spawnResponse2: SpawnResponse = await agentService.spawnSequenceComponent(
   ocsAppVersion
 )
 //#spawnSeqeunceComponent
+//#killcomponent
+const compPrefix = new Prefix('ESW', 'SomeComponent')
+const componentToBeKilled = new ComponentId(compPrefix, 'Service')
+const killResponse: KillResponse = await agentService.killComponent(
+  componentToBeKilled
+)
+//#killcomponent
 
 //#handle-error
 // common function to handle error scenario's

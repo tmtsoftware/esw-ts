@@ -7,9 +7,9 @@
  - @ref:[Params](params/index.md)
  - @ref:[AAS](aas/csw-aas-js.md)
  - @ref:[Service Contract](common/contract.md)
+ - @ref:[Response handling](common/response-handling.md)
  - @ref:[Error handling](common/error-handling.md)
  - @ref:[Technical design documentation](technical/index.md)
+ - @ref:[Type Definations](common/ts-docs.md)
 
 @@@
-
-`esw-ts` provides following JavaScript adapters and typescript definitions for esw and csw services.

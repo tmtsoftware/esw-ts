@@ -28,3 +28,5 @@
 - @ref:[Services](../services/index.md)
 
 - @ref:[Params](../params/index.md)
+
+- @extref:[Type definations](ts-docs:globals.html)

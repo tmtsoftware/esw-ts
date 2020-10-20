@@ -9,7 +9,19 @@ In TMT Arhcitecture, @extref:[Service error](ts-docs:classes/models.serviceerror
 
 To read more on exception handling, refer this [document](https://www.sitepoint.com/exceptional-exception-handling-in-javascript/) which gives detailed explanation.
 
-## Error handling pattern
+## Error Types
+
+### Service Error
+
+    TODO explaination
+
+ Type defination for Service Error @extref:[here](ts-docs:classes/models.serviceerror.html)
+
+### Client Side Error
+
+    TODO explaination
+
+## Handling Error pattern
 
 The following examples shows how to call AgentService api's and handle the response `SpawnResponse` and `KillResponse`.
 
