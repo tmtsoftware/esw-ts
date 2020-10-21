@@ -6,6 +6,7 @@ import { AlarmServiceImpl } from './AlarmServiceImpl'
 import type { AlarmKey, AlarmSeverity } from './models/PostCommand'
 
 /**
+ * Alarm Service client API.
  * @category Service
  */
 export interface AlarmService {

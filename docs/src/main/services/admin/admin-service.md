@@ -1,13 +1,5 @@
 # Admin Service
-This service provides a handle to admin related APIs which includes logging related APIs
-
-Admin service has following [APIs](#apis):
-
-|        API                        |      Input args    |   Returns   |
-| --------------------------------- | ------------------ | ----------- |
-| [getLogMetadata](#getlogmetadata) | componentId        | LogMetadata |
-| [setLogLevel](#setloglevel)       | componentId, level | Done        |
-
+@extref:[Admin service](ts-docs:interfaces/clients.adminservice.html) provides a handle to admin related APIs which currently has logging related APIs.
 
 ## Creation of Admin Service
 
@@ -18,20 +10,23 @@ Typescript
 
 ## APIs
 
-### getLogMetadata
+Type definitions for all Admin Service API's can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html):
 
-   This API gives basic logging configuration values for specific component.
+Type definitions for specific api can be found by following links:
 
-The following example shows how to call getLogMetadata API :
+- @extref:[getLogMetadata](ts-docs:interfaces/clients.adminservice.html#getlogmetadata)
+- @extref:[setLogLevel](ts-docs:interfaces/clients.adminservice.html#setloglevel)
+
+## Fetching LogMetadata
+
+There is logging configuration set for all registered components within the TMT cluster. this API gives basic logging configuration values for specific component.
 
 Typescript
 :   @@snip [getLogMetadata](../../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #getLogMetadata }
 
-### setLogLevel
+## Setting LogLevel of a component
 
-   This API allows setting log level of specific component.
-
-The following example shows how to call setLogLevel API :
+This API allows setting log level of specific component.
 
 Typescript
 :   @@snip [setLogLevel](../../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #setLogLevel }

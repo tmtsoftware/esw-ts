@@ -6,6 +6,7 @@ import { LoggingServiceImpl } from './LoggingServiceImpl'
 import type { Level } from './models/Level'
 
 /**
+ * Logging service client API.
  * @category Service
  */
 export interface LoggingService {
