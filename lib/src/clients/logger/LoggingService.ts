@@ -21,7 +21,7 @@ export interface LoggingService {
   log(prefix: Prefix, level: Level, message: string, metadata?: Record<string, any>): Promise<Done>
 }
 
-export const LoggingService: () => Promise<LoggingService> = async () => {
+export const LoggingService = async (): Promise<LoggingService> => {
   const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 

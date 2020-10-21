@@ -53,9 +53,7 @@ export interface AgentService {
   killComponent(componentId: ComponentId): Promise<KillResponse>
 }
 
-export const AgentService: (tokenFactory: TokenFactory) => Promise<AgentService> = async (
-  tokenFactory: TokenFactory
-) => {
+export const AgentService = async (tokenFactory: TokenFactory): Promise<AgentService> => {
   const { host, port } = await resolveConnection(agentServiceConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 

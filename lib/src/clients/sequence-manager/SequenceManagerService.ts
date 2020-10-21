@@ -122,9 +122,9 @@ export interface SequenceManagerService {
   getAgentStatus(): Promise<AgentStatusResponse>
 }
 
-export const SequenceManagerService: (
+export const SequenceManagerService = async (
   tokenFactory: TokenFactory
-) => Promise<SequenceManagerService> = async (tokenFactory: TokenFactory) => {
+): Promise<SequenceManagerService> => {
   const { host, port } = await resolveConnection(sequenceManagerConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 

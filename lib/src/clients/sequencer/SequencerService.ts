@@ -220,10 +220,10 @@ export interface SequencerService {
  * @return SequencerService as Promise
  * @constructor
  */
-export const SequencerService: (
+export const SequencerService = async (
   componentId: ComponentId,
   tokenFactory: TokenFactory
-) => Promise<SequencerService> = async (componentId: ComponentId, tokenFactory: TokenFactory) => {
+): Promise<SequencerService> => {
   const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })

@@ -29,7 +29,7 @@ export interface AdminService {
   setLogLevel(componentId: ComponentId, level: Level): Promise<Done>
 }
 
-export const AdminService: () => Promise<AdminService> = async () => {
+export const AdminService = async (): Promise<AdminService> => {
   const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
   return new AdminServiceImpl(new HttpTransport(postEndpoint))

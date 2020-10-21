@@ -94,7 +94,7 @@ export interface LocationService {
 export const LocationService = (
   tokenFactory: TokenFactory = () => undefined,
   locationConfig = LocationConfig
-) => {
+): LocationService => {
   const webSocketEndpoint = getWebSocketEndPoint({
     host: locationConfig.hostName,
     port: locationConfig.port
