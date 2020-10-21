@@ -6,7 +6,7 @@ import {
   ConfigId,
   ConfigMetadata,
   FileType
-} from '../clients/config'
+} from '../clients/config-service'
 import { ciLiteral, Decoder } from './Decoder'
 
 export const FileTypeD: Decoder<FileType> = ciLiteral('Normal', 'Annex')

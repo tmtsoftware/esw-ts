@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { ConfigData } from '../../../../src/clients/config'
+import { ConfigData } from '../../../../src/clients/config-service'
 
 describe('Config Data', () => {
   test('should be able to create from string and read the same content  | ESW-320', async () => {

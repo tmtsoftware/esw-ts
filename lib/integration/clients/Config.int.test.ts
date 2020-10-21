@@ -6,7 +6,7 @@ import {
   ConfigId,
   ConfigMetadata,
   ConfigService
-} from '../../src/clients/config'
+} from '../../src/clients/config-service'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 import { delay } from '../utils/eventually'

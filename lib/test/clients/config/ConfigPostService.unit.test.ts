@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'
-import { ConfigData, ConfigService } from '../../../src/clients/config'
+import { ConfigData, ConfigService } from '../../../src/clients/config-service'
 
 import type { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/Connections'

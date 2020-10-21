@@ -1,10 +1,10 @@
 import { mocked } from 'ts-jest/utils'
 import type { TokenFactory } from '../../../src'
-import { ConfigService } from '../../../src/clients/config'
-import { ConfigServiceImpl } from '../../../src/clients/config/ConfigServiceImpl'
+import { ConfigService } from '../../../src/clients/config-service'
+import { ConfigServiceImpl } from '../../../src/clients/config-service/ConfigServiceImpl'
 import { resolveConnection } from '../../../src/config/Connections'
 
-jest.mock('../../../src/clients/config/ConfigServiceImpl')
+jest.mock('../../../src/clients/config-service/ConfigServiceImpl')
 jest.mock('../../../src/config/Connections')
 jest.mock('../../../src/utils/Utils')
 const mockResolveConfigServer = mocked(resolveConnection)
