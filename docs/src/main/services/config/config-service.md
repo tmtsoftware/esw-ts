@@ -36,7 +36,7 @@ Config service has following [APIs](#apis):
 - ConfigMetadata : Represents metadata information about the Config Server.
 - FileType : Represents the type of storage for a configuration file. Currently two types are supported Normal(small, text files) and Annex(Large, Binary files).
 
-####Example for creation ConfigData and accessing data with helper function
+#### Example for creation ConfigData and accessing data with helper function
 
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #config-data }
@@ -68,7 +68,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 @@@
 
-###create
+### create
 This API takes `path` at which `configData` needs to be saved in the config service along with meta information i.e whether to be saved as `annex` or `normal` file and comment.
 After saving, it returns ConfigId which can be used to access the saved file in future using query APIs.
 
@@ -78,7 +78,7 @@ Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #create }
 
 
-###update
+### update
 This API takes `path` at which `configData` needs to be updated in the config service along with comment.
 After updating, it returns ConfigId which can be used to access the updated file in future using query APIs.
 
@@ -87,7 +87,7 @@ Example for update API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #update }
 
-###getActive
+### getActive
 This API takes `path` from which the active `configData` needs to be fetched and it returns Option of ConfigData.
 
 Example for getActive API looks like following:
@@ -95,7 +95,7 @@ Example for getActive API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #get-active }
 
-###getLatest
+### getLatest
 This API takes `path` from which the latest `configData` needs to be fetched and it returns Option of ConfigData.
 
 Example for getLatest API looks like following:
@@ -103,7 +103,7 @@ Example for getLatest API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #get-latest }
 
-###getById
+### getById
 This API takes `path` and previously created/updated configuration's `configId` to be fetched and it returns Option of ConfigData.
 
 Example for getById API looks like following:
@@ -111,7 +111,7 @@ Example for getById API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #get-by-id }
 
-###getByTime
+### getByTime
 This API gets the file at the given path as it existed at a given time-instance.
 Note:
 -If time-instance is before the file was created, the initial version is returned.
@@ -122,7 +122,7 @@ Example for getByTime API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #get-by-time }
 
-###exists
+### exists
 This API checks whether file exists at the given `path` and optional specific `configId` in the repository or not it returns the promise of boolean
 
 Example for exists API looks like following:
@@ -131,7 +131,7 @@ Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #exists }
 
 
-###delete
+### delete
 This API deletes a file located at specified `path` in the repository.
 
 Example for exists API looks like following:
@@ -139,7 +139,7 @@ Example for exists API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #delete }
 
-###list
+### list
 This API list all the files for a given FileType (Annex or Normal) and an optional pattern string, it will list all files whose path matches the given pattern.
 
 Some pattern examples are: “/path/hcd/*.*”, “a/b/c/d.*”, “.*.conf”, “.*hcd.*”
@@ -150,7 +150,7 @@ Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #list }
 
 
-###history
+### history
 This API returns the history of revisions of the file at the given `path` for a range of period specified by `from` and `to`.
 
 The size of the list can be restricted using `maxResults`.
@@ -162,7 +162,7 @@ Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #history }
 
 
-###getMetadata
+### getMetadata
 This API used to get metadata information about the Config Service.
 It includes:
 
@@ -180,7 +180,7 @@ Typescript
 ## Managing active versions
 In its lifetime, a config file undergoes many revisions. An active version is a specific revision from a file’s history and it is set by administrators.
 
-###historyActive
+### historyActive
 This API returns the history of `active` revisions of the file at the given `path` for a range of period specified by `from` and `to`.
 The size of the list can be restricted using maxResults.
 
@@ -189,7 +189,7 @@ Example for historyActive API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #history-active }
 
-###setActiveVersion
+### setActiveVersion
   This API sets the "active version" to be the version provided for the file at the given path.
   If this method is never called in a config’s lifetime, the active version will always be the version returned by create function.
 
@@ -198,7 +198,7 @@ Example for setActiveVersion API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #set-active-version }
 
-###resetActiveVersion
+### resetActiveVersion
 This API resets the "active version" of the file at the given path to the latest version.
 
 Example for resetActiveVersion API looks like following:
@@ -206,7 +206,7 @@ Example for resetActiveVersion API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #reset-active-version }
 
-###getActiveVersion
+### getActiveVersion
 This API returns the revision ID which represents the "active version" of the file at the given path.
 
 Example for getActiveVersion API looks like following:
@@ -214,7 +214,7 @@ Example for getActiveVersion API looks like following:
 Typescript
 : @@snip [Config-Service](../../../../../example/src/documentation/config/ConfigExample.ts) { #get-active-version }
 
-###getActiveByTime
+### getActiveByTime
 This API returns the content of `active` version of the file existed at given instant of `Time`
 
 Example for getActiveByTime API looks like following:

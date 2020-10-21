@@ -1,24 +1,10 @@
 # Command Service
-This client side service provides a handle to send commands to a component which is registered in location service.
+@extref:[Command Service](ts-docs:interfaces/clients.commandservice.html) service provides a handle to send commands to a component which is registered in location service.
 
-Command service has following [APIs](#apis):
+## Creation of Command Service
 
-| API                                               | Input args                                            | Returns               |
-| --------------------------------------------------| ----------------------------------------------------- | --------------------- |
-| [validate](#validate)                             | ControlCommand                                        | ValidateResponse      |
-| [submit](#submit)                                 | ControlCommand                                        | SubmitResponse        |
-| [oneway](#oneway)                                 | ControlCommand                                        | OnewayResponse        |
-| [query](#query)                                   | runId                                                 | SubmitResponse        |
-| [queryFinal](#queryfinal)                         | runId, timeoutInSeconds                               | SubmitResponse        |
-| [subscribeCurrentState](#subscribecurrentstate)   | stateNames, onStateChangeCallback                     | Subscription          |
-| [submitAndWait](#submitandwait)                   | ControlCommand, timeoutInSeconds                      | SubmitResponse        |
-| [submitAllAndWait](#submitallandwait)             | ControlCommand [ ], timeoutInSeconds                  | SubmitResponse[ ]     |
-
-
-##Creation of Command Service
-
-###Pre-requisite
-####In order to use command service for a specific component:
+### Pre-requisite
+### In order to use command service for a specific component:
 
   1. The component needs to be up and running behind the gateway server.
     `GatewayException(InvalidComponent)` will be thrown if the specified component is not found.
@@ -27,20 +13,32 @@ Command service has following [APIs](#apis):
 
 For the given example : `Prefix(ESW.Component1)` needs to be registered in the location service as any of the component type (`HCD`, `Assembly`, etc.).
 
-####To create Command service client for a component
+### To create Command service client for a component
 
 Typescript
 :   @@snip [Command-Service](../../../../../example/src/documentation/command/CommandExamples.ts) { #command-service-creation }
 
-## Control Commands
-   In order to call following API, one of the control command needs to be sent. Depending on your use case, you will be sending either Setup or Observe Command.
+## Type of Actions
 
-   Following examples show how to create control commands:
+Whenever a command gets submitted to a component, it results into in either `Immediate completion` or `Long Running action`.
+
+###  Immediate completion
+If the actions of the submit or submitAndWait command take a very short time to complete, it is referred as Immediate completion.
+the actions are successful, if the Completed SubmitResponse is returned. If there is a result, the Completed is returned with a parameter set of Result type that can be inspected by the caller.
+
+###  Long running Actions
+When actions take longer than 1 second and the Component returns the Started SubmitResponse. The Started response indicates to the framework that long-running actions have been started.
+
+## Control Commands
+In order to call following API, one of the control command needs to be sent. Depending on your use case, you will be sending either Setup or Observe Command.
+
+Following examples show how to create control commands:
 
 Typescript
 :   @@snip [control-command](../../../../../example/src/documentation/command/CommandExamples.ts) { #control-commands }
 
-##APIs
+
+## APIs
 
 @@@ note {title="Async-Await" }
 
@@ -48,81 +46,74 @@ Note that the examples are using async/await which makes handling of promises mo
 
 @@@
 
-###Validate
+Type definitions for all Command Service API's can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html)
 
-  This API takes Control command as input parameter and return a promise of `ValidateResponse`.
+Type definitions for specific api can be found by following links:
 
-  The following example shows how to call validate API :
+- @extref[validate](ts-docs:interfaces/clients.commandservice.html#validate)
+- @extref[submit](ts-docs:interfaces/clients.commandservice.html#submit)
+- @extref[oneway](ts-docs:interfaces/clients.commandservice.html#oneway)
+- @extref[query](ts-docs:interfaces/clients.commandservice.html#query)
+- @extref[queryFinal](ts-docs:interfaces/clients.commandservice.html#queryfinal)
+- @extref[subscribeCurrentState](ts-docs:interfaces/clients.commandservice.html#subscribecurrentstate)
+- @extref[submitAndWait](ts-docs:interfaces/clients.commandservice.html#submitandwait)
+- @extref[submitAllAndWait](ts-docs:interfaces/clients.commandservice.html#submitallandwait)
+
+### Validating Command
+
+  A validate message is used to ask a destination component to validate a command and determine if the command can be executed. It does not execute the command and only returns the result of validation. In some scenarios, it may be useful to test to see if a command can be executed prior to trying to execute the command.
 
 Typescript
 :   @@snip [validate](../../../../../example/src/documentation/command/CommandExamples.ts) { #validate }
 
-###Submit
+### Submitting a Command
 
-  This API takes Control command as input parameter and return a promise of `SubmitResponse`.
-
-  The following example shows how to call submit API :
+  A submit message can be used when the sender of a command needs to do additional work before long-running actions are completed. For instance, send another command to execute in parallel. If commands are short, submit and submitAndWait behave the same way. When the actions started by submit are long-running, the caller can wait for the actions to complete if needed using the [queryFinal](#queryfinal) call.
 
 Typescript
 :   @@snip [submit](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit }
 
 
-###Oneway
+### Oneway
 
-  This API takes Control command as input parameter and return a promise of `OnewayResponse`.
-
-  The following example shows how to call oneway API :
+  Oneway is useful when Command Service needs to send commands to an HCD as quickly as possible. The command is validated on the destination and the validation response is returned, but no other responses are provided.
 
 Typescript
 :   @@snip [oneway](../../../../../example/src/documentation/command/CommandExamples.ts) { #oneway }
 
-###Query
+### Query
 
-  This API takes runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
-
-  The following example shows how to call query API :
+  If a submitted command returns a `Started` response indicating it has long-running actions, and the caller needs to determine that the actions have started properly, or wishes to poll the destination component for the final response, the query method of CommandService can be used.
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #query }
 
-###QueryFinal
+### QueryFinal
 
-  This API is same as query , only difference is takes time-out (seconds) along with runId of already submitted command as input parameter and return a promise of `SubmitResponse`.
-
-  The following example shows how to call query final API :
+  Like [query](#query), queryFinal uses the Id returned by Started. But in this case, rather than returning immediately like query, it waits and only returns when the final SubmitResponse is sent. queryFinal is used exclusively with submit in the case where some other activity must be done before the actions started by the submit complete.
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #query-final }
 
-###SubscribeCurrentState
+### SubscribeCurrentState
 
-  This API takes set of current states to be subscribed along with a callback which will get triggered on change of the mentioned states.(`stateName1`,`stateName2`)
-
-  The following example shows how subscribeCurrentState API call would look like :
+  This method can be used to subscribe to the @extref:[CurrentState](ts-docs:classes/models.currentstate.html) of a component by providing a callback that is called with the arrival of every CurrentState item.
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #subscribe-current-state }
 
-###SubmitAndWait
+### SubmitAndWait
 
-  This API takes Control command as input parameter along with time-out(seconds) and return a promise of `SubmitResponse` after waiting for a specified amount of time.
-
-  The following example shows how submitAndWait API call would look like :
+  This is a convenience method which sends a [submit](#submit) message and then, if the command is long-running, it waits for final completion. Sending a submit message with a command returns a @extref:[SubmitResponse](ts-docs:modules/models.html#submitresponse) as a Future.
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-and-wait }
 
-###SubmitAllAndWait
+### SubmitAllAndWait
 
-  This API takes multiple control commands as input parameter along with time-out(seconds) and return a promise of `SubmitResponse[]` after waiting for a specified amount of time.
-
-  The following example shows how submitAllAndWait API call would look like :
+  Similar to [SubmitAndWait](#submitandwait), submitAllAndWait can be used to send multiple commands sequentially to the same component. This could be used to send initialization commands to an HCD, for instance. The argument for submitAllAndWait is a list of commands. submitAllAndWait returns a list of SubmitResponses – one for each command in the list.
 
 Typescript
 :   @@snip [query](../../../../../example/src/documentation/command/CommandExamples.ts) { #submit-all-and-wait }
 
-
-#### Error Handling
-
-- @ref:[Reference](../../common/error-handling.md)
 

@@ -27,9 +27,9 @@ Note that the examples are using async/await which makes handling of promises mo
 
 @@@
 
-Type definations for all Agent Service API's can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html) :
+Type definitions for all Agent Service API's can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html) :
 
-Type definations for specific api can be found by following links:
+    Type definitions for specific api can be found by following links:
 
 - @extref:[spawnSequenceManager](ts-docs:interfaces/clients.agentservice.html#spawnsequencemanager)
 - @extref:[spawnSequenceComponent](ts-docs:interfaces/clients.agentservice.html#spawnsequencecomponent)

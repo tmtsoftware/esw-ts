@@ -1,4 +1,4 @@
-#Admin Service
+# Admin Service
 This service provides a handle to admin related APIs which includes logging related APIs
 
 Admin service has following [APIs](#apis):
@@ -9,16 +9,16 @@ Admin service has following [APIs](#apis):
 | [setLogLevel](#setloglevel)       | componentId, level | Done        |
 
 
-##Creation of Admin Service
+## Creation of Admin Service
 
-####To create Admin client:
+#### To create Admin client:
 
 Typescript
 :   @@snip [Admin-Service](../../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #admin-service-creation }
 
-##APIs
+## APIs
 
-###getLogMetadata
+### getLogMetadata
 
    This API gives basic logging configuration values for specific component.
 
@@ -27,7 +27,7 @@ The following example shows how to call getLogMetadata API :
 Typescript
 :   @@snip [getLogMetadata](../../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #getLogMetadata }
 
-###setLogLevel
+### setLogLevel
 
    This API allows setting log level of specific component.
 

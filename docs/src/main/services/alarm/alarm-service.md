@@ -1,21 +1,21 @@
-#Alarm Service
+# Alarm Service
 
 This service provide a http interface to interact with alarm server.
 
-##Creation of Alarm Service
+## Creation of Alarm Service
 
-###Pre-requisite
+### Pre-requisite
 
 In order to use Logging Service APIs:
 
 1. The Location Service, and Gateway Server needs to be running in the network
 
-###To create Alarm Service
+### To create Alarm Service
 
 Typescript
 :   @@snip [AlarmService](../../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #alarm-service-creation }
 
-##APIs
+## APIs
 
 @@@ note {title="Async-Await" }
 
