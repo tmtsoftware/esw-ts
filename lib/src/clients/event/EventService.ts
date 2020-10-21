@@ -31,7 +31,10 @@ export interface EventService {
   get(eventKeys: Set<EventKey>): Promise<Event[]>
 
   /**
-   * Subscribes to given set of event keys
+   * This API subscribes to multiple `eventKeys` and receive events at `every` frequency
+   * and return subscription handle which can be used as a kill switch.
+   * It takes callback function which gets triggered when ever the events are received.
+   * The latest events available for the given Event Keys will be received first.
    *
    * @param eventKeys Set of event keys to be subscribed.
    * @param maxFrequency the duration which determines the frequency with which events are received
@@ -44,7 +47,11 @@ export interface EventService {
   ): (callback: (event: Event) => void) => Subscription
 
   /**
-   * Subscribes to given subsystem and optional pattern string.
+   * This API subscribes to events of all the EventKeys specified using a `Subsystem`
+   * and a `pattern` to match the remaining Event Key and return subscription handle
+   * which can be used as a kill switch.
+   * It takes callback function which gets triggered when ever the events are received.
+   * The latest events available for the given Event Keys will be received first.
    *
    * @param subsystem subscription to be made under the subsystem
    * @param maxFrequency the duration which determines the frequency with which events are received

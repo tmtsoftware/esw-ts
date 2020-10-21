@@ -56,6 +56,8 @@ const ddd = async () => {
     10
   )(onEventCallback)
 
+  //To cancel the subscription
+  subscription.cancel()
   //#subscribe
 }
 
@@ -80,5 +82,7 @@ const dddd = async () => {
     '(hcd)'
   )(onEventCallback)
 
+  //To cancel the subscription
+  subscription.cancel()
   //#p-subscribe
 }
