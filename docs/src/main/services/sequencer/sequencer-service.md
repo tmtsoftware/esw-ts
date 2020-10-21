@@ -1,38 +1,10 @@
 # Sequencer Service
 This service provides a handle to send commands to a sequencer which is registered in location service.
 
-Sequencer service has following [APIs](#apis):
-
-|        API                            |      Input args                |          Returns                |
-| ------------------------------------- | -------------------------------|---------------------------------|
-| [loadSequence](#loadsequence)         |   sequence                     |     OkOrUnhandledResponse       |
-| [startSequence](#startsequence)       |                                |     SubmitResponse              |
-| [add](#add)                           |   commands                     |     OkOrUnhandledResponse       |
-| [prepend](#prepend)                   |   commands                     |     OkOrUnhandledResponse       |
-| [replace](#replace)                   |   id, commands                 |     GenericResponse             |
-| [insertAfter](#insertafter)           |   id, commands                 |     GenericResponse             |
-| [delete](#delete)                     |   id                           |     GenericResponse             |
-| [addBreakpoint](#addbreakpoint)       |   id                           |     GenericResponse             |
-| [removeBreakpoint](#removebreakpoint) |   id                           |     RemoveBreakpointResponse    |
-| [reset](#reset)                       |                                |     OkOrUnhandledResponse       |
-| [resume](#resume)                     |                                |     OkOrUnhandledResponse       |
-| [pause](#pause)                       |                                |     PauseResponse               |
-| [getSequence](#getsequence)           |                                |     StepList or undefined       |
-| [isAvailable](#isavailable)           |                                |     boolean                     |
-| [isOnline](#isonline)                 |                                |     boolean                     |
-| [goOnline](#goonline)                 |                                |     GoOnlineResponse            |
-| [goOffline](#gooffline)               |                                |     GoOfflineResponse           |
-| [abortSequence](#abortsequence)       |                                |     OkOrUnhandledResponse       |
-| [stop](#stop)                         |                                |     OkOrUnhandledResponse       |
-| [diagnosticMode](#diagnosticmode)     |   startTime, hint              |     DiagnosticModeResponse      |
-| [operationsMode](#operationsmode)     |                                |     OperationsModeResponse      |
-| [query](#query)                       |   runId                        |     SubmitResponse              |
-| [queryFinal](#queryfinal)             |   runId, timeoutInSeconds      |     SubmitResponse              |
-| [submit](#submit)                     |   sequence                     |     SubmitResponse              |
-| [submitAndWait](#submitandwait)       |   sequence, timeoutInSeconds   |     SubmitResponse              |
-
 ##Creation of Sequencer Service
+
 ###Pre-requisite
+
 ####In order to use sequencer service client for a specific sequencer:
 
   1. The sequencer and gateway server should be running.
@@ -40,21 +12,10 @@ Sequencer service has following [APIs](#apis):
   2. Authorization Token with correct access role.
      Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
 
-####Here is an example:
+####To create Sequencer Service
 
 Typescript
 : @@snip [Sequencer-Service](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #Sequencer-Service-creation }
-
-###Creating SequenceCommands
-
-Typescript
-: @@snip [sequence-commands](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #sequence-commands-creation }
-
-###Creating a Sequence
-A sequence is a list of sequence commands:
-
-Typescript
-: @@snip [sequence](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #sequence-creation }
 
 ##APIs
 
@@ -64,185 +25,30 @@ Note that the examples are using async/await which makes handling of promises mo
 
 @@@
 
-###loadSequence
-This API takes a sequence as a parameter,
-loads the sequence into the sequencer
-and returns the `OkOrUnhandledResponse` as a promise value.
+Sequencer service has following APIs:
 
-Typescript
-: @@snip [loadSequence](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #loadSequence }
-
-###startSequence
-This API starts the execution of the sequence which is loaded in the sequencer
-and returns the `SubmitResponse` as a promise value.
-
-Typescript
-: @@snip [startSequence](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #startSequence }
-
-###add
-This API takes a list of SequenceCommands as a parameter,
-adds that at last of the sequence
-and returns the `OkOrUnhandledResponse` as a promise value.
-
-Typescript
-: @@snip [add](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #add }
-
-###prepend
-This API takes a list of `SequenceCommands` as a parameter,
-adds that before all the pending steps of the sequence
-and returns the `OkOrUnhandledResponse` as a promise value.
-
-Typescript
-: @@snip [prepend](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #prepend }
-
-###replace
-This API takes an `Id` of a pending step(command) of the sequence and a list of `SequenceCommands` as parameters,
-replaces the command of the given `Id` with the given list of `SequenceCommands` and returns
-the `GenericResponse` as a promise value.
-
-Typescript
-: @@snip [replace](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #replace }
-
-###insertAfter
-This API takes an `Id` of a pending step(command) of the sequence and a list of `SequenceCommands` as parameters,
-inserts the given list of `SequenceCommands` after the command of the given `Id` and returns
-the `GenericResponse` as a promise value.
-
-Typescript
-: @@snip [insertAfter](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #insertAfter }
-
-###delete
-This API takes an `Id` of a pending step(command) of the sequence as a parameter,
-deletes the step from the sequencer
-and returns the `GenericResponse` as a promise value.
-
-Typescript
-: @@snip [delete](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #delete }
-
-###addBreakpoint
-This API takes an `Id` of a pending step(command) of the sequence as a parameter,
-adds a breakpoint to the step
-and returns the `GenericResponse` as a promise value.
-
-Typescript
-: @@snip [addBreakpoint](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #addBreakpoint }
-
-###removeBreakpoint
-This API takes an `Id` of a pending step(command) of the sequence as a parameter,
-removes the breakpoint from the step
-and returns the `RemoveBreakpointResponse` as a promise value.
-
-Typescript
-: @@snip [removeBreakpoint](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #removeBreakpoint }
-
-###reset
-This API discards all the pending steps of the sequence and returns the `OkOrUnhandledResponse` as a promise value.
-
-Typescript
-: @@snip [reset](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #reset }
-
-###resume
-This API resumes the execution of the paused sequence and returns the `OkOrUnhandledResponse` as a promise value.
-
-Typescript
-: @@snip [resume](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #resume }
-
-###pause
-This API pauses the execution of the sequence by placing a breakpoint at the next pending step
-and returns the `PauseResponse` as promise value.
-
-Typescript
-: @@snip [pause](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #pause }
-
-###getSequence
-This API returns the `StepList`(runtime representation of the sequence)
-if there is a sequence executing in the sequencer else returns `undefined`,
-as a promise value.
-
-Typescript
-: @@snip [getSequence](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #getSequence }
-
-###isAvailable
-This API returns `true` if sequencer is in `Idle` state else returns `false`, as a promise value.
-
-Typescript
-: @@snip [isAvailable](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #isAvailable }
-
-###isOnline
-This API returns `true` if sequencer is in any state but `Offline` else returns `false`, as a promise value.
-
-Typescript
-: @@snip [isOnline](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #isOnline }
-
-###goOnline
-This API makes sequencer to go into `Online` state and returns the `GoOnlineResponse` as a promise value.
-
-Typescript
-: @@snip [goOnline](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #goOnline }
-
-###goOffline
-This API makes sequencer to go into `Offline` state and returns the `GoOfflineResponse` as a promise value.
-
-Typescript
-: @@snip [goOffline](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #goOffline }
-
-###abortSequence
-This API discards all the pending steps of the sequence,
-calls the `onAbortSequence` handler in the script of the sequencer
-and returns the `OkOrUnhandledResponse` as a promise value.
-
-Typescript
-: @@snip [abortSequence](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #abortSequence }
-
-###stop
-This API discards all the pending steps of the sequence,
-calls the `onStop` handler in the script of the sequencer
-and returns the `OkOrUnhandledResponse` as a promise value.
-
-Typescript
-: @@snip [stop](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #stop }
-
-###diagnosticMode
-This API takes Date(an Instant) and string(as hint) as parameters,
-calls the `onDiagnosticMode` handler in the script of the sequencer with those parameters
-and returns the `DiagnosticModeResponse` as a promise value.
-
-Typescript
-: @@snip [diagnosticMode](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #diagnosticMode }
-
-###operationsMode
-This API calls the `onOperationsMode` handler in the script of the sequencer
-and returns the `OperationsModeResponse` as a promise value.
-
-Typescript
-: @@snip [operationsMode](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #operationsMode }
-
-###submit
-This API takes a sequence as a parameter,
-starts the execution of the sequence
-and returns the immediate `SubmitResponse` as a promise value.
-
-Typescript
-: @@snip [submit](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #submit }
-
-###submitAndWait
-This API takes a sequence, and a timeout in seconds as parameters,
-starts the execution of the sequence
-and returns the final `SubmitResponse` in that given timeout as a promise value.
-
-Typescript
-: @@snip [submitAndWait](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #submitAndWait }
-
-###query
-This API takes the `runId` of the sequence as a parameter,
-and returns the immediate `SubmitResponse` as a promise value.
-
-Typescript
-: @@snip [query](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #query }
-
-###queryFinal
-This API takes the `runId` of the sequence, and a timeout in seconds as parameters,
-and returns the final `SubmitResponse` in that given timeout as a promise value.
-
-Typescript
-: @@snip [queryFinal](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #queryFinal }
+- @extref:[loadSequence](ts-docs:interfaces/clients.sequencerservice.html#loadsequence)
+- @extref:[startSequence](ts-docs:interfaces/clients.sequencerservice.html#startsequence)
+- @extref:[add](ts-docs:interfaces/clients.sequencerservice.html#add)
+- @extref:[prepend](ts-docs:interfaces/clients.sequencerservice.html#prepend)
+- @extref:[replace](ts-docs:interfaces/clients.sequencerservice.html#replace)
+- @extref:[insertAfter](ts-docs:interfaces/clients.sequencerservice.html#insertafter)
+- @extref:[delete](ts-docs:interfaces/clients.sequencerservice.html#delete)
+- @extref:[addBreakpoint](ts-docs:interfaces/clients.sequencerservice.html#addbreakpoint)
+- @extref:[removeBreakpoint](ts-docs:interfaces/clients.sequencerservice.html#removebreakpoint)
+- @extref:[reset](ts-docs:interfaces/clients.sequencerservice.html#reset)
+- @extref:[resume](ts-docs:interfaces/clients.sequencerservice.html#resume)
+- @extref:[pause](ts-docs:interfaces/clients.sequencerservice.html#pause)
+- @extref:[getSequence](ts-docs:interfaces/clients.sequencerservice.html#getsequence)
+- @extref:[isAvailable](ts-docs:interfaces/clients.sequencerservice.html#isavailable)
+- @extref:[isOnline](ts-docs:interfaces/clients.sequencerservice.html#isonline)
+- @extref:[goOnline](ts-docs:interfaces/clients.sequencerservice.html#goonline)
+- @extref:[goOffline](ts-docs:interfaces/clients.sequencerservice.html#gooffline)
+- @extref:[abortSequence](ts-docs:interfaces/clients.sequencerservice.html#abortsequence)
+- @extref:[stop](ts-docs:interfaces/clients.sequencerservice.html#stop)
+- @extref:[diagnosticMode](ts-docs:interfaces/clients.sequencerservice.html#diagnosticmode)
+- @extref:[operationsMode](ts-docs:interfaces/clients.sequencerservice.html#operationsmode)
+- @extref:[query](ts-docs:interfaces/clients.sequencerservice.html#query)
+- @extref:[queryFinal](ts-docs:interfaces/clients.sequencerservice.html#queryfinal)
+- @extref:[submit](ts-docs:interfaces/clients.sequencerservice.html#submit)
+- @extref:[submitAndWait](ts-docs:interfaces/clients.sequencerservice.html#submitandwait)
