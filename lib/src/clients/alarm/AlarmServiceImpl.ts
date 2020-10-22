@@ -2,7 +2,8 @@ import type { Done } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { AlarmService } from './AlarmService'
-import { AlarmKey, AlarmSeverity, SetAlarmSeverity } from './models/PostCommand'
+import type { AlarmSeverity, AlarmKey } from './models/AlarmModels'
+import { SetAlarmSeverity } from './models/PostCommand'
 
 export class AlarmServiceImpl implements AlarmService {
   constructor(private readonly httpTransport: HttpTransport<SetAlarmSeverity>) {}

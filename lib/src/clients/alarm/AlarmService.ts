@@ -3,7 +3,7 @@ import { gatewayConnection, resolveConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
 import { AlarmServiceImpl } from './AlarmServiceImpl'
-import type { AlarmKey, AlarmSeverity } from './models/PostCommand'
+import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 
 /**
  * Alarm Service client API.
