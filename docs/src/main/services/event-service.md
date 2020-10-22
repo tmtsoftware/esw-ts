@@ -12,7 +12,7 @@ where one component publishes an event and all clients that have subscribed rece
 #### Examples to create a client for Event service
 
 Typescript
-: @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #event-service }
+: @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #event-service }
 
 
 ## Usages of Event Service
