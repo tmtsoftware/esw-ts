@@ -10,7 +10,7 @@ In order to use Logging Service APIs:
 
 1. The Location Service, and Gateway Server needs to be running in the network
 
-### To create Alarm Service
+### To create a client for Alarm Service
 
 Typescript
 :   @@snip [AlarmService](../../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #alarm-service-creation }
