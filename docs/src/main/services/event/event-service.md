@@ -1,5 +1,5 @@
 # Event Service
-@extref:[Event service](ts-docs:interfaces/clients.eventservice.html) provides methods to interact with the event server which implements the publish/subscribe messaging paradigm
+Event service provides methods to interact with the event server which implements the publish/subscribe messaging paradigm
 where one component publishes an event and all clients that have subscribed receive the event.
 
 ## Creation of Event Service
@@ -12,18 +12,16 @@ where one component publishes an event and all clients that have subscribed rece
 #### Examples to create a client for Event service
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/event/EventExample.ts) { #event-service }
-
-## Event Model
- Type definition of Event models can be found @extref:[here](ts-docs:modules/models.html#event).
+: @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #event-service }
 
 
 ## Usages of Event Service
 
+Type definitions for All Event Service APIs can be found @extref:[here](ts-docs:interfaces/clients.eventservice.html).
+
 ### Publishing an Event
 
 Event service allows you to publish an @extref:[Event](ts-docs:modules/models.html#event) to the event server.
-Type Definitions of publish API can be found @extref:[here](ts-docs:interfaces/clients.eventservice.html#publish).
 
 Typescript
 : @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #publish }
@@ -31,8 +29,9 @@ Typescript
 
 ### Get events
 
-The @extref:[get](ts-docs:interfaces/clients.eventservice.html#get) API is used to get events for
-set of @extref:[EventKeys](ts-docs:classes/models.eventkey.html).
+The get API is used to get events for set of @extref:[EventKeys](ts-docs:classes/models.eventkey.html).
+This is different from subscribing event. Use this API when occurred events are required.
+If you want to consume live events, use subscription APIs.
 
 Example for getting events:
 
@@ -42,15 +41,11 @@ Typescript
 ### Subscribe to the events
 Subscribing Event can be done via two ways. User can subscribe to -
 
-1. Multiple @extref:[EventKeys](ts-docs:classes/models.eventkey.html).
+1. Multiple EventKeys.
 2. All the EventKeys of specific @extref:[subsystem](ts-docs:modules/models.html#subsystem) and pattern.
 
 When events are subscribed for given EventKeys, events are received at `every` frequency.
 The APIs take callback function which gets triggered whenever the events are received.
-
-Below example uses @extref:[subscribe](ts-docs:interfaces/clients.eventservice.html#subscribe)
- and @extref:[pSubscribe](ts-docs:interfaces/clients.eventservice.html#psubscribe)
- APIs.
 
 Example for subscribing events with given EventKeys:
 
