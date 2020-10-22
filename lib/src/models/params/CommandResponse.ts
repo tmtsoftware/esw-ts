@@ -87,7 +87,7 @@ const StartedL = 'Started'
 const isPositive = (response: SubmitResponse) => response._type === CompletedL
 const isIntermediate = (response: SubmitResponse) => response._type === StartedL
 /**
- * @private
+ * @internal
  */
 export const isNegative = (response: SubmitResponse) =>
   !(isPositive(response) || isIntermediate(response))

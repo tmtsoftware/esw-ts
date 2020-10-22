@@ -1,5 +1,8 @@
 import type { ComponentType, Prefix } from '../../../models'
 
+/**
+ * @internal
+ */
 const mkConnection = <T extends ConnectionType>(connectionType: T) => (
   prefix: Prefix,
   componentType: ComponentType
@@ -37,14 +40,26 @@ export type TcpConnection = {
  */
 export type Connection = AkkaConnection | HttpConnection | TcpConnection
 /**
+ * A helper function to create Akka Connection
  * @category Location Service
  */
-export const AkkaConnection = mkConnection('akka')
+export const AkkaConnection: (
+  prefix: Prefix,
+  componentType: ComponentType
+) => Connection = mkConnection('akka')
 /**
+ * A helper function to create Http Connection
  * @category Location Service
  */
-export const HttpConnection = mkConnection('http')
+export const HttpConnection: (
+  prefix: Prefix,
+  componentType: ComponentType
+) => Connection = mkConnection('http')
 /**
+ * A helper function to create TCP Connection
  * @category Location Service
  */
-export const TcpConnection = mkConnection('tcp')
+export const TcpConnection: (
+  prefix: Prefix,
+  componentType: ComponentType
+) => Connection = mkConnection('tcp')

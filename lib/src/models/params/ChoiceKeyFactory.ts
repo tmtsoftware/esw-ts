@@ -6,7 +6,7 @@ import type { Units } from './Units'
 /**
  * A Factory for creating Choice key
  * @class
- * @private
+ * @internal
  */
 export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
   /**

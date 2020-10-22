@@ -41,6 +41,7 @@
       "**/*+(**Utils).ts"
     ],
     "excludePrivate": true,
+    "stripInternal": true,
     "plugin" : "typedoc-plugin-external-module-map",
     "external-modulemap" : ".*\/(clients|components|models|config)\/",
     "categorizeByGroup": true,

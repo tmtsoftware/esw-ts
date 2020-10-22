@@ -7,7 +7,7 @@ import type { Parameter } from './Parameter'
  * Abstract class for various parameter set types (commands or events)
  *
  * @tparam T the subclass of ParameterSetType
- * @private
+ * @internal
  */
 export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   abstract readonly paramSet: Parameter<Key>[]
