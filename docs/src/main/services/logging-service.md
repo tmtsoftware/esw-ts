@@ -15,7 +15,7 @@ In order to use Logging Service APIs:
 ### To create Logging Service
 
 Typescript
-:   @@snip [LoggingService](../../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logging-service-creation }
+:   @@snip [LoggingService](../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logging-service-creation }
 
 ## APIs
 
@@ -37,5 +37,5 @@ user may want to create explicit log entry based on success or failure scenario.
 Type definition can be found - @extref:[here.](ts-docs:interfaces/clients.loggingservice.html#log)
 
 Typescript
-:   @@snip [LoggingService](../../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logentry }
+:   @@snip [LoggingService](../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logentry }
 

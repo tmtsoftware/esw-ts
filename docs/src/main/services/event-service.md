@@ -24,7 +24,7 @@ Type definitions for All Event Service APIs can be found @extref:[here](ts-docs:
 Event service allows you to publish an @extref:[Event](ts-docs:modules/models.html#event) to the event server.
 
 Typescript
-: @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #publish }
+: @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #publish }
 
 
 ### Get events
@@ -36,7 +36,7 @@ If you want to consume live events, use subscription APIs.
 Example for getting events:
 
 Typescript
-: @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #get }
+: @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #get }
 
 ### Subscribe to the events
 Subscribing Event can be done via two ways. User can subscribe to -
@@ -50,9 +50,9 @@ The APIs take callback function which gets triggered whenever the events are rec
 Example for subscribing events with given EventKeys:
 
 Typescript
-: @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #subscribe }
+: @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #subscribe }
 
 Example for subscribing events with given subsystem:
 
 Typescript
-: @@snip [Event-Service](../../../../../example/src/documentation/event/EventExample.ts) { #p-subscribe }
+: @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #p-subscribe }

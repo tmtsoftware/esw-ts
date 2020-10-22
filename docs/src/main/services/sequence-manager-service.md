@@ -27,14 +27,14 @@ Sequence Manager service has following [APIs](#apis):
 
 ####In order to create sequence manager service APIs:
 1. Subsystem's agent machines should be up and running.
-2. Sequence Manager should be spawned. Documentation on how to spawn sequence manager could be found @ref[here](../../services/agent-service/agent-service.md).
+2. Sequence Manager should be spawned. Documentation on how to spawn sequence manager could be found @ref[here](agent-service.md).
 3. Authorization Token with correct access role.
- Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
+ Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
 
 ####To create Sequence Manager client:
 
 Typescript
-: @@snip [Sequence-Manager-Service](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#sequence-manager-service-creation}
+: @@snip [Sequence-Manager-Service](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#sequence-manager-service-creation}
 
 ##APIs
 
@@ -48,7 +48,7 @@ Typescript
 The following example shows how to call configure API. Here machines will be setup for 'IRIS_DarkNight' observation mode.
 
 Typescript
-: @@snip [configure](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#configure}
+: @@snip [configure](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#configure}
 
 
 ###provision
@@ -61,7 +61,7 @@ Typescript
  component will be spawned on 'IRIS.agent-machine' agent machine.
 
 Typescript
-: @@snip [provision](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#provision}
+: @@snip [provision](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#provision}
 
 
 ###getRunningObsModes
@@ -70,7 +70,7 @@ Typescript
  The following example shows how to call getRunningObsModes API :
 
 Typescript
-: @@snip [getRunningObsModes](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getRunningObsModes}
+: @@snip [getRunningObsModes](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getRunningObsModes}
 
 
 
@@ -82,7 +82,7 @@ Typescript
  The following example shows how to call startSequencer API :
 
 Typescript
-: @@snip [startSequencer](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#startSequencer}
+: @@snip [startSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#startSequencer}
 
 
 ###restartSequencer
@@ -91,7 +91,7 @@ It restarts the existing running sequencer of given subsystem and observing mode
 The following example shows how to call restartSequencer API :
 
 Typescript
-: @@snip [restartSequencer](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#restartSequencer}
+: @@snip [restartSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#restartSequencer}
 
 
 ###shutdownSequencer
@@ -100,7 +100,7 @@ This API shutdowns the running sequencer of given subsystem and observation mode
 The following example shows how to call shutdownSequencer API :
 
 Typescript
-: @@snip [shutdownSequencer](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequencer}
+: @@snip [shutdownSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequencer}
 
 
 ###shutdownSubsystemSequencers
@@ -109,7 +109,7 @@ This API shutdowns all the running sequencers of given subsystem.
 The following example shows how to call shutdownSubsystemSequencers API :
 
 Typescript
-: @@snip [shutdownSubsystemSequencers](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSubsystemSequencers}
+: @@snip [shutdownSubsystemSequencers](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSubsystemSequencers}
 
 
 ###shutdownObsModeSequencers
@@ -119,7 +119,7 @@ This API shutdowns all the running sequencers of given observation mode.
 The following example shows how to call shutdownObsModeSequencers API :
 
 Typescript
-: @@snip [shutdownObsModeSequencers](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownObsModeSequencers}
+: @@snip [shutdownObsModeSequencers](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownObsModeSequencers}
 
 
 ###shutdownAllSequencers
@@ -129,7 +129,7 @@ This API shutdowns all the running sequencers.
 The following example shows how to call shutdownAllSequencers API :
 
 Typescript
-: @@snip [shutdownAllSequencers](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownAllSequencers}
+: @@snip [shutdownAllSequencers](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownAllSequencers}
 
 
 ###shutdownSequenceComponent
@@ -138,7 +138,7 @@ This API shutdowns sequence component with provided prefix.
 The following example shows how to call shutdownSequenceComponent API :
 
 Typescript
-: @@snip [shutdownSequenceComponent](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequenceComponent}
+: @@snip [shutdownSequenceComponent](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequenceComponent}
 
 
 ###shutdownAllSequenceComponents
@@ -148,7 +148,7 @@ This API shutdowns all the sequence components.
 The following example shows how to call shutdownAllSequenceComponents API :
 
 Typescript
-: @@snip [shutdownAllSequenceComponents](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownAllSequenceComponents}
+: @@snip [shutdownAllSequenceComponents](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownAllSequenceComponents}
 
 
 ###getAgentStatus
@@ -159,5 +159,5 @@ Typescript
  The following example shows how to call getAgentStatus API :
 
 Typescript
-: @@snip [getAgentStatus](../../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getAgentStatus}
+: @@snip [getAgentStatus](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getAgentStatus}
 

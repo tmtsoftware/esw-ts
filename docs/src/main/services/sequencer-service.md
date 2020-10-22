@@ -10,12 +10,12 @@ This service provides a handle to send commands to a sequencer which is register
   1. The sequencer and gateway server should be running.
     `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the location service.
   2. Authorization Token with correct access role.
-     Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
+     Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
 
 ####To create Sequencer Service
 
 Typescript
-: @@snip [Sequencer-Service](../../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #Sequencer-Service-creation }
+: @@snip [Sequencer-Service](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #Sequencer-Service-creation }
 
 ##APIs
 

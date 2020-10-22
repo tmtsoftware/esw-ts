@@ -13,13 +13,13 @@ Access token is not necessary for using location service query APIs.
 If You are using location service to unregister a component, you would need to have the access token with specific permissions :
 
 1. Authorization Token with correct access role.
-    Documentation on how to fetch access token could be found @ref[here](../../aas/csw-aas-js.md).
+    Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
 
 #### Examples to create client for Location service
 Location service constructor takes optional tokenFactory and optional location server configuration(host/port pair).
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #location-service-creation }
+: @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #location-service-creation }
 
 @@@ note {title="Async-Await" }
 
@@ -34,7 +34,7 @@ Type definitions for all APIs can be found @extref[here.](ts-docs:interfaces/cli
 Location service provides multiple ways to get list of locations registered in the TMT cluster.
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-component-type }
+: @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #list-by-component-type }
 
 Type Definitions for all flavours of listing apis are as follows:
 
@@ -56,7 +56,7 @@ Location service's `resolve` api uses @extref[Connection](ts-docs:modules/models
 However, `find` api does not wait to resolve location. if the location is not present, it returns `undefined`.
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
+: @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
 
 ### Unregister a Connection
 This is a secure API and takes a type of Connection as an input argument to be unregistered from the location service and returns Done once unregistered.
@@ -64,7 +64,7 @@ This is a secure API and takes a type of Connection as an input argument to be u
 The following example shows unregister API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #unregister }
+: @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #unregister }
 
 ### Tracking Connection
 The lifecycle of a connection of interest can be followed using either the `track` API. The connection update events will be received by the callback provided to this api.
@@ -73,4 +73,4 @@ This api returns a subscription which can be used to cancel the tracking subscri
 The following example shows track API can be called:
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #track }
+: @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #track }

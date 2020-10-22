@@ -13,7 +13,7 @@ In order to use Logging Service APIs:
 ### To create a client for Alarm Service
 
 Typescript
-:   @@snip [AlarmService](../../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #alarm-service-creation }
+:   @@snip [AlarmService](../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #alarm-service-creation }
 
 @@@ note {title="Async-Await" }
 
@@ -29,4 +29,4 @@ Alarm service allows you to update the severity of alarms belonging to component
 Type Definitions of setSeverity API can be found @extref:[here](ts-docs:interfaces/clients.alarmservice.html#setseverity)
 
 Typescript
-:   @@snip [Agent-Service](../../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #setseverity }
+:   @@snip [Agent-Service](../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #setseverity }

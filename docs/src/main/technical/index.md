@@ -1,8 +1,8 @@
 # Technical Design Documentation
 
 @@@ index
- - [Agent service](../services/agent-service/agent-service.md)
- - [Sequence Manager service](../services/sequence-manager/sequence-manager-service.md)
+ - [Agent service](../services/agent-service.md)
+ - [Sequence Manager service](../services/sequence-manager-service.md)
  - [AAS](csw-aas-js.md)
 
 @@@

@@ -12,14 +12,14 @@ These are following services available:
 
 @@@ index
 
-- @ref:[Admin Service](admin/admin-service.md)
-- @ref:[Alarm Service](alarm/alarm-service.md)
-- @ref:[Command Service](command/command-service.md)
-- @ref:[Config Service](config/config-service.md)
-- @ref:[Event Service](event/event-service.md)
-- @ref:[Location Service](location/location-service.md)
-- @ref:[Logging Service](logging-service/logging-service.md)
-- @ref:[Sequencer Service](sequencer/sequencer-service.md)
+- @ref:[Admin Service](admin-service.md)
+- @ref:[Alarm Service](alarm-service.md)
+- @ref:[Command Service](command-service.md)
+- @ref:[Config Service](config-service.md)
+- @ref:[Event Service](event-service.md)
+- @ref:[Location Service](location-service.md)
+- @ref:[Logging Service](logging-service.md)
+- @ref:[Sequencer Service](sequencer-service.md)
 @@@
 
 Type definition for all services can be found @extref[here](ts-docs:modules/clients.html)

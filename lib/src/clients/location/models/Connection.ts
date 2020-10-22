@@ -46,7 +46,7 @@ export type Connection = AkkaConnection | HttpConnection | TcpConnection
 export const AkkaConnection: (
   prefix: Prefix,
   componentType: ComponentType
-) => Connection = mkConnection('akka')
+) => AkkaConnection = mkConnection('akka')
 /**
  * A helper function to create Http Connection
  * @category Location Service
@@ -54,7 +54,7 @@ export const AkkaConnection: (
 export const HttpConnection: (
   prefix: Prefix,
   componentType: ComponentType
-) => Connection = mkConnection('http')
+) => HttpConnection = mkConnection('http')
 /**
  * A helper function to create TCP Connection
  * @category Location Service
@@ -62,4 +62,4 @@ export const HttpConnection: (
 export const TcpConnection: (
   prefix: Prefix,
   componentType: ComponentType
-) => Connection = mkConnection('tcp')
+) => TcpConnection = mkConnection('tcp')
