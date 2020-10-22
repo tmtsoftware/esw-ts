@@ -10,12 +10,16 @@
 ### Typescript library clients
 This project provide following typescript clients for various TMT services, which can be found at location - /lib/src/clients.
 
- * Command
- * Sequencer
- * Event
+ * Admin
+ * Agent
  * Alarm
+ * Command
  * Config
+ * Event
+ * Gateway
  * Location
+ * Sequencer
+ * Sequence Manager
 
 ### Aas Components in React
  * CheckLogin
@@ -56,10 +60,10 @@ sh csw-services.sh start -k -c -v $SHA_OF_CSW
 
 #### Step2: Build ESW-TS Library
 
-#####
 ```
 cd {ESW-TS-Repo}/lib
 ```
+
 ##### Fetch dependencies
 
 ```
@@ -84,7 +88,7 @@ npm run test:unit
 npm run test:integration
 ```
 
-### Step3: Run Example App
+#### Step3: Run Example App
 
 Start App -
 
@@ -94,7 +98,7 @@ npm clean-install
 npm start
 ```
 
-Open App in browser -
+Open App in the browser -
 
 Go to http://localhost:3000 in Browser
 
@@ -128,7 +132,22 @@ To run this test, execute `sbt test` or `sbt integration-ui/test` command
 
 To generate paradox documentation for the esw-ts, run the following command
 
-  `sbt makeSite`
+  `sbt clean makeSite`
 
 Above command will generate the paradox site at `target/site/esw-ts/0.1.0-SNAPSHOT` location.
-open `index.html` file in browser to view paradox documentation.
+Open `index.html` file in the browser to view paradox documentation.
+
+### Push paradox documentation
+To push documentation on github pages, follow the steps:
+1. Open sbt shell with command.
+
+   ` sbt -Dprod.docs=true`
+2. Clean and generate the site locally.
+
+    `sbt:esw-ts> clean; makeSite`
+
+3. Push the changes to github pages.
+
+   `sbt:esw-ts> ghpagesPushSite`
+
+It will ask for github credential. It takes few minutes to reflect on the github pages.
