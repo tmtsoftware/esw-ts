@@ -54,7 +54,7 @@ export interface LocationService {
    * Find a location for the given Connection
    *
    * @param connection to be located
-   * @return Option<Location> as Promise
+   * @return Location as Promise if available
    */
   find(connection: Connection): Promise<Option<Location>>
   /**
@@ -71,7 +71,7 @@ export interface LocationService {
    * @param connection to be located.
    * @param within time within which the connection to be resolved
    * @param unit TimeUnit
-   * @return Option<Location> as Promise
+   * @return Location as Promise if available
    */
   resolve(connection: Connection, within: number, unit: TimeUnit): Promise<Option<Location>>
   /**

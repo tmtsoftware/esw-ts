@@ -15,16 +15,15 @@ In order to use Logging Service APIs:
 Typescript
 :   @@snip [AlarmService](../../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #alarm-service-creation }
 
-## APIs
-
 @@@ note {title="Async-Await" }
 
 Note that the examples are using async/await which makes handling of promises more readable.
 
 @@@
 
+## Usages of Alarm Service
 
-## Setting alarm Severity
+### Setting alarm Severity
 Alarm service allows you to update the severity of alarms belonging to components.
 
 Type Definitions of setSeverity API can be found @extref:[here](ts-docs:interfaces/clients.alarmservice.html#setseverity)

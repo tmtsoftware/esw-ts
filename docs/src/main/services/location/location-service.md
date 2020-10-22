@@ -1,33 +1,14 @@
 # Location Service
 The Location Service handles component (i.e., Applications, Sequencers, Assemblies, HCDs, and Services) discovery in the distributed TMT software system.
 
-A component’s location information can be used by other components and services to connect to it and use it. An example of location information is:
+A component’s location information can be used by other components and services to connect to it and use it.
 
-- Host address/port pairs
-- URL/URIs paths
-- Connection protocols
-- Metadata if available (process_id, agent_id, etc).
-
-Location service has following [APIs](#apis):
-
-
-|  API                                          | Input args                          | Returns            |
-| --------------------------------------------- | ----------------------------------- | ------------------ |
-| [list](#list)                                 |                                     | Location[ ]        |
-| [listByComponentType](#listbycomponenttype)   | ComponentType                       | Location[ ]        |
-| [listByHostname](#listbyhostname)             | hostname                            | Location[ ]        |
-| [listByConnectionType](#listbyconnectiontype) | ConnectionType                      | Location[ ]        |
-| [listByPrefix](#listbyprefix)                 | prefix                              | Location[ ]        |
-| [find](#find)                                 | Connection                          | Option< Location > |
-| [unregister](#unregister)                     | Connection                          | Done               |
-| [resolve](#resolve)                           | Connection, within, TimeUnit        | Option< Location > |
-| [track](#track)                               | Connection, onTrackingEventCallback | Subscription       |
-
+Type definition for location information can be found @extref[here.](ts-docs:modules/models.html#location)
 
 ## Creation of Location Service
 
 ### Pre-requisite
-Access token is not neccessarily needed for creating location service.
+Access token is not necessary for using location service query APIs.
 
 If You are using location service to unregister a component, you would need to have the access token with specific permissions :
 
@@ -40,84 +21,44 @@ Location service constructor takes optional tokenFactory and optional location s
 Typescript
 : @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #location-service-creation }
 
-
-## Location Models
-
-### Location Info
-An Application, Sequencer, Assembly, HCD, or Service may need to be used by another component as part of normal observatory operations. It must register its location information with Location Service so that other components can find it.
- Location information comprises:
-
-**ComponentId** : A component ID consisting of
-
-**ComponentName** : a name describing the component.
-
-**ComponentType** : such as Container, Sequencer, HCD, Assembly, Service.
-
-## Connections
-The means to reach components. These are categorized as Akka, HTTP, or Tcp type connections.
-
-Examples of Connection looks like following :
-
-Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #connections }
-
-##APIs
-
 @@@ note {title="Async-Await" }
 
 Note that the examples are using async/await which makes handling of promises more readable.
 
 @@@
 
-### list
-This API returns a list of Locations of components that are registered in the location service.
+Type definitions for all APIs can be found @extref[here.](ts-docs:interfaces/clients.locationservice.html)
 
-The following example shows how to call list API :
-
-Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list }
-
-### listByComponentType
-This API takes a component type as an argument and returns a list of Locations for that specific component type which are registered in the location service.
-
-The following examples shows various ways listByComponentType API can be called
+## Usages of Location Service
+### Listing & Filtering Locations
+Location service provides multiple ways to get list of locations registered in the TMT cluster.
 
 Typescript
 : @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-component-type }
 
-### listByConnectionType
-This API takes a connection type as an argument and returns a list of Locations for that specific connection type which are registered in the location service.
+Type Definitions for all flavours of listing apis are as follows:
 
-The following examples shows various ways listByConnectionType API can be called:
+- @extref:[list](ts-docs:interfaces/clients.locationservice.html#list)
+- @extref:[listByComponentType](ts-docs:interfaces/clients.locationservice.html#listByComponentType)
+- @extref:[listByConnectionType](ts-docs:interfaces/clients.locationservice.html#listByConnectionType)
+- @extref:[listByHostname](ts-docs:interfaces/clients.locationservice.html#listByHostname)
+- @extref:[listByPrefix](ts-docs:interfaces/clients.locationservice.html#listByPrefix)
 
-Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-connection-type }
+### Resolving Connection
 
-### listByHostname
-This API takes a hostname as an argument and returns a list of Locations registered with that host in the location service.
+There are two ways to get/fetch a location information of a connection:
 
-The following examples shows various ways listByHostname API can be called:
+1. Using resolve API
+2. Using find API
 
-Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-hostname }
 
-### listByPrefix
-This API takes a prefix of a component as an argument and returns a list of Locations registered with that prefix in the location service.
-
-The following example shows listByPrefix API can be called:
+Location service's `resolve` api uses @extref[Connection](ts-docs:modules/models.html#connection-1) a component to resolve the location within some timeout duration.
+However, `find` api does not wait to resolve location. if the location is not present, it returns `undefined`.
 
 Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #list-by-prefix }
+: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
 
-### find
-This API takes a type of Connection as an argument to be located and returns a Option of Location.
-
-The following example shows find API can be called:
-
-Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #find }
-
-### unregister
+### Unregister a Connection
 This is a secure API and takes a type of Connection as an input argument to be unregistered from the location service and returns Done once unregistered.
 
 The following example shows unregister API can be called:
@@ -125,16 +66,9 @@ The following example shows unregister API can be called:
 Typescript
 : @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #unregister }
 
-### resolve
-This API takes a type of Connection along with the timeout value(within), and the timeout unit(TimeUnit) as arguments to resolve connection, and it returns the Option of location.
-
-The following example shows resolve API can be called:
-
-Typescript
-: @@snip [Location-Service](../../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
-
-### track
-This API takes a type of Connection to be tracked, and the callback function for that connection which will be called when the connection's location is updated or removed.
+### Tracking Connection
+The lifecycle of a connection of interest can be followed using either the `track` API. The connection update events will be received by the callback provided to this api.
+This api returns a subscription which can be used to cancel the tracking subscription.
 
 The following example shows track API can be called:
 

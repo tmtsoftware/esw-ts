@@ -23,7 +23,7 @@
 
 ## Features
 
-- @ref:[AAS Javascript Adapter (aas)](../aas/csw-aas-js.md)
+- @ref:[AAS](../aas/csw-aas-js.md)
 
 - @ref:[Services](../services/index.md)
 

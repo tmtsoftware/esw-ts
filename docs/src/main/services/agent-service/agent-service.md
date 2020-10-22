@@ -1,6 +1,6 @@
 #Agent Service
 
-@extref:[Agent service](ts-docs:interfaces/clients.agentservice.html) provides HTTP interface to interact with all agent machines uniquely located using agent prefix.
+Agent service provides HTTP interface to interact with all agent machines uniquely located using agent prefix.
 APIs to spawn components takes agent prefix as parameter. Agent prefix is used to locate agent machine using location service.
 
 Agent service provides APIs to spawn sequence manager, sequence components and to kill spawned components.
@@ -19,26 +19,18 @@ Agent service provides APIs to spawn sequence manager, sequence components and t
 Typescript
 :   @@snip [Agent-Service](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #agent-service-creation }
 
-## APIs
-
 @@@ note {title="Async-Await" }
 
 Note that the examples are using async/await which makes handling of promises more readable.
 
 @@@
 
-Type definitions for all Agent Service API's can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html) :
+## Usages of Agent Service
 
-Type definitions for specific api can be found by following links:
-
-- @extref:[spawnSequenceManager](ts-docs:interfaces/clients.agentservice.html#spawnsequencemanager)
-- @extref:[spawnSequenceComponent](ts-docs:interfaces/clients.agentservice.html#spawnsequencecomponent)
-- @extref:[killComponent](ts-docs:interfaces/clients.agentservice.html#killcomponent)
-
-## Spawn Component
+Type definitions for All Agent Service APIs can be found  @extref:[here](ts-docs:interfaces/clients.agentservice.html)
 
 ### Spawning a Sequence Manager
-Agent Service requires agent(a component of type :`Machine`) to be able to process requests. once it locates an agent using location service with the help of @extref[agent prefix](ts-docs:classes/models.prefix.html), it sends a spawn sequence manager command to the agent machine.
+Agent Service requires agent(a component of type :`Machine`) to be able to process requests. once it locates an agent using location service with the help of agent prefix, it sends a spawn sequence manager command to the agent machine.
 The corresponding api call fails If the Sequence Manager is already running, or the underlying agent fails to spawn it.
 
 Typescript
@@ -54,7 +46,7 @@ Typescript
 :   @@snip [Agent-Service](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #spawnSeqeunceComponent }
 
 ## Kill Component
-Agent service kills any process running on the agent machine using the process id ([pid](https://www.computerhope.com/jargon/p/pid.htm)) of that component. it uses location service to find the process id from the metadata field of @extref:[location information](ts-docs:modules/models.html#location)
+Agent service kills any process running on the agent machine using the process id ([pid](https://www.computerhope.com/jargon/p/pid.htm)) of that component. it uses location service to find the process id from the metadata field of @extref:[location information.](ts-docs:modules/models.html#location)
 
 Typescript
 :   @@snip [Agent-Service](../../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #killcomponent }
