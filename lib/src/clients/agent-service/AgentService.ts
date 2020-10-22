@@ -16,11 +16,11 @@ export interface AgentService {
   /**
    * This API is used to spawn sequence manager if not spawned already and returns a promise of SpawnResponse.
    *
-   * @param agentPrefix The prefix of the agent machine where sequence manager needs to be spawned.
+   * @param agentPrefix       The prefix of the agent machine where sequence manager needs to be spawned.
    * @param obsModeConfigPath The path of the observation mode config path which should be present on agent machine or on config server.
-   * @param isConfigLocal Boolean value to know if config file is present on local(agent) machine.
-   * @param version The sequence manager version. @default [3.0.0-M1]
-   * @return SpawnResponse which can be either `Spawned` or `Failed` as Promise
+   * @param isConfigLocal     Boolean value to know if config file is present on local(agent) machine.
+   * @param version           The sequence manager version. @default [3.0.0-M1]
+   * @return                  SpawnResponse as Promise
    */
   spawnSequenceManager(
     agentPrefix: Prefix,
@@ -32,10 +32,10 @@ export interface AgentService {
   /**
    * This API is used to spawn sequence component on agent machine and returns a promise of SpawnResponse.
    *
-   * @param agentPrefix The prefix of the agent machine where sequence component needs to be spawned.
-   * @param componentName The name of the component.
-   * @param version The OCS App version. default value is '3.0.0-M1'
-   * @return SpawnResponse which can be either `Spawned` or `Failed` as Promise
+   * @param agentPrefix       The prefix of the agent machine where sequence component needs to be spawned.
+   * @param componentName     The name of the component.
+   * @param version           The OCS App version. default value is '3.0.0-M1'
+   * @return                  SpawnResponse as Promise
    */
   spawnSequenceComponent(
     agentPrefix: Prefix,
@@ -46,9 +46,8 @@ export interface AgentService {
   /**
    * This API is used to kill component present on any machine and returns a promise of KillResponse.
    *
-   * @param componentId of the component.
-   * @return KillResponse which can be either `Killed` or `Failed` as Promise
-   *
+   * @param componentId       Id of the component to be killed.
+   * @return                  KillResponse as Promise
    */
   killComponent(componentId: ComponentId): Promise<KillResponse>
 }

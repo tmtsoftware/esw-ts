@@ -13,13 +13,19 @@ export interface AlarmService {
   /**
    * This API is used to set the given AlarmSeverity of the alarms of the given alarm key.
    *
-   * @param alarmKey The AlarmKey of the Alarms.
-   * @param severity The AlarmSeverity to set into the Alarms.
-   * @return Done as Promise
+   * @param alarmKey    The AlarmKey for the subsystem's Component.
+   * @param severity    The AlarmSeverity to set into the Alarms.
+   * @return            Done as Promise
    */
   setSeverity(alarmKey: AlarmKey, severity: AlarmSeverity): Promise<Done>
 }
 
+/**
+ * Instantiate Alarm service.
+ *
+ * @return     AlarmService as Promise
+ * @constructor
+ */
 export const AlarmService = async (): Promise<AlarmService> => {
   const { host, port } = await resolveConnection(gatewayConnection)
   const url = getPostEndPoint({ host, port })

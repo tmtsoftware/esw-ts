@@ -17,16 +17,16 @@ export interface EventService {
   /**
    * Publishes an event
    *
-   * @param event the event to be published
-   * @return Done as Promise
+   * @param event       the event to be published
+   * @return            Done as Promise
    */
   publish(event: Event): Promise<Done>
 
   /**
    * Gets the list of event for the given set of event keys
    *
-   * @param eventKeys Set of event keys against which event are fetched.
-   * @return Event[] as Promise
+   * @param eventKeys   Set of event keys against which event are fetched.
+   * @return            Event[] as Promise
    */
   get(eventKeys: Set<EventKey>): Promise<Event[]>
 
@@ -36,9 +36,9 @@ export interface EventService {
    * It takes callback function which gets triggered when ever the events are received.
    * The latest events available for the given Event Keys will be received first.
    *
-   * @param eventKeys Set of event keys to be subscribed.
-   * @param maxFrequency the duration which determines the frequency with which events are received
-   * @param callback the function which gets triggered on receiving an event
+   * @param eventKeys     Set of event keys to be subscribed.
+   * @param maxFrequency  the duration which determines the frequency with which events are received
+   * @param callback      the function which gets triggered on receiving an event
    * @return Subscription
    */
   subscribe(
@@ -53,16 +53,16 @@ export interface EventService {
    * It takes callback function which gets triggered when ever the events are received.
    * The latest events available for the given Event Keys will be received first.
    *
-   * @param subsystem subscription to be made under the subsystem
-   * @param maxFrequency the duration which determines the frequency with which events are received
-   * @param pattern optional pattern to match against the event key.supported glob-style patterns
+   * @param subsystem       subscription to be made under the subsystem
+   * @param maxFrequency    the duration which determines the frequency with which events are received
+   * @param pattern         optional pattern to match against the event key.supported glob-style patterns
    *
    *                  - h?llo subscribes to hello, hallo and hxllo
    *                  - h*llo subscribes to hllo and heeeello
    *                  - h[ae]llo subscribes to hello and hallo, but not hillo
    *
-   * @param callback the function which gets triggered on receiving an event
-   * @return Subscription
+   * @param callback        the function which gets triggered on receiving an event
+   * @return                Subscription
    */
   pSubscribe(
     subsystem: Subsystem,

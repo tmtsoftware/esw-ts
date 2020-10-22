@@ -13,15 +13,21 @@ export interface LoggingService {
   /**
    * Writes the given message of the given level for the component
    *
-   * @param prefix the Prefix of the component
-   * @param level the log Level. Example - INFO, TRACE etc
-   * @param message the message to be logged
-   * @param metadata optional key-value pairs to be logged along with message
-   * @return Done as Promise value
+   * @param prefix        the Prefix of the component
+   * @param level         the log Level. Example - INFO, TRACE etc
+   * @param message       the message to be logged
+   * @param metadata      optional key-value pairs to be logged along with message
+   * @return              Done as Promise
    */
   log(prefix: Prefix, level: Level, message: string, metadata?: Record<string, any>): Promise<Done>
 }
 
+/**
+ * Instantiate logging service.
+ *
+ * @return                LoggingService as Promise
+ * @constructor
+ */
 export const LoggingService = async (): Promise<LoggingService> => {
   const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
