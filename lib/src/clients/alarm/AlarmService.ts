@@ -23,7 +23,7 @@ export interface AlarmService {
 /**
  * Instantiate Alarm service.
  *
- * @return     AlarmService as Promise
+ * @return              AlarmService as Promise
  * @constructor
  */
 export const AlarmService = async (): Promise<AlarmService> => {

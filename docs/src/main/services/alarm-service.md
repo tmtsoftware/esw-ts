@@ -1,6 +1,6 @@
 # Alarm Service
 
-This service provide a http interface to interact with alarm server.
+This service provides an HTTP interface to interact with alarm server.
 
 ## Creation of Alarm Service
 
@@ -23,10 +23,10 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Alarm Service
 
+Type Definitions of All Alarm Service APIs can be found @extref:[here](ts-docs:interfaces/clients.alarmservice.html)
+
 ### Setting alarm Severity
 Alarm service allows you to update the severity of alarms belonging to components.
-
-Type Definitions of setSeverity API can be found @extref:[here](ts-docs:interfaces/clients.alarmservice.html#setseverity)
 
 Typescript
 :   @@snip [Agent-Service](../../../../example/src/documentation/alarm/AlarmServiceExamples.ts) { #setseverity }
