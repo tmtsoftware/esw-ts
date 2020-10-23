@@ -18,6 +18,8 @@ A prefix can be constructed with a string, but must start with a valid subsystem
 A component developer should supply a valid prefix string and the subsystem will be automatically parsed from it.
 An example of a valid string prefix is "nfiraos.ncc.trombone".
 
+Type definition can be found @[here](ts-docs:classes/models.prefix.html)
+
 See below examples:
 
 Typescript
@@ -38,12 +40,16 @@ following arguments to create a `Setup` command.
  * ObsId: an optional observation id.
  * paramSet: Optional Set of Parameters. Default is empty.
 
+Type definition for ControlCommand can be found @extref[here](ts-docs:classes/models.setup.html)
+
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #setup }
 
 ## Observe Command
 
 This command describes a science observation. It is intended to only be sent to Science Detector Assemblies and Sequencers.
+
+Type definition for ControlCommand can be found @extref[here](ts-docs:classes/models.observe.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #observe }
@@ -52,6 +58,8 @@ Typescript
 ## Wait Command
 
 This command causes a Sequencer to wait until notified.  It can only be sent to Sequencers.
+
+Type definition for ControlCommand can be found @extref[here](ts-docs:classes/models.wait.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #wait }

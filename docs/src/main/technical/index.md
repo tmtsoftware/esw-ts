@@ -4,6 +4,7 @@
  - [Agent service](../services/agent-service.md)
  - [Sequence Manager service](../services/sequence-manager-service.md)
  - [AAS](csw-aas-js.md)
+ - [Service Contracts](../common/contract.md)
 
 @@@
 

@@ -1,6 +1,8 @@
 #Events
 Events are the most basic type of asynchronous notification in TMT when an activity occurs somewhere in the TMT system and other components need to be notified. Each type of event has a unique purpose and unique information, but they all share same structural features. All events have EventInfo and a ParameterSet.
 
+Type definition for Event can be found @extref[here](ts-docs:modules/models.html#event)
+
 ## EventTime
 Each event includes its time of creation in UTC format. You can access that eventTime as follows:
 

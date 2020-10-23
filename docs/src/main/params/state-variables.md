@@ -10,6 +10,7 @@ The PubSub feature of the HCD provides `CurrentState` values to the PubSub subsc
 
 A state variable that is published by a component that describes its internal state. Used by Assemblies to determine command completion in Command Service.
 
+Type definition for CurrentState can be found @extref[here](ts-docs:classes/models.currentstate.html)
 
 Typescript
 :   @@snip[state variable](../../../../example/src/documentation/params/StateVariableExample.ts) { #state-variable }

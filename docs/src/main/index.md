@@ -6,7 +6,6 @@
  - @ref:[Services](services/index.md)
  - @ref:[Params](params/index.md)
  - @ref:[AAS](aas/csw-aas-js.md)
- - @ref:[Service Contract](common/contract.md)
  - @ref:[Response handling](common/response-handling.md)
  - @ref:[Error handling](common/error-handling.md)
  - @ref:[Technical design documentation](technical/index.md)
