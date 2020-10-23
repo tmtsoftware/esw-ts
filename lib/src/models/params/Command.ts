@@ -4,13 +4,22 @@ import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 import type { Prefix } from './Prefix'
 
+/**
+ * @internal
+ */
 const SetupL = 'Setup'
+/**
+ * @internal
+ */
 const ObserveL = 'Observe'
+/**
+ * @internal
+ */
 const WaitL = 'Wait'
 /**
  * @internal
  */
-type CommandType = 'Setup' | 'Observe' | 'Wait'
+export type CommandType = typeof SetupL | typeof ObserveL | typeof WaitL
 
 /**
  * A common trait representing commands in TMT like Setup, Observe and Wait
