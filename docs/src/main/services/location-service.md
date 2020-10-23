@@ -39,10 +39,10 @@ Typescript
 Type Definitions for all flavours of listing APIs are as follows:
 
 - @extref:[list](ts-docs:interfaces/clients.locationservice.html#list)
-- @extref:[listByComponentType](ts-docs:interfaces/clients.locationservice.html#listByComponentType)
-- @extref:[listByConnectionType](ts-docs:interfaces/clients.locationservice.html#listByConnectionType)
-- @extref:[listByHostname](ts-docs:interfaces/clients.locationservice.html#listByHostname)
-- @extref:[listByPrefix](ts-docs:interfaces/clients.locationservice.html#listByPrefix)
+- @extref:[listByComponentType](ts-docs:interfaces/clients.locationservice.html#listbycomponenttype)
+- @extref:[listByConnectionType](ts-docs:interfaces/clients.locationservice.html#listbyconnectiontype)
+- @extref:[listByHostname](ts-docs:interfaces/clients.locationservice.html#listbyhostname)
+- @extref:[listByPrefix](ts-docs:interfaces/clients.locationservice.html#listbyprefix)
 
 ### Resolving Connection
 
