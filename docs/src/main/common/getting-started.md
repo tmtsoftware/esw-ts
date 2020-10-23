@@ -1,4 +1,4 @@
-##Getting Started
+## Getting Started
 `node` is mandatory to be installed on machine for using esw-ts.
 
 `esw-ts` library is available on npm registry.
@@ -13,7 +13,7 @@
 
   To install the latest version node. visit this node's official [website](https://nodejs.org/).
 
-  To install the latest version of esw-ts from npm
+  To install the latest version of ESW-TS from npm
 
     npm install @tmtsoftware/esw-ts
 

@@ -68,7 +68,7 @@ const dddd = async () => {
     console.log(event)
   }
 
-  // subscribe to all esw subsystem's event
+  // subscribe to all ESW subsystem's event
   const subscription: Subscription = eventService.pSubscribe(
     'ESW',
     10,

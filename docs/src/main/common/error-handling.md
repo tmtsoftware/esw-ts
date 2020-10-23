@@ -1,5 +1,5 @@
 
-#Error Handling
+# Error Handling
 
 Most of the errors received from backend will be contained a defined shape ( @extref:[Service error](ts-docs:classes/models.serviceerror.html)) that helps developer to build application based on the defined fields rather than depending on base browser's Error type.
 Service's api calls will be returning promise based results and network calls may go wrong for many reasons like server not found, some invalid configuration while setting up application, etc. all these cases are supposed to be handled at some places.

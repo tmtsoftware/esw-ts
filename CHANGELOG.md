@@ -1,6 +1,6 @@
-#Change log
+# Change log
 
-csw-aas-js is a javascript adapter to enable authentication and authorization. 
+csw-aas-js is a javascript adapter to enable authentication and authorization.
 This source code is in github repository: [csw-js](https://github.com/tmtsoftware/csw-js)
 Npm module published for csw-aas-js can be found [here](https://www.npmjs.com/package/csw-aas-js)
 
@@ -33,7 +33,7 @@ This is release candidate 1 of the csw-aas-js npm module version v1.1.0
 This version is compatible with `CSW` version v1.1.0-RC1
 
 ### Changes
-- JSON contracts for location service changed. 
+- JSON contracts for Location Service changed.
 Revised JSON contract can be found [here](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/csw/1.1.0-RC1/contracts/location-service)
 
 ### Version upgrades
@@ -54,12 +54,12 @@ This version is compatible with `CSW` version v1.0.0
 ### csw-aas-js - Typescript adapter for authentication and authorization v1.0.0-RC1
 This is release candidate of `First` major release of the csw-aas-js npm module version v1.0.0
 This version is compatible with `CSW` version v1.0.0-RC1
- 
+
 ## [CSW-AAS-JS v0.5.2] - 2019-06-24
 
 ### csw-aas-js - Typescript adapter for authentication and authorization v0.5.2
 
-This is first release of the csw-aas-js npm module version v0.5.2 
+This is first release of the csw-aas-js npm module version v0.5.2
 
 csw-aas-js is a library written in typescript. It provides react components which enable
 authentication and authorization for javascript react application.

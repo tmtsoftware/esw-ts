@@ -45,10 +45,10 @@ Step3: Run Example App
 
 #### Step1: Run required backend services
 
-Make sure you have following csw services up and running:
+Make sure you have following CSW services up and running:
 
   * Location Service
-  * AAS service
+  * AAS Service
   * Config Service
 
     Note: Simple way to start all these services is to run `csw-services.sh` script from `csw` github repository.
@@ -118,7 +118,7 @@ Login with appropriate user as listed below to access functionality of each tab.
 
 This module includes E2E test which demonstrate following flow which is all automated:
 
-1. Start Location, Config and AAS csw services
+1. Start Location, Config and AAS CSW services
 2. Build and Install `lib`
 3. Build and Start `config` example
 4. Create configuration file
@@ -130,7 +130,7 @@ To run this test, execute `sbt test` or `sbt integration-ui/test` command
 
 ### Generate paradox documentation
 
-To generate paradox documentation for the esw-ts, run the following command
+To generate paradox documentation for the ESW-TS, run the following command
 
   `sbt clean makeSite`
 

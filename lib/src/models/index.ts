@@ -1,7 +1,7 @@
 /**
  * == Params ==
  *
- * This module is intended to hold reusable models and params used throughout the esw-ts source code.
+ * This module is intended to hold reusable models and params used throughout the ESW-TS source code.
  *
  * This also provides out of the box support to cater to the diverse communication requirements.
  * Consumer of this library will be able to create Commands, Events, States to store ParameterSets.

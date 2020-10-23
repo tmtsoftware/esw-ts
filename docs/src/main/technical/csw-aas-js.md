@@ -11,7 +11,7 @@ Core implementation of csw-aas-js uses
 - [keycloak-js](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter) - keycloak javascript adapter
 - [React](https://reactjs.org/) - JavaScript library for building user interfaces
 - [Typescript](https://www.typescriptlang.org/) - Types superset of JavaScript which compiles to JavaScript
-- @extref[csw-location-service](csw:services/location) - resolve keycloak using location service http endpoint
+- @extref[csw-location-service](csw:services/location) - resolve keycloak using location service HTTP endpoint
 
 ## Project setup
 
@@ -34,8 +34,8 @@ Please refer to [keycloak documentation](https://www.keycloak.org/docs/latest/ge
 for details.
 
 - Create new Keycloak client instance
-This instantiation expects config which includes keycloak server url and some application
-specific config like `realm` and `clientId`. csw-aas-js uses csw location service to resolve keycloak server.
+This instantiation expects config which includes keycloak server URL and some application
+specific config like `realm` and `clientId`. csw-aas-js uses CSW Location Service to resolve keycloak server.
 
 Javascript
 :   @@snip [App-config](../../../../example/src/config/AppConfig.ts) { #app-config }
@@ -98,7 +98,7 @@ const SampleComponent = () => {
 };
 ```
 
-Following diagram explains javascript application flow for making request to secure http api
+Following diagram explains javascript application flow for making request to secure HTTP api
 
 ![javascript-app-flow](../assets/javascript-app-workflow.png)
 
@@ -108,4 +108,4 @@ This completes authentication process. Once authentication is done, `AuthContext
 make it available to consumers of AuthContext. Protected react components can be shown based on information in `AuthContext`.
 For example, CreateConfig component can be shown only to users having `config admin` role. After the user is authenticated
 the application can make requests to RESTful services secured by Keycloak by including the bearer token in the Authorization header.
-This completed workflow for web application calling secure http endpoint.
+This completed workflow for web application calling secure HTTP endpoint.

@@ -2,7 +2,7 @@
 # Javascript Adapter (csw-aas-js)
 
 `csw-aas-js` is an npm package which provides React components that integrate with the CSW
-Authentication and Authorization Service.  UI applications can use these React components to
+Authentication and Authorization Service. UI applications can use these React components to
 enable the application to show or hide components based on the authentication and authorization policy.
 `csw-aas-js` is written in typescript and it bundles transpiled es6 module along with type declarations.
 

@@ -20,7 +20,7 @@ STORY_REQUIREMENT_FILE_PATH="https://raw.githubusercontent.com/tmtsoftware/esw/m
 
 APP_NAME="rtm"
 
-# update story requirement mapping file from esw repo
+# update story requirement mapping file from ESW repo
 curl $STORY_REQUIREMENT_FILE_PATH > $STORY_REQUIREMENT_FILE
 
 "$COURSIER" launch --channel $APPS_PATH "$APP_NAME":$RTM_VERSION -- $TEST_STORY_FILE $STORY_REQUIREMENT_FILE $OUTPUT_PATH
