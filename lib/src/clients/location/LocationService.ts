@@ -19,21 +19,21 @@ export interface LocationService {
   /**
    * List the registered components in location service
    *
-   * @return                Location[] as Promise
+   * @return                    Location[] as Promise
    */
   list(): Promise<Location[]>
   /**
    * List the registered components based on this component type
    *
-   * @param componentType     list components of this componentType
-   * @return                  Location[] as Promise
+   * @param componentType       list components of this componentType
+   * @return                    Location[] as Promise
    */
   listByComponentType(componentType: ComponentType): Promise<Location[]>
   /**
    * List the registered components based on the hostname
    *
-   * @param hostname           list components of this hostname
-   * @return                   Location[] as Promise
+   * @param hostname            list components of this hostname
+   * @return                    Location[] as Promise
    */
   listByHostname(hostname: string): Promise<Location[]>
   /**

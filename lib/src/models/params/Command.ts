@@ -20,7 +20,10 @@ export interface Command<L> {
   readonly paramSet: Parameter<Key>[]
 }
 
-export type Constructor<L, T extends Command<L>> = new (
+/**
+ * @internal
+ */
+export type Constructor<L extends CommandType, T extends Command<L>> = new (
   source: Prefix,
   commandName: string,
   paramSet: Parameter<Key>[],
@@ -100,7 +103,10 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
     return new Observe(this.source, this.commandName, data, this.maybeObsId)
   }
 }
-
+/**
+ * Wait Command
+ * @class
+ */
 export class Wait extends ParameterSetType<Wait> implements Command<typeof WaitL> {
   readonly _type = WaitL
 

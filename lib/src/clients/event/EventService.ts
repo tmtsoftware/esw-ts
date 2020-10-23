@@ -57,9 +57,9 @@ export interface EventService {
    * @param maxFrequency    the duration which determines the frequency with which events are received
    * @param pattern         optional pattern to match against the event key.supported glob-style patterns
    *
-   *                  - h?llo subscribes to hello, hallo and hxllo
-   *                  - h*llo subscribes to hllo and heeeello
-   *                  - h[ae]llo subscribes to hello and hallo, but not hillo
+   *                        - h?llo subscribes to hello, hallo and hxllo
+   *                        - h*llo subscribes to hllo and heeeello
+   *                        - h[ae]llo subscribes to hello and hallo, but not hillo
    *
    * @param callback        the function which gets triggered on receiving an event
    * @return                Subscription

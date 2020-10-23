@@ -32,7 +32,7 @@ export interface AdminService {
 /**
  * Instantiate Admin service.
  *
- * @return     AdminService as Promise
+ * @return                AdminService as Promise
  * @constructor
  */
 export const AdminService = async (): Promise<AdminService> => {

@@ -140,44 +140,44 @@ export interface SequencerService {
   /**
    * sends command to the sequencer to go in Online state if it is in Offline state
    *
-   * @returns                      GoOnlineResponse as Promise
+   * @returns                     GoOnlineResponse as Promise
    */
   goOnline(): Promise<GoOnlineResponse>
 
   /**
    * sends command to the sequencer to go in Offline state if it is in Online state
    *
-   * @returns                       GoOfflineResponse as Promise
+   * @returns                     GoOfflineResponse as Promise
    */
   goOffline(): Promise<GoOfflineResponse>
 
   /**
    * Discards all the pending steps of the sequence and call the abort handler of the sequencer's script
    *
-   * @returns                       OkOrUnhandledResponse as Promise
+   * @returns                     OkOrUnhandledResponse as Promise
    */
   abortSequence(): Promise<OkOrUnhandledResponse>
 
   /**
    * Discards all the pending steps of the sequence and call the stop handler of the sequencer's script
    *
-   * @returns                       OkOrUnhandledResponse as Promise
+   * @returns                     OkOrUnhandledResponse as Promise
    */
   stop(): Promise<OkOrUnhandledResponse>
 
   /**
    * Sends command to the sequencer to call the diagnostic mode handler of the sequencer's script
    *
-   * @param startTime               time at which the diagnostic mode will take effect
-   * @param hint                    String to support diagnostic data mode
-   * @returns                       DiagnosticModeResponse as Promise
+   * @param startTime             time at which the diagnostic mode will take effect
+   * @param hint                  String to support diagnostic data mode
+   * @returns                     DiagnosticModeResponse as Promise
    */
   diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse>
 
   /**
    * Sends command to the sequencer to call the operations mode handler of the sequencer's script
    *
-   * @returns                       OperationsModeResponse as Promise
+   * @returns                     OperationsModeResponse as Promise
    */
   operationsMode(): Promise<OperationsModeResponse>
 
@@ -185,8 +185,8 @@ export interface SequencerService {
    * Submit the given sequence to the sequencer
    * and returns the immediate SubmitResponse.
    *
-   * @param sequence                sequence to run on the sequencer
-   * @return                        SubmitResponse as Promise
+   * @param sequence              sequence to run on the sequencer
+   * @return                      SubmitResponse as Promise
    */
   submit(sequence: SequenceCommand[]): Promise<SubmitResponse>
 
@@ -194,9 +194,9 @@ export interface SequencerService {
    * Submit the given sequence to the sequencer and waits until sequence execution completed
    * and returns the final SubmitResponse
    *
-   * @param sequence                sequence to run on the sequencer
-   * @param timeoutInSeconds        timeout within which result is expected.
-   * @return                        SubmitResponse as Promise
+   * @param sequence              sequence to run on the sequencer
+   * @param timeoutInSeconds      timeout within which result is expected.
+   * @return                      SubmitResponse as Promise
    */
   submitAndWait(sequence: SequenceCommand[], timeoutInSeconds: number): Promise<SubmitResponse>
 
@@ -204,8 +204,8 @@ export interface SequencerService {
    * Queries the response of sequence of the given runId
    * and returns the immediate SubmitResponse
    *
-   * @param runId                   runId of the sequence
-   * @return                        SubmitResponse as Promise
+   * @param runId                 runId of the sequence
+   * @return                      SubmitResponse as Promise
    */
   query(runId: string): Promise<SubmitResponse>
 
@@ -215,9 +215,9 @@ export interface SequencerService {
    * and returns the final SubmitResponse
    * If sequence is not finished it waits till the given timeout
    *
-   * @param runId               runId of the sequence
-   * @param timeoutInSeconds    timeout within which result is expected.
-   * @return                    SubmitResponse as Promise
+   * @param runId                 runId of the sequence
+   * @param timeoutInSeconds      timeout within which result is expected.
+   * @return                      SubmitResponse as Promise
    */
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 }
@@ -225,9 +225,9 @@ export interface SequencerService {
 /**
  * Instantiate SequencerService to enable interaction with the sequencer
  *
- * @param componentId         component id for which sequencer service is to be instantiated.
- * @param tokenFactory        a function that returns a valid token which has correct access roles and permissions for the specified componentId.
- * @return                    SequenceManagerService as Promise
+ * @param componentId             component id for which sequencer service is to be instantiated.
+ * @param tokenFactory            a function that returns a valid token which has correct access roles and permissions for the specified componentId.
+ * @return                        SequenceManagerService as Promise
  * @constructor
  */
 export const SequencerService = async (
