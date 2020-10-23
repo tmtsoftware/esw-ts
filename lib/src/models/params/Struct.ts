@@ -15,6 +15,7 @@ export class Struct extends ParameterSetType<Struct> {
   constructor(readonly paramSet: Parameter<Key>[] = []) {
     super()
   }
+
   /**
    * Create a new Struct instance when a parameter is added or removed
    *

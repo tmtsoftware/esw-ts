@@ -1,5 +1,6 @@
 import type { Prefix } from '../../../models'
 import { requirement } from '../../../utils/Utils'
+
 /**
  * @category Sequence Manager Service
  */
@@ -11,6 +12,7 @@ export class AgentProvisionConfig {
     )
   }
 }
+
 /**
  * @category Sequence Manager Service
  */

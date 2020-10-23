@@ -1,4 +1,5 @@
 import type { SequenceCommand } from '../../../models'
+
 /**
  * @category Sequencer Service
  */
@@ -8,6 +9,7 @@ export interface Step {
   readonly status: StepStatus
   readonly hasBreakpoint: boolean
 }
+
 /**
  * @category Sequencer Service
  */

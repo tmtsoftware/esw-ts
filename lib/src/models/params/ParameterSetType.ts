@@ -13,6 +13,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   abstract readonly paramSet: Parameter<Key>[]
 
   abstract create(data: Parameter<Key>[]): T
+
   /**
    * The number of parameters in this parameter set
    *
@@ -21,6 +22,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   size(): number {
     return this.paramSet.length
   }
+
   /**
    * Adds a parameter to the parameter set
    *
@@ -31,6 +33,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   add<P extends Parameter<Key>>(parameter: P): T {
     return this.doAdd(this, parameter)
   }
+
   /**
    * Adds several parameters to the parameter set
    *
@@ -42,6 +45,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   madd<P extends Parameter<Key>>(parametersToAdd: P[]): T {
     return parametersToAdd.reduce<ParameterSetType<T>>(this.doAdd.bind(this), this) as T
   }
+
   /**
    * Returns an Option with the parameter for the key if found, otherwise undefined
    *
@@ -54,6 +58,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
       (param) => param.keyName == key.keyName && param.keyTag == key.keyTag
     ) as Option<Parameter<S>>
   }
+
   /**
    * Returns true if the key exists in the parameter set
    *
@@ -64,6 +69,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
   exists<S extends Key>(key: BaseKey<S>): boolean {
     return this.get(key) !== undefined
   }
+
   /**
    * Remove a parameter from the parameter set by key
    *

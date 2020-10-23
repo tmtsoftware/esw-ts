@@ -1,4 +1,5 @@
 import type { Connection } from './Connection'
+
 /**
  * Represents a live Akka connection of a component
  * @category Location Service

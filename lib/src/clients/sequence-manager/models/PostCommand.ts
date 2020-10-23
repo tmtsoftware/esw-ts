@@ -4,11 +4,13 @@ import type { ProvisionConfig } from './ProvisionConfig'
 
 export class Configure {
   readonly _type: 'Configure' = 'Configure'
+
   constructor(readonly obsMode: ObsMode) {}
 }
 
 export class Provision {
   readonly _type: 'Provision' = 'Provision'
+
   constructor(readonly config: ProvisionConfig) {}
 }
 
@@ -18,26 +20,31 @@ export class GetRunningObsModes {
 
 export class StartSequencer {
   readonly _type: 'StartSequencer' = 'StartSequencer'
+
   constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
 }
 
 export class RestartSequencer {
   readonly _type: 'RestartSequencer' = 'RestartSequencer'
+
   constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
 }
 
 export class ShutdownSequencer {
   readonly _type: 'ShutdownSequencer' = 'ShutdownSequencer'
+
   constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
 }
 
 export class ShutdownSubsystemSequencers {
   readonly _type: 'ShutdownSubsystemSequencers' = 'ShutdownSubsystemSequencers'
+
   constructor(readonly subsystem: Subsystem) {}
 }
 
 export class ShutdownObsModeSequencers {
   readonly _type: 'ShutdownObsModeSequencers' = 'ShutdownObsModeSequencers'
+
   constructor(readonly obsMode: ObsMode) {}
 }
 
@@ -47,6 +54,7 @@ export class ShutdownAllSequencers {
 
 export class ShutdownSequenceComponent {
   readonly _type: 'ShutdownSequenceComponent' = 'ShutdownSequenceComponent'
+
   constructor(readonly prefix: Prefix) {}
 }
 

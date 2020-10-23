@@ -16,7 +16,6 @@ import type { TrackingEvent } from './models/TrackingEvent'
  *  @category Service
  */
 export interface LocationService {
-
   /**
    * List the registered components in location service.
    *

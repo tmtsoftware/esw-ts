@@ -41,6 +41,7 @@ export class Prefix {
   constructor(readonly subsystem: Subsystem, readonly componentName: string) {
     validateComponentName(componentName)
   }
+
   /**
    * Creates a Prefix based on the given value of format tcs.filter.wheel and splits it to have tcs as `subsystem` and filter.wheel
    * as `componentName`

@@ -1,6 +1,7 @@
 import type { Key } from './Key'
 import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
+
 /**
  * A result containing parameters for command response
  * @category Params
@@ -13,6 +14,7 @@ export class Result extends ParameterSetType<Result> {
   constructor(readonly paramSet: Parameter<Key>[] = []) {
     super()
   }
+
   /**
    * Create a new Result instance when a parameter is added or removed
    *

@@ -3,6 +3,7 @@ import type { Prefix } from '../../../models'
 
 export class SpawnSequenceComponent {
   readonly _type: 'SpawnSequenceComponent' = 'SpawnSequenceComponent'
+
   constructor(
     readonly agentPrefix: Prefix,
     readonly componentName: string,
@@ -12,6 +13,7 @@ export class SpawnSequenceComponent {
 
 export class SpawnSequenceManager {
   readonly _type: 'SpawnSequenceManager' = 'SpawnSequenceManager'
+
   constructor(
     readonly agentPrefix: Prefix,
     readonly obsModeConfigPath: string,
@@ -22,6 +24,7 @@ export class SpawnSequenceManager {
 
 export class KillComponent {
   readonly _type: 'KillComponent' = 'KillComponent'
+
   constructor(readonly componentId: ComponentId) {}
 }
 

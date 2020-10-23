@@ -1,4 +1,4 @@
-import type { TokenFactory, Option } from '../..'
+import type { Option, TokenFactory } from '../..'
 
 import { configConnection, resolveConnection } from '../../config/Connections'
 import { ConfigServiceImpl } from './ConfigServiceImpl'
@@ -21,6 +21,7 @@ export interface ConfigService {
    * @return            ConfigId as Promise
    */
   create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<M.ConfigId>
+
   /**
    * Updates the file content at a specified path with given data and comment.
    *
@@ -30,6 +31,7 @@ export interface ConfigService {
    * @return            ConfigId as Promise
    */
   update(path: string, configData: ConfigData, comment: string): Promise<M.ConfigId>
+
   /**
    * Gets and returns the content of active version of the file stored under the given path.
    *
@@ -37,6 +39,7 @@ export interface ConfigService {
    * @return            Option<ConfigData> as Promise
    */
   getActive(path: string): Promise<Option<ConfigData>>
+
   /**
    * Gets and returns the content of latest version of the file stored under the given path.
    *
@@ -44,6 +47,7 @@ export interface ConfigService {
    * @return            Option<ConfigData> as Promise
    */
   getLatest(path: string): Promise<Option<ConfigData>>
+
   /**
    * Gets and returns the file at the given path with the specified revision id.
    *
@@ -52,6 +56,7 @@ export interface ConfigService {
    * @return            Option<ConfigData> as Promise
    */
   getById(path: string, configId: M.ConfigId): Promise<Option<ConfigData>>
+
   /**
    * Gets the file at the given path as it existed on the given instant.
    * If instant is before the file was created, the initial version is returned.
@@ -62,6 +67,7 @@ export interface ConfigService {
    * @return            Option<ConfigData> as Promise
    */
   getByTime(path: string, time: Date): Promise<Option<ConfigData>>
+
   /**
    * Returns true if the given path exists and is being managed
    *
@@ -70,6 +76,7 @@ export interface ConfigService {
    * @return            boolean as Promise
    */
   exists(path: string, id?: M.ConfigId): Promise<boolean>
+
   /**
    * Deletes the given config file (older versions will still be available)
    *
@@ -77,6 +84,7 @@ export interface ConfigService {
    * @param comment     comment to associate with this operation
    */
   delete(path: string, comment: string): Promise<void>
+
   /**
    * Returns a list containing all of the known config files of given type(Annex or Normal) and whose name matches the provided pattern
    *
@@ -85,6 +93,7 @@ export interface ConfigService {
    * @return            ConfigFileInfo[] as Promise
    */
   list(fileType?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]>
+
   /**
    * Returns the history of versions of the file at the given path for a range of period specified by `from` and `to`.
    * The size of the list is limited upto `maxResults`.
@@ -96,6 +105,7 @@ export interface ConfigService {
    * @return            ConfigFileRevision[] as Promise
    */
   history(path: string, from: Date, to: Date, maxResults: number): Promise<M.ConfigFileRevision[]>
+
   /**
    * Returns the history of active versions of the file at the given path for a range of period specified by `from` and `to`.
    * The size of the list is limited upto `maxResults`.
@@ -112,6 +122,7 @@ export interface ConfigService {
     to: Date,
     maxResults: number
   ): Promise<M.ConfigFileRevision[]>
+
   /**
    * Sets the active version to be the version provided for the file at the given path.
    * If this method is not called, the active version will always be the version with which the file was created
@@ -123,6 +134,7 @@ export interface ConfigService {
    * @param comment     comment to associate with this operation
    */
   setActiveVersion(path: string, id: M.ConfigId, comment: string): Promise<void>
+
   /**
    * Resets the "active version" of the file at the given path to the latest version.
    *
@@ -130,6 +142,7 @@ export interface ConfigService {
    * @param comment     comment to associate with this operation
    */
   resetActiveVersion(path: string, comment: string): Promise<void>
+
   /**
    * Returns the content of active version of the file at the given path as it existed on the given instant
    *
@@ -138,6 +151,7 @@ export interface ConfigService {
    * @return            Option<ConfigId> as Promise
    */
   getActiveByTime(path: string, time: Date): Promise<Option<ConfigData>>
+
   /**
    * Returns the version which represents the "active version" of the file at the given path.
    *
@@ -145,6 +159,7 @@ export interface ConfigService {
    * @return            Option<ConfigId> as Promise
    */
   getActiveVersion(path: string): Promise<Option<M.ConfigId>>
+
   /**
    * Query the metadata of config server
    *

@@ -2,7 +2,7 @@ import type { Done } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { AlarmService } from './AlarmService'
-import type { AlarmSeverity, AlarmKey } from './models/AlarmModels'
+import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 import { SetAlarmSeverity } from './models/PostCommand'
 
 export class AlarmServiceImpl implements AlarmService {

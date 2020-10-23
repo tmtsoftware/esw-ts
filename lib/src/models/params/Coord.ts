@@ -81,6 +81,7 @@ export class MinorPlanetCoord {
 
 export class SolarSystemCoord {
   readonly _type: 'SolarSystemCoord' = 'SolarSystemCoord'
+
   constructor(readonly tag: Tag, readonly body: SolarSystemObject) {}
 }
 

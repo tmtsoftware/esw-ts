@@ -121,6 +121,7 @@ export interface SequenceManagerService {
    */
   getAgentStatus(): Promise<AgentStatusResponse>
 }
+
 /**
  * Instantiate SequenceManagerService to enable interaction with the sequencer
  *

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TMTAuth, Auth } from '../../../clients/aas'
+import { Auth, TMTAuth } from '../../../clients/aas'
 import { Provider } from './AuthContext'
 
 export interface AuthContextConfig {
@@ -13,6 +13,7 @@ export interface AuthContextProps {
   config: AuthContextConfig
   children: React.ReactNode
 }
+
 // TODO Add unit tests
 /**
  * React component which is wrapper over provider of react context api.

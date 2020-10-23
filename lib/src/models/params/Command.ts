@@ -11,6 +11,7 @@ const WaitL = 'Wait'
  * @internal
  */
 type CommandType = 'Setup' | 'Observe' | 'Wait'
+
 /**
  * A common trait representing commands in TMT like Setup, Observe and Wait
  * @tparam L CommandType
@@ -108,6 +109,7 @@ export class Observe extends ParameterSetType<Observe> implements Command<typeof
     return new Observe(this.source, this.commandName, data, this.maybeObsId)
   }
 }
+
 /**
  * Wait Command
  * @class

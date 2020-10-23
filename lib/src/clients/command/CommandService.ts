@@ -27,6 +27,7 @@ export interface CommandService {
    * @return                  ValidateResponse as Promise
    */
   validate(command: ControlCommand): Promise<ValidateResponse>
+
   /**
    * Submit a command to a component which returns a promise of SubmitResponse.
    *
@@ -34,6 +35,7 @@ export interface CommandService {
    * @return                  SubmitResponse as Promise
    */
   submit(command: ControlCommand): Promise<SubmitResponse>
+
   /**
    * Submit a oneway command to a component which returns a promise of OnewayResponse.
    * This api is used when completion is provided through CurrentState or status values and eventService.
@@ -42,6 +44,7 @@ export interface CommandService {
    * @return                  OnewayResponse as Promise
    */
   oneway(command: ControlCommand): Promise<OnewayResponse>
+
   /**
    * This api is used to get the result of a long running command which was submitted and returns a promise of SubmitResponse.
    *
@@ -49,6 +52,7 @@ export interface CommandService {
    * @return                  SubmitResponse as Promise
    */
   query(runId: string): Promise<SubmitResponse>
+
   /**
    * This api is used to get the final result of a long running command which was submitted and returns a promise of SubmitResponse.
    *
@@ -57,6 +61,7 @@ export interface CommandService {
    * @return                  SubmitResponse as Promise
    */
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
+
   /**
    * Subscribe to the current state of a component corresponding to the AkkaLocation of the component
    *
@@ -67,6 +72,7 @@ export interface CommandService {
   subscribeCurrentState(
     stateNames: Set<string>
   ): (onStateChange: (state: CurrentState) => void) => Subscription
+
   /**
    * Submit a single command and wait for the result of the submitted command
    *
@@ -75,6 +81,7 @@ export interface CommandService {
    * @return                  SubmitResponse as Promise
    */
   submitAndWait(command: ControlCommand, timeoutInSeconds: number): Promise<SubmitResponse>
+
   /**
    * Submit multiple commands and wait for the result of the all submitted commands
    *

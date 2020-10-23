@@ -2,6 +2,7 @@ export class HeaderExt extends Headers {
   constructor(values?: HeadersInit) {
     super(values)
   }
+
   //TODO add tests for the helper methods
   withHeader(headerName: string, value: string) {
     super.set(headerName, value)

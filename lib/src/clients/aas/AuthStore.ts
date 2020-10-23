@@ -36,6 +36,7 @@ class AuthStore {
         throw new Error('Failed to refresh the token, or the session has expired')
       })
   }
+
   /**
    * Responsible for instantiating keycloak using provided config and authentication. It also creates hooks for refreshing token when
    * token is expired which silently refresh token resulting seamless user experience once logged in

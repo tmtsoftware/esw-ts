@@ -1,5 +1,6 @@
 import type { Prefix } from '../../../models'
 import type { EventName } from './EventName'
+
 /**
  * @category Event Service
  */

@@ -5,6 +5,7 @@ export interface CheckLoginProps {
   children: React.ReactNode
   error: React.ReactNode
 }
+
 /**
  * React component which renders children if authenticated and error if unauthenticated
  * @param children (optional prop) can be react components or html element which will be rendered

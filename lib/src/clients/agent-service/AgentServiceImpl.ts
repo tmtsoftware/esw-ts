@@ -1,6 +1,6 @@
 import type { KillResponse, SpawnResponse } from '.'
 import { KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
-import type { Prefix, ComponentId } from '../../models'
+import type { ComponentId, Prefix } from '../../models'
 
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { AgentService } from './AgentService'

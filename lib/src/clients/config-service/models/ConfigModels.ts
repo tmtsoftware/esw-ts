@@ -8,6 +8,7 @@ export class ConfigId {
     return this.id
   }
 }
+
 /**
  * @category Config Service
  */

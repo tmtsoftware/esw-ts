@@ -28,6 +28,7 @@ export type AppConfig = {
 export type AppConfigModule = {
   AppConfig: AppConfig
 }
+
 /**
  * Subscription is received generally after making WebSocket Stream Request
  * @interface

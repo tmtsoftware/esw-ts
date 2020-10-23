@@ -20,6 +20,7 @@ export class CurrentState extends ParameterSetType<CurrentState> {
   ) {
     super()
   }
+
   /**
    * Create a new CurrentState instance when a parameter is added or removed
    *

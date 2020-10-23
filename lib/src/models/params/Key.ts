@@ -1,12 +1,12 @@
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import type {
-  EqCoord,
-  Coord,
-  RaDec,
   AltAzCoord,
   CometCoord,
+  Coord,
+  EqCoord,
   MinorPlanetCoord,
+  RaDec,
   SolarSystemCoord
 } from './Coord'
 import type { Struct } from './Struct'

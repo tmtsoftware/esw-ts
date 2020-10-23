@@ -9,6 +9,7 @@ import type { SequenceManagerService } from './SequenceManagerService'
 
 export class SequenceManagerImpl implements SequenceManagerService {
   constructor(private readonly httpTransport: HttpTransport<Req.SequenceManagerPostRequest>) {}
+
   configure(obsMode: ObsMode): Promise<T.ConfigureResponse> {
     return this.httpTransport.requestRes(new Req.Configure(obsMode), Res.ConfigureResponseD)
   }
