@@ -34,7 +34,7 @@ For ex: when a user submits a setup command for a component using command servic
 
 user may want to create explicit log entry based on success or failure scenario.
 
-Type definition can be found - @extref:[here.](ts-docs:interfaces/clients.loggingservice.html#log)
+Type definition can be found - @extref:[here](ts-docs:interfaces/clients.loggingservice.html#log).
 
 Typescript
 :   @@snip [LoggingService](../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logentry }
