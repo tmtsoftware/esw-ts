@@ -7,13 +7,18 @@ import type { Prefix } from './Prefix'
 const SetupL = 'Setup'
 const ObserveL = 'Observe'
 const WaitL = 'Wait'
-
+/**
+ * @internal
+ */
+type CommandType = 'Setup' | 'Observe' | 'Wait'
 /**
  * A common trait representing commands in TMT like Setup, Observe and Wait
+ * @tparam L CommandType
  * @interface
+ * @internal
  */
-export interface Command<L> {
-  readonly _type: L
+export interface Command<CommandType> {
+  readonly _type: CommandType
   readonly source: Prefix
   readonly commandName: string
   readonly maybeObsId: Option<string>
