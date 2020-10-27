@@ -1,11 +1,7 @@
 
 # Error Handling
 
-Most of the errors received from backend will be contained a defined shape ( @extref:[Service error](ts-docs:classes/models.serviceerror.html)) that helps developer to build application based on the defined fields rather than depending on base browser's Error type.
-Service's api calls will be returning promise based results and network calls may go wrong for many reasons like server not found, some invalid configuration while setting up application, etc. all these cases are supposed to be handled at some places.
-For ex: some errors can be silently logged and redirect user to error page.
-At application level, error/exceptions must be handled in application code because that will help user to make further decisions.
-In TMT Arhcitecture, @extref:[Service error](ts-docs:classes/models.serviceerror.html) captures all/most of the application level errors/exceptions.
+Errors/Exceptions must be handled in application code because that will help user to make further decisions for controlled user interactions with the UI.
 
 To read more on exception handling, refer this [document](https://www.sitepoint.com/exceptional-exception-handling-in-javascript/) which gives detailed explanation.
 
@@ -13,15 +9,42 @@ To read more on exception handling, refer this [document](https://www.sitepoint.
 
 ### Service Error
 
-    TODO explaination
+In TMT Architecture, @extref:[Service error](ts-docs:classes/models.serviceerror.html) captures all/most of the Service/Network level errors/exceptions.
+A runtime error which gets thrown **after** making Service's API and gets caught in the Service call's scaffolding snippet falls into this category.
 
- Type defination for Service Error @extref:[here](ts-docs:classes/models.serviceerror.html)
+For example:
+
+When using CommandService to submit a command for a non-existing component  will result into `LocationNotFound`.
+
+LocationNotFoundException is a Service Error, and it would contain following fields :
+
+- **errorType**: LocationNotFound,
+- **message**: 'Could not resolve location matching connection: $non_existent_component_connection',
+- **status**: 500,
+- **statusText**: Internal Server error
+
+Type definition for Service Error can be found @extref:[here](ts-docs:classes/models.serviceerror.html)
 
 ### Client Side Error
 
-    TODO explaination
+Any runtime error which gets thrown **before** making Service's API call falls into this category. Errors/ Exception caught at validation or at data creation time will be thrown before making api calls.
+When creating a domain object which has validations for sending it as a payload will throw a runtime exception while performing validations check, and those are not met.
 
-## Handling Error pattern
+For Example:
+@extref:[Prefix](ts-docs:classes/models.prefix.html) has a validation that it cannot have `-` or space in the componentName field.
+
+Following snippet will result into runtime error :
+it is a native browser's Error object with the message field and stacktrace. `message` field will contain the reason for which the validation failed.
+
+Typescript
+:   @@snip [Response](../../../../example/src/documentation/common/ErrorHandlingExample.ts) { #client-side-error }
+
+For the given case it will have the following information.
+
+message: `Requirement failed - component name filter-wheel has '-'`
+
+
+## Error Handling pattern
 
 The following examples shows how to call AgentService api's and handle the response `SpawnResponse` and `KillResponse`.
 
@@ -35,10 +58,10 @@ This example will be updated once we have frontend framework setup in place.
 A function whose responsibility is to handle errors & exceptions
 
 Typescript
-:   @@snip [Response](../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #handle-error }
+:   @@snip [Response](../../../../example/src/documentation/common/ErrorHandlingExample.ts) { #handle-error }
 
 Example for spawnSequenceManager api with error handling looks like following:
 
 Typescript
-:   @@snip [Response](../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #response-handling-spawn }
+:   @@snip [Response](../../../../example/src/documentation/common/ErrorHandlingExample.ts) { #response-handling-spawn }
 
