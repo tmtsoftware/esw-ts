@@ -1,6 +1,6 @@
-# Type Definations
+# Type Definitions
 
-Type definations for following can be found by their corresponding links:
+Type definitions for following can be found by their corresponding links:
 
 - @extref:[All Services](ts-docs:modules/clients.html)
 - @extref:[React Components](ts-docs:modules/components.html)
