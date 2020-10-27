@@ -1,32 +1,25 @@
 ## Getting Started
-`node` is mandatory to be installed on machine for using esw-ts.
 
-`esw-ts` library is available on npm registry.
-
- It is recommended to use giter8 template [`esw-ui-template.g8`](https://github.com/tmtsoftware/esw-ui-template.g8)  to get started with building web application.
-
- `esw-ts` comes pre-packaged as a dependency in the template. You can skip the installation step and make use of the services directly in the application. [Jump to library features](#features)
-
-
+In this tutorial, you’ll see how to create a UI starter project using a [giter8](http://www.foundweekends.org/giter8/)
+template which uses ESW-TS library. You can use this as a starting point for your own UI applications.
 
 ### Installation
 
-  To install the latest version node. visit this node's official [website](https://nodejs.org/).
+`node` is mandatory to be installed on a machine for using ESW-TS. To install the latest version of node, visit the
+official [website](https://nodejs.org/).
 
-  To install the latest version of ESW-TS from npm
+## Create starter project
 
-    npm install @tmtsoftware/esw-ts
+It is recommended to use Giter8 template [esw-ui-template.g8](https://github.com/tmtsoftware/esw-ui-template.g8)
+to get started with building web application. `ESW-TS` comes pre-packaged as a dependency in the template.
 
-  To install a specific version
+If you already have a UI application and want to add ESW-TS dependency, then
 
-    npm install @tmtsoftware/esw-ts@{version}
+To install the latest version of ESW-TS from npm
 
-## Features
+`npm install @tmtsoftware/esw-ts`
 
-- @ref:[AAS](../aas/csw-aas-js.md)
+Or, to install a specific version
 
-- @ref:[Services](../services/index.md)
+`npm install @tmtsoftware/esw-ts@{version}`
 
-- @ref:[Params](../params/index.md)
-
-- @extref:[Type definations](ts-docs:globals.html)

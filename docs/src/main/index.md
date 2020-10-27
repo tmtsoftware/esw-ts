@@ -3,6 +3,7 @@
 ## ESW-TS
 
 Javascript/Typescript library for building web applications inside TMT observatory.
+`ESW-TS` library is available on npm registry.
 
 ## Motivation behind ESW-TS
 
