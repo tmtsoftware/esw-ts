@@ -3,10 +3,10 @@
 In this tutorial, you’ll see how to create a UI starter project using a [giter8](http://www.foundweekends.org/giter8/)
 template which uses ESW-TS library. You can use this as a starting point for your own UI applications.
 
-### Installation
+## Installation
 
 `node` is mandatory to be installed on a machine for using ESW-TS. To install the latest version of node, visit the
-official [website](https://nodejs.org/).
+[official website](https://nodejs.org/).
 
 ## Create starter project
 
