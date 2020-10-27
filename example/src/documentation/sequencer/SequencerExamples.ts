@@ -47,11 +47,16 @@ const sequence = [setupCommand1, observeCommand1]
 const okOrUnhandledResponse: OkOrUnhandledResponse = await sequencerService.loadSequence(
   sequence
 )
-//#loadSequence
+const initialResponse: SubmitResponse = await sequencerService.startSequence()
 
-//#startSequence
-const startSequenceRes: SubmitResponse = await sequencerService.startSequence()
-//#startSequence
+const queryResponse: SubmitResponse = await sequencerService.query(
+  initialResponse.runId
+)
+const queryFinalResponse: SubmitResponse = await sequencerService.queryFinal(
+  initialResponse.runId,
+  5
+)
+//#loadSequence
 
 //#add
 const addResponse: OkOrUnhandledResponse = await sequencerService.add([
@@ -151,7 +156,14 @@ const operationsModeResponse: OperationsModeResponse = await sequencerService.op
 //#operationsMode
 
 //#submit
-const submitResponse: SubmitResponse = await sequencerService.submit(sequence)
+const initialRes: SubmitResponse = await sequencerService.submit(sequence)
+
+const queryRes: SubmitResponse = await sequencerService.query(initialRes.runId)
+
+const queryFinalRes: SubmitResponse = await sequencerService.queryFinal(
+  'd99b6cf6-553c-49e9-9089-aaa494f116e9',
+  10
+)
 //#submit
 
 //#submitAndWait
@@ -160,16 +172,3 @@ const submitAndWaitResponse: SubmitResponse = await sequencerService.submitAndWa
   10
 )
 //#submitAndWait
-
-//#query
-const queryResponse: SubmitResponse = await sequencerService.query(
-  'd99b6cf6-553c-49e9-9089-aaa494f116e9'
-)
-//#query
-
-//#queryFinal
-const queryFinalResponse: SubmitResponse = await sequencerService.queryFinal(
-  'd99b6cf6-553c-49e9-9089-aaa494f116e9',
-  10
-)
-//#queryFinal
