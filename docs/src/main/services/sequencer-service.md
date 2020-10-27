@@ -254,7 +254,7 @@ Otherwise, a `OperationsHookFailed` gets returned.
 Typescript
 : @@snip [operationsMode](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #operationsMode }
 
-## Submitting Sequence to a Sequencer
+###Submitting Sequence to a Sequencer
 
 To submit a Sequence to a Sequencer, `SequencerCommandService` provides a `submit` API which takes a Sequence and returns a
 `Promise<SubmitResponse>`.
