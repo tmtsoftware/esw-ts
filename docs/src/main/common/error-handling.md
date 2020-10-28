@@ -9,26 +9,25 @@ To read more on exception handling, refer this [document](https://www.sitepoint.
 
 ### Service Error
 
-In TMT Architecture, @extref:[Service error](ts-docs:classes/models.serviceerror.html) captures all/most of the Service/Network level errors/exceptions.
+In TMT Architecture, @extref:[Service error](ts-docs:classes/models.serviceerror.html) captures all/most of the Service/Network level errors and exceptions.
 A runtime error which gets thrown **after** making Service's API and gets caught in the Service call's scaffolding snippet falls into this category.
 
 For example:
 
-When using CommandService to submit a command for a non-existing component  will result into `LocationNotFound`.
+Using `CommandService` to submit a command for a non-existing component will result into `LocationNotFound`.
 
-LocationNotFoundException is a Service Error, and it would contain following fields :
+`LocationNotFoundException` is a Service Error, and it would contain following fields:
 
-- **errorType**: LocationNotFound,
-- **message**: 'Could not resolve location matching connection: $non_existent_component_connection',
-- **status**: 500,
+- **errorType**: LocationNotFound
+- **message**: 'Could not resolve location matching connection: $non_existent_component_connection'
+- **status**: 500
 - **statusText**: Internal Server error
 
 Type definition for Service Error can be found @extref:[here](ts-docs:classes/models.serviceerror.html)
 
 ### Client Side Error
 
-Any runtime error which gets thrown **before** making Service's API call falls into this category. Errors/ Exception caught at validation or at data creation time will be thrown before making api calls.
-When creating a domain object which has validations for sending it as a payload will throw a runtime exception while performing validations check, and those are not met.
+Any runtime error which gets thrown **before** making Service's API call falls into this category. The Errors and Exception caught at validation or at data creation time will be thrown before making API calls.
 
 For Example:
 @extref:[Prefix](ts-docs:classes/models.prefix.html) has a validation that it cannot have `-` or space in the componentName field.
@@ -46,21 +45,21 @@ message: `Requirement failed - component name filter-wheel has '-'`
 
 ## Error Handling pattern
 
-The following examples shows how to call AgentService api's and handle the response `SpawnResponse` and `KillResponse`.
+The following examples shows how to call Agent Service methods and handle the response `SpawnResponse` and `KillResponse`.
 
-This example also illustrates error handling of service specific exception `AgentNotFoundException` along with the generic errors like `TransportError` and `ArithmeticException` will look like.
+This example also illustrates error handling of service specific exception `AgentNotFoundException` along with the generic errors like `TransportError` and `ArithmeticException`.
 
 @@@ warning {title="Exploiting try-catch is an anti-pattern"}
 The example uses `try-catch` to handle errors and exceptions. Generally those errors/exceptions are handled at UI framework level on boundaries of service calls.
 This example will be updated once we have frontend framework setup in place.
 @@@
 
-A function whose responsibility is to handle errors & exceptions
+A function whose responsibility is to handle errors and exceptions:
 
 Typescript
 :   @@snip [Response](../../../../example/src/documentation/common/ErrorHandlingExample.ts) { #handle-error }
 
-Example for spawnSequenceManager api with error handling looks like following:
+Example for `spawnSequenceManager` method call with error handling looks like following:
 
 Typescript
 :   @@snip [Response](../../../../example/src/documentation/common/ErrorHandlingExample.ts) { #response-handling-spawn }
