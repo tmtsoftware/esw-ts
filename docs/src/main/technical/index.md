@@ -2,6 +2,7 @@
 
 @@@ index
  - [Agent Service](../services/agent-service.md)
+ - [Sequencer Service](../technical/sequencer-service.md)
  - [Sequence Manager Service](../services/sequence-manager-service.md)
  - [AAS](csw-aas-js.md)
  - [Service Contracts](../common/contract.md)

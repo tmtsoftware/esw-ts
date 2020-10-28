@@ -29,15 +29,25 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Location Service
 
-Type definitions for all APIs can be found @extref[here](ts-docs:interfaces/clients.locationservice.html).
+Type definitions for all methods can be found @extref[here](ts-docs:interfaces/clients.locationservice.html).
 
-### Listing & Filtering Locations
+## Listing & Filtering Locations
 Location Service provides multiple ways to get list of locations registered in the TMT cluster.
+
+Type definitions for relevant listings methods can be found by following links:
+
+1. @extref:[list](ts-docs:interfaces/clients.locationservice.html#list).
+1. @extref:[listByPrefix](ts-docs:interfaces/clients.locationservice.html#listbyprefix).
+1. @extref:[listByHostname](ts-docs:interfaces/clients.locationservice.html#listbyhostname).
+1. @extref:[listByComponentType](ts-docs:interfaces/clients.locationservice.html#listbycomponenttype).
+1. @extref:[listByConnectionType](ts-docs:interfaces/clients.locationservice.html#listbyconnectiontype).
+
+Following example showcases the listByComponentType api usage
 
 Typescript
 : @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #list-by-component-type }
 
-### Resolving Connection
+## Resolving Connection
 
 There are two ways to get/fetch a location information of a connection:
 
@@ -49,24 +59,34 @@ Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/models
 resolve the location within some timeout duration.
 However, `find` API does not wait to resolve location. If the location is not present, it returns `undefined`.
 
+
+Type definitions for both methods can be found by following links:
+
+1. @extref:[find](ts-docs:interfaces/clients.locationservice.html#find).
+1. @extref:[resolve](ts-docs:interfaces/clients.locationservice.html#resolve).
+
 Typescript
 : @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
 
-### Unregister a Connection
+## Unregister a Connection
 This is a secure API and takes a type of Connection as an input argument to be unregistered from the Location Service
 and returns Done once unregistered.
 
-The following example shows unregister API can be called:
+Type definitions for `unregister` method can be found @extref[here](ts-docs:interfaces/clients.locationservice.html#unregister)
+
+The following example shows `unregister` method can be called:
 
 Typescript
 : @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #unregister }
 
-### Tracking Connection
+## Tracking Connection
 The lifecycle of a connection of interest can be followed using either the `track` API. The connection update events
-will be received by the callback provided to this API. This API returns a subscription which can be used to cancel the
+will be received by the callback provided to this method. This method returns a subscription which can be used to cancel the
 tracking subscription.
 
-The following example shows track API can be called:
+Type definitions for `track` method can be found @extref[here](ts-docs:interfaces/clients.locationservice.html#track)
+
+The following example shows `track` method can be called:
 
 Typescript
 : @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #track }

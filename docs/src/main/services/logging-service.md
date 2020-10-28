@@ -26,9 +26,9 @@ Note that the examples are using async/await which makes handling of promises mo
 @@@
 ## Usages of Logging service
 
-### Creating Log for an incident
+## Creating Log for an incident
 
-This api will be used for to create a log entry for a component with a specific log Level.
+This method will be used for to create a log entry for a component with a specific log Level.
 
 For ex: when a user submits a setup command for a component using command service.
 

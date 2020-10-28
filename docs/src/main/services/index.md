@@ -19,7 +19,6 @@ These are following services available:
 - @ref:[Event Service](event-service.md)
 - @ref:[Location Service](location-service.md)
 - @ref:[Logging Service](logging-service.md)
-- @ref:[Sequencer Service](sequencer-service.md)
 @@@
 
 Type definition for all services can be found @extref[here](ts-docs:modules/clients.html)
