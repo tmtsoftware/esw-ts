@@ -6,9 +6,11 @@ This service provides an HTTP interface to interact with alarm server.
 
 ### Pre-requisite
 
-In order to use Logging Service APIs:
+In order to use Alarm Service API:
 
-1. The Location Service, and Gateway Server needs to be running in the network
+1. The Location Service
+1. The Alarm Service
+1. Gateway Server needs to be running in the network
 
 ### To create a client for Alarm Service
 

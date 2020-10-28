@@ -14,7 +14,7 @@ Type definitions for All Admin Service methods can be found @extref:[here](ts-do
 
 ## Fetching LogMetadata
 
-There is logging configuration set for all registered components within the TMT cluster. this API gives basic logging configuration values for specific component.
+There is logging configuration set for all registered components within the TMT cluster. This method gives basic logging configuration values for specific component.
 
 Type definitions for `getLogMetadata` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#getlogmetadata)
 

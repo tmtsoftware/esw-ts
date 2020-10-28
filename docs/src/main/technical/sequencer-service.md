@@ -1,5 +1,5 @@
 # Sequencer Service
-This service provides a handle to send commands to a sequencer which is registered in location service.
+This service provides a handle to send commands to a Sequencer which is registered in Location Service.
 
 ## Creation of Sequencer Service
 
@@ -7,9 +7,9 @@ This service provides a handle to send commands to a sequencer which is register
 
 ### In order to use sequencer service client for a specific sequencer:
 
-  1. The sequencer and gateway server should be running.
-    `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the location service.
-  2. Authorization Token with correct access role.
+  1. The Sequencer and Gateway Server should be running.
+    `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the Location Service.
+  2. Authorization token with correct access role.
      Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
 
 ### To create Sequencer Service
@@ -41,16 +41,16 @@ Type Definitions for Sequencer Service can be found @extref:[here](ts-docs:inter
 
 ### Loading and Starting a Sequence into a Sequencer
 
-To load a sequence into a sequencer, `SequencerService` provides `loadSequence` API
+To load a sequence into a Sequencer, `SequencerService` provides `loadSequence` method
 which takes a `Sequence` and returns a `Promise<OkOrUnhandledResponse>`.
-If sequencer is in `Idle` state, provided sequence gets loaded in the sequencer and an `Ok` response gets returned
-otherwise an `Unhandled` response gets returned.
+If Sequencer is in `Idle` state, provided sequence gets loaded into the Sequencer and an `Ok` response gets returned.
+Otherwise, an `Unhandled` response gets returned.
 
-To start a loaded sequence, `SequencerService` provides `startSequence` API
-which starts the sequence in the sequencer which is loaded by `loadSequence` API
+To start a loaded sequence, `SequencerService` provides `startSequence` method
+which starts the sequence (which is loaded by `loadSequence` method) in the Sequencer
 and returns a `Promise<SubmitResponse>`.
-If sequencer is in `Loaded` state, loaded sequence's execution gets started in the sequencer
-and a `Started` response gets returned otherwise a negative SubmitResponse gets returned.
+If Sequencer is in `Loaded` state, loaded sequence's execution gets started in the Sequencer
+and a `Started` response gets returned. Otherwise, a negative SubmitResponse gets returned.
 
 Type definitions for methods used in the given example are :
 
@@ -64,10 +64,10 @@ Typescript
 
 ### Adding commands into the sequence after all the pending steps
 
-To add commands into the sequence after all the pending steps, `SequencerService` provides `add` API
+To add commands into the sequence after all the pending steps, `SequencerService` provides `add` method
 which takes list of `SequenceCommands` and returns `Promise<OkOrUnhandledResponses>`.
-If sequencer is still in execution, then given list of `SequenceCommands` gets added into the sequence after all the pending steps
-and a `Ok` response gets returned otherwise an `Unhandled` response gets returned.
+If Sequencer is still in execution, then given list of `SequenceCommands` gets added into the sequence after all the pending steps
+and a `Ok` response gets returned. Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `add` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#add)
 
@@ -76,9 +76,9 @@ Typescript
 
 ### Prepending commands into the sequence before all the pending steps
 
-To add commands into the sequence before all the pending steps, `SequencerService` provides `add` API
+To add commands into the sequence before all the pending steps, `SequencerService` provides `add` method
 which takes list of `SequenceCommands` and returns `Promise<OkOrUnhandledResponses>`.
-If sequencer is still in execution, then given list of `SequenceCommands` gets added into the sequence before all the pending steps
+If Sequencer is still in execution, then given list of `SequenceCommands` gets added into the sequence before all the pending steps
 and a `Ok` response gets returned. Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `prepend` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#prepend)
@@ -88,11 +88,11 @@ Typescript
 
 ### Replacing a command with a list of commands
 
-To replace a command with a list of commands, `SequencerService` provides `replace` API
-which takes the `Id` of  the command which to be replaced and list of `SequenceCommands` and returns `Promise<GenericResponse>`.
+To replace a command with a list of commands, `SequencerService` provides `replace` method
+which takes the `Id` of the command which to be replaced and list of `SequenceCommands` and returns `Promise<GenericResponse>`.
 In case, if the command of the given `Id` is not present in sequence, then `IdDoesNotExist` response gets returned.
 Or if the command is already finished or in flight, then a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
-In case, if the command is still pending, then it gets replaced with the given list of `SequenceCommands`
+In case, if the command is still pending, then it gets replaced with the given list of `SequenceCommands`.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `replace` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#replace)
@@ -102,11 +102,11 @@ Typescript
 
 ### Inserting a list of commands after a command
 
-To insert a list of commands after a command, `SequencerService` provides `insertAfter` API
-which takes the `Id` of  the command after which commands to be inserted and list of `SequenceCommands` and returns `Promise<GenericResponse>`.
+To insert a list of commands after a command, `SequencerService` provides `insertAfter` method
+which takes the `Id` of the command after which commands to be inserted and list of `SequenceCommands` and returns `Promise<GenericResponse>`.
 In case, if the command of the given `Id` is not present in sequence, then `IdDoesNotExist` response gets returned.
 Or if the command is already finished or in flight, then a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
-In case, if the command is still pending, then the given list of `SequenceCommands` gets inserted after it
+In case, if the command is still pending, then the given list of `SequenceCommands` gets inserted after it.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `insertAfter` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#insertafter)
@@ -116,11 +116,11 @@ Typescript
 
 ### Deleting a command from the sequence
 
-To delete a command from the sequence, `SequencerService` provides `delete` API
-which takes the `Id` of  the command which to be deleted and returns `Promise<GenericResponse>`.
+To delete a command from the sequence, `SequencerService` provides `delete` method
+which takes the `Id` of the command to be deleted and returns `Promise<GenericResponse>`.
 If sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
-Or if it is still pending, then it gets deleted and `Ok` response gets returned.
+Or if the command is still pending, then it gets deleted and `Ok` response gets returned.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
 
 Type definitions for `delete` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#delete)
@@ -130,11 +130,11 @@ Typescript
 
 ### Adding a breakpoint to a Step
 
-To add a breakpoint to a Step, `SequencerService` provides `addBreakpoint` API
-which takes the `Id` of  the command where breakpoint to be added and returns `Promise<GenericResponse>`.
+To add a breakpoint to a Step, `SequencerService` provides `addBreakpoint` method
+which takes the `Id` of the command where breakpoint to be added and returns `Promise<GenericResponse>`.
 If sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
-Or if it is still pending, then breakpoint gets added and `Ok` response gets returned.
+Or if the command is still pending, then breakpoint gets added and `Ok` response gets returned.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
 
 Type definitions for `addBreakpoint` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#addbreakpoint)
@@ -144,8 +144,8 @@ Typescript
 
 ### Removing a breakpoint from a Step
 
-To remove a breakpoint from a Step, `SequencerService` provides `removeBreakpoint` API
-which takes the `Id` of  the command from where breakpoint to be removed and returns `Promise<RemoveBreakpointResponse>`.
+To remove a breakpoint from a Step, `SequencerService` provides `removeBreakpoint` method
+which takes the `Id` of the command from where breakpoint to be removed and returns `Promise<RemoveBreakpointResponse>`.
 If sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
 Otherwise, breakpoint gets removed and `Ok` response gets returned.
@@ -157,9 +157,9 @@ Typescript
 
 ### Pausing the sequence
 
-To pause the sequence, `SequencerService` provides `pause` API which returns `Promise<PauseResponse>`.
-If sequencer is in `Inprogress` state, then an `Ok` response gets returned if there is a `Step` pending,
-otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
+To pause the sequence, `SequencerService` provides `pause` method which returns `Promise<PauseResponse>`.
+If sequencer is in `Inprogress` state, then an `Ok` response gets returned if there is a `Step` pending.
+Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
 Or if sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
 
 Type definitions for `pause` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#pause)
@@ -169,7 +169,7 @@ Typescript
 
 ### Resuming a paused sequence
 
-To resume a paused the sequence, `SequencerService` provides `resume` API which returns `Promise<PauseResponse>`.
+To resume a paused sequence, `SequencerService` provides `resume` method which returns `Promise<PauseResponse>`.
 If sequencer is in `Inprogress` state, an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
@@ -178,11 +178,11 @@ Type definitions for `resume` method used can be found @extref[here](ts-docs:int
 Typescript
 : @@snip [resume](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #resume }
 
-### Getting the sequence from the sequencer
+### Getting the sequence from the Sequencer
 
-To get the sequence from the sequencer, `SequencerService` provides `getSequence` API
-which returns the `StepList`(runtime representation of the sequence)
-if there is a sequence executing in the sequencer else returns `undefined`.
+To get the sequence from the Sequencer, `SequencerService` provides `getSequence` method
+which returns the `StepList` (runtime representation of the sequence).
+if there is no sequence executing in the Sequencer, an `undefined` response gets returned.
 
 Type definitions for `getSequence` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#getsequence)
 
@@ -191,9 +191,9 @@ Typescript
 
 ### Checking if Sequencer is available
 
-To check if Sequencer is available, `SequencerService` provides `isAvailable` API
+To check if Sequencer is available, `SequencerService` provides `isAvailable` method
 which returns `Promise<boolean>`.
-If sequencer is in `Idle` state, `true` get returned otherwise `false` gets returned.
+If Sequencer is in `Idle` state, then a `true` gets returned. Otherwise, `false` response gets returned.
 
 Type definitions for `isAvailable` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#isavailable)
 
@@ -202,9 +202,9 @@ Typescript
 
 ### Checking if Sequencer is online
 
-To check if Sequencer is online, `SequencerService` provides `isOnline` API
+To check if Sequencer is online, `SequencerService` provides `isOnline` method
 which returns `Promise<boolean>`.
-If sequencer is in `Idle` state, `true` get returned otherwise `false` gets returned.
+If Sequencer is in `Idle` state, then a `true` gets returned. Otherwise, `false` gets returned.
 
 Type definitions for `isOnline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#isonline)
 
@@ -213,9 +213,9 @@ Typescript
 
 ### Discarding all the pending Steps
 
-To discard all the pending `Steps`, `SequencerService` provides a `reset` API
+To discard all the pending `Steps`, `SequencerService` provides a `reset` method
 which returns `Promise<OkOrUnhandledResponse>`.
-If sequencer is in `InProgress` state, then an `Ok` response gets returned.
+If Sequencer is in `InProgress` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `reset` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#reset)
@@ -226,8 +226,8 @@ Typescript
 ### Discarding all the pending Steps and calling the onAbortSequence handler of the script
 
 To discard all the pending `Steps` and call the onAbortSequence handler of the script,
-`SequencerService` provides a `abortSequence` API which returns `Promise<OkOrUnhandledResponse>`.
-If sequencer is in `InProgress` state, then an `Ok` response gets returned.
+`SequencerService` provides a `abortSequence` method which returns `Promise<OkOrUnhandledResponse>`.
+If Sequencer is in `InProgress` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `abortSequence` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#abortsequence)
@@ -238,8 +238,8 @@ Typescript
 ### Discarding all the pending Steps and calling the onStop handler of the script
 
 To discard all the pending `Steps` and call the onStop handler of the script,
-`SequencerService` provides a `stop` API which returns `Promise<OkOrUnhandledResponse>`.
-If sequencer is in `InProgress` state, then an `Ok` response gets returned.
+`SequencerService` provides a `stop` method which returns `Promise<OkOrUnhandledResponse>`.
+If Sequencer is in `InProgress` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `stop` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#stop)
@@ -247,28 +247,28 @@ Type definitions for `stop` method used can be found @extref[here](ts-docs:inter
 Typescript
 : @@snip [stop](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #stop }
 
-### Changing sequencer state to Online
+### Changing Sequencer state to Online
 
-To change sequencer state to `Online`, `SequencerService` provides `goOnline` API
+To change Sequencer state to `Online`, `SequencerService` provides `goOnline` method
 which returns `Promise<GoOnlineResponse>`.
-If sequencer is in any State but `InProgress`,
-then an `Ok` response get returned if `goOnline` handler gets executed successfully,
-otherwise a `GoOnlineHookFailed` response gets returned.
-Although, if sequencer is in `InProgress` state then an `Unhandled` response gets returned.
+If Sequencer is in any state but `InProgress`,
+then an `Ok` response gets returned (if `goOnline` handler gets executed successfully).
+Otherwise, a `GoOnlineHookFailed` response gets returned.
+Although, if Sequencer is in `InProgress` state, then an `Unhandled` response gets returned.
 
 Type definitions for `goOnline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#goonline)
 
 Typescript
 : @@snip [goOnline](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #goOnline }
 
-### Changing sequencer state to Offline
+### Changing Sequencer state to Offline
 
-To change sequencer state to `Offline`, `SequencerService` provides `goOffline` API
+To change Sequencer state to `Offline`, `SequencerService` provides `goOffline` method
 which returns `Promise<GoOfflineResponse>`.
-If sequencer is in any State but `InProgress`,
-then an `Ok` response get returned if `goOffline` handler gets executed successfully,
-otherwise a `GoOfflineHookFailed` response gets returned.
-Although, if sequencer is in `InProgress` state then an `Unhandled` response gets returned.
+If Sequencer is in any State but `InProgress`,
+then an `Ok` response gets returned (if `goOffline` handler gets executed successfully).
+Otherwise, a `GoOfflineHookFailed` response gets returned.
+Although, if Sequencer is in `InProgress` state, then an `Unhandled` response gets returned.
 
 Type definitions for `goOffline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#gooffline)
 
@@ -277,7 +277,7 @@ Typescript
 
 ### Running diagnosticMode
 
-To run diagnosticMode handler, `SequencerService` provides `diagnosticMode` API
+To run diagnosticMode handler, `SequencerService` provides `diagnosticMode` method
 which returns `Promise<DiagnosticModeResponse>`.
 If diagnosticMode handler of the script successfully executes, then an `Ok` response gets returned.
 Otherwise, a `DiagnosticHookFailed` gets returned.
@@ -289,7 +289,7 @@ Typescript
 
 ### Running operationsMode
 
-To run operationsMode handler, `SequencerService` provides `operationsMode` API
+To run operationsMode handler, `SequencerService` provides `operationsMode` method
 which returns `Promise<OperationsModeResponse>`.
 If operationsMode handler of the script successfully executes, then an `Ok` response gets returned.
 Otherwise, a `OperationsHookFailed` gets returned.
@@ -301,22 +301,22 @@ Typescript
 
 ### Submitting Sequence to a Sequencer
 
-To submit a Sequence to a Sequencer, `SequencerCommandService` provides a `submit` API which takes a Sequence and returns a
+To submit a Sequence to a Sequencer, `SequencerCommandService` provides a `submit` method which takes a Sequence and returns a
 `Promise<SubmitResponse>`.
 
-If the sequencer is idle, the provided sequence is loaded in the sequencer and
-execution of the sequence starts immediately, and a `Started` response is returned.
-If the sequencer is already running another sequence, an `Invalid` response is returned.
+If the Sequencer is idle, then provided sequence gets loaded in the Sequencer,
+execution of the sequence starts immediately and a `Started` response gets returned.
+If the sequencer is already running another sequence, then an `Invalid` response gets returned.
 
 Typescript
 : @@snip [submit](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #submit }
 
-`query` or `queryFinal` Apis, as shown above, could be used to query for the sequence result after the sequence is `submit`ted.
-`query` returns the current response which could be either final response (eg. `Completed`) or intermediate response (eg. `Started`).
+The `query` or `queryFinal` methods, as shown above, could be used to query for the sequence result after the sequence is `submit`ted.
+The `query` method returns a current response which could be either final response (eg. `Completed`) or intermediate response (eg. `Started`).
 Whereas `queryFinal` will wait for the final response of the sequence for the given `timeout`. This method will never return an intermediate response.
 
-If you are not interested in initial/intermediate response but only in final response, you can use the `submitAndWait` api which submits
-the sequence and waits for the final response if the sequence was successfully `Started`.
+If you are not interested in initial/intermediate response but only in final response, you can use the `submitAndWait` method which submits
+the sequence and waits for the final response (if the sequence was successfully `Started`).
 
 Typescript
 : @@snip [submitAndWait](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #submitAndWait }
