@@ -1,5 +1,5 @@
 # Event Service
-Event service provides methods to interact with the event server which implements the publish/subscribe messaging paradigm
+Event Service provides methods to interact with the event server which implements the publish/subscribe messaging paradigm
 where one component publishes an event and all clients that have subscribed receive the event.
 
 
@@ -32,9 +32,9 @@ Typescript
 
 ## Get Events
 
-The get method is used to get events for set of @extref:[EventKeys](ts-docs:classes/models.eventkey.html).
-This is different from subscribing event. Use this API when occurred events are required.
-If you want to consume live events, use subscription APIs.
+This method is used to get events for set of @extref:[EventKeys](ts-docs:classes/models.eventkey.html).
+This is different from subscribing to event. Use this method to get occurred events.
+If you want to consume live events, use subscription methods.
 
 Type definitions for `get` method can be found @extref:[here](ts-docs:interfaces/clients.eventservice.html#get).
 
@@ -44,12 +44,13 @@ Typescript
 : @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #get }
 
 ## Subscribe to the Events
+Subscribing to Event can be done via two ways. User can subscribe to -
 
 1. Multiple EventKeys.
 2. All the EventKeys of specific @extref:[subsystem](ts-docs:modules/models.html#subsystem) and pattern.
 
-When events are subscribed for given EventKeys, events are received at `every` frequency.
-The method take callback function which gets triggered whenever the events are received.
+When you subscribe for the given EventKeys, events are received at `every` frequency.
+The methods take callback function which gets triggered whenever the events are received.
 
 Type definitions of both methods can be found by below links :
 
