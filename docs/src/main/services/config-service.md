@@ -27,17 +27,18 @@ Typescript
 Note: Models other than ConfigData are simple typescript classes and do not have special helper methods unlike ConfigData.
 
 
-## Creation of Config Service
-
-### Pre-requisite
-#### In order to use config service:
+## Pre-requisite
+### In order to use config service:
 1. The Location Service and Configuration Service Server needs to be running in the network
 2. The necessary configuration, environment variables or system properties should be defined to point to the correct
-host and port number(s) for the Location Service nodes.
+   host and port number(s) for the Location Service nodes.
 3. Authorization Token with correct access role.
-   Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
 
-#### To create a client for Config service
+Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
+
+## Creation of Config Service
+
+### To create a client for Config service
 Config service constructor takes `TokenFactory` as input argument.
 
 Typescript
@@ -54,7 +55,7 @@ Note that the examples are using async/await which makes handling of promises mo
 Type Definitions of all methods can be found @extref:[here](ts-docs:interfaces/clients.configservice.html)
 
 ## create
-This method takes `path` at which `configData` needs to be saved in the config service along with meta information i.e
+This method takes `path` at which `configData` needs to be saved in the Config Service along with meta information i.e
 whether to be saved as `annex` or `normal` file and comment. After saving, it returns ConfigId which can be used to
 access the saved file in future using query APIs.
 
@@ -64,7 +65,7 @@ Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #create }
 
 ## update
-This method takes `path` at which `configData` needs to be updated in the config service along with comment.
+This method takes `path` at which `configData` needs to be updated in the Config Service along with comment.
 After updating, it returns ConfigId which can be used to access the updated file in future using query APIs.
 
 Type definitions of `update` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#update)
@@ -179,7 +180,7 @@ Typescript
 
 ## setActiveVersion
 This method sets the "active version" to be the version provided for the file at the given path.
-If this method is never called in a config’s lifetime, the active version will always be the version returned by create
+If this method is never called in a Config’s lifetime, the active version will always be the version returned by create
 function.
 
 Type definitions of `setActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#setactiveversion)
