@@ -4,7 +4,7 @@
 `csw-aas-js` is an npm package which provides React components that integrate with the CSW
 Authentication and Authorization Service. UI applications can use these React components to
 enable the application to show or hide components based on the authentication and authorization policy.
-`csw-aas-js` is written in typescript and it bundles transpiled es6 module along with type declarations.
+`csw-aas-js` is written in TypeScript and it bundles transpiled es6 module along with type declarations.
 
 <!-- introduction to the javascript adapter -->
 
@@ -29,10 +29,10 @@ yarn
 ## Application Configuration
 
 Web application needs following configurations in order to get access token from keycloak server. This application specific
-config object should be passed in AuthContextProvider component. There are two configurations needed for a web application
+config object should be passed in `AuthContextProvider` component. There are two configurations needed for a web application
 i.e. `realm`, `clientId`
 
-`realm` is a mandatory configuration which specified in keycloak server under which client for your application is registered.
+`realm` is a mandatory configuration which specifies in keycloak server under which client your application is registered.
 
 `clientId` is a mandatory configuration which specifies the client id of the app as per registration
 in keycloak server.
@@ -69,7 +69,7 @@ configuration overriding the predefined configuration.
 Once the AAS sever is instantiated, an `auth` object is created with the needed attributes and APIs. This `auth` object
 is available to other React components; since `AuthContextProvider` is a `Provider`, its data can be shared with any of
 the children React components in its tree in a `Consumer` component (see below). All `Consumer`s that are
-descendants of a `Provider` will re-render whenever the AuthContextProvider’s state changes, e.g. a user authorizes.
+descendants of a `Provider` will re-render whenever the `AuthContextProvider`’s state changes, e.g. a user authorizes.
 It is recommended to use `AuthContextProvider` to wrap the entire application so that data can be shared anywhere in
 application via a `Consumer`.
 
@@ -83,7 +83,7 @@ Javascript
 ### Consumer
 
 `Consumer` is similar to a React [Context.Consumer](https://reactjs.org/docs/context.html#contextconsumer).
-The shared `auth` object from the `AuthContextProvider` can be accessed using a `Consumer` component
+The shared `auth` object from the `AuthContextProvider` can be accessed using a `Consumer` component.
 
 Javascript
 :   @@snip [Consumer.jsx](../../../../example/src/components/Read.tsx) { #Consumer-component-usage }
@@ -118,7 +118,7 @@ Javascript
 
 ### CheckLogin
 
-`CheckLogin` components provide ability to show something only if the user is logged in.
+`CheckLogin` component provides ability to show something only if the user is logged in.
 In the following code snippet, `Write` is a react component that is shown only if the user is logged in.
 The behavior if the user is not logged in can be defined by an HTML element or React component that is
 passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
@@ -132,7 +132,7 @@ Javascript
 
 ### RealmRole
 
-`RealmRole` components provide the ability to show something only if the user is logged in and has the specified realm role.
+`RealmRole` component provides the ability to show something only if the user is logged in and has the specified realm role.
 In the following code snippet, the contents of the `div` block are shown only if the user is logged in and
 has the realm role specified in the `realmRole` prop.  Similar to `CheckLogin`,
 the behaviour if the user is not logged in can be optionally defined by an HTML element or React component
