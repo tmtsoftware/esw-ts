@@ -1,7 +1,7 @@
 # Commands
 
 Commands are parameter sets called Setup, Observe, and Wait. A command is created with the source of the command,
-given by a prefix, the name of the command, and an optional ObsId. Parameters are added to the command as needed.
+given by a prefix, the name of the command, and an optional `ObsId`. Parameters are added to the command as needed.
 
 ## ObsId
 
@@ -40,16 +40,16 @@ following arguments to create a `Setup` command.
  * ObsId: an optional observation id.
  * paramSet: Optional Set of Parameters. Default is empty.
 
-Type definition for ControlCommand can be found @extref[here](ts-docs:classes/models.setup.html)
+Type definition for Setup Command can be found @extref[here](ts-docs:classes/models.setup.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #setup }
 
 ## Observe Command
 
-This command describes a science observation. It is intended to only be sent to Science Detector Assemblies and Sequencers.
+This command describes a science observation. It is intended to be sent only to Science Detector Assemblies and Sequencers.
 
-Type definition for ControlCommand can be found @extref[here](ts-docs:classes/models.observe.html)
+Type definition for Observe Command can be found @extref[here](ts-docs:classes/models.observe.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #observe }
@@ -57,9 +57,9 @@ Typescript
 
 ## Wait Command
 
-This command causes a Sequencer to wait until notified.  It can only be sent to Sequencers.
+This command causes a Sequencer to wait until notified. It can only be sent to Sequencers.
 
-Type definition for ControlCommand can be found @extref[here](ts-docs:classes/models.wait.html)
+Type definition for Wait Command can be found @extref[here](ts-docs:classes/models.wait.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #wait }

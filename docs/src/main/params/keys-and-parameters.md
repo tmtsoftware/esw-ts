@@ -4,7 +4,7 @@ The library offers a flexible and typesafe means to create Parameters to store v
 
 A **Parameter** is a Key and Value where the Value must be from a set of defined primitive types including binary data. The Value of a `Parameter` is always considered to be an Array of the type (i.e. if a single value is stored it is at array location 0). A Parameter is **immutable**; a modification to an existing Parameter will return a new instance.
 
-A Value can also have Units, which must be of the defined types. See **Units** for more information. At this time Units are informational only–no calculation or conversion support is provided. Some systems may provide a key value with different units, and receiver can inspect the Units to make a decision on how to handle the value.
+A Value can also have Units, which must be of the defined types. See **Units** for more information. At this time Units are informational only – no calculation or conversion support is provided. Some systems may provide a key value with different units, and receiver can inspect the Units to make a decision on how to handle the value.
 
 A ParameterSet is a Set of Parameter. Various other message types include a **ParameterSet** (e.g. Setup, Event). A key is unique in a ParameterSet since it is a Set.
 
@@ -19,7 +19,7 @@ Typescript
 :   @@snip[paramater key](../../../../example/src/documentation/params/ParameterExample.ts) { #param-from-key }
 
 
-### Primitive Datatypes
+### Primitive Data types
 
 | Primitive | Typescript Key Type | Helper functions |
 | --------- | ------------------- | ---------------- |
@@ -35,7 +35,7 @@ Typescript
 | UTCTime   | UTCTimeKey          | utcTimeKey       |
 | TAITime   | TAITimeKey          | taiTimeKey       |
 
-### Array Datatypes
+### Array Data types
 
 | Primitive      | Typescript Key Type      | Helper functions      |
 | -------------- | ------------------------ | --------------------- |
@@ -46,7 +46,7 @@ Typescript
 | DoubleArray    | DoubleArrayKey           | doubleArrayKey        |
 | ByteArray      | ByteArrayKey             | byteArrayKey          |
 
-### Matrix Datatypes
+### Matrix Data types
 
 | Primitive      | Typescript Key Type      | Helper functions      |
 | -------------- | ------------------------ | --------------------- |
@@ -91,5 +91,5 @@ Typescript
 :   @@snip[domain specific keys](../../../../example/src/documentation/params/ParameterExample.ts) { #coordinate-key }
 
 @@@ note
-Note that since Coord is the base trait of the other coordinate types, you can use it as the key for any of the coordinate types.
+Note that since `Coord` is the base trait of the other coordinate types, you can use it as the key for any of the coordinate types.
 @@@
