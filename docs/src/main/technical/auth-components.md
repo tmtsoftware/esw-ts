@@ -6,7 +6,7 @@ which is JavaScript adapter provided by Keycloak.
 
 ## Implementation
 
-Core implementation of Auth Components of `esw-ts`, uses
+Core implementation of Auth Components of `ESW-TS`, uses
 
 - [keycloak-js](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter) - keycloak JavaScript adapter
 - [React](https://reactjs.org/) - JavaScript library for building user interfaces
@@ -33,13 +33,13 @@ Typescript
 `check-sso` will only authenticate if the user is already logged-in. If the user is not logged-in the browser will be redirected back to
 the application and remain unauthenticated.
 
-Auth components of `esw-ts` use `check-sso` to instantiate keycloak. It shows secure components if user is already logged in.
+Auth components of `ESW-TS` use `check-sso` to instantiate keycloak. It shows secure components if user is already logged in.
 If user is not authenticated then Login component gets rendered. If user clicks on login button, it instantiates keycloak using `login-required`. This redirects
 user to keycloak login page. As access token has very short life span, at time of keycloak instantiation, these Auth Components also add hooks to refresh
 token. This gives seamless user experience as user will not have to login again.
 
 Keycloak adapter supports three authorization flows e.g. authorization code flow, implicit flow and hybrid flow.
-Auth components in `esw-ts`, uses hybrid flow as it has better performance than authorization code flow and unlike implicit flow,
+Auth components in `ESW-TS`, uses hybrid flow as it has better performance than authorization code flow and unlike implicit flow,
 hybrid flow makes refresh token available to application. For more information please refer [keyclok documentaion for authorization flows](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_implicit_flow)
 
 ## Working of Auth Components

@@ -52,7 +52,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 Type definitions of all Command Service methods can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html)
 
-## Validating Command
+## Validating command
 
 A `validate` message is used to ask a destination component to validate a command and determine if the command can be executed. It does not execute the command and only returns the result of validation. In some scenarios, it may be useful to test and see if a command can be executed prior to trying to execute the command.
 
@@ -61,7 +61,7 @@ Type definitions of `validate` method can be found @extref:[here](ts-docs:interf
 Typescript
 :   @@snip [validate](../../../../example/src/documentation/command/CommandExamples.ts) { #validate }
 
-## Submitting a Command
+## Submitting commands
 
 A `submit` message can be used when the sender of a command needs to do additional work before long-running actions are completed. For instance, send another command to execute in parallel. If commands are short, `submit` and `submitAndWait` behave the same way. When the actions started by submit are long-running, the caller can wait for the actions to complete if needed using the [queryFinal](#queryfinal) call.
 
@@ -70,25 +70,25 @@ Type definitions of `submit` method can be found @extref:[here](ts-docs:interfac
 Typescript
 :   @@snip [submit](../../../../example/src/documentation/command/CommandExamples.ts) { #submit }
 
-## SubmitAndWait
+## Submit And Wait for Response
 
-This is a convenience method which sends a [submit](#submit) message and then, if the command is long-running, it waits for final completion. Sending `submit` message with a command returns a @extref:[SubmitResponse](ts-docs:modules/models.html#submitresponse) as a Future.
+This is a convenience method which sends a `submit` message and if the command is long-running, it waits for final completion. Sending `submit` message with a command returns a @extref:[SubmitResponse](ts-docs:modules/models.html#submitresponse) as a Future.
 
 Type definitions of `submitAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submitandwait)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #submit-and-wait }
 
-## SubmitAllAndWait
+## Submit Multiple commands and Wait
 
-Similar to [SubmitAndWait](#submitandwait), `submitAllAndWait` can be used to send multiple commands sequentially to the same component. This could be used to send initialization commands to an HCD, for instance. The argument for `submitAllAndWait` is a list of commands. This method returns a list of `SubmitResponses` – one for each command in the list.
+Similar to [SubmitAndWait](#submit-and-wait-for-response), `submitAllAndWait` method can be used to send multiple commands sequentially to the same component. This could be used to send initialization commands to an HCD, for instance.
 
 Type definitions of `submitAllAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submitallandwait)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #submit-all-and-wait }
 
-## Oneway
+## Sending Oneway Command
 
 Oneway is useful when Command Service needs to send commands to an HCD as quickly as possible. The command gets validated on the destination and the validation response is returned, but no other responses are provided.
 
@@ -97,18 +97,18 @@ Type definitions of `oneway` method can be found @extref:[here](ts-docs:interfac
 Typescript
 :   @@snip [oneway](../../../../example/src/documentation/command/CommandExamples.ts) { #oneway }
 
-## Query
+## Querying Result
 
-If a submitted command returns a `Started` response indicating it has long-running actions, and the caller needs to determine that the actions have started properly, or wishes to poll the destination component for the final response, the `query` method of Command Service can be used.
+This method is useful to get the result of a submitted command which returns a `Started` response if the command has triggered a long-running action, The caller can then determine that the actions have started properly, or wishes to poll the destination component for the final response using `queryFinal` method.
 
 Type definitions of `query` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#query)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #query }
 
-## QueryFinal
+## Querying for Final result
 
-Like [query](#query), `queryFinal` uses the Id returned by `Started`. Bat in this case, rather than returning immediately like `query`, it waits and only returns when the final `SubmitResponse` is sent. The `queryFinal` method is used exclusively with `submit` in the case where some other activity must be done before the actions started by the `submit` complete.
+Similar to [query](#querying-result), `queryFinal` uses the Id returned by `Started`. However, in this case rather than returning immediately like `query`, it waits and only returns when the final `SubmitResponse` is sent. The `queryFinal` method is useful exclusively with `submit` in the case where some other activity must be done before the actions started by the `submit` complete.
 
 Type definitions of `queryFinal` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#queryfinal)
 

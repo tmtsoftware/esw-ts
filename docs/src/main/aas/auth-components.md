@@ -1,6 +1,6 @@
 # Auth Components
 
-`esw-ts` provides React components that integrate with the CSW
+`ESW-TS` provides React components that integrate with the CSW
 Authentication and Authorization Service. UI applications can use these React components to
 enable the application to show or hide components based on the authentication and authorization policy.
 
@@ -20,7 +20,7 @@ Typescript
 
 ## Components
 
-`esw-ts` exposes the following React components.
+`ESW-TS` exposes the following React components.
 
  - [AuthContextProvider](#authcontextprovider)
  - [Consumer](#consumer)
@@ -121,9 +121,6 @@ Typescript
 
 * @github[RealmRole Component](../../../../lib/src/components/aas/authorization/RealmRole.tsx)
 
-## Technical Description
-See @ref:[Auth Components Technical Description](../technical/auth-components.md).
-
 ##Example
 
 Here is an example of a Config App(React app) which uses ConfigService client
@@ -145,3 +142,6 @@ Typescript
 :   @@snip [ConfigServiceProvider.tsx](../../../../example/src/components/config/context/ConfigServiceProvider.tsx) { #config-service-provider }
 
 Source code for the full example can be found [here](https://github.com/tmtsoftware/esw-ts/tree/master/example/src)
+
+## Technical Description
+See @ref:[Auth Components Technical Description](../technical/auth-components.md).
