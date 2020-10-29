@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext, ConfigService } from '@tmtsoftware/esw-ts'
 import { ConfigContext, defaultConfigServiceState } from './ConfigContext'
 
+//#config-service-provider
 export interface ConfigServiceProps {
   authContext: typeof AuthContext
   children: React.ReactNode
@@ -18,6 +19,7 @@ const ConfigServiceProvider = (props: ConfigServiceProps) => {
   // #use-auth-context
 
   const resetConfigService = async () => {
+    //Authenticating config service
     const service = await ConfigService(auth ? auth.token : () => '')
     setConfigService(service)
   }
@@ -34,5 +36,6 @@ const ConfigServiceProvider = (props: ConfigServiceProps) => {
     </ConfigContext.Provider>
   )
 }
+//#config-service-provider
 
 export default ConfigServiceProvider

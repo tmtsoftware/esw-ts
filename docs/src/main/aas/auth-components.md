@@ -123,3 +123,25 @@ Typescript
 
 ## Technical Description
 See @ref:[Auth Components Technical Description](../technical/auth-components.md).
+
+##Example
+
+Here is an example of a Config App(React app) which uses ConfigService client
+and Auth components in order to authorize ConfigService
+
+Typescript
+:   @@snip [ExampleApp.tsx](../../../../example/src/components/ExampleApp.tsx) { #example-app }
+
+
+ConfigApp component which uses Config Service APIs:
+
+Typescript
+:   @@snip [ConfigApp.tsx](../../../../example/src/components/config/ConfigApp.tsx) { #config-app }
+
+
+ConfigServiceProvider is the component where instance of Config Service gets created:
+
+Typescript
+:   @@snip [ConfigServiceProvider.tsx](../../../../example/src/components/config/context/ConfigServiceProvider.tsx) { #config-service-provider }
+
+Source code for the full example can be found [here](https://github.com/tmtsoftware/esw-ts/tree/master/example/src)

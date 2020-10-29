@@ -11,6 +11,7 @@ import RoleError from './RoleError'
 import ConfigApp from './config/ConfigApp'
 import LoginError from './LoginError'
 
+//#example-app
 const ExampleApp = () => {
   return (
     <div className='row card col s12 m7'>
@@ -77,5 +78,6 @@ const ExampleApp = () => {
     </div>
   )
 }
+//#example-app
 
 export default ExampleApp

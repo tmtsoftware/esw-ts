@@ -7,6 +7,7 @@ import ConfigServiceProvider from './context/ConfigServiceProvider'
 import LoginError from '../LoginError'
 import RoleError from '../RoleError'
 
+//#config-app
 const ConfigApp = () => {
   return (
     <div className='row card col s12 m7'>
@@ -34,5 +35,6 @@ const ConfigApp = () => {
     </div>
   )
 }
+//#config-app
 
 export default ConfigApp
