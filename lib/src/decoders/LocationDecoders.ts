@@ -15,7 +15,7 @@ import type {
 } from '../clients/location'
 import type { ComponentType, Prefix } from '../models'
 import { ComponentTypeD } from './ComponentTypeDecoder'
-import { ciLiteral, Decoder, sum } from './Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
 
 type ConnectionDecoder<L extends ConnectionType> = Decoder<{
@@ -37,7 +37,7 @@ export const AkkaConnectionD: Decoder<AkkaConnection> = mkConnectionD('akka')
 export const HttpConnectionD: Decoder<HttpConnection> = mkConnectionD('http')
 export const TcpConnectionD: Decoder<TcpConnection> = mkConnectionD('tcp')
 
-export const ConnectionD: Decoder<Connection> = sum('connectionType')({
+export const ConnectionD: Decoder<Connection> = D.sum('connectionType')({
   akka: AkkaConnectionD,
   http: HttpConnectionD,
   tcp: TcpConnectionD
@@ -67,7 +67,7 @@ export const AkkaLocationD: Decoder<AkkaLocation> = mkLocationD('AkkaLocation', 
 export const HttpLocationD: Decoder<HttpLocation> = mkLocationD('HttpLocation', HttpConnectionD)
 export const TcpLocationD: Decoder<TcpLocation> = mkLocationD('TcpLocation', TcpConnectionD)
 
-export const LocationD: Decoder<Location> = sum('_type')({
+export const LocationD: Decoder<Location> = D.sum('_type')({
   AkkaLocation: AkkaLocationD,
   HttpLocation: HttpLocationD,
   TcpLocation: TcpLocationD
@@ -85,7 +85,7 @@ const LocationRemovedD: Decoder<LocationRemoved> = D.type({
   connection: ConnectionD
 })
 
-export const TrackingEventD: Decoder<TrackingEvent> = sum('_type')({
+export const TrackingEventD: Decoder<TrackingEvent> = D.sum('_type')({
   LocationUpdated: LocationUpdatedD,
   LocationRemoved: LocationRemovedD
 })

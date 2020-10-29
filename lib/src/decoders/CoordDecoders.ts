@@ -12,7 +12,7 @@ import type {
   SolarSystemObject,
   Tag
 } from '../models'
-import { ciLiteral, Decoder, sum } from './Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 
 export const TagD: Decoder<Tag> = ciLiteral(
   'BASE',
@@ -98,7 +98,7 @@ export const AltAzCoordD: Decoder<AltAzCoord> = D.type({
   az: D.number
 })
 
-export const CoordD: Decoder<Coord> = sum('_type')({
+export const CoordD: Decoder<Coord> = D.sum('_type')({
   EqCoord: EqCoordD,
   MinorPlanetCoord: MinorPlanetCoordD,
   SolarSystemCoord: SolarSystemCoordD,

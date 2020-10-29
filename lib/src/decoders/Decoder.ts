@@ -32,10 +32,6 @@ export const ciLiteral = <L extends readonly [string, ...Array<string>]>(
   }
 }
 
-export const sum = <T extends string>(tag: T) => <A>(
-  members: { [K in keyof A]: Decoder<A[K] extends { [Key in T]: K } ? A[K] : never> }
-): Decoder<A[keyof A]> => D.sum(tag)(members)
-
 export const object = <T>(bodyDecoders: Record<string, Decoder<T>>): Decoder<[string, T]> => {
   const keys = Object.keys(bodyDecoders)
   const keyDecoder = ciLiteral(keys[0], ...keys.slice(1))

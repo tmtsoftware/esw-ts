@@ -3,7 +3,7 @@ import * as D from 'io-ts/lib/Decoder'
 import type { EventKey } from '../clients/event'
 import { Event, EventName, ObserveEvent, SystemEvent } from '../clients/event'
 import type { Key, Parameter, Prefix } from '../models'
-import { ciLiteral, Decoder, sum } from './Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
 
@@ -39,7 +39,7 @@ export const mkEventD = <T extends Event>(_type: T['_type'], factory: (e: BaseEv
   )
 
 export const EventD: Decoder<Event> = D.lazy('Decoder<Event>', () =>
-  sum('_type')({
+  D.sum('_type')({
     ObserveEvent: ObserveEvent.decoder(),
     SystemEvent: SystemEvent.decoder()
   })

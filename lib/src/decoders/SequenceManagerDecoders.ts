@@ -4,7 +4,7 @@ import { ObsMode } from '../clients/sequence-manager'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { FailedD, UnhandledD } from './CommonDecoders'
 import { ComponentIdD } from './ComponentIdDecoder'
-import { ciLiteral, Decoder, sum } from './Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 import { AkkaLocationD } from './LocationDecoders'
 import { PrefixD } from './PrefixDecoder'
 import { SubsystemD } from './SubsystemDecoder'
@@ -101,7 +101,7 @@ const AgentStatusSuccessD: Decoder<T.AgentStatusSuccess> = D.type({
   seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
 })
 
-export const ConfigureResponseD: Decoder<T.ConfigureResponse> = sum('_type')({
+export const ConfigureResponseD: Decoder<T.ConfigureResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   SequenceComponentNotAvailable: SequenceComponentNotAvailableD,
   ConfigurationMissing: ConfigurationMissingD,
@@ -111,7 +111,7 @@ export const ConfigureResponseD: Decoder<T.ConfigureResponse> = sum('_type')({
   Success: ConfigureSuccessD
 })
 
-export const ProvisionResponseD: Decoder<T.ProvisionResponse> = sum('_type')({
+export const ProvisionResponseD: Decoder<T.ProvisionResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   Success: SuccessD,
   LocationServiceError: LocationServiceErrorD,
@@ -119,12 +119,12 @@ export const ProvisionResponseD: Decoder<T.ProvisionResponse> = sum('_type')({
   CouldNotFindMachines: CouldNotFindMachinesD
 })
 
-export const GetRunningObsModesResponseD: Decoder<T.GetRunningObsModesResponse> = sum('_type')({
+export const GetRunningObsModesResponseD: Decoder<T.GetRunningObsModesResponse> = D.sum('_type')({
   Failed: FailedD,
   Success: RunningObsModesSuccessD
 })
 
-export const StartSequencerResponseD: Decoder<T.StartSequencerResponse> = sum('_type')({
+export const StartSequencerResponseD: Decoder<T.StartSequencerResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   SequenceComponentNotAvailable: SequenceComponentNotAvailableD,
   LoadScriptError: LoadScriptErrorD,
@@ -133,14 +133,14 @@ export const StartSequencerResponseD: Decoder<T.StartSequencerResponse> = sum('_
   Started: StartedD
 })
 
-export const RestartSequencerResponseD: Decoder<T.RestartSequencerResponse> = sum('_type')({
+export const RestartSequencerResponseD: Decoder<T.RestartSequencerResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   LoadScriptError: LoadScriptErrorD,
   LocationServiceError: LocationServiceErrorD,
   Success: RestartSequencerSuccessD
 })
 
-export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersResponse> = sum(
+export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersResponse> = D.sum(
   '_type'
 )({
   Unhandled: UnhandledD,
@@ -148,7 +148,7 @@ export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersR
   Success: SuccessD
 })
 
-export const AgentStatusResponseD: Decoder<T.AgentStatusResponse> = sum('_type')({
+export const AgentStatusResponseD: Decoder<T.AgentStatusResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   LocationServiceError: LocationServiceErrorD,
   Success: AgentStatusSuccessD
