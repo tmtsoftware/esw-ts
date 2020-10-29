@@ -1,6 +1,6 @@
 import Keycloak from 'keycloak-js'
 import { mocked } from 'ts-jest/utils'
-import { TMTAuth } from '../../../src/clients/aas'
+import { AuthStore } from '../../../src/clients/aas'
 import { HttpConnection, HttpLocation } from '../../../src/clients/location'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { AASConfig } from '../../../src/config'
@@ -20,9 +20,9 @@ jest.mock('keycloak-js')
 afterEach(() => jest.clearAllMocks())
 
 describe('Auth', () => {
-  test('should create TMTAuth instance | ESW-330', () => {
+  test('should create AuthStore instance | ESW-330', () => {
     const mockKeycloak = mockedKeyCloakInstance(false)
-    const auth = TMTAuth.from(mockKeycloak)
+    const auth = AuthStore.from(mockKeycloak)
 
     expect(auth.logout).toBe(mockKeycloak.logout)
     expect(auth.token()).toBe(mockKeycloak.token)
@@ -40,7 +40,7 @@ describe('Auth', () => {
     const keycloakInstance = mockedKeyCloakInstance()
     mockFn.mockReturnValue(keycloakInstance)
 
-    const { authenticatedPromise } = await TMTAuth.authenticate(conf, url, true)
+    const { authenticatedPromise } = await AuthStore.authenticate(conf, url, true)
 
     const expectedConfig = {
       ...AASConfig,
@@ -61,7 +61,7 @@ describe('Auth', () => {
     const keycloakInstance = mockedKeyCloakInstance()
     mockFn.mockReturnValue(keycloakInstance)
 
-    await TMTAuth.authenticate(conf, url, false)
+    await AuthStore.authenticate(conf, url, false)
 
     expect(keycloakInstance.init).toBeCalledWith({
       onLoad: 'check-sso',
@@ -79,7 +79,7 @@ describe('Auth', () => {
     }
     mockedResolve.mockResolvedValueOnce(authLocation)
     // mockedResolve.mockRejectedValueOnce(Error('aas not found'))
-    const uri = await TMTAuth.getAASUrl()
+    const uri = await AuthStore.getAASUrl()
     expect(uri).toEqual('http://localhost:8081/auth')
   })
 
@@ -87,6 +87,6 @@ describe('Auth', () => {
     const mockedResolve = mocked(resolve, true)
     mockedResolve.mockRejectedValueOnce(Error('CSW.AAS not found'))
 
-    await expect(() => TMTAuth.getAASUrl()).rejects.toThrow('CSW.AAS not found')
+    await expect(() => AuthStore.getAASUrl()).rejects.toThrow('CSW.AAS not found')
   })
 })

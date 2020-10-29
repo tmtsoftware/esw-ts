@@ -13,9 +13,13 @@ const adminService: AdminService = await AdminService()
 //#getLogMetadata
 const prefix = new Prefix('TCS', 'filter.wheel')
 const componentId = new ComponentId(prefix, 'HCD')
-const logMetaData: LogMetadata = await adminService.getLogMetadata(componentId)
-//#getLogMetadata
 
-//#setLogLevel
-const actionStatus: Done = await adminService.setLogLevel(componentId, 'WARN')
-//#setLogLevel
+const logMetaData: LogMetadata = await adminService.getLogMetadata(componentId)
+
+if (logMetaData.componentLevel !== 'ERROR') {
+  const actionStatus: Done = await adminService.setLogLevel(
+    componentId,
+    'ERROR'
+  )
+}
+//#getLogMetadata

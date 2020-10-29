@@ -6,15 +6,15 @@ import { resolve } from '../location/LocationUtils'
 import type { Auth, AuthContextConfig, AuthenticateResult } from './Models'
 
 /**
- * Adapter for authentication and authorization service
+ * Authentication and Authorization service
  */
-class AuthStore {
+export class AuthStore {
   /**
-   * Create instance of TMTAuth from keycloak.
+   * Create instance of AuthStore from keycloak.
    *
    * @param keycloak keycloak instance instantiated using keycloak-js
    */
-  public from(keycloak: KeycloakInstance): Auth {
+  public static from(keycloak: KeycloakInstance): Auth {
     return {
       logout: keycloak.logout,
       token: () => keycloak.token,
@@ -28,7 +28,7 @@ class AuthStore {
     }
   }
 
-  onTokenExpired(keycloak: KeycloakInstance): void {
+  static onTokenExpired(keycloak: KeycloakInstance): void {
     keycloak
       .updateToken(0)
       .then(() => console.info('token refreshed successfully'))
@@ -41,19 +41,19 @@ class AuthStore {
    * Responsible for instantiating keycloak using provided config and authentication. It also creates hooks for refreshing token when
    * token is expired which silently refresh token resulting seamless user experience once logged in
    *
-   * @param config json object which is UI application specific keycloak configuration e.g. realm and clientID.
-   * @param url json object which contains AAS url
-   * @param redirect boolean which decides instantiation mode for keycloak. e.g. login-required or check-sso.
-   * login-required mode redirects user to login screen if not logged in already. check-sso only checks if already
-   * logged in without redirecting to login screen if not logged in.
-   * @param adapter
+   * @param config    json object which is UI application specific keycloak configuration e.g. realm and clientID.
+   * @param url       json object which contains AAS url
+   * @param redirect  boolean which decides instantiation mode for keycloak. e.g. login-required or check-sso.
+   *                  login-required mode redirects user to login screen if not logged in already. check-sso only checks if already
+   *                  logged in without redirecting to login screen if not logged in.
+   *
    * @return {{ keycloak, authenticated }} json which contains keycloak instance and authenticated which is promise after
    * initializing keycloak
    */
 
   // fixme: this function name is confusing . it is doing instantiation of keycloak and returning authentication promise ?
   //  it doing too many things at once?
-  public authenticate(
+  public static authenticate(
     config: AuthContextConfig,
     url: string,
     redirect: boolean
@@ -75,14 +75,12 @@ class AuthStore {
    * Responsible for resolving AAS Server using location service. If not found returns AAS-server-url specified in
    * config
    *
-   * @return url string which is AAS server url
+   * @return url      AAS server url
    */
-  public async getAASUrl(): Promise<string> {
+  public static async getAASUrl(): Promise<string> {
     const authConnection = HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
     const location = await resolve(authConnection)
 
     return location.uri
   }
 }
-
-export const TMTAuth = new AuthStore()
