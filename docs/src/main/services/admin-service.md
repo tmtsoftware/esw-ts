@@ -1,9 +1,10 @@
 # Admin Service
+
 This service provides a handle to admin related APIs which currently has logging related APIs.
 
 ## Creation of Admin Service
 
-#### To create Admin client:
+### To create Admin client
 
 Typescript
 :   @@snip [Admin-Service](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #admin-service-creation }

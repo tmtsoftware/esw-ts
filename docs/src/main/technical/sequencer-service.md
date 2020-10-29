@@ -1,11 +1,12 @@
 # Sequencer Service
+
 This service provides a handle to send commands to a Sequencer which is registered in Location Service.
 
 ## Creation of Sequencer Service
 
 ### Pre-requisite
 
-### In order to use sequencer service client for a specific sequencer:
+### In order to use sequencer service client for a specific sequencer
 
   1. The Sequencer and Gateway Server should be running.
     `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the Location Service.
@@ -23,11 +24,11 @@ Typescript
 : @@snip [sequence-commands](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #sequence-commands-creation }
 
 ## Creating a Sequence
+
 A sequence is a list of sequence commands:
 
 Typescript
 : @@snip [sequence](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #sequence-creation }
-
 
 ## Usages of Sequencer Service
 
@@ -320,7 +321,6 @@ the sequence and waits for the final response (if the sequence was successfully 
 
 Typescript
 : @@snip [submitAndWait](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #submitAndWait }
-
 
 Type definitions for APIs used in the given example are :
 

@@ -34,11 +34,10 @@ Each command has a name given as a string. The string should be continuous with 
 This command is used to describe a goal that a system should match. The component developer is required to supply
 following arguments to create a `Setup` command.
 
-
- * Prefix: the source of the command as described above
- * CommandName: a simple string name for the command (no spaces)
- * ObsId: an optional observation id.
- * paramSet: Optional Set of Parameters. Default is empty.
+* Prefix: the source of the command as described above
+* CommandName: a simple string name for the command (no spaces)
+* ObsId: an optional observation id.
+* paramSet: Optional Set of Parameters. Default is empty.
 
 Type definition for Setup Command can be found @extref[here](ts-docs:classes/models.setup.html)
 
@@ -54,7 +53,6 @@ Type definition for Observe Command can be found @extref[here](ts-docs:classes/m
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #observe }
 
-
 ## Wait Command
 
 This command causes a Sequencer to wait until notified. It can only be sent to Sequencers.
@@ -63,7 +61,6 @@ Type definition for Wait Command can be found @extref[here](ts-docs:classes/mode
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #wait }
-
 
 ## Unique Key constraint
 

@@ -1,20 +1,19 @@
 # Event Service
+
 Event Service provides methods to interact with the event server which implements the publish/subscribe messaging paradigm
 where one component publishes an event and all clients that have subscribed receive the event.
-
 
 ## Pre-requisite
 
 1. The Location Service, Event Service and Gateway Server needs to be running in the network
-2. The necessary configuration, environment variables or system properties should be defined to point to the correct host and port number(s) for the Location Service nodes.
+1. The necessary configuration, environment variables or system properties should be defined to point to the correct host and port number(s) for the Location Service nodes.
 
 ## Creation of Event Service
 
-#### Examples to create a client for Event Service
+### Examples to create a client for Event Service
 
 Typescript
 : @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #event-service }
-
 
 ## Usages of Event Service
 
@@ -28,7 +27,6 @@ Type definitions for `publish` method can be found @extref:[here](ts-docs:interf
 
 Typescript
 : @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #publish }
-
 
 ## Get Events
 
@@ -44,10 +42,11 @@ Typescript
 : @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #get }
 
 ## Subscribe to the Events
+
 Subscribing to Event can be done via two ways. User can subscribe to -
 
 1. Multiple EventKeys.
-2. All the EventKeys of specific @extref:[subsystem](ts-docs:modules/models.html#subsystem) and pattern.
+1. All the EventKeys of specific @extref:[subsystem](ts-docs:modules/models.html#subsystem) and pattern.
 
 When you subscribe for the given EventKeys, events are received at `every` frequency.
 The methods take callback function which gets triggered whenever the events are received.

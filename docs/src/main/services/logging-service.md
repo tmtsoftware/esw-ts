@@ -23,6 +23,7 @@ Typescript
 Note that the examples are using async/await which makes handling of promises more readable.
 
 @@@
+
 ## Usages of Logging Service
 
 Type Definition for the Logging Service interface can be found @extref[here](ts-docs:interfaces/clients.loggingservice.html)
@@ -39,4 +40,3 @@ Type definition can be found - @extref:[here](ts-docs:interfaces/clients.logging
 
 Typescript
 :   @@snip [LoggingService](../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logentry }
-

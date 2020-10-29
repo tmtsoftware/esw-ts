@@ -8,16 +8,15 @@ A Value can also have Units, which must be of the defined types. See **Units** f
 
 A ParameterSet is a Set of Parameter. Various other message types include a **ParameterSet** (e.g. Setup, Event). A key is unique in a ParameterSet since it is a Set.
 
-### How to create a Parameter using the helper functions
+## How to create a Parameter using the helper functions
 
 - Choose an appropriate **KeyType** from the tables below.
 - Calling the `set` method on KeyType helper and supplying a *string* keyName will return a suitably typed parameter instance.
 
-#### Example snippets for creating parameter of simple, array and matrix type.
+### Example snippets for creating parameter of simple, array and matrix type.
 
 Typescript
 :   @@snip[paramater key](../../../../example/src/documentation/params/ParameterExample.ts) { #param-from-key }
-
 
 ### Primitive Data types
 
@@ -26,7 +25,7 @@ Typescript
 | Int       | IntKey              | intKey           |
 | Long      | LongKey             | longKey          |
 | Short     | ShortKey            | shortKey         |
-| Float     | FloatKey            | floatKey          |
+| Float     | FloatKey            | floatKey         |
 | Double    | DoubleKey           | doubleKey        |
 | Byte      | ByteKey             | byteKey          |
 | String    | StringKey           | stringKey        |
@@ -37,53 +36,52 @@ Typescript
 
 ### Array Data types
 
-| Primitive      | Typescript Key Type      | Helper functions      |
-| -------------- | ------------------------ | --------------------- |
-| IntArray       | IntArrayKey              | intArrayKey           |
-| LongArray      | LongArrayKey             | longArrayKey          |
-| ShortArray     | ShortArrayKey            | shortArrayKey         |
-| FloatArray     | FloatArrayKey            | floatArrayKey          |
-| DoubleArray    | DoubleArrayKey           | doubleArrayKey        |
-| ByteArray      | ByteArrayKey             | byteArrayKey          |
+| Primitive   | Typescript Key Type | Helper functions |
+| ----------- | ------------------- | ---------------- |
+| IntArray    | IntArrayKey         | intArrayKey      |
+| LongArray   | LongArrayKey        | longArrayKey     |
+| ShortArray  | ShortArrayKey       | shortArrayKey    |
+| FloatArray  | FloatArrayKey       | floatArrayKey    |
+| DoubleArray | DoubleArrayKey      | doubleArrayKey   |
+| ByteArray   | ByteArrayKey        | byteArrayKey     |
 
 ### Matrix Data types
 
-| Primitive      | Typescript Key Type      | Helper functions      |
-| -------------- | ------------------------ | --------------------- |
-| IntMatrix      | IntMatrixKey             | intMatrixKey          |
-| LongMatrix     | LongMatrixKey            | longMatrixKey         |
-| ShortMatrix    | ShortMatrixKey           | shortMatrixKey        |
-| FloatMatrix    | FloatMatrixKey           | floatMatrixKey         |
-| DoubleMatrix   | DoubleMatrixKey          | doubleMatrixKey       |
-| ByteMatrix     | ByteMatrixKey            | byteMatrixKey         |
+| Primitive    | Typescript Key Type | Helper functions |
+| ------------ | ------------------- | ---------------- |
+| IntMatrix    | IntMatrixKey        | intMatrixKey     |
+| LongMatrix   | LongMatrixKey       | longMatrixKey    |
+| ShortMatrix  | ShortMatrixKey      | shortMatrixKey   |
+| FloatMatrix  | FloatMatrixKey      | floatMatrixKey   |
+| DoubleMatrix | DoubleMatrixKey     | doubleMatrixKey  |
+| ByteMatrix   | ByteMatrixKey       | byteMatrixKey    |
 
 ### Domain Specific Types
 
 - choice : A key for a choice item similar to an enumeration
 - struct : Structs can be used to create a hierarchy of parameters
 
-| Primitive    | Typescript Key Type  | Helper functions    |
-| ------------ | -------------------- | ------------------- |
-| Choice       | ChoiceKey            | choiceKey           |
-| Struct       | StructKey            | Struct              |
+| Primitive | Typescript Key Type | Helper functions |
+| --------- | ------------------- | ---------------- |
+| Choice    | ChoiceKey           | choiceKey        |
+| Struct    | StructKey           | Struct           |
 
 #### Example snippets for creating choice and struct parameters
 
 Typescript
 :   @@snip[domain specific keys](../../../../example/src/documentation/params/ParameterExample.ts) { #domain-key }
 
-
 ### Coordinate Types
 
-| Primitive          | Typescript Key Type  | Helper functions    |
-| ------------------ | -------------------- | ------------------- |
-| RaDec              |  RaDecKey            | raDecKey            |
-| EqCoord            |  EqCoordKey          | eqCoordKey          |
-| SolarSystemCoord   |  SolarSystemCoordKey | solarSystemCoordKey |
-| MinorPlanetCoord   |  MinorPlanetCoordKey | minorPlanetCoordKey |
-| CometCoord         |  CometCoordKey       | cometCoordKey       |
-| AltAzCoord         |  AltAzCoordKey       | altAzCoordKey       |
-| Coord (*)          |  CoordKey            | coordKey            |
+| Primitive        | Typescript Key Type | Helper functions    |
+| ---------------- | ------------------- | ------------------- |
+| RaDec            | RaDecKey            | raDecKey            |
+| EqCoord          | EqCoordKey          | eqCoordKey          |
+| SolarSystemCoord | SolarSystemCoordKey | solarSystemCoordKey |
+| MinorPlanetCoord | MinorPlanetCoordKey | minorPlanetCoordKey |
+| CometCoord       | CometCoordKey       | cometCoordKey       |
+| AltAzCoord       | AltAzCoordKey       | altAzCoordKey       |
+| Coord (*)        | CoordKey            | coordKey            |
 
 #### Example snippet for creating coordinate parameters
 

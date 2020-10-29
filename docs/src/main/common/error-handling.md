@@ -1,4 +1,3 @@
-
 # Error Handling
 
 Errors/Exceptions must be handled in application code because that will help user to make further decisions for controlled user interactions with the UI.
@@ -42,7 +41,6 @@ For the given case it will have the following information.
 
 message: `Requirement failed - component name filter-wheel has '-'`
 
-
 ## Error Handling pattern
 
 The following examples shows how to call Agent Service methods and handle the response `SpawnResponse` and `KillResponse`.
@@ -63,4 +61,3 @@ Example for `spawnSequenceManager` method call with error handling looks like fo
 
 Typescript
 :   @@snip [Response](../../../../example/src/documentation/common/ErrorHandlingExample.ts) { #response-handling-spawn }
-

@@ -26,6 +26,7 @@ Note that the examples are using async/await which makes handling of promises mo
 ## Usages of Alarm Service
 
 ## Setting alarm Severity
+
 @extref:[Alarm service](ts-docs:interfaces/clients.alarmservice.html) allows you to update the severity of alarms belonging to components.
 
 Type Definitions of `setSeverity` method can be found @extref:[here](ts-docs:interfaces/clients.alarmservice.html#setseverity)

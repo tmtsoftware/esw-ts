@@ -1,10 +1,12 @@
 # Command Service
+
 Command Service provides a handle to send commands to a component which is registered in Location Service.
 
 ## Creation of Command Service
 
 ### Pre-requisite
-### In order to use command service for a specific component:
+
+### In order to use command service for a specific component
 
   1. The component needs to be up and running behind the gateway server.
     `GatewayException(InvalidComponent)` will be thrown if the specified component is not found.
@@ -22,21 +24,23 @@ Typescript
 
 Whenever a command gets submitted to a component, it results into in either `Immediate completion` or `Long Running action`.
 
-###  Immediate completion
+### Immediate completion
+
 If the actions of the `submit` or `submitAndWait` command take a very short time to complete, it is referred as `Immediate completion`.
 The actions are successful, if the `Completed SubmitResponse` is returned. If there is a result, the `Completed` is returned with a parameter set of `Result` type that can be inspected by the caller.
 
-###  Long running Actions
+### Long running Actions
+
 When actions take longer than 1 second the Component returns the `Started SubmitResponse`. The `Started` response indicates to the framework that long-running actions have been started.
 
 ## Control Commands
+
 In order to call the following method, one of the control command needs to be sent. Depending on your use case, you will be sending either `Setup` or `Observe` Command.
 
 Following examples show how to create control commands:
 
 Typescript
 :   @@snip [control-command](../../../../example/src/documentation/command/CommandExamples.ts) { #control-commands }
-
 
 @@@ note {title="Async-Await" }
 
@@ -83,7 +87,6 @@ Type definitions of `submitAllAndWait` method can be found @extref:[here](ts-doc
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #submit-all-and-wait }
-
 
 ## Oneway
 
