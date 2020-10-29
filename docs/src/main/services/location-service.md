@@ -14,7 +14,7 @@ Type definition for location model can be found @extref[here](ts-docs:modules/mo
 Access token is not necessary for using Location Service query APIs.
 
 If You are using Location Service to unregister a component, you would need to have the authorization Token with correct
-access role. Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
+access role. Documentation on how to fetch access token could be found @ref[here](../aas/auth-components.md).
 
 #### Examples to create a client for Location Service
 

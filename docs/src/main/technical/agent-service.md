@@ -14,7 +14,7 @@ Agent Service provides APIs to spawn Sequence Manager, Sequence Components and t
   1. Agent machines should be up and running.
   1. Locations of agent machines should be registered in Location Service.
   1. Authorization token with correct access role.
-     Documentation on how to fetch authorization token could be found @ref[here](../aas/csw-aas-js.md).
+     Documentation on how to fetch authorization token could be found @ref[here](../aas/auth-components.md).
 
 #### To create Agent Service client
 

@@ -29,7 +29,7 @@ Sequence Manager Service has following [API](#apis):
 1. Subsystem's agent machines should be up and running.
 1. Sequence Manager should be spawned. Documentation on how to spawn Sequence Manager could be found @ref[here](agent-service.md).
 1. Authorization Token with correct access role.
- Documentation on how to fetch authorization token could be found @ref[here](../aas/csw-aas-js.md).
+ Documentation on how to fetch authorization token could be found @ref[here](../aas/auth-components.md).
 
 #### To create Sequence Manager client
 

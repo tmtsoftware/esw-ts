@@ -11,7 +11,7 @@ This service provides a handle to send commands to a Sequencer which is register
   1. The Sequencer and Gateway Server should be running.
     `GatewayException(InvalidComponent)` will be thrown if the specified sequencer not found in the Location Service.
   2. Authorization token with correct access role.
-     Documentation on how to fetch access token could be found @ref[here](../aas/csw-aas-js.md).
+     Documentation on how to fetch access token could be found @ref[here](../aas/auth-components.md).
 
 ### To create Sequencer Service
 

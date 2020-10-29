@@ -37,8 +37,7 @@ Note: Models other than `ConfigData` are simple TypeScript classes and do not ha
 2. The necessary configuration, environment variables or system properties should be defined to point to the correct
    host and port number(s) for the Location Service nodes.
 3. Authorization Token with correct access role.
-
-Documentation on how to fetch authorization token could be found @ref[here](../aas/csw-aas-js.md).
+   Documentation on how to fetch authorization token could be found @ref[here](../aas/auth-components.md).
 
 ## Creation of Config Service
 

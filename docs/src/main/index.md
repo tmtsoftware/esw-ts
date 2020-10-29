@@ -28,7 +28,7 @@ While using any of the service, you will be required to use some internal models
 
 - @ref:[Getting Started](common/getting-started.md)
 - @ref:[Params](params/index.md)
-- @ref:[AAS](aas/csw-aas-js.md)
+- @ref:[AAS](aas/auth-components.md)
 - @ref:[Response handling](common/response-handling.md)
 - @ref:[Error handling](common/error-handling.md)
 - @ref:[Services](services/index.md)
