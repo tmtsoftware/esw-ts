@@ -18,7 +18,7 @@ Typescript
 
 ## Usages of Event Service
 
-Type definitions for All Event Service methods can be found @extref:[here](ts-docs:interfaces/clients.eventservice.html).
+Type definitions for all Event Service methods can be found @extref:[here](ts-docs:interfaces/clients.eventservice.html).
 
 ## Publishing an Event
 

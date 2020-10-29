@@ -10,22 +10,16 @@ Typescript
 
 ## Usages of Admin Service
 
-Type definitions for All Admin Service methods can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html)
+Type definitions for all Admin Service methods can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html)
 
-## Fetching LogMetadata
+## Fetching LogMetadata & Setting log level
 
-There is logging configuration set for all registered components within the TMT cluster. This method gives basic logging configuration values for specific component.
+For instance, we need logging configuration to be known before setting log level of a component if it is not set to desired @extref:[log level](ts-docs:modules/models.html#level).
 
 Type definitions for `getLogMetadata` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#getlogmetadata)
+Type definitions for `setLogLevel` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#setloglevel)
+
+In the given example, we want to set `ERROR` log level for the component if it's not already set to `ERROR`.
 
 Typescript
 :   @@snip [getLogMetadata](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #getLogMetadata }
-
-## Setting LogLevel of a component
-
-This method allows setting log level of specific component.
-
-Type definitions for `setLogLevel` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#setloglevel)
-
-Typescript
-:   @@snip [setLogLevel](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #setLogLevel }

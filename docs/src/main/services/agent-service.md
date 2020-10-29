@@ -27,7 +27,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Agent Service
 
-Type definitions for All Agent Service methods can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html)
+Type definitions for all Agent Service methods can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html)
 
 ## Spawning a Sequence Manager
 Agent Service requires agent (a component of type :`Machine`) to be able to process requests. Once it locates an agent using Location Service with the help of agent prefix, it sends a spawn Sequence Manager command to the agent machine.
