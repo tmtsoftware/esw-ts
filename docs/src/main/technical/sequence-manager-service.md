@@ -3,23 +3,6 @@
 The Sequence Manager Service manages all the operation related to the observations.
 It manages all sequence components and sequencers required for the observations.
 
-Sequence Manager Service has following [API](#apis):
-
-| API                                                             | Input args         | Returns                           |
-| --------------------------------------------------------------- | ------------------ | --------------------------------- |
-| [configure](#configure)                                         | obsMode            | ConfigureResponse                 |
-| [provision](#provision)                                         | config             | ProvisionResponse                 |
-| [getRunningObsModes](#getrunningobsmodes)                       |                    | GetRunningObsModesResponse        |
-| [startSequencer](#startsequencer)                               | subsystem, obsMode | StartSequencerResponse            |
-| [restartSequencer](#restartsequencer)                           | subsystem, obsMode | RestartSequencerResponse          |
-| [shutdownSequencer](#shutdownsequencer)                         | subsystem, obsMode | ShutdownSequencersResponse        |
-| [shutdownSubsystemSequencers](#shutdownsubsystemsequencers)     | subsystem          | ShutdownSequencersResponse        |
-| [shutdownObsModeSequencers](#shutdownobsmodesequencers)         | obsMode            | ShutdownSequencersResponse        |
-| [shutdownAllSequencers](#shutdownallsequencers)                 |                    | ShutdownSequencersResponse        |
-| [shutdownSequenceComponent](#shutdownsequencecomponent)         | prefix             | ShutdownSequenceComponentResponse |
-| [shutdownAllSequenceComponents](#shutdownallsequencecomponents) |                    | ShutdownSequenceComponentResponse |
-| [getAgentStatus](#getagentstatus)                               |                    | AgentStatusResponse               |
-
 ## Creation of Sequence Manager Service
 
 ### Pre-requisite
@@ -38,120 +21,134 @@ Typescript
 
 ## Usages of Sequence Manager Service
 
-### configure
+### Configuring Resources
 
- It starts sequencers needed for an observation mode. Before starting sequencer, it checks for resource
- conflict between requested observation mode and running observation mode. The required sequencers and
- resources are listed in `obsModeConfig` file provided at boot up time of Sequence Manager. It returns
- `ConflictingResourcesWithRunningObsMode` if required resources are not available. This method returns response
- containing `Success` as `ConfigureResponse` after successful start of all required sequencers.
+To configure resources, `SequenceManagerService` provides `configure` method.
+This method starts sequencers needed for an observation mode. Before starting sequencer, it checks for resource
+conflict between requested observation mode and running observation mode. The required sequencers and
+resources are listed in `obsModeConfig` file provided at boot up time of Sequence Manager. It returns
+`ConflictingResourcesWithRunningObsMode` if required resources are not available. This method returns response
+containing `Success` as `ConfigureResponse` after successful start of all required sequencers.
 
 The following example shows how to call `configure` method. Here machines will be setup for `'IRIS_DarkNight'` observation mode.
+
+Type definitions of `configure` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#configure)
 
 Typescript
 : @@snip [configure](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#configure}
 
-### provision
+### Provisioning
 
- This method shuts down all the running sequence components and provisions the new sequence components in
- accordance with the provided configuration. The configuration specifies number of sequence components
- needed to be spawned on a particular agent. It returns `Success` as `ProvisionResponse` after successful
- spawning of components.
+To provision resources, `SequenceManagerService` provides `provision` method.
+This method shuts down all the running sequence components and provisions the new sequence components in
+accordance with the provided configuration. The configuration specifies number of sequence components
+needed to be spawned on a particular agent. It returns `Success` as `ProvisionResponse` after successful
+spawning of components.
 
- In following example, three sequence components will be spawned on `'ESW.agent-machine'` agent machine and two sequence
- component will be spawned on `'IRIS.agent-machine'` agent machine.
+In following example, three sequence components will be spawned on `'ESW.agent-machine'` agent machine and two sequence
+component will be spawned on `'IRIS.agent-machine'` agent machine.
+
+Type definitions of `provision` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#provision)
 
 Typescript
 : @@snip [provision](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#provision}
 
-### getRunningObsModes
+### Getting Running ObsModes
 
- This method returns all the running observation modes.
+To get all the running ObsModes, `SequenceManagerService` provides `getRunningObsModes` method.
+This method returns all the running observation modes.
 
- The following example shows how to call `getRunningObsModes` method:
+Type definitions of `getRunningObsModes` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getrunningobsmodes)
+
+The following example shows how to call `getRunningObsModes` method:
 
 Typescript
 : @@snip [getRunningObsModes](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getRunningObsModes}
 
-### startSequencer
+### Starting a Sequencer
 
- This method starts the sequencer for given subsystem and observation mode.
- It uses the subsystem's sequence component, if not available, fallbacks to ESW sequence component.
+To start a Sequencer, `SequenceManagerService` provides `startSequencer` method.
+This method starts the sequencer for given subsystem and observation mode.
+It uses the subsystem's sequence component, if not available, fallbacks to ESW sequence component.
 
- The following example shows how to call `startSequencer` method:
+Type definitions of `startSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#startsequencer)
+
+The following example shows how to call `startSequencer` method:
 
 Typescript
 : @@snip [startSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#startSequencer}
 
-### restartSequencer
+### Restarting a Sequencer
 
+To restart a Sequencer, `SequenceManagerService` provides `restartSequencer` method.
 This method restarts the existing running sequencer of given subsystem and observing mode.
+
+Type definitions of `restartSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#restartsequencer)
 
 The following example shows how to call `restartSequencer` method:
 
 Typescript
 : @@snip [restartSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#restartSequencer}
 
-### shutdownSequencer
+### Shutting down Sequencers
 
-This method shuts down the running sequencer of given subsystem and observation mode.
+To shut down one or more Sequencer, `SequenceManagerService` provides following methods:
 
-The following example shows how to call `shutdownSequencer` method:
+- **shutdownSequencer** - This method shuts down the running sequencer of given subsystem and observation mode.
 
 Typescript
 : @@snip [shutdownSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequencer}
 
-### shutdownSubsystemSequencers
-
-This method shuts down all the running sequencers of given subsystem.
-
-The following example shows how to call `shutdownSubsystemSequencers` method:
+- **shutdownSubsystemSequencers** - This method shuts down all the running sequencers of given subsystem.
 
 Typescript
 : @@snip [shutdownSubsystemSequencers](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSubsystemSequencers}
 
-### shutdownObsModeSequencers
-
-This method shuts down all the running sequencers of given observation mode.
-
-The following example shows how to call `shutdownObsModeSequencers` method:
+- **shutdownObsModeSequencers** - This method shuts down all the running sequencers of given observation mode.
 
 Typescript
 : @@snip [shutdownObsModeSequencers](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownObsModeSequencers}
 
-### shutdownAllSequencers
-
-This method shuts down all the running sequencers.
-
-The following example shows how to call `shutdownAllSequencers` method:
+- **shutdownAllSequencers** - This method shuts down all the running sequencers.
 
 Typescript
 : @@snip [shutdownAllSequencers](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownAllSequencers}
 
-### shutdownSequenceComponent
+Type definitions of these methods are below:
 
-This method shuts down sequence component with provided prefix.
+- @extref:[shutdownSequencer](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsequencer)
+- @extref:[shutdownSubsystemSequencers](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsubsystemsequencers)
+- @extref:[shutdownObsModeSequencers](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownobsmodesequencers)
+- @extref:[shutdownAllSequencers](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownallsequencers)
 
-The following example shows how to call `shutdownSequenceComponent` method:
+### Shutting down Sequence Components
+
+To shut down one or more Sequence Components, `SequenceManagerService` provides following methods:
+
+- **shutdownSequenceComponent** - This method shuts down sequence component with provided prefix.
 
 Typescript
 : @@snip [shutdownSequenceComponent](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequenceComponent}
 
-### shutdownAllSequenceComponents
-
-This method shuts down all the sequence components.
-
-The following example shows how to call `shutdownAllSequenceComponents` method:
+- **shutdownAllSequenceComponents** - This method shuts down all the sequence components.
 
 Typescript
 : @@snip [shutdownAllSequenceComponents](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownAllSequenceComponents}
 
-### getAgentStatus
+Type definitions of these methods are below:
 
- This method allows showing status of TMT ecosystem components (agents, sequence components and sequencers).
- It returns all agents that are up and running, sequence components running on those agents and sequencer script loaded on sequence component.
+- @extref:[shutdownSequenceComponent](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsequencecomponent)
+- @extref:[shutdownAllSequenceComponents](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownallsequencecomponents)
 
- The following example shows how to call `getAgentStatus` method:
+### Getting Agent Status
+
+To get Agent Status for a running Agent, `SequenceManagerService` provides `getAgentStatus` method.
+This method allows showing status of TMT ecosystem components (agents, sequence components and sequencers).
+It returns all agents that are up and running, sequence components running on those agents and sequencer script loaded on sequence component.
+
+Type definitions of `getAgentStatus` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getagentstatus)
+
+The following example shows how to call `getAgentStatus` method:
 
 Typescript
 : @@snip [getAgentStatus](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getAgentStatus}
