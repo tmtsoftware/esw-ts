@@ -1,17 +1,11 @@
-import react from 'react';
-import {
-    CommandService, ComponentId, Prefix, setAppConfigPath, Setup, SubmitResponse
-} from "@tmtsoftware/esw-ts";
+import { setAppConfigPath } from '@tmtsoftware/esw-ts'
+import React from 'react'
 //#set-app-config-path
 // inside App.tsx
 
 setAppConfigPath('randomFolder/randomFile.ts')
 
-export default () => (
-    <div>
-      {/* children components */}
-    </div>
-  )
+export default () => <div>{/* children components */}</div>
 
 //#set-app-config-path
 

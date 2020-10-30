@@ -37,8 +37,8 @@ const NavComponent = () => {
             ) : auth.isAuthenticated() ? (
               // #logout-component-usage
               <Logout />
-              // #logout-component-usage
             ) : (
+              // #logout-component-usage
               // #login-component-usage
               <Login />
               // #login-component-usage
