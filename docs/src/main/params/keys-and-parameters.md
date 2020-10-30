@@ -13,7 +13,7 @@ A ParameterSet is a Set of Parameter. Various other message types include a **Pa
 - Choose an appropriate **KeyType** from the tables below.
 - Calling the `set` method on KeyType helper and supplying a *string* keyName will return a suitably typed parameter instance.
 
-### Example snippets for creating parameter of simple, array and matrix type.
+### Example snippets for creating parameter of simple, array and matrix type
 
 Typescript
 :   @@snip[paramater key](../../../../example/src/documentation/params/ParameterExample.ts) { #param-from-key }

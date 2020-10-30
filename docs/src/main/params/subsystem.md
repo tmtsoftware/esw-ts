@@ -43,4 +43,4 @@ Type definition for Subsystem can be found @extref[here](ts-docs:modules/models.
 
 ## Usage Examples
 
-The usage examples can be found in [Events](../services/event/event-service.html), [Commands](commands.html), [States](states.html)
+The usage examples can be found in [Events](../services/event-service.html), [Commands](commands.html), [States](./state-variables.html)

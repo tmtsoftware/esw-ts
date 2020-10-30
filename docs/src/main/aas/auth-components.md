@@ -22,12 +22,17 @@ Typescript
 
 `ESW-TS` exposes the following React components.
 
- - [AuthContextProvider](#authcontextprovider)
- - [Consumer](#consumer)
- - [Login](#login)
- - [Logout](#logout)
- - [CheckLogin](#checklogin)
- - [RealmRole](#realmrole)
+- @ref[Auth Components](#auth-components)
+  - @ref[Application Configuration](#application-configuration)
+  - @ref[Components](#components)
+    - @ref[AuthContextProvider](#authcontextprovider)
+    - @ref[Consumer](#consumer)
+    - @ref[Login](#login)
+    - @ref[Logout](#logout)
+    - @ref[CheckLogin](#checklogin)
+    - @ref[RealmRole](#realmrole)
+  - @ref[Example](#example)
+  - @ref[Technical Description](#technical-description)
 
 Type definition for all components used by services can be found @extref:[here](ts-docs:modules/components.html)
 
@@ -52,10 +57,6 @@ application via a `Consumer`.
 Typescript
 :   @@snip [AuthContextProvider.tsx](../../../../example/src/components/ExampleApp.tsx) { #AuthContextProvider-component-usage }
 
-#### Source code for AuthContextProvider component
-
-* @github[AuthContextProvider Component](../../../../lib/src/components/aas/context/AuthContextProvider.tsx)
-
 ### Consumer
 
 `Consumer` is similar to a React [Context.Consumer](https://reactjs.org/docs/context.html#contextconsumer).
@@ -63,10 +64,6 @@ The shared `auth` object from the `AuthContextProvider` can be accessed using a 
 
 Typescript
 :   @@snip [Consumer.tsx](../../../../example/src/components/Read.tsx) { #Consumer-component-usage }
-
-#### Source code for Consumer component
-
-* @github[Consumer Component](../../../../lib/src/components/aas/context/AuthContext.ts)
 
 ### Login
 
@@ -77,20 +74,12 @@ e.g. token, realm etc.
 Typescript
 :   @@snip [Login.tsx](../../../../example/src/components/NavComponent.tsx) { #login-component-usage }
 
-#### Source code for Login component
-
-* @github[Login Component](../../../../lib/src/components/aas/Login.tsx)
-
 ### Logout
 
 The `Logout` component logs out the user from the AAS server. It clears the `auth` object stored in the context.
 
 Typescript
 :   @@snip [Logout.tsx](../../../../example/src/components/NavComponent.tsx) { #logout-component-usage }
-
-#### Source code for Logout component
-
-* @github[Logout Component](../../../../lib/src/components/aas/Logout.tsx)
 
 ### CheckLogin
 
@@ -101,10 +90,6 @@ passed into the component as an `error` property, shown as an `ExampleError` Com
 
 Typescript
 :   @@snip [CheckLogin.tsx](../../../../example/src/components/ExampleApp.tsx) { #checkLogin-component-usage }
-
-#### Source code for CheckLogin component
-
-* @github[CheckLogin Component](../../../../lib/src/components/aas/authentication/CheckLogin.tsx)
 
 ### RealmRole
 
@@ -117,11 +102,7 @@ that is passed into the component as an `error` property, shown as an `ExampleEr
 Typescript
 :   @@snip [RealmRole.tsx](../../../../example/src/components/ExampleApp.tsx) { #realmRole-component-usage }
 
-#### Source code for RealmRole component
-
-* @github[RealmRole Component](../../../../lib/src/components/aas/authorization/RealmRole.tsx)
-
-##Example
+## Example
 
 Here is an example of a Config App(React app) which uses ConfigService client
 and Auth components in order to authorize ConfigService
@@ -129,12 +110,10 @@ and Auth components in order to authorize ConfigService
 Typescript
 :   @@snip [ExampleApp.tsx](../../../../example/src/components/ExampleApp.tsx) { #example-app }
 
-
 ConfigApp component which uses Config Service APIs:
 
 Typescript
 :   @@snip [ConfigApp.tsx](../../../../example/src/components/config/ConfigApp.tsx) { #config-app }
-
 
 ConfigServiceProvider is the component where instance of Config Service gets created:
 
@@ -144,4 +123,5 @@ Typescript
 Source code for the full example can be found [here](https://github.com/tmtsoftware/esw-ts/tree/master/example/src)
 
 ## Technical Description
+
 See @ref:[Auth Components Technical Description](../technical/auth-components.md).

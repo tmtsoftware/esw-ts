@@ -43,7 +43,7 @@ Typescript
 
 ## Spawning a Sequence Component
 
-Similar to spawning a [Sequence Manager](#spawning-a-sequence-manager), Agent Service locates an agent and then it sends a spawn Sequence Component command to the agent machine.
+Similar to spawning a @ref[Sequence Manager](#spawning-a-sequence-manager), Agent Service locates an agent and then it sends a spawn Sequence Component command to the agent machine.
 The corresponding API call fails if the Sequence Component is already running, or the underlying agent fails to spawn it.
 
 Type definitions for `spawnSequenceComponent` can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html#spawnsequencecomponent)

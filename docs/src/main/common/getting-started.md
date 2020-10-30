@@ -6,7 +6,7 @@ template which uses ESW-TS library. You can use this as a starting point for you
 ## Installation
 
 `node` is mandatory to be installed on a machine for using ESW-TS. To install the latest version of node, visit the
-[official website](https://nodejs.org/).
+[official website](https://nodejs.org/en/).
 
 ## Create starter project
 

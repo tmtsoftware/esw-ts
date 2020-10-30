@@ -32,7 +32,6 @@ For instance, following example showcases two scenarios without **async-await** 
 Typescript
 :   @@snip [Response](../../../../example/src/documentation/common/Promises.ts) { #promises }
 
-
 The following example showcases the same above scenarios with **async-await** syntax.
 
 1. Sending multiple submit commands with async-await syntax

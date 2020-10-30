@@ -42,6 +42,9 @@ jobs:
         working-directory: ./lib
         run: npm run build
 
+      - name: Paradox Validate Links
+        run: sbt paradoxValidateLinks
+
       - name: Unit tests
         working-directory: ./lib
         run: npm run test:unit:ci

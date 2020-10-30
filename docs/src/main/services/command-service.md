@@ -63,7 +63,7 @@ Typescript
 
 ## Submitting commands
 
-A `submit` message can be used when the sender of a command needs to do additional work before long-running actions are completed. For instance, send another command to execute in parallel. If commands are short, `submit` and `submitAndWait` behave the same way. When the actions started by submit are long-running, the caller can wait for the actions to complete if needed using the [queryFinal](#queryfinal) call.
+A `submit` message can be used when the sender of a command needs to do additional work before long-running actions are completed. For instance, send another command to execute in parallel. If commands are short, `submit` and `submitAndWait` behave the same way. When the actions started by submit are long-running, the caller can wait for the actions to complete if needed using the @ref[queryFinal](#querying-for-final-result) call.
 
 Type definitions of `submit` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submit)
 
@@ -81,7 +81,7 @@ Typescript
 
 ## Submit Multiple commands and Wait
 
-Similar to [SubmitAndWait](#submit-and-wait-for-response), `submitAllAndWait` method can be used to send multiple commands sequentially to the same component. This could be used to send initialization commands to an HCD, for instance.
+Similar to @ref[SubmitAndWait](#submit-and-wait-for-response), `submitAllAndWait` method can be used to send multiple commands sequentially to the same component. This could be used to send initialization commands to an HCD, for instance.
 
 Type definitions of `submitAllAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submitallandwait)
 
@@ -108,7 +108,7 @@ Typescript
 
 ## Querying for Final result
 
-Similar to [query](#querying-result), `queryFinal` uses the Id returned by `Started`. However, in this case rather than returning immediately like `query`, it waits and only returns when the final `SubmitResponse` is sent. The `queryFinal` method is useful exclusively with `submit` in the case where some other activity must be done before the actions started by the `submit` complete.
+Similar to @ref[query](#querying-result), `queryFinal` uses the Id returned by `Started`. However, in this case rather than returning immediately like `query`, it waits and only returns when the final `SubmitResponse` is sent. The `queryFinal` method is useful exclusively with `submit` in the case where some other activity must be done before the actions started by the `submit` complete.
 
 Type definitions of `queryFinal` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#queryfinal)
 

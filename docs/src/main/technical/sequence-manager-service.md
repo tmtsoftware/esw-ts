@@ -140,7 +140,7 @@ Type definitions of these methods are below:
 - @extref:[shutdownSequenceComponent](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsequencecomponent)
 - @extref:[shutdownAllSequenceComponents](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownallsequencecomponents)
 
-# Getting Agent Status
+## Getting Agent Status
 
 To get Agent Status for a running Agent, `SequenceManagerService` provides `getAgentStatus` method.
 This method allows showing status of TMT ecosystem components (agents, sequence components and sequencers).

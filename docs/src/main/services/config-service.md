@@ -85,10 +85,10 @@ The Config Service provides multiple ways to fetch a file from the svn repositor
 
 Following are the methods available to fetch files:
 
- - `getActive`
- - `getById`
- - `getByTime`
- - `getLatest`
+- `getActive`
+- `getById`
+- `getByTime`
+- `getLatest`
 
 Examples for each of the methods are as follows:
 
