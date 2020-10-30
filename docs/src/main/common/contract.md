@@ -1,6 +1,6 @@
 # Service Contract
 
-All ESW-TS services adhere to contract which is defined by ESW and CSW services.
+All ESW-TS services adhere to contracts which are defined by ESW and CSW services.
 
 The following are the links for each of the backend service contract.
 
@@ -18,5 +18,5 @@ The following are the links for each of the backend service contract.
   - [Config Service](https://github.com/tmtsoftware/tmtsoftware.github.io/tree/master/csw/$csw-version$/contracts/config-service)
 
 @@@ note
-Event, Admin, Alarm, Logging will be accessed via gateway server. therefore, the links are pointing to gateway service contract.
+Event, Admin, Alarm, Logging will be accessed via the Gateway Server. therefore, the links are pointing to the Gateway Service contract.
 @@@

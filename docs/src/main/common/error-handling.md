@@ -1,4 +1,4 @@
-# Error Handling
+# Error Handling in ESW-TS
 
 Errors/Exceptions must be handled in application code because that will help user to make further decisions for controlled user interactions with the UI.
 

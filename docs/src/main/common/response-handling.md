@@ -1,8 +1,8 @@
-# Response Handling
+# Response Handling in ESW-TS
 
-This sections helps to understand how responses have been modeled in TMT architecture and, also how they can be handled at UI application side.
+This section helps to understand how responses have been modeled in TMT architecture and, also how they can be handled at UI application side.
 
-If you have not gone the Services Section, We recommend you to check @ref[Services](../services/index.md) out first.
+If you have not gone the Services Section, we recommend you to check @ref[Services](../services/index.md) out first.
 Assuming you have read through the Services section and what all types of response can be returned by the Service of your current interest.
 
 The Response types are Union types/ADT's. All of them are tagged by `_type` field, this field provides information at compile time to developers of all possible response variation at runtime for the current response.
@@ -14,7 +14,7 @@ Typescript
 All non-ADT or Normal response types (for ex: `Done`, `LogMetadata`, etc.) does not require extra effort of handling it with switch cases. Those models do not have any discriminatory field like `_type` and there will always be one variation, and the information about all fields inside model will be statically known.
 @@@
 
-## Asynchronous programming
+## Asynchronous Programming
 
 You may have notice that we have used `async-await` syntax in all examples provided in the different pages of this documentation.
 However, one may still want to write using combinators provided by Promise, since most of the ESW-TS service methods are Promise based.
