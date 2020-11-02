@@ -70,6 +70,7 @@ jobs:
 
       - name: Docs Publish
         run: |
+          sbt clean makeSite
           echo 'echo $RELEASE_TOKEN' > /tmp/.git-askpass
           chmod +x /tmp/.git-askpass
           git config --global user.email "actions@github.com"
