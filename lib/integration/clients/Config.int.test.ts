@@ -151,7 +151,7 @@ describe('Config Client', () => {
       false,
       'creating file'
     )
-    const configFileInfo = (await configService.list('Normal', '.*'))[0]
+    const configFileInfo = (await configService.list({ type: 'Normal', pattern: '.*' }))[0]
     expect(configFileInfo.path).toEqual(path)
     expect(configFileInfo.id).toEqual(configId)
     expect(configFileInfo.author).toEqual('test')

@@ -88,11 +88,10 @@ export interface ConfigService {
   /**
    * Returns a list containing all of the known config files of given type(Annex or Normal) and whose name matches the provided pattern
    *
-   * @param fileType    optional file type(Annex or Normal)
-   * @param pattern     optional pattern to match against the file name
+   * @param params      optional file type(Annex or Normal) and optional pattern to match against the file name
    * @return            ConfigFileInfo[] as Promise
    */
-  list(fileType?: M.FileType, pattern?: string): Promise<M.ConfigFileInfo[]>
+  list(params?: { type?: M.FileType; pattern?: string }): Promise<M.ConfigFileInfo[]>
 
   /**
    * Returns the history of versions of the file at the given path for a range of period specified by `from` and `to`.

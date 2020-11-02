@@ -51,10 +51,10 @@ export class ConfigServiceImpl implements ConfigService {
     return ConfigUtils.tryConfigExists(url)
   }
 
-  list(type?: FileType, pattern?: string): Promise<ConfigFileInfo[]> {
+  list(params?: { type?: FileType; pattern?: string }): Promise<ConfigFileInfo[]> {
     const queryParams: Record<string, string> = {}
-    if (type) queryParams['type'] = type
-    if (pattern) queryParams['pattern'] = pattern
+    if (params?.type) queryParams['type'] = params.type
+    if (params?.pattern) queryParams['pattern'] = params.pattern
     const url = this.endpoint('list')
     return get({
       url,

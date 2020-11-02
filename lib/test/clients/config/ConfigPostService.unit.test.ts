@@ -5,7 +5,7 @@ import { ConfigData, ConfigService } from '../../../src/clients/config-service'
 
 import type { HttpLocation } from '../../../src/clients/location'
 import { configConnection } from '../../../src/config/Connections'
-import { ServiceError } from '../../../src/models/ServiceError'
+import { ServiceError } from '../../../src/models'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -185,7 +185,7 @@ describe('ConfigService', () => {
     verify(getMockFn).toBeCalledWith({ url, queryParams: {}, decoder: expect.any(Function) })
   })
 
-  test('should list all the config for given type(fileType) and pattern | ESW-320', async () => {
+  test('should list all the config based on the given pattern | ESW-320', async () => {
     const url = listEndpoint()
 
     const firstConfInfo = {
@@ -204,7 +204,63 @@ describe('ConfigService', () => {
 
     getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
 
-    const actualRes = await configService.list('Annex', '.*')
+    const actualRes = await configService.list({ pattern: '.*' })
+    expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
+    verify(getMockFn).toBeCalledWith({
+      url,
+      queryParams: { pattern: '.*' },
+      decoder: expect.any(Function)
+    })
+  })
+
+  test('should list all the config for the given fileType | ESW-320', async () => {
+    const url = listEndpoint()
+
+    const firstConfInfo = {
+      path: 'firstConf',
+      id: 'id123',
+      author: 'Admin',
+      comment: 'comment1'
+    }
+
+    const secondConfInfo = {
+      path: 'secondConf',
+      id: 'id234',
+      author: 'Author1',
+      comment: 'comment2'
+    }
+
+    getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
+
+    const actualRes = await configService.list({ type: 'Annex' })
+    expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
+    verify(getMockFn).toBeCalledWith({
+      url,
+      queryParams: { type: 'Annex' },
+      decoder: expect.any(Function)
+    })
+  })
+
+  test('should list all the config for given type(fileType) and pattern both | ESW-320', async () => {
+    const url = listEndpoint()
+
+    const firstConfInfo = {
+      path: 'firstConf',
+      id: 'id123',
+      author: 'Admin',
+      comment: 'comment1'
+    }
+
+    const secondConfInfo = {
+      path: 'secondConf',
+      id: 'id234',
+      author: 'Author1',
+      comment: 'comment2'
+    }
+
+    getMockFn.mockResolvedValueOnce([firstConfInfo, secondConfInfo])
+
+    const actualRes = await configService.list({ type: 'Annex', pattern: '.*' })
     expect(actualRes).toEqual([firstConfInfo, secondConfInfo])
     verify(getMockFn).toBeCalledWith({
       url,
