@@ -198,16 +198,20 @@ const ddd = async () => {
   //#delete
 }
 //#list
-const allAnnexFilesInfo: ConfigFileInfo[] = await configService.list('Annex')
-const allNormalFilesInfo: ConfigFileInfo[] = await configService.list('Normal')
-const allHcdAnnexFilesInfo: ConfigFileInfo[] = await configService.list(
-  'Annex',
-  '.*hcd.*'
-)
-const allConfNormalFilesInfo: ConfigFileInfo[] = await configService.list(
-  'Normal',
-  '.*conf'
-)
+const allAnnexFilesInfo: ConfigFileInfo[] = await configService.list({
+  type: 'Annex'
+})
+const allNormalFilesInfo: ConfigFileInfo[] = await configService.list({
+  type: 'Normal'
+})
+const allHcdAnnexFilesInfo: ConfigFileInfo[] = await configService.list({
+  type: 'Annex',
+  pattern: '.*hcd.*'
+})
+const allConfNormalFilesInfo: ConfigFileInfo[] = await configService.list({
+  type: 'Normal',
+  pattern: '.*conf'
+})
 //#list
 const dddd = async () => {
   //#history
