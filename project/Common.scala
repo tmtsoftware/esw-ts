@@ -1,3 +1,4 @@
+import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory}
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
 import org.tmt.sbt.docs.DocKeys.{docsParentDir, docsRepo, gitCurrentRepo}
 import sbt.Keys._
@@ -45,6 +46,12 @@ object Common {
         case Some("true") => version.value
         case _            => "0.1.0-SNAPSHOT"
       }
+    },
+    commands += Command.command("openSite") { (state) =>
+      val uri = s"file://${Project.extract(state).get(siteDirectory)}/${docsParentDir.value}/${version.value}/index.html"
+      state.log.info(s"Opening browser at $uri ...")
+      java.awt.Desktop.getDesktop.browse(new java.net.URI(uri))
+      state
     },
     isSnapshot := !sys.props.get("prod.publish").contains("true"),
     fork := true,

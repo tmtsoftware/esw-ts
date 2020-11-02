@@ -1,7 +1,8 @@
-import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
+import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory, siteMappings}
+import org.tmt.sbt.docs.DocKeys.docsParentDir
 import org.tmt.sbt.docs.ParadoxMaterialSitePlugin
-import sbt.Keys.{mappings, target, version}
-import sbt.{Def, _}
+import sbt.Keys.{baseDirectory, mappings, target, version}
+import sbt._
 
 object TsDocPlugin extends AutoPlugin {
   private val tsDocParentDir = "ts-docs"
@@ -33,7 +34,7 @@ object TsDocPlugin extends AutoPlugin {
     Def.setting {
       sys.props.get("prod.docs") match {
         case Some("true") => s"https://tmtsoftware.github.io/esw-ts/${version.value}/$tsDocParentDir/%s"
-        case _            => s"/esw-ts/target/site/esw-ts/${version.value}/ts-docs/%s"
+        case _            => s"file://${new File(target.value.getParent).getParent}/target/site/esw-ts/${version.value}/ts-docs/%s"
       }
     }
 }

@@ -132,10 +132,9 @@ To run this test, execute `sbt test` or `sbt integration-ui/test` command
 
 To generate paradox documentation for the ESW-TS, run the following command
 
-  `sbt clean makeSite`
+  `sbt clean makeSite openSite`
 
-Above command will generate the paradox site at `target/site/esw-ts/0.1.0-SNAPSHOT` location.
-Open `index.html` file in the browser to view paradox documentation.
+Above command will generate and open the paradox site in browser.
 
 ### Push paradox documentation
 To push documentation on github pages, follow the steps:

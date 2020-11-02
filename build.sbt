@@ -22,7 +22,6 @@ lazy val docs = project
   .enablePlugins(ParadoxMaterialSitePlugin, TsDocPlugin)
   .settings(
     paradoxProperties ++= Map(
-      "extref.esw.base_url"     -> s"https://tmtsoftware.github.io/esw/%s",
       "extref.ts-docs.base_url" -> TsDocPlugin.tsDocPath.value,
       "esw-version"             -> ESW.Version,
       "csw-version"             -> CSW.Version

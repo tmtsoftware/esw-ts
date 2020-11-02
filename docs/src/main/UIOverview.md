@@ -52,7 +52,7 @@ without adding new features or extending the language.
 
 The ESW-TS library can be used to create `front-end` user interfaces that
 use the User Interface Application Gateway (UIAG) to access control system components. See @extref[UIAG in ESW](esw:uisupport/gateway) for more information.
-ESW-TS can also be used with `hybrid` user interfaces. See [here](esw:uisupport/UIOverview) for more information on these
+ESW-TS can also be used with `hybrid` user interfaces. See [here](esw:uisupport/UIOverview.html) for more information on these
 two user interface types.
 
 The ESW-TS library manages the complexity associated with interfacing the CSW service calls to the browser environment.
