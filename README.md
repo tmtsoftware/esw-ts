@@ -51,11 +51,13 @@ Make sure you have following CSW services up and running:
   * AAS Service
   * Config Service
 
-    Note: Simple way to start all these services is to run `csw-services.sh` script from `csw` github repository.
+Note: Simple way to start all these services is to run `csw-services` using `coursier (aka cs)` from `csw` github repository.
+
+Refer [here](http://tmtsoftware.github.io/csw/0.1.0-SNAPSHOT/apps/cswservices.html) to learn how to start csw-services.
 
 ```
-cd {csw_repo}/scripts
-sh csw-services.sh start -k -c -v $SHA_OF_CSW
+cs install csw-services:<version | SHA>
+csw-services start -c -k -v $SHA_OF_CSW
 ```
 
 #### Step2: Build ESW-TS Library
