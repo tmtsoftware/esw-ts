@@ -161,7 +161,7 @@ describe('ConfigService', () => {
     })
   })
 
-  test('should list all the config if there is not type(fileType) or pattern defined | ESW-320', async () => {
+  test('should list all the config if there is not type(fileType) or pattern defined | ESW-320, ESW-410', async () => {
     const url = listEndpoint()
 
     const firstConfInfo = {
@@ -185,7 +185,7 @@ describe('ConfigService', () => {
     verify(getMockFn).toBeCalledWith({ url, queryParams: {}, decoder: expect.any(Function) })
   })
 
-  test('should list all the config based on the given pattern | ESW-320', async () => {
+  test('should list all the config based on the given pattern | ESW-320, ESW-410', async () => {
     const url = listEndpoint()
 
     const firstConfInfo = {
@@ -213,7 +213,7 @@ describe('ConfigService', () => {
     })
   })
 
-  test('should list all the config for the given fileType | ESW-320', async () => {
+  test('should list all the config for the given fileType | ESW-320, ESW-410', async () => {
     const url = listEndpoint()
 
     const firstConfInfo = {
@@ -241,7 +241,7 @@ describe('ConfigService', () => {
     })
   })
 
-  test('should list all the config for given type(fileType) and pattern both | ESW-320', async () => {
+  test('should list all the config for given type(fileType) and pattern both | ESW-320, ESW-410', async () => {
     const url = listEndpoint()
 
     const firstConfInfo = {
@@ -494,5 +494,29 @@ describe('ConfigService', () => {
       payload: new Blob([file]),
       decoder: expect.any(Function)
     })
+  })
+
+  test('should throw error while creating config with invalid path | ESW-410', async () => {
+    const confPath = 'tmt/assem~bly.conf'
+    const comment = 'something'
+    const file: File = new File(['foo: Bar'], 'assembly.conf')
+
+    const configData = ConfigData.fromFile(file)
+    expect.assertions(1)
+    expect(() => configService.create(confPath, configData, true, comment)).toThrow(
+      "Input file path 'tmt/assem~bly.conf' contains invalid characters. Note, these characters !#<>$%&'@^`~+,;= or 'white space' are not allowed in file path"
+    )
+  })
+
+  test('should throw error while updating config with invalid path | ESW-410', async () => {
+    const confPath = 'tmt/assem bly.conf'
+    const comment = 'something'
+    const file: File = new File(['foo: Bar'], 'assembly.conf')
+
+    const configData = ConfigData.fromFile(file)
+    expect.assertions(1)
+    expect(() => configService.update(confPath, configData, comment)).toThrow(
+      "Input file path 'tmt/assem bly.conf' contains invalid characters. Note, these characters !#<>$%&'@^`~+,;= or 'white space' are not allowed in file path"
+    )
   })
 })

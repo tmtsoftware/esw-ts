@@ -48,3 +48,14 @@ const map404 = async <T, U>(response: Promise<T>, on404: U) => {
     throw e
   }
 }
+
+export const validatePath = (path: string) => {
+  const invalidChars = "!#<>$%&'@^`~+,;=\\s"
+  const invalidPattern = new RegExp(`[${invalidChars}]`)
+  if (invalidPattern.test(path)) {
+    const charsMessage = invalidChars.replace('\\s', '')
+    throw new Error(
+      `Input file path '${path}' contains invalid characters. Note, these characters ${charsMessage} or 'white space' are not allowed in file path`
+    )
+  }
+}

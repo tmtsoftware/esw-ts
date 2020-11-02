@@ -136,9 +136,11 @@ export class ConfigServiceImpl implements ConfigService {
     queryParams: Record<string, string>,
     fetchReq: RequestResponse
   ): Promise<ConfigId> {
+    ConfigUtils.validatePath(path)
     const url = this.endpoint(`config/${path}`)
     const headers = this.getAuthHeader().withContentType('application/octet-stream')
     const decoder = ConfigUtils.decodeUsing(ConfigIdD)
     return fetchReq({ url, headers, queryParams, payload, decoder })
   }
+
 }
