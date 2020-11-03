@@ -26,6 +26,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          ESW_UI_TEMPLATE_VERSION: "0.1.0-M1" # Change before releasing (before tagging repo)
         run: |
           sbt scalafmtCheck
           sbt clean makeSite
@@ -50,6 +52,7 @@ jobs:
         run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM clean test
         env:
           CSW_VERSION: "3.0.0-M1" # Change before releasing (before tagging repo)
+          ESW_VERSION: "0.2.0-M1"
 
       - name: Generate RTM
         if: always()
