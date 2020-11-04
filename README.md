@@ -1,42 +1,45 @@
 # ESW-TS
 
-### Project overview :
+## Project overview
 
- * Typescript library clients - /lib/src/clients
- * Aas Components - /lib/src/components
- * Example App - /example/src
- * UI Integration tests - /integration-ui/src/test/scala/csw/aas/js/config
+* Typescript library clients - /lib/src/clients
+* Aas Components - /lib/src/components
+* Example App - /example/src
+* UI Integration tests - /integration-ui/src/test/scala/csw/aas/js/config
 
 ### Typescript library clients
+
 This project provide following typescript clients for various TMT services, which can be found at location - /lib/src/clients.
 
- * Admin
- * Agent
- * Alarm
- * Command
- * Config
- * Event
- * Gateway
- * Location
- * Sequencer
- * Sequence Manager
+* Admin
+* Agent
+* Alarm
+* Command
+* Config
+* Event
+* Gateway
+* Location
+* Sequencer
+* Sequence Manager
 
 ### Aas Components in React
- * CheckLogin
- * RealmRole
- * AuthContextProvider
- * Login
- * Logout
+
+* CheckLogin
+* RealmRole
+* AuthContextProvider
+* Login
+* Logout
 
 ### Example App
 
 This app shows how to use typescript clients and Aas Components to create your web app. Refer following files for respective use cases.
 
- * Typescript usage - e.g. example/src/components/config/context/ConfigServiceProvider.tsx
- * Aas login/logout usage - e.g. example/src/components/NavComponent.tsx
- * Auth Context usage - e.g. example/src/components/ExampleApp.tsx
+* Typescript usage - e.g. example/src/components/config/context/ConfigServiceProvider.tsx
+* Aas login/logout usage - e.g. example/src/components/NavComponent.tsx
+* Auth Context usage - e.g. example/src/components/ExampleApp.tsx
 
 ### How to run example app
+
 Step1: Run required backend services
 
 Step2: Build Library
@@ -47,46 +50,46 @@ Step3: Run Example App
 
 Make sure you have following CSW services up and running:
 
-  * Location Service
-  * AAS Service
-  * Config Service
+* Location Service
+* AAS Service
+* Config Service
 
 Note: Simple way to start all these services is to run `csw-services` using `coursier (aka cs)` from `csw` github repository.
 
 Refer [here](http://tmtsoftware.github.io/csw/0.1.0-SNAPSHOT/apps/cswservices.html) to learn how to start csw-services.
 
-```
+```bash
 cs install csw-services:<version | SHA>
 csw-services start -c -k -v $SHA_OF_CSW
 ```
 
 #### Step2: Build ESW-TS Library
 
-```
+```bash
 cd {ESW-TS-Repo}/lib
 ```
 
 ##### Fetch dependencies
 
-```
+```bash
 npm clean-install
 ```
 
 ##### Build library
 
-```
+```bash
 npm run build
 ```
 
 ##### Run unit tests of library
 
-```
+```bash
 npm run test:unit
 ```
 
 ##### Run integration tests of library
 
-```
+```bash
 npm run test:integration
 ```
 
@@ -94,7 +97,7 @@ npm run test:integration
 
 Start App -
 
-```
+```bash
 cd ../example
 npm clean-install
 npm start
@@ -102,7 +105,7 @@ npm start
 
 Open App in the browser -
 
-Go to http://localhost:3000 in Browser
+Go to [localhost:3000](http://localhost:3000) in Browser
 
 Login with appropriate user as listed below to access functionality of each tab.
 
@@ -126,6 +129,7 @@ This module includes E2E test which demonstrate following flow which is all auto
 4. Create configuration file
 
 To run this test, execute `sbt test` or `sbt integration-ui/test` command
+
 ### Generate typescript documentation
 
   `cd lib && npm run build && npm run doc`
@@ -139,16 +143,19 @@ To generate paradox documentation for the ESW-TS, run the following command
 Above command will generate and open the paradox site in browser.
 
 ### Push paradox documentation
+
 To push documentation on github pages, follow the steps:
+
 1. Open sbt shell with command.
 
-   ` sbt -Dprod.docs=true`
+    `sbt -Dprod.docs=true`
+
 2. Clean and generate the site locally.
 
     `sbt:esw-ts> clean; makeSite`
 
 3. Push the changes to github pages.
 
-   `sbt:esw-ts> ghpagesPushSite`
+    `sbt:esw-ts> ghpagesPushSite`
 
 It will ask for github credential. It takes few minutes to reflect on the github pages.

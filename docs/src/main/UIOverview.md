@@ -1,4 +1,4 @@
-## User Interfaces in ESW and TMT
+# User Interfaces in ESW and TMT
 
 TMT has an OAD requirement for graphical user interfaces as the standard style for user interfaces. The CSW technical choice for
 graphical user interfaces is the web platform consisting of the web browser as the host for the user interface and web
@@ -29,6 +29,7 @@ delivers products and features that other subsystems need from ESW. ESW Phase 2 
 rest of ESW at a more leisurely pace.
 
 ### User Interface Responsibilities of ESW
+
 The following bullet items summarize the responsibilities of UISTD and HCMS and whether they are part of Phase 1 or Phase 2.
 
 * Provide JavaScript-based glue code running in the browser providing access to CSW services needed by user interfaces (UISTD--ESW-TS) (Phase 1).
@@ -65,7 +66,6 @@ the APIs have been limited to methods that make sense for a UI.
 
 `ESW-TS` library is available on npm registry.
 
-
 ## How to use ESW-TS
 
 For using ESW-TS library, you will need to have some kind of model which determines the flow of creating the web application in the first place and which
@@ -81,8 +81,8 @@ CSW domain models like (Prefix, ComponentId, etc) that are provided in the ESW-T
 At this point in UISTD development, some choices must be made to create a complete UI. At this time we recommend using the
 following additional tools and libraries to make a TypeScript based UI.
 
-**NEED TO ADD TOOLS LIKE REACT and UI component set here**
-
 * @link:[React](https://reactjs.org)
-* @link:[Material UI](https://material-ui.com) or @link[Fluent UI](https://www.fluentd.org) or @link[Carbon](https://www.carbondesignsystem.com) or @link[Ant Design](https://ant.design)
-* Others?
+* @link:[Ant Design](https://ant.design)
+* @link:[Snowpack](https://snowpack.dev)
+* @link:[Jest](https://jestjs.io/)
+* @link:[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
