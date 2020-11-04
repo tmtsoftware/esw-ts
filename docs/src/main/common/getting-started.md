@@ -11,7 +11,7 @@ template which uses ESW-TS library. You can use this as a starting point for you
 ## Create a Starter Project
 
 It is recommended to use Giter8 template `esw-ui-template.g8` to get started with building web application.
-Follow @link:[readme.md]($esw_ui_template.base_url$/README.md) for more details on how to
+Follow @link:[readme.md](https://github.com/tmtsoftware/esw-ui-template.g8/blob/master/README.md) for more details on how to
 use the template to create starter project. `ESW-TS` comes pre-packaged as a dependency in the template.
 
 If you already have a UI application and want to add ESW-TS dependency, then

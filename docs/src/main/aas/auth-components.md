@@ -120,7 +120,7 @@ ConfigServiceProvider is the component where instance of Config Service gets cre
 Typescript
 :   @@snip [ConfigServiceProvider.tsx](../../../../example/src/components/config/context/ConfigServiceProvider.tsx) { #config-service-provider }
 
-Source code for the full example can be found [here](https://github.com/tmtsoftware/esw-ts/tree/master/example/src)
+Source code for the full example can be found [here]($github.dir.base_url$/example/src)
 
 ## Technical Description
 
