@@ -16,9 +16,13 @@ jobs:
       - name: increase file watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-      - uses: olafurpg/setup-scala@v7
+      - uses: actions/checkout@v2
+      - uses: laughedelic/coursier-setup@v1
         with:
-          java-version: adopt@1.11
+          jvm: 11
+          apps: sbt sbtn
+      - uses: coursier/cache-action@v5
+
       - uses: actions/setup-node@v1
         with:
           node-version: "14.x"
@@ -30,8 +34,9 @@ jobs:
 
       - name: Build
         run: |
-          sbt scalafmtCheck
-          sbt clean makeSite
+          sbtn scalafmtCheck
+          sbtn clean
+          sbtn makeSite
           cd ./lib
           npm run build
 

@@ -16,10 +16,12 @@ jobs:
       - name: increase file watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-      - uses: olafurpg/setup-scala@v7
+      - uses: actions/checkout@v2
+      - uses: laughedelic/coursier-setup@v1
         with:
-          java-version: adopt@1.11
-      - uses: coursier/cache-action@v3
+          jvm: 11
+          apps: sbt sbtn
+      - uses: coursier/cache-action@v5
 
       - uses: actions/setup-node@v1
         with:
@@ -43,7 +45,7 @@ jobs:
         run: npm run build
 
       - name: Paradox Validate Links
-        run: sbt paradoxValidateLinks
+        run: sbtn paradoxValidateLinks
 
       - name: Unit tests
         working-directory: ./lib
