@@ -142,5 +142,4 @@ export class ConfigServiceImpl implements ConfigService {
     const decoder = ConfigUtils.decodeUsing(ConfigIdD)
     return fetchReq({ url, headers, queryParams, payload, decoder })
   }
-
 }

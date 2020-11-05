@@ -1,4 +1,4 @@
-import type BaseReporter from '@jest/reporters/build/base_reporter'
+import type { BaseReporter } from '@jest/reporters'
 import type { Context, Test } from '@jest/reporters/build/types'
 import type { AggregatedResult, TestResult } from '@jest/test-result'
 // eslint-disable-next-line import/no-nodejs-modules
