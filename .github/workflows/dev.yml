@@ -1,10 +1,8 @@
 name: dev
 
 on:
-  pull_request:
-    branches: [master]
   push:
-    branches: [master]
+    branches: [poorva/test_version]
 
 jobs:
   test:
@@ -25,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
+          node-version: "15.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: Cache ~/.npm
@@ -35,6 +33,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      - name: Print npm and node version
+        run: |
+          npm -v
+          node --version
 
       - name: Install
         working-directory: ./lib
