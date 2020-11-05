@@ -83,6 +83,6 @@ following additional tools and libraries to make a TypeScript based UI.
 
 * @link:[React](https://reactjs.org)
 * @link:[Ant Design](https://ant.design)
-* @link:[Snowpack](https://snowpack.dev)
+* @link:[Snowpack](https://www.snowpack.dev/)
 * @link:[Jest](https://jestjs.io/)
 * @link:[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)

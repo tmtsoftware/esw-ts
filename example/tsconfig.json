@@ -21,7 +21,8 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react",
-    "importsNotUsedAsValues": "error"
+    "importsNotUsedAsValues": "error",
+    "strictNullChecks": true
   },
   "include": [
     "src"
