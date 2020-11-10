@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [poorva/test_yarn]
+    branches: [poorva/test_yarn2]
 
 jobs:
   test:
@@ -37,7 +37,9 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Yarn
-        run: npm install -g yarn
+        run: |
+          npm install -g yarn
+          yarn set version berry
 
       - name: Install
         run: yarn install
