@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [master]
+    branches: [poorva/test_yarn]
 
 jobs:
   test:
@@ -36,30 +36,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Install Yarn
+        run: npm install -g yarn
+
       - name: Install
-        working-directory: ./lib
-        run: npm ci
+        run: yarn install
 
       - name: Build
-        working-directory: ./lib
-        run: npm run build
+        run: yarn workspace @tmtsoftware/esw-ts build
 
       - name: Paradox Validate Links
         run: sbtn paradoxValidateLinks
 
       - name: Unit tests
         working-directory: ./lib
-        run: npm run test:unit:ci
+        run: yarn workspace @tmtsoftware/esw-ts run test:unit:ci
 
       - name: Integration tests
         working-directory: ./lib
-        run: npm run test:integration:ci
+        run: yarn workspace @tmtsoftware/esw-ts run test:integration:ci
 
       - name: Build - Example App
-        working-directory: ./example
         run: |
-          npm ci
-          npm run build
+          yarn workspace esw-ts-example ci
+          yarn workspace esw-ts-example run build
 
       - name: Selenium Test
         run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=./testStoryMapping.txt clean test
@@ -77,12 +77,3 @@ jobs:
         with:
           name: RTM
           path: ./RTM
-
-      - name: Notify slack
-        if: always()
-        continue-on-error: true
-        uses: kpritam/slack-job-status-action@v1
-        with:
-          job-status: ${{ job.status }}
-          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel: ci-dev
