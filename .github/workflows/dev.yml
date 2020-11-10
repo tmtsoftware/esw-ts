@@ -39,7 +39,7 @@ jobs:
       - name: Install Yarn
         run: |
           npm install -g yarn
-          yarn set version berry
+          yarn set version from sources
 
       - name: Install
         run: yarn install
