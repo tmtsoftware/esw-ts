@@ -16,7 +16,6 @@ nohup.out
 lib/src/**.js
 lib/dist
 .vscode/*
-yarn.lock
 *.tsbuildinfo
 .DS_Store
 target
