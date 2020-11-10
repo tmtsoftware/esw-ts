@@ -15,7 +15,6 @@ import {
   Setup,
   SubmitResponse
 } from '../../src/models'
-import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(70000)
@@ -44,15 +43,10 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
+const validToken: string = 'validToken'
+
 describe('Command Client', () => {
   test('should get accepted response on oneway command | ESW-343, ESW-305, ESW-99', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1')
     setupCommand.create([keyParameter])
@@ -77,12 +71,7 @@ describe('Command Client', () => {
   })
 
   test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305, ESW-99, ESW-321', async () => {
-    const tokenWithoutRole: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user2',
-      'gateway-user2',
-      'TMT'
-    )
+    const tokenWithoutRole: string = 'tokenWithoutRole'
 
     const commandService = await CommandService(componentId, () => tokenWithoutRole)
     const setupCommand = new Setup(cswHcdPrefix, 'c1')
@@ -91,22 +80,15 @@ describe('Command Client', () => {
     expect.assertions(4)
     await commandService.oneway(setupCommand).catch((e) => {
       expect(e.errorType).toBe('TransportError')
-      expect(e.status).toBe(403)
       expect(e.statusText).toBe('Forbidden')
       expect(e.message).toBe(
         'The supplied authentication is not authorized to access this resource'
       )
+      expect(e.status).toBe(403)
     })
   })
 
   test('should be able to submit the given command | ESW-343, ESW-305, ESW-99, ESW-380', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1').add(keyParameter)
     const actualResponse = await commandService.submit(setupCommand)
@@ -114,13 +96,6 @@ describe('Command Client', () => {
   })
 
   test('should be able to submitAll the given commands | ESW-344', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
     const actualResponse = await commandService.submitAllAndWait([setupCommand, setupCommand], 10)
@@ -130,13 +105,6 @@ describe('Command Client', () => {
   })
 
   test('should be able to send the validate command | ESW-343, ESW-305, ESW-99, ESW-380', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1').madd([keyParameter, intArrayParam])
     const actualResponse = await commandService.validate(setupCommand)
@@ -144,13 +112,6 @@ describe('Command Client', () => {
   })
 
   test('should be able to query response for the given runId | ESW-343, ESW-305', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1')
     setupCommand.madd([keyParameter])
@@ -163,13 +124,6 @@ describe('Command Client', () => {
   })
 
   test('should be able to query the final response for the given runId | ESW-343, ESW-305, ESW-380', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
     const submitRes: SubmitResponse = await commandService.submit(setupCommand)
@@ -189,13 +143,6 @@ describe('Command Client', () => {
   })
 
   test('should be able to submit and wait for final result of the given command | ESW-344', async () => {
-    const validToken: string = await getToken(
-      'tmt-frontend-app',
-      'gateway-user1',
-      'gateway-user1',
-      'TMT'
-    )
-
     const commandService = await CommandService(componentId, () => validToken)
     const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
     const actualResponse = await commandService.submitAndWait(setupCommand, 5)

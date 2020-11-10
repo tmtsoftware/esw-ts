@@ -3,7 +3,6 @@ import { Option, setAppConfigPath } from '../../src'
 import { SequencerService, StepList } from '../../src/clients/sequencer'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
-import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(90000)
@@ -11,7 +10,7 @@ jest.setTimeout(90000)
 const eswTestPrefix = Prefix.fromString('ESW.test')
 const setupCommand = new Setup(eswTestPrefix, 'command', [])
 const sequence: SequenceCommand[] = [setupCommand]
-let validToken = ''
+const validToken = 'validToken'
 let sequencerServiceWithToken: SequencerService
 let sequencerServiceWithoutToken: SequencerService
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
@@ -27,7 +26,6 @@ beforeAll(async () => {
   // setup location service and gateway
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'Gateway'])
-  validToken = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
   sequencerServiceWithToken = await SequencerService(componentId, () => validToken)
   sequencerServiceWithoutToken = await SequencerService(componentId, () => undefined)
 })
