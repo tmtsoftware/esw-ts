@@ -125,7 +125,6 @@ export interface SequenceManagerService {
 /**
  * Instantiate SequenceManagerService to enable interaction with the sequencer
  *
- * @param componentId   component id for which sequencer service is to be instantiated.
  * @param tokenFactory  a function that returns a valid token which has correct access roles and permissions for the specified componentId.
  * @return              SequencerService as Promise
  * @constructor

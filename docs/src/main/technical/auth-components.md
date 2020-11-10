@@ -40,7 +40,7 @@ token. This gives seamless user experience as user will not have to login again.
 
 Keycloak adapter supports three authorization flows e.g. authorization code flow, implicit flow and hybrid flow.
 Auth components in `ESW-TS`, uses hybrid flow as it has better performance than authorization code flow and unlike implicit flow,
-hybrid flow makes refresh token available to application. For more information please refer [keyclok documentaion for authorization flows](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_implicit_flow)
+hybrid flow makes refresh token available to application. For more information please refer [keyclok documentaion for authorization flows](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_implicit_flow).
 
 ## Working of Auth Components
 

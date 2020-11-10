@@ -84,7 +84,7 @@ Typescript
 ### CheckLogin
 
 `CheckLogin` component provides ability to show something only if the user is logged in.
-In the following code snippet, `Write` is a react component that is shown only if the user is logged in.
+In the following code snippet, `Write` is a React component that is shown only if the user is logged in.
 The behavior if the user is not logged in can be defined by an HTML element or React component that is
 passed into the component as an `error` property, shown as an `ExampleError` Component in following snippet.
 
@@ -104,7 +104,7 @@ Typescript
 
 ## Example
 
-Here is an example of a Config App(React app) which uses ConfigService client
+Here is an example of a Config App(React App) which uses ConfigService client
 and Auth components in order to authorize ConfigService
 
 Typescript

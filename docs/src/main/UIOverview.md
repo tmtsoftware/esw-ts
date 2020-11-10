@@ -12,7 +12,7 @@ The entire reason for web technologies is to provide remote access to systems an
 TMT Observatory will use many web applications to observe and manage the observatory instruments and telescope systems.
 User interfaces can be grouped into two categories: observing user interfaces and engineering user interfaces.
 High-level Control and Monitoring (HCMS) is the ESW subsystem that provides the observing user interfaces
-to be used by staff and visitors to control the telescope and other systems, monitor their
+to be used by the staff and visitors to control the telescope and other systems, monitor their
 status and behavior, and to perform observations that generate science data. Engineering user interfaces are
 the responsibility of the subsystem teams, but these user interfaces also use the technology choices and support provided
 by ESW.
@@ -36,7 +36,7 @@ The following bullet items summarize the responsibilities of UISTD and HCMS and 
 * Provide a gateway/bridge infrastructure that connects the browser-based user interfaces to the JVM-based services and components (UISTD) (Phase 1).
 * Provide examples of glue code and user interface standards (UISTD) (Phase 2).
 * Provide style and layout guidelines for standardized user interface look and feel (UISTD) (Phase 2)
-* Provide browser-based user interfaces required by support staff for control and monitoring of the telescope and instrument systems (HCMS) (Phase 2).
+* Provide browser-based user interfaces required by the support staff for control and monitoring of the telescope and instrument systems (HCMS) (Phase 2).
 
 ESW-TS is the glue library that satisfies the first bullet in the list above. ESW-TS is one part of the
 solution for TMT user interfaces, but it is an important part that provides a way for teams to get started now

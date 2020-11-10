@@ -1,6 +1,6 @@
 # State variables
 
-State variables are used when an UI for Assembly wants to track the status of a command sent to an HCD using a matcher.
+State variables are used when a UI for Assembly wants to track the status of a command sent to an HCD using a matcher.
 
 A state represents some aspect of a Component’s internal state which is captured in `CurrentState`.
 All state variables have `Prefix` and `ParameterSet`.
