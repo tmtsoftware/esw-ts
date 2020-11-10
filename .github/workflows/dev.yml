@@ -58,7 +58,6 @@ jobs:
 
       - name: Build - Example App
         run: |
-          yarn workspace esw-ts-example ci
           yarn workspace esw-ts-example run build
 
       - name: Selenium Test
