@@ -283,7 +283,7 @@ which returns `Promise<DiagnosticModeResponse>`.
 If diagnosticMode handler of the script successfully executes, then an `Ok` response gets returned.
 Otherwise, a `DiagnosticHookFailed` gets returned.
 
-Type definitions for `diagnosticMode` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#diagnostimode)
+Type definitions for `diagnosticMode` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#diagnosticmode)
 
 Typescript
 : @@snip [diagnosticMode](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #diagnosticMode }

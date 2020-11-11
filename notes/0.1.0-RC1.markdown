@@ -1,0 +1,14 @@
+# ESW-TS - v0.1.0-RC1
+
+See [CHANGELOG.md](CHANGELOG.md) for details of all releases.
+
+## Features
+
+Two main components are delivered as part of ESW-TS:
+
+* AAS React Components
+* Typescript Clients for backend services
+
+## Documentation
+
+Paradox documentation can be found [here](https://tmtsoftware.github.io/esw/0.1.0-RC1/)
