@@ -74,8 +74,8 @@ jobs:
       - name: NPM Publish
         working-directory: ./lib
         run: |
-          npm --no-git-tag-version version from-git
-          npm publish --tag next --access public
+          npm version <****> --allow-same-version --no-git-tag-version
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

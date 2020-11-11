@@ -7,6 +7,9 @@
 1. Update `embedded-keycloak` version in `Libs.scala`
 1. Update `version` number in `lib/package.json`
 1. Update CSW and ESW versions in `shell.ts`
+1. Update  `<****>` with the version in `release.yml` NPM publish step.
+    For ex: If you are publishing `1.0.0`
+            Replace `<****>` with the corresponding tag i.e v1.0.0.
 1. Check if `dev` pipeline is green
 1. Run `release.sh $VERSION$` script by providing version number argument (This triggers release workflow)
     Note: `PROD=true` environment variable needs to be set before running `release.sh`
