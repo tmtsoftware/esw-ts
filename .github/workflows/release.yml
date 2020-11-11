@@ -73,7 +73,9 @@ jobs:
 
       - name: NPM Publish
         working-directory: ./lib
-        run: npm publish --tag=0.1.0-RC1 --access public
+        run: |
+          npm dist-tag add @tmtsoftware/esw-ts@0.1.0-RC1 next
+          npm publish --tag=next --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
