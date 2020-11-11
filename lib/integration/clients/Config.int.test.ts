@@ -30,7 +30,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-const token = 'valid'
+const token = 'validToken'
 const path = 'somepath'
 let configService: ConfigService
 const config1 = '{key:filecontent1}'

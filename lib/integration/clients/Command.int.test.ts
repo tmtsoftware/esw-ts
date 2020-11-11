@@ -43,7 +43,7 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
-const validToken: string = 'validToken'
+const validToken = 'validToken'
 
 describe('Command Client', () => {
   test('should get accepted response on oneway command | ESW-343, ESW-305, ESW-99', async () => {
@@ -71,7 +71,7 @@ describe('Command Client', () => {
   })
 
   test('should get forbidden error on sending command to different subsystem | ESW-343, ESW-305, ESW-99, ESW-321', async () => {
-    const tokenWithoutRole: string = 'tokenWithoutRole'
+    const tokenWithoutRole = 'tokenWithoutRole'
 
     const commandService = await CommandService(componentId, () => tokenWithoutRole)
     const setupCommand = new Setup(cswHcdPrefix, 'c1')

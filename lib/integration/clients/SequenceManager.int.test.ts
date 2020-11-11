@@ -7,7 +7,6 @@ import {
 } from '../../src/clients/sequence-manager'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix } from '../../src/models'
-import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -24,15 +23,10 @@ beforeAll(async () => {
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'SequenceManager'])
   // Authorized user for Sequence Manager APIs
-  const token = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
+  const token = 'validToken'
 
   // this user is authenticated but not authorized for sequence Manager APIs
-  const invalidToken = await getToken(
-    'tmt-frontend-app',
-    'location-admin1',
-    'location-admin1',
-    'TMT'
-  )
+  const invalidToken = 'tokenWithoutRole'
 
   sequenceManagerServiceWithValidToken = await SequenceManagerService(() => token)
   sequenceManagerServiceWithInValidToken = await SequenceManagerService(() => invalidToken)

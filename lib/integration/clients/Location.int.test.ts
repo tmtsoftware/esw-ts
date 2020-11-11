@@ -8,10 +8,9 @@ import {
   TrackingEvent
 } from '../../src/clients/location'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { authConnection, gatewayConnection } from '../../src/config/Connections'
+import { gatewayConnection } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
-import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
 
@@ -19,7 +18,6 @@ jest.setTimeout(100000)
 
 const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
-let validToken: string
 let locationServiceWithToken: LocationService
 let locationServiceWithInvalidToken: LocationService
 let locationService: LocationService
@@ -47,11 +45,10 @@ beforeAll(async () => {
   console.error = jest.fn()
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   // setup location service and gateway
-  await startServices(['AAS', 'Gateway', 'LocationWithAuth'])
+  await startServices(['Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
-  validToken = await getToken('tmt-frontend-app', 'location-admin1', 'location-admin1', 'TMT')
   //Following 2 client connects to auth enabled location server instance
-  locationServiceWithToken = LocationService(() => validToken, LocationConfigWithAuth)
+  locationServiceWithToken = LocationService(() => 'validToken', LocationConfigWithAuth)
   locationServiceWithInvalidToken = LocationService(() => undefined, LocationConfigWithAuth)
   //Following 1 client connects to auth disabled location server instance
   locationService = LocationService()
@@ -74,14 +71,9 @@ describe('LocationService', () => {
   test('should be able to list all the registered location | ESW-343, ESW-308', async () => {
     const locations = await locationService.list()
 
-    expect(locations.length).toBe(4)
+    expect(locations.length).toBe(3)
 
-    const allExpectedConnections = [
-      gatewayConnection,
-      httpHcdConnection,
-      akkaHcdConnection,
-      authConnection
-    ]
+    const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
     const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
 
     locations.forEach((loc) => {
@@ -93,11 +85,11 @@ describe('LocationService', () => {
 
   test('should be able to list all the registered location for given componentType | ESW-343, ESW-308', async () => {
     const locations = await locationService.listByComponentType('Service')
-    const allExpectedConnections = [gatewayConnection, authConnection]
+    const allExpectedConnections = [gatewayConnection]
 
     const allExpectedTypes = ['HttpLocation']
 
-    expect(locations.length).toBe(2)
+    expect(locations.length).toBe(1)
     locations.forEach((loc) => {
       expect(allExpectedTypes).toContainEqual(loc._type)
       expect(allExpectedConnections).toContainEqual(loc.connection)
@@ -123,15 +115,10 @@ describe('LocationService', () => {
   test('should be able to list all the registered location for given hostname | ESW-343, ESW-308', async () => {
     const locations = await locationService.listByHostname(publicIPv4Address())
 
-    const allExpectedConnections = [
-      gatewayConnection,
-      httpHcdConnection,
-      akkaHcdConnection,
-      authConnection
-    ]
+    const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
     const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
 
-    expect(locations.length).toBe(4)
+    expect(locations.length).toBe(3)
     locations.forEach((loc) => {
       expect(allExpectedTypes).toContainEqual(loc._type)
       expect(allExpectedConnections).toContainEqual(loc.connection)

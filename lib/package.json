@@ -23,7 +23,7 @@
     "test:watch": "jest --watchAll",
     "fix": "npm-run-all --parallel clean fix:eslint fix:prettier",
     "fix:eslint": "eslint --fix --config .eslintrc.js './**/*.{ts,tsx}' --max-warnings 0",
-    "fix:prettier": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
+    "fix:prettier": "node_modules/prettier/bin-prettier.js --write --config ./.prettierrc './**/*.{ts,tsx}' ",
     "all": "npm-run-all --parallel fix build test ",
     "doc": "typedoc --tsconfig ./tsconfig.docs.json"
   },

@@ -3,7 +3,6 @@ import { AgentService, KillResponse, SpawnResponse } from '../../src/clients/age
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix } from '../../src/models'
-import { getToken } from '../utils/auth'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -18,13 +17,8 @@ beforeAll(async () => {
   console.error = jest.fn()
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'AgentService'])
-  const validToken: string = await getToken('tmt-frontend-app', 'sm-user1', 'sm-user1', 'TMT')
-  const inValidToken: string = await getToken(
-    'tmt-frontend-app',
-    'location-admin1',
-    'location-admin1',
-    'TMT'
-  )
+  const validToken = 'validToken'
+  const inValidToken = 'tokenWithoutRole'
   agentServiceWithValidToken = await AgentService(() => validToken)
   agentServiceWithInValidToken = await AgentService(() => inValidToken)
   agentServiceWithoutToken = await AgentService(() => undefined)
