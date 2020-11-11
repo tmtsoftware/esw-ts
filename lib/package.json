@@ -6,7 +6,6 @@
   "typings": "dist/src/index.d.ts",
   "module": "dist/src/index.js",
   "scripts": {
-    "start": "nodemon",
     "audit": "npm audit",
     "clean": "rm -rf dist && mkdir dist",
     "prebuild": "npm run clean && npm-run-all --parallel fix audit",
