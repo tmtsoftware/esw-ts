@@ -73,7 +73,7 @@ jobs:
 
       - name: NPM Publish
         working-directory: ./lib
-        run: npm publish --access public
+        run: npm publish --tag=0.1.0-RC1 --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
