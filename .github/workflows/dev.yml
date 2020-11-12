@@ -41,6 +41,9 @@ jobs:
           npm install -g yarn
           yarn set version berry
           yarn set version latest
+          
+      - name: Yarn version
+        run: yarn -v
 
       - name: Install
         run: yarn install
