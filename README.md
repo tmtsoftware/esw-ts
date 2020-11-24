@@ -30,6 +30,8 @@ This project provide following typescript clients for various TMT services, whic
 * Login
 * Logout
 
+See [here](http://tmtsoftware.github.io/esw-ts/0.1.0-RC1) for a detailed description of the ESW-TS.
+
 ### Example App
 
 This app shows how to use typescript clients and Aas Components to create your web app. Refer following files for respective use cases.
