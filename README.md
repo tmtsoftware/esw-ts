@@ -150,7 +150,7 @@ To push documentation on github pages, follow the steps:
 
 1. Open sbt shell with command.
 
-    `sbt -Dprod.docs=true`
+    `sbt -Dprod.publish=true`
 
 2. Clean and generate the site locally.
 

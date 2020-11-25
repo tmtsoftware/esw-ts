@@ -36,7 +36,7 @@ jobs:
         run: |
           sbtn scalafmtCheck
           sbtn clean
-          sbtn makeSite
+          sbtn -Dprod.publish=true makeSite
           cd ./lib
           npm run build
 

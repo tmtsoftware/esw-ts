@@ -32,7 +32,7 @@ object TsDocPlugin extends AutoPlugin {
 
   def tsDocPath: Def.Initialize[String] =
     Def.setting {
-      sys.props.get("prod.docs") match {
+      sys.props.get("prod.publish") match {
         case Some("true") => s"https://tmtsoftware.github.io/esw-ts/${version.value}/$tsDocParentDir/%s"
         case _            => s"file://${new File(target.value.getParent).getParent}/target/site/esw-ts/${version.value}/ts-docs/%s"
       }
