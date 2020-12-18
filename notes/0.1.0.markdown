@@ -1,4 +1,4 @@
-# ESW-TS - v0.1.0-RC1
+# ESW-TS - v0.1.0
 
 See [CHANGELOG.md](../CHANGELOG.md) for details of all releases.
 
@@ -11,4 +11,4 @@ Two main components are delivered as part of ESW-TS:
 
 ## Documentation
 
-Paradox documentation can be found [here](https://tmtsoftware.github.io/esw/0.1.0-RC1/)
+Paradox documentation can be found [here](https://tmtsoftware.github.io/esw/0.1.0/)
