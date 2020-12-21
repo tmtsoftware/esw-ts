@@ -1,2 +1,2 @@
 export * from './AgentService'
-export * from './models/AgentRes'
+export type {Killed, KillResponse, Spawned, SpawnResponse} from './models/AgentRes'

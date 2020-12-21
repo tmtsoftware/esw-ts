@@ -19,6 +19,7 @@ export const eswAgentConnection = AkkaConnection(new Prefix('ESW', 'esw_machine'
 export const resolveConnection: (
   connection: Connection
 ) => Promise<{ port: number; host: string }> = async (connection: Connection) => {
+  console.log('***************** real resolve call *****************')
   const location = await resolve(connection)
   return extractHostPort(location.uri)
 }

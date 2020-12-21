@@ -1,2 +1,2 @@
 export * from './AuthStore'
-export * from './Models'
+export type {Auth, AuthContextConfig, AuthenticateResult} from './Models'

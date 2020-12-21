@@ -1,5 +1,5 @@
 export * from './LocationService'
 export * from './models/Connection'
 export * from './models/Duration'
-export * from './models/Location'
-export * from './models/TrackingEvent'
+export type {Location, AkkaLocation, HttpLocation, TcpLocation} from './models/Location'
+export type {TrackingEvent, LocationRemoved, LocationUpdated} from './models/TrackingEvent'
