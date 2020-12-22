@@ -1,24 +1,20 @@
 import sinon from 'sinon'
-import {LocationServiceImpl as api} from '../../src/clients/location/LocationServiceImpl'
-import {HttpLocationD} from "../../src/decoders/LocationDecoders";
-import {ciLiteral} from "../../src/decoders/Decoder";
-import * as D from "io-ts/Decoder";
-import {ComponentType, Prefix} from "../../src/models";
+import type { Location } from '../../src/clients/location'
+import { Prefix } from '../../src/models'
+import { headOption } from '../../src/utils/Utils'
 
 console.log('*************** mock **********')
-const location = {
+const location: Location = {
   _type: 'HttpLocation',
   connection: {
     connectionType: 'http',
-    prefix: 'CSW.filter',
+    prefix: new Prefix('CSW', 'filter'),
     componentType: 'Assembly'
   },
-  uri: '5432',
+  uri: 'https://localhost:5432',
   metadata: {}
 }
-export const LocationServiceImpl = sinon.createStubInstance(api,{
-  resolve: () => Promise.resolve(undefined)
-})
 
-
-
+export const LocationServiceImpl = {
+  resolve: sinon.stub().returns(Promise.resolve(headOption([location])))
+}
