@@ -2,6 +2,7 @@
 import { exec, execSync } from 'child_process'
 // eslint-disable-next-line import/no-nodejs-modules
 import * as path from 'path'
+import {startServices} from "./backend";
 
 const scriptDir = path.resolve(__dirname, '../../scripts')
 
@@ -42,3 +43,15 @@ export const executeSequencerScript = appLauncher('backend-testkit-sequencer', e
 export const executeStopServicesScript = executeScript(stopServicesScript) // fixme: make this executeScriptSync call
 export const executeCswContract = appLauncherSync('csw-contract', csw_sha)
 export const executeEswContract = appLauncherSync('esw-contract', esw_sha)
+
+export const startServicesPlugin = () => {
+  return {
+    name: 'start-services',
+
+    executeCommand: async ({ payload }: {command: string, payload: any}) => {
+      await startServices(payload['serviceNames'])
+      console.log(`************************* started services ${payload['serviceNames']}`)
+      return true
+    },
+  };
+}

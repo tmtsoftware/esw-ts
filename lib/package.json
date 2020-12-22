@@ -51,6 +51,7 @@
     "@typescript-eslint/parser": "^4.6.1",
     "@web/dev-server-import-maps": "0.0.4",
     "@web/test-runner": "^0.10.2",
+    "@web/test-runner-commands": "^0.3.0",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-import-resolver-typescript": "^2.3.0",
