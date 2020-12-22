@@ -16,7 +16,6 @@ const joinWithPrefix = (serviceNames: ServiceName[]) => serviceNames.flatMap((na
 
 export const startServices = (serviceNames: ServiceName[]) => {
   sh.executeServicesScript(['start', ...joinWithPrefix(serviceNames)])
-  return waitForServicesToUp(serviceNames)
 }
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {

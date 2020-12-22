@@ -1,10 +1,11 @@
 import { expect } from '@esm-bundle/chai'
 import type { TokenFactory } from '../../../src'
+import { AdminService } from '../../../src/clients/admin'
 import { ConfigService } from '../../../src/clients/config-service'
 import { ConfigServiceImpl } from '../../../src/clients/config-service/ConfigServiceImpl'
 import { setAppConfigPath } from '../../../src/config'
+import { ComponentId, Prefix } from '../../../src/models'
 import { LocationServiceImpl } from '../../mocks/LocationServiceImpl'
-import { executeServerCommand } from '@web/test-runner-commands'
 
 const tokenFactory: TokenFactory = () => 'validToken'
 
@@ -22,9 +23,19 @@ describe('Config Service Factory', () => {
     expect(configService).to.include(configServiceImpl)
   })
 
-  it('try running start services for integration test', async () => {
-    await executeServerCommand('start-services', {
-      services: ['Gateway']
-    })
+  // it('try running start services for integration test', async () => {
+  //   await executeServerCommand('start-services', {
+  //     services: ['Gateway']
+  //   })
+  // })
+
+  it('integration test', async () => {
+    const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
+    const componentId = new ComponentId(trombonePrefix, 'HCD')
+    const adminService = await AdminService()
+    const response = await adminService.setLogLevel(componentId, 'DEBUG')
+
+    // eslint-disable-next-line jest/valid-expect
+    expect(response).to.equal('Done')
   })
 })

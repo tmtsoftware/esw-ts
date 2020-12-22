@@ -44,14 +44,19 @@ export const executeStopServicesScript = executeScript(stopServicesScript) // fi
 export const executeCswContract = appLauncherSync('csw-contract', csw_sha)
 export const executeEswContract = appLauncherSync('esw-contract', esw_sha)
 
-export const startServicesPlugin = () => {
-  return {
-    name: 'start-services',
+// export const startServicesPlugin = () => {
+//   return {
+//     name: 'start-services',
+//
+//     executeCommand: async ({ payload }: {command: string, payload: any}) => {
+//       await startServices(payload['serviceNames'])
+//       console.log(`************************* started services ${payload['serviceNames']}`)
+//       return true
+//     },
+//   };
+// }
 
-    executeCommand: async ({ payload }: {command: string, payload: any}) => {
-      await startServices(payload['serviceNames'])
-      console.log(`************************* started services ${payload['serviceNames']}`)
-      return true
-    },
-  };
-}
+setTimeout(async () => {
+  console.log('inside node process')
+  await startServices(['Gateway'])
+}, 20000)

@@ -92,21 +92,30 @@
  */
 
 export * from './ComponentId'
-export type {ComponentType} from './ComponentType'
+export type { ComponentType } from './ComponentType'
 export * from './params/BaseKey'
 export * from './params/ChoiceKeyFactory'
 export * from './params/Command'
 export * from './params/CommandResponse'
 export * from './params/Coord'
 export * from './params/CurrentState'
-export type {AppConfig, AppConfigModule, Done, Failed, Option, Subscription, TokenFactory, Unhandled} from './types'
+export type {
+  AppConfig,
+  AppConfigModule,
+  Done,
+  Failed,
+  Option,
+  Subscription,
+  TokenFactory,
+  Unhandled
+} from './types'
 // helpers functions
 export * from './params/Key'
 export * from './params/Parameter'
-export * from './params/Prefix'
+export { Prefix } from './params/Prefix'
 export * from './params/Result'
 export * from './params/Struct'
-export type {Subsystem} from './params/Subsystem'
-export type {Units} from './params/Units'
+export type { Subsystem } from './params/Subsystem'
+export type { Units } from './params/Units'
 export * from './ServiceError'
 export * from './Download'
