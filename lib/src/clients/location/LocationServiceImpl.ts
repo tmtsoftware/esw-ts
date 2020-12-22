@@ -52,7 +52,6 @@ export class LocationServiceImpl implements LocationService {
   }
 
   async resolve(connection: Connection, within: number, unit: TimeUnit): Promise<Option<Location>> {
-    console.log('***************** inside location service impl resolve call *****************')
     const response = await this.httpTransport.requestRes(
       new Req.Resolve(connection, new Duration(within, unit)),
       LocationListD

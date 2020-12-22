@@ -1,7 +1,7 @@
-import type {Connection} from './models/Connection'
-import type {TimeUnit} from './models/Duration'
-import type {Location} from './models/Location'
-import {LocationService} from "./LocationService";
+import { LocationService } from './LocationService'
+import type { Connection } from './models/Connection'
+import type { TimeUnit } from './models/Duration'
+import type { Location } from './models/Location'
 
 export const resolve: (
   connection: Connection,
@@ -13,7 +13,6 @@ export const resolve: (
   timeoutUnit: TimeUnit = 'seconds'
 ) => {
   const locationService = LocationService()
-  console.log('******checking location service********', locationService)
   const location = await locationService.resolve(connection, timeout, timeoutUnit)
 
   if (!location) throw new Error(`${connection.prefix.toJSON()} not found`)

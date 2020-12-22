@@ -17,7 +17,6 @@ describe('Config Service Factory', () => {
     const configService = await ConfigService(tokenFactory)
     // eslint-disable-next-line jest/valid-expect
     expect(LocationServiceImpl.resolve.callCount).to.equal(1)
-    console.log('from mock', configService)
     // eslint-disable-next-line jest/valid-expect
     expect(configService).to.include(configServiceImpl)
   })

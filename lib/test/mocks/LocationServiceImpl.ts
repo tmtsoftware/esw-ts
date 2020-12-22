@@ -3,7 +3,6 @@ import type { Location } from '../../src/clients/location'
 import { Prefix } from '../../src/models'
 import { headOption } from '../../src/utils/Utils'
 
-console.log('*************** mock **********')
 const location: Location = {
   _type: 'HttpLocation',
   connection: {

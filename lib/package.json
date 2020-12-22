@@ -14,7 +14,7 @@
     "build:reporter": "tsc --p tsconfig.test.json",
     "snowpack:build": "snowpack build",
     "snowpack:dev": "snowpack dev --reload",
-    "test:web": "web-test-runner 'test/**/ConfigService.web.unit.test.ts' --debug --watch",
+    "test:web": "web-test-runner 'test/**/ConfigService.web.unit.test.ts' --watch",
     "test": "npm-run-all test:unit test:integration",
     "test:unit": "jest unit --reporters=default ",
     "test:unit:coverage": "npm run test:unit -- --coverage",
