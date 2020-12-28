@@ -2,7 +2,7 @@
 import { exec, execSync } from 'child_process'
 // eslint-disable-next-line import/no-nodejs-modules
 import * as path from 'path'
-import {startServices} from "./backend";
+import { startServices } from './backend'
 
 const scriptDir = path.resolve(__dirname, '../../scripts')
 
