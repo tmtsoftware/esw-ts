@@ -8,8 +8,8 @@ on:
 jobs:
   release:
     env:
-      CSW_VERSION: "3.0.0-RC1" # Change before releasing (before tagging repo)
-      ESW_VERSION: "0.2.0-RC1"
+      CSW_VERSION: "3.0.1" # Change before releasing (before tagging repo)
+      ESW_VERSION: "0.2.0"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -74,7 +74,7 @@ jobs:
       - name: NPM Publish
         working-directory: ./lib
         run: |
-          npm version <****> --allow-same-version --no-git-tag-version
+          npm version v0.1.0 --allow-same-version --no-git-tag-version
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
