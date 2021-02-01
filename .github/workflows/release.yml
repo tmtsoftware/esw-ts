@@ -75,6 +75,7 @@ jobs:
         working-directory: ./lib
         run: |
           npm version v0.1.0 --allow-same-version --no-git-tag-version
+          npm dist-tag add @tmtsoftware/esw-ts@0.1.0 latest
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
