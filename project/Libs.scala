@@ -14,7 +14,7 @@ object Libs {
 object ESW {
   val Version: String = {
     val env = sys.env ++ sys.props
-    env.getOrElse("ESW_VERSION", "0.2.0")
+    env.getOrElse("ESW_VERSION", "0.2.1")
   }
 }
 

@@ -49,7 +49,7 @@ beforeAll(async () => {
   // setup location service and gateway
   await startServices(['AAS', 'Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
-  validToken = await getToken('tmt-frontend-app', 'location-admin1', 'location-admin1', 'TMT')
+  validToken = 'validToken'
   //Following 2 client connects to auth enabled location server instance
   locationServiceWithToken = LocationService(() => validToken, LocationConfigWithAuth)
   locationServiceWithInvalidToken = LocationService(() => undefined, LocationConfigWithAuth)
