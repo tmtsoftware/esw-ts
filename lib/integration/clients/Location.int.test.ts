@@ -11,7 +11,6 @@ import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { authConnection, gatewayConnection } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
-import { getToken } from '../utils/auth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
 
