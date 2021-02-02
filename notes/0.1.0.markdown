@@ -1,13 +1,9 @@
 # ESW-TS - v0.1.0
 
-See [CHANGELOG.md](../CHANGELOG.md) for details of all releases.
+See [CHANGELOG.md](CHANGELOG.md) for details of all releases.
 
-## Features
-
-Two main components are delivered as part of ESW-TS:
-
-* AAS React Components
-* Typescript Clients for backend services
+This version is compatible with `ESW` version v0.2.0
+This version is compatible with `CSW` version v3.0.1
 
 ## Documentation
 

@@ -57,7 +57,7 @@ describe('Command Client', () => {
 
   test('should get unauthorized error on sending invalid token | ESW-343, ESW-305, ESW-99, ESW-321', async () => {
     const commandService = await CommandService(componentId, () => '')
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], '2020A-001-123')
 
     expect.assertions(4)
     await commandService.oneway(setupCommand).catch((e) => {
@@ -97,7 +97,7 @@ describe('Command Client', () => {
 
   test('should be able to submitAll the given commands | ESW-344', async () => {
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], '2020A-001-123')
     const actualResponse = await commandService.submitAllAndWait([setupCommand, setupCommand], 10)
     expect(actualResponse.length).toEqual(2)
     expect(actualResponse[0]._type).toEqual('Completed')
@@ -125,7 +125,7 @@ describe('Command Client', () => {
 
   test('should be able to query the final response for the given runId | ESW-343, ESW-305, ESW-380', async () => {
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], '2020A-001-123')
     const submitRes: SubmitResponse = await commandService.submit(setupCommand)
     expect(submitRes._type).toEqual('Started')
 
@@ -144,7 +144,7 @@ describe('Command Client', () => {
 
   test('should be able to submit and wait for final result of the given command | ESW-344', async () => {
     const commandService = await CommandService(componentId, () => validToken)
-    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], 'obsId')
+    const setupCommand = new Setup(cswHcdPrefix, 'c1', [keyParameter], '2020A-001-123')
     const actualResponse = await commandService.submitAndWait(setupCommand, 5)
     expect(actualResponse._type).toEqual('Completed')
   })
