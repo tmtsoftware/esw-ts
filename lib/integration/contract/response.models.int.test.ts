@@ -67,7 +67,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  // fs.rmdirSync(sourceDir, { recursive: true })
+  fs.rmdirSync(sourceDir, { recursive: true })
   return await delay(200)
 })
 
@@ -82,7 +82,7 @@ describe('models contract test', () => {
     verifyContract(locationModelsJsonPath, locationDecoders)
   })
 
-  test.skip('should test Gateway models | ESW-317', () => {
+  test('should test Gateway models | ESW-317', () => {
     verifyContract(gatewayModelsJsonPath, gatewayDecoders)
   })
 
@@ -94,7 +94,7 @@ describe('models contract test', () => {
     verifyContract(sequencerModelsJsonPath, sequencerDecoders)
   })
 
-  test.skip('should test Sequence Manager models | ESW-356', () => {
+  test('should test Sequence Manager models | ESW-356', () => {
     verifyContract(sequenceManagerModelsJsonPath, sequenceManagerDecoders)
   })
 

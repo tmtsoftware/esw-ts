@@ -16,7 +16,7 @@ const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 beforeAll(async () => {
   console.error = jest.fn()
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
-  await startServices(['AAS', 'AgentService'])
+  await startServices(['AgentService'])
   const validToken = 'validToken'
   const inValidToken = 'tokenWithoutRole'
   agentServiceWithValidToken = await AgentService(() => validToken)

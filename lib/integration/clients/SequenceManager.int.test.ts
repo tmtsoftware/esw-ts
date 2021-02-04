@@ -21,7 +21,7 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
-  await startServices(['AAS', 'SequenceManager'])
+  await startServices(['SequenceManager'])
   // Authorized user for Sequence Manager APIs
   const token = 'validToken'
 
