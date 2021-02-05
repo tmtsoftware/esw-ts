@@ -1,5 +1,11 @@
 import { gatewayConnection, resolveConnection } from '../../config/Connections'
-import type { ComponentId, Done } from '../../models'
+import type {
+  ComponentId,
+  Done,
+  Prefix,
+  ContainerLifecycleState,
+  SupervisorLifecycleState
+} from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint } from '../../utils/Utils'
 import type { Level, LogMetadata } from '../logger'
@@ -11,6 +17,17 @@ import { AdminServiceImpl } from './AdminServiceImpl'
  * @category Service
  */
 export interface AdminService {
+  restart(componentId: ComponentId): Promise<Done>
+
+  goOffline(componentId: ComponentId): Promise<Done>
+
+  goOnline(componentId: ComponentId): Promise<Done>
+
+  getContainerLifecycleState(prefix: Prefix): Promise<ContainerLifecycleState>
+
+  getComponentLifecycleState(componentId: ComponentId): Promise<SupervisorLifecycleState>
+
+  shutdown(componentId: ComponentId): Promise<Done>
   /**
    * Get basic logging configuration values of the component.
    *

@@ -3,7 +3,13 @@ import { AdminService } from '../../src/clients/admin'
 import type { LogMetadata } from '../../src/clients/logger'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { ComponentId, Prefix } from '../../src/models'
+import {
+  ComponentId,
+  ContainerLifecycleState,
+  Done,
+  Prefix,
+  SupervisorLifecycleState
+} from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
@@ -44,5 +50,56 @@ describe('Admin Client', () => {
     expect(response.componentLevel).toEqual('ERROR')
     expect(response.defaultLevel).toEqual('INFO')
     expect(response.slf4jLevel).toEqual('INFO')
+  })
+
+  test('restart | ESW-433', async () => {
+    const adminService = await AdminService()
+
+    const response: Done = await adminService.restart(componentId)
+
+    expect(response).toEqual('Done')
+  })
+
+  test('shutdown | ESW-433', async () => {
+    const adminService = await AdminService()
+
+    const response: Done = await adminService.shutdown(componentId)
+
+    expect(response).toEqual('Done')
+  })
+
+  test('goOffline | ESW-433', async () => {
+    const adminService = await AdminService()
+
+    const response: Done = await adminService.goOffline(componentId)
+
+    expect(response).toEqual('Done')
+  })
+
+  test('goOnline | ESW-433', async () => {
+    const adminService = await AdminService()
+
+    const response: Done = await adminService.goOnline(componentId)
+
+    expect(response).toEqual('Done')
+  })
+
+  test('get containerLifecycleState | ESW-433', async () => {
+    const adminService = await AdminService()
+    const prefix: Prefix = Prefix.fromString('ESW.test_container')
+
+    const response: ContainerLifecycleState = await adminService.getContainerLifecycleState(prefix)
+
+    expect(response).toEqual('Idle')
+  })
+
+  test('get getComponentLifecycleState | ESW-433', async () => {
+    const adminService = await AdminService()
+
+    const response: SupervisorLifecycleState = await adminService.getComponentLifecycleState(
+      componentId
+    )
+
+    expect(response).toEqual('Idle')
   })
 })

@@ -1,5 +1,14 @@
 import type { ComponentId } from '../../../models'
-import type { GetLogMetadata, SetLogLevel } from '../../admin/models/PostCommand'
+import type {
+  GetComponentLifecycleState,
+  GetContainerLifecycleState,
+  GetLogMetadata,
+  GoOffline,
+  GoOnline,
+  Restart,
+  SetLogLevel,
+  Shutdown
+} from '../../admin/models/PostCommand'
 import type { CommandServicePostMessage } from '../../command/models/PostCommand'
 import type { CommandServiceWsMessage } from '../../command/models/WsCommand'
 import type { GetEvent, PublishEvent } from '../../event/models/PostCommand'
@@ -27,4 +36,12 @@ export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern
 
 export type GatewayLoggingPostRequest = Log
 
-export type GatewayAdminPostRequest = GetLogMetadata | SetLogLevel
+export type GatewayAdminPostRequest =
+  | GetLogMetadata
+  | SetLogLevel
+  | Restart
+  | Shutdown
+  | GetComponentLifecycleState
+  | GetContainerLifecycleState
+  | GoOffline
+  | GoOnline

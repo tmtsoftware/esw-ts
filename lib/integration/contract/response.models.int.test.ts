@@ -3,6 +3,10 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
+import {
+  ContainerLifecycleStateD,
+  SupervisorLifecycleStateD
+} from '../../src/decoders/AdminDecoders'
 import { KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import {
@@ -144,7 +148,7 @@ const locationDecoders: Record<string, Decoder<any>> = {
   Subsystem: SubsystemD,
   Location: LocationD
 }
-// TODO: add models for SupervisorLifecycleState and ContainerLifecycleState for gateway
+
 const gatewayDecoders: Record<string, Decoder<any>> = {
   Subsystem: SubsystemD,
   AlarmSeverity: AlarmSeverityD,
@@ -155,7 +159,9 @@ const gatewayDecoders: Record<string, Decoder<any>> = {
   GatewayException: D.id(),
   Prefix: PrefixD,
   LogMetadata: LogMetadataD,
-  Level: LevelD
+  Level: LevelD,
+  SupervisorLifecycleState: SupervisorLifecycleStateD,
+  ContainerLifecycleState: ContainerLifecycleStateD
 }
 
 const configDecoders: Record<string, Decoder<any>> = {
