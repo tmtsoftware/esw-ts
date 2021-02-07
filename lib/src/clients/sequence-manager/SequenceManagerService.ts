@@ -1,4 +1,4 @@
-import type { Prefix, TokenFactory } from '../..'
+import type { Prefix, ResourcesStatusResponse, TokenFactory } from '../..'
 import { resolveConnection, sequenceManagerConnection } from '../../config/Connections'
 import type { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
@@ -120,6 +120,14 @@ export interface SequenceManagerService {
    * @returns           AgentStatusResponse as Promise.
    */
   getAgentStatus(): Promise<AgentStatusResponse>
+
+  /**
+   * gives status of all resources
+   * It provides status of the status (Available , InUse) and obsMode if it is in use
+   *
+   * @returns           ResourcesStatusResponse as Promise.
+   */
+  getResources(): Promise<ResourcesStatusResponse>
 }
 
 /**

@@ -66,6 +66,10 @@ export class GetAgentStatus {
   readonly _type: 'GetAgentStatus' = 'GetAgentStatus'
 }
 
+export class GetResources {
+  readonly _type: 'GetResources' = 'GetResources'
+}
+
 export type SequenceManagerPostRequest =
   | Configure
   | Provision
@@ -79,3 +83,4 @@ export type SequenceManagerPostRequest =
   | ShutdownSequenceComponent
   | ShutdownAllSequenceComponents
   | GetAgentStatus
+  | GetResources

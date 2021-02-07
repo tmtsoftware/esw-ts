@@ -16,7 +16,7 @@ export const ObsModeD: Decoder<ObsMode> = pipe(
 
 const LocationServiceErrorD: Decoder<T.LocationServiceError> = D.type({
   _type: ciLiteral('LocationServiceError'),
-  msg: D.string
+  reason: D.string
 })
 
 const SequenceComponentNotAvailableD: Decoder<T.SequenceComponentNotAvailable> = D.type({
@@ -49,7 +49,7 @@ const SpawningSequenceComponentsFailedD: Decoder<T.SpawningSequenceComponentsFai
 
 const LoadScriptErrorD: Decoder<T.LoadScriptError> = D.type({
   _type: ciLiteral('LoadScriptError'),
-  msg: D.string
+  reason: D.string
 })
 
 const SuccessD: Decoder<T.Success> = D.type({ _type: ciLiteral('Success') })
@@ -99,6 +99,29 @@ const AgentStatusSuccessD: Decoder<T.AgentStatusSuccess> = D.type({
   _type: ciLiteral('Success'),
   agentStatus: D.array(AgentStatusD),
   seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
+})
+
+const ResourceInUseD: Decoder<T.ResourceInUse> = D.type({
+  _type: ciLiteral('InUse')
+})
+
+const ResourceAvailableD: Decoder<T.ResourceAvailable> = D.type({
+  _type: ciLiteral('Available')
+})
+
+export const ResourceStatusD: Decoder<T.ResourceStatus> = D.type({
+  _type : ciLiteral('InUse', 'Available')
+})
+
+export const ResourceStatusResponseD: Decoder<T.ResourceStatusResponse> = D.type({
+  resource: SubsystemD,
+  status: ResourceStatusD,
+  obsMode : D.array(ObsModeD)
+})
+
+const ResourcesStatusSuccessD: Decoder<T.ResourcesStatusSuccess> = D.type({
+  _type: ciLiteral('Success'),
+  resourcesStatus: D.array(ResourceStatusResponseD)
 })
 
 export const ConfigureResponseD: Decoder<T.ConfigureResponse> = D.sum('_type')({
@@ -152,4 +175,9 @@ export const AgentStatusResponseD: Decoder<T.AgentStatusResponse> = D.sum('_type
   Unhandled: UnhandledD,
   LocationServiceError: LocationServiceErrorD,
   Success: AgentStatusSuccessD
+})
+
+export const ResourcesStatusResponseD: Decoder<T.ResourcesStatusResponse> = D.sum('_type')({
+  Success: ResourcesStatusSuccessD,
+  Failed: FailedD
 })

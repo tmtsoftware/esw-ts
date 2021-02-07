@@ -7,7 +7,7 @@ import type { ObsMode } from './ObsMode'
 
 export type LocationServiceError = {
   _type: 'LocationServiceError'
-  msg: string
+  reason: string
 }
 
 export type SequenceComponentNotAvailable = {
@@ -38,7 +38,7 @@ export type SpawningSequenceComponentsFailed = {
 
 export type LoadScriptError = {
   _type: 'LoadScriptError'
-  msg: string
+  reason: string
 }
 
 export type Success = { _type: 'Success' }
@@ -88,6 +88,26 @@ export type AgentStatusSuccess = {
   _type: 'Success'
   agentStatus: AgentStatus[]
   seqCompsWithoutAgent: SequenceComponentStatus[]
+}
+export type ResourceAvailable = {
+  _type: 'Available'
+}
+
+export type ResourceInUse = {
+  _type: 'InUse'
+}
+export type ResourceStatus = {
+  _type : 'InUse' | 'Available'
+}
+export type ResourceStatusResponse = {
+  resource: Subsystem
+  status: ResourceStatus
+  obsMode : ObsMode[]
+}
+
+export type ResourcesStatusSuccess = {
+  _type: 'Success'
+  resourcesStatus: ResourceStatusResponse[]
 }
 
 // api specific type's
@@ -145,3 +165,7 @@ export type ShutdownSequenceComponentResponse = ShutdownSequencersResponse
  * @category Sequence Manager Service
  */
 export type AgentStatusResponse = Unhandled | LocationServiceError | AgentStatusSuccess
+/**
+ * @category Sequence Manager Service
+ */
+export type ResourcesStatusResponse = ResourcesStatusSuccess | Failed
