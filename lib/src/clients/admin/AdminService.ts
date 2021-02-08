@@ -17,16 +17,47 @@ import { AdminServiceImpl } from './AdminServiceImpl'
  * @category Service
  */
 export interface AdminService {
+  /**
+   * Restarts the given component(HCD, Assembly or Container)
+   *
+   * @param componentId   The component id of the component.
+   * @return              Done as promise
+   */
   restart(componentId: ComponentId): Promise<Done>
-
+  /**
+   * Sets the current Lifecycle state of the given component(HCD, Assembly or Container) to Offline
+   *
+   * @param componentId   the component id of the component which needs to be offline
+   * @return              Done as promise
+   */
   goOffline(componentId: ComponentId): Promise<Done>
-
+  /**
+   * Sets the current Lifecycle state of the given component(HCD, Assembly or Container) to Online
+   *
+   * @param componentId   the component id of the component which needs to be offline
+   * @return              Done as promise
+   */
   goOnline(componentId: ComponentId): Promise<Done>
-
+  /**
+   * Fetches the current Lifecycle state of the given container
+   *
+   * @param prefix        the prefix of the container whose lifecycle state needs to be fetched
+   * @return             ContainerLifecycleState as promise
+   */
   getContainerLifecycleState(prefix: Prefix): Promise<ContainerLifecycleState>
-
+  /**
+   * Fetches the current Lifecycle state of the given Assembly or HCD
+   *
+   * @param componentId  the component id of the component whose lifecycle state needs to be fetched
+   * @return             SupervisorLifecycleState as promise
+   */
   getComponentLifecycleState(componentId: ComponentId): Promise<SupervisorLifecycleState>
-
+  /**
+   * Shuts down the given component(HCD, Assembly or Container)
+   *
+   * @param componentId   The component id of the component.
+   * @return              Done as promise
+   */
   shutdown(componentId: ComponentId): Promise<Done>
   /**
    * Get basic logging configuration values of the component.

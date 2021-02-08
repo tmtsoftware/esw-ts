@@ -55,7 +55,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     headers.append(APP_NAME, applicationName)
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
-    const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body }))
+    const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body: body as string }))
     const response = await handleErrors(fetchResponse, responseMapper)
     return decoder(response)
   }
