@@ -70,9 +70,20 @@ const RestartSequencerSuccessD: Decoder<T.RestartSequencerSuccess> = D.type({
   componentId: ComponentIdD
 })
 
-const RunningObsModesSuccessD: Decoder<T.RunningObsModesSuccess> = D.type({
+export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.type({
+  _type: ciLiteral('Configured', 'Configurable', 'NonConfigurable')
+})
+
+export const ObsModeDetailsD: Decoder<T.ObsModeDetails> = D.type({
+  obsMode: ObsModeD,
+  status: ObsModeStatusD,
+  sequencers: D.array(SubsystemD),
+  resources: D.array(SubsystemD)
+})
+
+const ObsModesDetailsResponseSuccessD: Decoder<T.ObsModesDetailsResponseSuccess> = D.type({
   _type: ciLiteral('Success'),
-  runningObsModes: D.array(ObsModeD)
+  obsModes: D.array(ObsModeDetailsD)
 })
 
 const AlreadyRunningD: Decoder<T.AlreadyRunning> = D.type({
@@ -101,23 +112,25 @@ const AgentStatusSuccessD: Decoder<T.AgentStatusSuccess> = D.type({
   seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
 })
 
-const ResourceInUseD: Decoder<T.ResourceInUse> = D.type({
-  _type: ciLiteral('InUse')
-})
-
-const ResourceAvailableD: Decoder<T.ResourceAvailable> = D.type({
-  _type: ciLiteral('Available')
-})
-
 export const ResourceStatusD: Decoder<T.ResourceStatus> = D.type({
-  _type : ciLiteral('InUse', 'Available')
+  _type: ciLiteral('InUse', 'Available')
 })
 
-export const ResourceStatusResponseD: Decoder<T.ResourceStatusResponse> = D.type({
-  resource: SubsystemD,
-  status: ResourceStatusD,
-  obsMode : D.array(ObsModeD)
-})
+export const ResourceStatusResponseD: Decoder<T.ResourceStatusResponse> = pipe(
+  D.intersect(
+    D.type({
+      resource: SubsystemD,
+      status: ResourceStatusD
+    })
+  )(D.partial({ obsMode: ObsModeD })),
+  D.parse((resourceStatusResponse) =>
+    D.success({
+      resource: resourceStatusResponse.resource,
+      status: resourceStatusResponse.status,
+      obsMode: resourceStatusResponse.obsMode
+    })
+  )
+)
 
 const ResourcesStatusSuccessD: Decoder<T.ResourcesStatusSuccess> = D.type({
   _type: ciLiteral('Success'),
@@ -142,9 +155,10 @@ export const ProvisionResponseD: Decoder<T.ProvisionResponse> = D.sum('_type')({
   CouldNotFindMachines: CouldNotFindMachinesD
 })
 
-export const GetRunningObsModesResponseD: Decoder<T.GetRunningObsModesResponse> = D.sum('_type')({
+export const ObsModesDetailsResponseD: Decoder<T.ObsModesDetailsResponse> = D.sum('_type')({
   Failed: FailedD,
-  Success: RunningObsModesSuccessD
+  Success: ObsModesDetailsResponseSuccessD,
+  LocationServiceError: LocationServiceErrorD
 })
 
 export const StartSequencerResponseD: Decoder<T.StartSequencerResponse> = D.sum('_type')({

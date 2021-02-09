@@ -1,4 +1,4 @@
-import type { Prefix, ResourcesStatusResponse, TokenFactory } from '../..'
+import type { ObsModesDetailsResponse, Prefix, ResourcesStatusResponse, TokenFactory } from '../..'
 import { resolveConnection, sequenceManagerConnection } from '../../config/Connections'
 import type { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
@@ -8,7 +8,6 @@ import type { ProvisionConfig } from './models/ProvisionConfig'
 import type {
   AgentStatusResponse,
   ConfigureResponse,
-  GetRunningObsModesResponse,
   ProvisionResponse,
   RestartSequencerResponse,
   ShutdownSequenceComponentResponse,
@@ -40,11 +39,11 @@ export interface SequenceManagerService {
   provision(config: ProvisionConfig): Promise<ProvisionResponse>
 
   /**
-   * Returns all the running observation modes.
+   * Returns all observing modes with their status, resources and sequencers
    *
-   * @returns           GetRunningObsModesResponse as Promise.
+   * @return ObsModesDetailsResponse.
    */
-  getRunningObsModes(): Promise<GetRunningObsModesResponse>
+  getObsModesDetails(): Promise<ObsModesDetailsResponse>
 
   /**
    * starts a sequencer for given subsystem and observing mode.

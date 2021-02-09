@@ -59,9 +59,20 @@ export type RestartSequencerSuccess = {
   componentId: ComponentId
 }
 
-export type RunningObsModesSuccess = {
+export type ObsModeStatus = {
+  _type: 'Configured' | 'Configurable' | 'NonConfigurable'
+}
+
+export type ObsModeDetails = {
+  obsMode: ObsMode
+  status: ObsModeStatus
+  resources: Subsystem[]
+  sequencers: Subsystem[]
+}
+
+export type ObsModesDetailsResponseSuccess = {
   _type: 'Success'
-  runningObsModes: ObsMode[]
+  obsModes: ObsModeDetails[]
 }
 
 export type AlreadyRunning = {
@@ -89,20 +100,14 @@ export type AgentStatusSuccess = {
   agentStatus: AgentStatus[]
   seqCompsWithoutAgent: SequenceComponentStatus[]
 }
-export type ResourceAvailable = {
-  _type: 'Available'
-}
 
-export type ResourceInUse = {
-  _type: 'InUse'
-}
 export type ResourceStatus = {
-  _type : 'InUse' | 'Available'
+  _type: 'InUse' | 'Available'
 }
 export type ResourceStatusResponse = {
   resource: Subsystem
   status: ResourceStatus
-  obsMode : ObsMode[]
+  obsMode?: ObsMode
 }
 
 export type ResourcesStatusSuccess = {
@@ -134,7 +139,7 @@ export type ProvisionResponse =
 /**
  * @category Sequence Manager Service
  */
-export type GetRunningObsModesResponse = Failed | RunningObsModesSuccess
+export type ObsModesDetailsResponse = Failed | ObsModesDetailsResponseSuccess | LocationServiceError
 /**
  * @category Sequence Manager Service
  */

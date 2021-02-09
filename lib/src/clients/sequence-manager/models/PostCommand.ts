@@ -14,8 +14,8 @@ export class Provision {
   constructor(readonly config: ProvisionConfig) {}
 }
 
-export class GetRunningObsModes {
-  readonly _type: 'GetRunningObsModes' = 'GetRunningObsModes'
+export class GetObsModesDetails {
+  readonly _type: 'GetObsModesDetails' = 'GetObsModesDetails'
 }
 
 export class StartSequencer {
@@ -73,7 +73,7 @@ export class GetResources {
 export type SequenceManagerPostRequest =
   | Configure
   | Provision
-  | GetRunningObsModes
+  | GetObsModesDetails
   | StartSequencer
   | RestartSequencer
   | ShutdownSequencer

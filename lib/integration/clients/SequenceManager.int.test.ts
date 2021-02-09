@@ -62,12 +62,43 @@ describe('Sequence Manager Client', () => {
     })
   })
 
-  test('getRunningObsModes | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.getRunningObsModes()
+  test('getObsModeDetails | ESW-469', async () => {
+    const response = await sequenceManagerServiceWithValidToken.getObsModesDetails()
 
     expect(response).toEqual({
       _type: 'Success',
-      runningObsModes: [new ObsMode('darknight')]
+      obsModes: [
+        {
+          obsMode: {
+            name: 'DarkNight_1'
+          },
+          resources: ['ESW', 'IRIS'],
+          sequencers: ['ESW', 'TCS'],
+          status: {
+            _type: 'Configured'
+          }
+        },
+        {
+          obsMode: {
+            name: 'DarkNight_2'
+          },
+          resources: ['IRIS', 'TCS'],
+          sequencers: ['ESW', 'IRIS'],
+          status: {
+            _type: 'Configurable'
+          }
+        },
+        {
+          obsMode: {
+            name: 'DarkNight_3'
+          },
+          resources: ['TCS'],
+          sequencers: ['TCS'],
+          status: {
+            _type: 'NonConfigurable'
+          }
+        }
+      ]
     })
   })
 
@@ -170,6 +201,40 @@ describe('Sequence Manager Client', () => {
         {
           seqCompId: new ComponentId(new Prefix('ESW', 'ESW_45'), 'SequenceComponent'),
           sequencerLocation: []
+        }
+      ]
+    })
+  })
+
+  test('getResources | ESW-469', async () => {
+    const response = await sequenceManagerServiceWithValidToken.getResources()
+
+    expect(response).toEqual({
+      _type: 'Success',
+      resourcesStatus: [
+        {
+          obsMode: {
+            name: 'darknight'
+          },
+          resource: 'ESW',
+          status: {
+            _type: 'InUse'
+          }
+        },
+        {
+          obsMode: {
+            name: 'darknight'
+          },
+          resource: 'IRIS',
+          status: {
+            _type: 'InUse'
+          }
+        },
+        {
+          resource: 'TCS',
+          status: {
+            _type: 'Available'
+          }
         }
       ]
     })

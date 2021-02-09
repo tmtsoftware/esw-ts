@@ -62,20 +62,20 @@ describe('Sequence manager', function () {
     )
   })
 
-  test('should call getRunningObsMode | ESW-365', async () => {
-    const expectedRes: T.GetRunningObsModesResponse = {
+  test('should call getObsModesDetails | ESW-469', async () => {
+    const expectedRes: T.ObsModesDetailsResponse = {
       _type: 'Success',
-      runningObsModes: [new ObsMode('moonnight')]
+      obsModes: []
     }
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.getRunningObsModes()
+    const response = await sequenceManager.getObsModesDetails()
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.GetRunningObsModes(),
-      Res.GetRunningObsModesResponseD
+      new Req.GetObsModesDetails(),
+      Res.ObsModesDetailsResponseD
     )
   })
 
@@ -239,6 +239,22 @@ describe('Sequence manager', function () {
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       new Req.GetAgentStatus(),
       Res.AgentStatusResponseD
+    )
+  })
+
+  test('should call get resources status | ESW-469', async () => {
+    const expectedRes: T.ResourcesStatusResponse = {
+      _type: 'Success',
+      resourcesStatus: []
+    }
+
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+    const response = await sequenceManager.getResources()
+
+    expect(response).toEqual(expectedRes)
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
+      new Req.GetResources(),
+      Res.ResourcesStatusResponseD
     )
   })
 })

@@ -18,11 +18,8 @@ export class SequenceManagerImpl implements SequenceManagerService {
     return this.httpTransport.requestRes(new Req.Provision(config), Res.ProvisionResponseD)
   }
 
-  getRunningObsModes(): Promise<T.GetRunningObsModesResponse> {
-    return this.httpTransport.requestRes(
-      new Req.GetRunningObsModes(),
-      Res.GetRunningObsModesResponseD
-    )
+  getObsModesDetails(): Promise<T.ObsModesDetailsResponse> {
+    return this.httpTransport.requestRes(new Req.GetObsModesDetails(), Res.ObsModesDetailsResponseD)
   }
 
   startSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<T.StartSequencerResponse> {

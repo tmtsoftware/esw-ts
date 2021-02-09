@@ -18,40 +18,44 @@ import {
   SubmitResponseD,
   ValidateResponseD
 } from '../../src/decoders/CommandDecoders'
-import {ComponentIdD} from '../../src/decoders/ComponentIdDecoder'
-import {ComponentTypeD} from '../../src/decoders/ComponentTypeDecoder'
+import { ComponentIdD } from '../../src/decoders/ComponentIdDecoder'
+import { ComponentTypeD } from '../../src/decoders/ComponentTypeDecoder'
 import * as C from '../../src/decoders/ConfigDecoders'
-import {CurrentStateD} from '../../src/decoders/CurrentStateDecoder'
-import type {Decoder} from '../../src/decoders/Decoder'
-import {EventD, EventKeyD} from '../../src/decoders/EventDecoders'
-import {keyTagDecoder} from '../../src/decoders/KeyDecoders'
+import { CurrentStateD } from '../../src/decoders/CurrentStateDecoder'
+import type { Decoder } from '../../src/decoders/Decoder'
+import { EventD, EventKeyD } from '../../src/decoders/EventDecoders'
+import { keyTagDecoder } from '../../src/decoders/KeyDecoders'
 import {
   ConnectionD,
   ConnectionTypeD,
   LocationD,
   TrackingEventD
 } from '../../src/decoders/LocationDecoders'
-import {LevelD, LogMetadataD} from '../../src/decoders/LoggerDecoders'
-import {ParameterD} from '../../src/decoders/ParameterDecoder'
-import {PrefixD} from '../../src/decoders/PrefixDecoder'
-import {ResultD} from '../../src/decoders/ResultDecoder'
+import { LevelD, LogMetadataD } from '../../src/decoders/LoggerDecoders'
+import { ParameterD } from '../../src/decoders/ParameterDecoder'
+import { PrefixD } from '../../src/decoders/PrefixDecoder'
+import { ResultD } from '../../src/decoders/ResultDecoder'
 import {
   AgentStatusResponseD,
   ConfigureResponseD,
-  GetRunningObsModesResponseD,
   ObsModeD,
+  ObsModeDetailsD,
+  ObsModesDetailsResponseD,
+  ObsModeStatusD,
   ProvisionResponseD,
-  ResourcesStatusResponseD, ResourceStatusD, ResourceStatusResponseD,
+  ResourcesStatusResponseD,
+  ResourceStatusD,
+  ResourceStatusResponseD,
   RestartSequencerResponseD,
   ShutdownSequencersOrSeqCompResponseD,
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
 import * as Seq from '../../src/decoders/SequencerDecoders'
-import {SubsystemD} from '../../src/decoders/SubsystemDecoder'
-import {UnitsD} from '../../src/decoders/UnitsDecoder'
-import {getOrThrow} from '../../src/utils/Utils'
-import {delay} from '../utils/eventually'
-import {executeCswContract, executeEswContract} from '../utils/shell'
+import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
+import { UnitsD } from '../../src/decoders/UnitsDecoder'
+import { getOrThrow } from '../../src/utils/Utils'
+import { delay } from '../utils/eventually'
+import { executeCswContract, executeEswContract } from '../utils/shell'
 
 jest.setTimeout(100000)
 
@@ -72,7 +76,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  fs.rmdirSync(sourceDir, {recursive: true})
+  fs.rmdirSync(sourceDir, { recursive: true })
   return await delay(200)
 })
 
@@ -193,7 +197,9 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
 const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   ConfigureResponse: ConfigureResponseD,
   ProvisionResponse: ProvisionResponseD,
-  GetRunningObsModesResponse: GetRunningObsModesResponseD,
+  ObsModesDetailsResponse: ObsModesDetailsResponseD,
+  ObsModeDetails: ObsModeDetailsD,
+  ObsModeStatus: ObsModeStatusD,
   StartSequencerResponse: StartSequencerResponseD,
   RestartSequencerResponse: RestartSequencerResponseD,
   ShutdownSequencersResponse: ShutdownSequencersOrSeqCompResponseD,
@@ -204,9 +210,9 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   Subsystem: SubsystemD,
   ProvisionConfig: D.id(),
   ResourcesStatusResponse: ResourcesStatusResponseD,
-  ResourceStatus : ResourceStatusD,
-  ResourceStatusResponse : ResourceStatusResponseD,
-  Resource : SubsystemD
+  ResourceStatus: ResourceStatusD,
+  ResourceStatusResponse: ResourceStatusResponseD,
+  Resource: SubsystemD
 }
 
 const agentServiceDecoders: Record<string, Decoder<any>> = {
