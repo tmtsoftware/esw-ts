@@ -53,17 +53,17 @@ Type definitions of `provision` method can be found @extref:[here](ts-docs:inter
 Typescript
 : @@snip [provision](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#provision}
 
-## Getting Running ObsModes
+## Getting ObsModes Details
 
-To get all the running ObsModes, `SequenceManagerService` provides `getRunningObsModes` method.
-This method returns all the running observation modes.
+To get all obsModes details, `SequenceManagerService` provides `getObsModesDetails` method.
+This method returns all the observation modes with their status.
 
-Type definitions of `getRunningObsModes` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getrunningobsmodes)
+Type definitions of `getObsModesDetails` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getObsModesDetails)
 
-The following example shows how to call `getRunningObsModes` method:
+The following example shows how to call `getObsModesDetails` method:
 
 Typescript
-: @@snip [getRunningObsModes](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getRunningObsModes}
+: @@snip [getObsModesDetails](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getObsModesDetails}
 
 ## Starting a Sequencer
 
@@ -152,3 +152,15 @@ The following example shows how to call `getAgentStatus` method:
 
 Typescript
 : @@snip [getAgentStatus](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getAgentStatus}
+
+## Getting Resources Status
+
+To get all Resources Status, `SequenceManagerService` provides `getResources` method.
+This method returns all the resources with their status(Available | InUse), if resource is in use it will also send obsMode along with it.
+
+Type definations of `getResources` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getResources)
+
+The following example shows how to call `getResources` method:
+
+Typescript
+: @@snip [getResources](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getResources}

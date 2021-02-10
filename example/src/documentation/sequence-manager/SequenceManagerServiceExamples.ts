@@ -2,7 +2,6 @@ import {
   AgentProvisionConfig,
   AgentStatusResponse,
   ConfigureResponse,
-  GetRunningObsModesResponse,
   ObsMode,
   Prefix,
   ProvisionConfig,
@@ -11,7 +10,9 @@ import {
   SequenceManagerService,
   ShutdownSequenceComponentResponse,
   ShutdownSequencersResponse,
-  StartSequencerResponse
+  StartSequencerResponse,
+  ObsModesDetailsResponse,
+  ResourcesStatusResponse
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -45,9 +46,9 @@ const provision: ProvisionResponse = await sequenceManagerService.provision(
 )
 //#provision
 
-//#getRunningObsModes
-const obsModes: GetRunningObsModesResponse = await sequenceManagerService.getRunningObsModes()
-//#getRunningObsModes
+//#getObsModesDetails
+const obsModesDetailsResponse: ObsModesDetailsResponse = await sequenceManagerService.getObsModesDetails()
+//#getObsModesDetails
 
 //#startSequencer
 const startSequencerResponse: StartSequencerResponse = await sequenceManagerService.startSequencer(
@@ -101,3 +102,7 @@ const shutdownAllSeqCompResponse: ShutdownSequenceComponentResponse = await sequ
 //#getAgentStatus
 const agentStatus: AgentStatusResponse = await sequenceManagerService.getAgentStatus()
 //#getAgentStatus
+
+//#getResources
+const resourcesStatus : ResourcesStatusResponse = await sequenceManagerService.getResources()
+//#getResources
