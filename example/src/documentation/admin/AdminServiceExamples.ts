@@ -1,9 +1,11 @@
 import {
   AdminService,
   ComponentId,
+  ContainerLifecycleState,
   Done,
   LogMetadata,
-  Prefix
+  Prefix,
+  SupervisorLifecycleState
 } from '@tmtsoftware/esw-ts'
 
 //#admin-service-creation
@@ -23,3 +25,46 @@ if (logMetaData.componentLevel !== 'ERROR') {
   )
 }
 //#getLogMetadata
+
+//#adminActions
+const restartResponse: Done = await adminService.restart(componentId)
+
+const shutdownResponse: Done = await adminService.shutdown(componentId)
+
+const goOfflineResponse: Done = await adminService.goOffline(componentId)
+
+const goOnlineResponse: Done = await adminService.goOnline(componentId)
+//#adminActions
+
+//#getLifecycleState
+// component lifecycle state
+const response: Done = await adminService.goOnline(componentId)
+if (response === 'Done') {
+  const state: SupervisorLifecycleState = await adminService.getComponentLifecycleState(
+    componentId
+  )
+
+  switch (state) {
+    case 'Idle':
+      break
+    case 'Running':
+      break
+    case 'Shutdown':
+      break
+    default: console.log('unhandled state')
+  }
+}
+
+// container lifecycle state
+const containerPrefix = Prefix.fromString('ESW.container1')
+const state: ContainerLifecycleState = await adminService.getContainerLifecycleState(
+  containerPrefix
+)
+
+switch (state) {
+  case 'Idle':
+    break
+  case 'Running':
+    break
+}
+//#getLifecycleState

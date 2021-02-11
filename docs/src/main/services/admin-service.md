@@ -24,3 +24,30 @@ In the given example, we want to set `ERROR` log level for the component if it's
 
 Typescript
 :   @@snip [getLogMetadata](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #getLogMetadata }
+
+## Component & Container level actions
+
+Admin actions like restarting, shutting down or making component(HCD, Assembly) or container to go online/offline are provided in Admin Service.
+Following examples represents admin actions provided on Admin Service.
+
+Type definitions for `restart` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#restart)
+Type definitions for `shutdown` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#shutdown)
+Type definitions for `goOffline` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#goOffline)
+Type definitions for `goOnline` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#goOnline)
+
+Typescript
+:   @@snip [adminActions](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #adminActions }
+
+## Querying lifecycle states of Component & Container
+
+Component(HCD, Assembly) lifecycle states are queried using `getComponentLifecycleState` API Method.
+
+Container lifecycle state is queried using `getContainerLifecycleState` API Method.
+
+Following examples shows how to make use of these API's.
+
+Type definitions for `getContainerLifecycleState` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#getContainerLifecycleState)
+Type definitions for `getComponentLifecycleState` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#getComponentLifecycleState)
+
+Typescript
+:   @@snip [getLifecycleState](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #getLifecycleState }
