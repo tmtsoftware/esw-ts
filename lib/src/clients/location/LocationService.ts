@@ -103,6 +103,10 @@ export const LocationService = (
   tokenFactory: TokenFactory = () => undefined,
   locationConfig = LocationConfig
 ): LocationService => {
+  console.log('this is in location service')
+  console.log(window.isMocked)
+  console.log(window.mockedLocationService)
+  if (window.isMocked) return window.instance(window.mockedLocationService)
   const webSocketEndpoint = getWebSocketEndPoint({
     host: locationConfig.hostName,
     port: locationConfig.port

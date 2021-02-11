@@ -24,6 +24,9 @@ export interface AuthContextProps {
  * context provided
  */
 const AuthContextProvider = (props: AuthContextProps) => {
+  if (window.isMocked) {
+    return <Provider value={window.auth}>{props.children}</Provider>
+  }
   const [auth, setAuth] = useState<Auth | null>(null)
 
   /**

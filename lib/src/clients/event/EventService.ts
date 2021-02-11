@@ -77,6 +77,7 @@ export interface EventService {
  * @constructor
  */
 export const EventService = async (): Promise<EventService> => {
+  if (window.isMocked) return window.instance(window.mockedEventService)
   const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })

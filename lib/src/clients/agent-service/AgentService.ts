@@ -53,6 +53,11 @@ export interface AgentService {
 }
 
 export const AgentService = async (tokenFactory: TokenFactory): Promise<AgentService> => {
+  if (window.isMocked) {
+    console.log('this is the mock version')
+    return window.instance(window.mockedAgentService)
+  }
+  console.log('this is the real version')
   const { host, port } = await resolveConnection(agentServiceConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 

@@ -27,7 +27,10 @@ export interface AlarmService {
  * @constructor
  */
 export const AlarmService = async (): Promise<AlarmService> => {
-  const { host, port } = await resolveConnection(gatewayConnection)
-  const url = getPostEndPoint({ host, port })
-  return new AlarmServiceImpl(new HttpTransport(url))
+  if (window.isMocked) return window.instance(window.mockedAlarmService)
+  else {
+    const { host, port } = await resolveConnection(gatewayConnection)
+    const url = getPostEndPoint({ host, port })
+    return new AlarmServiceImpl(new HttpTransport(url))
+  }
 }

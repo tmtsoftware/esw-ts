@@ -104,6 +104,7 @@ export const CommandService = async (
   componentId: ComponentId,
   tokenFactory: TokenFactory = () => undefined
 ): Promise<CommandService> => {
+  if (window.isMocked) return window.instance(window.mockedCommandService)
   const { host, port } = await resolveConnection(gatewayConnection)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })

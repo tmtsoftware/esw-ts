@@ -132,6 +132,7 @@ export interface SequenceManagerService {
 export const SequenceManagerService = async (
   tokenFactory: TokenFactory
 ): Promise<SequenceManagerService> => {
+  if (window.isMocked) return window.instance(window.mockedSequenceManager)
   const { host, port } = await resolveConnection(sequenceManagerConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 
