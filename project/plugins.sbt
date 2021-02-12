@@ -6,7 +6,7 @@ addSbtPlugin("ohnosequences"    % "sbt-github-release" % "0.7.0")
 
 libraryDependencies += "com.sun.activation" % "javax.activation" % "1.2.0"
 
-resolvers += Resolver.bintrayRepo("twtmt", "sbt-plugins")
-addSbtPlugin("com.github.tmtsoftware" % "sbt-docs" % "0.2.0-RC1")
+resolvers += "jitpack" at "https://jitpack.io"
+libraryDependencies += "com.github.tmtsoftware" % "sbt-docs" % "9fe4596ff8"
 
 classpathTypes += "maven-plugin"
