@@ -161,3 +161,24 @@ To push documentation on github pages, follow the steps:
     `sbt:esw-ts> ghpagesPushSite`
 
 It will ask for github credential. It takes few minutes to reflect on the github pages.
+
+## Version compatibility
+
+| esw-ts | esw | csw |
+|--------|-----|-----|
+| v0.1.0 | v0.2.1 | v0.3.1 |
+| v0.1.0-RC1 | v0.2.0-RC1 | v0.3.0-RC1 |
+| v0.1.0-M1 | v0.2.0-M1 | v0.3.0-M1 |
+
+## Public Release History
+
+| Date | Tag | Source | Docs | Assets |
+|-----|-----|-----|-----|-----|
+| 2021-02-01 | v0.1.0 | [esw-0.1.0](https://github.com/tmtsoftware/esw-ts/tree/v0.1.0) | [esw-0.1.0 docs](https://tmtsoftware.github.io/esw-ts/0.1.0/) | [esw-0.1.0 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.1.0) |
+
+## Pre-Release History
+
+| Date | Tag | Source | Docs | Assets |
+|-----|-----|-----|-----|-----|
+| 2020-11-11 | v0.1.0-RC1 | [esw-0.1.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.1.0-RC1) | [esw-0.1.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.1.0-RC1/) | [esw-0.1.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.1.0-RC1) |
+| 2020-09-28 | v0.1.0-M1 | [esw-0.1.0-M1](https://github.com/tmtsoftware/esw-ts/tree/v0.1.0-M1) | [esw-0.1.0-M1 docs](https://tmtsoftware.github.io/esw-ts/0.1.0-M1/) | [esw-0.1.0-M1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.1.0-M1) |

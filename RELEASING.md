@@ -5,6 +5,7 @@
 1. Add release notes (`notes/<version>.markdown`)
 1. Update top-level `CHANGELOG.md`
 1. Update top-level `README.md`
+1. Update `sbt-docs` version in `plugins.sbt`
 1. Update `CSW_VERSION`, `ESW_VERSION` in `.github/workflow/release.yml` & Libs file which points to the latest compatible version
 1. Update `embedded-keycloak`, `csw` and `esw` version in `Libs.scala`
 1. Update `version` number in `lib/package.json`
