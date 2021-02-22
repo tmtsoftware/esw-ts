@@ -11,14 +11,14 @@ Typescript
 
 ## Usages of Admin Service
 
-Type definitions for all Admin Service methods can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html)
+Type definitions for all Admin Service methods can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html).
 
 ## Fetching LogMetadata & Setting log level
 
 For instance, we need logging configuration to be known before setting log level of a component if it is not set to desired @extref:[log level](ts-docs:modules/models.html#level).
 
-Type definitions for `getLogMetadata` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#getlogmetadata)
-Type definitions for `setLogLevel` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#setloglevel)
+Type definitions for `getLogMetadata` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#getlogmetadata).
+Type definitions for `setLogLevel` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#setloglevel).
 
 In the given example, we want to set `ERROR` log level for the component if it's not already set to `ERROR`.
 
@@ -30,10 +30,10 @@ Typescript
 Admin actions like restarting, shutting down or making component(HCD, Assembly) or container to go online/offline are provided in Admin Service.
 Following examples represents admin actions provided on Admin Service.
 
-Type definitions for `restart` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#restart)
-Type definitions for `shutdown` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#shutdown)
-Type definitions for `goOffline` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#goOffline)
-Type definitions for `goOnline` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#goOnline)
+Type definitions for `restart` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#restart).
+Type definitions for `shutdown` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#shutdown).
+Type definitions for `goOffline` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#goOffline).
+Type definitions for `goOnline` can be found @extref:[here](ts-docs:interfaces/clients.adminservice.html#goOnline).
 
 Typescript
 :   @@snip [adminActions](../../../../example/src/documentation/admin/AdminServiceExamples.ts) { #adminActions }
