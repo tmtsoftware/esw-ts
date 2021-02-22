@@ -51,6 +51,7 @@ export class AdminServiceImpl implements AdminService {
       SupervisorLifecycleStateD
     )
   }
+
   shutdown(componentId: ComponentId): Promise<Done> {
     return this.httpTransport.requestRes(new Shutdown(componentId), DoneD)
   }

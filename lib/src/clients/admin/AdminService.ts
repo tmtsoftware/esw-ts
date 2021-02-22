@@ -24,6 +24,7 @@ export interface AdminService {
    * @return              Done as promise
    */
   restart(componentId: ComponentId): Promise<Done>
+
   /**
    * Sets the current Lifecycle state of the given component(HCD, Assembly or Container) to Offline
    *
@@ -31,6 +32,7 @@ export interface AdminService {
    * @return              Done as promise
    */
   goOffline(componentId: ComponentId): Promise<Done>
+
   /**
    * Sets the current Lifecycle state of the given component(HCD, Assembly or Container) to Online
    *
@@ -38,6 +40,7 @@ export interface AdminService {
    * @return              Done as promise
    */
   goOnline(componentId: ComponentId): Promise<Done>
+
   /**
    * Fetches the current Lifecycle state of the given container
    *
@@ -45,6 +48,7 @@ export interface AdminService {
    * @return             ContainerLifecycleState as promise
    */
   getContainerLifecycleState(prefix: Prefix): Promise<ContainerLifecycleState>
+
   /**
    * Fetches the current Lifecycle state of the given Assembly or HCD
    *
@@ -52,6 +56,7 @@ export interface AdminService {
    * @return             SupervisorLifecycleState as promise
    */
   getComponentLifecycleState(componentId: ComponentId): Promise<SupervisorLifecycleState>
+
   /**
    * Shuts down the given component(HCD, Assembly or Container)
    *
@@ -59,6 +64,7 @@ export interface AdminService {
    * @return              Done as promise
    */
   shutdown(componentId: ComponentId): Promise<Done>
+
   /**
    * Get basic logging configuration values of the component.
    *
