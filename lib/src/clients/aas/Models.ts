@@ -3,7 +3,7 @@ import type KC from 'keycloak-js'
 export interface Auth {
   logout: (options?: KC.KeycloakLogoutOptions) => KC.KeycloakPromise<void, void>
   token: () => string | undefined
-  tokenParsed: () => KC.KeycloakTokenParsed | undefined
+  tokenParsed: () => (KC.KeycloakTokenParsed & { preferred_username?: string }) | undefined
   realmAccess: () => KC.KeycloakRoles | undefined
   resourceAccess: () => KC.KeycloakResourceAccess | undefined
   loadUserProfile: () => KC.KeycloakPromise<KC.KeycloakProfile, void>
