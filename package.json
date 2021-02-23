@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install": "cd lib && npm install",
-    "deploy": "deploy-to-git"
+    "build":"cd lib && npm run build"
   },
   "config": {
     "deployToGit": {
