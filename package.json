@@ -2,11 +2,15 @@
   "name": "esw-ts",
   "version": "0.1.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/dist/index.js",
+  "module": "lib/dist/index.js",
+  "typings": "lib/dist/index.d.ts",
   "scripts": {
-    "install": "cd lib && npm install",
-    "build":"cd lib && npm run build"
+    "install": "cd lib && npm install && npm run build"
   },
+  "files": [
+    "lib/dist"
+  ],
   "config": {
     "deployToGit": {
         "repository": "git@github.com:manish3323/esw-ts.git",
