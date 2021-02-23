@@ -8,7 +8,7 @@
   "scripts": {
     "audit": "npm audit",
     "clean": "rm -rf dist && mkdir dist",
-    "prebuild": "npm run clean && npm-run-all --parallel fix audit",
+    "prebuild": "npm run clean",
     "build": "tsc",
     "build:watch": "tsc -w",
     "build:reporter": "tsc --p tsconfig.test.json",
