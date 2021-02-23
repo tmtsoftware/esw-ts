@@ -6,7 +6,7 @@
   "module": "lib/dist/src/index.js",
   "typings": "lib/dist/src/index.d.ts",
   "scripts": {
-    "install": "cd lib && npm install && npm run build"
+    "install": "cd lib && npm install"
   },
   "repository": {
     "type": "git",
