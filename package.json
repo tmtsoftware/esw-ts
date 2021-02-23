@@ -1,0 +1,37 @@
+{
+  "name": "esw-ts",
+  "version": "0.1.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd lib && npm install",
+    "deploy": "deploy-to-git"
+  },
+  "config": {
+    "deployToGit": {
+        "repository": "git@github.com:manish3323/esw-ts.git",
+        "branch": "artifacts",
+        "folder": "lib/dist",
+        "script": "cd lib && npm run build",
+        "commit": "Automatic commit text",
+        "user": {
+            "email": "dddd@gmail.com",
+            "name": "dddd"
+        }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manish3323/esw-ts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manish3323/esw-ts/issues"
+  },
+  "homepage": "https://github.com/Manish3323/esw-ts#readme",
+  "dependencies": {
+    "deploy-to-git": "^0.1.5",
+    "npm-run-all": "^4.1.5"
+  }
+}
