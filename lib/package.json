@@ -8,6 +8,7 @@
   "scripts": {
     "audit": "npm audit",
     "clean": "rm -rf dist && mkdir dist",
+    "install": "npm run clean && tsc",
     "prebuild": "npm run clean && npm-run-all --parallel fix audit",
     "build": "tsc",
     "build:watch": "tsc -w",
@@ -23,7 +24,7 @@
     "test:watch": "jest --watchAll",
     "fix": "npm-run-all --parallel clean fix:eslint fix:prettier",
     "fix:eslint": "eslint --fix --config .eslintrc.js './**/*.{ts,tsx}' --max-warnings 0",
-    "fix:prettier": "node_modules/prettier/bin-prettier.js --write --config ./.prettierrc './**/*.{ts,tsx}' ",
+    "fix:prettier": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
     "all": "npm-run-all --parallel fix build test ",
     "doc": "typedoc --tsconfig ./tsconfig.docs.json"
   },
@@ -56,9 +57,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "ts-jest": "^26.4.3",
-    "typedoc": "^0.19.2",
+    "typedoc": "0.20.28",
     "typedoc-plugin-external-module-map": "^1.2.1",
-    "typescript": "^4.0.5",
+    "typescript": "^4.2.2",
     "whatwg-fetch": "^3.4.1"
   },
   "peerDependencies": {

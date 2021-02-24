@@ -51,7 +51,8 @@ if (response === 'Done') {
       break
     case 'Shutdown':
       break
-    default: console.log('unhandled state')
+    default:
+      console.log('unhandled state')
   }
 }
 

@@ -38,9 +38,9 @@ const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: SequenceCommand[] = [setupCommand]
 
 const mockResponse = Math.random().toString()
-const httpTransport: HttpTransport<GatewaySequencerCommand<
-  Req.SequencerPostRequest
->> = new HttpTransport('someUrl', () => undefined)
+const httpTransport: HttpTransport<
+  GatewaySequencerCommand<Req.SequencerPostRequest>
+> = new HttpTransport('someUrl', () => undefined)
 const mockHttpTransport = mocked(httpTransport)
 
 const ws: Ws<GatewaySequencerCommand<SequencerWebsocketRequest>> = new Ws('someUrl')

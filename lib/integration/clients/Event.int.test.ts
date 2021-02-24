@@ -48,7 +48,7 @@ describe('Event Client', () => {
   })
 
   test('should publish and subscribe to published event | ESW-318', () => {
-    return new Promise(async (jestDoneCallback) => {
+    return new Promise<void>(async (jestDoneCallback) => {
       const prefix = new Prefix('ESW', 'ncc.trombone2')
       const eventName = new EventName('offline')
       const eventKeys = new Set<EventKey>([new EventKey(prefix, eventName)])
@@ -67,7 +67,7 @@ describe('Event Client', () => {
   })
 
   test('should publish and pattern subscribe to published event | ESW-318', () => {
-    return new Promise(async (jestDoneCallback) => {
+    return new Promise<void>(async (jestDoneCallback) => {
       const prefix = new Prefix('CSW', 'ncc.trombone')
       const eventName = new EventName('offline')
       const subsystem: Subsystem = 'CSW'

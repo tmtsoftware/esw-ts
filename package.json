@@ -1,0 +1,9 @@
+{
+  "name": "@tmtsoftware/esw-ts",
+  "main":"lib/dist/src/index.js",
+  "module":"lib/dist/src/index.js",
+  "typings":"lib/dist/src/index.d.ts",
+  "scripts":{
+    "install": "cd lib && npm install"
+  }
+}

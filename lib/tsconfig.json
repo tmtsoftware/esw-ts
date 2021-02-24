@@ -31,6 +31,7 @@
     "importsNotUsedAsValues": "error",
     "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,
+    "skipLibCheck": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

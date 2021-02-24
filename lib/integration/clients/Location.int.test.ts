@@ -133,7 +133,7 @@ describe('LocationService', () => {
   })
 
   test('should be able to track a location from location server | ESW-343, ESW-308', () => {
-    return new Promise(async (done) => {
+    return new Promise<void>(async (done) => {
       const expectedTrackingEvent: LocationRemoved = {
         _type: 'LocationRemoved',
         connection: gatewayConnection
