@@ -1,25 +1,6 @@
 {
-  "name": "esw-ts",
-  "version": "0.1.1",
-  "description": "",
-  "main": "lib/dist/src/index.js",
-  "module": "lib/dist/src/index.js",
-  "typings": "lib/dist/src/index.d.ts",
-  "scripts": {
-    "install": "cd lib && npm install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Manish3323/esw-ts.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Manish3323/esw-ts/issues"
-  },
-  "homepage": "https://github.com/Manish3323/esw-ts#readme",
-  "dependencies": {
-    "deploy-to-git": "^0.1.5",
-    "npm-run-all": "^4.1.5"
-  }
+  "name": "@tmtsoftware/esw-ts",
+  "workspaces": [
+    "./*"
+  ]
 }
