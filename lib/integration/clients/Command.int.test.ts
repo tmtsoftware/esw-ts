@@ -150,7 +150,7 @@ describe('Command Client', () => {
   })
 
   test('should be able to subscribe to the current state | ESW-343, ESW-305', () => {
-    return new Promise(async (done) => {
+    return new Promise<void>(async (done) => {
       const commandService = await CommandService(componentId, () => undefined)
       const prefix: Prefix = new Prefix('ESW', 'a.b')
 

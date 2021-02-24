@@ -26,7 +26,7 @@ describe('Web socket util', () => {
   test('should subscribe | ESW-312', () => {
     expect.assertions(2)
 
-    return new Promise((done) => {
+    return new Promise<void>((done) => {
       const expectedData = 'hello'
       const callBack = (data: string) => {
         expect(data).toEqual(expectedData)
