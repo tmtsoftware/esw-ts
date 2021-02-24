@@ -9,6 +9,7 @@
     "audit": "npm audit",
     "clean": "rm -rf dist && mkdir dist",
     "install": "npm run clean && npm run build",
+    "prebuild": "npm run clean && npm-run-all --parallel fix audit",
     "build": "tsc",
     "build:watch": "tsc -w",
     "build:reporter": "tsc --p tsconfig.test.json",
