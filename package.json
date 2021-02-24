@@ -2,5 +2,8 @@
   "name": "@tmtsoftware/esw-ts",
   "workspaces": [
     "./*"
-  ]
+  ],
+  "scripts":{
+    "install": "cd lib && npm install"
+  }
 }
