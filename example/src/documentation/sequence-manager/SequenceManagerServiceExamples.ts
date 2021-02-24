@@ -104,5 +104,5 @@ const agentStatus: AgentStatusResponse = await sequenceManagerService.getAgentSt
 //#getAgentStatus
 
 //#getResources
-const resourcesStatus : ResourcesStatusResponse = await sequenceManagerService.getResources()
+const resourcesStatus: ResourcesStatusResponse = await sequenceManagerService.getResources()
 //#getResources
