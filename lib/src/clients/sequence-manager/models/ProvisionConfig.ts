@@ -7,8 +7,8 @@ import { requirement } from '../../../utils/Utils'
 export class AgentProvisionConfig {
   constructor(readonly agentPrefix: Prefix, readonly countOfSeqComps: number) {
     requirement(
-      countOfSeqComps > 0,
-      'Invalid sequence component count: Count of sequence components must be greater than Zero'
+      countOfSeqComps >= 0,
+      'Invalid sequence component count: Count of sequence components must be greater than or equal to Zero'
     )
   }
 }

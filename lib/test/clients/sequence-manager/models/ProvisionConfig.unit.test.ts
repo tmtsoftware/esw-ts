@@ -20,12 +20,7 @@ describe('Agent Provision config', () => {
 
     expect(() => new AgentProvisionConfig(eswAgentPrefix, -1)).toThrow(
       Error(
-        'Requirement failed - Invalid sequence component count: Count of sequence components must be greater than Zero'
-      )
-    )
-    expect(() => new AgentProvisionConfig(eswAgentPrefix, 0)).toThrow(
-      Error(
-        'Requirement failed - Invalid sequence component count: Count of sequence components must be greater than Zero'
+        'Requirement failed - Invalid sequence component count: Count of sequence components must be greater than or equal to Zero'
       )
     )
   })
