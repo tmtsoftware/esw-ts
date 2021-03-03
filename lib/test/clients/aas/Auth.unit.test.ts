@@ -20,13 +20,14 @@ jest.mock('keycloak-js')
 afterEach(() => jest.clearAllMocks())
 
 describe('Auth', () => {
-  test('should create AuthStore instance | ESW-330', () => {
+  test('should create AuthStore instance | ESW-330, ESW-476', () => {
     const mockKeycloak = mockedKeyCloakInstance(false)
     const auth = AuthStore.from(mockKeycloak)
 
     expect(auth.logout).toBe(mockKeycloak.logout)
     expect(auth.token()).toBe(mockKeycloak.token)
     expect(auth.tokenParsed()).toBe(mockKeycloak.tokenParsed)
+    expect(auth.tokenParsed()?.preferred_username).toBe('esw-user')
     expect(auth.realmAccess()).toBe(mockKeycloak.realmAccess)
     expect(auth.resourceAccess()).toBe(mockKeycloak.resourceAccess)
     expect(auth.loadUserProfile).toBe(mockKeycloak.loadUserProfile)
