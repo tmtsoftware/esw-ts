@@ -53,6 +53,10 @@ export interface AgentService {
 }
 
 export const AgentService = async (tokenFactory: TokenFactory): Promise<AgentService> => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { SNOWPACK_PUBLIC_ENABLE_FEATURE, SNOWPACK_PUBLIC_API_URL } = import.meta.env
+  console.log(SNOWPACK_PUBLIC_ENABLE_FEATURE, SNOWPACK_PUBLIC_API_URL)
   const { host, port } = await resolveConnection(agentServiceConnection)
   const postEndpoint = getPostEndPoint({ host, port })
 
