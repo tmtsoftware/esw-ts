@@ -121,8 +121,9 @@ export interface SequenceManagerService {
   getAgentStatus(): Promise<AgentStatusResponse>
 
   /**
-   * gives status of all resources
-   * It provides status of the status (Available , InUse) and obsMode if it is in use
+   * gives status of all resources.
+   * It provides status of each resource (Available , InUse) and obsMode if the
+   * resource is in use.
    *
    * @returns           ResourcesStatusResponse as Promise.
    */
