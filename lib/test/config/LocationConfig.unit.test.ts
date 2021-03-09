@@ -14,7 +14,7 @@ describe('LocationConfig', () => {
     process.env.NODE_ENV = 'production'
     const { LocationConfig } = await import('../../src/config/LocationConfig')
 
-    expect(LocationConfig.hostName).toEqual('production-url-of-location-service.com')
+    expect(LocationConfig.hostName).toEqual('production-dns-entry.com')
     expect(LocationConfig.port).toEqual(8765)
   })
 
