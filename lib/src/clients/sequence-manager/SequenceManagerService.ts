@@ -6,7 +6,6 @@ import { getPostEndPoint } from '../../utils/Utils'
 import type { ObsMode } from './models/ObsMode'
 import type { ProvisionConfig } from './models/ProvisionConfig'
 import type {
-  AgentStatusResponse,
   ConfigureResponse,
   ProvisionResponse,
   RestartSequencerResponse,
@@ -110,15 +109,6 @@ export interface SequenceManagerService {
    * @returns           ShutdownSequenceComponentResponse as Promise.
    */
   shutdownAllSequenceComponents(): Promise<ShutdownSequenceComponentResponse>
-
-  /**
-   * gives status of TMT ecosystem components(agents, sequence components and sequencers).
-   * It provides information about which agents are up and running, sequence components running on
-   * those agents and sequencer script loaded on sequence component.
-   *
-   * @returns           AgentStatusResponse as Promise.
-   */
-  getAgentStatus(): Promise<AgentStatusResponse>
 
   /**
    * gives status of all resources.

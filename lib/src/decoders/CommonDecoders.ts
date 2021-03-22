@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import type { Failed, Unhandled } from '../models'
+import type { Failed, LocationServiceError, Unhandled } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
 
 export const BooleanD = D.boolean
@@ -17,4 +17,9 @@ export const UnhandledD: Decoder<Unhandled> = D.type({
   state: D.string,
   messageType: D.string,
   msg: D.string
+})
+
+export const LocationServiceErrorD: Decoder<LocationServiceError> = D.type({
+  _type: ciLiteral('LocationServiceError'),
+  reason: D.string
 })

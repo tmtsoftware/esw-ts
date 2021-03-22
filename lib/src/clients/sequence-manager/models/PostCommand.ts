@@ -61,11 +61,6 @@ export class ShutdownSequenceComponent {
 export class ShutdownAllSequenceComponents {
   readonly _type: 'ShutdownAllSequenceComponents' = 'ShutdownAllSequenceComponents'
 }
-
-export class GetAgentStatus {
-  readonly _type: 'GetAgentStatus' = 'GetAgentStatus'
-}
-
 export class GetResources {
   readonly _type: 'GetResources' = 'GetResources'
 }
@@ -82,5 +77,4 @@ export type SequenceManagerPostRequest =
   | ShutdownAllSequencers
   | ShutdownSequenceComponent
   | ShutdownAllSequenceComponents
-  | GetAgentStatus
   | GetResources

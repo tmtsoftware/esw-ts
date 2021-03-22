@@ -78,10 +78,6 @@ export class SequenceManagerImpl implements SequenceManagerService {
     )
   }
 
-  getAgentStatus(): Promise<T.AgentStatusResponse> {
-    return this.httpTransport.requestRes(new Req.GetAgentStatus(), Res.AgentStatusResponseD)
-  }
-
   getResources(): Promise<T.ResourcesStatusResponse> {
     return this.httpTransport.requestRes(new Req.GetResources(), Res.ResourcesStatusResponseD)
   }

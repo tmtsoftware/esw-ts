@@ -1,14 +1,8 @@
 import type { ComponentId } from '../../../models/ComponentId'
 import type { Prefix } from '../../../models/params/Prefix'
 import type { Subsystem } from '../../../models/params/Subsystem'
-import type { Failed, Unhandled } from '../../../models/types'
-import type { AkkaLocation } from '../../location/models/Location'
+import type { Failed, LocationServiceError, Unhandled } from '../../../models/types'
 import type { ObsMode } from './ObsMode'
-
-export type LocationServiceError = {
-  _type: 'LocationServiceError'
-  reason: string
-}
 
 export type SequenceComponentNotAvailable = {
   _type: 'SequenceComponentNotAvailable'
@@ -85,22 +79,6 @@ export type SequencerStarted = {
   componentId: ComponentId
 }
 
-export type SequenceComponentStatus = {
-  seqCompId: ComponentId
-  sequencerLocation: AkkaLocation[]
-}
-
-export type AgentStatus = {
-  agentId: ComponentId
-  seqCompsStatus: SequenceComponentStatus[]
-}
-
-export type AgentStatusSuccess = {
-  _type: 'Success'
-  agentStatus: AgentStatus[]
-  seqCompsWithoutAgent: SequenceComponentStatus[]
-}
-
 export type ResourceStatus = {
   _type: 'InUse' | 'Available'
 }
@@ -166,10 +144,6 @@ export type ShutdownSequencersResponse = Unhandled | LocationServiceError | Succ
  * @category Sequence Manager Service
  */
 export type ShutdownSequenceComponentResponse = ShutdownSequencersResponse
-/**
- * @category Sequence Manager Service
- */
-export type AgentStatusResponse = Unhandled | LocationServiceError | AgentStatusSuccess
 /**
  * @category Sequence Manager Service
  */

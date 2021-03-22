@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import { AkkaConnection } from '../../src'
 import { AgentService, KillResponse, SpawnResponse } from '../../src/clients/agent-service'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
@@ -87,6 +88,35 @@ describe('Agent Service client', () => {
       expect(e.message).toBe(
         'The resource requires authentication, which was not supplied with the request'
       )
+    })
+  })
+
+  test('getAgentStatus | ESW-365, ESW-481', async () => {
+    const response = await agentServiceWithoutToken.getAgentStatus()
+
+    expect(response).toEqual({
+      _type: 'Success',
+      agentStatus: [
+        {
+          agentId: new ComponentId(new Prefix('ESW', 'agent1'), 'Machine'),
+          seqCompsStatus: [
+            {
+              seqCompId: new ComponentId(new Prefix('ESW', 'seqcomp1'), 'SequenceComponent'),
+              sequencerLocation: [
+                {
+                  _type: 'AkkaLocation',
+                  connection: AkkaConnection(Prefix.fromString('ESW.IRIS_DARKNIGHT'), 'Sequencer'),
+                  metadata: {
+                    sequenceComponentPrefix: 'ESW.seqcomp1'
+                  },
+                  uri: ''
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      seqCompsWithoutAgent: []
     })
   })
 })

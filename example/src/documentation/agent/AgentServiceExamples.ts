@@ -1,9 +1,9 @@
 import {
   AgentService,
+  AgentStatusResponse,
   ComponentId,
   KillResponse,
   Prefix,
-  ServiceError,
   SpawnResponse
 } from '@tmtsoftware/esw-ts'
 
@@ -43,3 +43,7 @@ const killResponse: KillResponse = await agentService.killComponent(
   componentToBeKilled
 )
 //#killcomponent
+
+//#getAgentStatus
+const agentStatus: AgentStatusResponse = await agentService.getAgentStatus()
+//#getAgentStatus

@@ -181,31 +181,6 @@ describe('Sequence Manager Client', () => {
     })
   })
 
-  test('getAgentStatus | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.getAgentStatus()
-
-    expect(response).toEqual({
-      _type: 'Success',
-      agentStatus: [
-        {
-          agentId: new ComponentId(new Prefix('IRIS', 'Agent'), 'Machine'),
-          seqCompsStatus: [
-            {
-              seqCompId: new ComponentId(new Prefix('IRIS', 'IRIS_123'), 'SequenceComponent'),
-              sequencerLocation: []
-            }
-          ]
-        }
-      ],
-      seqCompsWithoutAgent: [
-        {
-          seqCompId: new ComponentId(new Prefix('ESW', 'ESW_45'), 'SequenceComponent'),
-          sequencerLocation: []
-        }
-      ]
-    })
-  })
-
   test('getResources | ESW-469', async () => {
     const response = await sequenceManagerServiceWithValidToken.getResources()
 

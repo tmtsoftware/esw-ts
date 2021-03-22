@@ -28,4 +28,12 @@ export class KillComponent {
   constructor(readonly componentId: ComponentId) {}
 }
 
-export type AgentServiceRequest = SpawnSequenceComponent | SpawnSequenceManager | KillComponent
+export class GetAgentStatus {
+  readonly _type: 'GetAgentStatus' = 'GetAgentStatus'
+}
+
+export type AgentServiceRequest =
+  | SpawnSequenceComponent
+  | SpawnSequenceManager
+  | KillComponent
+  | GetAgentStatus

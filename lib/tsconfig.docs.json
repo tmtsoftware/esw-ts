@@ -25,13 +25,12 @@
     "dist"
   ],
   "typedocOptions": {
-    "inputFiles": [
+    "entryPoints": [
       "src/clients",
       "src/components",
       "src/models",
       "src/config"
     ],
-    "mode": "modules",
     "out": "../docs/target/ts-docs",
     "exclude": [
       "**/*+(**Impl|**PostCommand|**WsCommand|**index).ts",
@@ -41,7 +40,7 @@
       "**/*+(**Utils).ts"
     ],
     "excludePrivate": true,
-    "stripInternal": true,
+    "excludeInternal": true,
     "plugin" : "typedoc-plugin-external-module-map",
     "external-modulemap" : ".*\/(clients|components|models|config)\/",
     "categorizeByGroup": true,

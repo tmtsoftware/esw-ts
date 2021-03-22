@@ -140,19 +140,6 @@ Type definitions of these methods are below:
 - @extref:[shutdownSequenceComponent](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsequencecomponent)
 - @extref:[shutdownAllSequenceComponents](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownallsequencecomponents)
 
-## Getting Agent Status
-
-To get Agent Status for a running Agent, `SequenceManagerService` provides `getAgentStatus` method.
-This method allows showing status of TMT ecosystem components (agents, sequence components and sequencers).
-It returns all agents that are up and running, sequence components running on those agents and sequencer script loaded on sequence component.
-
-Type definitions of `getAgentStatus` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getagentstatus)
-
-The following example shows how to call `getAgentStatus` method:
-
-Typescript
-: @@snip [getAgentStatus](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#getAgentStatus}
-
 ## Getting Resources Status
 
 To get all Resources Status, `SequenceManagerService` provides `getResources` method.

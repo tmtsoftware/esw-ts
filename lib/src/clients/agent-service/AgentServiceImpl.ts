@@ -1,11 +1,12 @@
-import type { KillResponse, SpawnResponse } from '.'
-import { KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
+import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
 import type { ComponentId, Prefix } from '../../models'
 
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { AgentService } from './AgentService'
+import type { KillResponse, SpawnResponse, AgentStatusResponse } from './models/AgentRes'
 import {
   AgentServiceRequest,
+  GetAgentStatus,
   KillComponent,
   SpawnSequenceComponent,
   SpawnSequenceManager
@@ -44,5 +45,9 @@ export class AgentServiceImpl implements AgentService {
       ),
       SpawnResponseD
     )
+  }
+
+  getAgentStatus(): Promise<AgentStatusResponse> {
+    return this.httpTransport.requestRes(new GetAgentStatus(), AgentStatusResponseD)
   }
 }

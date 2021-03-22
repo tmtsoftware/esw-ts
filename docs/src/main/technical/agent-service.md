@@ -59,3 +59,16 @@ Type definitions for `killComponent` can be found @extref:[here](ts-docs:interfa
 
 Typescript
 :   @@snip [Agent-Service](../../../../example/src/documentation/agent/AgentServiceExamples.ts) { #killcomponent }
+
+## Getting Agent Status
+
+To get Agent Status for a running Agent, `AgentService` provides `getAgentStatus` method.
+This method allows showing status of TMT ecosystem components (agents, sequence components and sequencers).
+It returns all agents that are up and running, sequence components running on those agents and sequencer script loaded on sequence component.
+
+Type definitions of `getAgentStatus` method can be found @extref:[here](ts-docs:interfaces/clients.agentservice.html#getagentstatus)
+
+The following example shows how to call `getAgentStatus` method:
+
+Typescript
+: @@snip [getAgentStatus](../../../../example/src/documentation/agent/AgentServiceExamples.ts){#getAgentStatus}

@@ -36,3 +36,8 @@ export type AppConfigModule = {
 export interface Subscription {
   cancel: () => void
 }
+
+export type LocationServiceError = {
+  _type: 'LocationServiceError'
+  reason: string
+}

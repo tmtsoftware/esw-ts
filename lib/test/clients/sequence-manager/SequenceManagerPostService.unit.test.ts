@@ -209,39 +209,6 @@ describe('Sequence manager', function () {
     )
   })
 
-  test('should call get agent status | ESW-365', async () => {
-    const expectedRes: T.AgentStatusResponse = {
-      _type: 'Success',
-      agentStatus: [
-        {
-          agentId: new ComponentId(new Prefix('IRIS', 'Agent'), 'Machine'),
-          seqCompsStatus: [
-            {
-              seqCompId: new ComponentId(new Prefix('IRIS', 'IRIS_123'), 'SequenceComponent'),
-              sequencerLocation: []
-            }
-          ]
-        }
-      ],
-      seqCompsWithoutAgent: [
-        {
-          seqCompId: new ComponentId(new Prefix('ESW', 'ESW_45'), 'SequenceComponent'),
-          sequencerLocation: []
-        }
-      ]
-    }
-
-    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
-
-    const response = await sequenceManager.getAgentStatus()
-
-    expect(response).toEqual(expectedRes)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.GetAgentStatus(),
-      Res.AgentStatusResponseD
-    )
-  })
-
   test('should call get resources status | ESW-469', async () => {
     const expectedRes: T.ResourcesStatusResponse = {
       _type: 'Success',

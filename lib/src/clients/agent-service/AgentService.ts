@@ -1,4 +1,4 @@
-import type { ComponentId, TokenFactory } from '../..'
+import type { AgentStatusResponse, ComponentId, TokenFactory } from '../..'
 import { agentServiceConnection, resolveConnection } from '../../config/Connections'
 import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
@@ -50,6 +50,15 @@ export interface AgentService {
    * @return                  KillResponse as Promise
    */
   killComponent(componentId: ComponentId): Promise<KillResponse>
+
+  /**
+   * gives status of TMT ecosystem components(agents, sequence components and sequencers).
+   * It provides information about which agents are up and running, sequence components running on
+   * those agents and sequencer script loaded on sequence component.
+   *
+   * @returns           AgentStatusResponse as Promise.
+   */
+  getAgentStatus(): Promise<AgentStatusResponse>
 }
 
 export const AgentService = async (tokenFactory: TokenFactory): Promise<AgentService> => {

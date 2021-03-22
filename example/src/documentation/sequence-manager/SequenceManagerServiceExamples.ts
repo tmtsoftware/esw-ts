@@ -99,10 +99,6 @@ const shutdownSeqCompResponse: ShutdownSequenceComponentResponse = await sequenc
 const shutdownAllSeqCompResponse: ShutdownSequenceComponentResponse = await sequenceManagerService.shutdownAllSequenceComponents()
 //#shutdownAllSequenceComponents
 
-//#getAgentStatus
-const agentStatus: AgentStatusResponse = await sequenceManagerService.getAgentStatus()
-//#getAgentStatus
-
 //#getResources
 const resourcesStatus: ResourcesStatusResponse = await sequenceManagerService.getResources()
 //#getResources

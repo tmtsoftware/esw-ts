@@ -2,10 +2,9 @@ import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
 import { ObsMode } from '../clients/sequence-manager'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
-import { FailedD, UnhandledD } from './CommonDecoders'
+import { FailedD, LocationServiceErrorD, UnhandledD } from './CommonDecoders'
 import { ComponentIdD } from './ComponentIdDecoder'
 import { ciLiteral, Decoder } from './Decoder'
-import { AkkaLocationD } from './LocationDecoders'
 import { PrefixD } from './PrefixDecoder'
 import { SubsystemD } from './SubsystemDecoder'
 
@@ -13,11 +12,6 @@ export const ObsModeD: Decoder<ObsMode> = pipe(
   D.string,
   D.parse((name) => D.success(new ObsMode(name)))
 )
-
-const LocationServiceErrorD: Decoder<T.LocationServiceError> = D.type({
-  _type: ciLiteral('LocationServiceError'),
-  reason: D.string
-})
 
 const SequenceComponentNotAvailableD: Decoder<T.SequenceComponentNotAvailable> = D.type({
   _type: ciLiteral('SequenceComponentNotAvailable'),
@@ -96,22 +90,6 @@ const StartedD: Decoder<T.SequencerStarted> = D.type({
   componentId: ComponentIdD
 })
 
-export const SequenceComponentStatusD: Decoder<T.SequenceComponentStatus> = D.type({
-  seqCompId: ComponentIdD,
-  sequencerLocation: D.array(AkkaLocationD)
-})
-
-const AgentStatusD: Decoder<T.AgentStatus> = D.type({
-  agentId: ComponentIdD,
-  seqCompsStatus: D.array(SequenceComponentStatusD)
-})
-
-const AgentStatusSuccessD: Decoder<T.AgentStatusSuccess> = D.type({
-  _type: ciLiteral('Success'),
-  agentStatus: D.array(AgentStatusD),
-  seqCompsWithoutAgent: D.array(SequenceComponentStatusD)
-})
-
 export const ResourceStatusD: Decoder<T.ResourceStatus> = D.type({
   _type: ciLiteral('InUse', 'Available')
 })
@@ -183,12 +161,6 @@ export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersR
   Unhandled: UnhandledD,
   LocationServiceError: LocationServiceErrorD,
   Success: SuccessD
-})
-
-export const AgentStatusResponseD: Decoder<T.AgentStatusResponse> = D.sum('_type')({
-  Unhandled: UnhandledD,
-  LocationServiceError: LocationServiceErrorD,
-  Success: AgentStatusSuccessD
 })
 
 export const ResourcesStatusResponseD: Decoder<T.ResourcesStatusResponse> = D.sum('_type')({

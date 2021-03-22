@@ -1,14 +1,19 @@
 import { mocked } from 'ts-jest/utils'
-import type { Killed, Spawned } from '../../../src'
+import type { Killed, Spawned, AgentStatusResponse } from '../../../src'
 import { ComponentId } from '../../../src'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
 import {
   AgentServiceRequest,
+  GetAgentStatus,
   KillComponent,
   SpawnSequenceComponent,
   SpawnSequenceManager
 } from '../../../src/clients/agent-service/models/PostCommand'
-import { KillResponseD, SpawnResponseD } from '../../../src/decoders/AgentDecoders'
+import {
+  AgentStatusResponseD,
+  KillResponseD,
+  SpawnResponseD
+} from '../../../src/decoders/AgentDecoders'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -95,6 +100,39 @@ describe('Agent service', () => {
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new KillComponent(new ComponentId(new Prefix('ESW', 'seq_comp1'), 'SequenceComponent')),
       KillResponseD
+    )
+  })
+
+  test('should call get agent status | ESW-365, ESW-481', async () => {
+    const expectedRes: AgentStatusResponse = {
+      _type: 'Success',
+      agentStatus: [
+        {
+          agentId: new ComponentId(new Prefix('IRIS', 'Agent'), 'Machine'),
+          seqCompsStatus: [
+            {
+              seqCompId: new ComponentId(new Prefix('IRIS', 'IRIS_123'), 'SequenceComponent'),
+              sequencerLocation: []
+            }
+          ]
+        }
+      ],
+      seqCompsWithoutAgent: [
+        {
+          seqCompId: new ComponentId(new Prefix('ESW', 'ESW_45'), 'SequenceComponent'),
+          sequencerLocation: []
+        }
+      ]
+    }
+
+    mockedHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
+    const response = await agentService.getAgentStatus()
+
+    expect(response).toEqual(expectedRes)
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(
+      new GetAgentStatus(),
+      AgentStatusResponseD
     )
   })
 })

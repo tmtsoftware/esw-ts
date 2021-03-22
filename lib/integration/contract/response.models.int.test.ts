@@ -7,7 +7,11 @@ import {
   ContainerLifecycleStateD,
   SupervisorLifecycleStateD
 } from '../../src/decoders/AdminDecoders'
-import { KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
+import {
+  AgentStatusResponseD,
+  KillResponseD,
+  SpawnResponseD
+} from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 import {
   CommandIssueD,
@@ -36,7 +40,6 @@ import { ParameterD } from '../../src/decoders/ParameterDecoder'
 import { PrefixD } from '../../src/decoders/PrefixDecoder'
 import { ResultD } from '../../src/decoders/ResultDecoder'
 import {
-  AgentStatusResponseD,
   ConfigureResponseD,
   ObsModeD,
   ObsModeDetailsD,
@@ -193,7 +196,7 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
   Step: Seq.StepD,
   StepList: Seq.StepListD
 }
-// TODO: add models for SM getResources API
+
 const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   ConfigureResponse: ConfigureResponseD,
   ProvisionResponse: ProvisionResponseD,
@@ -204,7 +207,6 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
   RestartSequencerResponse: RestartSequencerResponseD,
   ShutdownSequencersResponse: ShutdownSequencersOrSeqCompResponseD,
   ShutdownSequenceComponentResponse: ShutdownSequencersOrSeqCompResponseD,
-  AgentStatusResponse: AgentStatusResponseD,
   Prefix: PrefixD,
   ObsMode: ObsModeD,
   Subsystem: SubsystemD,
@@ -217,5 +219,6 @@ const sequenceManagerDecoders: Record<string, Decoder<any>> = {
 
 const agentServiceDecoders: Record<string, Decoder<any>> = {
   SpawnResponse: SpawnResponseD,
-  KillResponse: KillResponseD
+  KillResponse: KillResponseD,
+  AgentStatusResponse: AgentStatusResponseD
 }
