@@ -40,6 +40,8 @@ afterAll(async () => {
   setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
+// The tests below use a stubbed out implementation of the SM
+// in the esw-backend-testkit, in esw, specified in SequenceManagerStubImpl
 describe('Sequence Manager Client', () => {
   test('configure sequence components | ESW-365', async () => {
     const response = await sequenceManagerServiceWithValidToken.configure(new ObsMode('darknight'))
