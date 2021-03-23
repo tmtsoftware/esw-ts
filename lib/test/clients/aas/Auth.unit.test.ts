@@ -51,7 +51,7 @@ describe('Auth', () => {
 
     expect(keycloakInstance.init).toBeCalledWith({
       onLoad: 'login-required',
-      flow: 'implicit'
+      flow: 'standard'
     })
     expect(mockFn).toBeCalledWith(expectedConfig)
     expect(await authenticatedPromise).toEqual(true)
@@ -66,7 +66,7 @@ describe('Auth', () => {
 
     expect(keycloakInstance.init).toBeCalledWith({
       onLoad: 'check-sso',
-      flow: 'implicit'
+      flow: 'standard'
     })
   })
 
