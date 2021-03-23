@@ -1,6 +1,6 @@
 export { SequencerService } from './SequencerService'
-export { Step, StepList, StepStatus } from './models/StepList'
-export {
+export type { Step, StepList, StepStatus } from './models/StepList'
+export type {
   GenericResponse,
   RemoveBreakpointResponse,
   PauseResponse,
