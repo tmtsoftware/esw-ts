@@ -31,7 +31,13 @@ export class AuthStore {
   static onTokenExpired(keycloak: KeycloakInstance): void {
     keycloak
       .updateToken(0)
-      .then(() => console.info('token refreshed successfully'))
+      .then((refreshed) => {
+        if (refreshed) {
+          console.log('token refreshed ' + new Date())
+        } else {
+          console.log('not refreshed ' + new Date())
+        }
+      })
       .catch(() => {
         throw new Error('Failed to refresh the token, or the session has expired')
       })
@@ -66,7 +72,7 @@ export class AuthStore {
 
     const authenticatedPromise = keycloak.init({
       onLoad: redirect ? 'login-required' : 'check-sso',
-      flow: 'implicit'
+      flow: 'standard'
     })
     return { keycloak, authenticatedPromise }
   }
