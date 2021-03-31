@@ -15,6 +15,7 @@ import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
+import type { SequencerStateResponse } from './models/SequencerRes'
 import type { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
 
@@ -220,6 +221,12 @@ export interface SequencerService {
    * @return                      SubmitResponse as Promise
    */
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
+
+  /**
+   * Returns the current state of the sequencer (Idle, Loaded, Offline, Running, Processing)
+   * @return                      SequencerStateResponse
+   */
+  getSequencerState(): Promise<SequencerStateResponse>
 }
 
 /**

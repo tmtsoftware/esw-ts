@@ -9,6 +9,7 @@ import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import * as Req from './models/PostCommand'
+import type { SequencerStateResponse } from './models/SequencerRes'
 import type { StepList } from './models/StepList'
 import { QueryFinal, SequencerWebsocketRequest } from './models/WsCommand'
 import type { SequencerService } from './SequencerService'
@@ -143,5 +144,9 @@ export class SequencerServiceImpl implements SequencerService {
       new GatewaySequencerCommand(this.componentId, new QueryFinal(runId, timeoutInSeconds)),
       SubmitResponseD
     )
+  }
+
+  getSequencerState(): Promise<SequencerStateResponse> {
+    return this.postSequencerCmd(new Req.GetSequencerState(), Res.SequencerStateResponseD)
   }
 }

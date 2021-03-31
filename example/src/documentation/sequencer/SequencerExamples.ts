@@ -14,7 +14,8 @@ import {
   SequencerService,
   Setup,
   StepList,
-  SubmitResponse
+  SubmitResponse,
+  SequencerStateResponse
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -172,3 +173,7 @@ const submitAndWaitResponse: SubmitResponse = await sequencerService.submitAndWa
   10
 )
 //#submitAndWait
+
+//#getSequencerState
+const getSequencerState: SequencerStateResponse = await sequencerService.getSequencerState()
+//#getSequencerState

@@ -194,7 +194,8 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
   RemoveBreakpointResponse: Seq.RemoveBreakpointResponseD,
   StepStatus: Seq.StepStatusD,
   Step: Seq.StepD,
-  StepList: Seq.StepListD
+  StepList: Seq.StepListD,
+  SequencerStateResponse: Seq.SequencerStateResponseD
 }
 
 const sequenceManagerDecoders: Record<string, Decoder<any>> = {

@@ -8,5 +8,6 @@ export type {
   GoOnlineResponse,
   GoOfflineResponse,
   DiagnosticModeResponse,
-  OkOrUnhandledResponse
+  OkOrUnhandledResponse,
+  SequencerStateResponse
 } from './models/SequencerRes'

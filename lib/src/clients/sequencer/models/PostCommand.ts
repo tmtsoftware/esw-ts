@@ -117,6 +117,10 @@ export class Query {
   constructor(readonly runId: string) {}
 }
 
+export class GetSequencerState {
+  readonly _type: 'GetSequencerState' = 'GetSequencerState'
+}
+
 export type SequencerPostRequest =
   | LoadSequence
   | StartSequence
@@ -141,3 +145,4 @@ export type SequencerPostRequest =
   | OperationsMode
   | Submit
   | Query
+  | GetSequencerState

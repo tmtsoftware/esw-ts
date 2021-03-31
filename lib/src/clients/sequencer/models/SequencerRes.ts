@@ -64,3 +64,10 @@ export type DiagnosticModeResponse = Ok | DiagnosticHookFailed
  * @category Sequencer Service
  */
 export type OperationsModeResponse = Ok | OperationsHookFailed
+
+/**
+ * @category Sequencer Service
+ */
+export type SequencerStateResponse = {
+  _type: 'Idle' | 'Processing' | 'Loaded' | 'Offline' | 'Running'
+}

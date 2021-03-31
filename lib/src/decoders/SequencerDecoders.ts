@@ -118,3 +118,7 @@ export const StepD: Decoder<Step> = D.type({
 
 export const StepListD: Decoder<StepList> = D.array(StepD)
 export const OptionOfStepList: Decoder<StepList[]> = D.array(StepListD)
+
+export const SequencerStateResponseD: Decoder<T.SequencerStateResponse> = D.type({
+  _type: ciLiteral('Idle', 'Processing', 'Loaded', 'Offline', 'Running')
+})

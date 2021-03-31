@@ -328,3 +328,16 @@ Type definitions for APIs used in the given example are :
 1. @extref[submitAndWait](ts-docs:interfaces/clients.sequencerservice.html#submitandwait)
 1. @extref[query](ts-docs:interfaces/clients.sequencerservice.html#query)
 1. @extref[queryFinal](ts-docs:interfaces/clients.sequencerservice.html#queryFinal)
+
+### Getting Status of Sequencer
+
+To get Sequencer's State, `SequenceService` provides `getSequencerState` method.
+This method returns Promise<SequencerStateResponse>
+the state of sequencer can be Idle, Processing, Loaded, Offline, Running 
+
+Type definitions for `getSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#getSequencerState)
+
+Typescript
+: @@snip [getSequencerState](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #getSequencerState }
+
+

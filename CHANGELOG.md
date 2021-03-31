@@ -7,6 +7,7 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 ## [UPCOMING CHANGES]
 
 * Move of `getAgentStatus` api from SequenceManager service to AgentService
+* Add `getSequencerState` api in SequencerService 
 
 ## [ESW-TS v0.1.0] - 2021-02-01
 

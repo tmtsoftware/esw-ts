@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
 import { Option, setAppConfigPath } from '../../src'
 import { SequencerService, StepList } from '../../src/clients/sequencer'
+import type { SequencerStateResponse } from '../../src/clients/sequencer/models/SequencerRes'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
@@ -194,5 +195,11 @@ describe('Sequencer Client', () => {
     const res = await sequencerServiceWithoutToken.queryFinal(response.runId, 10)
 
     expect(res).toEqual(response)
+  })
+
+  test('should get sequencer state | ESW-483', async () => {
+    const response: SequencerStateResponse = await sequencerServiceWithoutToken.getSequencerState()
+
+    expect(response._type).toEqual('Running')
   })
 })
