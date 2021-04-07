@@ -60,4 +60,30 @@ describe('StepList isPaused', () => {
 
     expect(stepList.isPaused()).toBeFalsy()
   })
+
+  it('should return false if stepList is empty | ESW-454', () => {
+    const stepList = new StepList([])
+
+    expect(stepList.isPaused()).toBeFalsy()
+  })
+})
+
+describe('StepList isFailed', () => {
+  it('should return true if any step is Failed | ESW-454', () => {
+    const stepList = new StepList([successStep, failureStep])
+
+    expect(stepList.isFailed()).toBeTruthy()
+  })
+
+  it('should return false if no steps are Failed | ESW-454', () => {
+    const stepList = new StepList([successStep, pendingStepWithBreakpoint])
+
+    expect(stepList.isFailed()).toBeFalsy()
+  })
+
+  it('should return false if stepList is empty | ESW-454', () => {
+    const stepList = new StepList([])
+
+    expect(stepList.isFailed()).toBeFalsy()
+  })
 })

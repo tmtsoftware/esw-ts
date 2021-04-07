@@ -24,8 +24,13 @@ export class StepList {
     return firstPendingStep !== undefined && firstPendingStep.hasBreakpoint
   }
 
+  isFailed(): boolean {
+    const failedStep = this.steps.find((step) => step.status._type === 'Failure')
+    return failedStep !== undefined
+  }
+
   private findFirstPendingStep(): Option<Step> {
-    return this.steps.find((value) => StepList.isPending(value))
+    return this.steps.find((step) => StepList.isPending(step))
   }
 
   private static isPending(step: Step): boolean {
