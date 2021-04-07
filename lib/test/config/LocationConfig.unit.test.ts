@@ -10,7 +10,7 @@ describe('LocationConfig', () => {
     process.env = OLD_ENV
   })
 
-  test('should give production hostname and port when NODE_ENV is set to production', async () => {
+  test('should give production hostname and port when NODE_ENV is set to production | ESW-475', async () => {
     process.env.NODE_ENV = 'production'
     const { LocationConfig } = await import('../../src/config/LocationConfig')
 
@@ -18,7 +18,7 @@ describe('LocationConfig', () => {
     expect(LocationConfig.port).toEqual(8765)
   })
 
-  test('should give local hostname and port when NODE_ENV is not set to production', async () => {
+  test('should give local hostname and port when NODE_ENV is not set to production | ESW-475', async () => {
     process.env.NODE_ENV = 'dev'
     const { LocationConfig } = await import('../../src/config/LocationConfig')
 
