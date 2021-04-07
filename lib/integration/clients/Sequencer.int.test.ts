@@ -109,21 +109,23 @@ describe('Sequencer Client', () => {
     expect(response._type).toEqual('Ok')
   })
 
-  test('should get option of step list on getSequence from running sequencer | ESW-307', async () => {
+  test('should get option of step list on getSequence from running sequencer | ESW-307, ESW-454', async () => {
     const stepList: Option<StepList> = await sequencerServiceWithoutToken.getSequence()
-    const expected = [
-      {
-        command: {
-          _type: 'Setup',
-          commandName: 'command-1',
-          paramSet: [],
-          source: { componentName: 'IRIS', subsystem: 'CSW' }
-        },
-        hasBreakpoint: false,
-        id: stepList?.[0]?.id,
-        status: { _type: 'Pending' }
-      }
-    ]
+    const expected = {
+      steps: [
+        {
+          command: {
+            _type: 'Setup',
+            commandName: 'command-1',
+            paramSet: [],
+            source: { componentName: 'IRIS', subsystem: 'CSW' }
+          },
+          hasBreakpoint: false,
+          id: stepList?.steps[0].id,
+          status: { _type: 'Pending' }
+        }
+      ]
+    }
     expect(stepList).toEqual(expected)
   })
 

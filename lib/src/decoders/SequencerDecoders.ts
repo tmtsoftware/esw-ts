@@ -1,14 +1,15 @@
+import { pipe } from 'fp-ts/function'
 import * as D from 'io-ts/lib/Decoder'
 import type * as T from '../clients/sequencer/models/SequencerRes'
 import type {
   Step,
-  StepList,
   StepStatus,
   StepStatusFailure,
   StepStatusInFlight,
   StepStatusPending,
   StepStatusSuccess
 } from '../clients/sequencer/models/StepList'
+import { StepList } from '../clients/sequencer/models/StepList'
 import { SequenceCommandD } from './CommandDecoders'
 import { UnhandledD } from './CommonDecoders'
 import { ciLiteral, Decoder } from './Decoder'
@@ -116,7 +117,10 @@ export const StepD: Decoder<Step> = D.type({
   hasBreakpoint: D.boolean
 })
 
-export const StepListD: Decoder<StepList> = D.array(StepD)
+export const StepListD: Decoder<StepList> = pipe(
+  D.array(StepD),
+  D.parse((r) => D.success(new StepList(r)))
+)
 export const OptionOfStepList: Decoder<StepList[]> = D.array(StepListD)
 
 export const SequencerStateResponseD: Decoder<T.SequencerStateResponse> = D.type({

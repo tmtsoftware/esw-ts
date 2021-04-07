@@ -13,7 +13,13 @@ export interface Step {
 /**
  * @category Sequencer Service
  */
-export type StepList = Step[]
+export class StepList {
+  constructor(readonly steps: Step[]) {}
+
+  toJSON() {
+    return this.steps
+  }
+}
 
 export type StepStatusPending = { _type: 'Pending' }
 export type StepStatusInFlight = { _type: 'InFlight' }
