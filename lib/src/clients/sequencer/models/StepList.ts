@@ -1,5 +1,4 @@
-import type { SequenceCommand } from '../../../models'
-
+import type { Option, SequenceCommand } from '../../../models'
 /**
  * @category Sequencer Service
  */
@@ -18,6 +17,19 @@ export class StepList {
 
   toJSON() {
     return this.steps
+  }
+
+  isPaused(): boolean {
+    const firstPendingStep = this.findFirstPendingStep()
+    return firstPendingStep !== undefined && firstPendingStep.hasBreakpoint
+  }
+
+  private findFirstPendingStep(): Option<Step> {
+    return this.steps.find((value) => StepList.isPending(value))
+  }
+
+  private static isPending(step: Step): boolean {
+    return step.status._type === 'Pending'
   }
 }
 
