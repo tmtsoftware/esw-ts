@@ -119,7 +119,7 @@ Typescript
 
 To delete a command from the sequence, `SequencerService` provides `delete` method
 which takes the `Id` of the command to be deleted and returns `Promise<GenericResponse>`.
-If sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
+If sequencer is not in `Running` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
 Or if the command is still pending, then it gets deleted and `Ok` response gets returned.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
@@ -133,7 +133,7 @@ Typescript
 
 To add a breakpoint to a Step, `SequencerService` provides `addBreakpoint` method
 which takes the `Id` of the command where breakpoint to be added and returns `Promise<GenericResponse>`.
-If sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
+If sequencer is not in `Running` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
 Or if the command is still pending, then breakpoint gets added and `Ok` response gets returned.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
@@ -147,7 +147,7 @@ Typescript
 
 To remove a breakpoint from a Step, `SequencerService` provides `removeBreakpoint` method
 which takes the `Id` of the command from where breakpoint to be removed and returns `Promise<RemoveBreakpointResponse>`.
-If sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
+If sequencer is not in `Running` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
 Otherwise, breakpoint gets removed and `Ok` response gets returned.
 
@@ -159,9 +159,9 @@ Typescript
 ### Pausing the sequence
 
 To pause the sequence, `SequencerService` provides `pause` method which returns `Promise<PauseResponse>`.
-If sequencer is in `Inprogress` state, then an `Ok` response gets returned if there is a `Step` pending.
+If sequencer is in `Running` state, then an `Ok` response gets returned if there is a `Step` pending.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
-Or if sequencer is not in `Inprogress` state, then `Unhandled` response gets returned.
+Or if sequencer is not in `Running` state, then `Unhandled` response gets returned.
 
 Type definitions for `pause` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#pause)
 
@@ -171,7 +171,7 @@ Typescript
 ### Resuming a paused sequence
 
 To resume a paused sequence, `SequencerService` provides `resume` method which returns `Promise<PauseResponse>`.
-If sequencer is in `Inprogress` state, an `Ok` response gets returned.
+If sequencer is in `Running` state, an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `resume` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#resume)
@@ -216,7 +216,7 @@ Typescript
 
 To discard all the pending `Steps`, `SequencerService` provides a `reset` method
 which returns `Promise<OkOrUnhandledResponse>`.
-If Sequencer is in `InProgress` state, then an `Ok` response gets returned.
+If Sequencer is in `Running` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `reset` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#reset)
@@ -228,7 +228,7 @@ Typescript
 
 To discard all the pending `Steps` and call the onAbortSequence handler of the script,
 `SequencerService` provides a `abortSequence` method which returns `Promise<OkOrUnhandledResponse>`.
-If Sequencer is in `InProgress` state, then an `Ok` response gets returned.
+If Sequencer is in `Running` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `abortSequence` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#abortsequence)
@@ -240,7 +240,7 @@ Typescript
 
 To discard all the pending `Steps` and call the onStop handler of the script,
 `SequencerService` provides a `stop` method which returns `Promise<OkOrUnhandledResponse>`.
-If Sequencer is in `InProgress` state, then an `Ok` response gets returned.
+If Sequencer is in `Running` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
 Type definitions for `stop` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#stop)
@@ -252,10 +252,10 @@ Typescript
 
 To change Sequencer state to `Online`, `SequencerService` provides `goOnline` method
 which returns `Promise<GoOnlineResponse>`.
-If Sequencer is in any state but `InProgress`,
+If Sequencer is in any state but `Running`,
 then an `Ok` response gets returned (if `goOnline` handler gets executed successfully).
 Otherwise, a `GoOnlineHookFailed` response gets returned.
-Although, if Sequencer is in `InProgress` state, then an `Unhandled` response gets returned.
+Although, if Sequencer is in `Running` state, then an `Unhandled` response gets returned.
 
 Type definitions for `goOnline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#goonline)
 
@@ -266,10 +266,10 @@ Typescript
 
 To change Sequencer state to `Offline`, `SequencerService` provides `goOffline` method
 which returns `Promise<GoOfflineResponse>`.
-If Sequencer is in any State but `InProgress`,
+If Sequencer is in any State but `Running`,
 then an `Ok` response gets returned (if `goOffline` handler gets executed successfully).
 Otherwise, a `GoOfflineHookFailed` response gets returned.
-Although, if Sequencer is in `InProgress` state, then an `Unhandled` response gets returned.
+Although, if Sequencer is in `Running` state, then an `Unhandled` response gets returned.
 
 Type definitions for `goOffline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#gooffline)
 
