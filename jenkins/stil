@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'git@github.com:tmtsoftware/esw-ts.git'
+                sh "git checkout $VERSION"
             }
         }
 
@@ -36,10 +36,17 @@ pipeline {
             }
         }
 
-        stage('Test Library') {
+        stage('Unit tests') {
             steps {
                 dir('lib') {
                     sh "npm run test:unit:ci"
+                }
+            }
+        }
+
+        stage('Integration tests') {
+            steps {
+                dir('lib') {
                     sh "npm run test:integration:ci"
                 }
             }
