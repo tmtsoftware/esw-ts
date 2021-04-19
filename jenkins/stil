@@ -80,9 +80,9 @@ pipeline {
               reportFiles          : 'index.html',
               reportName           : "Test-Story-Requirement mapping"
             ])
-        }
-        script {
-            sendNotification(currentBuild.result)
+            script {
+                sendNotification(currentBuild.result)
+            }
         }
     }
 }
