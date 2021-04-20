@@ -1,13 +1,15 @@
-import { gatewayConnection, resolveConnection } from '../../config/Connections'
+import { gatewayConnection } from '../../config/Connections'
 import type {
   ComponentId,
+  ContainerLifecycleState,
   Done,
   Prefix,
-  ContainerLifecycleState,
   SupervisorLifecycleState
 } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
+import type { Location } from '../location'
+import { resolve } from '../location/LocationUtils'
 import type { Level, LogMetadata } from '../logger'
 import { AdminServiceImpl } from './AdminServiceImpl'
 
@@ -90,7 +92,13 @@ export interface AdminService {
  * @constructor
  */
 export const AdminService = async (): Promise<AdminService> => {
-  const { host, port } = await resolveConnection(gatewayConnection)
+  const location = await resolve(gatewayConnection)
+  return createAdminService(location)
+}
+
+export const createAdminService = (location: Location): AdminService => {
+  const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
+
   return new AdminServiceImpl(new HttpTransport(postEndpoint))
 }

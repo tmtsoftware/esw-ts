@@ -1,7 +1,8 @@
-import type { Done } from '../..'
-import { gatewayConnection, resolveConnection } from '../../config/Connections'
+import type { Done, Location } from '../..'
+import { gatewayConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
+import { resolve } from '../location/LocationUtils'
 import { AlarmServiceImpl } from './AlarmServiceImpl'
 import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 
@@ -27,7 +28,12 @@ export interface AlarmService {
  * @constructor
  */
 export const AlarmService = async (): Promise<AlarmService> => {
-  const { host, port } = await resolveConnection(gatewayConnection)
+  const location = await resolve(gatewayConnection)
+  return createAlarmService(location)
+}
+
+export const createAlarmService = (location: Location): AlarmService => {
+  const { host, port } = extractHostPort(location.uri)
   const url = getPostEndPoint({ host, port })
   return new AlarmServiceImpl(new HttpTransport(url))
 }

@@ -1,6 +1,7 @@
-import type { Option, TokenFactory } from '../..'
-
-import { configConnection, resolveConnection } from '../../config/Connections'
+import type { Location, Option, TokenFactory } from '../..'
+import { configConnection } from '../../config/Connections'
+import { extractHostPort } from '../../utils/Utils'
+import { resolve } from '../location/LocationUtils'
 import { ConfigServiceImpl } from './ConfigServiceImpl'
 import type { ConfigData } from './models/ConfigData'
 import type * as M from './models/ConfigModels'
@@ -175,6 +176,14 @@ export interface ConfigService {
  * @constructor
  */
 export const ConfigService = async (tokenFactory: TokenFactory): Promise<ConfigService> => {
-  const { host, port } = await resolveConnection(configConnection)
+  const location = await resolve(configConnection)
+  return createConfigService(location, tokenFactory)
+}
+
+export const createConfigService = (
+  location: Location,
+  tokenFactory: TokenFactory
+): ConfigService => {
+  const { host, port } = extractHostPort(location.uri)
   return new ConfigServiceImpl(host, port, tokenFactory)
 }

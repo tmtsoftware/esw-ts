@@ -2,16 +2,18 @@ import type {
   ComponentId,
   ControlCommand,
   CurrentState,
+  Location,
   OnewayResponse,
   SubmitResponse,
   Subscription,
   TokenFactory,
   ValidateResponse
 } from '../..'
-import { gatewayConnection, resolveConnection } from '../../config/Connections'
+import { gatewayConnection } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
+import { resolve } from '../location/LocationUtils'
 import { CommandServiceImpl } from './CommandServiceImpl'
 
 /**
@@ -104,12 +106,22 @@ export const CommandService = async (
   componentId: ComponentId,
   tokenFactory: TokenFactory = () => undefined
 ): Promise<CommandService> => {
-  const { host, port } = await resolveConnection(gatewayConnection)
-  const postEndpoint = getPostEndPoint({ host, port })
+  const location = await resolve(gatewayConnection)
+  return createCommandService(componentId, location, tokenFactory)
+}
+
+export const createCommandService = (
+  componentId: ComponentId,
+  location: Location,
+  tokenFactory: TokenFactory = () => undefined
+): CommandService => {
+  const { host, port } = extractHostPort(location.uri)
+  const url = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
+
   return new CommandServiceImpl(
     componentId,
-    new HttpTransport(postEndpoint, tokenFactory),
+    new HttpTransport(url, tokenFactory),
     () => new Ws(webSocketEndpoint)
   )
 }

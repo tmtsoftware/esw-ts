@@ -1,5 +1,6 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
+import type { Sequence } from '../clients/sequencer'
 import type { Command, CommandType, Constructor, ControlCommand, SequenceCommand } from '../models'
 import { Observe, Setup, Wait } from '../models'
 import type * as CR from '../models/params/CommandResponse'
@@ -37,6 +38,8 @@ export const SequenceCommandD: Decoder<SequenceCommand> = D.sum('_type')({
   Observe: ObserveD,
   Wait: WaitD
 })
+
+export const SequenceD: Decoder<Sequence> = D.struct({ commands: D.array(SequenceCommandD) })
 
 export const ControlCommandD: Decoder<ControlCommand> = D.sum('_type')({
   Setup: SetupD,

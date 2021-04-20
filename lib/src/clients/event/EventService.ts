@@ -1,9 +1,11 @@
 import type { Subscription } from '../..'
-import { gatewayConnection, resolveConnection } from '../../config/Connections'
+import { gatewayConnection } from '../../config/Connections'
 import type { Done, Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
+import type { Location } from '../location'
+import { resolve } from '../location/LocationUtils'
 import { EventServiceImpl } from './EventServiceImpl'
 import type { Event } from './models/Event'
 import type { EventKey } from './models/EventKey'
@@ -77,7 +79,12 @@ export interface EventService {
  * @constructor
  */
 export const EventService = async (): Promise<EventService> => {
-  const { host, port } = await resolveConnection(gatewayConnection)
+  const location = await resolve(gatewayConnection)
+  return createEventService(location)
+}
+
+export const createEventService = (location: Location): EventService => {
+  const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
   return new EventServiceImpl(new HttpTransport(postEndpoint), () => new Ws(webSocketEndpoint))

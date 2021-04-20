@@ -1,12 +1,15 @@
 import * as D from 'io-ts/lib/Decoder'
-import {mocked} from 'ts-jest/utils'
-import {GatewaySequencerCommand} from '../../../src/clients/gateway/models/Gateway'
+import { mocked } from 'ts-jest/utils'
+import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
-import {QueryFinal, SequencerWebsocketRequest} from '../../../src/clients/sequencer/models/WsCommand'
-import {SequencerServiceImpl} from '../../../src/clients/sequencer/SequencerServiceImpl'
-import {SubmitResponseD} from '../../../src/decoders/CommandDecoders'
+import {
+  QueryFinal,
+  SequencerWebsocketRequest
+} from '../../../src/clients/sequencer/models/WsCommand'
+import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
+import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
 import * as Res from '../../../src/decoders/SequencerDecoders'
-import {SequencerStateResponseD} from '../../../src/decoders/SequencerDecoders'
+import { SequencerStateResponseD } from '../../../src/decoders/SequencerDecoders'
 import {
   ComponentId,
   intKey,
@@ -19,9 +22,9 @@ import {
   stringKey,
   Wait
 } from '../../../src/models'
-import {HttpTransport} from '../../../src/utils/HttpTransport'
-import {Ws} from '../../../src/utils/Ws'
-import {verify} from '../../helpers/JestMockHelpers'
+import { HttpTransport } from '../../../src/utils/HttpTransport'
+import { Ws } from '../../../src/utils/Ws'
+import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
@@ -384,18 +387,17 @@ describe('SequencerService', () => {
   })
 
   test('should return state of sequencer | ESW-483', async () => {
-    const mockResponse = { _type : 'Idle'}
+    const mockResponse = { _type: 'Idle' }
     mockHttpTransport.requestRes.mockResolvedValueOnce(mockResponse)
 
     const response = await sequencer.getSequencerState()
 
     expect(response).toEqual(mockResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-        getGatewaySequencerCommand(new Req.GetSequencerState()),
-        SequencerStateResponseD
+      getGatewaySequencerCommand(new Req.GetSequencerState()),
+      SequencerStateResponseD
     )
   })
-
 })
 
 afterEach(() => jest.clearAllMocks())

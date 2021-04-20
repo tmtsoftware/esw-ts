@@ -1,8 +1,10 @@
 import type { ObsModesDetailsResponse, Prefix, ResourcesStatusResponse, TokenFactory } from '../..'
-import { resolveConnection, sequenceManagerConnection } from '../../config/Connections'
+import { sequenceManagerConnection } from '../../config/Connections'
 import type { Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
+import type { Location } from '../location'
+import { resolve } from '../location/LocationUtils'
 import type { ObsMode } from './models/ObsMode'
 import type { ProvisionConfig } from './models/ProvisionConfig'
 import type {
@@ -130,7 +132,15 @@ export interface SequenceManagerService {
 export const SequenceManagerService = async (
   tokenFactory: TokenFactory
 ): Promise<SequenceManagerService> => {
-  const { host, port } = await resolveConnection(sequenceManagerConnection)
+  const location = await resolve(sequenceManagerConnection)
+  return createSequenceManagerService(location, tokenFactory)
+}
+
+export const createSequenceManagerService = (
+  location: Location,
+  tokenFactory: TokenFactory
+): SequenceManagerService => {
+  const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
 
   return new SequenceManagerImpl(new HttpTransport(postEndpoint, tokenFactory))

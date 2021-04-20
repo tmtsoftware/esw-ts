@@ -10,11 +10,13 @@ import type {
   RemoveBreakpointResponse,
   TokenFactory
 } from '../..'
-import { gatewayConnection, resolveConnection } from '../../config/Connections'
+import { gatewayConnection } from '../../config/Connections'
 import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
+import type { Location } from '../location'
+import { resolve } from '../location/LocationUtils'
 import type { SequencerStateResponse } from './models/SequencerRes'
 import type { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
@@ -241,7 +243,16 @@ export const SequencerService = async (
   componentId: ComponentId,
   tokenFactory: TokenFactory
 ): Promise<SequencerService> => {
-  const { host, port } = await resolveConnection(gatewayConnection)
+  const location = await resolve(gatewayConnection)
+  return createSequencerService(componentId, location, tokenFactory)
+}
+
+export const createSequencerService = (
+  componentId: ComponentId,
+  location: Location,
+  tokenFactory: TokenFactory
+): SequencerService => {
+  const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
 
