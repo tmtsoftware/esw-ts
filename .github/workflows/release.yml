@@ -71,6 +71,14 @@ jobs:
           name: RTM
           path: ./RTM
 
+      - name: Upload Coverage
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v2
+        with:
+          name: Coverage
+          path: ./lib/coverage
+
       - name: NPM Publish
         working-directory: ./lib
         run: |
