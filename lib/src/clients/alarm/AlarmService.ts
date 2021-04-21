@@ -1,5 +1,5 @@
 import type { Done, Location } from '../..'
-import { gatewayConnection } from '../../config/Connections'
+import { GATEWAY_CONNECTION } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
@@ -28,7 +28,7 @@ export interface AlarmService {
  * @constructor
  */
 export const AlarmService = async (): Promise<AlarmService> => {
-  const location = await resolve(gatewayConnection)
+  const location = await resolve(GATEWAY_CONNECTION)
   return createAlarmService(location)
 }
 

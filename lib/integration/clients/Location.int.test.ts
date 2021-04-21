@@ -8,7 +8,7 @@ import {
   TrackingEvent
 } from '../../src/clients/location'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { gatewayConnection } from '../../src/config/Connections'
+import { GATEWAY_CONNECTION } from '../../src/config/Connections'
 import { Prefix } from '../../src/models'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
@@ -63,7 +63,7 @@ afterAll(async () => {
 describe('LocationService', () => {
   test('should be able to resolve a location for given connection | ESW-343, ESW-308', async () => {
     const gatewayLocation = getValueFromOption(
-      await locationService.resolve(gatewayConnection, 10, 'seconds')
+      await locationService.resolve(GATEWAY_CONNECTION, 10, 'seconds')
     )
     expect(gatewayLocation._type).toBe('HttpLocation')
   })
@@ -73,7 +73,7 @@ describe('LocationService', () => {
 
     expect(locations.length).toBe(3)
 
-    const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
+    const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, akkaHcdConnection]
     const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
 
     locations.forEach((loc) => {
@@ -85,7 +85,7 @@ describe('LocationService', () => {
 
   test('should be able to list all the registered location for given componentType | ESW-343, ESW-308', async () => {
     const locations = await locationService.listByComponentType('Service')
-    const allExpectedConnections = [gatewayConnection]
+    const allExpectedConnections = [GATEWAY_CONNECTION]
 
     const allExpectedTypes = ['HttpLocation']
 
@@ -115,7 +115,7 @@ describe('LocationService', () => {
   test('should be able to list all the registered location for given hostname | ESW-343, ESW-308', async () => {
     const locations = await locationService.listByHostname(publicIPv4Address())
 
-    const allExpectedConnections = [gatewayConnection, httpHcdConnection, akkaHcdConnection]
+    const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, akkaHcdConnection]
     const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
 
     expect(locations.length).toBe(3)
@@ -136,19 +136,19 @@ describe('LocationService', () => {
     return new Promise<void>(async (done) => {
       const expectedTrackingEvent: LocationRemoved = {
         _type: 'LocationRemoved',
-        connection: gatewayConnection
+        connection: GATEWAY_CONNECTION
       }
 
       const callBack = (trackingEvent: TrackingEvent) => {
         expect(trackingEvent).toEqual(expectedTrackingEvent)
         done()
       }
-      locationService.track(gatewayConnection)(callBack)
+      locationService.track(GATEWAY_CONNECTION)(callBack)
 
-      const response = await locationService.unregister(gatewayConnection)
+      const response = await locationService.unregister(GATEWAY_CONNECTION)
       expect(response).toBe('Done')
 
-      const location = await locationService.find(gatewayConnection)
+      const location = await locationService.find(GATEWAY_CONNECTION)
       expect(location).toBeUndefined()
     })
   })

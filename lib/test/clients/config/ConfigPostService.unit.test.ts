@@ -4,7 +4,7 @@ import { ConfigId } from '../../../src'
 import { ConfigData, ConfigService } from '../../../src/clients/config-service'
 
 import type { HttpLocation } from '../../../src/clients/location'
-import { configConnection } from '../../../src/config/Connections'
+import { CONFIG_CONNECTION } from '../../../src/config/Connections'
 import { ServiceError } from '../../../src/models'
 import { HeaderExt } from '../../../src/utils/HeaderExt'
 import { del, get, head, post, put } from '../../../src/utils/Http'
@@ -20,7 +20,7 @@ const deleteMockFn = mocked(del)
 const uri = 'http://localhost:8080'
 const configLocation: HttpLocation = {
   _type: 'HttpLocation',
-  connection: configConnection,
+  connection: CONFIG_CONNECTION,
   uri,
   metadata: {}
 }

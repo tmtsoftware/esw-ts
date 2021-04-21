@@ -1,4 +1,4 @@
-import { gatewayConnection } from '../../config/Connections'
+import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type {
   ComponentId,
   ContainerLifecycleState,
@@ -92,7 +92,7 @@ export interface AdminService {
  * @constructor
  */
 export const AdminService = async (): Promise<AdminService> => {
-  const location = await resolve(gatewayConnection)
+  const location = await resolve(GATEWAY_CONNECTION)
   return createAdminService(location)
 }
 

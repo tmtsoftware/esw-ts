@@ -3,17 +3,20 @@ import { resolve } from '../clients/location/LocationUtils'
 import { Prefix } from '../models'
 import { extractHostPort } from '../utils/Utils'
 
-export const gatewayConnection: Connection = HttpConnection(
+export const GATEWAY_CONNECTION: Connection = HttpConnection(
   new Prefix('ESW', 'EswGateway'),
   'Service'
 )
-export const authConnection = HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
-export const configConnection = HttpConnection(new Prefix('CSW', 'ConfigServer'), 'Service')
-export const sequenceManagerConnection = HttpConnection(
+export const AUTH_CONNECTION = HttpConnection(new Prefix('CSW', 'AAS'), 'Service')
+export const CONFIG_CONNECTION = HttpConnection(new Prefix('CSW', 'ConfigServer'), 'Service')
+export const SEQUENCE_MANAGER_CONNECTION = HttpConnection(
   new Prefix('ESW', 'sequence_manager'),
   'Service'
 )
-export const agentServiceConnection = HttpConnection(new Prefix('ESW', 'agent_service'), 'Service')
+export const AGENT_SERVICE_CONNECTION = HttpConnection(
+  new Prefix('ESW', 'agent_service'),
+  'Service'
+)
 export const eswAgentConnection = AkkaConnection(new Prefix('ESW', 'esw_machine'), 'Machine')
 
 export const resolveConnection: (

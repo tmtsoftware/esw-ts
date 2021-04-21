@@ -1,5 +1,5 @@
 import type { Subscription } from '../..'
-import { gatewayConnection } from '../../config/Connections'
+import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { Done, Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
@@ -79,7 +79,7 @@ export interface EventService {
  * @constructor
  */
 export const EventService = async (): Promise<EventService> => {
-  const location = await resolve(gatewayConnection)
+  const location = await resolve(GATEWAY_CONNECTION)
   return createEventService(location)
 }
 

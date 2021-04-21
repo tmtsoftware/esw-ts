@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { gatewayConnection, resolveConnection } from '../../src/config/Connections'
+import { GATEWAY_CONNECTION, resolveConnection } from '../../src/config/Connections'
 import { post } from '../../src/utils/Http'
 
 jest.mock('../../src/utils/Http')
@@ -27,7 +27,7 @@ describe('Connection util', () => {
       }
     ])
 
-    const uri: { host: string; port: number } = await resolveConnection(gatewayConnection)
+    const uri: { host: string; port: number } = await resolveConnection(GATEWAY_CONNECTION)
     expect(uri.port).toEqual(8080)
     expect(uri.host).toEqual('localhost')
   })
@@ -35,6 +35,6 @@ describe('Connection util', () => {
   test('should throw location not found error when location is resolved', async () => {
     postMockFn.mockResolvedValueOnce([])
     expect.assertions(1)
-    await expect(resolveConnection(gatewayConnection)).rejects.toThrow(Error)
+    await expect(resolveConnection(GATEWAY_CONNECTION)).rejects.toThrow(Error)
   })
 })

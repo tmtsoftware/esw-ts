@@ -2,11 +2,11 @@ import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import {
   eswAgentConnection,
-  authConnection,
-  configConnection,
-  gatewayConnection,
-  sequenceManagerConnection,
-  agentServiceConnection
+  AUTH_CONNECTION,
+  CONFIG_CONNECTION,
+  GATEWAY_CONNECTION,
+  SEQUENCE_MANAGER_CONNECTION,
+  AGENT_SERVICE_CONNECTION
 } from '../../src/config/Connections'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
 import { waitForLocationToStop, waitForServicesToUp } from './healthCheck'
@@ -35,13 +35,13 @@ export const stopServices = async () => {
 }
 
 export const BackendServices = {
-  Gateway: gatewayConnection,
-  AAS: authConnection,
-  Config: configConnection,
-  LocationWithAuth: gatewayConnection,
-  SequenceManager: sequenceManagerConnection,
+  Gateway: GATEWAY_CONNECTION,
+  AAS: AUTH_CONNECTION,
+  Config: CONFIG_CONNECTION,
+  LocationWithAuth: GATEWAY_CONNECTION,
+  SequenceManager: SEQUENCE_MANAGER_CONNECTION,
   MachineAgent: eswAgentConnection,
-  AgentService: agentServiceConnection
+  AgentService: AGENT_SERVICE_CONNECTION
 }
 
 export type ServiceName = keyof typeof BackendServices

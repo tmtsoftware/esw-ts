@@ -9,7 +9,7 @@ import type {
   TokenFactory,
   ValidateResponse
 } from '../..'
-import { gatewayConnection } from '../../config/Connections'
+import { GATEWAY_CONNECTION } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
@@ -106,7 +106,7 @@ export const CommandService = async (
   componentId: ComponentId,
   tokenFactory: TokenFactory = () => undefined
 ): Promise<CommandService> => {
-  const location = await resolve(gatewayConnection)
+  const location = await resolve(GATEWAY_CONNECTION)
   return createCommandService(componentId, location, tokenFactory)
 }
 

@@ -1,5 +1,5 @@
 import type { AgentStatusResponse, ComponentId, Location, TokenFactory } from '../..'
-import { agentServiceConnection } from '../../config/Connections'
+import { AGENT_SERVICE_CONNECTION } from '../../config/Connections'
 import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
@@ -63,7 +63,7 @@ export interface AgentService {
 }
 
 export const AgentService = async (tokenFactory: TokenFactory): Promise<AgentService> => {
-  const location = await resolve(agentServiceConnection)
+  const location = await resolve(AGENT_SERVICE_CONNECTION)
   return createAgentService(location, tokenFactory)
 }
 

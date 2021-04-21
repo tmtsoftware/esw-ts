@@ -1,4 +1,4 @@
-import { gatewayConnection } from '../../config/Connections'
+import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { Done, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
@@ -31,7 +31,7 @@ export interface LoggingService {
  * @constructor
  */
 export const LoggingService = async (): Promise<LoggingService> => {
-  const location = await resolve(gatewayConnection)
+  const location = await resolve(GATEWAY_CONNECTION)
   return createLoggingService(location)
 }
 
