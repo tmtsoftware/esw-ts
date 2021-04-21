@@ -1,5 +1,5 @@
-import { AkkaConnection, Connection, HttpConnection } from '../clients/location'
 import { resolve } from '../clients/location/LocationUtils'
+import { AkkaConnection, Connection, HttpConnection } from '../clients/location/models/Connection'
 import { Prefix } from '../models'
 import { extractHostPort } from '../utils/Utils'
 

@@ -1,32 +1,34 @@
 import { mocked } from 'ts-jest/utils'
+import { SEQUENCE_MANAGER_CONNECTION } from '../../../src'
+import { resolve } from '../../../src/clients/location/LocationUtils'
 import { SequenceManagerService } from '../../../src/clients/sequence-manager'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
-import { resolveConnection } from '../../../src/config/Connections'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { getPostEndPoint } from '../../../src/utils/Utils'
 
-jest.mock('../../../src/config/Connections')
-jest.mock('../../../src/utils/Utils')
+jest.mock('../../../src/clients/sequence-manager/SequenceManagerImpl')
+jest.mock('../../../src/clients/location/LocationUtils')
 
-const postMockEndpoint = mocked(getPostEndPoint)
-const mockResolveSm = mocked(resolveConnection)
+const mockResolveSm = mocked(resolve)
+const mockSMImpl = mocked(SequenceManagerImpl)
 
 const tokenFactory = () => undefined
 
 describe('Sequence manager factory', () => {
   test('should create sequence manager service | ESW-365', async () => {
     const postEndpoint = 'postEndpoint'
-    const uri = { host: '123', port: 1234 }
-    mockResolveSm.mockResolvedValue(uri)
-    postMockEndpoint.mockReturnValueOnce(postEndpoint)
+    mockResolveSm.mockResolvedValue({
+      _type: 'HttpLocation',
+      uri: 'http://localhost:1234',
+      metadata: {},
+      connection: SEQUENCE_MANAGER_CONNECTION
+    })
     const sequenceManagerImpl = new SequenceManagerImpl(
       new HttpTransport(postEndpoint, tokenFactory)
     )
-
+    mockSMImpl.mockReturnValue(sequenceManagerImpl)
     const response = await SequenceManagerService(tokenFactory)
 
     expect(response).toEqual(sequenceManagerImpl)
     expect(mockResolveSm).toBeCalledTimes(1)
-    expect(postMockEndpoint).toBeCalledWith(uri)
   })
 })

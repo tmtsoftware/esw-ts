@@ -1,27 +1,26 @@
 import { mocked } from 'ts-jest/utils'
+import { GATEWAY_CONNECTION } from '../../../src'
 import { CommandService } from '../../../src/clients/command'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
-import { resolveConnection } from '../../../src/config/Connections'
+import { resolve } from '../../../src/clients/location/LocationUtils'
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/command/CommandServiceImpl')
-jest.mock('../../../src/config/Connections')
-jest.mock('../../../src/utils/Utils')
-const postMockEndpoint = mocked(getPostEndPoint)
-const wsMockEndpoint = mocked(getWebSocketEndPoint)
-const mockResolveGateway = mocked(resolveConnection)
+jest.mock('../../../src/clients/location/LocationUtils')
+const mockResolveGateway = mocked(resolve)
 const mockImpl = mocked(CommandServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'
-const uri = { host: '123', port: 1234 }
 const tokenFactory = () => 'validtoken'
-mockResolveGateway.mockResolvedValue(uri)
-postMockEndpoint.mockReturnValue(postEndpoint)
-wsMockEndpoint.mockReturnValue(wsEndpoint)
+mockResolveGateway.mockResolvedValue({
+  _type: 'HttpLocation',
+  uri: 'http://localhost:1234',
+  metadata: {},
+  connection: GATEWAY_CONNECTION
+})
 
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const commandServiceImpl = new CommandServiceImpl(
@@ -37,8 +36,6 @@ describe('Command Service Factory', () => {
 
     expect(a).toEqual(commandServiceImpl)
     expect(mockResolveGateway).toBeCalledTimes(1)
-    expect(postMockEndpoint).toBeCalledWith(uri)
-    expect(wsMockEndpoint).toBeCalledWith(uri)
   })
 })
 

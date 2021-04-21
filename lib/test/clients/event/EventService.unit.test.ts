@@ -1,25 +1,24 @@
 import { mocked } from 'ts-jest/utils'
+import { GATEWAY_CONNECTION } from '../../../src'
 import { EventService } from '../../../src/clients/event/EventService'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
-import { resolveConnection } from '../../../src/config/Connections'
+import { resolve } from '../../../src/clients/location/LocationUtils'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/event/EventServiceImpl')
-jest.mock('../../../src/config/Connections')
-jest.mock('../../../src/utils/Utils')
-const postMockEndpoint = mocked(getPostEndPoint)
-const wsMockEndpoint = mocked(getWebSocketEndPoint)
-const mockResolveGateway = mocked(resolveConnection)
+jest.mock('../../../src/clients/location/LocationUtils')
+const mockResolveGateway = mocked(resolve)
 const mockImpl = mocked(EventServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'
-const uri = { host: '123', port: 1234 }
-mockResolveGateway.mockResolvedValue(uri)
-postMockEndpoint.mockReturnValue(postEndpoint)
-wsMockEndpoint.mockReturnValue(wsEndpoint)
+mockResolveGateway.mockResolvedValue({
+  _type: 'HttpLocation',
+  uri: 'http://localhost:1234',
+  metadata: {},
+  connection: GATEWAY_CONNECTION
+})
 const eventServiceImpl = new EventServiceImpl(
   new HttpTransport(postEndpoint),
   () => new Ws(wsEndpoint)
@@ -32,8 +31,6 @@ describe('Event Service Factory', () => {
 
     expect(a).toEqual(eventServiceImpl)
     expect(mockResolveGateway).toBeCalledTimes(1)
-    expect(postMockEndpoint).toBeCalledWith(uri)
-    expect(wsMockEndpoint).toBeCalledWith(uri)
   })
 })
 
