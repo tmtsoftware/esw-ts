@@ -17,7 +17,7 @@ export const AGENT_SERVICE_CONNECTION = HttpConnection(
   new Prefix('ESW', 'agent_service'),
   'Service'
 )
-export const eswAgentConnection = AkkaConnection(new Prefix('ESW', 'esw_machine'), 'Machine')
+export const ESW_AGENT_CONNECTION = AkkaConnection(new Prefix('ESW', 'esw_machine'), 'Machine')
 
 export const resolveConnection: (
   connection: Connection

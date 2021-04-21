@@ -1,7 +1,7 @@
 import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import {
-  eswAgentConnection,
+  ESW_AGENT_CONNECTION,
   AUTH_CONNECTION,
   CONFIG_CONNECTION,
   GATEWAY_CONNECTION,
@@ -40,7 +40,7 @@ export const BackendServices = {
   Config: CONFIG_CONNECTION,
   LocationWithAuth: GATEWAY_CONNECTION,
   SequenceManager: SEQUENCE_MANAGER_CONNECTION,
-  MachineAgent: eswAgentConnection,
+  MachineAgent: ESW_AGENT_CONNECTION,
   AgentService: AGENT_SERVICE_CONNECTION
 }
 
