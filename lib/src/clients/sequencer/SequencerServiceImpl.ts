@@ -1,5 +1,4 @@
 import type * as T from '../..'
-import type { Subscription } from '../..'
 import { SubmitResponseD } from '../../decoders/CommandDecoders'
 import { BooleanD } from '../../decoders/CommonDecoders'
 import type { Decoder } from '../../decoders/Decoder'
@@ -26,7 +25,7 @@ export class SequencerServiceImpl implements SequencerService {
   ) {}
 
   subscribeSequencerState() {
-    return (callBack: (sequencerStateResponse: SequencerStateResponse) => void): Subscription =>
+    return (callBack: (sequencerStateResponse: SequencerStateResponse) => void): T.Subscription =>
       this.ws().subscribe(
         new GatewaySequencerCommand(this.componentId, new SubscribeSequencerState()),
         callBack,

@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { Option, setAppConfigPath, TrackingEvent } from '../../src'
+import { Option, setAppConfigPath } from '../../src'
 import { SequencerService, StepList } from '../../src/clients/sequencer'
 import type {
   SequencerState,
