@@ -195,6 +195,7 @@ const sequencerDecoders: Record<string, Decoder<any>> = {
   StepStatus: Seq.StepStatusD,
   Step: Seq.StepD,
   StepList: Seq.StepListD,
+  SequencerState: Seq.SequencerStateD,
   SequencerStateResponse: Seq.SequencerStateResponseD
 }
 

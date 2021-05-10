@@ -11,5 +11,5 @@ export type {
   GoOfflineResponse,
   DiagnosticModeResponse,
   OkOrUnhandledResponse,
-  SequencerStateResponse
+  SequencerState
 } from './models/SequencerRes'

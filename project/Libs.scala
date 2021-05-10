@@ -16,7 +16,7 @@ object ESW {
     sys.props.get("prod.publish") match {
       case Some("true") => {
         val env = sys.env ++ sys.props
-        env.getOrElse("ESW_VERSION", "754b6e337e")
+        env.getOrElse("ESW_VERSION", "da6776c62d")
       }
       case _ => "0.1.0-SNAPSHOT"
     }
@@ -28,7 +28,7 @@ object CSW {
     sys.props.get("prod.publish") match {
       case Some("true") => {
         val env = sys.env ++ sys.props
-        env.getOrElse("CSW_VERSION", "efe5d22c46")
+        env.getOrElse("CSW_VERSION", "33131de840")
       }
       case _ => "0.1.0-SNAPSHOT"
     }

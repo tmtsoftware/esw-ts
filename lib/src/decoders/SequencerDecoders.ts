@@ -123,6 +123,12 @@ export const StepListD: Decoder<StepList> = pipe(
 )
 export const OptionOfStepList: Decoder<StepList[]> = D.array(StepListD)
 
-export const SequencerStateResponseD: Decoder<T.SequencerStateResponse> = D.type({
+export const SequencerStateD: Decoder<T.SequencerState> = D.type({
   _type: ciLiteral('Idle', 'Processing', 'Loaded', 'Offline', 'Running')
+})
+
+export const SequencerStateResponseD: Decoder<T.SequencerStateResponse> = D.struct({
+  _type: ciLiteral('SequencerStateResponse'),
+  stepList: StepListD,
+  sequencerState: SequencerStateD
 })

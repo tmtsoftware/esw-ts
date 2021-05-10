@@ -1,17 +1,19 @@
 import type * as T from '../..'
+import type { Subscription } from '../..'
 import { SubmitResponseD } from '../../decoders/CommandDecoders'
 import { BooleanD } from '../../decoders/CommonDecoders'
 import type { Decoder } from '../../decoders/Decoder'
 import * as Res from '../../decoders/SequencerDecoders'
+import { SequencerStateResponseD } from '../../decoders/SequencerDecoders'
 import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
 import * as Req from './models/PostCommand'
-import type { SequencerStateResponse } from './models/SequencerRes'
+import type { SequencerState, SequencerStateResponse } from './models/SequencerRes'
 import type { StepList } from './models/StepList'
-import { QueryFinal, SequencerWebsocketRequest } from './models/WsCommand'
+import { QueryFinal, SequencerWebsocketRequest, SubscribeSequencerState } from './models/WsCommand'
 import type { SequencerService } from './SequencerService'
 
 export class SequencerServiceImpl implements SequencerService {
@@ -22,6 +24,15 @@ export class SequencerServiceImpl implements SequencerService {
     >,
     private readonly ws: () => Ws<GatewaySequencerCommand<SequencerWebsocketRequest>>
   ) {}
+
+  subscribeSequencerState() {
+    return (callBack: (sequencerStateResponse: SequencerStateResponse) => void): Subscription =>
+      this.ws().subscribe(
+        new GatewaySequencerCommand(this.componentId, new SubscribeSequencerState()),
+        callBack,
+        SequencerStateResponseD
+      )
+  }
 
   private sequencerCommand(request: Req.SequencerPostRequest) {
     return new GatewaySequencerCommand(this.componentId, request)
@@ -146,7 +157,7 @@ export class SequencerServiceImpl implements SequencerService {
     )
   }
 
-  getSequencerState(): Promise<SequencerStateResponse> {
-    return this.postSequencerCmd(new Req.GetSequencerState(), Res.SequencerStateResponseD)
+  getSequencerState(): Promise<SequencerState> {
+    return this.postSequencerCmd(new Req.GetSequencerState(), Res.SequencerStateD)
   }
 }

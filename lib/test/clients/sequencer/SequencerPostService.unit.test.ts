@@ -9,7 +9,7 @@ import {
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
 import * as Res from '../../../src/decoders/SequencerDecoders'
-import { SequencerStateResponseD } from '../../../src/decoders/SequencerDecoders'
+import { SequencerStateD } from '../../../src/decoders/SequencerDecoders'
 import {
   ComponentId,
   intKey,
@@ -395,7 +395,7 @@ describe('SequencerService', () => {
     expect(response).toEqual(mockResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
       getGatewaySequencerCommand(new Req.GetSequencerState()),
-      SequencerStateResponseD
+      SequencerStateD
     )
   })
 })

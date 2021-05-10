@@ -1,7 +1,10 @@
 import 'whatwg-fetch'
-import { Option, setAppConfigPath } from '../../src'
+import { Option, setAppConfigPath, TrackingEvent } from '../../src'
 import { SequencerService, StepList } from '../../src/clients/sequencer'
-import type { SequencerStateResponse } from '../../src/clients/sequencer/models/SequencerRes'
+import type {
+  SequencerState,
+  SequencerStateResponse
+} from '../../src/clients/sequencer/models/SequencerRes'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
@@ -200,8 +203,35 @@ describe('Sequencer Client', () => {
   })
 
   test('should get sequencer state | ESW-483', async () => {
-    const response: SequencerStateResponse = await sequencerServiceWithoutToken.getSequencerState()
+    const response: SequencerState = await sequencerServiceWithoutToken.getSequencerState()
 
     expect(response._type).toEqual('Running')
+  })
+
+  test('should get sequencer state response event on subscription | ESW-488', () => {
+    return new Promise<void>(async (done) => {
+      const callBack = (sequencerStateResponse: SequencerStateResponse) => {
+        const expectedSequencerStateResponse: SequencerStateResponse = {
+          _type: 'SequencerStateResponse',
+          stepList: new StepList([
+            {
+              id: sequencerStateResponse.stepList.steps[0].id,
+              command: new Setup(Prefix.fromString('CSW.IRIS'), 'command-1'),
+              status: {
+                _type: 'Pending'
+              },
+              hasBreakpoint: false
+            }
+          ]),
+          sequencerState: {
+            _type: 'Running'
+          }
+        }
+        expect(sequencerStateResponse).toEqual(expectedSequencerStateResponse)
+        done()
+      }
+
+      await sequencerServiceWithoutToken.subscribeSequencerState()(callBack)
+    })
   })
 })

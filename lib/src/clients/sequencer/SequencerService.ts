@@ -8,7 +8,8 @@ import type {
   Option,
   PauseResponse,
   RemoveBreakpointResponse,
-  TokenFactory
+  TokenFactory,
+  Subscription
 } from '../..'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
@@ -17,7 +18,7 @@ import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../ut
 import { Ws } from '../../utils/Ws'
 import type { Location } from '../location'
 import { resolve } from '../location/LocationUtils'
-import type { SequencerStateResponse } from './models/SequencerRes'
+import type { SequencerState, SequencerStateResponse } from './models/SequencerRes'
 import type { StepList } from './models/StepList'
 import { SequencerServiceImpl } from './SequencerServiceImpl'
 
@@ -226,9 +227,13 @@ export interface SequencerService {
 
   /**
    * Returns the current state of the sequencer (Idle, Loaded, Offline, Running, Processing)
-   * @return                      SequencerStateResponse
+   * @return                      SequencerState
    */
-  getSequencerState(): Promise<SequencerStateResponse>
+  getSequencerState(): Promise<SequencerState>
+
+  subscribeSequencerState(): (
+    callBack: (sequencerStateResponse: SequencerStateResponse) => void
+  ) => Subscription
 }
 
 /**
