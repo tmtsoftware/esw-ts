@@ -72,6 +72,10 @@ export type OperationsModeResponse = Ok | OperationsHookFailed
 export type SequencerState = {
   _type: 'Idle' | 'Processing' | 'Loaded' | 'Offline' | 'Running'
 }
+
+/**
+ * @category Sequencer Service
+ */
 export type SequencerStateResponse = {
   _type: 'SequencerStateResponse'
   stepList: StepList

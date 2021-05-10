@@ -332,12 +332,20 @@ Type definitions for APIs used in the given example are :
 ### Getting Status of Sequencer
 
 To get Sequencer's State, `SequenceService` provides `getSequencerState` method.
-This method returns Promise<SequencerStateResponse>
-the state of sequencer can be Idle, Processing, Loaded, Offline, Running 
+This method returns `Promise<SequencerState>`
+the state of sequencer can be Idle, Processing, Loaded, Offline, Running
 
 Type definitions for `getSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#getSequencerState)
 
 Typescript
 : @@snip [getSequencerState](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #getSequencerState }
 
+### Subscribing to Sequencer State
 
+We can subscribe to Sequencer's state and the current stepList data using `subscribeSequencerState` method.
+This method returns a Subscription of `SequencerStateResponse`
+
+Type definitions for `subscribeSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#subscribeSequencerState)
+
+Typescript
+: @@snip [subscribeSequencerState](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #subscribeSequencerState }

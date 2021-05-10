@@ -177,3 +177,11 @@ const submitAndWaitResponse: SubmitResponse = await sequencerService.submitAndWa
 //#getSequencerState
 const getSequencerState: SequencerStateResponse = await sequencerService.getSequencerState()
 //#getSequencerState
+//
+
+// #subscribeSequencerState
+const callBack = (sequencerStateResponse: SequencerStateResponse) => {console.log(sequencerStateResponse)}
+const subscribeSequencerState: SequencerStateResponse = await sequencerService.subscribeSequencerState()(callBack)
+//#subscribeSequencerState
+
+

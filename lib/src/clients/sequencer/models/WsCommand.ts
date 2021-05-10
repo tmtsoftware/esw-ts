@@ -9,4 +9,3 @@ export class QueryFinal {
 export class SubscribeSequencerState {
   readonly _type: 'SubscribeSequencerState' = 'SubscribeSequencerState'
 }
-

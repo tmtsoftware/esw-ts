@@ -231,6 +231,11 @@ export interface SequencerService {
    */
   getSequencerState(): Promise<SequencerState>
 
+  /**
+   * Returns a subscription of SequencerStateResponse which consists of sequencer state and the
+   * loaded stepList
+   * @return                      Subscription
+   */
   subscribeSequencerState(): (
     callBack: (sequencerStateResponse: SequencerStateResponse) => void
   ) => Subscription
