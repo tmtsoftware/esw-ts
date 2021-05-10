@@ -148,19 +148,20 @@ Above command will generate and open the paradox site in browser.
 
 To push documentation on github pages, follow the steps:
 
-1. Open sbt shell with command.
-
-    `sbt -Dprod.publish=true`
+1. Open sbt shell.
 
 2. Clean and generate the site locally.
 
-    `sbt:esw-ts> clean; makeSite`
+    `sbt:esw-ts> clean;`
 
 3. Push the changes to github pages.
 
     `sbt:esw-ts> ghpagesPushSite`
 
-It will ask for github credential. It takes few minutes to reflect on the github pages.
+It will ask for github credential. It takes few minutes to reflect on the github pages. This will push documentation with version tag `0.1.0-SNAPSHOT`.
+
+### Release paradox documentation
+Document automatically gets released using release pipeline.
 
 ## Version compatibility
 
