@@ -4,6 +4,7 @@
 1. Add the specific implementation for the respective Api. (LocationServiceImpl.ts)
 1. Add contract test for request and response models. (response.models.int.test.ts)
 1. Add integration test. (Location.int.test.ts)
+1. Add public facing models like Location in respective index.ts. (location/index.ts)
 1. Add unit test for post/websocket respectively . (LocationPostService.unit.test.ts/LocationWsService.unit.test.ts)
 1. Add example in the documentation (LocationExample.ts)
 1. Add api doc around the added Api.
