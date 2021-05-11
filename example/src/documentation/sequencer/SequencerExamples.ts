@@ -180,8 +180,10 @@ const getSequencerState: SequencerStateResponse = await sequencerService.getSequ
 //
 
 // #subscribeSequencerState
-const callBack = (sequencerStateResponse: SequencerStateResponse) => {console.log(sequencerStateResponse)}
-const subscribeSequencerState: SequencerStateResponse = await sequencerService.subscribeSequencerState()(callBack)
+const callBack = (sequencerStateResponse: SequencerStateResponse) => {
+  console.log(sequencerStateResponse)
+}
+const subscribeSequencerState: SequencerStateResponse = sequencerService.subscribeSequencerState()(
+  callBack
+)
 //#subscribeSequencerState
-
-
