@@ -133,17 +133,13 @@ subscription.cancel()
 //#submit-and-wait
 // Submit a long running command and wait for the result for specific time
 
-const submitAndWaitResponse: SubmitResponse = await commandService.submitAndWait(
-  setupCommand,
-  10
-)
+const submitAndWaitResponse: SubmitResponse =
+  await commandService.submitAndWait(setupCommand, 10)
 //#submit-and-wait
 
 //#submit-all-and-wait
 // Submit multiple commands and wait for the result of each submitted command for specific time
 
-const submitAllAndWaitResponse: SubmitResponse[] = await commandService.submitAllAndWait(
-  [setupCommand, observeCommand],
-  10
-)
+const submitAllAndWaitResponse: SubmitResponse[] =
+  await commandService.submitAllAndWait([setupCommand, observeCommand], 10)
 //#submit-all-and-wait

@@ -35,9 +35,8 @@ const locations: Location[] = await locationService.list()
 //#list-by-component-type
 // valid Component types : HCD, Assembly, Service, Container, Sequencer, SequenceComponent and Machine
 
-const sequencerLocations: Location[] = await locationService.listByComponentType(
-  'Sequencer'
-)
+const sequencerLocations: Location[] =
+  await locationService.listByComponentType('Sequencer')
 
 const hcdLocations: Location[] = await locationService.listByComponentType(
   'HCD'
@@ -68,9 +67,8 @@ const remoteLocations: Location[] = await locationService.listByHostname(
   '192.0.162.178'
 )
 
-const locationRegisteredWithDomain: Location[] = await locationService.listByHostname(
-  'tmt.org.com'
-)
+const locationRegisteredWithDomain: Location[] =
+  await locationService.listByHostname('tmt.org.com')
 
 const localLocations: Location[] = await locationService.listByHostname(
   'localhost'

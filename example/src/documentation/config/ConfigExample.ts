@@ -236,12 +236,8 @@ const g = async () => {
   const to = new Date(2020, 12, 31)
 
   // upto 200 active file revisions from 31st dec 2019 - 31st dec 2020 will be fetched
-  const activeFileRevisions: ConfigFileRevision[] = await configService.historyActive(
-    filePath,
-    from,
-    to,
-    200
-  )
+  const activeFileRevisions: ConfigFileRevision[] =
+    await configService.historyActive(filePath, from, to, 200)
   //#history-active
 }
 
@@ -289,10 +285,8 @@ const ff = async () => {
   const filePath = 'esw/sequencer/obsMode.conf'
   const at = new Date(2019, 12, 31)
 
-  const maybeConfigData: Option<ConfigData> = await configService.getActiveByTime(
-    filePath,
-    at
-  )
+  const maybeConfigData: Option<ConfigData> =
+    await configService.getActiveByTime(filePath, at)
   //#get-active-by-time
 }
 
