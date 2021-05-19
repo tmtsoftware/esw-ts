@@ -15,24 +15,24 @@ pipeline {
             }
         }
 
-        /*stage('increase file watchers') {
+        stage('Install') {
             steps {
-                sh "echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
+                sh "which sbt && sbt --version"
+                sh "which jps && jps -v"
+                sh "which java && java --version"
+                sh "which cs && cs --version"
+                sh "sbt clean"
             }
-        }*/
+        }
 
         stage('Build library') {
             steps {
                 dir('lib') {
+                    sh "which node && node --version"
+                    sh "which npm && npm --version"
                     sh "npm ci"
                     sh "npm run build"
                 }
-            }
-        }
-
-        stage('Paradox validate links') {
-            steps {
-                sh "sbt paradoxValidateLinks"
             }
         }
 
@@ -63,20 +63,20 @@ pipeline {
 
         stage('Selenium Test') {
             steps {
-              sh "sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=./testStoryMapping.txt clean test"
+              sh "sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
             }
         }
     }
     post {
         always {
             // Generate RTM
-            sh rtm.sh
+            sh "./rtm.sh"
 
             // Upload RTM
             publishHTML(target: [
               alwaysLinkToLastBuild: false,
               keepAll              : true,
-              reportDir            : './target/RTM/',
+              reportDir            : './RTM/',
               reportFiles          : 'index.html',
               reportName           : "Test-Story-Requirement mapping"
             ])
@@ -105,5 +105,5 @@ def sendNotification(String buildStatus = 'STARTED') {
         color = 'RED'
         colorCode = '#FF0000'
     }
-    slackSend(channel: "#esw-build", color: colorCode, message: summary)
+    slackSend(channel: "#ci-nightly", color: colorCode, message: summary)
 }
