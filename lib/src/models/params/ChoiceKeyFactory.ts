@@ -1,4 +1,5 @@
 import { requirement } from '../../utils/Utils'
+import type { BaseKeyType } from './BaseKey'
 import type { Key, KTag } from './Key'
 import { Parameter } from './Parameter'
 import type { Units } from './Units'
@@ -8,7 +9,8 @@ import type { Units } from './Units'
  * @class
  * @internal
  */
-export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
+export class ChoiceKeyFactory<T extends Key, L extends readonly string[]>
+  implements BaseKeyType<T> {
   /**
    * A key for a choice item similar to an enumeration
    *

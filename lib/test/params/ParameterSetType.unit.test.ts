@@ -1,4 +1,4 @@
-import { intArrayKey, intKey, Key, Parameter, stringKey } from '../../src/models'
+import { choiceKey, intArrayKey, intKey, Key, Parameter, stringKey } from '../../src/models'
 import { ParameterSetType } from '../../src/models/params/ParameterSetType'
 
 class ParameterSetTypeTest extends ParameterSetType<ParameterSetTypeTest> {
@@ -12,17 +12,20 @@ class ParameterSetTypeTest extends ParameterSetType<ParameterSetTypeTest> {
 describe('ParameterSetType', () => {
   const intParam: Parameter<Key> = intKey('number').set([1, 2, 3])
   const stringParam: Parameter<Key> = stringKey('string').set(['abc', 'def'])
+  const rgbKey = choiceKey('RGB', ['Red', 'Green', 'Blue'])
+  const rgbParam = rgbKey.set('Green')
   const intArrayParam = intArrayKey('array_key').set([
     [1, 2],
     [3, 4]
   ])
 
   test('get should return parameter when present | ESW-380', () => {
-    const paramSet = [intParam, stringParam]
+    const paramSet = [intParam, stringParam, rgbParam]
 
     const parameterSetType = new ParameterSetTypeTest(paramSet)
 
     expect(parameterSetType.get(intKey('number'))).toEqual(intParam)
+    expect(parameterSetType.get(rgbKey)).toEqual(rgbParam)
   })
 
   test('get should return undefined when not present | ESW-380', () => {
@@ -105,9 +108,15 @@ describe('ParameterSetType', () => {
   })
 
   test('exists should return true if parameter with given key exists | ESW-380', () => {
-    const parameterSetType = new ParameterSetTypeTest([intParam, stringParam, intArrayParam])
+    const parameterSetType = new ParameterSetTypeTest([
+      intParam,
+      stringParam,
+      intArrayParam,
+      rgbParam
+    ])
 
     expect(parameterSetType.exists(intKey('number'))).toBe(true)
+    expect(parameterSetType.exists(rgbKey)).toBe(true)
   })
 
   test('exists should return false if parameter with given key does not exists | ESW-380', () => {
@@ -124,6 +133,17 @@ describe('ParameterSetType', () => {
     parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest(expectedParameterSet))
 
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.remove(intKey('number'))
+    expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
+    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
+  })
+
+  test('remove - choiceKey | ESW-380', () => {
+    const expectedParameterSet = [stringParam, intArrayParam]
+    const parameterSetType = new ParameterSetTypeTest([rgbParam, stringParam, intArrayParam])
+
+    parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest(expectedParameterSet))
+
+    const actualParameterSet: ParameterSetTypeTest = parameterSetType.remove(rgbKey)
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
     expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
   })

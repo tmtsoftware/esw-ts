@@ -2,12 +2,18 @@ import type { Key, KTag, KType } from './Key'
 import { Parameter } from './Parameter'
 import type { Units } from './Units'
 
+export interface BaseKeyType<T extends Key> {
+  readonly keyName: string
+  readonly keyTag: KTag<T>
+  readonly units: Units
+}
+
 /**
  * A Generic Key class. Never meant to be instantiated directly.
  * @class
  * @internal
  */
-export class BaseKey<T extends Key> {
+export class BaseKey<T extends Key> implements BaseKeyType<T> {
   /**
    *
    * Constructor to create instances of Key with KeyTag

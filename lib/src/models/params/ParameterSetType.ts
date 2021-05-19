@@ -1,5 +1,5 @@
 import type { Option } from '../..'
-import type { BaseKey } from './BaseKey'
+import type { BaseKeyType } from './BaseKey'
 import type { Key } from './Key'
 import type { Parameter } from './Parameter'
 
@@ -53,7 +53,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @tparam S the value type
    * @return the parameter for the key, if found
    */
-  get<S extends Key>(key: BaseKey<S>): Option<Parameter<S>> {
+  get<S extends Key>(key: BaseKeyType<S>): Option<Parameter<S>> {
     return this.paramSet.find(
       (param) => param.keyName == key.keyName && param.keyTag == key.keyTag
     ) as Option<Parameter<S>>
@@ -66,7 +66,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @return true if the key is found
    * @tparam S the Key value
    */
-  exists<S extends Key>(key: BaseKey<S>): boolean {
+  exists<S extends Key>(key: BaseKeyType<S>): boolean {
     return this.get(key) !== undefined
   }
 
@@ -77,7 +77,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @tparam S the Key value
    * @return a new T, where T is a parameter set child with the key removed or identical if the key is not present
    */
-  remove<S extends Key>(key: BaseKey<S>): T {
+  remove<S extends Key>(key: BaseKeyType<S>): T {
     return this.create(this.removeByKeyName(this.paramSet, key.keyName))
   }
 
