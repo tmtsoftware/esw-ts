@@ -7,7 +7,7 @@ import type { Parameter } from './Parameter'
 // Inheritance (BaseKey extends KeyType and ChoiceKeyFactory extends KeyType) caused type inference issues
 // for ex. SystemEvent.get(IntKey) returned Parameter<Key> instead of concrete IntKey type parameter
 // Hence using union types
-type KeyType<K extends Key> = BaseKey<K> | ChoiceKeyFactory<K, any>
+export type KeyType<K extends Key> = BaseKey<K> | ChoiceKeyFactory<K, any>
 
 /**
  * Abstract class for various parameter set types (commands or events)
