@@ -1,7 +1,13 @@
 import type { Option } from '../..'
-import type { BaseKeyType } from './BaseKey'
+import type { BaseKey } from './BaseKey'
+import type { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import type { Key } from './Key'
 import type { Parameter } from './Parameter'
+
+// Inheritance (BaseKey extends KeyType and ChoiceKeyFactory extends KeyType) caused type inference issues
+// for ex. SystemEvent.get(IntKey) returned Parameter<Key> instead of concrete IntKey type parameter
+// Hence using union types
+type KeyType<K extends Key> = BaseKey<K> | ChoiceKeyFactory<K, any>
 
 /**
  * Abstract class for various parameter set types (commands or events)
@@ -53,7 +59,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @tparam S the value type
    * @return the parameter for the key, if found
    */
-  get<S extends Key>(key: BaseKeyType<S>): Option<Parameter<S>> {
+  get<S extends Key>(key: KeyType<S>): Option<Parameter<S>> {
     return this.paramSet.find(
       (param) => param.keyName == key.keyName && param.keyTag == key.keyTag
     ) as Option<Parameter<S>>
@@ -66,7 +72,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @return true if the key is found
    * @tparam S the Key value
    */
-  exists<S extends Key>(key: BaseKeyType<S>): boolean {
+  exists<S extends Key>(key: KeyType<S>): boolean {
     return this.get(key) !== undefined
   }
 
@@ -77,7 +83,7 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @tparam S the Key value
    * @return a new T, where T is a parameter set child with the key removed or identical if the key is not present
    */
-  remove<S extends Key>(key: BaseKeyType<S>): T {
+  remove<S extends Key>(key: KeyType<S>): T {
     return this.create(this.removeByKeyName(this.paramSet, key.keyName))
   }
 
