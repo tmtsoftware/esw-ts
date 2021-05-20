@@ -23,8 +23,8 @@ lazy val docs = project
   .settings(
     paradoxProperties ++= Map(
       "extref.ts-docs.base_url" -> TsDocPlugin.tsDocPath.value,
-      "esw-version"             -> ESW.Version,
-      "csw-version"             -> CSW.Version
+      "esw-version"             -> ESW.Version.getOrElse("0.1.0-SNAPSHOT"),
+      "csw-version"             -> CSW.Version.getOrElse("0.1.0-SNAPSHOT")
     )
   )
 
