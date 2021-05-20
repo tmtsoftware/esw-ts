@@ -24,26 +24,6 @@ export class SequencerServiceImpl implements SequencerService {
     private readonly ws: () => Ws<GatewaySequencerCommand<SequencerWebsocketRequest>>
   ) {}
 
-  subscribeSequencerState() {
-    return (callBack: (sequencerStateResponse: SequencerStateResponse) => void): T.Subscription =>
-      this.ws().subscribe(
-        new GatewaySequencerCommand(this.componentId, new SubscribeSequencerState()),
-        callBack,
-        SequencerStateResponseD
-      )
-  }
-
-  private sequencerCommand(request: Req.SequencerPostRequest) {
-    return new GatewaySequencerCommand(this.componentId, request)
-  }
-
-  private postSequencerCmd<Res>(
-    request: Req.SequencerPostRequest,
-    decoder: Decoder<Res>
-  ): Promise<Res> {
-    return this.httpTransport.requestRes(this.sequencerCommand(request), decoder)
-  }
-
   loadSequence(sequence: SequenceCommand[]): Promise<T.OkOrUnhandledResponse> {
     return this.postSequencerCmd(new Req.LoadSequence(sequence), Res.OkOrUnhandledResponseD)
   }
@@ -158,5 +138,25 @@ export class SequencerServiceImpl implements SequencerService {
 
   getSequencerState(): Promise<SequencerState> {
     return this.postSequencerCmd(new Req.GetSequencerState(), Res.SequencerStateD)
+  }
+
+  subscribeSequencerState() {
+    return (callBack: (sequencerStateResponse: SequencerStateResponse) => void): T.Subscription =>
+      this.ws().subscribe(
+        new GatewaySequencerCommand(this.componentId, new SubscribeSequencerState()),
+        callBack,
+        SequencerStateResponseD
+      )
+  }
+
+  private sequencerCommand(request: Req.SequencerPostRequest) {
+    return new GatewaySequencerCommand(this.componentId, request)
+  }
+
+  private postSequencerCmd<Res>(
+    request: Req.SequencerPostRequest,
+    decoder: Decoder<Res>
+  ): Promise<Res> {
+    return this.httpTransport.requestRes(this.sequencerCommand(request), decoder)
   }
 }

@@ -232,8 +232,10 @@ export interface SequencerService {
   getSequencerState(): Promise<SequencerState>
 
   /**
-   * Returns a subscription of SequencerStateResponse which consists of sequencer state and the
-   * loaded stepList
+   * Subscribes to the changes in state of sequencer which includes SequencerState (i.e Idle, Loaded, etc) and current StepList.
+   * The callback will be called with new SequencerStateResponse on state change and returns a subscription to unsubscribe.
+   *
+   * @param callback              the function which gets called on each state change
    * @return                      Subscription
    */
   subscribeSequencerState(): (
