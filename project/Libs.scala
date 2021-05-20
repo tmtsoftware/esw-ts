@@ -12,25 +12,29 @@ object Libs {
 }
 
 object ESW {
+  private val defaultESWVersion = "da6776c62d"
+
   val Version: String = {
     sys.props.get("prod.publish") match {
       case Some("true") => {
         val env = sys.env ++ sys.props
-        env.getOrElse("ESW_VERSION", "da6776c62d")
+        env.getOrElse("ESW_VERSION", defaultESWVersion)
       }
-      case _ => "0.1.0-SNAPSHOT"
+      case _ => defaultESWVersion
     }
   }
 }
 
 object CSW {
+  private val defaultCswVersion = "33131de840"
+
   val Version: String = {
     sys.props.get("prod.publish") match {
       case Some("true") => {
         val env = sys.env ++ sys.props
-        env.getOrElse("CSW_VERSION", "33131de840")
+        env.getOrElse("CSW_VERSION", defaultCswVersion)
       }
-      case _ => "0.1.0-SNAPSHOT"
+      case _ => defaultCswVersion
     }
   }
 
