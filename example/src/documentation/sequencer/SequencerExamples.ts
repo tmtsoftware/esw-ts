@@ -186,5 +186,5 @@ const callBack = (sequencerStateResponse: SequencerStateResponse) => {
 const subscription: Subscription =
   sequencerService.subscribeSequencerState()(callBack)
 //...
-subscription.cancel()
+subscription.cancel()         // to unsubscribe
 //#subscribeSequencerState

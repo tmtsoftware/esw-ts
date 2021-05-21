@@ -342,8 +342,8 @@ Typescript
 
 ### Subscribing to Sequencer State
 
-We can subscribe to Sequencer's state and the current stepList data using `subscribeSequencerState` method.
-This method returns a Subscription of `SequencerStateResponse`
+To subscribe to state of Sequencer, `subscribeSequencerState` method can be used. This method invokes the given `callback` on every state change with newly received `SequencerStateResponse`.
+`SequencerStateResponse` contains the current `SequencerState` and `StepList`. This method returns a `Subscription` which can be used to unsubscribe, as shown in example. 
 
 Type definitions for `subscribeSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#subscribeSequencerState)
 
