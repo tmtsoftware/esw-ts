@@ -17,7 +17,8 @@ import {
   SubmitResponse,
   SequencerState,
   SequencerStateResponse,
-  Subscription
+  Subscription,
+  Sequence
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -43,7 +44,7 @@ const observeCommand2 = new Observe(eswTestPrefix, 'observe-command2')
 
 //#sequence-creation
 //sequence is a list of SequenceCommand
-const sequence = [setupCommand1, observeCommand1]
+const sequence = new Sequence([setupCommand1, observeCommand1])
 //#sequence-creation
 
 //#loadSequence
