@@ -3,7 +3,7 @@ import type { AlarmKey, AlarmSeverity } from '../clients/alarm'
 import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
 
-export const AlarmKeyD: Decoder<AlarmKey> = D.type({
+export const AlarmKeyD: Decoder<AlarmKey> = D.struct({
   prefix: PrefixD,
   name: D.string
 })

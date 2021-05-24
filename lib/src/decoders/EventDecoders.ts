@@ -12,7 +12,7 @@ export const EventNameD: Decoder<EventName> = pipe(
   D.parse((name) => D.success(new EventName(name)))
 )
 
-export const EventKeyD: Decoder<EventKey> = D.type({
+export const EventKeyD: Decoder<EventKey> = D.struct({
   source: PrefixD,
   eventName: EventNameD
 })
@@ -27,7 +27,7 @@ interface BaseEvent {
 
 export const mkEventD = <T extends Event>(_type: T['_type'], factory: (e: BaseEvent) => T) =>
   pipe(
-    D.type({
+    D.struct({
       _type: ciLiteral(_type),
       eventId: D.string,
       source: PrefixD,

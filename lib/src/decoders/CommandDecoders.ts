@@ -15,7 +15,7 @@ const mkCommandD = <L extends CommandType, T extends Command<L>>(
 ): Decoder<T> =>
   pipe(
     D.intersect(
-      D.type({
+      D.struct({
         _type: ciLiteral(_type),
         source: PrefixD,
         commandName: D.string,
@@ -76,31 +76,31 @@ export const IssueTypesD: Decoder<CR.IssueTypes> = ciLiteral(
   'WrongUnitsIssue'
 )
 
-export const CommandIssueD: Decoder<CR.CommandIssue> = D.type({
+export const CommandIssueD: Decoder<CR.CommandIssue> = D.struct({
   _type: IssueTypesD,
   reason: D.string
 })
 
-const ErrorD: Decoder<CR.Error> = D.type({
+const ErrorD: Decoder<CR.Error> = D.struct({
   _type: ciLiteral('Error'),
   runId: D.string,
   message: D.string
 })
 
-const InvalidD: Decoder<CR.Invalid> = D.type({
+const InvalidD: Decoder<CR.Invalid> = D.struct({
   _type: ciLiteral('Invalid'),
   runId: D.string,
   issue: CommandIssueD
 })
 
-const CompletedD: Decoder<CR.Completed> = D.type({
+const CompletedD: Decoder<CR.Completed> = D.struct({
   _type: ciLiteral('Completed'),
   runId: D.string,
   result: ResultD
 })
 
 const mkCommandResD = <L extends string>(type: L): Decoder<{ _type: L; runId: string }> =>
-  D.type({
+  D.struct({
     _type: ciLiteral(type),
     runId: D.string
   })

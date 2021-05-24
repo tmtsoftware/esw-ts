@@ -25,7 +25,7 @@ type ConnectionDecoder<L extends ConnectionType> = Decoder<{
 }>
 
 const mkConnectionD = <L extends ConnectionType>(connectionType: L): ConnectionDecoder<L> =>
-  D.type({
+  D.struct({
     connectionType: ciLiteral(connectionType),
     prefix: PrefixD,
     componentType: ComponentTypeD
@@ -56,7 +56,7 @@ const mkLocationD = <L extends LocationType, C extends Connection>(
   locationType: L,
   connection: Decoder<C>
 ): LocationDecoder<L, C> =>
-  D.type({
+  D.struct({
     _type: ciLiteral(locationType),
     connection: connection,
     uri: D.string,
@@ -75,12 +75,12 @@ export const LocationD: Decoder<Location> = D.sum('_type')({
 
 export const LocationListD: Decoder<Location[]> = D.array(LocationD)
 
-const LocationUpdatedD: Decoder<LocationUpdated> = D.type({
+const LocationUpdatedD: Decoder<LocationUpdated> = D.struct({
   _type: D.literal('LocationUpdated'),
   location: LocationD
 })
 
-const LocationRemovedD: Decoder<LocationRemoved> = D.type({
+const LocationRemovedD: Decoder<LocationRemoved> = D.struct({
   _type: D.literal('LocationRemoved'),
   connection: ConnectionD
 })

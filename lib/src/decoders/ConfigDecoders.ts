@@ -16,7 +16,7 @@ export const ConfigIdD: Decoder<ConfigId> = pipe(
   D.parse((name) => D.success(new ConfigId(name)))
 )
 
-export const ConfigFileInfoD: Decoder<ConfigFileInfo> = D.type({
+export const ConfigFileInfoD: Decoder<ConfigFileInfo> = D.struct({
   path: D.string,
   id: ConfigIdD,
   author: D.string,
@@ -25,7 +25,7 @@ export const ConfigFileInfoD: Decoder<ConfigFileInfo> = D.type({
 
 export const ConfigFileInfosD: Decoder<ConfigFileInfo[]> = D.array(ConfigFileInfoD)
 
-export const ConfigFileRevisionD: Decoder<ConfigFileRevision> = D.type({
+export const ConfigFileRevisionD: Decoder<ConfigFileRevision> = D.struct({
   id: ConfigIdD,
   author: D.string,
   comment: D.string,
@@ -34,7 +34,7 @@ export const ConfigFileRevisionD: Decoder<ConfigFileRevision> = D.type({
 
 export const ConfigFileRevisionsD: Decoder<ConfigFileRevision[]> = D.array(ConfigFileRevisionD)
 
-export const ConfigMetadataD: Decoder<ConfigMetadata> = D.type({
+export const ConfigMetadataD: Decoder<ConfigMetadata> = D.struct({
   repoPath: D.string,
   annexPath: D.string,
   annexMinFileSize: D.string,

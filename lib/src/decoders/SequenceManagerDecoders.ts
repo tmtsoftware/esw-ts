@@ -13,95 +13,95 @@ export const ObsModeD: Decoder<ObsMode> = pipe(
   D.parse((name) => D.success(new ObsMode(name)))
 )
 
-const SequenceComponentNotAvailableD: Decoder<T.SequenceComponentNotAvailable> = D.type({
+const SequenceComponentNotAvailableD: Decoder<T.SequenceComponentNotAvailable> = D.struct({
   _type: ciLiteral('SequenceComponentNotAvailable'),
   subsystems: D.array(SubsystemD),
   msg: D.string
 })
 
-const ConfigurationMissingD: Decoder<T.ConfigurationMissing> = D.type({
+const ConfigurationMissingD: Decoder<T.ConfigurationMissing> = D.struct({
   _type: ciLiteral('ConfigurationMissing'),
   obsMode: ObsModeD
 })
 
-const FailedToStartSequencersD: Decoder<T.FailedToStartSequencers> = D.type({
+const FailedToStartSequencersD: Decoder<T.FailedToStartSequencers> = D.struct({
   _type: ciLiteral('FailedToStartSequencers'),
   reasons: D.array(D.string)
 })
 
-const ConflictingResourcesWithRunningObsModeD: Decoder<T.ConflictingResourcesWithRunningObsMode> = D.type(
+const ConflictingResourcesWithRunningObsModeD: Decoder<T.ConflictingResourcesWithRunningObsMode> = D.struct(
   {
     _type: ciLiteral('ConflictingResourcesWithRunningObsMode'),
     runningObsMode: D.array(ObsModeD)
   }
 )
 
-const SpawningSequenceComponentsFailedD: Decoder<T.SpawningSequenceComponentsFailed> = D.type({
+const SpawningSequenceComponentsFailedD: Decoder<T.SpawningSequenceComponentsFailed> = D.struct({
   _type: ciLiteral('SpawningSequenceComponentsFailed'),
   failureResponses: D.array(D.string)
 })
 
-const LoadScriptErrorD: Decoder<T.LoadScriptError> = D.type({
+const LoadScriptErrorD: Decoder<T.LoadScriptError> = D.struct({
   _type: ciLiteral('LoadScriptError'),
   reason: D.string
 })
 
-const SuccessD: Decoder<T.Success> = D.type({ _type: ciLiteral('Success') })
+const SuccessD: Decoder<T.Success> = D.struct({ _type: ciLiteral('Success') })
 
 // api specific ADT decoders
-const ConfigureSuccessD: Decoder<T.ConfigureSuccess> = D.type({
+const ConfigureSuccessD: Decoder<T.ConfigureSuccess> = D.struct({
   _type: ciLiteral('Success'),
   masterSequencerComponentId: ComponentIdD
 })
 
-const FailedResponseD: Decoder<T.FailedResponse> = D.type({
+const FailedResponseD: Decoder<T.FailedResponse> = D.struct({
   _type: ciLiteral('FailedResponse'),
   reason: D.string
 })
 
-const CouldNotFindMachinesD: Decoder<T.CouldNotFindMachines> = D.type({
+const CouldNotFindMachinesD: Decoder<T.CouldNotFindMachines> = D.struct({
   _type: ciLiteral('CouldNotFindMachines'),
   prefix: D.array(PrefixD)
 })
 
-const RestartSequencerSuccessD: Decoder<T.RestartSequencerSuccess> = D.type({
+const RestartSequencerSuccessD: Decoder<T.RestartSequencerSuccess> = D.struct({
   _type: ciLiteral('Success'),
   componentId: ComponentIdD
 })
 
-export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.type({
+export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.struct({
   _type: ciLiteral('Configured', 'Configurable', 'NonConfigurable')
 })
 
-export const ObsModeDetailsD: Decoder<T.ObsModeDetails> = D.type({
+export const ObsModeDetailsD: Decoder<T.ObsModeDetails> = D.struct({
   obsMode: ObsModeD,
   status: ObsModeStatusD,
   sequencers: D.array(SubsystemD),
   resources: D.array(SubsystemD)
 })
 
-const ObsModesDetailsResponseSuccessD: Decoder<T.ObsModesDetailsResponseSuccess> = D.type({
+const ObsModesDetailsResponseSuccessD: Decoder<T.ObsModesDetailsResponseSuccess> = D.struct({
   _type: ciLiteral('Success'),
   obsModes: D.array(ObsModeDetailsD)
 })
 
-const AlreadyRunningD: Decoder<T.AlreadyRunning> = D.type({
+const AlreadyRunningD: Decoder<T.AlreadyRunning> = D.struct({
   _type: ciLiteral('AlreadyRunning'),
   componentId: ComponentIdD
 })
 
-const StartedD: Decoder<T.SequencerStarted> = D.type({
+const StartedD: Decoder<T.SequencerStarted> = D.struct({
   _type: ciLiteral('Started'),
   componentId: ComponentIdD
 })
 
-export const ResourceStatusD: Decoder<T.ResourceStatus> = D.type({
+export const ResourceStatusD: Decoder<T.ResourceStatus> = D.struct({
   _type: ciLiteral('InUse', 'Available')
 })
 
 export const ResourceStatusResponseD: Decoder<T.ResourceStatusResponse> = pipe(
   D.intersect(
-    D.type({
+    D.struct({
       resource: SubsystemD,
       status: ResourceStatusD
     })
@@ -115,7 +115,7 @@ export const ResourceStatusResponseD: Decoder<T.ResourceStatusResponse> = pipe(
   )
 )
 
-const ResourcesStatusSuccessD: Decoder<T.ResourcesStatusSuccess> = D.type({
+const ResourcesStatusSuccessD: Decoder<T.ResourcesStatusSuccess> = D.struct({
   _type: ciLiteral('Success'),
   resourcesStatus: D.array(ResourceStatusResponseD)
 })

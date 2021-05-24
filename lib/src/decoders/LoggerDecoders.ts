@@ -5,7 +5,7 @@ import { ciLiteral, Decoder } from './Decoder'
 
 export const LevelD: Decoder<Level> = ciLiteral('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL')
 
-export const LogMetadataD: Decoder<LogMetadata> = D.type({
+export const LogMetadataD: Decoder<LogMetadata> = D.struct({
   defaultLevel: LevelD,
   akkaLevel: LevelD,
   slf4jLevel: LevelD,

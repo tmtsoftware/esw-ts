@@ -42,17 +42,17 @@ export const SolarSystemObjectD: Decoder<SolarSystemObject> = ciLiteral(
 
 export const EqFrameD: Decoder<EqFrame> = ciLiteral('ICRS', 'FK5')
 
-export const RaDecD: Decoder<RaDec> = D.type({
+export const RaDecD: Decoder<RaDec> = D.struct({
   ra: D.number,
   dec: D.number
 })
 
-export const ProperMotionD: Decoder<ProperMotion> = D.type({
+export const ProperMotionD: Decoder<ProperMotion> = D.struct({
   pmx: D.number,
   pmy: D.number
 })
 
-export const EqCoordD: Decoder<EqCoord> = D.type({
+export const EqCoordD: Decoder<EqCoord> = D.struct({
   _type: ciLiteral('EqCoord'),
   tag: TagD,
   ra: D.number,
@@ -62,7 +62,7 @@ export const EqCoordD: Decoder<EqCoord> = D.type({
   pm: ProperMotionD
 })
 
-export const MinorPlanetCoordD: Decoder<MinorPlanetCoord> = D.type({
+export const MinorPlanetCoordD: Decoder<MinorPlanetCoord> = D.struct({
   _type: ciLiteral('MinorPlanetCoord'),
   tag: TagD,
   epoch: D.number,
@@ -74,13 +74,13 @@ export const MinorPlanetCoordD: Decoder<MinorPlanetCoord> = D.type({
   meanAnomaly: D.number
 })
 
-export const SolarSystemCoordD: Decoder<SolarSystemCoord> = D.type({
+export const SolarSystemCoordD: Decoder<SolarSystemCoord> = D.struct({
   _type: ciLiteral('SolarSystemCoord'),
   tag: TagD,
   body: SolarSystemObjectD
 })
 
-export const CometCoordD: Decoder<CometCoord> = D.type({
+export const CometCoordD: Decoder<CometCoord> = D.struct({
   _type: ciLiteral('CometCoord'),
   tag: TagD,
   epochOfPerihelion: D.number,
@@ -91,7 +91,7 @@ export const CometCoordD: Decoder<CometCoord> = D.type({
   eccentricity: D.number
 })
 
-export const AltAzCoordD: Decoder<AltAzCoord> = D.type({
+export const AltAzCoordD: Decoder<AltAzCoord> = D.struct({
   _type: ciLiteral('AltAzCoord'),
   tag: TagD,
   alt: D.number,

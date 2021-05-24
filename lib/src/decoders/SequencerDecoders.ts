@@ -14,34 +14,34 @@ import { SequenceCommandD } from './CommandDecoders'
 import { UnhandledD } from './CommonDecoders'
 import { ciLiteral, Decoder } from './Decoder'
 
-const OkD: Decoder<T.Ok> = D.type({
+const OkD: Decoder<T.Ok> = D.struct({
   _type: ciLiteral('Ok')
 })
 
-const CannotOperateOnAnInFlightOrFinishedStepD: Decoder<T.CannotOperateOnAnInFlightOrFinishedStep> = D.type(
+const CannotOperateOnAnInFlightOrFinishedStepD: Decoder<T.CannotOperateOnAnInFlightOrFinishedStep> = D.struct(
   {
     _type: ciLiteral('CannotOperateOnAnInFlightOrFinishedStep')
   }
 )
 
-const IdDoesNotExistD: Decoder<T.IdDoesNotExist> = D.type({
+const IdDoesNotExistD: Decoder<T.IdDoesNotExist> = D.struct({
   _type: ciLiteral('IdDoesNotExist'),
   id: D.string
 })
 
-const GoOnlineHookFailedD: Decoder<T.GoOnlineHookFailed> = D.type({
+const GoOnlineHookFailedD: Decoder<T.GoOnlineHookFailed> = D.struct({
   _type: ciLiteral('GoOnlineHookFailed')
 })
 
-const GoOfflineHookFailedD: Decoder<T.GoOfflineHookFailed> = D.type({
+const GoOfflineHookFailedD: Decoder<T.GoOfflineHookFailed> = D.struct({
   _type: ciLiteral('GoOfflineHookFailed')
 })
 
-const DiagnosticHookFailedD: Decoder<T.DiagnosticHookFailed> = D.type({
+const DiagnosticHookFailedD: Decoder<T.DiagnosticHookFailed> = D.struct({
   _type: ciLiteral('DiagnosticHookFailed')
 })
 
-const OperationsHookFailedD: Decoder<T.OperationsHookFailed> = D.type({
+const OperationsHookFailedD: Decoder<T.OperationsHookFailed> = D.struct({
   _type: ciLiteral('OperationsHookFailed')
 })
 
@@ -91,14 +91,14 @@ export const OperationsModeResponseD: Decoder<T.OperationsModeResponse> = D.sum(
 })
 
 const mkStepStatusD = <T extends string>(_type: T): Decoder<{ _type: T }> =>
-  D.type({
+  D.struct({
     _type: D.literal(_type)
   })
 
 const StepStatusPendingD: Decoder<StepStatusPending> = mkStepStatusD('Pending')
 const StepStatusInFlightD: Decoder<StepStatusInFlight> = mkStepStatusD('InFlight')
 const StepStatusSuccessD: Decoder<StepStatusSuccess> = mkStepStatusD('Success')
-const StepStatusFailureD: Decoder<StepStatusFailure> = D.type({
+const StepStatusFailureD: Decoder<StepStatusFailure> = D.struct({
   _type: D.literal('Failure'),
   message: D.string
 })
@@ -110,7 +110,7 @@ export const StepStatusD: Decoder<StepStatus> = D.sum('_type')({
   Failure: StepStatusFailureD
 })
 
-export const StepD: Decoder<Step> = D.type({
+export const StepD: Decoder<Step> = D.struct({
   id: D.string,
   command: SequenceCommandD,
   status: StepStatusD,
@@ -123,7 +123,7 @@ export const StepListD: Decoder<StepList> = pipe(
 )
 export const OptionOfStepList: Decoder<StepList[]> = D.array(StepListD)
 
-export const SequencerStateD: Decoder<T.SequencerState> = D.type({
+export const SequencerStateD: Decoder<T.SequencerState> = D.struct({
   _type: ciLiteral('Idle', 'Processing', 'Loaded', 'Offline', 'Running')
 })
 

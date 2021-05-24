@@ -25,7 +25,7 @@ type ParamDecoder<T> = Decoder<{
 // ---------------------------------
 
 const ParamBodyDecoder = <T>(valuesDec: Decoder<T>): ParamDecoder<T> =>
-  D.type({
+  D.struct({
     keyName: D.string,
     values: D.array(valuesDec),
     units: UnitsD
@@ -39,7 +39,7 @@ const mkRawKeyD = <KType>(kType: Decoder<KType>) => <KTag extends string>(
   // populate [key -> decoder] record, used while decoding parameter
   paramDecoders[kTag] = ParamBodyDecoder(kType)
 
-  return D.type({
+  return D.struct({
     keyTag: ciLiteral(kTag),
     keyType: kType
   })

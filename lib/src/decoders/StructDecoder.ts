@@ -6,7 +6,7 @@ import { ParameterD } from './ParameterDecoder'
 
 export const StructD: Decoder<Struct> = D.lazy('Struct', () =>
   pipe(
-    D.type({
+    D.struct({
       paramSet: D.array(ParameterD)
     }),
     D.parse((s) => D.success(new Struct(s.paramSet)))

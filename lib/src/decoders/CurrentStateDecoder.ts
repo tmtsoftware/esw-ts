@@ -8,7 +8,7 @@ import { PrefixD } from './PrefixDecoder'
 // todo: scala has state variable ADT (CurrentState | DemandState)
 // _type: "CurrentState" prop present in json coming from scala
 export const CurrentStateD: Decoder<CurrentState> = pipe(
-  D.type({
+  D.struct({
     prefix: PrefixD,
     stateName: D.string,
     paramSet: D.array(ParameterD)
