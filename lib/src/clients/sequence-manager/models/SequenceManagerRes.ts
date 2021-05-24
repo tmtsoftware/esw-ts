@@ -10,6 +10,11 @@ export type SequenceComponentNotAvailable = {
   msg: string
 }
 
+export type FailedResponse = {
+  _type: 'FailedResponse'
+  reason: string
+}
+
 export type ConfigurationMissing = {
   _type: 'ConfigurationMissing'
   obsMode: ObsMode
@@ -105,6 +110,7 @@ export type ConfigureResponse =
   | FailedToStartSequencers
   | ConflictingResourcesWithRunningObsMode
   | ConfigureSuccess
+  | FailedResponse
 /**
  * @category Sequence Manager Service
  */
@@ -114,6 +120,7 @@ export type ProvisionResponse =
   | LocationServiceError
   | SpawningSequenceComponentsFailed
   | CouldNotFindMachines
+  | FailedResponse
 /**
  * @category Sequence Manager Service
  */
@@ -128,6 +135,7 @@ export type StartSequencerResponse =
   | LocationServiceError
   | AlreadyRunning
   | SequencerStarted
+  | FailedResponse
 /**
  * @category Sequence Manager Service
  */
@@ -136,14 +144,15 @@ export type RestartSequencerResponse =
   | LoadScriptError
   | LocationServiceError
   | RestartSequencerSuccess
+  | FailedResponse
 /**
  * @category Sequence Manager Service
  */
-export type ShutdownSequencersResponse = Unhandled | LocationServiceError | Success
+export type ShutdownSequencersResponse = Unhandled | LocationServiceError | Success | FailedResponse
 /**
  * @category Sequence Manager Service
  */
-export type ShutdownSequenceComponentResponse = ShutdownSequencersResponse
+export type ShutdownSequenceComponentResponse = ShutdownSequencersResponse | FailedResponse
 /**
  * @category Sequence Manager Service
  */

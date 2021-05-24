@@ -54,6 +54,11 @@ const ConfigureSuccessD: Decoder<T.ConfigureSuccess> = D.type({
   masterSequencerComponentId: ComponentIdD
 })
 
+const FailedResponseD: Decoder<T.FailedResponse> = D.type({
+  _type: ciLiteral('FailedResponse'),
+  reason: D.string
+})
+
 const CouldNotFindMachinesD: Decoder<T.CouldNotFindMachines> = D.type({
   _type: ciLiteral('CouldNotFindMachines'),
   prefix: D.array(PrefixD)
@@ -122,7 +127,8 @@ export const ConfigureResponseD: Decoder<T.ConfigureResponse> = D.sum('_type')({
   LocationServiceError: LocationServiceErrorD,
   FailedToStartSequencers: FailedToStartSequencersD,
   ConflictingResourcesWithRunningObsMode: ConflictingResourcesWithRunningObsModeD,
-  Success: ConfigureSuccessD
+  Success: ConfigureSuccessD,
+  FailedResponse: FailedResponseD
 })
 
 export const ProvisionResponseD: Decoder<T.ProvisionResponse> = D.sum('_type')({
@@ -130,7 +136,8 @@ export const ProvisionResponseD: Decoder<T.ProvisionResponse> = D.sum('_type')({
   Success: SuccessD,
   LocationServiceError: LocationServiceErrorD,
   SpawningSequenceComponentsFailed: SpawningSequenceComponentsFailedD,
-  CouldNotFindMachines: CouldNotFindMachinesD
+  CouldNotFindMachines: CouldNotFindMachinesD,
+  FailedResponse: FailedResponseD
 })
 
 export const ObsModesDetailsResponseD: Decoder<T.ObsModesDetailsResponse> = D.sum('_type')({
@@ -145,14 +152,16 @@ export const StartSequencerResponseD: Decoder<T.StartSequencerResponse> = D.sum(
   LoadScriptError: LoadScriptErrorD,
   LocationServiceError: LocationServiceErrorD,
   AlreadyRunning: AlreadyRunningD,
-  Started: StartedD
+  Started: StartedD,
+  FailedResponse: FailedResponseD
 })
 
 export const RestartSequencerResponseD: Decoder<T.RestartSequencerResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   LoadScriptError: LoadScriptErrorD,
   LocationServiceError: LocationServiceErrorD,
-  Success: RestartSequencerSuccessD
+  Success: RestartSequencerSuccessD,
+  FailedResponse: FailedResponseD
 })
 
 export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersResponse> = D.sum(
@@ -160,7 +169,8 @@ export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersR
 )({
   Unhandled: UnhandledD,
   LocationServiceError: LocationServiceErrorD,
-  Success: SuccessD
+  Success: SuccessD,
+  FailedResponse: FailedResponseD
 })
 
 export const ResourcesStatusResponseD: Decoder<T.ResourcesStatusResponse> = D.sum('_type')({
