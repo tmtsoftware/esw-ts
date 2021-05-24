@@ -1,5 +1,4 @@
-import { Observe, Prefix, SequenceCommand, Setup } from '../../../../src'
-import { Sequence } from '../../../../src/clients/sequencer/models/Sequence'
+import { Observe, Prefix, SequenceCommand, Setup, Sequence } from '../../../../src'
 
 const setup = new Setup(Prefix.fromString('ESW.ESW_2'), 'temperature')
 const observe = new Observe(Prefix.fromString('ESW.ESW_1'), 'temperature')
@@ -8,7 +7,7 @@ const invalidJson: SequenceCommand = observe
 
 describe('Sequence', () => {
   test('should return commands if proper list of commands is sent | ESW-491', () => {
-    const sequence: Sequence = Sequence.fromString(JSON.stringify(validJson))
+    const sequence: Sequence = Sequence.from(JSON.parse(JSON.stringify(validJson)))
 
     expect(sequence).toBeDefined()
     expect(sequence.commands).toHaveLength(2)
@@ -17,6 +16,6 @@ describe('Sequence', () => {
   })
 
   test('should return error if proper list of commands not sent | ESW-491', () => {
-    expect(() => Sequence.fromString(JSON.stringify(invalidJson))).toThrow()
+    expect(() => Sequence.from(JSON.parse(JSON.stringify(invalidJson)))).toThrow()
   })
 })
