@@ -1,9 +1,10 @@
 import type { SequenceCommand } from '../../../models'
+import type { Sequence } from './Sequence'
 
 export class LoadSequence {
   readonly _type: 'LoadSequence' = 'LoadSequence'
 
-  constructor(readonly sequence: SequenceCommand[]) {}
+  constructor(readonly sequence: Sequence) {}
 }
 
 export class StartSequence {
@@ -108,7 +109,7 @@ export class DiagnosticMode {
 export class Submit {
   readonly _type: 'Submit' = 'Submit'
 
-  constructor(readonly sequence: SequenceCommand[]) {}
+  constructor(readonly sequence: Sequence) {}
 }
 
 export class Query {

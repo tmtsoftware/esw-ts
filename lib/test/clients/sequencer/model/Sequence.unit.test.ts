@@ -3,7 +3,7 @@ import { Sequence } from '../../../../src/clients/sequencer/models/Sequence'
 
 const setup = new Setup(Prefix.fromString('ESW.ESW_2'), 'temperature')
 const observe = new Observe(Prefix.fromString('ESW.ESW_1'), 'temperature')
-const validJson: Sequence = { commands: [observe, setup] }
+const validJson = [observe, setup]
 const invalidJson: SequenceCommand = observe
 
 describe('Sequence', () => {
@@ -17,8 +17,6 @@ describe('Sequence', () => {
   })
 
   test('should return error if proper list of commands not sent | ESW-491', () => {
-    expect(() => Sequence.fromString(JSON.stringify(invalidJson))).toThrow(
-      'required property "commands"'
-    )
+    expect(() => Sequence.fromString(JSON.stringify(invalidJson))).toThrow()
   })
 })

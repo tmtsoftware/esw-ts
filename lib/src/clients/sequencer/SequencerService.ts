@@ -9,9 +9,10 @@ import type {
   PauseResponse,
   RemoveBreakpointResponse,
   TokenFactory,
-  Subscription
+  Subscription,
+  Sequence
 } from '../..'
-import { GATEWAY_CONNECTION } from '../../config/Connections'
+import { GATEWAY_CONNECTION } from '../../config'
 import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
@@ -32,7 +33,7 @@ export interface SequencerService {
    * @param sequence            a sequence to load in the sequencer
    * @returns                   OkOrUnhandledResponse as Promise
    */
-  loadSequence(sequence: SequenceCommand[]): Promise<OkOrUnhandledResponse>
+  loadSequence(sequence: Sequence): Promise<OkOrUnhandledResponse>
 
   /**
    * Runs the loaded sequence
@@ -192,7 +193,7 @@ export interface SequencerService {
    * @param sequence              sequence to run on the sequencer
    * @return                      SubmitResponse as Promise
    */
-  submit(sequence: SequenceCommand[]): Promise<SubmitResponse>
+  submit(sequence: Sequence): Promise<SubmitResponse>
 
   /**
    * Submit the given sequence to the sequencer and waits until sequence execution completed
@@ -202,7 +203,7 @@ export interface SequencerService {
    * @param timeoutInSeconds      timeout within which result is expected.
    * @return                      SubmitResponse as Promise
    */
-  submitAndWait(sequence: SequenceCommand[], timeoutInSeconds: number): Promise<SubmitResponse>
+  submitAndWait(sequence: Sequence, timeoutInSeconds: number): Promise<SubmitResponse>
 
   /**
    * Queries the response of sequence of the given runId

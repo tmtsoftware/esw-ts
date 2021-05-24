@@ -1,15 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
 import { mocked } from 'ts-jest/utils'
-import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
-import * as Req from '../../../src/clients/sequencer/models/PostCommand'
-import {
-  QueryFinal,
-  SequencerWebsocketRequest
-} from '../../../src/clients/sequencer/models/WsCommand'
-import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
-import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
-import * as Res from '../../../src/decoders/SequencerDecoders'
-import { SequencerStateD } from '../../../src/decoders/SequencerDecoders'
 import {
   ComponentId,
   intKey,
@@ -20,8 +10,19 @@ import {
   SequenceCommand,
   Setup,
   stringKey,
-  Wait
-} from '../../../src/models'
+  Wait,
+  Sequence
+} from '../../../src'
+import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
+import * as Req from '../../../src/clients/sequencer/models/PostCommand'
+import {
+  QueryFinal,
+  SequencerWebsocketRequest
+} from '../../../src/clients/sequencer/models/WsCommand'
+import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
+import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
+import * as Res from '../../../src/decoders/SequencerDecoders'
+import { SequencerStateD } from '../../../src/decoders/SequencerDecoders'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -36,7 +37,7 @@ const eswTestPrefix = Prefix.fromString('ESW.test')
 const setupCommand = new Setup(eswTestPrefix, 'command-1', [])
 const waitCommand = new Wait(eswTestPrefix, 'command-1', [])
 const commands: SequenceCommand[] = [setupCommand, waitCommand]
-const sequence: SequenceCommand[] = [setupCommand]
+const sequence: Sequence = new Sequence([setupCommand])
 
 const mockResponse = Math.random().toString()
 const httpTransport: HttpTransport<

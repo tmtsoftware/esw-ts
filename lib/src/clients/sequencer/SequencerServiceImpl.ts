@@ -1,4 +1,5 @@
 import type * as T from '../..'
+import type { Sequence } from '../..'
 import { SubmitResponseD } from '../../decoders/CommandDecoders'
 import { BooleanD } from '../../decoders/CommonDecoders'
 import type { Decoder } from '../../decoders/Decoder'
@@ -24,7 +25,7 @@ export class SequencerServiceImpl implements SequencerService {
     private readonly ws: () => Ws<GatewaySequencerCommand<SequencerWebsocketRequest>>
   ) {}
 
-  loadSequence(sequence: SequenceCommand[]): Promise<T.OkOrUnhandledResponse> {
+  loadSequence(sequence: Sequence): Promise<T.OkOrUnhandledResponse> {
     return this.postSequencerCmd(new Req.LoadSequence(sequence), Res.OkOrUnhandledResponseD)
   }
 
@@ -111,14 +112,11 @@ export class SequencerServiceImpl implements SequencerService {
     return this.postSequencerCmd(new Req.OperationsMode(), Res.OperationsModeResponseD)
   }
 
-  submit(sequence: SequenceCommand[]): Promise<SubmitResponse> {
+  submit(sequence: Sequence): Promise<SubmitResponse> {
     return this.postSequencerCmd(new Req.Submit(sequence), SubmitResponseD)
   }
 
-  async submitAndWait(
-    sequence: SequenceCommand[],
-    timeoutInSeconds: number
-  ): Promise<SubmitResponse> {
+  async submitAndWait(sequence: Sequence, timeoutInSeconds: number): Promise<SubmitResponse> {
     const submitResponse = await this.submit(sequence)
     if (submitResponse._type === 'Started') {
       return this.queryFinal(submitResponse.runId, timeoutInSeconds)

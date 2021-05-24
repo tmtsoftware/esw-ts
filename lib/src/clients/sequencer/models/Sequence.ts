@@ -3,9 +3,13 @@ import type { SequenceCommand } from '../../../models'
 import { getOrThrow } from '../../../utils/Utils'
 
 export class Sequence {
-  constructor(readonly commands: SequenceCommand[]) {}
+  constructor(readonly commands: [SequenceCommand, ...SequenceCommand[]]) {}
 
   static fromString(json: string): Sequence {
     return getOrThrow(SequenceD.decode(JSON.parse(json)))
+  }
+
+  toJSON() {
+    return this.commands
   }
 }

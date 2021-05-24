@@ -1,19 +1,27 @@
 import 'whatwg-fetch'
-import { Option, setAppConfigPath } from '../../src'
-import { SequencerService, StepList } from '../../src/clients/sequencer'
-import type {
-  SequencerState,
-  SequencerStateResponse
-} from '../../src/clients/sequencer/models/SequencerRes'
+import type { SequencerState, SequencerStateResponse } from '../../src'
+import {
+  ComponentId,
+  Option,
+  Prefix,
+  Sequence,
+  SequenceCommand,
+  SequencerService,
+  setAppConfigPath,
+  Setup,
+  StepList,
+  SubmitResponse
+} from '../../src'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { ComponentId, Prefix, SequenceCommand, Setup, SubmitResponse } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(90000)
 
 const eswTestPrefix = Prefix.fromString('ESW.test')
 const setupCommand = new Setup(eswTestPrefix, 'command', [])
-const sequence: SequenceCommand[] = [setupCommand]
+
+const commands: [SequenceCommand, ...SequenceCommand[]] = [setupCommand]
+const sequence: Sequence = new Sequence(commands)
 const validToken = 'validToken'
 let sequencerServiceWithToken: SequencerService
 let sequencerServiceWithoutToken: SequencerService
@@ -63,22 +71,22 @@ describe('Sequencer Client', () => {
   })
 
   test('should get ok response on add commands | ESW-307, ESW-99', async () => {
-    const response = await sequencerServiceWithToken.add(sequence)
+    const response = await sequencerServiceWithToken.add(commands)
     expect(response._type).toEqual('Ok')
   })
 
   test('should get ok response on prepend commands | ESW-307, ESW-99', async () => {
-    const response = await sequencerServiceWithToken.prepend(sequence)
+    const response = await sequencerServiceWithToken.prepend(commands)
     expect(response._type).toEqual('Ok')
   })
 
   test('should get ok response on replace | ESW-307, ESW-99', async () => {
-    const response = await sequencerServiceWithToken.replace('123', sequence)
+    const response = await sequencerServiceWithToken.replace('123', commands)
     expect(response._type).toEqual('Ok')
   })
 
   test('should get ok response on insertAfter | ESW-307, ESW-99', async () => {
-    const response = await sequencerServiceWithToken.insertAfter('123', sequence)
+    const response = await sequencerServiceWithToken.insertAfter('123', commands)
     expect(response._type).toEqual('Ok')
   })
 
