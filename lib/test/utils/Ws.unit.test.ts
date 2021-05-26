@@ -63,13 +63,13 @@ describe('Web socket util', () => {
     await delay(100)
     expect(mockServer.clients().length).toEqual(0)
   })
-  test('should call onError handle on decode error | ESW-510', () => {
+  test('should call onError handle on decode error & recieved server sent message | ESW-510', () => {
     return new Promise<void>(async (done) => {
       const message = 1234
       wsMockWithResolved(message, mockServer)
       expect.assertions(3)
       const onerror = (error: ServiceError) => {
-        expect(error.message).toBe('1234')
+        expect(error.message).toBe(1234)
         expect(error.status).toBe(SERVER_ERROR.code)
         expect(error.statusText).toBe('cannot decode 1234, should be string')
         done()

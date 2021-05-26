@@ -43,12 +43,11 @@ export class Ws<Req> {
   ) => {
     const parsedMessage = decoder
       ? E.mapLeft((e: D.DecodeError) =>
-          ServiceError.make(SERVER_ERROR.code, D.draw(e), event.data)
+          ServiceError.make(SERVER_ERROR.code, D.draw(e), JSON.parse(event.data))
         )(decoder.decode(JSON.parse(event.data)))
       : E.tryCatch(
           () => JSON.parse(event.data) as T,
-          (error) =>
-            ServiceError.make(SERVER_ERROR.code, SERVER_ERROR.status, error)
+          (error) => ServiceError.make(SERVER_ERROR.code, SERVER_ERROR.status, error)
         )
     E.bimap(onError, onSuccess)(parsedMessage)
   }
