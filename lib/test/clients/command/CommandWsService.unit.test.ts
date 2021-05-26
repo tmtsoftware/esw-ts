@@ -15,6 +15,7 @@ jest.mock('../../../src/utils/HttpTransport')
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
 const callback = () => ({})
+const onError = () => ({})
 const httpTransport: HttpTransport<
   GatewayComponentCommand<CommandServicePostMessage>
 > = new HttpTransport('')
@@ -29,12 +30,13 @@ describe('CommandService', () => {
     const stateNames = new Set(['stateName1', 'stateName2'])
     const msg = new WsReq.SubscribeCurrentState(stateNames)
 
-    client.subscribeCurrentState(stateNames)(callback)
+    client.subscribeCurrentState(stateNames)(callback, onError)
 
     verify(mockedWsTransport.subscribe).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
       callback,
-      CurrentStateD
+      CurrentStateD,
+      onError
     )
   })
 

@@ -9,7 +9,7 @@ import type { Auth } from '../../src/clients/aas'
 
 export const wsMockWithResolved = <T>(data: T, mockServer: Server) =>
   mockServer.on('connection', (socket) =>
-    socket.on('message', () => socket.send(JSON.stringify(data)))
+    socket.on('message', () => socket.send(data as any))
   )
 
 export const mockedKeyCloakInstance = (isAuthenticated = true): KeycloakInstance => {

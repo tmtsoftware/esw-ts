@@ -16,7 +16,7 @@ import { BooleanD } from '../../decoders/CommonDecoders'
 import type { Decoder } from '../../decoders/Decoder'
 import * as Res from '../../decoders/SequencerDecoders'
 import { SequencerStateResponseD } from '../../decoders/SequencerDecoders'
-import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
+import type { ComponentId, SequenceCommand, ServiceError, SubmitResponse } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
@@ -150,11 +150,15 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   subscribeSequencerState() {
-    return (callBack: (sequencerStateResponse: SequencerStateResponse) => void): Subscription =>
+    return (
+      callBack: (sequencerStateResponse: SequencerStateResponse) => void,
+      onError?: (error: ServiceError) => void
+    ): Subscription =>
       this.ws().subscribe(
         new GatewaySequencerCommand(this.componentId, new SubscribeSequencerState()),
         callBack,
-        SequencerStateResponseD
+        SequencerStateResponseD,
+        onError
       )
   }
 

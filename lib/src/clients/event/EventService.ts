@@ -1,6 +1,6 @@
 import type { Subscription } from '../..'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
-import type { Done, Subsystem } from '../../models'
+import type { Done, ServiceError, Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
@@ -46,7 +46,7 @@ export interface EventService {
   subscribe(
     eventKeys: Set<EventKey>,
     maxFrequency: number
-  ): (callback: (event: Event) => void) => Subscription
+  ): (callback: (event: Event) => void, onError?: (error: ServiceError) => void) => Subscription
 
   /**
    * This API subscribes to events of all the EventKeys specified using a `Subsystem`
@@ -70,7 +70,7 @@ export interface EventService {
     subsystem: Subsystem,
     maxFrequency: number,
     pattern: string
-  ): (callback: (event: Event) => void) => Subscription
+  ): (callback: (event: Event) => void, onError?: (error: ServiceError) => void) => Subscription
 }
 
 /**

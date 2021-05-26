@@ -3,7 +3,7 @@ import { OnewayResponseD, SubmitResponseD, ValidateResponseD } from '../../decod
 import { CurrentStateD } from '../../decoders/CurrentStateDecoder'
 import type { Decoder } from '../../decoders/Decoder'
 import type * as M from '../../models'
-import { isNegative } from '../../models'
+import { isNegative, ServiceError } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Ws } from '../../utils/Ws'
 import { GatewayComponentCommand } from '../gateway/models/Gateway'
@@ -50,19 +50,22 @@ export class CommandServiceImpl implements CommandService {
 
   private subscribe(
     stateNames: Set<string>,
-    onStateChange: (state: M.CurrentState) => void
+    onStateChange: (state: M.CurrentState) => void,
+    onError?: (error: ServiceError) => void
   ): Subscription {
     return this.ws().subscribe(
       this.componentWsCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
-      CurrentStateD
+      CurrentStateD,
+      onError
     )
   }
 
   subscribeCurrentState = (stateNames: Set<string>) => (
-    onStateChange: (state: M.CurrentState) => void
+    onStateChange: (state: M.CurrentState) => void,
+    onError?: (error: ServiceError) => void
   ): Subscription => {
-    const subscriptionResponse = this.subscribe(stateNames, onStateChange)
+    const subscriptionResponse = this.subscribe(stateNames, onStateChange, onError)
     return {
       cancel: async () => {
         const response = await subscriptionResponse

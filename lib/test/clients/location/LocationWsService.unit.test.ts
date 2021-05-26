@@ -26,10 +26,11 @@ const locationService = new LocationServiceImpl(httpTransport, () => ws)
 
 test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311', () => {
   const callback = () => ({})
+  const onError = () => ({})
 
-  locationService.track(httpConnection)(callback)
+  locationService.track(httpConnection)(callback, onError)
 
-  verify(mockWs.subscribe).toBeCalledWith(new Track(httpConnection), callback, TrackingEventD)
+  verify(mockWs.subscribe).toBeCalledWith(new Track(httpConnection), callback, TrackingEventD, onError)
 })
 
 afterEach(() => jest.resetAllMocks())

@@ -4,6 +4,7 @@ import type {
   CurrentState,
   Location,
   OnewayResponse,
+  ServiceError,
   SubmitResponse,
   Subscription,
   TokenFactory,
@@ -73,7 +74,10 @@ export interface CommandService {
    */
   subscribeCurrentState(
     stateNames: Set<string>
-  ): (onStateChange: (state: CurrentState) => void) => Subscription
+  ): (
+    onStateChange: (state: CurrentState) => void,
+    onError?: (error: ServiceError) => void
+  ) => Subscription
 
   /**
    * Submit a single command and wait for the result of the submitted command

@@ -1,9 +1,11 @@
+import * as D from 'io-ts/lib/Decoder'
+import * as E from 'fp-ts/lib/Either'
 import { Server } from 'mock-socket'
 import { delay } from '../../integration/utils/eventually'
+import type { ServiceError } from '../../src'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { Ws } from '../../src/utils/Ws'
 import { wsMockWithResolved } from '../helpers/MockHelpers'
-
 let mockServer: Server
 const host = 'localhost'
 const port = 8080
@@ -22,33 +24,35 @@ afterEach(() => {
   mockServer.close()
 })
 
+const noOp = () => ({})
 describe('Web socket util', () => {
   test('should subscribe | ESW-312', () => {
     expect.assertions(2)
 
     return new Promise<void>((done) => {
-      const expectedData = 'hello'
+      const expectedData = 'ping'
       const callBack = (data: string) => {
         expect(data).toEqual(expectedData)
         expect(mockServer.clients()[0].url).toEqual(`${url}?App-Name=test-app`)
         done()
       }
-      wsMockWithResolved(expectedData, mockServer)
-      new Ws(url).subscribe('hello', callBack)
+      wsMockWithResolved('\"ping\"', mockServer)
+      new Ws(url).subscribe('pong', callBack)
     })
   })
 
   test('should get singleResponse', async () => {
-    const expectedData = 'hello'
-    wsMockWithResolved(expectedData, mockServer)
+    const expectedData = 'ping'
+    wsMockWithResolved('\"ping\"', mockServer)
 
     expect.assertions(1)
-    const data = await new Ws(url).singleResponse<string>('hello')
+    const data = await new Ws(url).singleResponse<string>('pong', D.string)
     expect(data).toEqual(expectedData)
   })
 
   test('should cancel subscription', async () => {
-    wsMockWithResolved('', mockServer)
+    const emptyMessage = '\"\"'
+    wsMockWithResolved(emptyMessage, mockServer)
     expect.assertions(3)
 
     expect(mockServer.clients().length).toEqual(0)
@@ -59,5 +63,32 @@ describe('Web socket util', () => {
     subscription.cancel()
     await delay(100)
     expect(mockServer.clients().length).toEqual(0)
+  })
+  test('should call onError handle on decode error', async (done) => {
+    const message = 1234
+    wsMockWithResolved(message, mockServer)
+    expect.assertions(1)
+    const onerror = (error: ServiceError) => {
+      expect(error.message).toBe('cannot decode 1234, should be string')
+      done()
+    }
+
+    const subscription = new Ws(url).subscribe(message, noOp, D.string, (error) => onerror(error))
+
+    subscription.cancel()
+  })
+  test('should call onError handle on getting error while parsing message', async (done) => {
+    const message = '{123}'
+    expect.assertions(1)
+    wsMockWithResolved(message, mockServer)
+
+    const onerror = (error: ServiceError) => {
+      expect(error.message).toBe('Unexpected number in JSON at position 1')
+      done()
+    }
+
+    const subscription = new Ws(url).subscribe(message, noOp, undefined, (err) => onerror(err))
+    await delay(400)
+    subscription.cancel()
   })
 })

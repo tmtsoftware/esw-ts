@@ -1,6 +1,6 @@
 import type { Option, Subscription, TokenFactory } from '../..'
 import { LocationConfig } from '../../config'
-import type { ComponentType, Done, Prefix } from '../../models'
+import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
@@ -89,7 +89,12 @@ export interface LocationService {
    * @param callback            A function which gets triggered whenever a tracking event is received
    * @return                    Subscription which provides a handle to cancel the subscription
    */
-  track(connection: Connection): (callBack: (trackingEvent: TrackingEvent) => void) => Subscription
+  track(
+    connection: Connection
+  ): (
+    callBack: (trackingEvent: TrackingEvent) => void,
+    onError?: (error: ServiceError) => void
+  ) => Subscription
 }
 
 /**

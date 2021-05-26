@@ -1,7 +1,7 @@
 import type { Option, Subscription } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import { LocationListD, TrackingEventD } from '../../decoders/LocationDecoders'
-import type { ComponentType, Done, Prefix } from '../../models'
+import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
@@ -60,7 +60,9 @@ export class LocationServiceImpl implements LocationService {
   }
 
   track(connection: Connection) {
-    return (callBack: (trackingEvent: TrackingEvent) => void): Subscription =>
-      this.ws().subscribe(new Track(connection), callBack, TrackingEventD)
+    return (
+      onMessage: (trackingEvent: TrackingEvent) => void,
+      onError?: (error: ServiceError) => void
+    ): Subscription => this.ws().subscribe(new Track(connection), onMessage, TrackingEventD, onError)
   }
 }

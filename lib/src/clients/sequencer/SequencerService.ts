@@ -13,7 +13,7 @@ import type {
   Sequence
 } from '../..'
 import { GATEWAY_CONNECTION } from '../../config'
-import type { ComponentId, SequenceCommand, SubmitResponse } from '../../models'
+import type { ComponentId, SequenceCommand, ServiceError, SubmitResponse } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
@@ -240,7 +240,8 @@ export interface SequencerService {
    * @return                      Subscription
    */
   subscribeSequencerState(): (
-    callBack: (sequencerStateResponse: SequencerStateResponse) => void
+    onMessage: (sequencerStateResponse: SequencerStateResponse) => void,
+    onError?: (error: ServiceError) => void
   ) => Subscription
 }
 
