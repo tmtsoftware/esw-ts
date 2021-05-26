@@ -1,3 +1,5 @@
+import { SERVER_ERROR } from '../utils/Ws'
+
 /**
  * ServiceError is a model which captures all types of errors/exceptions received while making service calls
  * @class
@@ -15,14 +17,18 @@ export class ServiceError extends Error {
 
   static make(status: number, statusText: string, responseBody: any): ServiceError {
     const errorType: string =
-      status == 500
+      status == 500 || SERVER_ERROR.code
         ? responseBody._type
           ? responseBody._type
           : responseBody.error_name
         : 'TransportError'
 
     const message =
-      status == 500 && responseBody.error_message ? responseBody.error_message : responseBody
+      (status == 500 || SERVER_ERROR.code) && responseBody.error_message
+        ? responseBody.error_message
+        : responseBody.message //handle json parsing message's
+        ? responseBody.message
+        : responseBody
 
     return new ServiceError(errorType, message, status, statusText)
   }

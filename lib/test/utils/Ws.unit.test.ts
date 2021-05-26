@@ -3,7 +3,7 @@ import { Server } from 'mock-socket'
 import { delay } from '../../integration/utils/eventually'
 import type { ServiceError } from '../../src'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
-import { Ws } from '../../src/utils/Ws'
+import { SERVER_ERROR, Ws } from '../../src/utils/Ws'
 import { wsMockWithResolved } from '../helpers/MockHelpers'
 let mockServer: Server
 const host = 'localhost'
@@ -63,29 +63,15 @@ describe('Web socket util', () => {
     await delay(100)
     expect(mockServer.clients().length).toEqual(0)
   })
-  
   test('should call onError handle on decode error | ESW-510', () => {
     return new Promise<void>(async (done) => {
       const message = 1234
       wsMockWithResolved(message, mockServer)
-      expect.assertions(1)
+      expect.assertions(3)
       const onerror = (error: ServiceError) => {
-        expect(error.message).toBe('cannot decode 1234, should be string')
-        done()
-      }
-
-      const subscription = new Ws(url).subscribe(message, noOp, D.string, (error) => onerror(error))
-
-      subscription.cancel()
-    })
-  }) 
-  test('should call onError handle on decode error | ESW-510', () => {
-    return new Promise<void>(async (done) => {
-      const message = 1234
-      wsMockWithResolved(message, mockServer)
-      expect.assertions(1)
-      const onerror = (error: ServiceError) => {
-        expect(error.message).toBe('cannot decode 1234, should be string')
+        expect(error.message).toBe('1234')
+        expect(error.status).toBe(SERVER_ERROR.code)
+        expect(error.statusText).toBe('cannot decode 1234, should be string')
         done()
       }
 
@@ -97,10 +83,11 @@ describe('Web socket util', () => {
   test('should call onError handle on getting error while parsing message | ESW-510', () => {
     return new Promise<void>(async (done) => {
       const message = '{123}'
-      expect.assertions(1)
+      expect.assertions(2)
       wsMockWithResolved(message, mockServer)
 
       const onerror = (error: ServiceError) => {
+        expect(error.status).toBe(SERVER_ERROR.code)
         expect(error.message).toBe('Unexpected number in JSON at position 1')
         done()
       }

@@ -5,7 +5,7 @@ import type { Decoder } from '../decoders/Decoder'
 import { ServiceError, Subscription } from '../models'
 import { APP_NAME } from './Constants'
 
-const SERVER_ERROR = {
+export const SERVER_ERROR = {
   code: 1011,
   status: 'Server error'
 }
@@ -43,12 +43,12 @@ export class Ws<Req> {
   ) => {
     const parsedMessage = decoder
       ? E.mapLeft((e: D.DecodeError) =>
-          ServiceError.make(SERVER_ERROR.code, SERVER_ERROR.status, D.draw(e))
+          ServiceError.make(SERVER_ERROR.code, D.draw(e), event.data)
         )(decoder.decode(JSON.parse(event.data)))
       : E.tryCatch(
           () => JSON.parse(event.data) as T,
           (error) =>
-            ServiceError.make(SERVER_ERROR.code, SERVER_ERROR.status, (error as Error).message)
+            ServiceError.make(SERVER_ERROR.code, SERVER_ERROR.status, error)
         )
     E.bimap(onError, onSuccess)(parsedMessage)
   }
