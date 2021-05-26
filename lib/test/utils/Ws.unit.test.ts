@@ -63,7 +63,23 @@ describe('Web socket util', () => {
     await delay(100)
     expect(mockServer.clients().length).toEqual(0)
   })
-  test('should call onError handle on decode error', () => {
+  
+  test('should call onError handle on decode error | ESW-510', () => {
+    return new Promise<void>(async (done) => {
+      const message = 1234
+      wsMockWithResolved(message, mockServer)
+      expect.assertions(1)
+      const onerror = (error: ServiceError) => {
+        expect(error.message).toBe('cannot decode 1234, should be string')
+        done()
+      }
+
+      const subscription = new Ws(url).subscribe(message, noOp, D.string, (error) => onerror(error))
+
+      subscription.cancel()
+    })
+  }) 
+  test('should call onError handle on decode error | ESW-510', () => {
     return new Promise<void>(async (done) => {
       const message = 1234
       wsMockWithResolved(message, mockServer)
@@ -78,7 +94,7 @@ describe('Web socket util', () => {
       subscription.cancel()
     })
   })
-  test('should call onError handle on getting error while parsing message', () => {
+  test('should call onError handle on getting error while parsing message | ESW-510', () => {
     return new Promise<void>(async (done) => {
       const message = '{123}'
       expect.assertions(1)

@@ -26,7 +26,7 @@ const mockedWsTransport = mocked(ws)
 const client = new CommandServiceImpl(compId, httpTransport, () => ws)
 
 describe('CommandService', () => {
-  test('should subscribe to current state using websocket | ESW-305', () => {
+  test('should subscribe to current state using websocket | ESW-305, ESW-510', () => {
     const stateNames = new Set(['stateName1', 'stateName2'])
     const msg = new WsReq.SubscribeCurrentState(stateNames)
 

@@ -24,7 +24,7 @@ const httpTransport: HttpTransport<LocationHttpMessage> = new HttpTransport(
 )
 const locationService = new LocationServiceImpl(httpTransport, () => ws)
 
-test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311', () => {
+test('location service must track a location for given connection | ESW-308, ESW-310, ESW-311, ESW-510', () => {
   const callback = () => ({})
   const onError = () => ({})
 

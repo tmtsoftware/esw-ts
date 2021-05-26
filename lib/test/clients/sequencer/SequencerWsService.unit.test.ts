@@ -34,14 +34,15 @@ test('SequencerService should receive submit response on query final using webso
     SubmitResponseD
   )
 })
-test('SequencerService should receive sequencer state response on subscribe sequencer state using websocket | ESW-488', async () => {
+test('SequencerService should receive sequencer state response on subscribe sequencer state using websocket | ESW-488, ESW-510', async () => {
   const callback = () => ({})
-  sequencer.subscribeSequencerState()(callback)
+  const onError = () => ({})
+  sequencer.subscribeSequencerState()(callback, onError)
 
   verify(mockWs.subscribe).toBeCalledWith(
     new GatewaySequencerCommand(componentId, new SubscribeSequencerState()),
     callback,
     SequencerStateResponseD,
-    undefined
+    onError
   )
 })

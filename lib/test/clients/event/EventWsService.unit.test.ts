@@ -28,7 +28,7 @@ const mockWs = mocked(ws)
 const eventServiceImpl = new EventServiceImpl(httpTransport, () => ws)
 
 describe('Event Service', () => {
-  test('should subscribe event without default parameters using websocket | ESW-318', () => {
+  test('should subscribe event without default parameters using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.subscribe(eventKeys, 1)(callback, onError)
 
     verify(mockWs.subscribe).toBeCalledWith(
@@ -39,7 +39,7 @@ describe('Event Service', () => {
     )
   })
 
-  test('should subscribe event with default parameters using websocket | ESW-318', () => {
+  test('should subscribe event with default parameters using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.subscribe(eventKeys)(callback, onError)
 
     verify(mockWs.subscribe).toBeCalledWith(
@@ -50,7 +50,7 @@ describe('Event Service', () => {
     )
   })
 
-  test('should pattern subscribe event using websocket | ESW-318', () => {
+  test('should pattern subscribe event using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.pSubscribe(subsystem, 1, '.*')(callback, onError)
 
     verify(mockWs.subscribe).toBeCalledWith(
@@ -61,7 +61,7 @@ describe('Event Service', () => {
     )
   })
 
-  test('should pattern subscribe event with default parameters using websocket | ESW-318', () => {
+  test('should pattern subscribe event with default parameters using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.pSubscribe(subsystem)(callback, onError)
 
     verify(mockWs.subscribe).toBeCalledWith(
