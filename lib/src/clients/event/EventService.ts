@@ -41,6 +41,8 @@ export interface EventService {
    * @param eventKeys     Set of event keys to be subscribed.
    * @param maxFrequency  the duration which determines the frequency with which events are received
    * @param callback      the function which gets triggered on receiving an event
+   * @param onError       a optional error callback which gets called on receiving error.
+   *                      it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @return Subscription
    */
   subscribe(
@@ -64,6 +66,8 @@ export interface EventService {
    *                        - h[ae]llo subscribes to hello and hallo, but not hillo
    *
    * @param callback        the function which gets triggered on receiving an event
+   * @param onError         a optional error callback which gets called on receiving error.
+   *                        it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @return                Subscription
    */
   pSubscribe(

@@ -237,6 +237,8 @@ export interface SequencerService {
    * The callback will be called with new SequencerStateResponse on state change and returns a subscription to unsubscribe.
    *
    * @param callback              the function which gets called on each state change
+   * @param onError               a optional error callback which gets called on receiving error.
+   *                              it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @return                      Subscription
    */
   subscribeSequencerState(): (

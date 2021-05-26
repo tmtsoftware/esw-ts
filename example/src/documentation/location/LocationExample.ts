@@ -8,7 +8,8 @@ import {
   TrackingEvent,
   AkkaConnection,
   TcpConnection,
-  HttpLocation
+  HttpLocation,
+  ServiceError
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -122,6 +123,11 @@ if (maybeLocation1) {
 
 //#track
 // a callback function
+const onErrorCallback = (error: ServiceError) => {
+  // do something when error occurs
+  // for ex : close connection / cleanup resources
+  console.log(error)
+}
 const onTrackingEvent = (event: TrackingEvent) => {
   if (event._type === 'LocationRemoved') {
     // do something when connection's location is removed from the location service
@@ -132,7 +138,7 @@ const onTrackingEvent = (event: TrackingEvent) => {
 // connection to be tracked
 const httpConnection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
 
-locationService.track(httpConnection)(onTrackingEvent)
+locationService.track(httpConnection)(onTrackingEvent, onErrorCallback)
 
 //#track
 const g = () => {

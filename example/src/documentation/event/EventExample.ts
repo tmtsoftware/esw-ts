@@ -9,6 +9,7 @@ import {
   ObserveEvent,
   Parameter,
   Prefix,
+  ServiceError,
   Subscription
 } from '@tmtsoftware/esw-ts'
 
@@ -50,11 +51,15 @@ const ddd = async () => {
     // make use of ${event} inside this callback function
   }
   const eventKeys = new Set([eventKey1, eventKey2])
-
-  const subscription: Subscription = eventService.subscribe(
-    eventKeys,
-    10
-  )(onEventCallback)
+  const onErrorCallback = (error: ServiceError) => {
+    // do something when error occurs
+    // for ex : close connection / cleanup resources
+    console.log(error)
+  }
+  const subscription: Subscription = eventService.subscribe(eventKeys, 10)(
+    onEventCallback,
+    onErrorCallback
+  )
 
   //To cancel the subscription
   subscription.cancel()
@@ -67,13 +72,17 @@ const dddd = async () => {
     // make use of ${event} inside this callback function
     console.log(event)
   }
-
+  const onErrorCallback = (error: ServiceError) => {
+    // do something when error occurs
+    // for ex : close connection / cleanup resources
+    console.log(error)
+  }
   // subscribe to all ESW subsystem's event
   const subscription: Subscription = eventService.pSubscribe(
     'ESW',
     10,
     '.*'
-  )(onEventCallback)
+  )(onEventCallback, onErrorCallback)
 
   // subscribe to specific events having hcd in the event name
   const specificSubscription: Subscription = eventService.pSubscribe(

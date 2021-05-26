@@ -18,7 +18,8 @@ import {
   SequencerState,
   SequencerStateResponse,
   Subscription,
-  Sequence
+  Sequence,
+  ServiceError
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -184,8 +185,15 @@ const getSequencerState: SequencerState =
 const callBack = (sequencerStateResponse: SequencerStateResponse) => {
   console.log(sequencerStateResponse)
 }
-const subscription: Subscription =
-  sequencerService.subscribeSequencerState()(callBack)
+const onErrorCallback = (error: ServiceError) => {
+  // do something when error occurs
+  // for ex : close connection / cleanup resources
+  console.log(error)
+}
+const subscription: Subscription = sequencerService.subscribeSequencerState()(
+  callBack,
+  onErrorCallback
+)
 //...
-subscription.cancel()         // to unsubscribe
+subscription.cancel() // to unsubscribe
 //#subscribeSequencerState

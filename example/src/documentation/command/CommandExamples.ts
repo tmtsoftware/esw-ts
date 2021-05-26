@@ -6,7 +6,8 @@ import {
   Setup,
   Observe,
   Parameter,
-  Prefix
+  Prefix,
+  ServiceError
 } from '@tmtsoftware/esw-ts'
 
 import type {
@@ -116,11 +117,16 @@ const onStateChangeCallback = (currentState: CurrentState) => {
   // do something when state changes
   console.log('changed state:', currentState)
 }
+const onErrorCallback = (error: ServiceError) => {
+  // do something when error occurs
+  // for ex : close connection / cleanup resources
+  console.log(error)
+}
 
 // subscribe call
 const subscription: Subscription = await commandService.subscribeCurrentState(
   currentStates
-)(onStateChangeCallback)
+)(onStateChangeCallback, onErrorCallback)
 
 // .
 // .

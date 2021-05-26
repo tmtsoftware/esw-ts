@@ -87,6 +87,8 @@ export interface LocationService {
    *
    * @param connection          The Connection to be tracked
    * @param callback            A function which gets triggered whenever a tracking event is received
+   * @param onError             a optional error callback which gets called on receiving error.
+   *                            it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @return                    Subscription which provides a handle to cancel the subscription
    */
   track(
