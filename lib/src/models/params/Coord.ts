@@ -15,18 +15,13 @@ export type ProperMotion = {
  * A Tag is a label to indicate the use of the coordinate
  * @category Params
  */
-export type Tag =
-  | 'BASE'
-  | 'OIWFS1'
-  | 'OIWFS2'
-  | 'OIWFS3'
-  | 'OIWFS4'
-  | 'ODGW1'
-  | 'ODGW2'
-  | 'ODGW3'
-  | 'ODGW4'
-  | 'GUIDER1'
-  | 'GUIDER2'
+export class Tag {
+  constructor(readonly name: String) {}
+
+  toJSON(): String {
+    return this.name
+  }
+}
 
 export type SolarSystemObject =
   | 'Mercury'

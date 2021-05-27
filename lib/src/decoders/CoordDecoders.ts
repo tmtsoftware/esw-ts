@@ -10,22 +10,14 @@ import type {
   RaDec,
   SolarSystemCoord,
   SolarSystemObject,
-  Tag
 } from '../models'
+import { Tag } from "../models";
 import { ciLiteral, Decoder } from './Decoder'
+import { pipe } from "fp-ts/function";
 
-export const TagD: Decoder<Tag> = ciLiteral(
-  'BASE',
-  'OIWFS1',
-  'OIWFS2',
-  'OIWFS3',
-  'OIWFS4',
-  'ODGW1',
-  'ODGW2',
-  'ODGW3',
-  'ODGW4',
-  'GUIDER1',
-  'GUIDER2'
+export const TagD: Decoder<Tag> = pipe(
+  D.string,
+  D.parse((name) => D.success(new Tag(name)))
 )
 
 export const SolarSystemObjectD: Decoder<SolarSystemObject> = ciLiteral(
