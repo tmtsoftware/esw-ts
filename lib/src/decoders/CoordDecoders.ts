@@ -1,3 +1,4 @@
+import { pipe } from 'fp-ts/function'
 import * as D from 'io-ts/lib/Decoder'
 import type {
   AltAzCoord,
@@ -9,11 +10,10 @@ import type {
   ProperMotion,
   RaDec,
   SolarSystemCoord,
-  SolarSystemObject,
+  SolarSystemObject
 } from '../models'
-import { Tag } from "../models";
+import { Tag } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
-import { pipe } from "fp-ts/function";
 
 export const TagD: Decoder<Tag> = pipe(
   D.string,

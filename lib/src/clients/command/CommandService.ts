@@ -70,7 +70,7 @@ export interface CommandService {
    *
    * @param stateNames        Subscribe to the set of currentStates. If no states are provided, all the current states will be received.
    * @param onStateChange     a callback which gets called on change of any of the subscribed currentState
-   * @param onError           a optional error callback which gets called on receiving error. 
+   * @param onError           a optional error callback which gets called on receiving error.
    *                          it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @return                  Subscription which can be used to cancel to the subscription in future.
    */

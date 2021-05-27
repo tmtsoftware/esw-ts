@@ -20,6 +20,7 @@ import {
   coordKey,
   CometCoord
 } from '@tmtsoftware/esw-ts'
+import { Tag } from '@tmtsoftware/esw-ts'
 
 //#param-from-key
 
@@ -84,7 +85,7 @@ const structParameter = structKey('my struct').set([struct])
 //#coordinate-key
 
 const cometCoord = new CometCoord(
-  'BASE',
+  new Tag('BASE'),
   2000,
   324000000000,
   7200000000,

@@ -16,9 +16,9 @@ export type ProperMotion = {
  * @category Params
  */
 export class Tag {
-  constructor(readonly name: String) {}
+  constructor(readonly name: string) {}
 
-  toJSON(): String {
+  toJSON(): string {
     return this.name
   }
 }
