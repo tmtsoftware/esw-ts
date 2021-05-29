@@ -1,15 +1,14 @@
 import {
-  LocationService,
-  Location,
-  Prefix,
-  HttpConnection,
-  Option,
-  Done,
-  TrackingEvent,
   AkkaConnection,
+  Done,
+  HttpConnection,
+  Location,
+  LocationService,
+  Option,
+  Prefix,
+  ServiceError,
   TcpConnection,
-  HttpLocation,
-  ServiceError
+  TrackingEvent
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -18,9 +17,9 @@ const auth = { token: '' }
 //#location-service-creation
 const tokenFactory = () => auth.token
 
-const locationServiceWithToken: LocationService = await LocationService(
+const locationServiceWithToken: LocationService = await LocationService({
   tokenFactory
-)
+})
 
 const locationService: LocationService = await LocationService()
 

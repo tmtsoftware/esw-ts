@@ -20,7 +20,7 @@ const auth = { token: '' }
 // #sequence-manager-service-creation
 const tokenFactory = () => auth.token
 const sequenceManagerService: SequenceManagerService =
-  await SequenceManagerService(tokenFactory)
+  await SequenceManagerService({ tokenFactory })
 // #sequence-manager-service-creation
 
 //#configure

@@ -11,15 +11,15 @@ import {
   PauseResponse,
   Prefix,
   RemoveBreakpointResponse,
+  Sequence,
   SequencerService,
+  SequencerState,
+  SequencerStateResponse,
+  ServiceError,
   Setup,
   StepList,
   SubmitResponse,
-  SequencerState,
-  SequencerStateResponse,
-  Subscription,
-  Sequence,
-  ServiceError
+  Subscription
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -29,7 +29,7 @@ const tokenFactory = () => auth.token
 
 const sequencerService: SequencerService = await SequencerService(
   new ComponentId(new Prefix('ESW', 'darknight'), 'Sequencer'),
-  tokenFactory
+  { tokenFactory }
 )
 //#Sequencer-Service-creation
 

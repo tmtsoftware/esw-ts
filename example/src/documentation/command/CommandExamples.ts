@@ -1,20 +1,19 @@
+import type {
+  OnewayResponse,
+  SubmitResponse,
+  Subscription,
+  ValidateResponse
+} from '@tmtsoftware/esw-ts'
 import {
   CommandService,
   ComponentId,
   CurrentState,
   IntKey,
-  Setup,
   Observe,
   Parameter,
   Prefix,
-  ServiceError
-} from '@tmtsoftware/esw-ts'
-
-import type {
-  Subscription,
-  OnewayResponse,
-  SubmitResponse,
-  ValidateResponse
+  ServiceError,
+  Setup
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -26,7 +25,7 @@ const tokenFactory = () => auth.token
 
 const commandService: CommandService = await CommandService(
   new ComponentId(new Prefix('ESW', 'Component1'), 'HCD'),
-  tokenFactory
+  { tokenFactory }
 )
 //#command-service-creation
 

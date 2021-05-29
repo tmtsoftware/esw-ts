@@ -12,7 +12,7 @@ const auth = { token: '' }
 //#agent-service-creation
 const tokenFactory = () => auth.token
 
-const agentService: AgentService = await AgentService(tokenFactory)
+const agentService: AgentService = await AgentService({ tokenFactory })
 //#agent-service-creation
 
 //#spawnSeqeunceManager

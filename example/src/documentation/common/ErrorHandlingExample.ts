@@ -54,7 +54,7 @@ const handleError = (err: Error) => {
 const d = async () => {
   //#response-handling-spawn
   // setup
-  const agentService: AgentService = await AgentService(tokenFactory)
+  const agentService: AgentService = await AgentService({ tokenFactory })
 
   const agentPrefix = new Prefix('ESW', 'agent1')
   const obsModeConfigPath = '/obs-mode.conf'
@@ -112,10 +112,9 @@ const ddd = async () => {
 
   const prefix = new Prefix('ESW', 'component_1')
   const componentId = new ComponentId(prefix, 'Assembly')
-  const commandService: CommandService = await CommandService(
-    componentId,
+  const commandService: CommandService = await CommandService(componentId, {
     tokenFactory
-  )
+  })
 
   const setup = new Setup(prefix, 'move', [])
   const submitResponse: SubmitResponse = await commandService.submit(setup)
