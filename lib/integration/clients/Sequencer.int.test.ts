@@ -39,8 +39,10 @@ beforeAll(async () => {
   // setup location service and gateway
   setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
   await startServices(['AAS', 'Gateway'])
-  sequencerServiceWithToken = await SequencerService(componentId, () => validToken)
-  sequencerServiceWithoutToken = await SequencerService(componentId, () => undefined)
+  sequencerServiceWithToken = await SequencerService(componentId, {
+    tokenFactory: () => validToken
+  })
+  sequencerServiceWithoutToken = await SequencerService(componentId)
 })
 afterAll(async () => {
   await stopServices()

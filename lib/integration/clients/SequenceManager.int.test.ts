@@ -1,12 +1,13 @@
 import 'whatwg-fetch'
 import {
   AgentProvisionConfig,
+  ComponentId,
   ObsMode,
+  Prefix,
   ProvisionConfig,
   SequenceManagerService
-} from '../../src/clients/sequence-manager'
+} from '../../src'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
-import { ComponentId, Prefix } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -28,9 +29,11 @@ beforeAll(async () => {
   // this user is authenticated but not authorized for sequence Manager APIs
   const invalidToken = 'tokenWithoutRole'
 
-  sequenceManagerServiceWithValidToken = await SequenceManagerService(() => token)
-  sequenceManagerServiceWithInValidToken = await SequenceManagerService(() => invalidToken)
-  sequenceManagerServiceWithoutToken = await SequenceManagerService(() => undefined)
+  sequenceManagerServiceWithValidToken = await SequenceManagerService({ tokenFactory: () => token })
+  sequenceManagerServiceWithInValidToken = await SequenceManagerService({
+    tokenFactory: () => invalidToken
+  })
+  sequenceManagerServiceWithoutToken = await SequenceManagerService()
 })
 
 const sequencerComponentId = new ComponentId(new Prefix('ESW', 'darknight'), 'Sequencer')

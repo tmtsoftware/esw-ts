@@ -7,9 +7,10 @@ import type {
   ServiceError,
   SubmitResponse,
   Subscription,
-  TokenFactory,
-  ValidateResponse
+  ValidateResponse,
+  AuthData
 } from '../..'
+
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
@@ -110,16 +111,16 @@ export interface CommandService {
  */
 export const CommandService = async (
   componentId: ComponentId,
-  tokenFactory: TokenFactory = () => undefined
+  authData?: AuthData
 ): Promise<CommandService> => {
   const location = await resolve(GATEWAY_CONNECTION)
-  return createCommandService(componentId, location, tokenFactory)
+  return createCommandService(componentId, location, authData)
 }
 
 export const createCommandService = (
   componentId: ComponentId,
   location: Location,
-  tokenFactory: TokenFactory = () => undefined
+  authData?: AuthData
 ): CommandService => {
   const { host, port } = extractHostPort(location.uri)
   const url = getPostEndPoint({ host, port })
@@ -127,7 +128,7 @@ export const createCommandService = (
 
   return new CommandServiceImpl(
     componentId,
-    new HttpTransport(url, tokenFactory),
-    () => new Ws(webSocketEndpoint)
+    new HttpTransport(url, authData),
+    () => new Ws(webSocketEndpoint, authData?.username)
   )
 }

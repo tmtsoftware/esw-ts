@@ -1,9 +1,14 @@
 import 'whatwg-fetch'
-import { AkkaConnection } from '../../src'
-import { AgentService, KillResponse, SpawnResponse } from '../../src/clients/agent-service'
-import { setAppConfigPath } from '../../src/config'
+import {
+  AgentService,
+  AkkaConnection,
+  ComponentId,
+  KillResponse,
+  Prefix,
+  setAppConfigPath,
+  SpawnResponse
+} from '../../src'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { ComponentId, Prefix } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -20,9 +25,9 @@ beforeAll(async () => {
   await startServices(['AgentService'])
   const validToken = 'validToken'
   const inValidToken = 'tokenWithoutRole'
-  agentServiceWithValidToken = await AgentService(() => validToken)
-  agentServiceWithInValidToken = await AgentService(() => inValidToken)
-  agentServiceWithoutToken = await AgentService(() => undefined)
+  agentServiceWithValidToken = await AgentService({ tokenFactory: () => validToken })
+  agentServiceWithInValidToken = await AgentService({ tokenFactory: () => inValidToken })
+  agentServiceWithoutToken = await AgentService()
 })
 
 afterAll(async () => {

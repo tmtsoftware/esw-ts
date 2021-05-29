@@ -1,21 +1,23 @@
 import { mocked } from 'ts-jest/utils'
 import {
   AgentProvisionConfig,
+  ComponentId,
   ObsMode,
-  ProvisionConfig
-} from '../../../src/clients/sequence-manager'
+  Prefix,
+  ProvisionConfig,
+  Subsystem
+} from '../../../src'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
 import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
 import * as Res from '../../../src/decoders/SequenceManagerDecoders'
-import { ComponentId, Prefix, Subsystem } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
 
-const httpTransport = new HttpTransport('url', () => undefined)
+const httpTransport = new HttpTransport('url', { tokenFactory: jest.fn() })
 const mockHttpTransport = mocked(httpTransport)
 
 const sequenceManager = new SequenceManagerImpl(httpTransport)

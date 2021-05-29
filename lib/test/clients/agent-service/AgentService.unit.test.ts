@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { AGENT_SERVICE_CONNECTION } from '../../../src'
+import { AGENT_SERVICE_CONNECTION, AuthData } from '../../../src'
 import { AgentService } from '../../../src/clients/agent-service'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'
@@ -12,9 +12,12 @@ const mockImpl = mocked(AgentServiceImpl)
 
 describe('Agent Service Factory', () => {
   test('create agent service | ESW-314', async () => {
-    const tokenFactory = jest.fn()
+    const authData: AuthData = {
+      tokenFactory: jest.fn(),
+      username: 'esw-ts'
+    }
     const postEndpoint = 'postEndpoint'
-    const agentServiceImpl = new AgentServiceImpl(new HttpTransport(postEndpoint, tokenFactory))
+    const agentServiceImpl = new AgentServiceImpl(new HttpTransport(postEndpoint, authData))
     mockImpl.mockReturnValue(agentServiceImpl)
     mockResolveAgent.mockResolvedValue({
       _type: 'HttpLocation',
@@ -23,7 +26,7 @@ describe('Agent Service Factory', () => {
       connection: AGENT_SERVICE_CONNECTION
     })
 
-    const response = await AgentService(tokenFactory)
+    const response = await AgentService(authData)
 
     expect(response).toEqual(agentServiceImpl)
     expect(mockResolveAgent).toBeCalledTimes(1)

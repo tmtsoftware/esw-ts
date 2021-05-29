@@ -19,6 +19,11 @@ export type Option<T> = T | undefined
  */
 export type TokenFactory = () => string | undefined
 
+export type AuthData = {
+  tokenFactory?: TokenFactory
+  username?: string
+}
+
 export type AppConfig = {
   applicationName: string
 }

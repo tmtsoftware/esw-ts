@@ -1,4 +1,4 @@
-import type { Option, Subscription, TokenFactory } from '../..'
+import type { AuthData, Option, Subscription } from '../..'
 import { LocationConfig } from '../../config'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
@@ -107,7 +107,7 @@ export interface LocationService {
  * @constructor
  */
 export const LocationService = (
-  tokenFactory: TokenFactory = () => undefined,
+  authData?: AuthData,
   locationConfig = LocationConfig
 ): LocationService => {
   const webSocketEndpoint = getWebSocketEndPoint({
@@ -119,7 +119,7 @@ export const LocationService = (
     port: locationConfig.port
   })
   return new LocationServiceImpl(
-    new HttpTransport(postEndpoint, tokenFactory),
-    () => new Ws(webSocketEndpoint)
+    new HttpTransport(postEndpoint, authData),
+    () => new Ws(webSocketEndpoint, authData?.username)
   )
 }

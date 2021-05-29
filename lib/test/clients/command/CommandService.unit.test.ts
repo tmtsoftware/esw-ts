@@ -1,9 +1,7 @@
 import { mocked } from 'ts-jest/utils'
-import { GATEWAY_CONNECTION } from '../../../src'
-import { CommandService } from '../../../src/clients/command'
+import { CommandService, ComponentId, GATEWAY_CONNECTION, Prefix } from '../../../src'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'
-import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 
@@ -25,14 +23,14 @@ mockResolveGateway.mockResolvedValue({
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const commandServiceImpl = new CommandServiceImpl(
   componentId,
-  new HttpTransport(postEndpoint, tokenFactory),
+  new HttpTransport(postEndpoint, { tokenFactory }),
   () => new Ws(wsEndpoint)
 )
 
 describe('Command Service Factory', () => {
   test('create command service | ESW-305', async () => {
     mockImpl.mockReturnValue(commandServiceImpl)
-    const a = await CommandService(componentId, tokenFactory)
+    const a = await CommandService(componentId, { tokenFactory })
 
     expect(a).toEqual(commandServiceImpl)
     expect(mockResolveGateway).toBeCalledTimes(1)

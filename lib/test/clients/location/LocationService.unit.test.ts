@@ -1,7 +1,6 @@
 import { mocked } from 'ts-jest/utils'
-import { LocationService } from '../../../src/clients/location'
+import { LocationConfig, LocationService } from '../../../src'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
-import { LocationConfig } from '../../../src/config'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { Ws } from '../../../src/utils/Ws'
@@ -20,7 +19,7 @@ postMockEndpoint.mockReturnValue(postEndpoint)
 wsMockEndpoint.mockReturnValue(wsEndpoint)
 
 const locationServiceImplWithAuth = new LocationServiceImpl(
-  new HttpTransport(postEndpoint, tokenFactory),
+  new HttpTransport(postEndpoint, { tokenFactory }),
   () => new Ws(wsEndpoint)
 )
 
@@ -34,7 +33,7 @@ describe('Location Service Factory', () => {
     const uriWithAuth = { host: LocationConfigWithAuth.hostName, port: LocationConfigWithAuth.port }
 
     mockImpl.mockReturnValue(locationServiceImplWithAuth)
-    const actualLocationService = await LocationService(tokenFactory, LocationConfigWithAuth)
+    const actualLocationService = await LocationService({ tokenFactory }, LocationConfigWithAuth)
 
     expect(actualLocationService).toEqual(locationServiceImplWithAuth)
     expect(postMockEndpoint).toBeCalledWith(uriWithAuth)

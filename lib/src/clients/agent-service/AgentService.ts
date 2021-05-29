@@ -1,5 +1,5 @@
-import type { AgentStatusResponse, ComponentId, Location, TokenFactory } from '../..'
-import { AGENT_SERVICE_CONNECTION } from '../../config/Connections'
+import type { AgentStatusResponse, AuthData, ComponentId, Location } from '../..'
+import { AGENT_SERVICE_CONNECTION } from '../../config'
 import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
@@ -62,17 +62,14 @@ export interface AgentService {
   getAgentStatus(): Promise<AgentStatusResponse>
 }
 
-export const AgentService = async (tokenFactory: TokenFactory): Promise<AgentService> => {
+export const AgentService = async (authData?: AuthData): Promise<AgentService> => {
   const location = await resolve(AGENT_SERVICE_CONNECTION)
-  return createAgentService(location, tokenFactory)
+  return createAgentService(location, authData)
 }
 
-export const createAgentService = (
-  location: Location,
-  tokenFactory: TokenFactory
-): AgentService => {
+export const createAgentService = (location: Location, authData?: AuthData): AgentService => {
   const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
 
-  return new AgentServiceImpl(new HttpTransport(postEndpoint, tokenFactory))
+  return new AgentServiceImpl(new HttpTransport(postEndpoint, authData))
 }

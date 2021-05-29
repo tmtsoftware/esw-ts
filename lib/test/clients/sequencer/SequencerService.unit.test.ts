@@ -25,14 +25,14 @@ mockResolveGateway.mockResolvedValue({
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 const seqServiceImpl = new SequencerServiceImpl(
   componentId,
-  new HttpTransport(postEndpoint, tokenFactory),
+  new HttpTransport(postEndpoint, { tokenFactory }),
   () => new Ws(wsEndpoint)
 )
 mockImpl.mockReturnValue(seqServiceImpl)
 
 describe('Sequencer Service Factory', () => {
   test('create sequencer service', async () => {
-    const a = await SequencerService(componentId, tokenFactory)
+    const a = await SequencerService(componentId, { tokenFactory })
 
     expect(a).toEqual(seqServiceImpl)
     expect(mockResolveGateway).toBeCalledTimes(1)

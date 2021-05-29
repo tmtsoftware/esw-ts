@@ -1,5 +1,5 @@
 import { GATEWAY_CONNECTION } from '../../config/Connections'
-import type { Done, Prefix } from '../../models'
+import type { AuthData, Done, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import type { Location } from '../location'
@@ -30,14 +30,14 @@ export interface LoggingService {
  * @return                LoggingService as Promise
  * @constructor
  */
-export const LoggingService = async (): Promise<LoggingService> => {
+export const LoggingService = async (authData?: AuthData): Promise<LoggingService> => {
   const location = await resolve(GATEWAY_CONNECTION)
-  return createLoggingService(location)
+  return createLoggingService(location, authData)
 }
 
-export const createLoggingService = (location: Location): LoggingService => {
+export const createLoggingService = (location: Location, authData?: AuthData): LoggingService => {
   const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
 
-  return new LoggingServiceImpl(new HttpTransport(postEndpoint))
+  return new LoggingServiceImpl(new HttpTransport(postEndpoint, authData))
 }

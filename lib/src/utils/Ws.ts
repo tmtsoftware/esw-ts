@@ -3,26 +3,27 @@ import * as D from 'io-ts/lib/Decoder'
 import * as ConfigLoader from '../config/ConfigLoader'
 import type { Decoder } from '../decoders/Decoder'
 import { ServiceError, Subscription } from '../models'
-import { APP_NAME } from './Constants'
+import { APP_NAME, UNKNOWN_USERNAME, USERNAME } from './Constants'
 
 export const SERVER_ERROR = {
   code: 1011,
   status: 'Server error'
 }
 
-const createWebsocket = async (url: string) => {
+const createWebsocket = async (url: string, username?: string) => {
   const { applicationName } = await ConfigLoader.loadAppConfig()
   const urlWithParams = new URL(url)
   urlWithParams.searchParams.set(APP_NAME, applicationName)
+  urlWithParams.searchParams.set(USERNAME, username ? username : UNKNOWN_USERNAME)
   return new WebSocket(urlWithParams.href)
 }
 
 export class Ws<Req> {
   private socket: Promise<WebSocket>
 
-  constructor(url: string) {
+  constructor(url: string, username?: string) {
     this.socket = new Promise(async (resolve, reject) => {
-      const wss = await createWebsocket(url)
+      const wss = await createWebsocket(url, username)
       wss.onopen = () => resolve(wss)
       wss.onerror = (event: Event) => {
         reject({ message: 'error', ...event })

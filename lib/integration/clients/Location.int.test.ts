@@ -1,15 +1,16 @@
 import 'whatwg-fetch'
-import { Option, setAppConfigPath } from '../../src'
 import {
   AkkaConnection,
+  GATEWAY_CONNECTION,
   HttpConnection,
   LocationRemoved,
   LocationService,
+  Option,
+  Prefix,
+  setAppConfigPath,
   TrackingEvent
-} from '../../src/clients/location'
+} from '../../src'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import { GATEWAY_CONNECTION } from '../../src/config/Connections'
-import { Prefix } from '../../src/models'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
@@ -48,8 +49,11 @@ beforeAll(async () => {
   await startServices(['Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
   //Following 2 client connects to auth enabled location server instance
-  locationServiceWithToken = LocationService(() => 'validToken', LocationConfigWithAuth)
-  locationServiceWithInvalidToken = LocationService(() => undefined, LocationConfigWithAuth)
+  locationServiceWithToken = LocationService(
+    { tokenFactory: () => 'validToken' },
+    LocationConfigWithAuth
+  )
+  locationServiceWithInvalidToken = LocationService(undefined, LocationConfigWithAuth)
   //Following 1 client connects to auth disabled location server instance
   locationService = LocationService()
 })

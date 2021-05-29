@@ -1,3 +1,5 @@
+import { UNKNOWN_USERNAME, USERNAME } from './Constants'
+
 export class HeaderExt extends Headers {
   constructor(values?: HeadersInit) {
     super(values)
@@ -11,6 +13,10 @@ export class HeaderExt extends Headers {
 
   withContentType(value: string) {
     return this.withHeader('Content-Type', value)
+  }
+
+  withUsername(value?: string) {
+    return this.withHeader(USERNAME, value ? value : UNKNOWN_USERNAME)
   }
 
   withAuthorization(token?: string) {

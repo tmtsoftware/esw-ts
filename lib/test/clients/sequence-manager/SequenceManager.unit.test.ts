@@ -11,7 +11,7 @@ jest.mock('../../../src/clients/location/LocationUtils')
 const mockResolveSm = mocked(resolve)
 const mockSMImpl = mocked(SequenceManagerImpl)
 
-const tokenFactory = () => undefined
+const tokenFactory = jest.fn()
 
 describe('Sequence manager factory', () => {
   test('should create sequence manager service | ESW-365', async () => {
@@ -23,10 +23,10 @@ describe('Sequence manager factory', () => {
       connection: SEQUENCE_MANAGER_CONNECTION
     })
     const sequenceManagerImpl = new SequenceManagerImpl(
-      new HttpTransport(postEndpoint, tokenFactory)
+      new HttpTransport(postEndpoint, { tokenFactory })
     )
     mockSMImpl.mockReturnValue(sequenceManagerImpl)
-    const response = await SequenceManagerService(tokenFactory)
+    const response = await SequenceManagerService({ tokenFactory })
 
     expect(response).toEqual(sequenceManagerImpl)
     expect(mockResolveSm).toBeCalledTimes(1)

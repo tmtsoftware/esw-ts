@@ -1,4 +1,5 @@
 import type {
+  AuthData,
   DiagnosticModeResponse,
   GenericResponse,
   GoOfflineResponse,
@@ -8,9 +9,8 @@ import type {
   Option,
   PauseResponse,
   RemoveBreakpointResponse,
-  TokenFactory,
-  Subscription,
-  Sequence
+  Sequence,
+  Subscription
 } from '../..'
 import { GATEWAY_CONNECTION } from '../../config'
 import type { ComponentId, SequenceCommand, ServiceError, SubmitResponse } from '../../models'
@@ -257,16 +257,16 @@ export interface SequencerService {
  */
 export const SequencerService = async (
   componentId: ComponentId,
-  tokenFactory: TokenFactory
+  authData?: AuthData
 ): Promise<SequencerService> => {
   const location = await resolve(GATEWAY_CONNECTION)
-  return createSequencerService(componentId, location, tokenFactory)
+  return createSequencerService(componentId, location, authData)
 }
 
 export const createSequencerService = (
   componentId: ComponentId,
   location: Location,
-  tokenFactory: TokenFactory
+  authData?: AuthData
 ): SequencerService => {
   const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
@@ -274,7 +274,7 @@ export const createSequencerService = (
 
   return new SequencerServiceImpl(
     componentId,
-    new HttpTransport(postEndpoint, tokenFactory),
-    () => new Ws(webSocketEndpoint)
+    new HttpTransport(postEndpoint, authData),
+    () => new Ws(webSocketEndpoint, authData?.username)
   )
 }

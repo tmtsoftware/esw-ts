@@ -1,4 +1,4 @@
-import type { Subscription } from '../..'
+import type { AuthData, Subscription } from '../..'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { Done, ServiceError, Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
@@ -82,14 +82,17 @@ export interface EventService {
  *
  * @constructor
  */
-export const EventService = async (): Promise<EventService> => {
+export const EventService = async (authData?: AuthData): Promise<EventService> => {
   const location = await resolve(GATEWAY_CONNECTION)
-  return createEventService(location)
+  return createEventService(location, authData)
 }
 
-export const createEventService = (location: Location): EventService => {
+export const createEventService = (location: Location, authData?: AuthData): EventService => {
   const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
   const webSocketEndpoint = getWebSocketEndPoint({ host, port })
-  return new EventServiceImpl(new HttpTransport(postEndpoint), () => new Ws(webSocketEndpoint))
+  return new EventServiceImpl(
+    new HttpTransport(postEndpoint, authData),
+    () => new Ws(webSocketEndpoint, authData?.username)
+  )
 }

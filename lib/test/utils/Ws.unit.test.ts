@@ -32,11 +32,11 @@ describe('Web socket util', () => {
       const expectedData = 'ping'
       const callBack = (data: string) => {
         expect(data).toEqual(expectedData)
-        expect(mockServer.clients()[0].url).toEqual(`${url}?App-Name=test-app`)
+        expect(mockServer.clients()[0].url).toEqual(`${url}?App-Name=test-app&Username=esw-user`)
         done()
       }
       wsMockWithResolved('"ping"', mockServer)
-      new Ws(url).subscribe('pong', callBack)
+      new Ws(url, 'esw-user').subscribe('pong', callBack)
     })
   })
 

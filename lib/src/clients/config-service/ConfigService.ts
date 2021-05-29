@@ -1,5 +1,5 @@
 import type { Location, Option, TokenFactory } from '../..'
-import { CONFIG_CONNECTION } from '../../config/Connections'
+import { CONFIG_CONNECTION } from '../../config'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
 import { ConfigServiceImpl } from './ConfigServiceImpl'

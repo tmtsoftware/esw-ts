@@ -1,9 +1,9 @@
 import { mocked } from 'ts-jest/utils'
+import { Prefix } from '../../../src'
 import type { GatewayLoggingPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
 import { Log } from '../../../src/clients/logger/models/PostCommand'
 import { DoneD } from '../../../src/decoders/CommonDecoders'
-import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'
 
@@ -11,10 +11,7 @@ jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
 
 const mockResponse = 'Done'
-const httpTransport: HttpTransport<GatewayLoggingPostRequest> = new HttpTransport(
-  'someUrl',
-  () => undefined
-)
+const httpTransport: HttpTransport<GatewayLoggingPostRequest> = new HttpTransport('someUrl')
 const mockHttpTransport = mocked(httpTransport)
 const loggingServiceImpl = new LoggingServiceImpl(httpTransport)
 

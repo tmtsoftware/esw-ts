@@ -1,8 +1,8 @@
 import { mocked } from 'ts-jest/utils'
 import { AkkaLocation, Duration, HttpConnection } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
-import * as Req from '../../../src/clients/location/models/PostCommand'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
+import * as Req from '../../../src/clients/location/models/PostCommand'
 import type { LocationWebSocketMessage } from '../../../src/clients/location/models/WsCommand'
 import { DoneD } from '../../../src/decoders/CommonDecoders'
 import { LocationListD } from '../../../src/decoders/LocationDecoders'
@@ -30,10 +30,7 @@ const mockLocationResponse: AkkaLocation = {
 const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
 
-const httpTransport: HttpTransport<LocationHttpMessage> = new HttpTransport(
-  'someUrl',
-  () => undefined
-)
+const httpTransport: HttpTransport<LocationHttpMessage> = new HttpTransport('someUrl')
 const mockHttpTransport = mocked(httpTransport)
 
 const ws: Ws<LocationWebSocketMessage> = new Ws('someUrl')
