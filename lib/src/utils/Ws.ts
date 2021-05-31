@@ -79,12 +79,7 @@ export class Ws<Req> {
 
   singleResponse<T>(msg: Req, decoder?: Decoder<T>): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      this.subscribe(
-        msg,
-        (response: T) => resolve(response),
-        decoder,
-        (error) => reject(error)
-      )
+      this.subscribe(msg, resolve, decoder, reject)
     })
   }
 

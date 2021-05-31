@@ -220,29 +220,18 @@ describe('Sequencer Client', () => {
   })
 
   test('should get sequencer state response event on subscription | ESW-488', () => {
+    const events: SequencerStateResponse[] = []
+    expect.assertions(1)
     return new Promise<void>(async (done) => {
       const callBack = (sequencerStateResponse: SequencerStateResponse) => {
-        const expectedSequencerStateResponse: SequencerStateResponse = {
-          _type: 'SequencerStateResponse',
-          stepList: new StepList([
-            {
-              id: sequencerStateResponse.stepList.steps[0].id,
-              command: new Setup(Prefix.fromString('CSW.IRIS'), 'command-1'),
-              status: {
-                _type: 'Pending'
-              },
-              hasBreakpoint: false
-            }
-          ]),
-          sequencerState: {
-            _type: 'Running'
-          }
+        events.push(sequencerStateResponse)
+        if (events.length === 2) {
+          expect(events.map((x) => x.sequencerState._type)).toEqual(['Idle', 'Running'])
+          done()
         }
-        expect(sequencerStateResponse).toEqual(expectedSequencerStateResponse)
-        done()
       }
 
-      await sequencerServiceWithoutToken.subscribeSequencerState()(callBack)
+      sequencerServiceWithoutToken.subscribeSequencerState()(callBack)
     })
   })
 })
