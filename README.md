@@ -83,18 +83,6 @@ npm clean-install
 npm run build
 ```
 
-##### Run unit tests of library
-
-```bash
-npm run test:unit
-```
-
-##### Run integration tests of library
-
-```bash
-npm run test:integration
-```
-
 #### Step3: Run Example App
 
 Start App -
@@ -121,7 +109,27 @@ Login with appropriate user as listed below to access functionality of each tab.
 | Admin App        | -requires login with `example-admin-role` | dummy-user      | dummy-user       |
 | User App         | -requires login with `person-role`        | dummy-user      | dummy-user       |
 
-### Running Integration-UI test
+### Running Tests
+
+#### Run unit tests of library
+
+```bash
+cd {ESW-TS-Repo}/lib
+npm run test:unit
+```
+
+@@@ note
+If you have started backend services ealier, stop them before running below 2 types of integrations tests.
+@@@
+
+#### Run integration tests of library
+
+```bash
+cd {ESW-TS-Repo}/lib
+npm run test:integration
+```
+
+#### Running End to End tests
 
 This module includes E2E test which demonstrate following flow which is all automated:
 
@@ -130,7 +138,12 @@ This module includes E2E test which demonstrate following flow which is all auto
 3. Build and Start `config` example
 4. Create configuration file
 
-To run this test, execute `sbt test` or `sbt integration-ui/test` command
+To run this test, execute
+
+```bash
+cd {ESW-TS-Repo}
+sbt test OR sbt integration-ui/test
+```
 
 ### Generate typescript documentation
 
@@ -161,6 +174,7 @@ To push documentation on github pages, follow the steps:
 It will ask for github credential. It takes few minutes to reflect on the github pages. This will push documentation with version tag `0.1.0-SNAPSHOT`.
 
 ### Release paradox documentation
+
 Document automatically gets released using release pipeline.
 
 ## Version compatibility
