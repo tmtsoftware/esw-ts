@@ -118,9 +118,7 @@ cd {ESW-TS-Repo}/lib
 npm run test:unit
 ```
 
-@@@ note
-If you have started backend services ealier, stop them before running below 2 types of integrations tests.
-@@@
+Note : If you have started backend services ealier, stop them before running below 2 types of integrations tests.
 
 #### Run integration tests of library
 
