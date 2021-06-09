@@ -8,7 +8,7 @@
   "scripts": {
     "audit": "npm audit",
     "clean": "rm -rf dist && mkdir dist",
-    "install": "npm run clean && tsc",
+    "install": "tsc",
     "prebuild": "npm run clean && npm-run-all --parallel fix audit",
     "build": "tsc",
     "build:watch": "tsc -w",
