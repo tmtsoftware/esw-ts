@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/function'
-import * as D from 'io-ts/es6/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 import type {
   AltAzCoord,
   CometCoord,

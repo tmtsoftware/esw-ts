@@ -1,4 +1,4 @@
-import * as D from 'io-ts/es6/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 import type { Failed, LocationServiceError, Unhandled } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
 
