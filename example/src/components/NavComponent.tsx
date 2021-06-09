@@ -7,29 +7,29 @@ import { AuthContext, Logout, Login } from '@tmtsoftware/esw-ts'
 const NavComponent = () => {
   const { auth } = useContext(AuthContext)
   return (
-    <nav className='indigo'>
-      <div className='nav-wrapper'>
-        <a href='https://www.tmt.org/' className='brand-logo'>
+    <nav className="indigo">
+      <div className="nav-wrapper">
+        <a href="https://www.tmt.org/" className="brand-logo">
           TMT
         </a>
-        <ul className='right'>
+        <ul className="right">
           <li>
-            <Link to='/public'> Public </Link>
+            <Link to="/public"> Public </Link>
           </li>
           <li>
-            <Link to='/secured'> Secured </Link>
+            <Link to="/secured"> Secured </Link>
           </li>
           <li>
-            <Link id='config-link' to='/config'>
+            <Link id="config-link" to="/config">
               {' '}
               Config App{' '}
             </Link>
           </li>
           <li>
-            <Link to='/example_admin'> Admin App </Link>
+            <Link to="/example_admin"> Admin App </Link>
           </li>
           <li>
-            <Link to='/example_user'> User App </Link>
+            <Link to="/example_user"> User App </Link>
           </li>
           <li>
             {!auth ? (

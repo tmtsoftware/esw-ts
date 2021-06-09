@@ -14,7 +14,7 @@ import LoginError from './LoginError'
 //#example-app
 const ExampleApp = () => {
   return (
-    <div className='row card col s12 m7'>
+    <div className="row card col s12 m7">
       {
         // #AuthContextProvider-component-usage
         <AuthContextProvider config={AppConfig}>
@@ -23,7 +23,7 @@ const ExampleApp = () => {
               <NavComponent />
               <Route
                 exact
-                path='/secured'
+                path="/secured"
                 render={(_) => (
                   // #checkLogin-component-usage
                   <CheckLogin error={<LoginError />}>
@@ -32,20 +32,17 @@ const ExampleApp = () => {
                   // #checkLogin-component-usage
                 )}
               />
-              <Route exact path='/config' render={(_) => <ConfigApp />} />
+              <Route exact path="/config" render={(_) => <ConfigApp />} />
               <Route
                 exact
-                path='/example_admin'
+                path="/example_admin"
                 render={(_) => (
                   <CheckLogin error={<LoginError />}>
                     {/*// #realmRole-component-usage */}
                     <RealmRole
-                      realmRole='example-admin-role'
-                      error={
-                        <RoleError
-                          message={'User do not have role : example-admin-role'}
-                        />
-                      }>
+                      realmRole="example-admin-role"
+                      error={<RoleError message={'User do not have role : example-admin-role'} />}
+                    >
                       <div>Example admin role specific functionality</div>
                     </RealmRole>
                     {/*// #realmRole-component-usage */}
@@ -54,22 +51,19 @@ const ExampleApp = () => {
               />
               <Route
                 exact
-                path='/example_user'
+                path="/example_user"
                 render={(_) => (
                   <CheckLogin error={<LoginError />}>
                     <RealmRole
-                      realmRole='person-role'
-                      error={
-                        <RoleError
-                          message={'User do not have role : person-role'}
-                        />
-                      }>
+                      realmRole="person-role"
+                      error={<RoleError message={'User do not have role : person-role'} />}
+                    >
                       <div>Person role specific functionality</div>
                     </RealmRole>
                   </CheckLogin>
                 )}
               />
-              <Route exact path='/public' component={Read} />
+              <Route exact path="/public" component={Read} />
             </div>
           </BrowserRouter>
         </AuthContextProvider>

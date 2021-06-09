@@ -14,12 +14,8 @@ import {
 const dataArray = ['file-contents']
 
 const configDataFromBlob: ConfigData = ConfigData.from(new Blob(dataArray))
-const configDataFromFile: ConfigData = ConfigData.fromFile(
-  new File(dataArray, 'filename')
-)
-const configDataFromString: ConfigData = ConfigData.fromString(
-  'someFileDataAsString'
-)
+const configDataFromFile: ConfigData = ConfigData.fromFile(new File(dataArray, 'filename'))
+const configDataFromString: ConfigData = ConfigData.fromString('someFileDataAsString')
 
 //accessing data
 const dataAsBlobContent: Blob = configDataFromString.toBlob()
@@ -91,12 +87,7 @@ esw-sm {
 `
 const configData = ConfigData.fromString(data)
 
-const sequencerConfigId: ConfigId = await configService.create(
-  path,
-  configData,
-  false,
-  comment
-)
+const sequencerConfigId: ConfigId = await configService.create(path, configData, false, comment)
 //#create
 //#update
 const filePath = 'esw/sequencer/obsMode.conf'
@@ -126,16 +117,12 @@ const newSequencerConfigId: ConfigId = await configService.update(
 //#get-active
 const file = 'esw/sequencer/obsMode.conf'
 
-const maybeActiveConfigData: Option<ConfigData> = await configService.getActive(
-  file
-)
+const maybeActiveConfigData: Option<ConfigData> = await configService.getActive(file)
 //#get-active
 
 //#get-latest
 const filepath = 'esw/sequencer/obsMode.conf'
-const maybeLatestConfigData: Option<ConfigData> = await configService.getLatest(
-  filepath
-)
+const maybeLatestConfigData: Option<ConfigData> = await configService.getLatest(filepath)
 //#get-latest
 
 const d = async () => {
@@ -146,10 +133,7 @@ const d = async () => {
     commentOnUpdate
   )
 
-  const maybeConfigData: Option<ConfigData> = await configService.getById(
-    filepath,
-    configId
-  )
+  const maybeConfigData: Option<ConfigData> = await configService.getById(filepath, configId)
   //#get-by-id
 }
 const dd = async () => {
@@ -163,23 +147,13 @@ const dd = async () => {
 
   const beforeUpdate = new Date()
 
-  const configId2: ConfigId = await configService.update(
-    filePath,
-    configData,
-    commentOnUpdate
-  )
+  const configId2: ConfigId = await configService.update(filePath, configData, commentOnUpdate)
   const afterUpdate = new Date()
 
-  const maybeConfigData: Option<ConfigData> = await configService.getByTime(
-    filepath,
-    beforeUpdate
-  )
+  const maybeConfigData: Option<ConfigData> = await configService.getByTime(filepath, beforeUpdate)
   // maybeConfigData == updatedConfigData (i.e Initial revision of config)
 
-  const newlyUpdatedData: Option<ConfigData> = await configService.getByTime(
-    filepath,
-    afterUpdate
-  )
+  const newlyUpdatedData: Option<ConfigData> = await configService.getByTime(filepath, afterUpdate)
   // newlyUpdatedData == configData (i.e Latest revision of config)
 
   //#get-by-time
@@ -220,12 +194,7 @@ const dddd = async () => {
   const to = new Date(2020, 12, 31)
 
   // upto 200 file revisions from 31st dec 2019 - 31st dec 2020 will be fetched
-  const fileRevisions: ConfigFileRevision[] = await configService.history(
-    filePath,
-    from,
-    to,
-    200
-  )
+  const fileRevisions: ConfigFileRevision[] = await configService.history(filePath, from, to, 200)
   //#history
 }
 
@@ -236,20 +205,19 @@ const g = async () => {
   const to = new Date(2020, 12, 31)
 
   // upto 200 active file revisions from 31st dec 2019 - 31st dec 2020 will be fetched
-  const activeFileRevisions: ConfigFileRevision[] =
-    await configService.historyActive(filePath, from, to, 200)
+  const activeFileRevisions: ConfigFileRevision[] = await configService.historyActive(
+    filePath,
+    from,
+    to,
+    200
+  )
   //#history-active
 }
 
 const gg = async () => {
   //#set-active-version
   const filePath = 'esw/sequencer/obsMode.conf'
-  const id: ConfigId = await configService.create(
-    path,
-    configData,
-    false,
-    comment
-  )
+  const id: ConfigId = await configService.create(path, configData, false, comment)
   const commentWhileSetting = `Making ${id} active on 1st dec 2020`
 
   await configService.setActiveVersion(filePath, id, commentWhileSetting)
@@ -259,12 +227,7 @@ const gg = async () => {
 const ggg = async () => {
   //#reset-active-version
   const filePath = 'esw/sequencer/obsMode.conf'
-  const id: ConfigId = await configService.create(
-    path,
-    configData,
-    false,
-    comment
-  )
+  const id: ConfigId = await configService.create(path, configData, false, comment)
   const commentWhileResetting = `Making ${id} active version to latest as of 1st dec 2020`
 
   await configService.resetActiveVersion(filePath, commentWhileResetting)
@@ -274,9 +237,7 @@ const gggg = async () => {
   //#get-active-version
   const filePath = 'esw/sequencer/obsMode.conf'
 
-  const maybeConfigId: Option<ConfigId> = await configService.getActiveVersion(
-    filePath
-  )
+  const maybeConfigId: Option<ConfigId> = await configService.getActiveVersion(filePath)
   //#get-active-version
 }
 
@@ -285,8 +246,7 @@ const ff = async () => {
   const filePath = 'esw/sequencer/obsMode.conf'
   const at = new Date(2019, 12, 31)
 
-  const maybeConfigData: Option<ConfigData> =
-    await configService.getActiveByTime(filePath, at)
+  const maybeConfigData: Option<ConfigData> = await configService.getActiveByTime(filePath, at)
   //#get-active-by-time
 }
 

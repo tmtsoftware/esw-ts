@@ -39,9 +39,7 @@ const spawnResponse2: SpawnResponse = await agentService.spawnSequenceComponent(
 //#killcomponent
 const compPrefix = new Prefix('ESW', 'SomeComponent')
 const componentToBeKilled = new ComponentId(compPrefix, 'Service')
-const killResponse: KillResponse = await agentService.killComponent(
-  componentToBeKilled
-)
+const killResponse: KillResponse = await agentService.killComponent(componentToBeKilled)
 //#killcomponent
 
 //#getAgentStatus

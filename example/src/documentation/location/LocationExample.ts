@@ -35,44 +35,28 @@ const locations: Location[] = await locationService.list()
 //#list-by-component-type
 // valid Component types : HCD, Assembly, Service, Container, Sequencer, SequenceComponent and Machine
 
-const sequencerLocations: Location[] =
-  await locationService.listByComponentType('Sequencer')
+const sequencerLocations: Location[] = await locationService.listByComponentType('Sequencer')
 
-const hcdLocations: Location[] = await locationService.listByComponentType(
-  'HCD'
-)
+const hcdLocations: Location[] = await locationService.listByComponentType('HCD')
 
-const assemblyLocations: Location[] = await locationService.listByComponentType(
-  'Assembly'
-)
+const assemblyLocations: Location[] = await locationService.listByComponentType('Assembly')
 //#list-by-component-type
 
 //#list-by-connection-type
 // valid Connection types: akka, http and tcp
-const akkaLocations: Location[] = await locationService.listByConnectionType(
-  'akka'
-)
+const akkaLocations: Location[] = await locationService.listByConnectionType('akka')
 
-const httpLocations: Location[] = await locationService.listByConnectionType(
-  'http'
-)
+const httpLocations: Location[] = await locationService.listByConnectionType('http')
 
-const tcpLocations: Location[] = await locationService.listByConnectionType(
-  'tcp'
-)
+const tcpLocations: Location[] = await locationService.listByConnectionType('tcp')
 //#list-by-connection-type
 
 //#list-by-hostname
-const remoteLocations: Location[] = await locationService.listByHostname(
-  '192.0.162.178'
-)
+const remoteLocations: Location[] = await locationService.listByHostname('192.0.162.178')
 
-const locationRegisteredWithDomain: Location[] =
-  await locationService.listByHostname('tmt.org.com')
+const locationRegisteredWithDomain: Location[] = await locationService.listByHostname('tmt.org.com')
 
-const localLocations: Location[] = await locationService.listByHostname(
-  'localhost'
-)
+const localLocations: Location[] = await locationService.listByHostname('localhost')
 //#list-by-hostname
 
 //#list-by-prefix
@@ -108,11 +92,7 @@ const done: Done = await locationServiceWithToken.unregister(
 
 const connection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
 
-const maybeLocation1: Option<Location> = await locationService.resolve(
-  connection,
-  10,
-  'seconds'
-)
+const maybeLocation1: Option<Location> = await locationService.resolve(connection, 10, 'seconds')
 if (maybeLocation1) {
   // use maybeLocation inside here
 } else {
@@ -142,17 +122,8 @@ locationService.track(httpConnection)(onTrackingEvent, onErrorCallback)
 //#track
 const g = () => {
   //#connections
-  const httpConnection: HttpConnection = HttpConnection(
-    new Prefix('ESW', 'component'),
-    'HCD'
-  )
-  const akkaConnection: AkkaConnection = AkkaConnection(
-    new Prefix('ESW', 'component'),
-    'HCD'
-  )
-  const tcpConnection: TcpConnection = TcpConnection(
-    new Prefix('ESW', 'component'),
-    'HCD'
-  )
+  const httpConnection: HttpConnection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
+  const akkaConnection: AkkaConnection = AkkaConnection(new Prefix('ESW', 'component'), 'HCD')
+  const tcpConnection: TcpConnection = TcpConnection(new Prefix('ESW', 'component'), 'HCD')
   //#connections
 }

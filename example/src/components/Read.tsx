@@ -5,7 +5,7 @@ const Read = () => {
   // #Consumer-component-usage
   const { auth } = useContext(AuthContext)
   return (
-    <div className='nav-wrapper'>
+    <div className="nav-wrapper">
       {auth && auth.isAuthenticated() ? (
         <div>
           Hello, you are logged in
