@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-nodejs-modules
 import fs from 'fs'
-import * as D from 'io-ts'
+import * as D from 'io-ts/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
 import {
@@ -133,7 +133,7 @@ const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
 const commandDecoders: Record<string, Decoder<any>> = {
   Units: UnitsD,
   Parameter: ParameterD,
-  CommandName: D.string.asDecoder(),
+  CommandName: D.string,
   CurrentState: CurrentStateD,
   CommandIssue: CommandIssueD,
   SubmitResponse: SubmitResponseD,
