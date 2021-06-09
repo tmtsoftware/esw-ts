@@ -1,4 +1,4 @@
-import { pipe } from 'fp-ts/function'
+import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/Decoder'
 import type { Key } from '../models'
 import { Parameter } from '../models'

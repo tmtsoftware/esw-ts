@@ -1,7 +1,7 @@
-import * as E from 'fp-ts/Either'
-import { flow, pipe } from 'fp-ts/function'
-import * as O from 'fp-ts/Option'
-import * as A from 'fp-ts/ReadonlyArray'
+import * as E from 'fp-ts/lib/Either'
+import { flow, pipe } from 'fp-ts/lib/function'
+import * as O from 'fp-ts/lib/Option'
+import * as A from 'fp-ts/lib/ReadonlyArray'
 import * as D from 'io-ts/Decoder'
 
 export type Decoder<T> = D.Decoder<unknown, T>

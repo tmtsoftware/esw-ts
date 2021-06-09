@@ -1,4 +1,4 @@
-import { pipe } from 'fp-ts/function'
+import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/Decoder'
 import { ObsMode } from '../clients/sequence-manager'
 import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
