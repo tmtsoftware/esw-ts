@@ -41,7 +41,9 @@ const sequence: Sequence = new Sequence([setupCommand])
 
 const mockResponse = Math.random().toString()
 const httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequest>> =
-  new HttpTransport('someUrl', { tokenFactory: jest.fn() })
+  new HttpTransport('someUrl', {
+    tokenFactory: jest.fn()
+  })
 const mockHttpTransport = mocked(httpTransport)
 
 const ws: Ws<GatewaySequencerCommand<SequencerWebsocketRequest>> = new Ws('someUrl')

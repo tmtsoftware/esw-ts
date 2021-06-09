@@ -19,7 +19,9 @@ jest.mock('../../../src/utils/HttpTransport')
 const componentId = new ComponentId(new Prefix('ESW', 'MoonNight'), 'Sequencer')
 
 const httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequest>> =
-  new HttpTransport('someUrl', { tokenFactory: jest.fn() })
+  new HttpTransport('someUrl', {
+    tokenFactory: jest.fn()
+  })
 
 const ws: Ws<GatewaySequencerCommand<SequencerWebsocketRequest>> = new Ws('someUrl')
 const mockWs = mocked(ws)

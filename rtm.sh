@@ -4,7 +4,7 @@ SCRIPTPATH="$(
   cd "$(dirname "$0")" >/dev/null 2>&1 || exit
   pwd -P
 )"
-COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/lib/scripts/coursier"
+COURSIER="$(command -v cs)" || COURSIER="$SCRIPTPATH/scripts/coursier"
 
 RTM_VERSION="33b2359b23"
 
