@@ -1,4 +1,4 @@
-import { identity } from 'fp-ts/lib/function'
+import { identity } from 'fp-ts/function'
 import { loadAppConfig } from '../config/ConfigLoader'
 import { ServiceError } from '../models'
 import { APP_NAME } from './Constants'

@@ -1,5 +1,5 @@
-import * as E from 'fp-ts/lib/Either'
-import * as D from 'io-ts/lib/Decoder'
+import * as E from 'fp-ts/Either'
+import * as D from 'io-ts/Decoder'
 import type { Option } from '../models'
 
 export const requirement = (assertion: boolean, msg: string) => {

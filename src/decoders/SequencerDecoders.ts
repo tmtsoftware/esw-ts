@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/function'
-import * as D from 'io-ts/lib/Decoder'
+import * as D from 'io-ts/Decoder'
 import type * as T from '../clients/sequencer/models/SequencerRes'
 import type {
   Step,

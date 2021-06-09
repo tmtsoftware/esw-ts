@@ -1,4 +1,4 @@
-import * as D from 'io-ts/lib/Decoder'
+import * as D from 'io-ts/Decoder'
 import type { ComponentId } from '../models'
 import { ComponentTypeD } from './ComponentTypeDecoder'
 import type { Decoder } from './Decoder'

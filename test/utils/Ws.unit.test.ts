@@ -1,4 +1,4 @@
-import * as D from 'io-ts/lib/Decoder'
+import * as D from 'io-ts/Decoder'
 import { Server } from 'mock-socket'
 import { delay } from '../../integration/utils/eventually'
 import type { ServiceError } from '../../src'
