@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-nodejs-modules
 import fs from 'fs'
-import * as D from 'io-ts/lib/Decoder'
+import * as D from 'io-ts/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
 import {

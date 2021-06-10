@@ -1,4 +1,4 @@
-import * as E from 'fp-ts/lib/Either'
+import * as E from 'fp-ts/Either'
 import { SubsystemD } from '../../decoders/SubsystemDecoder'
 import { requirement } from '../../utils/Utils'
 import type { Subsystem } from './Subsystem'

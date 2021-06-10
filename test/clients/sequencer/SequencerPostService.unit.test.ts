@@ -1,4 +1,4 @@
-import * as D from 'io-ts/lib/Decoder'
+import * as D from 'io-ts/Decoder'
 import { mocked } from 'ts-jest/utils'
 import {
   ComponentId,
