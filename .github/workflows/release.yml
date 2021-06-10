@@ -81,6 +81,28 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Create rtm zip
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: 'RTM.zip'
+          path: ./RTM
+
+      - name: Create coverage zip
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: 'coverage.zip'
+          path: ./coverage
+
+      - name: Upload release artifacts
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./RTM.zip
+            ./coverage.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docs Publish
         run: |

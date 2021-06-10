@@ -12,5 +12,6 @@ export type {
   DiagnosticModeResponse,
   OkOrUnhandledResponse,
   SequencerState,
-  SequencerStateResponse
+  SequencerStateResponse,
+  Ok
 } from './models/SequencerRes'
