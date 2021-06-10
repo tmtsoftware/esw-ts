@@ -31,7 +31,7 @@ pipeline {
                 dir('lib') {
                     sh "which node && node --version"
                     sh "which npm && npm --version"
-                    sh "npm ci"
+                    sh "npm clean-install"
                     sh "npm run build"
                 }
             }
