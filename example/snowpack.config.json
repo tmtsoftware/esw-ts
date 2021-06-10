@@ -12,10 +12,9 @@
     "public": "/",
     "src": "/_dist_"
   },
-  "plugins": [
-    ["@snowpack/plugin-typescript"]
-  ],
+  "plugins": [["@snowpack/plugin-typescript"]],
   "alias": {
-    "io-ts/lib": "io-ts/es6"    
+    "io-ts/lib": "io-ts/es6",
+    "fp-ts/lib": "fp-ts/es6"
   }
 }

@@ -1,4 +1,4 @@
-import * as D from 'io-ts/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 import type { Level, LogMetadata } from '../clients/logger'
 
 import { ciLiteral, Decoder } from './Decoder'

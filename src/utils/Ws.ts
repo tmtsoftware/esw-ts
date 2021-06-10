@@ -1,5 +1,5 @@
-import * as E from 'fp-ts/Either'
-import * as D from 'io-ts/Decoder'
+import * as E from 'fp-ts/lib/Either'
+import * as D from 'io-ts/lib/Decoder'
 import * as ConfigLoader from '../config/ConfigLoader'
 import type { Decoder } from '../decoders/Decoder'
 import { ServiceError, Subscription } from '../models'
