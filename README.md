@@ -2,14 +2,14 @@
 
 ## Project overview
 
-* Typescript library clients - /lib/src/clients
-* Aas Components - /lib/src/components
+* Typescript library clients - ./src/clients
+* Aas Components - ./src/components
 * Example App - /example/src
 * UI Integration tests - /selenium-tests/src/test/scala/csw/aas/js/config
 
 ### Typescript library clients
 
-This project provide following typescript clients for various TMT services, which can be found at location - /lib/src/clients.
+This project provide following typescript clients for various TMT services, which can be found at location - ./src/clients.
 
 * Admin
 * Agent
