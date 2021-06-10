@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import * as D from 'io-ts/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'

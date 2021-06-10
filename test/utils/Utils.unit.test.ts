@@ -1,5 +1,5 @@
-import type * as E from 'fp-ts/Either'
-import * as D from 'io-ts/Decoder'
+import type * as E from 'fp-ts/lib/Either'
+import * as D from 'io-ts/lib/Decoder'
 import {
   extractHostPort,
   getOrThrow,

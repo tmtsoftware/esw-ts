@@ -1,4 +1,4 @@
-import * as D from 'io-ts/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 import type { AlarmKey, AlarmSeverity } from '../clients/alarm'
 import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
