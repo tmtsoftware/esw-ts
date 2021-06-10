@@ -2,7 +2,7 @@ import * as E from 'fp-ts/lib/Either'
 import { flow, pipe } from 'fp-ts/lib/function'
 import * as O from 'fp-ts/lib/Option'
 import * as A from 'fp-ts/lib/ReadonlyArray'
-import * as D from 'io-ts/Decoder'
+import * as D from 'io-ts/lib/Decoder'
 
 export type Decoder<T> = D.Decoder<unknown, T>
 
