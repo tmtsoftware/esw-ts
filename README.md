@@ -5,7 +5,7 @@
 * Typescript library clients - /lib/src/clients
 * Aas Components - /lib/src/components
 * Example App - /example/src
-* UI Integration tests - /integration-ui/src/test/scala/csw/aas/js/config
+* UI Integration tests - /selenium-tests/src/test/scala/csw/aas/js/config
 
 ### Typescript library clients
 
@@ -140,7 +140,7 @@ To run this test, execute
 
 ```bash
 cd {ESW-TS-Repo}
-sbt test OR sbt integration-ui/test
+sbt test OR sbt selenium-tests/test
 ```
 
 ### Generate typescript documentation
