@@ -1,5 +1,15 @@
-import type { BooleanKey, ShortKey, UTCTimeKey, Units } from '@tmtsoftware/esw-ts'
-import { booleanKey, Parameter, shortKey, utcTimeKey } from '@tmtsoftware/esw-ts'
+import type {
+  BooleanKey,
+  ShortKey,
+  UTCTimeKey,
+  Units
+} from '@tmtsoftware/esw-ts'
+import {
+  booleanKey,
+  Parameter,
+  shortKey,
+  utcTimeKey
+} from '@tmtsoftware/esw-ts'
 //#units
 //#primitives
 //declare keyName
@@ -25,6 +35,8 @@ const allValues: Array<number> = paramWithShorts1.values
 // paramWithUnits3.units === "meter")
 
 //default unit for UTCTimeKey is second
-const tParam: Parameter<UTCTimeKey> = utcTimeKey('now').set([new Date().toUTCString()])
+const tParam: Parameter<UTCTimeKey> = utcTimeKey('now').set([
+  new Date().toUTCString()
+])
 const defaultTimeUnit: Units = tParam.units //is second
 //#units

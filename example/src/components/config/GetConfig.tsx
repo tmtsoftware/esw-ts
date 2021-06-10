@@ -15,10 +15,10 @@ function GetConfig() {
 
   return (
     <IOOperationComponent
-      txtId="get-config"
-      btnId="get-config"
-      componentNameProp="Get Config"
-      operation="Get"
+      txtId='get-config'
+      btnId='get-config'
+      componentNameProp='Get Config'
+      operation='Get'
       output={err}
       api={getConfig}
     />

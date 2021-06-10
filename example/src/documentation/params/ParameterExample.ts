@@ -93,8 +93,13 @@ const cometCoord = new CometCoord(
   1.4,
   0.234
 )
-const cometParam: Parameter<CometCoordKey> = cometCoordKey('comet key', 'degree').set([cometCoord])
+const cometParam: Parameter<CometCoordKey> = cometCoordKey(
+  'comet key',
+  'degree'
+).set([cometCoord])
 
 //coord key is base trait of all coordinate key types.
-const coordParam: Parameter<CoordKey> = coordKey('base coordinate').set([cometCoord])
+const coordParam: Parameter<CoordKey> = coordKey('base coordinate').set([
+  cometCoord
+])
 //#coordinate-key

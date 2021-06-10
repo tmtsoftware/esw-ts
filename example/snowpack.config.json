@@ -14,5 +14,8 @@
   },
   "plugins": [
     ["@snowpack/plugin-typescript"]
-  ]
+  ],
+  "alias": {
+    "io-ts/lib": "io-ts/es6"    
+  }
 }

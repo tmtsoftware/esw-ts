@@ -90,7 +90,10 @@ const d = () => {
   //Create ObserveEvent using apply
   const se2: ObserveEvent = ObserveEvent.make(ck3, name3, [p1, p2])
   //Create ObserveEvent and use add
-  const se3: ObserveEvent = ObserveEvent.make(ck3, name3).add(p1).add(p2).add(p3)
+  const se3: ObserveEvent = ObserveEvent.make(ck3, name3)
+    .add(p1)
+    .add(p2)
+    .add(p3)
 
   //access keys
   const k1Exists: Boolean = se1.exists(k1) //true

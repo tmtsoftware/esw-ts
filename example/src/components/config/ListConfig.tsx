@@ -12,10 +12,10 @@ function ListConfig() {
 
   return (
     <IOOperationComponent
-      txtId="list-config"
-      btnId="list-config"
-      componentNameProp="List Config"
-      operation="List"
+      txtId='list-config'
+      btnId='list-config'
+      componentNameProp='List Config'
+      operation='List'
       output={response}
       api={listConfig}
     />

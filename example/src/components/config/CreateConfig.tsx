@@ -23,19 +23,23 @@ export function CreateConfig() {
     setFileContent(event.target.value)
 
   return (
-    <div className="card-panel hoverable">
+    <div className='card-panel hoverable'>
       <IOOperationComponent
-        txtId="file-path"
-        btnId="create-config"
-        componentNameProp="Create Config"
-        operation="Create Config"
+        txtId='file-path'
+        btnId='create-config'
+        componentNameProp='Create Config'
+        operation='Create Config'
         output={response}
         api={createConfig}
       />
-      <div className="card-panel hoverable">
+      <div className='card-panel hoverable'>
         File Content
         <span>
-          <textarea id="file-content-txt-area" value={fileContent} onChange={updateFileContent} />
+          <textarea
+            id='file-content-txt-area'
+            value={fileContent}
+            onChange={updateFileContent}
+          />
         </span>
       </div>
     </div>

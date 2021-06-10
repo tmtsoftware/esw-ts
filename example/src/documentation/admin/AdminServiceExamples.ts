@@ -19,7 +19,10 @@ const componentId = new ComponentId(prefix, 'HCD')
 const logMetaData: LogMetadata = await adminService.getLogMetadata(componentId)
 
 if (logMetaData.componentLevel !== 'ERROR') {
-  const actionStatus: Done = await adminService.setLogLevel(componentId, 'ERROR')
+  const actionStatus: Done = await adminService.setLogLevel(
+    componentId,
+    'ERROR'
+  )
 }
 //#getLogMetadata
 
@@ -37,7 +40,8 @@ const goOnlineResponse: Done = await adminService.goOnline(componentId)
 // component lifecycle state
 const response: Done = await adminService.goOnline(componentId)
 if (response === 'Done') {
-  const state: SupervisorLifecycleState = await adminService.getComponentLifecycleState(componentId)
+  const state: SupervisorLifecycleState =
+    await adminService.getComponentLifecycleState(componentId)
 
   switch (state) {
     case 'Idle':
@@ -53,9 +57,8 @@ if (response === 'Done') {
 
 // container lifecycle state
 const containerPrefix = Prefix.fromString('ESW.container1')
-const state: ContainerLifecycleState = await adminService.getContainerLifecycleState(
-  containerPrefix
-)
+const state: ContainerLifecycleState =
+  await adminService.getContainerLifecycleState(containerPrefix)
 
 switch (state) {
   case 'Idle':

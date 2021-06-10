@@ -40,7 +40,12 @@ const dd = () => {
     [4, 5, 6]
   ])
 
-  const observe: Observe = new Observe(prefix, commandName, [filterParam], obsId)
+  const observe: Observe = new Observe(
+    prefix,
+    commandName,
+    [filterParam],
+    obsId
+  )
   //#observe
 }
 const ddd = () => {
