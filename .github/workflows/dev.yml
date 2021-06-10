@@ -37,22 +37,18 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install
-        working-directory: ./lib
         run: npm ci
 
       - name: Build
-        working-directory: ./lib
         run: npm run build
 
       - name: Paradox Validate Links
         run: sbtn paradoxValidateLinks
 
       - name: Unit tests
-        working-directory: ./lib
         run: npm run test:unit:ci
 
       - name: Integration tests
-        working-directory: ./lib
         run: npm run test:integration:ci
 
       - name: Build - Example App
@@ -84,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Coverage
-          path: ./lib/coverage
+          path: ./coverage
 
       - name: Notify slack
         if: always()

@@ -25,7 +25,9 @@ const tokenFactory = () => auth.token
 
 const commandService: CommandService = await CommandService(
   new ComponentId(new Prefix('ESW', 'Component1'), 'HCD'),
-  { tokenFactory }
+  {
+    tokenFactory
+  }
 )
 //#command-service-creation
 

@@ -1,9 +1,91 @@
 {
   "name": "@tmtsoftware/esw-ts",
-  "main": "lib/dist/src/index.js",
-  "module": "lib/dist/src/index.js",
-  "typings": "lib/dist/src/index.d.ts",
+  "version": "0.1.0",
+  "description": "Typescript client for gateway",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "module": "dist/src/index.js",
   "scripts": {
-    "install": "cd lib && npm install"
-  }
+    "audit": "npm audit",
+    "clean": "rm -rf dist && mkdir dist",
+    "install": "tsc",
+    "prebuild": "npm run clean && npm-run-all --parallel fix audit",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "build:reporter": "tsc --p tsconfig.test.json",
+    "test": "npm-run-all test:unit test:integration",
+    "test:unit": "jest unit --reporters=default ",
+    "test:unit:coverage": "npm run test:unit -- --coverage",
+    "test:unit:reporter": "npm run test:unit:coverage -- --reporters=./dist/test/helpers/TestReporter.js",
+    "test:unit:ci": "npm-run-all build:reporter test:unit:reporter",
+    "test:integration": "jest int --runInBand --reporters=default",
+    "test:integration:reporter": "npm run test:integration -- --reporters=./dist/test/helpers/TestReporter.js",
+    "test:integration:ci": "npm-run-all build:reporter test:integration:reporter",
+    "test:watch": "jest --watchAll",
+    "fix": "npm-run-all --parallel clean fix:eslint fix:prettier",
+    "fix:eslint": "eslint --fix --config .eslintrc.js './**/*.{ts,tsx}' --max-warnings 0",
+    "fix:prettier": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
+    "all": "npm-run-all --parallel fix build test ",
+    "doc": "typedoc --tsconfig ./tsconfig.docs.json"
+  },
+  "scripts-info": {
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project"
+  },
+  "devDependencies": {
+    "@jest/reporters": "^27.0.4",
+    "@jest/test-result": "^27.0.2",
+    "@testing-library/react": "^11.2.7",
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.10",
+    "@types/react-dom": "^17.0.7",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "jest": "^27.0.4",
+    "mock-socket": "^9.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-jest": "^27.0.3",
+    "typedoc": "^0.21.0-beta.2",
+    "typedoc-plugin-external-module-map": "^1.2.1",
+    "typescript": "^4.3.2",
+    "whatwg-fetch": "^3.6.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "dependencies": {
+    "fp-ts": "^2.10.5",
+    "io-ts": "^2.2.16",
+    "keycloak-js": "^13.0.1",
+    "uuid": "^8.3.2"
+  },
+  "files": [
+    "dist/src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmtsoftware/esw-ts.git"
+  },
+  "keywords": [
+    "typescript",
+    "gateway"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmtsoftware/esw-ts/issues"
+  },
+  "homepage": "https://github.com/tmtsoftware/esw-ts#readme"
 }

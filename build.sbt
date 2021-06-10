@@ -6,7 +6,7 @@ inThisBuild(
 )
 
 lazy val aggregatedProjects: Seq[ProjectReference] = Seq(
-  `integration-ui`,
+  `selenium-tests`,
   `docs`
 )
 
@@ -28,8 +28,8 @@ lazy val docs = project
     )
   )
 
-lazy val `integration-ui` = project
-  .in(file("integration-ui"))
+lazy val `selenium-tests` = project
+  .in(file("selenium-tests"))
   .settings(
     libraryDependencies ++= Dependencies.Integration.value
   )

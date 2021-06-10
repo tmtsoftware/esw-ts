@@ -13,16 +13,16 @@ node_modules
 coverage
 nohup.out
 
-lib/src/**.js
-lib/dist
+src/**.js
+dist
 .vscode/*
 yarn.lock
 *.tsbuildinfo
 .DS_Store
 target
 **/web_modules/*
-lib/src/**/*.js
-lib/integration/jsons
+src/**/*.js
+integration/jsons
 RTM/testStoryMapping.txt
 .bsp
 

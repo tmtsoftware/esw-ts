@@ -28,7 +28,9 @@ const dd = async () => {
         prefix,
         'INFO',
         'Successfully submitted move command',
-        { params: [intParam] }
+        {
+          params: [intParam]
+        }
       )
       break
     default:
@@ -36,7 +38,9 @@ const dd = async () => {
         prefix,
         'ERROR',
         'Failed to submit move command',
-        { params: [intParam] }
+        {
+          params: [intParam]
+        }
       )
   }
   //#logentry

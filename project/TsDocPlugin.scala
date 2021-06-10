@@ -27,7 +27,7 @@ object TsDocPlugin extends AutoPlugin {
 
   private def typeDocsTask =
     Def.task {
-      new ProcessBuilder("sh", "-c", "cd lib && npm run doc").inheritIO().start().waitFor()
+      new ProcessBuilder("sh", "-c", "npm run doc").inheritIO().start().waitFor()
     }
 
   def tsDocPath: Def.Initialize[String] =
