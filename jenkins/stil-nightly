@@ -79,12 +79,6 @@ pipeline {
             script {
                 sendNotification(currentBuild.result)
             }
-
-            // Cleanup workspace after build
-            cleanWs(cleanWhenNotBuilt: true,
-                    deleteDirs: true,
-                    disableDeferredWipeout: true,
-                    notFailBuild: true)
         }
     }
 }
