@@ -68,7 +68,7 @@ csw-services start -c -k -v $SHA_OF_CSW
 #### Step2: Build ESW-TS Library
 
 ```bash
-cd {ESW-TS-Repo}/lib
+cd {ESW-TS-Repo}
 ```
 
 ##### Fetch dependencies
@@ -88,7 +88,7 @@ npm run build
 Start App -
 
 ```bash
-cd ../example
+cd example
 npm clean-install
 npm start
 ```
@@ -114,7 +114,7 @@ Login with appropriate user as listed below to access functionality of each tab.
 #### Run unit tests of library
 
 ```bash
-cd {ESW-TS-Repo}/lib
+cd {ESW-TS-Repo}
 npm run test:unit
 ```
 
@@ -123,7 +123,7 @@ Note : If you have started backend services ealier, stop them before running bel
 #### Run integration tests of library
 
 ```bash
-cd {ESW-TS-Repo}/lib
+cd {ESW-TS-Repo}
 npm run test:integration
 ```
 
@@ -132,7 +132,7 @@ npm run test:integration
 This module includes E2E test which demonstrate following flow which is all automated:
 
 1. Start Location, Config and AAS CSW services
-2. Build and Install `lib`
+2. Build and Install `esw-ts`
 3. Build and Start `config` example
 4. Create configuration file
 
@@ -145,7 +145,7 @@ sbt test OR sbt selenium-tests/test
 
 ### Generate typescript documentation
 
-  `cd lib && npm run build && npm run doc`
+  `npm run build && npm run doc`
 
 ### Generate paradox documentation
 
