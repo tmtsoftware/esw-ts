@@ -10,6 +10,8 @@ export const SERVER_ERROR = {
   status: 'Server error'
 }
 
+export const noop = () => ({})
+
 const createWebsocket = async (url: string, username?: string) => {
   const { applicationName } = await ConfigLoader.loadAppConfig()
   const urlWithParams = new URL(url)
@@ -20,7 +22,6 @@ const createWebsocket = async (url: string, username?: string) => {
 
 export class Ws<Req> {
   private socket: Promise<WebSocket>
-
   constructor(url: string, username?: string) {
     this.socket = new Promise(async (resolve, reject) => {
       const wss = await createWebsocket(url, username)
@@ -39,7 +40,7 @@ export class Ws<Req> {
   private handleMessage = <T>(
     event: MessageEvent<any>,
     onSuccess: (msg: T) => void,
-    onError: (error: ServiceError) => void = () => ({}),
+    onError: (error: ServiceError) => void,
     decoder?: Decoder<T>
   ) => {
     const parsedMessage = decoder
@@ -55,14 +56,15 @@ export class Ws<Req> {
 
   private subscribeOnly<T>(
     onSuccess: (msg: T) => void,
-    onError: (error: ServiceError) => void = () => ({}),
+    onError: (error: ServiceError) => void = noop,
+    onClose: () => void = noop,
     decoder?: Decoder<T>
   ): Subscription {
-    this.socket.then(
-      (wss) =>
-        (wss.onmessage = (ev: MessageEvent<any>) =>
-          this.handleMessage(ev, onSuccess, onError, decoder))
-    )
+    this.socket.then((wss) => {
+      wss.onmessage = (ev: MessageEvent<any>) => this.handleMessage(ev, onSuccess, onError, decoder)
+
+      wss.onclose = () => onClose()
+    })
 
     return this.subscription
   }
@@ -71,15 +73,16 @@ export class Ws<Req> {
     msg: Req,
     onSuccess: (msg: T) => void,
     decoder?: Decoder<T>,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ): Subscription {
-    this.send(msg).then(() => this.subscribeOnly(onSuccess, onError, decoder))
+    this.send(msg).then(() => this.subscribeOnly(onSuccess, onError, onClose, decoder))
     return this.subscription
   }
 
   singleResponse<T>(msg: Req, decoder?: Decoder<T>): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      this.subscribe(msg, resolve, decoder, reject)
+      this.subscribe(msg, resolve, decoder, reject, reject)
     })
   }
 

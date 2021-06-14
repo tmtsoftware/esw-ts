@@ -8,14 +8,15 @@ import { CurrentStateD } from '../../../src/decoders/CurrentStateDecoder'
 import { ComponentId, Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
-import { verify } from '../../helpers/JestMockHelpers'
+import { noop, verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
 
 const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly')
-const callback = () => ({})
-const onError = () => ({})
+const callback = noop
+const onError = noop
+const onClose = noop
 const httpTransport: HttpTransport<GatewayComponentCommand<CommandServicePostMessage>> =
   new HttpTransport('')
 const ws = new Ws('')
@@ -29,13 +30,14 @@ describe('CommandService', () => {
     const stateNames = new Set(['stateName1', 'stateName2'])
     const msg = new WsReq.SubscribeCurrentState(stateNames)
 
-    client.subscribeCurrentState(stateNames)(callback, onError)
+    client.subscribeCurrentState(stateNames)(callback, onError, onClose)
 
     verify(mockedWsTransport.subscribe).toBeCalledWith(
       new GatewayComponentCommand(compId, msg),
       callback,
       CurrentStateD,
-      onError
+      onError,
+      onClose
     )
   })
 

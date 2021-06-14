@@ -239,11 +239,13 @@ export interface SequencerService {
    * @param callback              the function which gets called on each state change
    * @param onError               a optional error callback which gets called on receiving error.
    *                              it can be Parsing error or a Runtime error [for ex. Gateway exception]
+   * @param onClose               a optional close callback which gets called when the connection is closed.
    * @return                      Subscription
    */
   subscribeSequencerState(): (
     onMessage: (sequencerStateResponse: SequencerStateResponse) => void,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ) => Subscription
 }
 

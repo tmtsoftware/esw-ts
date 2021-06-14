@@ -12,7 +12,7 @@ import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
 import { SequencerStateResponseD } from '../../../src/decoders/SequencerDecoders'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
-import { verify } from '../../helpers/JestMockHelpers'
+import { noop, verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
@@ -36,14 +36,16 @@ test('SequencerService should receive submit response on query final using webso
   )
 })
 test('SequencerService should receive sequencer state response on subscribe sequencer state using websocket | ESW-488, ESW-510', async () => {
-  const callback = () => ({})
-  const onError = () => ({})
-  sequencer.subscribeSequencerState()(callback, onError)
+  const callback = noop
+  const onError = noop
+  const onClose = noop
+  sequencer.subscribeSequencerState()(callback, onError, onClose)
 
   verify(mockWs.subscribe).toBeCalledWith(
     new GatewaySequencerCommand(componentId, new SubscribeSequencerState()),
     callback,
     SequencerStateResponseD,
-    onError
+    onError,
+    onClose
   )
 })

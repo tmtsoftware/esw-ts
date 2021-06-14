@@ -43,12 +43,17 @@ export interface EventService {
    * @param callback      the function which gets triggered on receiving an event
    * @param onError       a optional error callback which gets called on receiving error.
    *                      it can be Parsing error or a Runtime error [for ex. Gateway exception]
+   * @param onClose       a optional close callback which gets called when the connection is closed.
    * @return Subscription
    */
   subscribe(
     eventKeys: Set<EventKey>,
     maxFrequency: number
-  ): (callback: (event: Event) => void, onError?: (error: ServiceError) => void) => Subscription
+  ): (
+    callback: (event: Event) => void,
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
+  ) => Subscription
 
   /**
    * This API subscribes to events of all the EventKeys specified using a `Subsystem`
@@ -68,13 +73,18 @@ export interface EventService {
    * @param callback        the function which gets triggered on receiving an event
    * @param onError         a optional error callback which gets called on receiving error.
    *                        it can be Parsing error or a Runtime error [for ex. Gateway exception]
+   * @param onClose         a optional close callback which gets called when the connection is closed.
    * @return                Subscription
    */
   pSubscribe(
     subsystem: Subsystem,
     maxFrequency: number,
     pattern: string
-  ): (callback: (event: Event) => void, onError?: (error: ServiceError) => void) => Subscription
+  ): (
+    callback: (event: Event) => void,
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
+  ) => Subscription
 }
 
 /**

@@ -28,3 +28,5 @@ export const mockClass = <T>(clazz: (new (...args: any[]) => T) & { prototype: T
     return obj
   }, {})
 }
+
+export const noop = () => ({})

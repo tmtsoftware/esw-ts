@@ -4,6 +4,7 @@ import { delay } from '../../integration/utils/eventually'
 import type { ServiceError } from '../../src'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { SERVER_ERROR, Ws } from '../../src/utils/Ws'
+import { noop } from '../helpers/JestMockHelpers'
 import { wsMockWithResolved } from '../helpers/MockHelpers'
 let mockServer: Server
 const host = 'localhost'
@@ -23,7 +24,6 @@ afterEach(() => {
   mockServer.close()
 })
 
-const noOp = () => ({})
 describe('Web socket util', () => {
   test('should subscribe | ESW-312', () => {
     expect.assertions(2)
@@ -75,7 +75,7 @@ describe('Web socket util', () => {
         done()
       }
 
-      const subscription = new Ws(url).subscribe(message, noOp, D.string, (error) => onerror(error))
+      const subscription = new Ws(url).subscribe(message, noop, D.string, (error) => onerror(error))
 
       subscription.cancel()
     })
@@ -92,7 +92,23 @@ describe('Web socket util', () => {
         done()
       }
 
-      const subscription = new Ws(url).subscribe(message, noOp, undefined, (err) => onerror(err))
+      const subscription = new Ws(url).subscribe(message, noop, undefined, (err) => onerror(err))
+      await delay(400)
+      subscription.cancel()
+    })
+  })
+  test('should call onClose handle on connection close', () => {
+    return new Promise<void>(async (done) => {
+      const message = '{123}'
+      expect.assertions(1)
+      wsMockWithResolved(message, mockServer)
+
+      const onClose = () => {
+        expect(true).toBe(true)
+        done()
+      }
+
+      const subscription = new Ws(url).subscribe(message, noop, undefined, undefined, onClose)
       await delay(400)
       subscription.cancel()
     })

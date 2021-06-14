@@ -28,13 +28,15 @@ export class EventServiceImpl implements EventService {
   subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {
     return (
       callback: (event: Event) => void,
-      onError?: (error: ServiceError) => void
+      onError?: (error: ServiceError) => void,
+      onClose?: () => void
     ): Subscription => {
       const subscriptionResponse = this.resolveAndSubscribe(
         eventKeys,
         maxFrequency,
         callback,
-        onError
+        onError,
+        onClose
       )
       return {
         cancel: async () => {
@@ -48,14 +50,16 @@ export class EventServiceImpl implements EventService {
   pSubscribe(subsystem: Subsystem, maxFrequency = 0, pattern = '.*') {
     return (
       callback: (event: Event) => void,
-      onError?: (error: ServiceError) => void
+      onError?: (error: ServiceError) => void,
+      onClose?: () => void
     ): Subscription => {
       const subscriptionResponse = this.resolveAndpSubscribe(
         subsystem,
         maxFrequency,
         pattern,
         callback,
-        onError
+        onError,
+        onClose
       )
       return {
         cancel: async () => {
@@ -70,13 +74,15 @@ export class EventServiceImpl implements EventService {
     eventKeys: Set<EventKey>,
     maxFrequency: number,
     callback: (event: Event) => void,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ) {
     return this.ws().subscribe(
       new Subscribe([...eventKeys], maxFrequency),
       callback,
       EventD,
-      onError
+      onError,
+      onClose
     )
   }
 
@@ -85,13 +91,15 @@ export class EventServiceImpl implements EventService {
     maxFrequency: number,
     pattern: string,
     callback: (event: Event) => void,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ) {
     return this.ws().subscribe(
       new SubscribeWithPattern(subsystem, maxFrequency, pattern),
       callback,
       EventD,
-      onError
+      onError,
+      onClose
     )
   }
 }

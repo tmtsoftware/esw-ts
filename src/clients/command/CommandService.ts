@@ -73,13 +73,15 @@ export interface CommandService {
    * @param onStateChange     a callback which gets called on change of any of the subscribed currentState
    * @param onError           a optional error callback which gets called on receiving error.
    *                          it can be Parsing error or a Runtime error [for ex. Gateway exception]
+   * @param onClose           a optional close callback which gets called when the connection is closed.
    * @return                  Subscription which can be used to cancel to the subscription in future.
    */
   subscribeCurrentState(
     stateNames: Set<string>
   ): (
     onStateChange: (state: CurrentState) => void,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ) => Subscription
 
   /**

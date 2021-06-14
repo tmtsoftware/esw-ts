@@ -51,13 +51,15 @@ export class CommandServiceImpl implements CommandService {
   private subscribe(
     stateNames: Set<string>,
     onStateChange: (state: M.CurrentState) => void,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ): Subscription {
     return this.ws().subscribe(
       this.componentWsCommand(new WsReq.SubscribeCurrentState(stateNames)),
       onStateChange,
       CurrentStateD,
-      onError
+      onError,
+      onClose
     )
   }
 
@@ -65,9 +67,10 @@ export class CommandServiceImpl implements CommandService {
     (stateNames: Set<string>) =>
     (
       onStateChange: (state: M.CurrentState) => void,
-      onError?: (error: ServiceError) => void
+      onError?: (error: ServiceError) => void,
+      onClose?: () => void
     ): Subscription => {
-      const subscriptionResponse = this.subscribe(stateNames, onStateChange, onError)
+      const subscriptionResponse = this.subscribe(stateNames, onStateChange, onError, onClose)
       return {
         cancel: async () => {
           const response = await subscriptionResponse

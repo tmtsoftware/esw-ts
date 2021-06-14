@@ -89,13 +89,15 @@ export interface LocationService {
    * @param callback            A function which gets triggered whenever a tracking event is received
    * @param onError             a optional error callback which gets called on receiving error.
    *                            it can be Parsing error or a Runtime error [for ex. Gateway exception]
+   * @param onClose           a optional close callback which gets called when the connection is closed.
    * @return                    Subscription which provides a handle to cancel the subscription
    */
   track(
     connection: Connection
   ): (
     callBack: (trackingEvent: TrackingEvent) => void,
-    onError?: (error: ServiceError) => void
+    onError?: (error: ServiceError) => void,
+    onClose?: () => void
   ) => Subscription
 }
 
