@@ -97,7 +97,7 @@ describe('Web socket util', () => {
       subscription.cancel()
     })
   })
-  test('should call onClose handle on connection close', () => {
+  test('should call onClose handle on connection close | ESW-510', () => {
     return new Promise<void>(async (done) => {
       const message = '{123}'
       expect.assertions(1)
