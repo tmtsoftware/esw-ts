@@ -118,16 +118,21 @@ const onStateChangeCallback = (currentState: CurrentState) => {
   // do something when state changes
   console.log('changed state:', currentState)
 }
+//optional
 const onErrorCallback = (error: ServiceError) => {
   // do something when error occurs
   // for ex : close connection / cleanup resources
   console.log(error)
 }
-
+//optional
+const onCloseCallback = () => {
+  // do something when connection is closed
+  // for ex : reset client-side state
+}
 // subscribe call
 const subscription: Subscription = await commandService.subscribeCurrentState(
   currentStates
-)(onStateChangeCallback, onErrorCallback)
+)(onStateChangeCallback, onErrorCallback, onCloseCallback)
 
 // .
 // .

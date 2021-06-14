@@ -51,14 +51,21 @@ const ddd = async () => {
     // make use of ${event} inside this callback function
   }
   const eventKeys = new Set([eventKey1, eventKey2])
+  //optional
   const onErrorCallback = (error: ServiceError) => {
     // do something when error occurs
     // for ex : close connection / cleanup resources
     console.log(error)
   }
+  //optional
+  const onCloseCallback = () => {
+    // do something when connection is closed
+    // for ex : reset client-side state
+  }
   const subscription: Subscription = eventService.subscribe(eventKeys, 10)(
     onEventCallback,
-    onErrorCallback
+    onErrorCallback,
+    onCloseCallback
   )
 
   //To cancel the subscription
@@ -72,17 +79,23 @@ const dddd = async () => {
     // make use of ${event} inside this callback function
     console.log(event)
   }
+  //optional
   const onErrorCallback = (error: ServiceError) => {
     // do something when error occurs
     // for ex : close connection / cleanup resources
     console.log(error)
   }
+  //optional
+  const onCloseCallback = () => {
+    // do something when connection is closed
+    // for ex : reset client-side state
+  }
   // subscribe to all ESW subsystem's event
-  const subscription: Subscription = eventService.pSubscribe(
-    'ESW',
-    10,
-    '.*'
-  )(onEventCallback, onErrorCallback)
+  const subscription: Subscription = eventService.pSubscribe('ESW', 10, '.*')(
+    onEventCallback,
+    onErrorCallback,
+    onCloseCallback
+  )
 
   // subscribe to specific events having hcd in the event name
   const specificSubscription: Subscription = eventService.pSubscribe(

@@ -121,12 +121,18 @@ if (maybeLocation1) {
 //#resolve
 
 //#track
-// a callback function
+// a optional callback function
 const onErrorCallback = (error: ServiceError) => {
   // do something when error occurs
   // for ex : close connection / cleanup resources
   console.log(error)
 }
+//optional
+const onCloseCallback = () => {
+  // do something when connection is closed
+  // for ex : reset client-side state
+}
+
 const onTrackingEvent = (event: TrackingEvent) => {
   if (event._type === 'LocationRemoved') {
     // do something when connection's location is removed from the location service
@@ -137,7 +143,11 @@ const onTrackingEvent = (event: TrackingEvent) => {
 // connection to be tracked
 const httpConnection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
 
-locationService.track(httpConnection)(onTrackingEvent, onErrorCallback)
+locationService.track(httpConnection)(
+  onTrackingEvent,
+  onErrorCallback,
+  onCloseCallback
+)
 
 //#track
 const g = () => {

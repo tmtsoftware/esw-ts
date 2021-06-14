@@ -185,14 +185,21 @@ const getSequencerState: SequencerState =
 const callBack = (sequencerStateResponse: SequencerStateResponse) => {
   console.log(sequencerStateResponse)
 }
+//optional
 const onErrorCallback = (error: ServiceError) => {
   // do something when error occurs
   // for ex : close connection / cleanup resources
   console.log(error)
 }
+//optional
+const onCloseCallback = () => {
+  // do something when connection is closed
+  // for ex : reset client-side state
+}
 const subscription: Subscription = sequencerService.subscribeSequencerState()(
   callBack,
-  onErrorCallback
+  onErrorCallback,
+  onCloseCallback
 )
 //...
 subscription.cancel() // to unsubscribe
