@@ -5,7 +5,7 @@ import type { ServiceError } from '../../src'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { SERVER_ERROR, Ws } from '../../src/utils/Ws'
 import { noop } from '../helpers/JestMockHelpers'
-import { wsMockWithResolved } from '../helpers/MockHelpers'
+import { closeServer, wsMockWithResolved } from '../helpers/MockHelpers'
 let mockServer: Server
 const host = 'localhost'
 const port = 8080
@@ -108,9 +108,10 @@ describe('Web socket util', () => {
         done()
       }
 
-      const subscription = new Ws(url).subscribe(message, noop, undefined, undefined, onClose)
+      new Ws(url).subscribe(message, noop, undefined, undefined, onClose)
       await delay(400)
-      subscription.cancel()
+      //on closing server, client's onClose callback should get triggered.
+      closeServer(mockServer)
     })
   })
 })

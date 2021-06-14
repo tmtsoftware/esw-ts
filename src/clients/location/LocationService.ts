@@ -86,7 +86,7 @@ export interface LocationService {
    * Tracks the connection and send events for modification or removal of its location.
    *
    * @param connection          The Connection to be tracked
-   * @param callback            A function which gets triggered whenever a tracking event is received
+   * @param onMessage            A function which gets triggered whenever a tracking event is received
    * @param onError             a optional error callback which gets called on receiving error.
    *                            it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @param onClose           a optional close callback which gets called when the connection is closed.
@@ -95,7 +95,7 @@ export interface LocationService {
   track(
     connection: Connection
   ): (
-    callBack: (trackingEvent: TrackingEvent) => void,
+    onMessage: (trackingEvent: TrackingEvent) => void,
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ) => Subscription

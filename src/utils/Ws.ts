@@ -39,7 +39,7 @@ export class Ws<Req> {
 
   private handleMessage = <T>(
     event: MessageEvent<any>,
-    onSuccess: (msg: T) => void,
+    onMessage: (msg: T) => void,
     onError: (error: ServiceError) => void,
     decoder?: Decoder<T>
   ) => {
@@ -51,17 +51,18 @@ export class Ws<Req> {
           () => JSON.parse(event.data) as T,
           (error) => ServiceError.make(SERVER_ERROR.code, SERVER_ERROR.status, error)
         )
-    E.bimap(onError, onSuccess)(parsedMessage)
+    E.bimap(onError, onMessage)(parsedMessage)
   }
 
   private subscribeOnly<T>(
-    onSuccess: (msg: T) => void,
+    onMesssage: (msg: T) => void,
     onError: (error: ServiceError) => void = noop,
     onClose: () => void = noop,
     decoder?: Decoder<T>
   ): Subscription {
     this.socket.then((wss) => {
-      wss.onmessage = (ev: MessageEvent<any>) => this.handleMessage(ev, onSuccess, onError, decoder)
+      wss.onmessage = (ev: MessageEvent<any>) =>
+        this.handleMessage(ev, onMesssage, onError, decoder)
 
       wss.onclose = () => onClose()
     })
@@ -71,12 +72,12 @@ export class Ws<Req> {
 
   subscribe<T>(
     msg: Req,
-    onSuccess: (msg: T) => void,
+    onMessage: (msg: T) => void,
     decoder?: Decoder<T>,
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ): Subscription {
-    this.send(msg).then(() => this.subscribeOnly(onSuccess, onError, onClose, decoder))
+    this.send(msg).then(() => this.subscribeOnly(onMessage, onError, onClose, decoder))
     return this.subscription
   }
 
