@@ -1,6 +1,8 @@
-const isRunningInProduction = process.env.NODE_ENV === 'production'
+console.log(process.env)
+const url = process.env.LOCATION_SERVER_URL
+const port = process.env.LOCATION_SERVER_PORT
 
 export const LocationConfig: { hostName: string; port: number } = {
-  hostName: isRunningInProduction ? 'production-dns-entry.com' : 'localhost',
-  port: isRunningInProduction ? 8765 : 7654
+  hostName: url ? url : 'localhost',
+  port: port ? Number(port) : 7654
 }
