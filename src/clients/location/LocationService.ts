@@ -109,16 +109,19 @@ export interface LocationService {
  * @param locationConfig        host and port of location server
  * @constructor
  */
-export const LocationService = async (authData?: AuthData): Promise<LocationService> => {
-  const locationConfig: LocationInfo = await LocationConfig()
+export const LocationService = async (
+  authData?: AuthData,
+  locationConfig?: LocationInfo
+): Promise<LocationService> => {
+  const config: LocationInfo = locationConfig ? locationConfig : await LocationConfig()
 
   const webSocketEndpoint = getWebSocketEndPoint({
-    host: locationConfig.hostName,
-    port: locationConfig.port
+    host: config.hostName,
+    port: config.port
   })
   const postEndpoint = getPostEndPoint({
-    host: locationConfig.hostName,
-    port: locationConfig.port
+    host: config.hostName,
+    port: config.port
   })
   return new LocationServiceImpl(
     new HttpTransport(postEndpoint, authData),
