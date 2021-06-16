@@ -111,6 +111,7 @@ export interface LocationService {
  */
 export const LocationService = async (authData?: AuthData): Promise<LocationService> => {
   const locationConfig: LocationInfo = await LocationConfig()
+  console.log('location info', locationConfig)
   const webSocketEndpoint = getWebSocketEndPoint({
     host: locationConfig.hostName,
     port: locationConfig.port

@@ -5,6 +5,10 @@ const defaultLocationInfo: LocationInfo = {
 }
 export const LocationConfig = async (): Promise<LocationInfo> => {
   return fetch('/location-url')
-    .then<LocationInfo>((res) => res.json())
+    .then((res) => {
+      console.log(res, 'json found')
+      return res.json()
+    })
+    .then<LocationInfo>((json) => JSON.parse(json))
     .catch(() => defaultLocationInfo)
 }
