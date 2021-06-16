@@ -18,17 +18,13 @@ export class ServiceError extends Error {
   static make(status: number, statusText: string, responseBody: any): ServiceError {
     const errorType: string =
       status == 500 || status == SERVER_ERROR.code
-        ? responseBody._type
-          ? responseBody._type
-          : responseBody.error_name
+        ? (responseBody._type ? responseBody._type : responseBody.error_name)
         : 'TransportError'
 
     const message =
       (status == 500 || status == SERVER_ERROR.code) && responseBody.error_message
         ? responseBody.error_message
-        : responseBody.message //handle json parsing message's
-        ? responseBody.message
-        : responseBody
+        : (responseBody.message ? responseBody.message : responseBody)
 
     return new ServiceError(errorType, message, status, statusText)
   }

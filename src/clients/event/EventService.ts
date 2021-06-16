@@ -40,7 +40,7 @@ export interface EventService {
    *
    * @param eventKeys     Set of event keys to be subscribed.
    * @param maxFrequency  the duration which determines the frequency with which events are received
-   * @param onMessage      the function which gets triggered on receiving an event
+   * @param onEvent      the function which gets triggered on receiving an event
    * @param onError       a optional error callback which gets called on receiving error.
    *                      it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @param onClose       a optional close callback which gets called when the connection is closed.
@@ -50,7 +50,7 @@ export interface EventService {
     eventKeys: Set<EventKey>,
     maxFrequency: number
   ): (
-    onMessage: (event: Event) => void,
+    onEvent: (event: Event) => void,
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ) => Subscription
@@ -70,7 +70,7 @@ export interface EventService {
    *                        - h*llo subscribes to hllo and heeeello
    *                        - h[ae]llo subscribes to hello and hallo, but not hillo
    *
-   * @param onMessage        the function which gets triggered on receiving an event
+   * @param onEvent        the function which gets triggered on receiving an event
    * @param onError         a optional error callback which gets called on receiving error.
    *                        it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @param onClose         a optional close callback which gets called when the connection is closed.
@@ -81,7 +81,7 @@ export interface EventService {
     maxFrequency: number,
     pattern: string
   ): (
-    onMessage: (event: Event) => void,
+    onEvent: (event: Event) => void,
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ) => Subscription

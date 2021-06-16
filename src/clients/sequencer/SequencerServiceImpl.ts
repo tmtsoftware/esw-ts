@@ -151,13 +151,13 @@ export class SequencerServiceImpl implements SequencerService {
 
   subscribeSequencerState() {
     return (
-      onMessage: (sequencerStateResponse: SequencerStateResponse) => void,
+      onStateChange: (sequencerStateResponse: SequencerStateResponse) => void,
       onError?: (error: ServiceError) => void,
       onClose?: () => void
     ): Subscription =>
       this.ws().subscribe(
         new GatewaySequencerCommand(this.componentId, new SubscribeSequencerState()),
-        onMessage,
+        onStateChange,
         SequencerStateResponseD,
         onError,
         onClose

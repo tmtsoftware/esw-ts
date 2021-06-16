@@ -27,14 +27,14 @@ export class EventServiceImpl implements EventService {
 
   subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {
     return (
-      onMessage: (event: Event) => void,
+      onEvent: (event: Event) => void,
       onError?: (error: ServiceError) => void,
       onClose?: () => void
     ): Subscription => {
       const subscriptionResponse = this.resolveAndSubscribe(
         eventKeys,
         maxFrequency,
-        onMessage,
+        onEvent,
         onError,
         onClose
       )
@@ -49,7 +49,7 @@ export class EventServiceImpl implements EventService {
 
   pSubscribe(subsystem: Subsystem, maxFrequency = 0, pattern = '.*') {
     return (
-      onMessage: (event: Event) => void,
+      onEvent: (event: Event) => void,
       onError?: (error: ServiceError) => void,
       onClose?: () => void
     ): Subscription => {
@@ -57,7 +57,7 @@ export class EventServiceImpl implements EventService {
         subsystem,
         maxFrequency,
         pattern,
-        onMessage,
+        onEvent,
         onError,
         onClose
       )
@@ -73,13 +73,13 @@ export class EventServiceImpl implements EventService {
   private async resolveAndSubscribe(
     eventKeys: Set<EventKey>,
     maxFrequency: number,
-    onMessage: (event: Event) => void,
+    onEvent: (event: Event) => void,
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ) {
     return this.ws().subscribe(
       new Subscribe([...eventKeys], maxFrequency),
-      onMessage,
+      onEvent,
       EventD,
       onError,
       onClose
@@ -90,13 +90,13 @@ export class EventServiceImpl implements EventService {
     subsystem: Subsystem,
     maxFrequency: number,
     pattern: string,
-    onMessage: (event: Event) => void,
+    onEvent: (event: Event) => void,
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ) {
     return this.ws().subscribe(
       new SubscribeWithPattern(subsystem, maxFrequency, pattern),
-      onMessage,
+      onEvent,
       EventD,
       onError,
       onClose

@@ -61,10 +61,10 @@ export class LocationServiceImpl implements LocationService {
 
   track(connection: Connection) {
     return (
-      onMessage: (trackingEvent: TrackingEvent) => void,
+      onEvent: (trackingEvent: TrackingEvent) => void,
       onError?: (error: ServiceError) => void,
       onClose?: () => void
     ): Subscription =>
-      this.ws().subscribe(new Track(connection), onMessage, TrackingEventD, onError, onClose)
+      this.ws().subscribe(new Track(connection), onEvent, TrackingEventD, onError, onClose)
   }
 }
