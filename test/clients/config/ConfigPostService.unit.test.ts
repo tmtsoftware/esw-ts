@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { mocked } from 'ts-jest/utils'
 import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'

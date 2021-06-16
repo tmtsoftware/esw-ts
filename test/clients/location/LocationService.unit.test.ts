@@ -1,17 +1,19 @@
 import { mocked } from 'ts-jest/utils'
-import { LocationConfig, LocationService } from '../../../src'
+import { LocationService } from '../../../src/clients/location/LocationService'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
+import { LocationConfig } from '../../../src/config/LocationConfig'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { Ws } from '../../../src/utils/Ws'
 import { LocationConfigWithAuth } from '../../helpers/LocationConfigWithAuth'
 
+jest.mock('../../../src/config/LocationConfig')
 jest.mock('../../../src/clients/location/LocationServiceImpl')
 jest.mock('../../../src/utils/Utils')
 const postMockEndpoint = mocked(getPostEndPoint)
 const wsMockEndpoint = mocked(getWebSocketEndPoint)
 const mockImpl = mocked(LocationServiceImpl)
-
+const locationConfigMock = mocked(LocationConfig)
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'
 const tokenFactory = () => 'validtoken'
@@ -28,6 +30,7 @@ const locationServiceImpl = new LocationServiceImpl(new HttpTransport(postEndpoi
 describe('Location Service Factory', () => {
   test('create location service with auth | ESW-311', async () => {
     const uriWithAuth = { host: LocationConfigWithAuth.hostName, port: LocationConfigWithAuth.port }
+    locationConfigMock.mockResolvedValue(LocationConfigWithAuth)
 
     mockImpl.mockReturnValue(locationServiceImplWithAuth)
     const actualLocationService = await LocationService({ tokenFactory })
@@ -35,10 +38,12 @@ describe('Location Service Factory', () => {
     expect(actualLocationService).toEqual(locationServiceImplWithAuth)
     expect(postMockEndpoint).toBeCalledWith(uriWithAuth)
     expect(wsMockEndpoint).toBeCalledWith(uriWithAuth)
+    expect(locationConfigMock).toBeCalled()
   })
 
   test('create location service without auth | ESW-311', async () => {
-    const config = await LocationConfig()
+    const config = { hostName: 'localhost', port: 8080 }
+    locationConfigMock.mockResolvedValue(config)
     const uri = { host: config.hostName, port: config.port }
 
     mockImpl.mockReturnValue(locationServiceImpl)
