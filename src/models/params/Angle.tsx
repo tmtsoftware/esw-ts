@@ -150,19 +150,6 @@ export class Angle {
     return new Angle(this.uas / a2)
   }
 
-  // def *(a2: Double): Angle = new Angle((uas * a2).toLong)
-  //
-  // def *(a2: Int): Angle = new Angle(uas * a2)
-  //
-  // def /(a2: Double): Angle = new Angle((uas / a2).toLong)
-  //
-  // def /(a2: Int): Angle = new Angle(uas / a2)
-  //
-  // def unary_+ : Angle = this
-  //
-  // def unary_- : Angle = Angle(-uas)
-
-
   private static isNear(x: number, d: number): boolean {
     const tolerance = 1e-7
     return Math.abs(x % d) < tolerance || Math.abs(x % d - d) < tolerance
@@ -308,16 +295,6 @@ export class Angle {
 
     return new Angle(uas2)
   }
-
-  // /** Returns sequence of angles with given max value and increment */
-  // to(maxVal: Angle, increment: Angle): Array<Angle> {
-  //   return uas.to(maxVal.uas, increment.uas).map(Angle(_))
-  // }
-  //
-  // /** Returns sequence of angles with given max value and increment */
-  // until(maxVal: Angle, increment: Angle): Array<Angle> {
-  //   uas.until(maxVal.uas, increment.uas).map(Angle(_))
-  // }
 
   /** returns random angle with value between 0 and 2*PI */
   static randomRa(): Angle {
