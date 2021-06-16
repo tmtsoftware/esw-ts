@@ -30,7 +30,7 @@ describe('Location Service Factory', () => {
     const uriWithAuth = { host: LocationConfigWithAuth.hostName, port: LocationConfigWithAuth.port }
 
     mockImpl.mockReturnValue(locationServiceImplWithAuth)
-    const actualLocationService = await LocationService({ tokenFactory }, LocationConfigWithAuth)
+    const actualLocationService = await LocationService({ tokenFactory })
 
     expect(actualLocationService).toEqual(locationServiceImplWithAuth)
     expect(postMockEndpoint).toBeCalledWith(uriWithAuth)
