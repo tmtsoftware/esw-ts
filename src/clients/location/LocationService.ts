@@ -1,5 +1,6 @@
 import type { AuthData, Option, Subscription } from '../..'
 import { LocationConfig } from '../../config'
+import type { LocationInfo } from '../../config/LocationConfig'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
@@ -108,7 +109,8 @@ export interface LocationService {
  * @param locationConfig        host and port of location server
  * @constructor
  */
-export const LocationService = (authData?: AuthData, locationConfig = LocationConfig): LocationService => {
+export const LocationService = async (authData?: AuthData): Promise<LocationService> => {
+  const locationConfig: LocationInfo = await LocationConfig()
   const webSocketEndpoint = getWebSocketEndPoint({
     host: locationConfig.hostName,
     port: locationConfig.port
