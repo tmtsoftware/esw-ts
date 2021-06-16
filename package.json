@@ -43,6 +43,9 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
+    "@types/chai": "^4.2.18",
+    "@types/big.js": "^6.1.1",
+    "chai": "^4.3.4",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",
@@ -69,6 +72,7 @@
     "fp-ts": "^2.10.5",
     "io-ts": "^2.2.16",
     "keycloak-js": "^13.0.1",
+    "big.js": "^6.1.1",
     "uuid": "^8.3.2"
   },
   "files": [
