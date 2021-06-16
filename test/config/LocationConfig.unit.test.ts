@@ -8,7 +8,6 @@ describe('LocationConfig', () => {
   })
 
   test('should give production hostname and port when location config file is present | ESW-475, ESW-463', async () => {
-    //eslint-disable-nex-line
     mockedFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => JSON.stringify({ hostName: 'production-dns-entry.com', port: 8765 })
