@@ -3,7 +3,7 @@ import { resolve } from '../../src/clients/location/LocationUtils'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'
 
-const locationService = LocationService()
+const locationService = await LocationService()
 
 const waitForLocationToUp = () => eventually(() => locationService.list())
 

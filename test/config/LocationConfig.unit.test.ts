@@ -13,16 +13,16 @@ describe('LocationConfig', () => {
   test('should give production hostname and port when NODE_ENV is set to production | ESW-475', async () => {
     process.env.NODE_ENV = 'production'
     const { LocationConfig } = await import('../../src/config/LocationConfig')
-
-    expect(LocationConfig.hostName).toEqual('production-dns-entry.com')
-    expect(LocationConfig.port).toEqual(8765)
+    const config = await LocationConfig()
+    expect(config.hostName).toEqual('production-dns-entry.com')
+    expect(config.port).toEqual(8765)
   })
 
   test('should give local hostname and port when NODE_ENV is not set to production | ESW-475', async () => {
     process.env.NODE_ENV = 'dev'
     const { LocationConfig } = await import('../../src/config/LocationConfig')
-
-    expect(LocationConfig.hostName).toEqual('localhost')
-    expect(LocationConfig.port).toEqual(7654)
+    const config = await LocationConfig()
+    expect(config.hostName).toEqual('localhost')
+    expect(config.port).toEqual(7654)
   })
 })

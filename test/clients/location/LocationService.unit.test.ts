@@ -38,7 +38,8 @@ describe('Location Service Factory', () => {
   })
 
   test('create location service without auth | ESW-311', async () => {
-    const uri = { host: LocationConfig.hostName, port: LocationConfig.port }
+    const config = await LocationConfig()
+    const uri = { host: config.hostName, port: config.port }
 
     mockImpl.mockReturnValue(locationServiceImpl)
     const actualLocationService = await LocationService()
