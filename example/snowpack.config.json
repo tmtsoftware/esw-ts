@@ -15,6 +15,9 @@
   "plugins": [
     ["@snowpack/plugin-typescript"]
   ],
+  "env":{
+    "APP_FOLDER": "example"
+  },
   "alias": {
     "io-ts/lib": "io-ts/es6"    
   }

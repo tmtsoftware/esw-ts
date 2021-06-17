@@ -34,7 +34,7 @@ describe('Config Loader', () => {
   test('should return unknown when module does not exist | ESW-312', async () => {
     expect.assertions(1)
     await loadAppConfig().catch((e) => {
-      expect(e.message).toBe("Cannot find module '/_dist_/config/AppConfig.js' from 'src/config/ConfigLoader.ts'")
+      expect(e.message).toBe("Cannot find module 'AppConfig.js' from 'src/config/ConfigLoader.ts'")
     })
   })
 })

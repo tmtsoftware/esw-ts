@@ -7,9 +7,9 @@ export type LocationInfo = {
 }
 
 const locationInfoDevEnv = { host: 'localhost', port: 7654 }
-const isProdEnv = process.env.NODE_ENV === 'production'
 
-export const LocationConfig = async (): Promise<LocationInfo> =>
-  isProdEnv
+export const LocationConfig = async (): Promise<LocationInfo> => {
+  return process.env.NODE_ENV == 'production'
     ? loadConfig().then((globalConfig) => extractHostPort(globalConfig.locationUrl))
     : locationInfoDevEnv
+}
