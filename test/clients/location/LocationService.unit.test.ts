@@ -29,7 +29,7 @@ const locationServiceImpl = new LocationServiceImpl(new HttpTransport(postEndpoi
 
 describe('Location Service Factory', () => {
   test('create location service with auth | ESW-311', async () => {
-    const uriWithAuth = { host: LocationConfigWithAuth.hostName, port: LocationConfigWithAuth.port }
+    const uriWithAuth = { host: LocationConfigWithAuth.host, port: LocationConfigWithAuth.port }
     locationConfigMock.mockResolvedValue(LocationConfigWithAuth)
 
     mockImpl.mockReturnValue(locationServiceImplWithAuth)

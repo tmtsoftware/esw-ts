@@ -12,7 +12,7 @@ afterEach(() => {
 
 describe('Connection util', () => {
   test('should resolve location uri of given connection', async () => {
-    mockedLocationConfig.mockResolvedValue({ hostName: 'localhost', port: 8080 })
+    mockedLocationConfig.mockResolvedValue({ host: 'localhost', port: 8080 })
     postMockFn.mockResolvedValueOnce([
       {
         _type: 'HttpLocation',

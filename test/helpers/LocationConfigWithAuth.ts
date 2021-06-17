@@ -1,4 +1,4 @@
 export const LocationConfigWithAuth = {
-  hostName: 'localhost',
+  host: 'localhost',
   port: 7655
 }
