@@ -116,11 +116,11 @@ export const LocationService = async (
   const config: LocationInfo = locationConfig ? locationConfig : await LocationConfig()
 
   const webSocketEndpoint = getWebSocketEndPoint({
-    host: config.hostName,
+    host: config.host,
     port: config.port
   })
   const postEndpoint = getPostEndPoint({
-    host: config.hostName,
+    host: config.host,
     port: config.port
   })
   return new LocationServiceImpl(
