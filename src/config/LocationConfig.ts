@@ -1,5 +1,5 @@
 import { extractHostPort } from '../utils/Utils'
-import { loadGlobalConfig } from './GlobalConfig'
+import { loadConfig } from './GlobalConfig'
 
 export type LocationInfo = {
   host: string
@@ -11,5 +11,5 @@ const isProdEnv = process.env.NODE_ENV === 'production'
 
 export const LocationConfig = async (): Promise<LocationInfo> =>
   isProdEnv
-    ? loadGlobalConfig().then((globalConfig) => extractHostPort(globalConfig.locationUrl))
+    ? loadConfig().then((globalConfig) => extractHostPort(globalConfig.locationUrl))
     : locationInfoDevEnv
