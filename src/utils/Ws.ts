@@ -10,7 +10,7 @@ export const SERVER_ERROR = {
   status: 'Server error'
 }
 
-export const noOp = () => ({})
+export const noop = () => ({})
 
 const createWebsocket = async (url: string, username?: string) => {
   const { applicationName } = await ConfigLoader.loadAppConfig()
@@ -56,13 +56,12 @@ export class Ws<Req> {
 
   private subscribeOnly<T>(
     onMessage: (msg: T) => void,
-    onError: (error: ServiceError) => void = noOp,
-    onClose: () => void = noOp,
+    onError: (error: ServiceError) => void = noop,
+    onClose: () => void = noop,
     decoder?: Decoder<T>
   ): Subscription {
     this.socket.then((wss) => {
-      wss.onmessage = (ev: MessageEvent<any>) =>
-        this.handleMessage(ev, onMessage, onError, decoder)
+      wss.onmessage = (ev: MessageEvent<any>) => this.handleMessage(ev, onMessage, onError, decoder)
 
       wss.onclose = () => onClose()
     })
