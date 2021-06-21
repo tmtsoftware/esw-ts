@@ -3,7 +3,11 @@ import React from 'react'
 //#set-app-config
 // inside App.tsx
 
-setAppConfig({applicationName: 'ocs-application' })
+setAppConfig({
+  applicationName: 'ocs-application',
+  realm: 'TMT',
+  clientId: 'tmt-frontend-app'
+})
 
 export default () => <div>{/* children components */}</div>
 
