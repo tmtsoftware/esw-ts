@@ -1,21 +1,10 @@
-import { setAppConfigPath } from '@tmtsoftware/esw-ts'
+import { setAppConfig } from '@tmtsoftware/esw-ts'
 import React from 'react'
-//#set-app-config-path
+//#set-app-config
 // inside App.tsx
 
-setAppConfigPath('randomFolder/randomFile.ts')
+setAppConfig({applicationName: 'ocs-application' })
 
 export default () => <div>{/* children components */}</div>
 
-//#set-app-config-path
-
-/** 
-//#folder
-/AppRoot
-  /src
-    /config
-      /AppConfig.ts
-  /test
-  /types
-//#folder
-*/
+//#set-app-config

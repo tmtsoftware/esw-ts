@@ -1,5 +1,4 @@
 import { mocked } from 'ts-jest/utils'
-import 'whatwg-fetch'
 import { loadConfig } from '../../src/config/GlobalConfig'
 import { LocationConfig } from '../../src/config/LocationConfig'
 jest.mock('../../src/config/GlobalConfig')

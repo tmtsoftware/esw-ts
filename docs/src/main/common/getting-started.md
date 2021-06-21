@@ -26,24 +26,10 @@ Or, to install a specific version
 
 ## UI App Configuration for ESW-TS
 
-If you have used `esw-ui-template.g8` template for generating the application source code. Template generates `AppConfig.ts` file with default ApplicationName same as the given `projectname`.
+If you have used `esw-ui-template.g8` template for generating the application source code. Template generates a code snippet in the index.tsx file which showcases a call being made `setConfigPath`. this sets a default value to `template-folder-name`. if you wish to change your application name this is the place where you can change it. Note that this change effects metrics.
+
 ESW-TS library will try to load this `ApplicationName` before making any backend service calls.
-Therefore, it is required `AppConfig.ts` must export the @extref[AppConfig](ts-docs:modules/models.html#appconfig).
-
-Follow the steps to add a configuration file if you have not used the template before
-which has Application related information required by ESW-TS at application runtime.
-
-- Add `AppConfig.ts` inside config folder.
-
-Folder structure
-:   @@snip [folder-path](../../../../example/src/documentation/common/AppPath.tsx) { #folder }
-
-if you choose to add config file with some other name at random file path (i.e. `src/randomFolder/RandomFileName.ts`).
-you must set the ESW-TS's internal variable(`APP_CONFIG_PATH`) pointing to the `RandomFileName.ts` using @extref[setAppConfigPath](ts-docs:modules/config.html#setappconfigpath) before creating any ESW-TS Service instance.
-
-@@@warning
-Next step is only required if you have file name other than `AppConfig.ts` or the file is located other than `config` folder.
-@@@
+@extref[AppConfig](ts-docs:modules/models.html#appconfig).
 
 Typescript
-:   @@snip [settingpath](../../../../example/src/documentation/common/AppPath.tsx) { #set-app-config-path }
+:   @@snip [settingpath](../../../../example/src/documentation/common/AppPath.tsx) { #set-app-config }
