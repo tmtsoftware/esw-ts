@@ -1,12 +1,9 @@
 import 'whatwg-fetch'
 import { AdminService } from '../../src/clients/admin'
 import type { LogMetadata } from '../../src/clients/logger'
-import { setAppConfigPath } from '../../src/config'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
+import { setAppConfig } from '../../src/config'
 import { ComponentId, ContainerLifecycleState, Done, Prefix, SupervisorLifecycleState } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
-
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
 jest.setTimeout(30000)
 
@@ -14,14 +11,13 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   await startServices(['Gateway'])
 })
 
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Admin Client', () => {

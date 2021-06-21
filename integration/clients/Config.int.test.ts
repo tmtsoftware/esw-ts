@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { Option, setAppConfigPath } from '../../src'
+import type { Option } from '../../src'
 import {
   ConfigData,
   ConfigFileRevision,
@@ -7,18 +7,16 @@ import {
   ConfigMetadata,
   ConfigService
 } from '../../src/clients/config-service'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
+import { setAppConfig } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 import { delay } from '../utils/eventually'
 
 jest.setTimeout(30000)
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
-
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   await startServices(['Config'])
   await delay(5000) // wait for svn repo to initialise
   configService = await ConfigService(() => token)
@@ -27,7 +25,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 const token = 'validToken'

@@ -5,10 +5,9 @@ import {
   ComponentId,
   KillResponse,
   Prefix,
-  setAppConfigPath,
+  setAppConfig,
   SpawnResponse
 } from '../../src'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -17,11 +16,9 @@ let agentServiceWithValidToken: AgentService
 let agentServiceWithInValidToken: AgentService
 let agentServiceWithoutToken: AgentService
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
-
 beforeAll(async () => {
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   await startServices(['AgentService'])
   const validToken = 'validToken'
   const inValidToken = 'tokenWithoutRole'
@@ -33,7 +30,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Agent Service client', () => {

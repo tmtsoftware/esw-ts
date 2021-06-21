@@ -1,11 +1,9 @@
 import 'whatwg-fetch'
 import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService } from '../../src'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { setAppConfig } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
-
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
 let sequenceManagerServiceWithValidToken: SequenceManagerService
 let sequenceManagerServiceWithInValidToken: SequenceManagerService
@@ -14,7 +12,7 @@ let sequenceManagerServiceWithoutToken: SequenceManagerService
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   await startServices(['SequenceManager'])
   // Authorized user for Sequence Manager APIs
   const token = 'validToken'
@@ -33,7 +31,6 @@ const sequencerComponentId = new ComponentId(new Prefix('ESW', 'darknight'), 'Se
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 // The tests below use a stubbed out implementation of the SM

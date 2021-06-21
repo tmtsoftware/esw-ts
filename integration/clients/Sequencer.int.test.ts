@@ -8,12 +8,11 @@ import {
   SequencerService,
   SequencerState,
   SequencerStateResponse,
-  setAppConfigPath,
+  setAppConfig,
   Setup,
   StepList,
   SubmitResponse
 } from '../../src'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(90000)
@@ -31,13 +30,12 @@ const startedResponse: SubmitResponse = {
   _type: 'Started',
   runId: '123'
 }
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   await startServices(['AAS', 'Gateway'])
   sequencerServiceWithToken = await SequencerService(componentId, {
     tokenFactory: () => validToken
@@ -47,7 +45,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Sequencer Client', () => {

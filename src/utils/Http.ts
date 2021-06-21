@@ -48,7 +48,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     const path = fullUrl(url, queryParams)
 
     // headers for metric
-    const { applicationName } = await loadAppConfig()
+    const { applicationName } = loadAppConfig()
 
     headers.append(APP_NAME, applicationName)
 

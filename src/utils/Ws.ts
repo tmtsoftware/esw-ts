@@ -13,7 +13,7 @@ export const SERVER_ERROR = {
 export const noop = () => ({})
 
 const createWebsocket = async (url: string, username?: string) => {
-  const { applicationName } = await ConfigLoader.loadAppConfig()
+  const { applicationName } = ConfigLoader.loadAppConfig()
   const urlWithParams = new URL(url)
   urlWithParams.searchParams.set(APP_NAME, applicationName)
   urlWithParams.searchParams.set(USERNAME, username ? username : UNKNOWN_USERNAME)

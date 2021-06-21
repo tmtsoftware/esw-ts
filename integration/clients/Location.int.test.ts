@@ -7,17 +7,15 @@ import {
   LocationService,
   Option,
   Prefix,
-  setAppConfigPath,
+  setAppConfig,
   TrackingEvent
 } from '../../src'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { LocationConfigWithAuth } from '../../test/helpers/LocationConfigWithAuth'
 import { startComponent, startServices, stopServices } from '../utils/backend'
 import { publicIPv4Address } from '../utils/networkUtils'
 
 jest.setTimeout(100000)
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 let locationServiceWithToken: LocationService
 let locationServiceWithInvalidToken: LocationService
@@ -44,7 +42,7 @@ const httpHcdConnection: HttpConnection = {
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   // setup location service and gateway
   await startServices(['Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
@@ -58,7 +56,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('LocationService', () => {

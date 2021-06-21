@@ -1,17 +1,15 @@
 import 'whatwg-fetch'
 import { AlarmKey, AlarmService } from '../../src/clients/alarm'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { setAppConfig } from '../../src/config/AppConfigPath'
 import { Done, Prefix } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(30000)
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
-
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppConfig({ applicationName: 'test-app' })
   // setup location service and gateway
   await startServices(['Gateway'])
 })
@@ -19,7 +17,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Alarm Client', () => {

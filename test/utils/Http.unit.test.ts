@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { AppConfig, setAppConfig } from '../../src/config/AppConfigPath'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
 
@@ -11,14 +11,14 @@ const port = 1234
 const url = `http://${host}:${port}/`
 const jsonResHeaders = new HeaderExt().withContentType('application/json')
 const textResHeaders = new HeaderExt().withContentType('application/text')
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+const OLD_APP_CONFIG_PATH = AppConfig
 
-beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
-afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
+beforeAll(() => setAppConfig({ applicationName: 'test-app' }))
+afterAll(() => setAppConfig(OLD_APP_CONFIG_PATH))
 
 afterEach(() => jest.clearAllMocks())
 
-describe('Http util', () => {
+  describe('Http util', () => {
   test('Post should throw generic error exception if there is an internal service error | ESW-321', async () => {
     const invalidComponent = {
       _type: 'InvalidComponent',
