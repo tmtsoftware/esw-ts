@@ -90,12 +90,7 @@ describe('Config Client', () => {
   test('should getActive config | ESW-320', async () => {
     const expectedFileContent = '{key:filecontent}'
 
-    await configService.create(
-      path,
-      ConfigData.fromString(expectedFileContent),
-      false,
-      'creating file'
-    )
+    await configService.create(path, ConfigData.fromString(expectedFileContent), false, 'creating file')
     const configData1 = await configService.getActive(path)
     const actualFileContent = await configData1?.fileContentAsString()
     expect(actualFileContent).toEqual(expectedFileContent)
@@ -104,12 +99,7 @@ describe('Config Client', () => {
   test('should getLatest config | ESW-320', async () => {
     const expectedFileContent = '{key:filecontent}'
 
-    await configService.create(
-      path,
-      ConfigData.fromString(expectedFileContent),
-      false,
-      'creating file'
-    )
+    await configService.create(path, ConfigData.fromString(expectedFileContent), false, 'creating file')
     const actualFile = await configService.getLatest(path)
     const actualFileContent = await new Response(actualFile?.toBlob()).text()
     expect(actualFileContent).toEqual(expectedFileContent)
@@ -118,12 +108,7 @@ describe('Config Client', () => {
   test('should getByTime config | ESW-320', async () => {
     const expectedFileContent = '{key:filecontent}'
 
-    await configService.create(
-      path,
-      ConfigData.fromString(expectedFileContent),
-      false,
-      'creating file'
-    )
+    await configService.create(path, ConfigData.fromString(expectedFileContent), false, 'creating file')
     const actualFile = await configService.getByTime(path, new Date())
     const actualFileContent = await new Response(actualFile?.toBlob()).text()
     expect(actualFileContent).toEqual(expectedFileContent)
@@ -163,16 +148,8 @@ describe('Config Client', () => {
     await configService.create(path, ConfigData.fromString(config1), false, 'creating file')
 
     const from = new Date()
-    const configId2 = await configService.update(
-      path,
-      ConfigData.fromString(config2),
-      'updating file'
-    )
-    const configId3 = await configService.update(
-      path,
-      ConfigData.fromString(config3),
-      'updating file'
-    )
+    const configId2 = await configService.update(path, ConfigData.fromString(config2), 'updating file')
+    const configId3 = await configService.update(path, ConfigData.fromString(config3), 'updating file')
     const to = new Date()
 
     const expectedFileRevision: ConfigFileRevision[] = [
@@ -200,20 +177,11 @@ describe('Config Client', () => {
 
   test('should get active file revisions of a config between a time period | ESW-320', async () => {
     // create file
-    const configId = await configService.create(
-      path,
-      ConfigData.fromString(config1),
-      false,
-      'creating file'
-    )
+    const configId = await configService.create(path, ConfigData.fromString(config1), false, 'creating file')
 
     const from = new Date()
     await configService.setActiveVersion(path, configId, 'set active 1')
-    const configId2 = await configService.update(
-      path,
-      ConfigData.fromString(config2),
-      'updating file'
-    )
+    const configId2 = await configService.update(path, ConfigData.fromString(config2), 'updating file')
     await configService.setActiveVersion(path, configId2, 'set active 2')
     await configService.update(path, ConfigData.fromString(config3), 'updating file')
     const to = new Date()
@@ -242,30 +210,13 @@ describe('Config Client', () => {
 
   test('should set active version of config | ESW-320', async () => {
     // create file
-    const configId = await configService.create(
-      path,
-      ConfigData.fromString(config1),
-      false,
-      'creating file'
-    )
+    const configId = await configService.create(path, ConfigData.fromString(config1), false, 'creating file')
     // update file
-    const configId2 = await configService.update(
-      path,
-      ConfigData.fromString(config2),
-      'updating file'
-    )
-    await configService.setActiveVersion(
-      path,
-      configId2,
-      'setting active version to first file content'
-    )
+    const configId2 = await configService.update(path, ConfigData.fromString(config2), 'updating file')
+    await configService.setActiveVersion(path, configId2, 'setting active version to first file content')
     const updateTimeStamp = new Date()
 
-    await configService.setActiveVersion(
-      path,
-      configId,
-      'setting active version to first file content'
-    )
+    await configService.setActiveVersion(path, configId, 'setting active version to first file content')
 
     // verify file contents based on time (i.e before and after setting version)
     const maybeConfigData = await configService.getActiveByTime(path, updateTimeStamp)
@@ -279,11 +230,7 @@ describe('Config Client', () => {
     await configService.create(path, ConfigData.fromString(config1), false, 'creating file')
 
     // update file two times
-    const configId = await configService.update(
-      path,
-      ConfigData.fromString(config2),
-      'updating file'
-    )
+    const configId = await configService.update(path, ConfigData.fromString(config2), 'updating file')
     await configService.update(path, ConfigData.fromString(config3), 'updating file')
 
     const updateTimeStamp = new Date()

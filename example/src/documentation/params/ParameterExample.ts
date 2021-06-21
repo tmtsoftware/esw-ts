@@ -84,22 +84,9 @@ const structParameter = structKey('my struct').set([struct])
 
 //#coordinate-key
 
-const cometCoord = new CometCoord(
-  new Tag('BASE'),
-  2000,
-  324000000000,
-  7200000000,
-  360000000000,
-  1.4,
-  0.234
-)
-const cometParam: Parameter<CometCoordKey> = cometCoordKey(
-  'comet key',
-  'degree'
-).set([cometCoord])
+const cometCoord = new CometCoord(new Tag('BASE'), 2000, 324000000000, 7200000000, 360000000000, 1.4, 0.234)
+const cometParam: Parameter<CometCoordKey> = cometCoordKey('comet key', 'degree').set([cometCoord])
 
 //coord key is base trait of all coordinate key types.
-const coordParam: Parameter<CoordKey> = coordKey('base coordinate').set([
-  cometCoord
-])
+const coordParam: Parameter<CoordKey> = coordKey('base coordinate').set([cometCoord])
 //#coordinate-key

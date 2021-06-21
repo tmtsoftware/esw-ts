@@ -30,9 +30,7 @@ import type { SequencerService } from './SequencerService'
 export class SequencerServiceImpl implements SequencerService {
   constructor(
     readonly componentId: ComponentId,
-    private readonly httpTransport: HttpTransport<
-      GatewaySequencerCommand<Req.SequencerPostRequest>
-    >,
+    private readonly httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequest>>,
     private readonly ws: () => Ws<GatewaySequencerCommand<SequencerWebsocketRequest>>
   ) {}
 
@@ -113,10 +111,7 @@ export class SequencerServiceImpl implements SequencerService {
   }
 
   diagnosticMode(startTime: Date, hint: string): Promise<DiagnosticModeResponse> {
-    return this.postSequencerCmd(
-      new Req.DiagnosticMode(startTime, hint),
-      Res.DiagnosticModeResponseD
-    )
+    return this.postSequencerCmd(new Req.DiagnosticMode(startTime, hint), Res.DiagnosticModeResponseD)
   }
 
   operationsMode(): Promise<OperationsModeResponse> {
@@ -168,10 +163,7 @@ export class SequencerServiceImpl implements SequencerService {
     return new GatewaySequencerCommand(this.componentId, request)
   }
 
-  private postSequencerCmd<Res>(
-    request: Req.SequencerPostRequest,
-    decoder: Decoder<Res>
-  ): Promise<Res> {
+  private postSequencerCmd<Res>(request: Req.SequencerPostRequest, decoder: Decoder<Res>): Promise<Res> {
     return this.httpTransport.requestRes(this.sequencerCommand(request), decoder)
   }
 }

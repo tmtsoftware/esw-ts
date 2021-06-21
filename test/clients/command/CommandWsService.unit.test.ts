@@ -17,8 +17,7 @@ const compId: ComponentId = new ComponentId(new Prefix('ESW', 'test'), 'Assembly
 const callback = noop
 const onError = noop
 const onClose = noop
-const httpTransport: HttpTransport<GatewayComponentCommand<CommandServicePostMessage>> =
-  new HttpTransport('')
+const httpTransport: HttpTransport<GatewayComponentCommand<CommandServicePostMessage>> = new HttpTransport('')
 const ws = new Ws('')
 
 const mockedWsTransport = mocked(ws)
@@ -48,10 +47,7 @@ describe('CommandService', () => {
 
     await client.queryFinal(runId, timeoutInSeconds)
 
-    verify(mockedWsTransport.singleResponse).toBeCalledWith(
-      new GatewayComponentCommand(compId, msg),
-      SubmitResponseD
-    )
+    verify(mockedWsTransport.singleResponse).toBeCalledWith(new GatewayComponentCommand(compId, msg), SubmitResponseD)
   })
 })
 

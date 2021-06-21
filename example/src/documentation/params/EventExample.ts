@@ -90,10 +90,7 @@ const d = () => {
   //Create ObserveEvent using apply
   const se2: ObserveEvent = ObserveEvent.make(ck3, name3, [p1, p2])
   //Create ObserveEvent and use add
-  const se3: ObserveEvent = ObserveEvent.make(ck3, name3)
-    .add(p1)
-    .add(p2)
-    .add(p3)
+  const se3: ObserveEvent = ObserveEvent.make(ck3, name3).add(p1).add(p2).add(p3)
 
   //access keys
   const k1Exists: Boolean = se1.exists(k1) //true
@@ -143,9 +140,7 @@ const dd = () => {
   ])
 
   //try adding duplicate keys via add + madd
-  const changedStatusEvent = systemEvent
-    .add(encParam3)
-    .madd([filterParam1, filterParam2, filterParam3])
+  const changedStatusEvent = systemEvent.add(encParam3).madd([filterParam1, filterParam2, filterParam3])
   //duplicate keys will not be added. Should contain one Encoder and one Filter key
   const uniqueKeys2 = changedStatusEvent.paramSet.map((x) => x.keyName)
 

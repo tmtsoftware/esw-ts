@@ -1,9 +1,4 @@
-import type {
-  OnewayResponse,
-  SubmitResponse,
-  Subscription,
-  ValidateResponse
-} from '@tmtsoftware/esw-ts'
+import type { OnewayResponse, SubmitResponse, Subscription, ValidateResponse } from '@tmtsoftware/esw-ts'
 import {
   CommandService,
   ComponentId,
@@ -23,12 +18,9 @@ const paramSet: Parameter<IntKey>[] = []
 //#command-service-creation
 const tokenFactory = () => auth.token
 
-const commandService: CommandService = await CommandService(
-  new ComponentId(new Prefix('ESW', 'Component1'), 'HCD'),
-  {
-    tokenFactory
-  }
-)
+const commandService: CommandService = await CommandService(new ComponentId(new Prefix('ESW', 'Component1'), 'HCD'), {
+  tokenFactory
+})
 //#command-service-creation
 
 //#control-commands
@@ -36,53 +28,31 @@ const commandService: CommandService = await CommandService(
 type ControlCommand = Setup | Observe
 
 // examples
-const setupCommand: Setup = new Setup(
-  new Prefix('ESW', 'Component1'),
-  'move-command',
-  paramSet,
-  'obs-id'
-)
+const setupCommand: Setup = new Setup(new Prefix('ESW', 'Component1'), 'move-command', paramSet, 'obs-id')
 
-const observeCommand: Observe = new Observe(
-  new Prefix('ESW', 'Component1'),
-  'c1',
-  paramSet,
-  'obs-id'
-)
+const observeCommand: Observe = new Observe(new Prefix('ESW', 'Component1'), 'c1', paramSet, 'obs-id')
 
 //#control-commands
 
 //#validate
 
-const validateResponse1: ValidateResponse = await commandService.validate(
-  setupCommand
-)
+const validateResponse1: ValidateResponse = await commandService.validate(setupCommand)
 // or
-const validateResponse2: ValidateResponse = await commandService.validate(
-  observeCommand
-)
+const validateResponse2: ValidateResponse = await commandService.validate(observeCommand)
 
 //#validate
 
 //#submit
-const submitResponse1: SubmitResponse = await commandService.submit(
-  setupCommand
-)
+const submitResponse1: SubmitResponse = await commandService.submit(setupCommand)
 // or
-const submitResponse2: SubmitResponse = await commandService.submit(
-  observeCommand
-)
+const submitResponse2: SubmitResponse = await commandService.submit(observeCommand)
 
 //#submit
 
 //#oneway
-const onewayResponse1: OnewayResponse = await commandService.oneway(
-  setupCommand
-)
+const onewayResponse1: OnewayResponse = await commandService.oneway(setupCommand)
 // or
-const onewayResponse2: OnewayResponse = await commandService.oneway(
-  observeCommand
-)
+const onewayResponse2: OnewayResponse = await commandService.oneway(observeCommand)
 
 //#oneway
 
@@ -103,10 +73,7 @@ const result: SubmitResponse = await commandService.submit(setupCommand)
 // .
 // .
 // Get the final result of long running command within 10 seconds :
-const queryFinalResponse: SubmitResponse = await commandService.queryFinal(
-  result.runId,
-  10
-)
+const queryFinalResponse: SubmitResponse = await commandService.queryFinal(result.runId, 10)
 //#query-final
 
 //#subscribe-current-state
@@ -130,9 +97,11 @@ const onCloseCallback = () => {
   // for ex : reset client-side state
 }
 // subscribe call
-const subscription: Subscription = await commandService.subscribeCurrentState(
-  currentStates
-)(onStateChangeCallback, onErrorCallback, onCloseCallback)
+const subscription: Subscription = await commandService.subscribeCurrentState(currentStates)(
+  onStateChangeCallback,
+  onErrorCallback,
+  onCloseCallback
+)
 
 // .
 // .
@@ -145,13 +114,14 @@ subscription.cancel()
 //#submit-and-wait
 // Submit a long running command and wait for the result for specific time
 
-const submitAndWaitResponse: SubmitResponse =
-  await commandService.submitAndWait(setupCommand, 10)
+const submitAndWaitResponse: SubmitResponse = await commandService.submitAndWait(setupCommand, 10)
 //#submit-and-wait
 
 //#submit-all-and-wait
 // Submit multiple commands and wait for the result of each submitted command for specific time
 
-const submitAllAndWaitResponse: SubmitResponse[] =
-  await commandService.submitAllAndWait([setupCommand, observeCommand], 10)
+const submitAllAndWaitResponse: SubmitResponse[] = await commandService.submitAllAndWait(
+  [setupCommand, observeCommand],
+  10
+)
 //#submit-all-and-wait

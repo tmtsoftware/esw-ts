@@ -27,13 +27,7 @@ test('location service must track a location for given connection | ESW-308, ESW
 
   locationService.track(httpConnection)(callback, onError, onClose)
 
-  verify(mockWs.subscribe).toBeCalledWith(
-    new Track(httpConnection),
-    callback,
-    TrackingEventD,
-    onError,
-    onClose
-  )
+  verify(mockWs.subscribe).toBeCalledWith(new Track(httpConnection), callback, TrackingEventD, onError, onClose)
 })
 
 afterEach(() => jest.resetAllMocks())

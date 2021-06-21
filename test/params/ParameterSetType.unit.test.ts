@@ -74,10 +74,7 @@ describe('ParameterSetType', () => {
     parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest([intParam, stringParam]))
     parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest(expectedParameterSet))
 
-    const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([
-      stringParam,
-      intArrayParam
-    ])
+    const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([stringParam, intArrayParam])
 
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
     expect(parameterSetType.create).toBeCalledTimes(2)
@@ -96,10 +93,7 @@ describe('ParameterSetType', () => {
     parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest([intParam, stringParam2]))
     parameterSetType.create.mockReturnValueOnce(new ParameterSetTypeTest(expectedParameterSet))
 
-    const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([
-      stringParam2,
-      intArrayParam
-    ])
+    const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([stringParam2, intArrayParam])
 
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
     expect(parameterSetType.create).toBeCalledTimes(2)
@@ -108,12 +102,7 @@ describe('ParameterSetType', () => {
   })
 
   test('exists should return true if parameter with given key exists | ESW-380', () => {
-    const parameterSetType = new ParameterSetTypeTest([
-      intParam,
-      stringParam,
-      intArrayParam,
-      rgbParam
-    ])
+    const parameterSetType = new ParameterSetTypeTest([intParam, stringParam, intArrayParam, rgbParam])
 
     expect(parameterSetType.exists(intKey('number'))).toBe(true)
     expect(parameterSetType.exists(rgbKey)).toBe(true)

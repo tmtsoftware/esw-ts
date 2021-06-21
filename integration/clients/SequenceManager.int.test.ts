@@ -1,12 +1,5 @@
 import 'whatwg-fetch'
-import {
-  AgentProvisionConfig,
-  ComponentId,
-  ObsMode,
-  Prefix,
-  ProvisionConfig,
-  SequenceManagerService
-} from '../../src'
+import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService } from '../../src'
 import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -108,10 +101,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('startSequencer | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.startSequencer(
-      'ESW',
-      new ObsMode('darknight')
-    )
+    const response = await sequenceManagerServiceWithValidToken.startSequencer('ESW', new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Started',
@@ -120,10 +110,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('restartSequencer | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.restartSequencer(
-      'ESW',
-      new ObsMode('darknight')
-    )
+    const response = await sequenceManagerServiceWithValidToken.restartSequencer('ESW', new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Success',
@@ -132,10 +119,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('shutdownSequencer | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.shutdownSequencer(
-      'ESW',
-      new ObsMode('darknight')
-    )
+    const response = await sequenceManagerServiceWithValidToken.shutdownSequencer('ESW', new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Success'
@@ -151,9 +135,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('shutdownObsModeSequencers | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.shutdownObsModeSequencers(
-      new ObsMode('darknight')
-    )
+    const response = await sequenceManagerServiceWithValidToken.shutdownObsModeSequencers(new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Success'
@@ -169,9 +151,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('shutdownSequenceComponent | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.shutdownSequenceComponent(
-      new Prefix('ESW', 'primary')
-    )
+    const response = await sequenceManagerServiceWithValidToken.shutdownSequenceComponent(new Prefix('ESW', 'primary'))
 
     expect(response).toEqual({
       _type: 'Success'
@@ -226,9 +206,7 @@ describe('Sequence Manager Client', () => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')
-      expect(e.message).toBe(
-        'The resource requires authentication, which was not supplied with the request'
-      )
+      expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
     })
   })
 
@@ -238,9 +216,7 @@ describe('Sequence Manager Client', () => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(403)
       expect(e.statusText).toBe('Forbidden')
-      expect(e.message).toBe(
-        'The supplied authentication is not authorized to access this resource'
-      )
+      expect(e.message).toBe('The supplied authentication is not authorized to access this resource')
     })
   })
 })

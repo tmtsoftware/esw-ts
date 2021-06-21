@@ -49,10 +49,7 @@ beforeAll(async () => {
   await startServices(['Gateway', 'LocationWithAuth'])
   await startComponent(hcdPrefix, 'HCD', 'testHcd.conf')
   //Following 2 client connects to auth enabled location server instance
-  locationServiceWithToken = LocationService(
-    { tokenFactory: () => 'validToken' },
-    LocationConfigWithAuth
-  )
+  locationServiceWithToken = LocationService({ tokenFactory: () => 'validToken' }, LocationConfigWithAuth)
   locationServiceWithInvalidToken = LocationService(undefined, LocationConfigWithAuth)
   //Following 1 client connects to auth disabled location server instance
   locationService = LocationService()
@@ -66,9 +63,7 @@ afterAll(async () => {
 
 describe('LocationService', () => {
   test('should be able to resolve a location for given connection | ESW-343, ESW-308', async () => {
-    const gatewayLocation = getValueFromOption(
-      await locationService.resolve(GATEWAY_CONNECTION, 10, 'seconds')
-    )
+    const gatewayLocation = getValueFromOption(await locationService.resolve(GATEWAY_CONNECTION, 10, 'seconds'))
     expect(gatewayLocation._type).toBe('HttpLocation')
   })
 
@@ -176,9 +171,7 @@ describe('LocationService', () => {
     await locationServiceWithInvalidToken.unregister(httpHcdConnection).catch((e) => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
-      expect(e.message).toBe(
-        'The resource requires authentication, which was not supplied with the request'
-      )
+      expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
       expect(e.statusText).toBe('Unauthorized')
     })
   })

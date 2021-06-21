@@ -18,12 +18,7 @@ export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
    * @param units the unit for the choice key
    * @return Instance of ChoiceKeyFactory
    */
-  constructor(
-    readonly keyName: string,
-    readonly keyTag: KTag<T>,
-    readonly choices: L,
-    readonly units: Units
-  ) {}
+  constructor(readonly keyName: string, readonly keyTag: KTag<T>, readonly choices: L, readonly units: Units) {}
 
   /**
    * Sets the values for the key using a variable number of arguments

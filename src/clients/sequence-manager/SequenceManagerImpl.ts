@@ -23,17 +23,11 @@ export class SequenceManagerImpl implements SequenceManagerService {
   }
 
   startSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<T.StartSequencerResponse> {
-    return this.httpTransport.requestRes(
-      new Req.StartSequencer(subsystem, obsMode),
-      Res.StartSequencerResponseD
-    )
+    return this.httpTransport.requestRes(new Req.StartSequencer(subsystem, obsMode), Res.StartSequencerResponseD)
   }
 
   restartSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<T.RestartSequencerResponse> {
-    return this.httpTransport.requestRes(
-      new Req.RestartSequencer(subsystem, obsMode),
-      Res.RestartSequencerResponseD
-    )
+    return this.httpTransport.requestRes(new Req.RestartSequencer(subsystem, obsMode), Res.RestartSequencerResponseD)
   }
 
   shutdownSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<T.ShutdownSequencersResponse> {
@@ -58,10 +52,7 @@ export class SequenceManagerImpl implements SequenceManagerService {
   }
 
   shutdownAllSequencers(): Promise<T.ShutdownSequencersResponse> {
-    return this.httpTransport.requestRes(
-      new Req.ShutdownAllSequencers(),
-      Res.ShutdownSequencersOrSeqCompResponseD
-    )
+    return this.httpTransport.requestRes(new Req.ShutdownAllSequencers(), Res.ShutdownSequencersOrSeqCompResponseD)
   }
 
   shutdownSequenceComponent(prefix: Prefix): Promise<T.ShutdownSequenceComponentResponse> {

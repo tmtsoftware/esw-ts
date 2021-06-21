@@ -48,8 +48,4 @@ export type StepStatusFailure = {
 /**
  * @category Sequencer Service
  */
-export type StepStatus =
-  | StepStatusPending
-  | StepStatusInFlight
-  | StepStatusSuccess
-  | StepStatusFailure
+export type StepStatus = StepStatusPending | StepStatusInFlight | StepStatusSuccess | StepStatusFailure

@@ -8,9 +8,7 @@ import { paramDecoders } from './KeyDecoders'
 const decodeParameter = () =>
   pipe(
     object(paramDecoders),
-    D.parse(([key, body]) =>
-      D.success(new Parameter(body.keyName, key as any, body.values as any, body.units))
-    )
+    D.parse(([key, body]) => D.success(new Parameter(body.keyName, key as any, body.values as any, body.units)))
   )
 
 export const ParameterD: Decoder<Parameter<Key>> = D.lazy('Parameter<Key>', decodeParameter)

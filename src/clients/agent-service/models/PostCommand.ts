@@ -32,8 +32,4 @@ export class GetAgentStatus {
   readonly _type: 'GetAgentStatus' = 'GetAgentStatus'
 }
 
-export type AgentServiceRequest =
-  | SpawnSequenceComponent
-  | SpawnSequenceManager
-  | KillComponent
-  | GetAgentStatus
+export type AgentServiceRequest = SpawnSequenceComponent | SpawnSequenceManager | KillComponent | GetAgentStatus

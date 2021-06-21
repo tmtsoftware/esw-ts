@@ -65,9 +65,7 @@ describe('Command Client', () => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')
-      expect(e.message).toBe(
-        'The resource requires authentication, which was not supplied with the request'
-      )
+      expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
     })
   })
 
@@ -84,9 +82,7 @@ describe('Command Client', () => {
     await commandService.oneway(setupCommand).catch((e) => {
       expect(e.errorType).toBe('TransportError')
       expect(e.statusText).toBe('Forbidden')
-      expect(e.message).toBe(
-        'The supplied authentication is not authorized to access this resource'
-      )
+      expect(e.message).toBe('The supplied authentication is not authorized to access this resource')
       expect(e.status).toBe(403)
     })
   })
@@ -140,9 +136,7 @@ describe('Command Client', () => {
     }
     expect(queryRes).toEqual(expectedRes)
 
-    expect((queryRes as Completed).result.get(intKey('numbers'))).toEqual(
-      intKey('numbers').set([1, 2, 3])
-    )
+    expect((queryRes as Completed).result.get(intKey('numbers'))).toEqual(intKey('numbers').set([1, 2, 3]))
   })
 
   test('should be able to submit and wait for final result of the given command | ESW-344', async () => {
@@ -163,9 +157,7 @@ describe('Command Client', () => {
         subscription.cancel()
         done()
       }
-      const subscription = commandService.subscribeCurrentState(
-        new Set(['stateName1', 'stateName2'])
-      )(callback)
+      const subscription = commandService.subscribeCurrentState(new Set(['stateName1', 'stateName2']))(callback)
     })
   })
 })

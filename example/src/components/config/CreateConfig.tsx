@@ -19,8 +19,7 @@ export function CreateConfig() {
     setResponse(config.id)
   }
 
-  const updateFileContent = (event: ChangeEvent<HTMLTextAreaElement>) =>
-    setFileContent(event.target.value)
+  const updateFileContent = (event: ChangeEvent<HTMLTextAreaElement>) => setFileContent(event.target.value)
 
   return (
     <div className='card-panel hoverable'>
@@ -35,11 +34,7 @@ export function CreateConfig() {
       <div className='card-panel hoverable'>
         File Content
         <span>
-          <textarea
-            id='file-content-txt-area'
-            value={fileContent}
-            onChange={updateFileContent}
-          />
+          <textarea id='file-content-txt-area' value={fileContent} onChange={updateFileContent} />
         </span>
       </div>
     </div>

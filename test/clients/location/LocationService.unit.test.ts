@@ -23,10 +23,7 @@ const locationServiceImplWithAuth = new LocationServiceImpl(
   () => new Ws(wsEndpoint)
 )
 
-const locationServiceImpl = new LocationServiceImpl(
-  new HttpTransport(postEndpoint),
-  () => new Ws(wsEndpoint)
-)
+const locationServiceImpl = new LocationServiceImpl(new HttpTransport(postEndpoint), () => new Ws(wsEndpoint))
 
 describe('Location Service Factory', () => {
   test('create location service with auth | ESW-311', async () => {

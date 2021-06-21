@@ -1,11 +1,5 @@
 import type { IntKey, Option, StringKey } from '@tmtsoftware/esw-ts'
-import {
-  stringKey,
-  intKey,
-  Prefix,
-  Parameter,
-  Result
-} from '@tmtsoftware/esw-ts'
+import { stringKey, intKey, Prefix, Parameter, Result } from '@tmtsoftware/esw-ts'
 //#result
 //keys
 

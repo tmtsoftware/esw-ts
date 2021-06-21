@@ -9,9 +9,7 @@ const waitForLocationToUp = () => eventually(() => locationService.list())
 
 export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
-  const filteredServices = serviceNames.filter(
-    (name) => name != 'AAS' && name != 'LocationWithAuth'
-  )
+  const filteredServices = serviceNames.filter((name) => name != 'AAS' && name != 'LocationWithAuth')
   return await Promise.all(filteredServices.map((name) => resolve(BackendServices[name])))
 }
 

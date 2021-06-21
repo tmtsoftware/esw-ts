@@ -78,9 +78,7 @@ class TestReporter implements CustomReporter {
   }
 
   addResult(storyId: string, name: string, status: string) {
-    return this.results.push(
-      `${storyId.trim() + PIPE_WITH_SPACES + name.trim() + PIPE_WITH_SPACES + status}`
-    )
+    return this.results.push(`${storyId.trim() + PIPE_WITH_SPACES + name.trim() + PIPE_WITH_SPACES + status}`)
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async onRunComplete(_context?: Set<Context>, _results?: AggregatedResult) {

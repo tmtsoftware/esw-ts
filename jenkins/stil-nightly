@@ -65,16 +65,6 @@ pipeline {
     }
     post {
         always {
-            // upload test coverage
-            publishHTML(target: [
-                allowMissing         : true,
-                alwaysLinkToLastBuild: false,
-                keepAll              : true,
-                reportDir            : './coverage/lcov-report',
-                reportFiles          : 'index.html',
-                reportName           : "Coverage Report"
-            ])
-
             // Generate RTM
             sh "./rtm.sh"
 

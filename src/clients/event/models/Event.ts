@@ -30,10 +30,7 @@ export class ObserveEvent extends ParameterSetType<ObserveEvent> {
   }
 
   static decoder(): Decoder<ObserveEvent> {
-    return mkEventD(
-      'ObserveEvent',
-      (e) => new ObserveEvent(e.source, e.eventName, e.paramSet, e.eventId, e.eventTime)
-    )
+    return mkEventD('ObserveEvent', (e) => new ObserveEvent(e.source, e.eventName, e.paramSet, e.eventId, e.eventTime))
   }
 }
 
@@ -62,10 +59,7 @@ export class SystemEvent extends ParameterSetType<SystemEvent> {
   }
 
   static decoder(): Decoder<SystemEvent> {
-    return mkEventD(
-      'SystemEvent',
-      (e) => new SystemEvent(e.source, e.eventName, e.paramSet, e.eventId, e.eventTime)
-    )
+    return mkEventD('SystemEvent', (e) => new SystemEvent(e.source, e.eventName, e.paramSet, e.eventId, e.eventTime))
   }
 }
 

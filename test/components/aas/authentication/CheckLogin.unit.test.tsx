@@ -18,8 +18,8 @@ describe('<CheckLogin />', () => {
   mockFn.mockReturnValue(keycloakInstance)
 
   const props = {
-    children: <div id="auth">Authentication successful</div>,
-    error: <div id="error">Authentication unsuccessful</div>
+    children: <div id='auth'>Authentication successful</div>,
+    error: <div id='error'>Authentication unsuccessful</div>
   }
   const mockLogin = jest.fn()
   const mockLogout = jest.fn()
@@ -78,7 +78,7 @@ describe('<CheckLogin />', () => {
     const auth = mockAuth(false)
 
     const props = {
-      children: <div className="auth">Authentication successful</div>,
+      children: <div className='auth'>Authentication successful</div>,
       error: null
     }
 

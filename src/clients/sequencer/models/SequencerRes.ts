@@ -45,10 +45,7 @@ export type PauseResponse = OkOrUnhandledResponse | CannotOperateOnAnInFlightOrF
 /**
  * @category Sequencer Service
  */
-export type GenericResponse =
-  | OkOrUnhandledResponse
-  | IdDoesNotExist
-  | CannotOperateOnAnInFlightOrFinishedStep
+export type GenericResponse = OkOrUnhandledResponse | IdDoesNotExist | CannotOperateOnAnInFlightOrFinishedStep
 /**
  * @category Sequencer Service
  */

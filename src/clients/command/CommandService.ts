@@ -111,10 +111,7 @@ export interface CommandService {
  * @return                    CommandService as Promise
  * @constructor
  */
-export const CommandService = async (
-  componentId: ComponentId,
-  authData?: AuthData
-): Promise<CommandService> => {
+export const CommandService = async (componentId: ComponentId, authData?: AuthData): Promise<CommandService> => {
   const location = await resolve(GATEWAY_CONNECTION)
   return createCommandService(componentId, location, authData)
 }

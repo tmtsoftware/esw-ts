@@ -45,29 +45,21 @@ describe('Http util', () => {
   })
 
   test.each([
-    [
-      'json',
-      JSON.stringify({ error_message: 'error' }),
-      jsonResHeaders,
-      { error_message: 'error' }
-    ],
+    ['json', JSON.stringify({ error_message: 'error' }), jsonResHeaders, { error_message: 'error' }],
     ['text', 'error', textResHeaders, 'error']
-  ])(
-    'Post call throws error for %s error response | ESW-321',
-    async (_, body, headers, expectedMessage) => {
-      fetchMockFn.mockResolvedValueOnce(makeErrorResponse(body, headers))
-      const payload = 'hello'
+  ])('Post call throws error for %s error response | ESW-321', async (_, body, headers, expectedMessage) => {
+    fetchMockFn.mockResolvedValueOnce(makeErrorResponse(body, headers))
+    const payload = 'hello'
 
-      expect.assertions(5)
-      await post({ url, payload }).catch((e) => {
-        expect(e.errorType).toBe('TransportError')
-        expect(e.message).toEqual(expectedMessage)
-        expect(e.status).toBe(404)
-        expect(e.statusText).toBe('bad request')
-      })
-      expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
-    }
-  )
+    expect.assertions(5)
+    await post({ url, payload }).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
+      expect(e.message).toEqual(expectedMessage)
+      expect(e.status).toBe(404)
+      expect(e.statusText).toBe('bad request')
+    })
+    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+  })
 
   test('Post request', async () => {
     const expectedValue = { ok: true, status: 200 }

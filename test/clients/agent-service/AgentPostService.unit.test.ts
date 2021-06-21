@@ -9,11 +9,7 @@ import {
   SpawnSequenceComponent,
   SpawnSequenceManager
 } from '../../../src/clients/agent-service/models/PostCommand'
-import {
-  AgentStatusResponseD,
-  KillResponseD,
-  SpawnResponseD
-} from '../../../src/decoders/AgentDecoders'
+import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../../src/decoders/AgentDecoders'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -58,12 +54,7 @@ describe('Agent service', () => {
   })
 
   test('should spawn sequence manager of specific version | ESW-376', async () => {
-    const response = await agentService.spawnSequenceManager(
-      agentPrefix,
-      '/path-to-config.conf',
-      true,
-      version
-    )
+    const response = await agentService.spawnSequenceManager(agentPrefix, '/path-to-config.conf', true, version)
 
     expect(response).toEqual(expectedRes)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
@@ -73,11 +64,7 @@ describe('Agent service', () => {
   })
 
   test('should spawn sequence manager with default version | ESW-376', async () => {
-    const response = await agentService.spawnSequenceManager(
-      agentPrefix,
-      '/path-to-config.conf',
-      true
-    )
+    const response = await agentService.spawnSequenceManager(agentPrefix, '/path-to-config.conf', true)
 
     expect(response).toEqual(expectedRes)
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
@@ -130,10 +117,7 @@ describe('Agent service', () => {
     const response = await agentService.getAgentStatus()
 
     expect(response).toEqual(expectedRes)
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new GetAgentStatus(),
-      AgentStatusResponseD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new GetAgentStatus(), AgentStatusResponseD)
   })
 })
 

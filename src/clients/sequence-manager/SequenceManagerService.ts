@@ -129,17 +129,12 @@ export interface SequenceManagerService {
  * @return              SequencerService as Promise
  * @constructor
  */
-export const SequenceManagerService = async (
-  authData?: AuthData
-): Promise<SequenceManagerService> => {
+export const SequenceManagerService = async (authData?: AuthData): Promise<SequenceManagerService> => {
   const location = await resolve(SEQUENCE_MANAGER_CONNECTION)
   return createSequenceManagerService(location, authData)
 }
 
-export const createSequenceManagerService = (
-  location: Location,
-  authData?: AuthData
-): SequenceManagerService => {
+export const createSequenceManagerService = (location: Location, authData?: AuthData): SequenceManagerService => {
   const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
 

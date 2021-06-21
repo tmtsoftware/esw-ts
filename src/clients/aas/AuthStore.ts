@@ -59,11 +59,7 @@ export class AuthStore {
 
   // fixme: this function name is confusing . it is doing instantiation of keycloak and returning authentication promise ?
   //  it doing too many things at once?
-  public static authenticate(
-    config: AuthContextConfig,
-    url: string,
-    redirect: boolean
-  ): AuthenticateResult {
+  public static authenticate(config: AuthContextConfig, url: string, redirect: boolean): AuthenticateResult {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
     const keycloak: KeycloakInstance = Keycloak(keycloakConfig)

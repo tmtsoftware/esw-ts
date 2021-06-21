@@ -26,12 +26,7 @@ export const tryConfigExists = async (url: string): Promise<boolean> =>
 export const tryGetActiveVersion = async (url: string) =>
   map404(get({ url, decoder: decodeUsing(ConfigIdD) }), undefined)
 
-export const history = async (
-  path: string,
-  from: Date,
-  to: Date,
-  maxResults: number
-): Promise<ConfigFileRevision[]> =>
+export const history = async (path: string, from: Date, to: Date, maxResults: number): Promise<ConfigFileRevision[]> =>
   get({
     url: path,
     queryParams: {

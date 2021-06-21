@@ -18,10 +18,7 @@ export interface RealmRoleProps {
  */
 const RealmRole = ({ realmRole, children, error }: RealmRoleProps) => {
   const { auth } = useContext<AuthContextType>(AuthContext)
-  const node =
-    auth && auth.isAuthenticated && auth.isAuthenticated() && auth.hasRealmRole(realmRole)
-      ? children
-      : error
+  const node = auth && auth.isAuthenticated && auth.isAuthenticated() && auth.hasRealmRole(realmRole) ? children : error
 
   return <div>{node}</div>
 }

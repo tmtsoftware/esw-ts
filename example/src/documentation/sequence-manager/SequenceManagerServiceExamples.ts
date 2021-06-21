@@ -19,16 +19,14 @@ const auth = { token: '' }
 
 // #sequence-manager-service-creation
 const tokenFactory = () => auth.token
-const sequenceManagerService: SequenceManagerService =
-  await SequenceManagerService({
-    tokenFactory
-  })
+const sequenceManagerService: SequenceManagerService = await SequenceManagerService({
+  tokenFactory
+})
 // #sequence-manager-service-creation
 
 //#configure
 const obsMode = new ObsMode('IRIS_DarkNight')
-const configureResponse: ConfigureResponse =
-  await sequenceManagerService.configure(obsMode)
+const configureResponse: ConfigureResponse = await sequenceManagerService.configure(obsMode)
 //#configure
 
 //#provision
@@ -36,34 +34,31 @@ const eswAgentPrefix = new Prefix('ESW', 'agent-machine')
 const irisAgentPrefix = new Prefix('IRIS', 'agent-machine')
 const eswAgentProvisionConfig = new AgentProvisionConfig(eswAgentPrefix, 3)
 const irisAgentProvisionConfig = new AgentProvisionConfig(irisAgentPrefix, 2)
-const provisionConfig = new ProvisionConfig([
-  eswAgentProvisionConfig,
-  irisAgentProvisionConfig
-])
+const provisionConfig = new ProvisionConfig([eswAgentProvisionConfig, irisAgentProvisionConfig])
 
-const provision: ProvisionResponse = await sequenceManagerService.provision(
-  provisionConfig
-)
+const provision: ProvisionResponse = await sequenceManagerService.provision(provisionConfig)
 //#provision
 
 //#getObsModesDetails
-const obsModesDetailsResponse: ObsModesDetailsResponse =
-  await sequenceManagerService.getObsModesDetails()
+const obsModesDetailsResponse: ObsModesDetailsResponse = await sequenceManagerService.getObsModesDetails()
 //#getObsModesDetails
 
 //#startSequencer
-const startSequencerResponse: StartSequencerResponse =
-  await sequenceManagerService.startSequencer('IRIS', obsMode)
+const startSequencerResponse: StartSequencerResponse = await sequenceManagerService.startSequencer('IRIS', obsMode)
 //#startSequencer
 
 //#restartSequencer
-const restartSequencerResponse: RestartSequencerResponse =
-  await sequenceManagerService.restartSequencer('IRIS', obsMode)
+const restartSequencerResponse: RestartSequencerResponse = await sequenceManagerService.restartSequencer(
+  'IRIS',
+  obsMode
+)
 //#restartSequencer
 
 //#shutdownSequencer
-const shutdownSequencerResponse: ShutdownSequencersResponse =
-  await sequenceManagerService.shutdownSequencer('IRIS', obsMode)
+const shutdownSequencerResponse: ShutdownSequencersResponse = await sequenceManagerService.shutdownSequencer(
+  'IRIS',
+  obsMode
+)
 
 //#shutdownSequencer
 
@@ -73,13 +68,13 @@ const shutdownSubsystemSeqResponse: ShutdownSequencersResponse =
 //#shutdownSubsystemSequencers
 
 //#shutdownObsModeSequencers
-const shutdownObsModeSeqResponse: ShutdownSequencersResponse =
-  await sequenceManagerService.shutdownObsModeSequencers(obsMode)
+const shutdownObsModeSeqResponse: ShutdownSequencersResponse = await sequenceManagerService.shutdownObsModeSequencers(
+  obsMode
+)
 //#shutdownObsModeSequencers
 
 //#shutdownAllSequencers
-const shutdownAllSequencersResponse: ShutdownSequencersResponse =
-  await sequenceManagerService.shutdownAllSequencers()
+const shutdownAllSequencersResponse: ShutdownSequencersResponse = await sequenceManagerService.shutdownAllSequencers()
 //#shutdownAllSequencers
 
 //#shutdownSequenceComponent
@@ -94,6 +89,5 @@ const shutdownAllSeqCompResponse: ShutdownSequenceComponentResponse =
 //#shutdownAllSequenceComponents
 
 //#getResources
-const resourcesStatus: ResourcesStatusResponse =
-  await sequenceManagerService.getResources()
+const resourcesStatus: ResourcesStatusResponse = await sequenceManagerService.getResources()
 //#getResources

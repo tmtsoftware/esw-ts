@@ -8,10 +8,4 @@ export const AlarmKeyD: Decoder<AlarmKey> = D.struct({
   name: D.string
 })
 
-export const AlarmSeverityD: Decoder<AlarmSeverity> = ciLiteral(
-  'Okay',
-  'Warning',
-  'Major',
-  'Indeterminate',
-  'Critical'
-)
+export const AlarmSeverityD: Decoder<AlarmSeverity> = ciLiteral('Okay', 'Warning', 'Major', 'Indeterminate', 'Critical')

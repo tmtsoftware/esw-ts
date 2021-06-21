@@ -22,9 +22,6 @@ describe('Alarm service', () => {
     const response = await alarmService.setSeverity(alarmKey, severity)
 
     expect(response).toEqual('Done')
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new SetAlarmSeverity(alarmKey, severity),
-      DoneD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new SetAlarmSeverity(alarmKey, severity), DoneD)
   })
 })

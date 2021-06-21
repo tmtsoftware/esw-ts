@@ -4,9 +4,7 @@ function IOOperationComponent(props: IOOperationProps) {
   const [input, setInput] = useState('')
   const { txtId, btnId, componentNameProp, operation, output } = props
 
-  const updateInput: ChangeEventHandler = (
-    event: ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const updateInput: ChangeEventHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
   }
 
@@ -17,11 +15,7 @@ function IOOperationComponent(props: IOOperationProps) {
       <h6>{componentNameProp} Request</h6>
       <div>
         <span>
-          <textarea
-            id={txtId + '-txt-area'}
-            value={input}
-            onChange={updateInput}
-          />
+          <textarea id={txtId + '-txt-area'} value={input} onChange={updateInput} />
         </span>
       </div>
       <div>

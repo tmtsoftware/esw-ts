@@ -257,10 +257,7 @@ export interface SequencerService {
  * @return                        SequenceManagerService as Promise
  * @constructor
  */
-export const SequencerService = async (
-  componentId: ComponentId,
-  authData?: AuthData
-): Promise<SequencerService> => {
+export const SequencerService = async (componentId: ComponentId, authData?: AuthData): Promise<SequencerService> => {
   const location = await resolve(GATEWAY_CONNECTION)
   return createSequencerService(componentId, location, authData)
 }

@@ -54,9 +54,9 @@ export abstract class ParameterSetType<T extends ParameterSetType<T>> {
    * @return the parameter for the key, if found
    */
   get<S extends Key>(key: BaseKeyType<S>): Option<Parameter<S>> {
-    return this.paramSet.find(
-      (param) => param.keyName == key.keyName && param.keyTag == key.keyTag
-    ) as Option<Parameter<S>>
+    return this.paramSet.find((param) => param.keyName == key.keyName && param.keyTag == key.keyTag) as Option<
+      Parameter<S>
+    >
   }
 
   /**

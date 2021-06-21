@@ -1,10 +1,4 @@
-import {
-  CommandService,
-  ComponentId,
-  Prefix,
-  Setup,
-  SubmitResponse
-} from '@tmtsoftware/esw-ts'
+import { CommandService, ComponentId, Prefix, Setup, SubmitResponse } from '@tmtsoftware/esw-ts'
 
 const dd = async () => {
   //#promises
@@ -34,15 +28,13 @@ const dd = async () => {
       // parallel way to handle multiple promises
       const responsePromise3 = commandService.submit(setup3)
 
-      Promise.all([responsePromise, responsePromise3]).then(
-        (submitResponses) => {
-          submitResponses.forEach(handleResponse)
-          const lastResponse = submitResponses.pop()
-          if (lastResponse) {
-            commandService.query(lastResponse.runId).then(fetchNewESWState)
-          }
+      Promise.all([responsePromise, responsePromise3]).then((submitResponses) => {
+        submitResponses.forEach(handleResponse)
+        const lastResponse = submitResponses.pop()
+        if (lastResponse) {
+          commandService.query(lastResponse.runId).then(fetchNewESWState)
         }
-      )
+      })
     })
     .catch((err) => {
       handleError(err)
@@ -93,10 +85,7 @@ const ddd = async () => {
     const responsePromise3 = commandService.submit(setup3)
     const responsePromise4 = commandService.submit(setup1)
 
-    const submitResponses = await Promise.all([
-      responsePromise3,
-      responsePromise4
-    ])
+    const submitResponses = await Promise.all([responsePromise3, responsePromise4])
 
     submitResponses.forEach(handleResponse)
     const lastResponse = submitResponses.pop()

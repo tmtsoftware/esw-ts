@@ -17,9 +17,7 @@ import type { Log } from '../../logger/models/PostCommand'
 import type { SequencerPostRequest } from '../../sequencer/models/PostCommand'
 import type { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
 
-export class GatewayComponentCommand<
-  T extends CommandServicePostMessage | CommandServiceWsMessage
-> {
+export class GatewayComponentCommand<T extends CommandServicePostMessage | CommandServiceWsMessage> {
   readonly _type: 'ComponentCommand' = 'ComponentCommand'
 
   constructor(readonly componentId: ComponentId, readonly command: T) {}

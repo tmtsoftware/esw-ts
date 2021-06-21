@@ -11,9 +11,7 @@ export const char: Decoder<string> = pipe(
   D.refine((s): s is string => s.length == 1, 'single char')
 )
 
-export const ciLiteral = <L extends readonly [string, ...Array<string>]>(
-  ...values: L
-): Decoder<L[number]> => {
+export const ciLiteral = <L extends readonly [string, ...Array<string>]>(...values: L): Decoder<L[number]> => {
   const message = values.map((value) => JSON.stringify(value)).join(' | ')
   return {
     decode: flow(

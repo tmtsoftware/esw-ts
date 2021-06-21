@@ -61,10 +61,7 @@ describe('LocationService', () => {
     const response = await locationService.resolve(httpConnection, 5, 'seconds')
 
     expect(response).toEqual(undefined)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.Resolve(httpConnection, duration),
-      LocationListD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.Resolve(httpConnection, duration), LocationListD)
   })
 
   test('should location of given component| ESW-308, ESW-310, ESW-311', async () => {
@@ -74,10 +71,7 @@ describe('LocationService', () => {
     const response = await locationService.resolve(httpConnection, 5, 'seconds')
 
     expect(response).toEqual(mockLocationResponse)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.Resolve(httpConnection, duration),
-      LocationListD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.Resolve(httpConnection, duration), LocationListD)
   })
 
   test('should throw Request timed out when resolve takes more time than threshold | ESW-308, ESW-310, ESW-311', async () => {
@@ -85,9 +79,7 @@ describe('LocationService', () => {
       throw new Error('Request timed out')
     })
 
-    await expect(() => locationService.resolve(httpConnection, 3, 'seconds')).rejects.toThrow(
-      'Request timed out'
-    )
+    await expect(() => locationService.resolve(httpConnection, 3, 'seconds')).rejects.toThrow('Request timed out')
   })
 
   test('should fetch list all locations for given componentType | ESW-308, ESW-310, ESW-311', async () => {
@@ -96,10 +88,7 @@ describe('LocationService', () => {
     const response = await locationService.listByComponentType('Sequencer')
 
     expect(response).toEqual([mockLocationResponse])
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.ListByComponentType('Sequencer'),
-      LocationListD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.ListByComponentType('Sequencer'), LocationListD)
   })
 
   test('should fetch list all locations for given hostname | ESW-308, ESW-310, ESW-311', async () => {
@@ -108,10 +97,7 @@ describe('LocationService', () => {
     const response = await locationService.listByHostname('someuri')
 
     expect(response).toEqual([mockLocationResponse])
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.ListByHostname('someuri'),
-      LocationListD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.ListByHostname('someuri'), LocationListD)
   })
 
   test('should fetch list all locations for given connectionType | ESW-308, ESW-310, ESW-311', async () => {
@@ -120,10 +106,7 @@ describe('LocationService', () => {
     const response = await locationService.listByConnectionType('http')
 
     expect(response).toEqual([mockLocationResponse])
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.ListByConnectionType('http'),
-      LocationListD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.ListByConnectionType('http'), LocationListD)
   })
 
   test('should fetch list all locations for given prefix | ESW-308, ESW-310, ESW-311', async () => {

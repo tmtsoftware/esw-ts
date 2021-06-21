@@ -1,12 +1,5 @@
 import 'whatwg-fetch'
-import {
-  Event,
-  EventKey,
-  EventName,
-  EventService,
-  ObserveEvent,
-  SystemEvent
-} from '../../src/clients/event'
+import { Event, EventKey, EventName, EventService, ObserveEvent, SystemEvent } from '../../src/clients/event'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
 import { Done, Prefix, Subsystem } from '../../src/models'

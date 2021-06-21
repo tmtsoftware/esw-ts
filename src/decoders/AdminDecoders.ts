@@ -9,7 +9,4 @@ export const SupervisorLifecycleStateD: Decoder<SupervisorLifecycleState> = ciLi
   'Shutdown',
   'Lock'
 )
-export const ContainerLifecycleStateD: Decoder<ContainerLifecycleState> = ciLiteral(
-  'Idle',
-  'Running'
-)
+export const ContainerLifecycleStateD: Decoder<ContainerLifecycleState> = ciLiteral('Idle', 'Running')

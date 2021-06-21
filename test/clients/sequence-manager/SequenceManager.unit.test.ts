@@ -22,9 +22,7 @@ describe('Sequence manager factory', () => {
       metadata: {},
       connection: SEQUENCE_MANAGER_CONNECTION
     })
-    const sequenceManagerImpl = new SequenceManagerImpl(
-      new HttpTransport(postEndpoint, { tokenFactory })
-    )
+    const sequenceManagerImpl = new SequenceManagerImpl(new HttpTransport(postEndpoint, { tokenFactory }))
     mockSMImpl.mockReturnValue(sequenceManagerImpl)
     const response = await SequenceManagerService({ tokenFactory })
 

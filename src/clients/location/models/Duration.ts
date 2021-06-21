@@ -6,11 +6,4 @@ export class Duration {
   }
 }
 
-export type TimeUnit =
-  | 'days'
-  | 'hours'
-  | 'minutes'
-  | 'seconds'
-  | 'milliseconds'
-  | 'microseconds'
-  | 'nanoseconds'
+export type TimeUnit = 'days' | 'hours' | 'minutes' | 'seconds' | 'milliseconds' | 'microseconds' | 'nanoseconds'

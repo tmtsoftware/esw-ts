@@ -8,10 +8,7 @@ import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
 import { ResultD } from './ResultDecoder'
 
-const mkCommandD = <L extends CommandType, T extends Command<L>>(
-  _type: L,
-  apply: Constructor<L, T>
-): Decoder<T> =>
+const mkCommandD = <L extends CommandType, T extends Command<L>>(_type: L, apply: Constructor<L, T>): Decoder<T> =>
   pipe(
     D.intersect(
       D.struct({
@@ -22,9 +19,7 @@ const mkCommandD = <L extends CommandType, T extends Command<L>>(
       })
     )(D.partial({ maybeObsId: D.string })),
     D.parse((command) =>
-      D.success(
-        new apply(command.source, command.commandName, command.paramSet, command.maybeObsId)
-      )
+      D.success(new apply(command.source, command.commandName, command.paramSet, command.maybeObsId))
     )
   )
 

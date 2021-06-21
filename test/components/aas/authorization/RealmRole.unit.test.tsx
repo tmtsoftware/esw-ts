@@ -12,8 +12,8 @@ describe('<RealmRole />', () => {
 
   test('should render children elements if authentication is true and with valid realm role | ESW-330', () => {
     const props = {
-      children: <div className="realm-role">Authentication successful</div>,
-      error: <div className="error">Authentication unsuccessful</div>,
+      children: <div className='realm-role'>Authentication successful</div>,
+      error: <div className='error'>Authentication unsuccessful</div>,
       realmRole: 'test-realm-roles'
     }
 
@@ -30,8 +30,8 @@ describe('<RealmRole />', () => {
 
   test('should not render children elements if authentication is true but invalid realm role | ESW-330', () => {
     const props = {
-      children: <div className="realm-role">Authentication successful</div>,
-      error: <div className="error">Authentication unsuccessful</div>,
+      children: <div className='realm-role'>Authentication successful</div>,
+      error: <div className='error'>Authentication unsuccessful</div>,
       realmRole: 'invalid-realm-role'
     }
 
@@ -48,8 +48,8 @@ describe('<RealmRole />', () => {
 
   test('should not render children elements if authentication is false | ESW-330', () => {
     const props = {
-      children: <div className="realm-role">Authentication successful</div>,
-      error: <div className="error">Authentication unsuccessful</div>,
+      children: <div className='realm-role'>Authentication successful</div>,
+      error: <div className='error'>Authentication unsuccessful</div>,
       realmRole: 'invalid-realm-role'
     }
 

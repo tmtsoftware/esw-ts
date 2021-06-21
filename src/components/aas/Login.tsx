@@ -8,7 +8,7 @@ const Login = () => {
   const { login } = useContext(AuthContext)
   return (
     // Call to props.login method is responsible for resolving and instantiating AAS server
-    <button id="keycloak-login" onClick={login}>
+    <button id='keycloak-login' onClick={login}>
       Login
     </button>
   )

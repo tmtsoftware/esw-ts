@@ -1,23 +1,12 @@
 import { mocked } from 'ts-jest/utils'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
-import type {
-  CommandServicePostMessage,
-  Submit
-} from '../../../src/clients/command/models/PostCommand'
+import type { CommandServicePostMessage, Submit } from '../../../src/clients/command/models/PostCommand'
 import * as Req from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
 import { GatewayComponentCommand } from '../../../src/clients/gateway/models/Gateway'
-import {
-  OnewayResponseD,
-  SubmitResponseD,
-  ValidateResponseD
-} from '../../../src/decoders/CommandDecoders'
+import { OnewayResponseD, SubmitResponseD, ValidateResponseD } from '../../../src/decoders/CommandDecoders'
 import * as M from '../../../src/models'
-import type {
-  OnewayResponse,
-  SubmitResponse,
-  ValidateResponse
-} from '../../../src/models/params/CommandResponse'
+import type { OnewayResponse, SubmitResponse, ValidateResponse } from '../../../src/models/params/CommandResponse'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { Ws } from '../../../src/utils/Ws'
 import { verify } from '../../helpers/JestMockHelpers'
@@ -28,8 +17,7 @@ jest.mock('../../../src/utils/HttpTransport')
 const compId: M.ComponentId = new M.ComponentId(new M.Prefix('ESW', 'test'), 'Assembly')
 const eswTestPrefix = new M.Prefix('ESW', 'test')
 
-const httpTransport: HttpTransport<GatewayComponentCommand<Req.CommandServicePostMessage>> =
-  new HttpTransport('')
+const httpTransport: HttpTransport<GatewayComponentCommand<Req.CommandServicePostMessage>> = new HttpTransport('')
 const ws = new Ws('')
 const mockedHttpTransport = mocked(httpTransport)
 const mockedWsTransport = mocked(ws)
@@ -49,10 +37,7 @@ describe('CommandService', () => {
     const response = await client.validate(setupCommand)
 
     expect(response).toEqual(expectedResponse)
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new GatewayComponentCommand(compId, msg),
-      ValidateResponseD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), ValidateResponseD)
   })
 
   test('should be able to submit command to assembly | ESW-305', async () => {
@@ -68,10 +53,7 @@ describe('CommandService', () => {
     const response = await client.submit(setupCommand)
 
     expect(response).toEqual(expectedResponse)
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new GatewayComponentCommand(compId, msg),
-      SubmitResponseD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), SubmitResponseD)
   })
 
   test('should be able to send oneway command | ESW-305', async () => {
@@ -87,10 +69,7 @@ describe('CommandService', () => {
     const response = await client.oneway(observeCommand)
 
     expect(response).toEqual(expectedResponse)
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new GatewayComponentCommand(compId, msg),
-      OnewayResponseD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), OnewayResponseD)
   })
 
   test('should be able to send query command | ESW-305', async () => {
@@ -106,10 +85,7 @@ describe('CommandService', () => {
     const response = await client.query(runId)
 
     expect(response).toEqual(expectedResponse)
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new GatewayComponentCommand(compId, msg),
-      SubmitResponseD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new GatewayComponentCommand(compId, msg), SubmitResponseD)
   })
 
   test('should get completed response on submitAndWait with submit and then queried for final response of long running command | ESW-344', async () => {
@@ -226,10 +202,7 @@ describe('CommandService', () => {
       }
     )
 
-    const response = await client.submitAllAndWait(
-      [setupCommand1, setupCommand2, setupCommand3],
-      10
-    )
+    const response = await client.submitAllAndWait([setupCommand1, setupCommand2, setupCommand3], 10)
 
     verify(mockedHttpTransport.requestRes).toBeCalledWith(
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand1)),

@@ -1,12 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import {
-  AgentProvisionConfig,
-  ComponentId,
-  ObsMode,
-  Prefix,
-  ProvisionConfig,
-  Subsystem
-} from '../../../src'
+import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, Subsystem } from '../../../src'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
 import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
@@ -41,10 +34,7 @@ describe('Sequence manager', function () {
     const response = await sequenceManager.configure(obsMode)
 
     expect(response).toEqual(expectedConfigureResponse)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.Configure(obsMode),
-      Res.ConfigureResponseD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.Configure(obsMode), Res.ConfigureResponseD)
   })
 
   test('should call provision | ESW-365', async () => {
@@ -58,10 +48,7 @@ describe('Sequence manager', function () {
     const response = await sequenceManager.provision(provisionConfig)
 
     expect(response).toEqual(expectedProvisionRes)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.Provision(provisionConfig),
-      Res.ProvisionResponseD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.Provision(provisionConfig), Res.ProvisionResponseD)
   })
 
   test('should call getObsModesDetails | ESW-469', async () => {
@@ -75,10 +62,7 @@ describe('Sequence manager', function () {
     const response = await sequenceManager.getObsModesDetails()
 
     expect(response).toEqual(expectedRes)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.GetObsModesDetails(),
-      Res.ObsModesDetailsResponseD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.GetObsModesDetails(), Res.ObsModesDetailsResponseD)
   })
 
   test('should call start sequencer | ESW-365', async () => {
@@ -221,10 +205,7 @@ describe('Sequence manager', function () {
     const response = await sequenceManager.getResources()
 
     expect(response).toEqual(expectedRes)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.GetResources(),
-      Res.ResourcesStatusResponseD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.GetResources(), Res.ResourcesStatusResponseD)
   })
 })
 

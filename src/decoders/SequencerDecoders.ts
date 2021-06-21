@@ -18,10 +18,9 @@ const OkD: Decoder<T.Ok> = D.struct({
   _type: ciLiteral('Ok')
 })
 
-const CannotOperateOnAnInFlightOrFinishedStepD: Decoder<T.CannotOperateOnAnInFlightOrFinishedStep> =
-  D.struct({
-    _type: ciLiteral('CannotOperateOnAnInFlightOrFinishedStep')
-  })
+const CannotOperateOnAnInFlightOrFinishedStepD: Decoder<T.CannotOperateOnAnInFlightOrFinishedStep> = D.struct({
+  _type: ciLiteral('CannotOperateOnAnInFlightOrFinishedStep')
+})
 
 const IdDoesNotExistD: Decoder<T.IdDoesNotExist> = D.struct({
   _type: ciLiteral('IdDoesNotExist'),

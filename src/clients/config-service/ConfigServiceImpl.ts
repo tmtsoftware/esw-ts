@@ -16,11 +16,7 @@ import { tryGetConfigBlob } from './ConfigUtils'
 import type { ConfigData } from './models/ConfigData'
 
 export class ConfigServiceImpl implements ConfigService {
-  constructor(
-    private readonly host: string,
-    private readonly port: number,
-    readonly tokenFactory: TokenFactory
-  ) {}
+  constructor(private readonly host: string, private readonly port: number, readonly tokenFactory: TokenFactory) {}
 
   getAuthHeader(): HeaderExt {
     return new HeaderExt().withAuthorization(this.tokenFactory())
@@ -88,12 +84,7 @@ export class ConfigServiceImpl implements ConfigService {
     return ConfigUtils.history(url, from, to, maxResults)
   }
 
-  historyActive(
-    path: string,
-    from: Date,
-    to: Date,
-    maxResults: number
-  ): Promise<ConfigFileRevision[]> {
+  historyActive(path: string, from: Date, to: Date, maxResults: number): Promise<ConfigFileRevision[]> {
     const url = this.endpoint(`history-active/${path}`)
     return ConfigUtils.history(url, from, to, maxResults)
   }
@@ -118,12 +109,7 @@ export class ConfigServiceImpl implements ConfigService {
   }
 
   create(path: string, configData: ConfigData, annex: boolean, comment: string): Promise<ConfigId> {
-    return this.createOrUpdate(
-      path,
-      configData.toBlob(),
-      { annex: annex.toString(), comment },
-      post
-    )
+    return this.createOrUpdate(path, configData.toBlob(), { annex: annex.toString(), comment }, post)
   }
 
   update(path: string, configData: ConfigData, comment: string): Promise<ConfigId> {

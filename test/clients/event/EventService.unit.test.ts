@@ -19,10 +19,7 @@ mockResolveGateway.mockResolvedValue({
   metadata: {},
   connection: GATEWAY_CONNECTION
 })
-const eventServiceImpl = new EventServiceImpl(
-  new HttpTransport(postEndpoint),
-  () => new Ws(wsEndpoint)
-)
+const eventServiceImpl = new EventServiceImpl(new HttpTransport(postEndpoint), () => new Ws(wsEndpoint))
 mockImpl.mockReturnValue(eventServiceImpl)
 
 describe('Event Service Factory', () => {

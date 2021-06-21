@@ -1,9 +1,4 @@
-import type {
-  KeycloakInstance,
-  KeycloakResourceAccess,
-  KeycloakRoles,
-  KeycloakTokenParsed
-} from 'keycloak-js'
+import type { KeycloakInstance, KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js'
 import type { Server } from 'mock-socket'
 import type { Auth } from '../../src/clients/aas'
 
@@ -44,11 +39,7 @@ export const mockedKeyCloakInstance = (isAuthenticated = true): KeycloakInstance
   }
 }
 
-export const mockAuth = (
-  isAuthenticated = true,
-  hasResourceRole = true,
-  testRealmRoles = 'test-realm-roles'
-) => {
+export const mockAuth = (isAuthenticated = true, hasResourceRole = true, testRealmRoles = 'test-realm-roles') => {
   const tokenParsed: KeycloakTokenParsed = {
     exp: 10
   }

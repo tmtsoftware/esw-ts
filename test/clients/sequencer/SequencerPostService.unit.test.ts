@@ -15,10 +15,7 @@ import {
 } from '../../../src'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import * as Req from '../../../src/clients/sequencer/models/PostCommand'
-import {
-  QueryFinal,
-  SequencerWebsocketRequest
-} from '../../../src/clients/sequencer/models/WsCommand'
+import { QueryFinal, SequencerWebsocketRequest } from '../../../src/clients/sequencer/models/WsCommand'
 import { SequencerServiceImpl } from '../../../src/clients/sequencer/SequencerServiceImpl'
 import { SubmitResponseD } from '../../../src/decoders/CommandDecoders'
 import * as Res from '../../../src/decoders/SequencerDecoders'
@@ -40,10 +37,9 @@ const commands: SequenceCommand[] = [setupCommand, waitCommand]
 const sequence: Sequence = new Sequence([setupCommand])
 
 const mockResponse = Math.random().toString()
-const httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequest>> =
-  new HttpTransport('someUrl', {
-    tokenFactory: jest.fn()
-  })
+const httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequest>> = new HttpTransport('someUrl', {
+  tokenFactory: jest.fn()
+})
 const mockHttpTransport = mocked(httpTransport)
 
 const ws: Ws<GatewaySequencerCommand<SequencerWebsocketRequest>> = new Ws('someUrl')
@@ -52,8 +48,7 @@ const sequencer = new SequencerServiceImpl(componentId, httpTransport, () => ws)
 
 const getGatewaySequencerCommand = (
   command: Req.SequencerPostRequest
-): GatewaySequencerCommand<Req.SequencerPostRequest> =>
-  new GatewaySequencerCommand(componentId, command)
+): GatewaySequencerCommand<Req.SequencerPostRequest> => new GatewaySequencerCommand(componentId, command)
 
 describe('SequencerService', () => {
   test('should load a sequence in given sequencer | ESW-307', async () => {
@@ -194,10 +189,7 @@ describe('SequencerService', () => {
     const response = await sequencer.pause()
 
     expect(response).toEqual(mockResponse)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      getGatewaySequencerCommand(new Req.Pause()),
-      Res.PauseResponseD
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(getGatewaySequencerCommand(new Req.Pause()), Res.PauseResponseD)
   })
 
   test('should get undefined when a step list from sequencer is empty | ESW-307', async () => {
@@ -230,10 +222,7 @@ describe('SequencerService', () => {
     const response = await sequencer.isAvailable()
 
     expect(response).toEqual(mockResponse)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      getGatewaySequencerCommand(new Req.IsAvailable()),
-      D.boolean
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(getGatewaySequencerCommand(new Req.IsAvailable()), D.boolean)
   })
 
   test('should return whether a sequencer is online | ESW-307', async () => {
@@ -242,10 +231,7 @@ describe('SequencerService', () => {
     const response = await sequencer.isOnline()
 
     expect(response).toEqual(mockResponse)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      getGatewaySequencerCommand(new Req.IsOnline()),
-      D.boolean
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(getGatewaySequencerCommand(new Req.IsOnline()), D.boolean)
   })
 
   test('should get a go online response from sequencer on GoOnline | ESW-307', async () => {

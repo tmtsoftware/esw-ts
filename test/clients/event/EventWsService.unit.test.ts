@@ -2,10 +2,7 @@ import { mocked } from 'ts-jest/utils'
 import { EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
-import type {
-  GatewayEventPostRequest,
-  GatewayEventWsRequest
-} from '../../../src/clients/gateway/models/Gateway'
+import type { GatewayEventPostRequest, GatewayEventWsRequest } from '../../../src/clients/gateway/models/Gateway'
 import { EventD } from '../../../src/decoders/EventDecoders'
 import { Prefix, Subsystem } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
@@ -32,25 +29,13 @@ describe('Event Service', () => {
   test('should subscribe event without default parameters using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.subscribe(eventKeys, 1)(callback, onError, onClose)
 
-    verify(mockWs.subscribe).toBeCalledWith(
-      new Subscribe([...eventKeys], 1),
-      callback,
-      EventD,
-      onError,
-      onClose
-    )
+    verify(mockWs.subscribe).toBeCalledWith(new Subscribe([...eventKeys], 1), callback, EventD, onError, onClose)
   })
 
   test('should subscribe event with default parameters using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.subscribe(eventKeys)(callback)
 
-    verify(mockWs.subscribe).toBeCalledWith(
-      new Subscribe([...eventKeys], 0),
-      callback,
-      EventD,
-      undefined,
-      undefined
-    )
+    verify(mockWs.subscribe).toBeCalledWith(new Subscribe([...eventKeys], 0), callback, EventD, undefined, undefined)
   })
 
   test('should pattern subscribe event using websocket | ESW-318, ESW-510', () => {

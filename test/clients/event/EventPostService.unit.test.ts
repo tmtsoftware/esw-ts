@@ -2,10 +2,7 @@ import { mocked } from 'ts-jest/utils'
 import { EventKey, EventName, ObserveEvent, SystemEvent } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
-import type {
-  GatewayEventPostRequest,
-  GatewayEventWsRequest
-} from '../../../src/clients/gateway/models/Gateway'
+import type { GatewayEventPostRequest, GatewayEventWsRequest } from '../../../src/clients/gateway/models/Gateway'
 import { DoneD } from '../../../src/decoders/CommonDecoders'
 import { Prefix } from '../../../src/models'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
@@ -61,10 +58,7 @@ describe('Event Service', () => {
     const response = await client.get(eventKeys)
 
     expect(response).toEqual(mockSubmitResponse)
-    verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new GetEvent([...eventKeys]),
-      expect.anything()
-    )
+    verify(mockHttpTransport.requestRes).toBeCalledWith(new GetEvent([...eventKeys]), expect.anything())
   })
 })
 

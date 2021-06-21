@@ -29,14 +29,9 @@ const booleanParam = booleanKey1.set([true, false])
 const utcTime = utcTimeKey1.set([new Date().toUTCString()])
 
 //create CurrentState and use sequential add
-const cs1 = new CurrentState(prefix, 'testStateName')
-  .add(charParam)
-  .add(intParam)
+const cs1 = new CurrentState(prefix, 'testStateName').add(charParam).add(intParam)
 //create CurrentState and add more than one Parameters using madd
-const cs2 = new CurrentState(prefix, 'testStateName').madd([
-  intParam,
-  booleanParam
-])
+const cs2 = new CurrentState(prefix, 'testStateName').madd([intParam, booleanParam])
 //create CurrentState using apply
 const cs3 = new CurrentState(prefix, 'testStateName', [utcTime])
 

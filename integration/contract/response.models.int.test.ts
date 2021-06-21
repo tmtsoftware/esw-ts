@@ -3,15 +3,8 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
-import {
-  ContainerLifecycleStateD,
-  SupervisorLifecycleStateD
-} from '../../src/decoders/AdminDecoders'
-import {
-  AgentStatusResponseD,
-  KillResponseD,
-  SpawnResponseD
-} from '../../src/decoders/AgentDecoders'
+import { ContainerLifecycleStateD, SupervisorLifecycleStateD } from '../../src/decoders/AdminDecoders'
+import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
 // eslint-disable-next-line
 import * as Seq from '../../src/decoders/SequencerDecoders'
@@ -31,12 +24,7 @@ import { CurrentStateD } from '../../src/decoders/CurrentStateDecoder'
 import type { Decoder } from '../../src/decoders/Decoder'
 import { EventD, EventKeyD } from '../../src/decoders/EventDecoders'
 import { keyTagDecoder } from '../../src/decoders/KeyDecoders'
-import {
-  ConnectionD,
-  ConnectionTypeD,
-  LocationD,
-  TrackingEventD
-} from '../../src/decoders/LocationDecoders'
+import { ConnectionD, ConnectionTypeD, LocationD, TrackingEventD } from '../../src/decoders/LocationDecoders'
 import { LevelD, LogMetadataD } from '../../src/decoders/LoggerDecoders'
 import { ParameterD } from '../../src/decoders/ParameterDecoder'
 import { PrefixD } from '../../src/decoders/PrefixDecoder'

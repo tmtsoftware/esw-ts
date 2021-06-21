@@ -57,9 +57,7 @@ describe('Sequencer Client', () => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')
-      expect(e.message).toBe(
-        'The resource requires authentication, which was not supplied with the request'
-      )
+      expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
     })
   })
 

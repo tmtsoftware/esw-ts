@@ -32,10 +32,7 @@ export class LocationServiceImpl implements LocationService {
   }
 
   listByConnectionType(connectionType: ConnectionType): Promise<Location[]> {
-    return this.httpTransport.requestRes(
-      new Req.ListByConnectionType(connectionType),
-      LocationListD
-    )
+    return this.httpTransport.requestRes(new Req.ListByConnectionType(connectionType), LocationListD)
   }
 
   listByPrefix(prefix: Prefix): Promise<Location[]> {
@@ -64,7 +61,6 @@ export class LocationServiceImpl implements LocationService {
       onEvent: (trackingEvent: TrackingEvent) => void,
       onError?: (error: ServiceError) => void,
       onClose?: () => void
-    ): Subscription =>
-      this.ws().subscribe(new Track(connection), onEvent, TrackingEventD, onError, onClose)
+    ): Subscription => this.ws().subscribe(new Track(connection), onEvent, TrackingEventD, onError, onClose)
   }
 }

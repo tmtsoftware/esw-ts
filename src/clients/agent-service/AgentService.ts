@@ -38,11 +38,7 @@ export interface AgentService {
    * @param version           The OCS App version. default value is '3.0.0-M1'
    * @return                  SpawnResponse as Promise
    */
-  spawnSequenceComponent(
-    agentPrefix: Prefix,
-    componentName: string,
-    version?: string
-  ): Promise<SpawnResponse>
+  spawnSequenceComponent(agentPrefix: Prefix, componentName: string, version?: string): Promise<SpawnResponse>
 
   /**
    * This API is used to kill component present on any machine and returns a promise of KillResponse.

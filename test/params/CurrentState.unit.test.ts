@@ -1,12 +1,4 @@
-import {
-  CurrentState,
-  intArrayKey,
-  intKey,
-  Key,
-  Parameter,
-  Prefix,
-  stringKey
-} from '../../src/models'
+import { CurrentState, intArrayKey, intKey, Key, Parameter, Prefix, stringKey } from '../../src/models'
 
 const stringParam: Parameter<Key> = stringKey('string').set(['abc', 'def'])
 const intParam: Parameter<Key> = intKey('number').set([1, 2, 3])

@@ -89,5 +89,4 @@ const isIntermediate = (response: SubmitResponse) => response._type === StartedL
 /**
  * @internal
  */
-export const isNegative = (response: SubmitResponse) =>
-  !(isPositive(response) || isIntermediate(response))
+export const isNegative = (response: SubmitResponse) => !(isPositive(response) || isIntermediate(response))

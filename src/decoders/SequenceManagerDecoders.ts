@@ -29,11 +29,10 @@ const FailedToStartSequencersD: Decoder<T.FailedToStartSequencers> = D.struct({
   reasons: D.array(D.string)
 })
 
-const ConflictingResourcesWithRunningObsModeD: Decoder<T.ConflictingResourcesWithRunningObsMode> =
-  D.struct({
-    _type: ciLiteral('ConflictingResourcesWithRunningObsMode'),
-    runningObsMode: D.array(ObsModeD)
-  })
+const ConflictingResourcesWithRunningObsModeD: Decoder<T.ConflictingResourcesWithRunningObsMode> = D.struct({
+  _type: ciLiteral('ConflictingResourcesWithRunningObsMode'),
+  runningObsMode: D.array(ObsModeD)
+})
 
 const SpawningSequenceComponentsFailedD: Decoder<T.SpawningSequenceComponentsFailed> = D.struct({
   _type: ciLiteral('SpawningSequenceComponentsFailed'),
@@ -163,9 +162,7 @@ export const RestartSequencerResponseD: Decoder<T.RestartSequencerResponse> = D.
   FailedResponse: FailedResponseD
 })
 
-export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersResponse> = D.sum(
-  '_type'
-)({
+export const ShutdownSequencersOrSeqCompResponseD: Decoder<T.ShutdownSequencersResponse> = D.sum('_type')({
   Unhandled: UnhandledD,
   LocationServiceError: LocationServiceErrorD,
   Success: SuccessD,

@@ -3,13 +3,7 @@ import { AdminService } from '../../src/clients/admin'
 import type { LogMetadata } from '../../src/clients/logger'
 import { setAppConfigPath } from '../../src/config'
 import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
-import {
-  ComponentId,
-  ContainerLifecycleState,
-  Done,
-  Prefix,
-  SupervisorLifecycleState
-} from '../../src/models'
+import { ComponentId, ContainerLifecycleState, Done, Prefix, SupervisorLifecycleState } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
 const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
@@ -96,9 +90,7 @@ describe('Admin Client', () => {
   test('get getComponentLifecycleState | ESW-433', async () => {
     const adminService = await AdminService()
 
-    const response: SupervisorLifecycleState = await adminService.getComponentLifecycleState(
-      componentId
-    )
+    const response: SupervisorLifecycleState = await adminService.getComponentLifecycleState(componentId)
 
     expect(response).toEqual('Idle')
   })

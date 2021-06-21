@@ -108,10 +108,7 @@ export interface LocationService {
  * @param locationConfig        host and port of location server
  * @constructor
  */
-export const LocationService = (
-  authData?: AuthData,
-  locationConfig = LocationConfig
-): LocationService => {
+export const LocationService = (authData?: AuthData, locationConfig = LocationConfig): LocationService => {
   const webSocketEndpoint = getWebSocketEndPoint({
     host: locationConfig.hostName,
     port: locationConfig.port

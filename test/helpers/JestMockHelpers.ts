@@ -10,18 +10,16 @@ export const verify = <T extends AnyFunc>(func: jest.MockedFunction<T>) => {
   }
 }
 
-export function mockFunc<T extends AnyFunc>(
-  fn?: FunctionType<T>
-): jest.MockedFunction<FunctionType<T>>
+export function mockFunc<T extends AnyFunc>(fn?: FunctionType<T>): jest.MockedFunction<FunctionType<T>>
 
 export function mockFunc<T extends AnyFunc>(): jest.MockedFunction<FunctionType<T>> {
   return jest.fn() as jest.MockedFunction<FunctionType<T>>
 }
 
 export const mockClass = <T>(clazz: (new (...args: any[]) => T) & { prototype: T }): MockOf<T> => {
-  const ownPropertyNames = Object.getOwnPropertyNames(clazz.prototype).filter(
-    (k) => k !== 'constructor'
-  ) as Array<keyof T>
+  const ownPropertyNames = Object.getOwnPropertyNames(clazz.prototype).filter((k) => k !== 'constructor') as Array<
+    keyof T
+  >
 
   return ownPropertyNames.reduce((obj: any, pName) => {
     obj[pName] = mockFunc<MethodType<T, typeof pName>>()

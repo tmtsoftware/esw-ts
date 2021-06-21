@@ -77,9 +77,7 @@ describe('Agent Service client', () => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(403)
       expect(e.statusText).toBe('Forbidden')
-      expect(e.message).toBe(
-        'The supplied authentication is not authorized to access this resource'
-      )
+      expect(e.message).toBe('The supplied authentication is not authorized to access this resource')
     })
   })
 
@@ -90,9 +88,7 @@ describe('Agent Service client', () => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')
-      expect(e.message).toBe(
-        'The resource requires authentication, which was not supplied with the request'
-      )
+      expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
     })
   })
 

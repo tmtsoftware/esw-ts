@@ -19,11 +19,7 @@ describe('Logging Service', () => {
   test('should call log api with correct arguments without metadata | ESW-316', async () => {
     mockHttpTransport.requestRes.mockResolvedValueOnce(mockResponse)
 
-    const response = await loggingServiceImpl.log(
-      new Prefix('ESW', 'filter.wheel'),
-      'DEBUG',
-      'setting log level'
-    )
+    const response = await loggingServiceImpl.log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level')
 
     expect(response).toEqual(mockResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
@@ -35,14 +31,9 @@ describe('Logging Service', () => {
   test('should call log api with correct arguments with metadata | ESW-316', async () => {
     mockHttpTransport.requestRes.mockResolvedValueOnce(mockResponse)
 
-    const response = await loggingServiceImpl.log(
-      new Prefix('ESW', 'filter.wheel'),
-      'DEBUG',
-      'setting log level',
-      {
-        key: 'value'
-      }
-    )
+    const response = await loggingServiceImpl.log(new Prefix('ESW', 'filter.wheel'), 'DEBUG', 'setting log level', {
+      key: 'value'
+    })
 
     expect(response).toEqual(mockResponse)
     verify(mockHttpTransport.requestRes).toBeCalledWith(

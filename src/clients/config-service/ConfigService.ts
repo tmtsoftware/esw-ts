@@ -116,12 +116,7 @@ export interface ConfigService {
    * @param maxResults  the maximum number of history results to return (default: unlimited)
    * @return            ConfigFileRevision[] as Promise
    */
-  historyActive(
-    path: string,
-    from: Date,
-    to: Date,
-    maxResults: number
-  ): Promise<M.ConfigFileRevision[]>
+  historyActive(path: string, from: Date, to: Date, maxResults: number): Promise<M.ConfigFileRevision[]>
 
   /**
    * Sets the active version to be the version provided for the file at the given path.
@@ -180,10 +175,7 @@ export const ConfigService = async (tokenFactory: TokenFactory): Promise<ConfigS
   return createConfigService(location, tokenFactory)
 }
 
-export const createConfigService = (
-  location: Location,
-  tokenFactory: TokenFactory
-): ConfigService => {
+export const createConfigService = (location: Location, tokenFactory: TokenFactory): ConfigService => {
   const { host, port } = extractHostPort(location.uri)
   return new ConfigServiceImpl(host, port, tokenFactory)
 }

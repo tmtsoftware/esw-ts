@@ -14,9 +14,7 @@ import * as WsReq from './models/WsCommand'
 export class CommandServiceImpl implements CommandService {
   constructor(
     private readonly componentId: M.ComponentId,
-    private readonly httpTransport: HttpTransport<
-      GatewayComponentCommand<Req.CommandServicePostMessage>
-    >,
+    private readonly httpTransport: HttpTransport<GatewayComponentCommand<Req.CommandServicePostMessage>>,
     private readonly ws: () => Ws<GatewayComponentCommand<WsReq.CommandServiceWsMessage>>
   ) {}
 
@@ -86,20 +84,14 @@ export class CommandServiceImpl implements CommandService {
     )
   }
 
-  async submitAndWait(
-    command: M.ControlCommand,
-    timeoutInSeconds: number
-  ): Promise<M.SubmitResponse> {
+  async submitAndWait(command: M.ControlCommand, timeoutInSeconds: number): Promise<M.SubmitResponse> {
     const submitResponse = await this.submit(command)
     if (submitResponse._type === 'Started') {
       return this.queryFinal(submitResponse.runId, timeoutInSeconds)
     } else return Promise.resolve(submitResponse)
   }
 
-  async submitAllAndWait(
-    commands: M.ControlCommand[],
-    timeoutInSeconds: number
-  ): Promise<M.SubmitResponse[]> {
+  async submitAllAndWait(commands: M.ControlCommand[], timeoutInSeconds: number): Promise<M.SubmitResponse[]> {
     const responses: M.SubmitResponse[] = []
     let latestResponse: M.SubmitResponse
     for (const command of commands) {

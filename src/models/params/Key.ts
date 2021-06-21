@@ -1,14 +1,6 @@
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
-import type {
-  AltAzCoord,
-  CometCoord,
-  Coord,
-  EqCoord,
-  MinorPlanetCoord,
-  RaDec,
-  SolarSystemCoord
-} from './Coord'
+import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, RaDec, SolarSystemCoord } from './Coord'
 import type { Struct } from './Struct'
 import type { Units } from './Units'
 
@@ -237,21 +229,14 @@ const keyFactory =
  * Helper functions to create primitive parameters
  */
 export const intKey: (name: string, units?: Units) => BaseKey<IntKey> = keyFactory<IntKey>('IntKey')
-export const longKey: (name: string, units?: Units) => BaseKey<LongKey> =
-  keyFactory<LongKey>('LongKey')
-export const shortKey: (name: string, units?: Units) => BaseKey<ShortKey> =
-  keyFactory<ShortKey>('ShortKey')
-export const floatKey: (name: string, units?: Units) => BaseKey<FloatKey> =
-  keyFactory<FloatKey>('FloatKey')
+export const longKey: (name: string, units?: Units) => BaseKey<LongKey> = keyFactory<LongKey>('LongKey')
+export const shortKey: (name: string, units?: Units) => BaseKey<ShortKey> = keyFactory<ShortKey>('ShortKey')
+export const floatKey: (name: string, units?: Units) => BaseKey<FloatKey> = keyFactory<FloatKey>('FloatKey')
 export const doubleKey = keyFactory<DoubleKey>('DoubleKey')
-export const byteKey: (name: string, units?: Units) => BaseKey<ByteKey> =
-  keyFactory<ByteKey>('ByteKey')
-export const stringKey: (name: string, units?: Units) => BaseKey<StringKey> =
-  keyFactory<StringKey>('StringKey')
-export const charKey: (name: string, units?: Units) => BaseKey<CharKey> =
-  keyFactory<CharKey>('CharKey')
-export const booleanKey: (name: string, units?: Units) => BaseKey<BooleanKey> =
-  keyFactory<BooleanKey>('BooleanKey')
+export const byteKey: (name: string, units?: Units) => BaseKey<ByteKey> = keyFactory<ByteKey>('ByteKey')
+export const stringKey: (name: string, units?: Units) => BaseKey<StringKey> = keyFactory<StringKey>('StringKey')
+export const charKey: (name: string, units?: Units) => BaseKey<CharKey> = keyFactory<CharKey>('CharKey')
+export const booleanKey: (name: string, units?: Units) => BaseKey<BooleanKey> = keyFactory<BooleanKey>('BooleanKey')
 
 // Matrix Keys
 
@@ -286,8 +271,7 @@ export const doubleMatrixKey: (name: string, units?: Units) => BaseKey<DoubleMat
 export const byteArrayKey: (name: string, units?: Units) => BaseKey<ByteArrayKey> =
   keyFactory<ByteArrayKey>('ByteArrayKey')
 
-export const intArrayKey: (name: string, units?: Units) => BaseKey<IntArrayKey> =
-  keyFactory<IntArrayKey>('IntArrayKey')
+export const intArrayKey: (name: string, units?: Units) => BaseKey<IntArrayKey> = keyFactory<IntArrayKey>('IntArrayKey')
 
 export const longArrayKey: (name: string, units?: Units) => BaseKey<LongArrayKey> =
   keyFactory<LongArrayKey>('LongArrayKey')
@@ -305,14 +289,17 @@ export const doubleArrayKey: (name: string, units?: Units) => BaseKey<DoubleArra
 /**
  * Helper function to create struct parameter
  */
-export const structKey: (name: string, units?: Units) => BaseKey<StructKey> =
-  keyFactory<StructKey>('StructKey')
+export const structKey: (name: string, units?: Units) => BaseKey<StructKey> = keyFactory<StructKey>('StructKey')
 
-export const utcTimeKey: (name: string, units?: Units) => BaseKey<UTCTimeKey> =
-  keyFactory<UTCTimeKey>('UTCTimeKey', 'second')
+export const utcTimeKey: (name: string, units?: Units) => BaseKey<UTCTimeKey> = keyFactory<UTCTimeKey>(
+  'UTCTimeKey',
+  'second'
+)
 
-export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> =
-  keyFactory<TAITimeKey>('TAITimeKey', 'second')
+export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> = keyFactory<TAITimeKey>(
+  'TAITimeKey',
+  'second'
+)
 
 /**
  * A KeyType that holds Choices
@@ -322,18 +309,13 @@ export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> =
  * @tparam L type for choices
  * @return an instance of ChoiceKey for the given name, choices and units
  */
-export const choiceKey = <L extends string>(
-  name: string,
-  choices: readonly L[],
-  units: Units = 'NoUnits'
-) => new ChoiceKeyFactory<ChoiceKey, readonly L[]>(name, 'ChoiceKey', choices, units)
+export const choiceKey = <L extends string>(name: string, choices: readonly L[], units: Units = 'NoUnits') =>
+  new ChoiceKeyFactory<ChoiceKey, readonly L[]>(name, 'ChoiceKey', choices, units)
 
 // Coord Keys
-export const raDecKey: (name: string, units?: Units) => BaseKey<RaDecKey> =
-  keyFactory<RaDecKey>('RaDecKey')
+export const raDecKey: (name: string, units?: Units) => BaseKey<RaDecKey> = keyFactory<RaDecKey>('RaDecKey')
 
-export const eqCoordKey: (name: string, units?: Units) => BaseKey<EqCoordKey> =
-  keyFactory<EqCoordKey>('EqCoordKey')
+export const eqCoordKey: (name: string, units?: Units) => BaseKey<EqCoordKey> = keyFactory<EqCoordKey>('EqCoordKey')
 
 export const solarSystemCoordKey: (name: string, units?: Units) => BaseKey<SolarSystemCoordKey> =
   keyFactory<SolarSystemCoordKey>('SolarSystemCoordKey')
@@ -347,5 +329,4 @@ export const cometCoordKey: (name: string, units?: Units) => BaseKey<CometCoordK
 export const altAzCoordKey: (name: string, units?: Units) => BaseKey<AltAzCoordKey> =
   keyFactory<AltAzCoordKey>('AltAzCoordKey')
 
-export const coordKey: (name: string, units?: Units) => BaseKey<CoordKey> =
-  keyFactory<CoordKey>('CoordKey')
+export const coordKey: (name: string, units?: Units) => BaseKey<CoordKey> = keyFactory<CoordKey>('CoordKey')

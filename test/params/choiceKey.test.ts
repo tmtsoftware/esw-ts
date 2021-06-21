@@ -6,9 +6,7 @@ describe('choiceKey', () => {
     const choices = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
     const weekDaysKey = choiceKey('weekDaysKey', choices)
     const weekDayParam = weekDaysKey.set('Mon', 'Wed')
-    expect(weekDayParam).toEqual(
-      new Parameter('weekDaysKey', 'ChoiceKey', ['Mon', 'Wed'], 'NoUnits')
-    )
+    expect(weekDayParam).toEqual(new Parameter('weekDaysKey', 'ChoiceKey', ['Mon', 'Wed'], 'NoUnits'))
   })
 
   test('should allow setting supported choices and units', () => {

@@ -28,8 +28,7 @@ const executeScriptSync =
     execSync(cmd.join(' '))
   }
 
-const appLauncher = (name: string, version = 'master-SNAPSHOT') =>
-  executeScript(appsLauncherScript, name, version)
+const appLauncher = (name: string, version = 'master-SNAPSHOT') => executeScript(appsLauncherScript, name, version)
 
 const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
   executeScriptSync(appsLauncherScript, name, version)

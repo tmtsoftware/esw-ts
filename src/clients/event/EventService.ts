@@ -49,11 +49,7 @@ export interface EventService {
   subscribe(
     eventKeys: Set<EventKey>,
     maxFrequency: number
-  ): (
-    onEvent: (event: Event) => void,
-    onError?: (error: ServiceError) => void,
-    onClose?: () => void
-  ) => Subscription
+  ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 
   /**
    * This API subscribes to events of all the EventKeys specified using a `Subsystem`
@@ -80,11 +76,7 @@ export interface EventService {
     subsystem: Subsystem,
     maxFrequency: number,
     pattern: string
-  ): (
-    onEvent: (event: Event) => void,
-    onError?: (error: ServiceError) => void,
-    onClose?: () => void
-  ) => Subscription
+  ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 }
 
 /**

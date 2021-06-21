@@ -26,9 +26,7 @@ const queryString = (queryParams: Record<string, string>) =>
     .join('&')
 
 const withTimeout = <T>(ms: number, promise: Promise<T>): Promise<T> => {
-  const timeout: Promise<T> = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Request timed out')), ms)
-  )
+  const timeout: Promise<T> = new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), ms))
   return Promise.race([timeout, promise])
 }
 
@@ -55,10 +53,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     headers.append(APP_NAME, applicationName)
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
-    const fetchResponse = await withTimeout(
-      timeout,
-      fetch(path, { method, headers, body: body as string })
-    )
+    const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body: body as string }))
     const response = await handleErrors(fetchResponse, responseMapper)
     return decoder(response)
   }
@@ -79,18 +74,14 @@ const defaultResponseMapper = (response: Response) => {
   }
 }
 
-const handleErrors = async <Res>(
-  res: Response,
-  responseMapper: (res: Response) => Promise<Res>
-): Promise<Res> => {
+const handleErrors = async <Res>(res: Response, responseMapper: (res: Response) => Promise<Res>): Promise<Res> => {
   const responseBody = await responseMapper(res)
   if (!res.ok) throw ServiceError.make(res.status, res.statusText, responseBody)
   return responseBody
 }
 
-const urlencodedSerializer = (
-  payload: string[][] | Record<string, string> | string | URLSearchParams
-) => new URLSearchParams(payload).toString()
+const urlencodedSerializer = (payload: string[][] | Record<string, string> | string | URLSearchParams) =>
+  new URLSearchParams(payload).toString()
 
 const serializers = new Map([
   ['application/json', JSON.stringify],

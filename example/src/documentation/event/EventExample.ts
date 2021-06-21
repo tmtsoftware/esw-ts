@@ -98,11 +98,7 @@ const dddd = async () => {
   )
 
   // subscribe to specific events having hcd in the event name
-  const specificSubscription: Subscription = eventService.pSubscribe(
-    'ESW',
-    10,
-    '(hcd)'
-  )(onEventCallback)
+  const specificSubscription: Subscription = eventService.pSubscribe('ESW', 10, '(hcd)')(onEventCallback)
 
   //To cancel the subscription
   subscription.cancel()

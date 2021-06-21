@@ -49,38 +49,26 @@ const sequence = new Sequence([setupCommand1, observeCommand1])
 //#sequence-creation
 
 //#loadSequence
-const okOrUnhandledResponse: OkOrUnhandledResponse =
-  await sequencerService.loadSequence(sequence)
+const okOrUnhandledResponse: OkOrUnhandledResponse = await sequencerService.loadSequence(sequence)
 const initialResponse: SubmitResponse = await sequencerService.startSequence()
 
-const queryResponse: SubmitResponse = await sequencerService.query(
-  initialResponse.runId
-)
-const queryFinalResponse: SubmitResponse = await sequencerService.queryFinal(
-  initialResponse.runId,
-  5
-)
+const queryResponse: SubmitResponse = await sequencerService.query(initialResponse.runId)
+const queryFinalResponse: SubmitResponse = await sequencerService.queryFinal(initialResponse.runId, 5)
 //#loadSequence
 
 //#add
-const addResponse: OkOrUnhandledResponse = await sequencerService.add([
-  observeCommand2,
-  setupCommand2
-])
+const addResponse: OkOrUnhandledResponse = await sequencerService.add([observeCommand2, setupCommand2])
 //#add
 
 //#prepend
-const prependResponse: OkOrUnhandledResponse = await sequencerService.prepend([
-  observeCommand2,
-  setupCommand2
-])
+const prependResponse: OkOrUnhandledResponse = await sequencerService.prepend([observeCommand2, setupCommand2])
 //#prepend
 
 //#replace
-const replaceResponse: GenericResponse = await sequencerService.replace(
-  'd99b6cf6-553c-49e9-9089-aaa494f116e9',
-  [observeCommand2, setupCommand2]
-)
+const replaceResponse: GenericResponse = await sequencerService.replace('d99b6cf6-553c-49e9-9089-aaa494f116e9', [
+  observeCommand2,
+  setupCommand2
+])
 //#replace
 
 //#insertAfter
@@ -91,21 +79,19 @@ const insertAfterResponse: GenericResponse = await sequencerService.insertAfter(
 //#insertAfter
 
 //#delete
-const deleteResponse: GenericResponse = await sequencerService.delete(
-  'd99b6cf6-553c-49e9-9089-aaa494f116e9'
-)
+const deleteResponse: GenericResponse = await sequencerService.delete('d99b6cf6-553c-49e9-9089-aaa494f116e9')
 //#delete
 
 //#addBreakpoint
-const addBreakpointResponse: GenericResponse =
-  await sequencerService.addBreakpoint('d99b6cf6-553c-49e9-9089-aaa494f116e9')
+const addBreakpointResponse: GenericResponse = await sequencerService.addBreakpoint(
+  'd99b6cf6-553c-49e9-9089-aaa494f116e9'
+)
 //#addBreakpoint
 
 //#removeBreakpoint
-const removeBreakpointResponse: RemoveBreakpointResponse =
-  await sequencerService.removeBreakpoint(
-    'd99b6cf6-553c-49e9-9089-aaa494f116e9'
-  )
+const removeBreakpointResponse: RemoveBreakpointResponse = await sequencerService.removeBreakpoint(
+  'd99b6cf6-553c-49e9-9089-aaa494f116e9'
+)
 //#removeBreakpoint
 
 //#reset
@@ -141,8 +127,7 @@ const goOfflineResponse: GoOfflineResponse = await sequencerService.goOffline()
 //#goOffline
 
 //#abortSequence
-const abortResponse: OkOrUnhandledResponse =
-  await sequencerService.abortSequence()
+const abortResponse: OkOrUnhandledResponse = await sequencerService.abortSequence()
 //#abortSequence
 
 //#stop
@@ -150,13 +135,11 @@ const stopResponse: OkOrUnhandledResponse = await sequencerService.stop()
 //#stop
 
 //#diagnosticMode
-const diagnosticResponse: DiagnosticModeResponse =
-  await sequencerService.diagnosticMode(new Date(), 'engineering')
+const diagnosticResponse: DiagnosticModeResponse = await sequencerService.diagnosticMode(new Date(), 'engineering')
 //#diagnosticMode
 
 //#operationsMode
-const operationsModeResponse: OperationsModeResponse =
-  await sequencerService.operationsMode()
+const operationsModeResponse: OperationsModeResponse = await sequencerService.operationsMode()
 //#operationsMode
 
 //#submit
@@ -164,20 +147,15 @@ const initialRes: SubmitResponse = await sequencerService.submit(sequence)
 
 const queryRes: SubmitResponse = await sequencerService.query(initialRes.runId)
 
-const queryFinalRes: SubmitResponse = await sequencerService.queryFinal(
-  'd99b6cf6-553c-49e9-9089-aaa494f116e9',
-  10
-)
+const queryFinalRes: SubmitResponse = await sequencerService.queryFinal('d99b6cf6-553c-49e9-9089-aaa494f116e9', 10)
 //#submit
 
 //#submitAndWait
-const submitAndWaitResponse: SubmitResponse =
-  await sequencerService.submitAndWait(sequence, 10)
+const submitAndWaitResponse: SubmitResponse = await sequencerService.submitAndWait(sequence, 10)
 //#submitAndWait
 
 //#getSequencerState
-const getSequencerState: SequencerState =
-  await sequencerService.getSequencerState()
+const getSequencerState: SequencerState = await sequencerService.getSequencerState()
 //#getSequencerState
 //
 

@@ -10,9 +10,5 @@ export class Subscribe {
 export class SubscribeWithPattern {
   readonly _type: 'SubscribeWithPattern' = 'SubscribeWithPattern'
 
-  constructor(
-    readonly subsystem: Subsystem,
-    readonly maxFrequency: number,
-    readonly pattern: string
-  ) {}
+  constructor(readonly subsystem: Subsystem, readonly maxFrequency: number, readonly pattern: string) {}
 }

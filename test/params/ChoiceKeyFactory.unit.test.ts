@@ -2,12 +2,7 @@ import { ChoiceKeyFactory } from '../../src/models'
 
 describe('Choice Key factory', () => {
   test('set returns a Parameter', () => {
-    const keyFactory = new ChoiceKeyFactory(
-      'weekdays',
-      'StringKey',
-      ['Monday', 'Tuesday'],
-      'NoUnits'
-    )
+    const keyFactory = new ChoiceKeyFactory('weekdays', 'StringKey', ['Monday', 'Tuesday'], 'NoUnits')
     const keyParameter = keyFactory.set('Tuesday')
 
     const expectedParameter = {

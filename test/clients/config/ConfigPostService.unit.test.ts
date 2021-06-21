@@ -84,9 +84,7 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
-    getMockFn.mockRejectedValueOnce(
-      new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error')
-    )
+    getMockFn.mockRejectedValueOnce(new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error'))
 
     expect.assertions(4)
     await configService.getById(confPath, configId).catch((e) => {
@@ -148,9 +146,7 @@ describe('ConfigService', () => {
     const confPath = 'tmt/assembly.conf'
     const configId = new ConfigId('configId123')
 
-    headMockFn.mockRejectedValueOnce(
-      new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error')
-    )
+    headMockFn.mockRejectedValueOnce(new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error'))
 
     expect.assertions(4)
     await configService.exists(confPath, configId).catch((e) => {
@@ -316,9 +312,7 @@ describe('ConfigService', () => {
   test('should throw error if internal server error is received on getActiveVersion | ESW-320, ESW-321', async () => {
     const confPath = 'tmt/assembly.conf'
 
-    getMockFn.mockRejectedValueOnce(
-      new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error')
-    )
+    getMockFn.mockRejectedValueOnce(new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error'))
 
     expect.assertions(4)
     await configService.getActiveVersion(confPath).catch((e) => {

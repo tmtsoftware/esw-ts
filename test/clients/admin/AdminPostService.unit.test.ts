@@ -12,10 +12,7 @@ import {
 } from '../../../src/clients/admin/models/PostCommand'
 import type { GatewayAdminPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import type { LogMetadata } from '../../../src/clients/logger'
-import {
-  ContainerLifecycleStateD,
-  SupervisorLifecycleStateD
-} from '../../../src/decoders/AdminDecoders'
+import { ContainerLifecycleStateD, SupervisorLifecycleStateD } from '../../../src/decoders/AdminDecoders'
 import { DoneD } from '../../../src/decoders/CommonDecoders'
 import { LogMetadataD } from '../../../src/decoders/LoggerDecoders'
 import { ComponentId, Prefix } from '../../../src/models'
@@ -42,10 +39,7 @@ describe('Admin Service', () => {
     const response: LogMetadata = await adminServiceImpl.getLogMetadata(componentId)
 
     expect(response).toEqual(expectedLogMetadata)
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new GetLogMetadata(componentId),
-      LogMetadataD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new GetLogMetadata(componentId), LogMetadataD)
   })
 
   test('should call log setLogLevel with correct arguments | ESW-372', async () => {
@@ -55,10 +49,7 @@ describe('Admin Service', () => {
 
     const response = await adminServiceImpl.setLogLevel(componentId, level)
 
-    verify(mockedHttpTransport.requestRes).toBeCalledWith(
-      new SetLogLevel(componentId, level),
-      DoneD
-    )
+    verify(mockedHttpTransport.requestRes).toBeCalledWith(new SetLogLevel(componentId, level), DoneD)
     expect(response).toEqual('Done')
   })
 

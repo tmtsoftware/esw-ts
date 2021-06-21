@@ -31,13 +31,7 @@ export class EventServiceImpl implements EventService {
       onError?: (error: ServiceError) => void,
       onClose?: () => void
     ): Subscription => {
-      const subscriptionResponse = this.resolveAndSubscribe(
-        eventKeys,
-        maxFrequency,
-        onEvent,
-        onError,
-        onClose
-      )
+      const subscriptionResponse = this.resolveAndSubscribe(eventKeys, maxFrequency, onEvent, onError, onClose)
       return {
         cancel: async () => {
           const response = await subscriptionResponse
@@ -77,13 +71,7 @@ export class EventServiceImpl implements EventService {
     onError?: (error: ServiceError) => void,
     onClose?: () => void
   ) {
-    return this.ws().subscribe(
-      new Subscribe([...eventKeys], maxFrequency),
-      onEvent,
-      EventD,
-      onError,
-      onClose
-    )
+    return this.ws().subscribe(new Subscribe([...eventKeys], maxFrequency), onEvent, EventD, onError, onClose)
   }
 
   private async resolveAndpSubscribe(

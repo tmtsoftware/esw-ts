@@ -1,11 +1,5 @@
 import { GATEWAY_CONNECTION } from '../../config/Connections'
-import type {
-  ComponentId,
-  ContainerLifecycleState,
-  Done,
-  Prefix,
-  SupervisorLifecycleState
-} from '../../models'
+import type { ComponentId, ContainerLifecycleState, Done, Prefix, SupervisorLifecycleState } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import type { Location } from '../location'

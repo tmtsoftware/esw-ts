@@ -1,13 +1,4 @@
-import {
-  IntArrayKey,
-  intArrayKey,
-  Observe,
-  Parameter,
-  Prefix,
-  Setup,
-  stringKey,
-  Wait
-} from '@tmtsoftware/esw-ts'
+import { IntArrayKey, intArrayKey, Observe, Parameter, Prefix, Setup, stringKey, Wait } from '@tmtsoftware/esw-ts'
 //#obsid
 const obsId: string = 'Obs001'
 //#obsid
@@ -40,12 +31,7 @@ const dd = () => {
     [4, 5, 6]
   ])
 
-  const observe: Observe = new Observe(
-    prefix,
-    commandName,
-    [filterParam],
-    obsId
-  )
+  const observe: Observe = new Observe(prefix, commandName, [filterParam], obsId)
   //#observe
 }
 const ddd = () => {
