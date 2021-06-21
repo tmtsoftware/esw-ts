@@ -15,7 +15,7 @@ i.e. `realm`, `clientId`
 `clientId` is a mandatory configuration which specifies the client id of the app as per registration
 in keycloak server.
 
-See, how to configure realm & client-id [here](../common/getting-started.md#ui-app-configuration-for-esw-ts)
+See, how to configure realm & client-id @ref[here](../common/getting-started.md#ui-app-configuration-for-esw-ts)
 
 ## Components
 

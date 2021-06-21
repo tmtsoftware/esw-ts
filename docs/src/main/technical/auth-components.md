@@ -25,7 +25,7 @@ for details.
 This instantiation expects config which includes keycloak server URL and some application
 specific config like `realm` and `clientId`. Auth Service uses CSW Location Service to resolve keycloak server.
 
-See, how to configure realm & client-id [here](../common/getting-started.md#ui-app-configuration-for-esw-ts)
+See, how to configure realm & client-id @ref[here](../common/getting-started.md#ui-app-configuration-for-esw-ts)
 
 - To call secure end point, web application first needs to be authenticated using keycloak server. There are two options to make this adapter automatically authenticate - `login-required` and `check-sso`.
 `login-required` will automatically authenticate if the user is already logged-in, otherwise it will display keycloak login page.
