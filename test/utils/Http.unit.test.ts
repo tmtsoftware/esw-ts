@@ -18,7 +18,7 @@ afterAll(() => setAppConfig(OLD_APP_CONFIG_PATH))
 
 afterEach(() => jest.clearAllMocks())
 
-  describe('Http util', () => {
+describe('Http util', () => {
   test('Post should throw generic error exception if there is an internal service error | ESW-321', async () => {
     const invalidComponent = {
       _type: 'InvalidComponent',

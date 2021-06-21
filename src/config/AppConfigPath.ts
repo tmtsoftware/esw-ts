@@ -11,7 +11,7 @@ export type AppConfig = {
 }
 /**
  * A Configuration utility for applications. This method must be called at the root of your application.
- * Ideally all application built inside TMT org must have different names. this is the utility method 
+ * Ideally all application built inside TMT org must have different names. this is the utility method
  * which is used to give application their unique name.
  *
  * @param AppConfig         configuration object.

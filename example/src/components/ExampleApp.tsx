@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { AuthContextProvider, CheckLogin, RealmRole } from '@tmtsoftware/esw-ts'
 // #import-components-example
 import NavComponent from './NavComponent'
-import { AppConfig } from '../config/AppConfig'
 import Write from './Write'
 import Read from './Read'
 import RoleError from './RoleError'
@@ -17,7 +16,7 @@ const ExampleApp = () => {
     <div className='row card col s12 m7'>
       {
         // #AuthContextProvider-component-usage
-        <AuthContextProvider config={AppConfig}>
+        <AuthContextProvider config={{ realm: 'TMT', clientId: 'example-app' }}>
           <BrowserRouter>
             <div>
               <NavComponent />
