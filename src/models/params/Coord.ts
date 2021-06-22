@@ -1,3 +1,5 @@
+import type { Angle } from './Angle'
+
 /**
  * RaDec holds Ra(Right Ascension) and Dec(Declination) values
  */
@@ -51,8 +53,8 @@ export class EqCoord {
 
   constructor(
     readonly tag: Tag,
-    readonly ra: number,
-    readonly dec: number,
+    readonly ra: Angle,
+    readonly dec: Angle,
     readonly frame: EqFrame,
     readonly catalogName: string,
     readonly pm: ProperMotion
@@ -65,12 +67,12 @@ export class MinorPlanetCoord {
   constructor(
     readonly tag: Tag,
     readonly epoch: number, // TT as a Modified Julian Date
-    readonly inclination: number, // degrees
-    readonly longAscendingNode: number, // degrees
-    readonly argOfPerihelion: number, // degrees
+    readonly inclination: Angle, // degrees
+    readonly longAscendingNode: Angle, // degrees
+    readonly argOfPerihelion: Angle, // degrees
     readonly meanDistance: number, // AU
     readonly eccentricity: number,
-    readonly meanAnomaly: number
+    readonly meanAnomaly: Angle
   ) {}
 }
 
@@ -86,9 +88,9 @@ export class CometCoord {
   constructor(
     readonly tag: Tag,
     readonly epochOfPerihelion: number, // TT as a Modified Julian Date
-    readonly inclination: number, // degrees
-    readonly longAscendingNode: number, // degrees
-    readonly argOfPerihelion: number, // degrees
+    readonly inclination: Angle, // degrees
+    readonly longAscendingNode: Angle, // degrees
+    readonly argOfPerihelion: Angle, // degrees
     readonly perihelionDistance: number, // AU
     readonly eccentricity: number
   ) {}
@@ -100,5 +102,5 @@ export class CometCoord {
 export class AltAzCoord {
   readonly _type: 'AltAzCoord' = 'AltAzCoord'
 
-  constructor(readonly tag: Tag, readonly alt: number, readonly az: number) {}
+  constructor(readonly tag: Tag, readonly alt: Angle, readonly az: Angle) {}
 }

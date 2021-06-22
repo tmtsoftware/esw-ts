@@ -13,11 +13,17 @@ import type {
   SolarSystemObject
 } from '../models'
 import { Tag } from '../models'
+import { Angle } from '../models/params/Angle'
 import { ciLiteral, Decoder } from './Decoder'
 
 export const TagD: Decoder<Tag> = pipe(
   D.string,
   D.parse((name) => D.success(new Tag(name)))
+)
+
+export const AngleD: Decoder<Angle> = pipe(
+  D.number,
+  D.parse((value) => D.success(new Angle(value)))
 )
 
 export const SolarSystemObjectD: Decoder<SolarSystemObject> = ciLiteral(
@@ -47,8 +53,8 @@ export const ProperMotionD: Decoder<ProperMotion> = D.struct({
 export const EqCoordD: Decoder<EqCoord> = D.struct({
   _type: ciLiteral('EqCoord'),
   tag: TagD,
-  ra: D.number,
-  dec: D.number,
+  ra: AngleD,
+  dec: AngleD,
   frame: EqFrameD,
   catalogName: D.string,
   pm: ProperMotionD
@@ -58,12 +64,12 @@ export const MinorPlanetCoordD: Decoder<MinorPlanetCoord> = D.struct({
   _type: ciLiteral('MinorPlanetCoord'),
   tag: TagD,
   epoch: D.number,
-  inclination: D.number,
-  longAscendingNode: D.number,
-  argOfPerihelion: D.number,
+  inclination: AngleD,
+  longAscendingNode: AngleD,
+  argOfPerihelion: AngleD,
   meanDistance: D.number,
   eccentricity: D.number,
-  meanAnomaly: D.number
+  meanAnomaly: AngleD
 })
 
 export const SolarSystemCoordD: Decoder<SolarSystemCoord> = D.struct({
@@ -76,9 +82,9 @@ export const CometCoordD: Decoder<CometCoord> = D.struct({
   _type: ciLiteral('CometCoord'),
   tag: TagD,
   epochOfPerihelion: D.number,
-  inclination: D.number,
-  longAscendingNode: D.number,
-  argOfPerihelion: D.number,
+  inclination: AngleD,
+  longAscendingNode: AngleD,
+  argOfPerihelion: AngleD,
   perihelionDistance: D.number,
   eccentricity: D.number
 })
@@ -86,8 +92,8 @@ export const CometCoordD: Decoder<CometCoord> = D.struct({
 export const AltAzCoordD: Decoder<AltAzCoord> = D.struct({
   _type: ciLiteral('AltAzCoord'),
   tag: TagD,
-  alt: D.number,
-  az: D.number
+  alt: AngleD,
+  az: AngleD
 })
 
 export const CoordD: Decoder<Coord> = D.sum('_type')({
