@@ -99,3 +99,52 @@ describe('Positions to String', () => {
     expect('-11' + Angle.DEGREE_SIGN + "12'").toEqual(Angle.deToString(-(Angle.D2R * 11 + Angle.M2R * 12)))
   })
 })
+
+describe('Angle Operators', () => {
+  const angle1 = new Angle(12)
+  const angle2 = new Angle(2)
+
+  it('12 Add 2 gives 14', () => {
+    expect(angle1.add(angle2).uas).toEqual(14)
+  })
+
+  it('12 Sub 2  gives 10', () => {
+    expect(angle1.sub(angle2).uas).toEqual(10)
+  })
+
+  it('12 Div 2 gives 6', () => {
+    expect(angle1.div(angle2).uas).toEqual(6)
+  })
+
+  it('12 div2 2 gives 6', () => {
+    expect(angle1.div2(angle2.uas).uas).toEqual(6)
+  })
+
+  it('12 mul 2 gives 24', () => {
+    expect(angle1.mul(angle2).uas).toEqual(24)
+  })
+
+  it('12 mul2 2 gives 24', () => {
+    expect(angle1.mul2(angle2.uas).uas).toEqual(24)
+  })
+})
+
+describe('Angle', () => {
+  const angle = new Angle(12)
+
+  it('toRadian', () => {
+    expect(angle.toRadian()).toEqual(5.817764173314432e-11)
+  })
+
+  it('toDegree', () => {
+    expect(angle.toDegree()).toEqual(3.3333333333333334e-9)
+  })
+
+  it('toMas', () => {
+    expect(angle.toMas()).toEqual(0.012)
+  })
+
+  it('toArcSec', () => {
+    expect(angle.toArcSec()).toEqual(0.000012)
+  })
+})
