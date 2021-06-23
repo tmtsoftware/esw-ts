@@ -8,7 +8,7 @@ import {
   SequencerService,
   SequencerState,
   SequencerStateResponse,
-  setAppConfig,
+  setAppName,
   Setup,
   StepList,
   SubmitResponse
@@ -35,7 +35,7 @@ beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   await startServices(['AAS', 'Gateway'])
   sequencerServiceWithToken = await SequencerService(componentId, {
     tokenFactory: () => validToken

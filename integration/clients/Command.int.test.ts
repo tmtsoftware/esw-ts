@@ -14,7 +14,7 @@ import {
   Setup,
   SubmitResponse
 } from '../../src'
-import { setAppConfig } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(70000)
@@ -32,7 +32,7 @@ const intArrayParam = intArrayKey('array_key').set([
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   await startServices(['AAS', 'Gateway'])
 })
 

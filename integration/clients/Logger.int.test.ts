@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import { LoggingService } from '../../src/clients/logger'
-import { setAppConfig } from '../../src/config'
+import { setAppName } from '../../src/config'
 import { Done, Prefix } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -9,7 +9,7 @@ jest.setTimeout(30000)
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   // setup location service and gateway
   await startServices(['Gateway'])
 })

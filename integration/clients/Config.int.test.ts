@@ -7,7 +7,7 @@ import {
   ConfigMetadata,
   ConfigService
 } from '../../src/clients/config-service'
-import { setAppConfig } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { startServices, stopServices } from '../utils/backend'
 import { delay } from '../utils/eventually'
 
@@ -16,7 +16,7 @@ jest.setTimeout(30000)
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   await startServices(['Config'])
   await delay(5000) // wait for svn repo to initialise
   configService = await ConfigService(() => token)

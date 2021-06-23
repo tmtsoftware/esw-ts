@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import { Event, EventKey, EventName, EventService, ObserveEvent, SystemEvent } from '../../src/clients/event'
-import { setAppConfig } from '../../src/config'
+import { setAppName } from '../../src/config'
 import { Done, Prefix, Subsystem } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -11,7 +11,7 @@ let eventService: EventService
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   await startServices(['Gateway'])
   eventService = await EventService()
 })

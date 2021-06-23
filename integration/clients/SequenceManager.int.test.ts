@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService } from '../../src'
-import { setAppConfig } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -12,7 +12,7 @@ let sequenceManagerServiceWithoutToken: SequenceManagerService
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   await startServices(['SequenceManager'])
   // Authorized user for Sequence Manager APIs
   const token = 'validToken'

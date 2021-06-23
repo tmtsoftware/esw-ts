@@ -5,7 +5,7 @@ import {
   ComponentId,
   KillResponse,
   Prefix,
-  setAppConfig,
+  setAppName,
   SpawnResponse
 } from '../../src'
 import { startServices, stopServices } from '../utils/backend'
@@ -18,7 +18,7 @@ let agentServiceWithoutToken: AgentService
 
 beforeAll(async () => {
   console.error = jest.fn()
-  setAppConfig({ applicationName: 'test-app' })
+  setAppName('test-app')
   await startServices(['AgentService'])
   const validToken = 'validToken'
   const inValidToken = 'tokenWithoutRole'

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Auth, AuthContextConfig, AuthStore } from '../../../clients/aas'
-import { AppConfig } from '../../../config/AppConfigPath'
 import { Provider } from './AuthContext'
 
 export interface AuthContextProps {
@@ -8,6 +7,10 @@ export interface AuthContextProps {
   children: React.ReactNode
 }
 
+const defaultAuthConfig = {
+  realm: 'TMT',
+  clientId: 'tmt-frontend-app'
+}
 // TODO Add unit tests
 /**
  * React component which is wrapper over provider of react context api.
@@ -25,12 +28,7 @@ const AuthContextProvider = (props: AuthContextProps) => {
    * as a context
    */
   const instantiateAAS = async (url: string, redirect: boolean) => {
-    const keycloakConfig: AuthContextConfig = props.config
-      ? props.config
-      : {
-          realm: AppConfig.realm ?? '',
-          clientId: AppConfig.clientId ?? ''
-        }
+    const keycloakConfig: AuthContextConfig = props.config ? props.config : defaultAuthConfig
 
     const { keycloak, authenticatedPromise } = AuthStore.authenticate(keycloakConfig, url, redirect)
     try {

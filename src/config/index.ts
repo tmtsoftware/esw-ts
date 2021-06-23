@@ -7,4 +7,4 @@ export {
   GATEWAY_CONNECTION,
   SEQUENCE_MANAGER_CONNECTION
 } from './Connections'
-export { setAppConfig } from './AppConfigPath'
+export { setAppName } from './AppName'
