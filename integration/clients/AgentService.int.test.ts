@@ -1,13 +1,5 @@
 import 'whatwg-fetch'
-import {
-  AgentService,
-  AkkaConnection,
-  ComponentId,
-  KillResponse,
-  Prefix,
-  setAppName,
-  SpawnResponse
-} from '../../src'
+import { AgentService, AkkaConnection, ComponentId, KillResponse, Prefix, setAppName, SpawnResponse } from '../../src'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)

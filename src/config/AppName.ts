@@ -10,7 +10,5 @@ export const loadAppName = (): string => {
     return APPLICATION_NAME
   }
 
-  throw new Error(
-    `'applicationName' is a mandatory field. use setAppName() method to configure Application name.'`
-  )
+  throw new Error(`'applicationName' is a mandatory field. use setAppName() method to configure Application name.'`)
 }

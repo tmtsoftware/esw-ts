@@ -1,9 +1,9 @@
-import { setAppConfig } from '@tmtsoftware/esw-ts'
+import { setAppName } from '@tmtsoftware/esw-ts'
 import React from 'react'
-
 import ExampleApp from './components/ExampleApp'
+import { AppConfig } from './config/AppConfig'
 
-setAppConfig({ applicationName: 'example' })
+setAppName(AppConfig.applicationName)
 
 export const App = () => (
   <div>

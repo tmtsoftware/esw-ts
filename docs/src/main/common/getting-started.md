@@ -33,3 +33,20 @@ ESW-TS library will try to load this `ApplicationName` before making any backend
 
 Typescript
 :   @@snip [settingpath](../../../../example/src/documentation/common/AppPath.tsx) { #set-app-config }
+
+## UI App Deployment for ESW-TS
+
+Applications that are built using `ui-template.g8` are meant to be deployed under one common folder `/apps`.
+this folder will contain all tmt ui applications which can be together deployed using any static server(nginx, python http server, s3 static server, etc).
+
+ESW-TS assumes that static server contains a configuration `config.js` file which has configuration related to all applications.
+
+As of now, ESW-TS loads `locationUrl` using this file to create LocationService instance. In future if needed, other configuration can be added here which are applicable to all tmt applications.
+
+`config.js file looks like this.`
+
+```ts
+export const config = { locationUrl: 'https://locationService.tmt.org' }
+```
+
+Note: Without this file, Application won't be able to communicate to tmt backend service's.

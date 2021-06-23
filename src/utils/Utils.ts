@@ -23,6 +23,4 @@ export const getPostEndPoint = (uri: { port: number; host: string }): string =>
   uri.port ? `http://${uri.host}:${uri.port}/post-endpoint` : `http://${uri.host}/post-endpoint`
 
 export const getWebSocketEndPoint = (uri: { port: number; host: string }): string =>
-  uri.port
-    ? `ws://${uri.host}:${uri.port}/websocket-endpoint`
-    : `ws://${uri.host}/websocket-endpoint`
+  uri.port ? `ws://${uri.host}:${uri.port}/websocket-endpoint` : `ws://${uri.host}/websocket-endpoint`

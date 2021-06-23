@@ -1,13 +1,9 @@
-import { setAppConfig } from '@tmtsoftware/esw-ts'
+import { setAppName } from '@tmtsoftware/esw-ts'
 import React from 'react'
 //#set-app-config
 // inside App.tsx
 
-setAppConfig({
-  applicationName: 'ocs-application',
-  realm: 'TMT',
-  clientId: 'tmt-frontend-app'
-})
+setAppName('ocs-application')
 
 export default () => <div>{/* children components */}</div>
 
