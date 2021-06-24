@@ -26,20 +26,20 @@ Or, to install a specific version
 
 ## UI App Configuration for ESW-TS
 
-If you have used `esw-ui-template.g8` template for generating the application source code. Template generates a code snippet in the index.tsx file which showcases a call being made `setConfigPath`. this sets a default value to `template-folder-name`. if you wish to change your application name this is the place where you can change it. Note that this change effects metrics.
+If you have used `esw-ui-template.g8` template for generating the application source code. Template generates a `AppConfig.js` file in `src/config/AppConfig.js`. It has applicationName that you provided while creating template. if you wish to change your application name this is the place where you can change it. Note that this change effects metrics & the deployment time folder name.
 
-ESW-TS library will try to load this `ApplicationName` before making any backend service calls.
+Note: ESW-TS library will try to load this `applicationName` before making any backend service calls.
 @extref[AppConfig](ts-docs:modules/models.html#appconfig).
 
 Typescript
-:   @@snip [settingpath](../../../../example/src/documentation/common/AppPath.tsx) { #set-app-config }
+:   @@snip [settingpath](../../../../example/src/documentation/common/AppPath.tsx) { #set-app-name }
 
 ## UI App Deployment for ESW-TS
 
 Applications that are built using `ui-template.g8` are meant to be deployed under one common folder `/apps`.
 this folder will contain all tmt ui applications which can be together deployed using any static server(nginx, python http server, s3 static server, etc).
 
-ESW-TS assumes that static server contains a configuration `config.js` file which has configuration related to all applications.
+ESW-TS assumes that static server contains a `config.js` file which has configuration related to all applications.
 
 As of now, ESW-TS loads `locationUrl` using this file to create LocationService instance. In future if needed, other configuration can be added here which are applicable to all tmt applications.
 
@@ -49,4 +49,7 @@ As of now, ESW-TS loads `locationUrl` using this file to create LocationService 
 export const config = { locationUrl: 'https://locationService.tmt.org' }
 ```
 
-Note: Without this file, Application won't be able to communicate to tmt backend service's.
+Note:
+
+1. Without this file, Application won't be able to communicate to tmt backend service's.
+2. Folder name of the application which is getting copied at the static server should have exactly same name as it is in the AppConfig.js's applicationName field. (g8 template by default takes care of this, only if you wish to change your application name, Make a note of this configuration).
