@@ -22,10 +22,12 @@
     "isolatedModules": true,
     "jsx": "react",
     "importsNotUsedAsValues": "error",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noEmit": true
   },
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "node_modules",

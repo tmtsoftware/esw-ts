@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
 
@@ -11,10 +11,8 @@ const port = 1234
 const url = `http://${host}:${port}/`
 const jsonResHeaders = new HeaderExt().withContentType('application/json')
 const textResHeaders = new HeaderExt().withContentType('application/text')
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 
-beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
-afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
+beforeAll(() => setAppName('test-app'))
 
 afterEach(() => jest.clearAllMocks())
 

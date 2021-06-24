@@ -8,7 +8,7 @@ export const resolve: (connection: Connection, timeout?: number, timeoutUnit?: T
   timeout = 10,
   timeoutUnit: TimeUnit = 'seconds'
 ) => {
-  const locationService = LocationService()
+  const locationService = await LocationService()
   const location = await locationService.resolve(connection, timeout, timeoutUnit)
 
   if (!location) throw new Error(`${connection.prefix.toJSON()} not found`)

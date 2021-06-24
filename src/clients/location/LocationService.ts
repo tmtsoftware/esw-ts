@@ -1,5 +1,6 @@
 import type { AuthData, Option, Subscription } from '../..'
-import { LocationConfig } from '../../config'
+import { LocationConfig } from '../../config/LocationConfig'
+import type { LocationInfo } from '../../config/LocationConfig'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
@@ -102,20 +103,39 @@ export interface LocationService {
 }
 
 /**
+ * (DO NOT USE IN PRODUCTION)
+ * this constructor is used in testing & will get deleted eventually.
+ * @constructor
+ */
+export const LocationServiceInternal = async (
+  authData?: AuthData,
+  locationConfig?: LocationInfo
+): Promise<LocationService> => {
+  const config: LocationInfo = locationConfig ? locationConfig : await LocationConfig()
+
+  return makeLocationService(config, authData)
+}
+
+/**
  * Instantiates the location service.
  *
  * @param tokenFactory          a function that returns a valid token which has correct access roles and permissions
- * @param locationConfig        host and port of location server
  * @constructor
  */
-export const LocationService = (authData?: AuthData, locationConfig = LocationConfig): LocationService => {
+export const LocationService = async (authData?: AuthData): Promise<LocationService> => {
+  const config: LocationInfo = await LocationConfig()
+
+  return makeLocationService(config, authData)
+}
+
+const makeLocationService = (config: LocationInfo, authData: AuthData | undefined) => {
   const webSocketEndpoint = getWebSocketEndPoint({
-    host: locationConfig.hostName,
-    port: locationConfig.port
+    host: config.host,
+    port: config.port
   })
   const postEndpoint = getPostEndPoint({
-    host: locationConfig.hostName,
-    port: locationConfig.port
+    host: config.host,
+    port: config.port
   })
   return new LocationServiceImpl(
     new HttpTransport(postEndpoint, authData),

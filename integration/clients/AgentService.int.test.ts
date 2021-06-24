@@ -1,14 +1,5 @@
 import 'whatwg-fetch'
-import {
-  AgentService,
-  AkkaConnection,
-  ComponentId,
-  KillResponse,
-  Prefix,
-  setAppConfigPath,
-  SpawnResponse
-} from '../../src'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
+import { AgentService, AkkaConnection, ComponentId, KillResponse, Prefix, setAppName, SpawnResponse } from '../../src'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -17,11 +8,9 @@ let agentServiceWithValidToken: AgentService
 let agentServiceWithInValidToken: AgentService
 let agentServiceWithoutToken: AgentService
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
-
 beforeAll(async () => {
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppName('test-app')
   await startServices(['AgentService'])
   const validToken = 'validToken'
   const inValidToken = 'tokenWithoutRole'
@@ -33,7 +22,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Agent Service client', () => {

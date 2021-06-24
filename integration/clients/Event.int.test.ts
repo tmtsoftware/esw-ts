@@ -1,7 +1,6 @@
 import 'whatwg-fetch'
 import { Event, EventKey, EventName, EventService, ObserveEvent, SystemEvent } from '../../src/clients/event'
-import { setAppConfigPath } from '../../src/config'
-import { APP_CONFIG_PATH } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config'
 import { Done, Prefix, Subsystem } from '../../src/models'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -9,12 +8,10 @@ jest.setTimeout(30000)
 
 let eventService: EventService
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
-
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppName('test-app')
   await startServices(['Gateway'])
   eventService = await EventService()
 })
@@ -22,7 +19,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 describe('Event Client', () => {

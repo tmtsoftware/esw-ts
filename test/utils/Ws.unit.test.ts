@@ -2,7 +2,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { Server } from 'mock-socket'
 import { delay } from '../../integration/utils/eventually'
 import type { ServiceError } from '../../src'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { SERVER_ERROR, Ws } from '../../src/utils/Ws'
 import { noop } from '../helpers/JestMockHelpers'
 import { closeServer, wsMockWithResolved } from '../helpers/MockHelpers'
@@ -11,10 +11,10 @@ const host = 'localhost'
 const port = 8080
 
 const url = `ws://${host}:${port}/websocket-endpoint`
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+const OLD_APP_CONFIG_PATH = ''
 
-beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
-afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
+beforeAll(() => setAppName('test-app'))
+afterAll(() => setAppName(OLD_APP_CONFIG_PATH))
 
 beforeEach(() => {
   mockServer = new Server(url)

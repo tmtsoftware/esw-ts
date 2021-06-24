@@ -20,7 +20,7 @@ export const getOrThrow = <A>(e: E.Either<D.DecodeError, A>): A =>
   })(e)
 
 export const getPostEndPoint = (uri: { port: number; host: string }): string =>
-  `http://${uri.host}:${uri.port}/post-endpoint`
+  uri.port ? `http://${uri.host}:${uri.port}/post-endpoint` : `http://${uri.host}/post-endpoint`
 
 export const getWebSocketEndPoint = (uri: { port: number; host: string }): string =>
-  `ws://${uri.host}:${uri.port}/websocket-endpoint`
+  uri.port ? `ws://${uri.host}:${uri.port}/websocket-endpoint` : `ws://${uri.host}/websocket-endpoint`

@@ -14,12 +14,11 @@ import {
   Setup,
   SubmitResponse
 } from '../../src'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(70000)
 
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
 const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
@@ -33,14 +32,13 @@ const intArrayParam = intArrayKey('array_key').set([
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
-  setAppConfigPath('../../test/assets/appconfig/AppConfig.ts')
+  setAppName('test-app')
   await startServices(['AAS', 'Gateway'])
 })
 
 afterAll(async () => {
   await stopServices()
   jest.clearAllMocks()
-  setAppConfigPath(OLD_APP_CONFIG_PATH)
 })
 
 const validToken = 'validToken'

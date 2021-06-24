@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import * as D from 'io-ts/lib/Decoder'
-import { APP_CONFIG_PATH, setAppConfigPath } from '../../src/config/AppConfigPath'
+import { setAppName } from '../../src/config/AppName'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
 
@@ -11,14 +11,14 @@ const host = 'localhost'
 const port = 1234
 const url = `http://${host}:${port}/post-endpoint`
 const expectedValue = { ok: true, status: 200 }
-const OLD_APP_CONFIG_PATH = APP_CONFIG_PATH
+const OLD_APP_CONFIG_PATH = ''
 
 const makeResponse = <T>(response: T): Response => {
   return new Response(JSON.stringify(response))
 }
 
-beforeAll(() => setAppConfigPath('../../test/assets/appconfig/AppConfig.ts'))
-afterAll(() => setAppConfigPath(OLD_APP_CONFIG_PATH))
+beforeAll(() => setAppName('test-app'))
+afterAll(() => setAppName(OLD_APP_CONFIG_PATH))
 
 afterEach(() => jest.clearAllMocks())
 

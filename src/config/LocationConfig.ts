@@ -1,6 +1,15 @@
-const isRunningInProduction = process.env.NODE_ENV === 'production'
+import { extractHostPort } from '../utils/Utils'
+import { loadConfig } from './GlobalConfig'
 
-export const LocationConfig: { hostName: string; port: number } = {
-  hostName: isRunningInProduction ? 'production-dns-entry.com' : 'localhost',
-  port: isRunningInProduction ? 8765 : 7654
+export type LocationInfo = {
+  host: string
+  port: number
+}
+
+const locationInfoDevEnv = { host: 'localhost', port: 7654 }
+
+export const LocationConfig = async (): Promise<LocationInfo> => {
+  return process.env.NODE_ENV == 'production'
+    ? loadConfig().then((globalConfig) => extractHostPort(globalConfig.locationUrl))
+    : locationInfoDevEnv
 }
