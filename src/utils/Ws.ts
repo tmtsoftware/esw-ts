@@ -1,6 +1,6 @@
 import * as E from 'fp-ts/lib/Either'
 import * as D from 'io-ts/lib/Decoder'
-import { loadAppName } from '../config/AppName'
+import { getAppName } from '../config/AppName'
 import type { Decoder } from '../decoders/Decoder'
 import { ServiceError, Subscription } from '../models'
 import { APP_NAME, UNKNOWN_USERNAME, USERNAME } from './Constants'
@@ -13,7 +13,7 @@ export const SERVER_ERROR = {
 export const noop = () => ({})
 
 const createWebsocket = async (url: string, username?: string) => {
-  const applicationName = loadAppName()
+  const applicationName = getAppName()
   const urlWithParams = new URL(url)
   urlWithParams.searchParams.set(APP_NAME, applicationName)
   urlWithParams.searchParams.set(USERNAME, username ? username : UNKNOWN_USERNAME)

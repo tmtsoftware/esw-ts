@@ -22,7 +22,8 @@
     "isolatedModules": true,
     "jsx": "react",
     "importsNotUsedAsValues": "error",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noEmit": true
   },
   "include": [
     "src",

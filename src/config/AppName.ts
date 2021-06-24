@@ -1,14 +1,15 @@
-// eslint-disable-next-line import/no-mutable-exports
-export let APPLICATION_NAME: string
+let appName: string | undefined = undefined
 
 export const setAppName = (name: string) => {
-  APPLICATION_NAME = name
+  if (appName !== undefined) {
+    console.warn(`Failed to set app name to ${name}, Application Name is already set to ${appName}`)
+  } else {
+    appName = name
+  }
 }
 
-export const loadAppName = (): string => {
-  if (APPLICATION_NAME != '') {
-    return APPLICATION_NAME
-  }
-
-  throw new Error(`'applicationName' is a mandatory field. use setAppName() method to configure Application name.'`)
+export const getAppName = () => {
+  if (appName === undefined || appName === '')
+    throw Error('Application Name is not set, set it using setAppName function')
+  return appName
 }

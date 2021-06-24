@@ -1,5 +1,5 @@
 import { identity } from 'fp-ts/lib/function'
-import { loadAppName } from '../config/AppName'
+import { getAppName } from '../config/AppName'
 import { ServiceError } from '../models'
 import { APP_NAME } from './Constants'
 import { HeaderExt } from './HeaderExt'
@@ -48,7 +48,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     const path = fullUrl(url, queryParams)
 
     // headers for metric
-    const applicationName = loadAppName()
+    const applicationName = getAppName()
 
     headers.append(APP_NAME, applicationName)
 
