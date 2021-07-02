@@ -18,10 +18,10 @@ import {
   CometCoordKey,
   CoordKey,
   coordKey,
-  CometCoord
+  CometCoord,
+  Angle,
+  Tag
 } from '@tmtsoftware/esw-ts'
-import { Tag } from '@tmtsoftware/esw-ts'
-
 //#param-from-key
 
 // primitives
@@ -84,7 +84,15 @@ const structParameter = structKey('my struct').set([struct])
 
 //#coordinate-key
 
-const cometCoord = new CometCoord(new Tag('BASE'), 2000, 324000000000, 7200000000, 360000000000, 1.4, 0.234)
+const cometCoord = new CometCoord(
+  new Tag('BASE'),
+  2000,
+  new Angle(324000000000),
+  new Angle(7200000000),
+  new Angle(360000000000),
+  1.4,
+  0.234
+)
 const cometParam: Parameter<CometCoordKey> = cometCoordKey('comet key', 'degree').set([cometCoord])
 
 //coord key is base trait of all coordinate key types.
