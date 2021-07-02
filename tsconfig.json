@@ -38,7 +38,8 @@
   "include": [
     "src/**/*",
     "test/**/*",
-    "integration/**/*"
+    "integration/**/*",
+    "test-utils/**/*"
   ],
   "exclude": ["node_modules", "dist"]
 }
