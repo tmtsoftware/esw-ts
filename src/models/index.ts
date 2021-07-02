@@ -102,6 +102,7 @@ export * from './params/CurrentState'
 export * from './types'
 // helpers functions
 export * from './params/Key'
+export * from './params/Angle'
 export * from './params/BaseKeyType'
 export * from './params/Parameter'
 export * from './params/Prefix'
