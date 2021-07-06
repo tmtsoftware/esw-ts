@@ -42,13 +42,13 @@ This app shows how to use typescript clients and Aas Components to create your w
 
 ### How to run example app
 
-Step1: Run required backend services
+Step1: Run required CSW services
 
 Step2: Build Library
 
 Step3: Run Example App
 
-#### Step1: Run required backend services
+#### Step1: Run required CSW services
 
 Make sure you have following CSW services up and running:
 
@@ -111,14 +111,14 @@ Login with appropriate user as listed below to access functionality of each tab.
 
 ### Running Tests
 
+Note : If you have started CSW services to run the Example App, stop them before running the integration and End-to-End tests.
+
 #### Run unit tests of library
 
 ```bash
 cd {ESW-TS-Repo}
 npm run test:unit
 ```
-
-Note : If you have started backend services ealier, stop them before running below 2 types of integrations tests.
 
 #### Run integration tests of library
 
@@ -127,7 +127,7 @@ cd {ESW-TS-Repo}
 npm run test:integration
 ```
 
-#### Running End to End tests
+#### Running End-to-End tests
 
 This module includes E2E test which demonstrate following flow which is all automated:
 
