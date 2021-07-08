@@ -8,8 +8,8 @@ on:
 jobs:
   release:
     env:
-      CSW_VERSION: "3.0.1" # Change before releasing (before tagging repo)
-      ESW_VERSION: "0.2.1"
+      CSW_VERSION: "4.0.0-M1" # Change before releasing (before tagging repo)
+      ESW_VERSION: "0.3.0-M1"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -81,7 +81,7 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+
       - name: Create rtm zip
         uses: thedoctor0/zip-release@master
         with:

@@ -12,7 +12,7 @@ object Libs {
 }
 
 object ESW {
-  private val defaultESWVersion = "688ff7f004"
+  private val defaultESWVersion = "0.3.0-M1"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>
@@ -22,7 +22,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "33131de840"
+  private val defaultCswVersion = "4.0.0-M1"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>
