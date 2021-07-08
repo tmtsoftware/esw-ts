@@ -90,7 +90,8 @@ describe('Sequence Manager Client', () => {
           resources: ['TCS'],
           sequencers: ['TCS'],
           status: {
-            _type: 'NonConfigurable'
+            _type: 'NonConfigurable',
+            missingSequenceComponents: ['TCS']
           }
         }
       ]

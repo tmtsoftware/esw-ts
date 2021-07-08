@@ -67,8 +67,23 @@ const RestartSequencerSuccessD: Decoder<T.RestartSequencerSuccess> = D.struct({
   componentId: ComponentIdD
 })
 
-export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.struct({
-  _type: ciLiteral('Configured', 'Configurable', 'NonConfigurable')
+const ConfiguredD: Decoder<T.Configured> = D.struct({
+  _type: ciLiteral('Configured')
+})
+
+const ConfigurableD: Decoder<T.Configurable> = D.struct({
+  _type: ciLiteral('Configurable')
+})
+
+const NonConfigurableD: Decoder<T.NonConfigurable> = D.struct({
+  _type: ciLiteral('NonConfigurable'),
+  missingSequenceComponents: D.array(SubsystemD)
+})
+
+export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.sum('_type')({
+  Configurable: ConfigurableD,
+  Configured: ConfiguredD,
+  NonConfigurable: NonConfigurableD
 })
 
 export const ObsModeDetailsD: Decoder<T.ObsModeDetails> = D.struct({

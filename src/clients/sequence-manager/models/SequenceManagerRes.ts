@@ -58,9 +58,20 @@ export type RestartSequencerSuccess = {
   componentId: ComponentId
 }
 
-export type ObsModeStatus = {
-  _type: 'Configured' | 'Configurable' | 'NonConfigurable'
+export type NonConfigurable = {
+  _type: 'NonConfigurable'
+  missingSequenceComponents: Subsystem[]
 }
+
+export type Configurable = {
+  _type: 'Configurable'
+}
+
+export type Configured = {
+  _type: 'Configured'
+}
+
+export type ObsModeStatus = Configurable | Configured | NonConfigurable
 
 export type ObsModeDetails = {
   obsMode: ObsMode
