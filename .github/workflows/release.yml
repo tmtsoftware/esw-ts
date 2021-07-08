@@ -9,7 +9,7 @@ jobs:
   release:
     env:
       CSW_VERSION: "4.0.0-M1" # Change before releasing (before tagging repo)
-      ESW_VERSION: "0.3.0-M1"
+      ESW_VERSION: "2d7e0e2eae"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
