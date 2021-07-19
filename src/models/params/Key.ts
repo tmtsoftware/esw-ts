@@ -293,12 +293,12 @@ export const structKey: (name: string, units?: Units) => BaseKey<StructKey> = ke
 
 export const utcTimeKey: (name: string, units?: Units) => BaseKey<UTCTimeKey> = keyFactory<UTCTimeKey>(
   'UTCTimeKey',
-  'second'
+  'utc'
 )
 
 export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> = keyFactory<TAITimeKey>(
   'TAITimeKey',
-  'second'
+  'tai'
 )
 
 /**

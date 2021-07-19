@@ -60,5 +60,9 @@ export const UnitsD: Decoder<Units> = ciLiteral(
   'NoUnits',
   'encoder',
   'count',
-  'pix'
+  'pix',
+
+  // DateTime units
+  'tai',
+  'utc'
 )

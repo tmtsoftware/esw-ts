@@ -62,3 +62,7 @@ export type Units =
   | 'encoder'
   | 'count'
   | 'pix'
+
+  // Time units
+  | 'tai'
+  | 'utc'

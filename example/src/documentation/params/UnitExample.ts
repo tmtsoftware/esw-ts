@@ -24,7 +24,7 @@ const allValues: Array<number> = paramWithShorts1.values
 // allValues === Array(1, 2, 3, 4))
 // paramWithUnits3.units === "meter")
 
-//default unit for UTCTimeKey is second
+//default unit for UTCTimeKey is utc
 const tParam: Parameter<UTCTimeKey> = utcTimeKey('now').set([new Date().toUTCString()])
-const defaultTimeUnit: Units = tParam.units //is second
+const defaultTimeUnit: Units = tParam.units //is utc
 //#units

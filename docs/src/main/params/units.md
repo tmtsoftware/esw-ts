@@ -90,6 +90,13 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 | count   | ct           | counts as for an encoder or detector |
 | pix     | pix          | pixel                                |
 
+## Time units
+
+| Name | Abbreviation | Description   |
+| ---- | ------------ | ------------- |
+| tai  | tai          | TAI Time unit |
+| utc  | utc          | UTC Time unit |
+
 ## Usage Examples
 
 Typescript
