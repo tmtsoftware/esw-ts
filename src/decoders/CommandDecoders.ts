@@ -58,7 +58,8 @@ export const IssueTypesD: Decoder<CR.IssueTypes> = ciLiteral(
   'WrongNumberOfParametersIssue',
   'WrongParameterTypeIssue',
   'WrongPrefixIssue',
-  'WrongUnitsIssue'
+  'WrongUnitsIssue',
+  'WrongCommandTypeIssue'
 )
 
 export const CommandIssueD: Decoder<CR.CommandIssue> = D.struct({

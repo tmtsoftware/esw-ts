@@ -19,6 +19,7 @@ export type IssueTypes =
   | 'WrongParameterTypeIssue'
   | 'WrongPrefixIssue'
   | 'WrongUnitsIssue'
+  | 'WrongCommandTypeIssue'
 
 export type CommandIssue = {
   _type: IssueTypes

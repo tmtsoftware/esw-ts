@@ -75,7 +75,7 @@ afterAll(async () => {
 const parseModels = (file: string) => JSON.parse(fs.readFileSync(file, 'utf-8'))
 
 describe('models contract test', () => {
-  test('Command Models | ESW-305, ESW-343, ESW-348, ESW-526', () => {
+  test('Command Models | ESW-305, ESW-343, ESW-348, ESW-526, CSW-152, CSW-92', () => {
     verifyContract(commandModelsJsonPath, commandDecoders)
   })
 
