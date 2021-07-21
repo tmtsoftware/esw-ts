@@ -1,18 +1,18 @@
 import sbt._
 
 object Libs {
-  val ScalaVersion = "2.13.5"
+  val ScalaVersion = "2.13.6"
 
   val `scalaTest`         = "org.scalatest"                            %% "scalatest"         % "3.2.9" //Apache License 2.0
   val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "3.141.59"
-  val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "0.4.0"
+  val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "0.5.0"
   val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "4.4.3"
   val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"               % "0.1.0"
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-3-141"    % "3.2.9.0"
 }
 
 object ESW {
-  private val defaultESWVersion = "2d7e0e2eae"
+  private val defaultESWVersion = "11e2e60d0a"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>
@@ -22,7 +22,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "4.0.0-M1"
+  private val defaultCswVersion = "4d8a464c59"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>

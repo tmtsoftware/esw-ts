@@ -23,7 +23,7 @@ object Common {
     organization := "com.github.tmtsoftware.esw-ts",
     organizationName := "TMT Org",
     scalaVersion := Libs.ScalaVersion,
-    concurrentRestrictions in Global += Tags.limit(Tags.All, 1),
+    Global / concurrentRestrictions += Tags.limit(Tags.All, 1),
     homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
     resolvers ++= Seq("jitpack" at "https://jitpack.io"),
     scmInfo := Some(
@@ -40,7 +40,7 @@ object Common {
       //      "-Yno-adapted-args",
       "-Ywarn-dead-code"
     ),
-    javacOptions in (Compile, doc) ++= Seq("-Xdoclint:none"),
+    Compile / doc / javacOptions ++= Seq("-Xdoclint:none"),
     version := {
       sys.props.get("prod.publish") match {
         case Some("true") => version.value
@@ -57,9 +57,9 @@ object Common {
     fork := true,
     detectCycles := true,
     autoCompilerPlugins := true,
-    cancelable in Global := true, // allow ongoing test(or any task) to cancel with ctrl + c and still remain inside sbt
+    Global / cancelable := true, // allow ongoing test(or any task) to cancel with ctrl + c and still remain inside sbt
     if (formatOnCompile) scalafmtOnCompile := true else scalafmtOnCompile := false,
-    testOptions in Test ++= reporterOptions
+    Test / testOptions ++= reporterOptions
   )
 
   private def formatOnCompile =
