@@ -1,7 +1,6 @@
-import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory, siteMappings}
-import org.tmt.sbt.docs.DocKeys.docsParentDir
+import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import org.tmt.sbt.docs.ParadoxMaterialSitePlugin
-import sbt.Keys.{baseDirectory, mappings, target, version}
+import sbt.Keys.{mappings, target, version}
 import sbt._
 
 object TsDocPlugin extends AutoPlugin {
@@ -19,9 +18,9 @@ object TsDocPlugin extends AutoPlugin {
     Seq(
       typeDocs := typeDocsTask.value,
       makeSite := makeSite.dependsOn(typeDocs).value,
-      mappings in makeSite := {
+      makeSite / mappings  := {
         val tsDocs = Path.allSubpaths(new File(target.value, tsDocParentDir))
-        (mappings in makeSite).value ++ tsDocs.map { case (file, output) => (file, s"/$tsDocParentDir/$output") }
+        (makeSite / mappings).value ++ tsDocs.map { case (file, output) => (file, s"/$tsDocParentDir/$output") }
       }
     )
 
