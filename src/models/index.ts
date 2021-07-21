@@ -75,7 +75,6 @@
  *       | DoubleMatrix | DoubleMatrixKey | doubleMatrixKey     |
  *       | ----------   | ----------      | ------------------- |
  *       | Choice       | ChoiceKey       | choiceKey           |
- *       | RaDec        | RaDecKey        | raDecKey            |
  *       | Struct       | StructKey       | structKey           |
  *       +--------------+-----------------+---------------------+
  *

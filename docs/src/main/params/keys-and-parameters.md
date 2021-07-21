@@ -75,7 +75,6 @@ Typescript
 
 | Primitive        | Typescript Key Type | Helper functions    |
 | ---------------- | ------------------- | ------------------- |
-| RaDec            | RaDecKey            | raDecKey            |
 | EqCoord          | EqCoordKey          | eqCoordKey          |
 | SolarSystemCoord | SolarSystemCoordKey | solarSystemCoordKey |
 | MinorPlanetCoord | MinorPlanetCoordKey | minorPlanetCoordKey |

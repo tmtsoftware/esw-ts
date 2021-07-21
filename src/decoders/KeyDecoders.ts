@@ -83,7 +83,6 @@ const DoubleMatrixKeyD = mkMatrixDataNumberKeyD('DoubleMatrixKey')
 const ByteMatrixKeyD = mkMatrixDataNumberKeyD('ByteMatrixKey')
 
 // Coord Keys
-const RaDecKeyD = mkRawKeyD(C.RaDecD)('RaDecKey')
 const EqCoordKeyD = mkRawKeyD(C.EqCoordD)('EqCoordKey')
 const SolarSystemCoordKeyD = mkRawKeyD(C.SolarSystemCoordD)('SolarSystemCoordKey')
 const MinorPlanetCoordKeyD = mkRawKeyD(C.MinorPlanetCoordD)('MinorPlanetCoordKey')

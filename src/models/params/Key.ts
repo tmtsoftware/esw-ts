@@ -1,6 +1,6 @@
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
-import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, RaDec, SolarSystemCoord } from './Coord'
+import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, SolarSystemCoord } from './Coord'
 import type { Struct } from './Struct'
 import type { Units } from './Units'
 
@@ -143,10 +143,6 @@ export interface TAITimeKey extends BaseStringKey<'TAITimeKey'> {}
 /**
  * @internal
  */
-export interface RaDecKey extends mkRawKey<'RaDecKey', RaDec> {}
-/**
- * @internal
- */
 export interface EqCoordKey extends mkRawKey<'EqCoordKey', EqCoord> {}
 /**
  * @internal
@@ -199,7 +195,6 @@ export type Key =
   | BooleanKey
   | UTCTimeKey
   | TAITimeKey
-  | RaDecKey
   | EqCoordKey
   | SolarSystemCoordKey
   | MinorPlanetCoordKey
@@ -313,7 +308,6 @@ export const choiceKey = <L extends string>(name: string, choices: readonly L[],
   new ChoiceKeyFactory<ChoiceKey, readonly L[]>(name, 'ChoiceKey', choices, units)
 
 // Coord Keys
-export const raDecKey: (name: string, units?: Units) => BaseKey<RaDecKey> = keyFactory<RaDecKey>('RaDecKey')
 
 export const eqCoordKey: (name: string, units?: Units) => BaseKey<EqCoordKey> = keyFactory<EqCoordKey>('EqCoordKey')
 

@@ -1,13 +1,5 @@
 import type { Angle } from './Angle'
 
-/**
- * RaDec holds Ra(Right Ascension) and Dec(Declination) values
- */
-export type RaDec = {
-  ra: number
-  dec: number
-}
-
 export type ProperMotion = {
   pmx: number
   pmy: number

@@ -8,7 +8,6 @@ import type {
   EqFrame,
   MinorPlanetCoord,
   ProperMotion,
-  RaDec,
   SolarSystemCoord,
   SolarSystemObject
 } from '../models'
@@ -39,11 +38,6 @@ export const SolarSystemObjectD: Decoder<SolarSystemObject> = ciLiteral(
 )
 
 export const EqFrameD: Decoder<EqFrame> = ciLiteral('ICRS', 'FK5')
-
-export const RaDecD: Decoder<RaDec> = D.struct({
-  ra: D.number,
-  dec: D.number
-})
 
 export const ProperMotionD: Decoder<ProperMotion> = D.struct({
   pmx: D.number,
