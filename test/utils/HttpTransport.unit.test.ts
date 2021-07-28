@@ -1,7 +1,6 @@
 import 'whatwg-fetch'
 import * as D from 'io-ts/lib/Decoder'
 import { setAppName } from '../../src/config/AppName'
-import { APP_NAME_HEADER_NAME } from '../../src/utils/Constants'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
 
@@ -37,8 +36,8 @@ describe('Http transport', () => {
     const headers = new HeaderExt()
       .withContentType('application/json')
       .withAuthorization('validToken')
-      .withUsername('osw-user')
-      .withHeader(APP_NAME_HEADER_NAME, 'test-app')
+      .withHeader('X-TMT-Username', 'osw-user')
+      .withHeader('X-TMT-App-Name', 'test-app')
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
@@ -61,7 +60,7 @@ describe('Http transport', () => {
       headers: new HeaderExt()
         .withContentType('application/json')
         .withUsername('osw-user')
-        .withHeader(APP_NAME_HEADER_NAME, 'test-app')
+        .withHeader('X-TMT-App-Name', 'test-app')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })

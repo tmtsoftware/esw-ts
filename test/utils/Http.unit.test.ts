@@ -1,6 +1,5 @@
 import 'whatwg-fetch'
 import { setAppName } from '../../src/config/AppName'
-import { APP_NAME_HEADER_NAME } from '../../src/utils/Constants'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
 
@@ -79,7 +78,7 @@ describe('Http util', () => {
     expect(fetchMockFn.mock.calls[0][fetchArgument].headers).toEqual(
       new HeaderExt({
         'Content-Type': 'application/json',
-        [APP_NAME_HEADER_NAME]: 'test-app'
+        'X-TMT-App-Name': 'test-app'
       })
     )
   })
@@ -101,7 +100,7 @@ describe('Http util', () => {
       method: 'POST',
       headers: new HeaderExt({
         'Content-Type': 'application/x-www-form-urlencoded',
-        [APP_NAME_HEADER_NAME]: 'test-app'
+        'X-TMT-App-Name': 'test-app'
       }),
       body: 'hello='
     })
@@ -140,7 +139,7 @@ const makeRequest = (request: string) => ({
   method: 'POST',
   headers: new HeaderExt({
     'Content-Type': 'application/json',
-    [APP_NAME_HEADER_NAME]: 'test-app'
+    'X-TMT-App-Name': 'test-app'
   }),
   body: JSON.stringify(request)
 })
