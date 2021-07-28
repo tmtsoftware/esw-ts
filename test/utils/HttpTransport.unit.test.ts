@@ -24,7 +24,7 @@ afterAll(() => setAppName(OLD_APP_CONFIG_PATH))
 afterEach(() => jest.clearAllMocks())
 
 describe('Http transport', () => {
-  test('sends request with auth headers on providing token | ESW-312', async () => {
+  test('sends request with auth headers on providing token | ESW-312, ESW-531', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
 
     const httpTransport = new HttpTransport(url, {
@@ -48,7 +48,7 @@ describe('Http transport', () => {
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
 
-  test('sends request without auth headers when no token is provided', async () => {
+  test('sends request without auth headers when no token is provided | ESW-531', async () => {
     postMockFn.mockResolvedValue(makeResponse(expectedValue))
 
     const httpTransport = new HttpTransport(url, { username: 'osw-user' })

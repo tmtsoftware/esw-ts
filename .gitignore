@@ -14,12 +14,10 @@ coverage
 nohup.out
 
 src/**.js
-dist
 .vscode/*
 yarn.lock
 *.tsbuildinfo
 .DS_Store
-target
 **/web_modules/*
 src/**/*.js
 integration/jsons

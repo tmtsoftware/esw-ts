@@ -70,7 +70,7 @@ describe('Http util', () => {
     expect(response).toEqual(expectedValue)
   })
 
-  test('should add metric headers in request | ESW-312', async () => {
+  test('should add metric headers in request | ESW-312, ESW-531', async () => {
     fetchMockFn.mockResolvedValueOnce(makeResponse(undefined))
 
     await post({ url, payload: 'hello' })
@@ -90,7 +90,7 @@ describe('Http util', () => {
     expect(headers.get('Authorization')).toEqual('Bearer 1234')
   })
 
-  test('should be able to serialize form body', async () => {
+  test('should be able to serialize form body | ESW-531', async () => {
     const expectedValue = { ok: true, status: 200 }
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
     const headers = new HeaderExt({ 'Content-Type': 'application/x-www-form-urlencoded' })
@@ -116,7 +116,7 @@ describe('Http util', () => {
     expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
   })
 
-  test('should be able to make url with query params', async () => {
+  test('should be able to make url with query params | ESW-531', async () => {
     const expectedValue = { ok: true, status: 200 }
     fetchMockFn.mockResolvedValueOnce(makeResponse(expectedValue, jsonResHeaders))
     const payload = 'hello'

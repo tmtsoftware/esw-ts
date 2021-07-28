@@ -26,7 +26,7 @@ afterEach(() => {
 })
 
 describe('Web socket util', () => {
-  test('should subscribe | ESW-312', () => {
+  test('should subscribe | ESW-312, ESW-531', () => {
     expect.assertions(2)
 
     return new Promise<void>((done) => {
