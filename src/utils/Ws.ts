@@ -3,7 +3,13 @@ import * as D from 'io-ts/lib/Decoder'
 import { getAppName } from '../config/AppName'
 import type { Decoder } from '../decoders/Decoder'
 import { ServiceError, Subscription } from '../models'
-import { APP_NAME, UNKNOWN_USERNAME, USERNAME } from './Constants'
+import {
+  APP_NAME_HEADER_NAME,
+  APP_NAME_PARAM,
+  UNKNOWN_USERNAME,
+  USERNAME_HEADER_NAME,
+  USERNAME_PARAM
+} from './Constants'
 
 export const SERVER_ERROR = {
   code: 1011,
@@ -15,8 +21,8 @@ export const noop = () => ({})
 const createWebsocket = async (url: string, username?: string) => {
   const applicationName = getAppName()
   const urlWithParams = new URL(url)
-  urlWithParams.searchParams.set(APP_NAME, applicationName)
-  urlWithParams.searchParams.set(USERNAME, username ? username : UNKNOWN_USERNAME)
+  urlWithParams.searchParams.set(APP_NAME_PARAM, applicationName)
+  urlWithParams.searchParams.set(USERNAME_PARAM, username ? username : UNKNOWN_USERNAME)
   return new WebSocket(urlWithParams.href)
 }
 

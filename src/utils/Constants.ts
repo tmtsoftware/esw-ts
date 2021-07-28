@@ -1,3 +1,5 @@
-export const APP_NAME = 'App-Name'
-export const USERNAME = 'Username'
+export const APP_NAME_HEADER_NAME = 'X-TMT-App-Name'
+export const USERNAME_HEADER_NAME = 'X-TMT-Username'
+export const USERNAME_PARAM = 'appName'
+export const APP_NAME_PARAM = 'username'
 export const UNKNOWN_USERNAME = 'unknown'

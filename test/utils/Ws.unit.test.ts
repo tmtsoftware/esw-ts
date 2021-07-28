@@ -6,6 +6,7 @@ import { setAppName } from '../../src/config/AppName'
 import { SERVER_ERROR, Ws } from '../../src/utils/Ws'
 import { noop } from '../helpers/JestMockHelpers'
 import { closeServer, wsMockWithResolved } from '../helpers/MockHelpers'
+import { APP_NAME_PARAM, USERNAME_PARAM } from '../../src/utils/Constants'
 let mockServer: Server
 const host = 'localhost'
 const port = 8080
@@ -32,7 +33,7 @@ describe('Web socket util', () => {
       const expectedData = 'ping'
       const callBack = (data: string) => {
         expect(data).toEqual(expectedData)
-        expect(mockServer.clients()[0].url).toEqual(`${url}?App-Name=test-app&Username=esw-user`)
+        expect(mockServer.clients()[0].url).toEqual(`${url}?${APP_NAME_PARAM}=test-app&${USERNAME_PARAM}=esw-user`)
         done()
       }
       wsMockWithResolved('"ping"', mockServer)

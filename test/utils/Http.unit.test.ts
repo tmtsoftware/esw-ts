@@ -2,6 +2,7 @@ import 'whatwg-fetch'
 import { setAppName } from '../../src/config/AppName'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { post } from '../../src/utils/Http'
+import { APP_NAME_HEADER_NAME } from '../../src/utils/Constants'
 
 const fetchMockFn = jest.fn()
 window.fetch = fetchMockFn // window object coming from DOM
@@ -78,7 +79,7 @@ describe('Http util', () => {
     expect(fetchMockFn.mock.calls[0][fetchArgument].headers).toEqual(
       new HeaderExt({
         'Content-Type': 'application/json',
-        'App-Name': 'test-app'
+        [APP_NAME_HEADER_NAME]: 'test-app'
       })
     )
   })
@@ -100,7 +101,7 @@ describe('Http util', () => {
       method: 'POST',
       headers: new HeaderExt({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'App-Name': 'test-app'
+        [APP_NAME_HEADER_NAME]: 'test-app'
       }),
       body: 'hello='
     })
@@ -139,7 +140,7 @@ const makeRequest = (request: string) => ({
   method: 'POST',
   headers: new HeaderExt({
     'Content-Type': 'application/json',
-    'App-Name': 'test-app'
+    [APP_NAME_HEADER_NAME]: 'test-app'
   }),
   body: JSON.stringify(request)
 })

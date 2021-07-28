@@ -1,7 +1,7 @@
 import { identity } from 'fp-ts/lib/function'
 import { getAppName } from '../config/AppName'
 import { ServiceError } from '../models'
-import { APP_NAME } from './Constants'
+import { APP_NAME_HEADER_NAME } from './Constants'
 import { HeaderExt } from './HeaderExt'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
@@ -50,7 +50,7 @@ const fetchMethod = (method: Method): RequestResponse => {
     // headers for metric
     const applicationName = getAppName()
 
-    headers.append(APP_NAME, applicationName)
+    headers.append(APP_NAME_HEADER_NAME, applicationName)
 
     const body = payload ? bodySerializer(getContentType(headers))(payload) : undefined
     const fetchResponse = await withTimeout(timeout, fetch(path, { method, headers, body: body as string }))

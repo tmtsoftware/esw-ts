@@ -1,4 +1,4 @@
-import { UNKNOWN_USERNAME, USERNAME } from './Constants'
+import { UNKNOWN_USERNAME, USERNAME_HEADER_NAME } from './Constants'
 
 export class HeaderExt extends Headers {
   constructor(values?: HeadersInit) {
@@ -16,7 +16,7 @@ export class HeaderExt extends Headers {
   }
 
   withUsername(value?: string) {
-    return this.withHeader(USERNAME, value ? value : UNKNOWN_USERNAME)
+    return this.withHeader(USERNAME_HEADER_NAME, value ? value : UNKNOWN_USERNAME)
   }
 
   withAuthorization(token?: string) {

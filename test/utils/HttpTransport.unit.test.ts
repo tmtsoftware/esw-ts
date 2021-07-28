@@ -3,6 +3,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { setAppName } from '../../src/config/AppName'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
+import { APP_NAME_HEADER_NAME } from '../../src/utils/Constants'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM
@@ -37,7 +38,7 @@ describe('Http transport', () => {
       .withContentType('application/json')
       .withAuthorization('validToken')
       .withUsername('osw-user')
-      .withHeader('App-Name', 'test-app')
+      .withHeader(APP_NAME_HEADER_NAME, 'test-app')
     const expectedReq = {
       method: 'POST',
       body: JSON.stringify('hello'),
@@ -60,7 +61,7 @@ describe('Http transport', () => {
       headers: new HeaderExt()
         .withContentType('application/json')
         .withUsername('osw-user')
-        .withHeader('App-Name', 'test-app')
+        .withHeader(APP_NAME_HEADER_NAME, 'test-app')
     }
     expect(postMockFn).toBeCalledWith(url, expectedReq)
   })
