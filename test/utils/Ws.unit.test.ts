@@ -3,10 +3,10 @@ import { Server } from 'mock-socket'
 import { delay } from '../../integration/utils/eventually'
 import type { ServiceError } from '../../src'
 import { setAppName } from '../../src/config/AppName'
+import { APP_NAME_PARAM, USERNAME_PARAM } from '../../src/utils/Constants'
 import { SERVER_ERROR, Ws } from '../../src/utils/Ws'
 import { noop } from '../helpers/JestMockHelpers'
 import { closeServer, wsMockWithResolved } from '../helpers/MockHelpers'
-import { APP_NAME_PARAM, USERNAME_PARAM } from '../../src/utils/Constants'
 let mockServer: Server
 const host = 'localhost'
 const port = 8080

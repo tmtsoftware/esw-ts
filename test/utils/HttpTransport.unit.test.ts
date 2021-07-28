@@ -1,9 +1,9 @@
 import 'whatwg-fetch'
 import * as D from 'io-ts/lib/Decoder'
 import { setAppName } from '../../src/config/AppName'
+import { APP_NAME_HEADER_NAME } from '../../src/utils/Constants'
 import { HeaderExt } from '../../src/utils/HeaderExt'
 import { HttpTransport } from '../../src/utils/HttpTransport'
-import { APP_NAME_HEADER_NAME } from '../../src/utils/Constants'
 
 const postMockFn = jest.fn()
 window.fetch = postMockFn // window object coming from DOM

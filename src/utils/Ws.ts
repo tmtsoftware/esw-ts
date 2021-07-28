@@ -3,13 +3,7 @@ import * as D from 'io-ts/lib/Decoder'
 import { getAppName } from '../config/AppName'
 import type { Decoder } from '../decoders/Decoder'
 import { ServiceError, Subscription } from '../models'
-import {
-  APP_NAME_HEADER_NAME,
-  APP_NAME_PARAM,
-  UNKNOWN_USERNAME,
-  USERNAME_HEADER_NAME,
-  USERNAME_PARAM
-} from './Constants'
+import { APP_NAME_PARAM, UNKNOWN_USERNAME, USERNAME_PARAM } from './Constants'
 
 export const SERVER_ERROR = {
   code: 1011,
