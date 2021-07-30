@@ -12,6 +12,7 @@ node_modules
 *.iml
 coverage
 nohup.out
+junit.xml
 
 src/**.js
 .vscode/*

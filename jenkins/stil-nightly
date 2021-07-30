@@ -65,6 +65,8 @@ pipeline {
     }
     post {
         always {
+            junit testResults: './junit.xml', allowEmptyResults: true
+
             // upload test coverage
             publishHTML(target: [
                 allowMissing         : true,
