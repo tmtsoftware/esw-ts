@@ -38,13 +38,13 @@ pipeline {
 
         stage('Unit tests') {
             steps {
-                sh "npm run test:unit:ci"
+                sh "JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:unit:ci"
             }
         }
 
         stage('Integration tests') {
             steps {
-                sh "npm run test:integration:ci"
+                sh "JEST_JUNIT_OUTPUT_FILE=junit-int.xml npm run test:integration:ci"
             }
         }
 
@@ -65,7 +65,11 @@ pipeline {
     }
     post {
         always {
-            junit testResults: './junit.xml', allowEmptyResults: true
+            script {
+                sendNotification(currentBuild.result)
+            }
+
+            junit skipPublishingChecks: true,  testResults: 'junit*.xml'
 
             // upload test coverage
             publishHTML(target: [
@@ -88,9 +92,6 @@ pipeline {
               reportFiles          : 'index.html',
               reportName           : "Test-Story-Requirement mapping"
             ])
-            script {
-                sendNotification(currentBuild.result)
-            }
         }
     }
 }
