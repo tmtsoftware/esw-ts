@@ -1,3 +1,4 @@
+import { angstrom } from '../../src'
 import { char } from '../../src/decoders/Decoder'
 import { ParameterD } from '../../src/decoders/ParameterDecoder'
 import { getOrThrow } from '../../src/utils/Utils'
@@ -25,7 +26,7 @@ describe('Decode', () => {
       keyTag: 'IntKey',
       keyName: 'epoch',
       values: [1, 2, 3],
-      units: 'angstrom'
+      units: angstrom
     }
 
     expect(getOrThrow(ParameterD.decode(intParam))).toEqual(expectedIntParam)
