@@ -8,6 +8,7 @@ import {
   intArrayKey,
   intKey,
   Key,
+  NoUnits,
   Parameter,
   Prefix,
   Result,
@@ -22,7 +23,7 @@ jest.setTimeout(70000)
 const hcdPrefix = new Prefix('IRIS', 'testHcd')
 const componentId = new ComponentId(hcdPrefix, 'HCD')
 const cswHcdPrefix = Prefix.fromString('CSW.testHcd')
-const key: BaseKey<Key> = new BaseKey('prime numbers', 'IntKey', 'NoUnits')
+const key: BaseKey<Key> = new BaseKey('prime numbers', 'IntKey', NoUnits)
 const keyParameter: Parameter<Key> = key.set([1, 2, 3])
 const intArrayParam = intArrayKey('array_key').set([
   [1, 2],

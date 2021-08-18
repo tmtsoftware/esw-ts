@@ -1,4 +1,4 @@
-import { choiceKey, Parameter } from '../../src'
+import { choiceKey, day, NoUnits, Parameter } from '../../src'
 
 describe('choiceKey', () => {
   test('should allow setting supported choices', () => {
@@ -6,14 +6,14 @@ describe('choiceKey', () => {
     const choices = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
     const weekDaysKey = choiceKey('weekDaysKey', choices)
     const weekDayParam = weekDaysKey.set('Mon', 'Wed')
-    expect(weekDayParam).toEqual(new Parameter('weekDaysKey', 'ChoiceKey', ['Mon', 'Wed'], 'NoUnits'))
+    expect(weekDayParam).toEqual(new Parameter('weekDaysKey', 'ChoiceKey', ['Mon', 'Wed'], NoUnits))
   })
 
   test('should allow setting supported choices and units', () => {
     // inlining choices also provides compile time check for valid choice while setting
-    const workingsDaysKey = choiceKey('workingsDays', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], 'day')
+    const workingsDaysKey = choiceKey('workingsDays', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], day)
     const weekDayParam = workingsDaysKey.set('Mon', 'Wed')
-    expect(weekDayParam).toEqual(new Parameter('workingsDays', 'ChoiceKey', ['Mon', 'Wed'], 'day'))
+    expect(weekDayParam).toEqual(new Parameter('workingsDays', 'ChoiceKey', ['Mon', 'Wed'], day))
   })
 
   test('should throw error for invalid choice', () => {
