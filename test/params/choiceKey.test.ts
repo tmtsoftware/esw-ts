@@ -9,11 +9,14 @@ describe('choiceKey', () => {
     expect(weekDayParam).toEqual(new Parameter('weekDaysKey', 'ChoiceKey', ['Mon', 'Wed'], Units.NoUnits))
   })
 
-  test('should allow setting supported choices and units', () => {
+  test('should allow setting supported choices and units | ESW-537', () => {
     // inlining choices also provides compile time check for valid choice while setting
     const workingsDaysKey = choiceKey('workingsDays', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], Units.day)
     const weekDayParam = workingsDaysKey.set('Mon', 'Wed')
-    expect(weekDayParam).toEqual(new Parameter('workingsDays', 'ChoiceKey', ['Mon', 'Wed'], Units.day))
+    const expectedParam = new Parameter('workingsDays', 'ChoiceKey', ['Mon', 'Wed'], Units.day)
+
+    expect(weekDayParam).toEqual(expectedParam)
+    expect(expectedParam.units.name).toEqual('d')
   })
 
   test('should throw error for invalid choice', () => {
