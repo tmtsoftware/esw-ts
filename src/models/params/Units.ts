@@ -1,12 +1,7 @@
-abstract class Enum {
-  static readonly values: Record<string, any> = {}
+export class Units {
+  private static readonly valuesMap: Record<string, Units> = {}
 
-  protected setEnum<T extends Enum>(_type: string, value: T) {
-    Enum.values[_type] = value
-  }
-}
-
-export class Units extends Enum {
+  //**********************************Units****************************************\\
   // SI units
   static readonly angstrom: Units = new Units('angstrom', 'Angstrom')
   static readonly arcmin: Units = new Units('arcmin', 'arcmin')
@@ -71,10 +66,16 @@ export class Units extends Enum {
   static readonly count: Units = new Units('count', 'ct')
   static readonly pix: Units = new Units('pix', 'pix')
 
-
   private constructor(private readonly _type: string, readonly name: string) {
-    super()
-    this.setEnum(_type, this)
+    this.setUnits(_type, this)
+  }
+
+  private setUnits(_type: string, value: Units) {
+    Units.valuesMap[_type] = value
+  }
+
+  static values() {
+    return Units.valuesMap
   }
 
   toJSON() {
