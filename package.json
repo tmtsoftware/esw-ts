@@ -10,6 +10,7 @@
     "clean": "rm -rf dist && mkdir dist",
     "prebuild": "npm run clean && npm-run-all --parallel fix audit",
     "build": "tsc",
+    "prepare": "tsc",
     "build:watch": "tsc -w",
     "build:reporter": "tsc --p tsconfig.test.json",
     "test": "npm-run-all test:unit test:integration",
