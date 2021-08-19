@@ -22,7 +22,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "b274b6fa21"
+  private val defaultCswVersion = "19574021e1"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>
