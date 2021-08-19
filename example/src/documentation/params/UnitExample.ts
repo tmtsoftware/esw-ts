@@ -1,5 +1,5 @@
-import type { BooleanKey, ShortKey, UTCTimeKey, Units } from '@tmtsoftware/esw-ts'
-import { booleanKey, Parameter, shortKey, utcTimeKey } from '@tmtsoftware/esw-ts'
+import type { BooleanKey, ShortKey, UTCTimeKey } from '@tmtsoftware/esw-ts'
+import { booleanKey, Parameter, shortKey, utcTimeKey, Units } from '@tmtsoftware/esw-ts'
 //#units
 //#primitives
 //declare keyName
@@ -7,7 +7,7 @@ const s1: string = 'encoder'
 
 //making 2 keys
 const k1 = booleanKey(s1)
-const k2 = shortKey('RandomKeyName', 'meter')
+const k2 = shortKey('RandomKeyName', Units.meter)
 
 //storing a single value
 const booleanParam: Parameter<BooleanKey> = k1.set([true])

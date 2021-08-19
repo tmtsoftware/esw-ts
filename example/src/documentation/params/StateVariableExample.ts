@@ -8,6 +8,7 @@ import {
   Parameter,
   Prefix,
   stringKey,
+  Units,
   utcTimeKey
 } from '@tmtsoftware/esw-ts'
 //#state-variable
@@ -17,7 +18,7 @@ const prefix = Prefix.fromString('wfos.prog.cloudcover')
 
 //key
 const charKey1 = charKey('charKey')
-const intKey1 = intKey('intKey', 'meter')
+const intKey1 = intKey('intKey', Units.meter)
 const booleanKey1 = booleanKey('booleanKey')
 const utcTimeKey1 = utcTimeKey('utcTimeKey')
 const notUsedKey = stringKey('notUsed')

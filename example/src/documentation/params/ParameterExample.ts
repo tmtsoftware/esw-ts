@@ -15,7 +15,8 @@ import {
   IntKey,
   intKey,
   Parameter,
-  Tag
+  Tag,
+  Units
 } from '@tmtsoftware/esw-ts'
 //#param-from-key
 
@@ -38,7 +39,7 @@ const filterParam: Parameter<IntArrayKey> = filterkey.set([
 // -------------
 
 // matrices
-const positionMatrixKey = byteMatrixKey('positions', 'meter')
+const positionMatrixKey = byteMatrixKey('positions', Units.meter)
 const positions: Parameter<ByteMatrixKey> = positionMatrixKey.set([
   [
     [1, 2],
@@ -75,7 +76,7 @@ const cometCoord = new CometCoord(
   1.4,
   0.234
 )
-const cometParam: Parameter<CometCoordKey> = cometCoordKey('comet key', 'degree').set([cometCoord])
+const cometParam: Parameter<CometCoordKey> = cometCoordKey('comet key', Units.degree).set([cometCoord])
 
 //coord key is base trait of all coordinate key types.
 const coordParam: Parameter<CoordKey> = coordKey('base coordinate').set([cometCoord])

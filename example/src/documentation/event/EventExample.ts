@@ -10,7 +10,8 @@ import {
   Parameter,
   Prefix,
   ServiceError,
-  Subscription
+  Subscription,
+  Units
 } from '@tmtsoftware/esw-ts'
 
 //#event-service
@@ -20,7 +21,7 @@ const eventService: EventService = await EventService()
 //#publish
 const sourcePrefix = new Prefix('IRIS', 'component')
 const eventName = new EventName('move-event')
-const positionParameter = intKey('positions', 'centimeter').set([10, 20, 30])
+const positionParameter = intKey('positions', Units.centimeter).set([10, 20, 30])
 const paramSet: Parameter<IntKey>[] = [positionParameter]
 
 const event = ObserveEvent.make(sourcePrefix, eventName, paramSet)
