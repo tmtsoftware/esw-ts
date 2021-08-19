@@ -3,7 +3,6 @@ import fs from 'fs'
 import * as D from 'io-ts/lib/Decoder'
 // eslint-disable-next-line import/no-nodejs-modules
 import path from 'path'
-import { Units } from '../../src/models/params/Units'
 import { ContainerLifecycleStateD, SupervisorLifecycleStateD } from '../../src/decoders/AdminDecoders'
 import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
@@ -47,6 +46,7 @@ import {
 } from '../../src/decoders/SequenceManagerDecoders'
 import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
 import { UnitsD } from '../../src/decoders/UnitsDecoder'
+import { Units } from '../../src/models/params/Units'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
 import { executeCswContract, executeEswContract } from '../utils/shell'
@@ -121,12 +121,10 @@ const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
 }
 
 const UnitsMapD = D.struct(
-  Object.entries<Units>(Units.values())
-    .reduce<Record<string, Decoder<string>>>(
-      (acc, [k, v]) => {
-        acc[k] = ciLiteral(v.name)
-        return acc
-      }, {})
+  Object.entries<Units>(Units.values()).reduce<Record<string, Decoder<string>>>((acc, [k, v]) => {
+    acc[k] = ciLiteral(v.name)
+    return acc
+  }, {})
 )
 
 const commandDecoders: Record<string, Decoder<any>> = {

@@ -33,7 +33,8 @@
     "noUnusedParameters": true,
     "skipLibCheck": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": []
   },
   "include": [
     "src/**/*",
