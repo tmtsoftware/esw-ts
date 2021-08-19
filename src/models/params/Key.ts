@@ -2,7 +2,7 @@ import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, SolarSystemCoord } from './Coord'
 import type { Struct } from './Struct'
-import { NoUnits, tai, Units, utc } from './Units'
+import { Units } from './Units'
 
 /**
  * Generic marker type for creating various types of Keys.
@@ -215,7 +215,7 @@ export type Key =
  * @internal
  */
 const keyFactory =
-  <K extends Key>(keyTag: KTag<K>, defaultUnit: Units = NoUnits) =>
+  <K extends Key>(keyTag: KTag<K>, defaultUnit: Units = Units.NoUnits) =>
   (name: string, units: Units = defaultUnit) =>
     new BaseKey<K>(name, keyTag, units)
 
@@ -288,12 +288,12 @@ export const structKey: (name: string, units?: Units) => BaseKey<StructKey> = ke
 
 export const utcTimeKey: (name: string, units?: Units) => BaseKey<UTCTimeKey> = keyFactory<UTCTimeKey>(
   'UTCTimeKey',
-  utc
+  Units.utc
 )
 
 export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> = keyFactory<TAITimeKey>(
   'TAITimeKey',
-  tai
+  Units.tai
 )
 
 /**
@@ -304,7 +304,7 @@ export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> = 
  * @tparam L type for choices
  * @return an instance of ChoiceKey for the given name, choices and units
  */
-export const choiceKey = <L extends string>(name: string, choices: readonly L[], units: Units = NoUnits) =>
+export const choiceKey = <L extends string>(name: string, choices: readonly L[], units: Units = Units.NoUnits) =>
   new ChoiceKeyFactory<ChoiceKey, readonly L[]>(name, 'ChoiceKey', choices, units)
 
 // Coord Keys
