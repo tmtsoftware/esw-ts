@@ -9,6 +9,7 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 * Move of `getAgentStatus` api from SequenceManager service to AgentService
 * Add `getSequencerState` api in SequencerService
 * Add `subscribeSequencerState` api in SequencerService
+* Removed `Struct` from `Key`. It was mentioned in the earlier release that `Struct` will be removed.
 
 ## [ESW-TS v0.1.0] - 2021-02-01
 

@@ -1,25 +1,20 @@
 import {
+  Angle,
   booleanKey,
   BooleanKey,
   ByteMatrixKey,
-  IntArrayKey,
-  intArrayKey,
-  IntKey,
-  intKey,
   byteMatrixKey,
-  Parameter,
   choiceKey,
-  structKey,
-  doubleKey,
-  stringKey,
-  Struct,
-  StringKey,
+  CometCoord,
   cometCoordKey,
   CometCoordKey,
   CoordKey,
   coordKey,
-  CometCoord,
-  Angle,
+  IntArrayKey,
+  intArrayKey,
+  IntKey,
+  intKey,
+  Parameter,
   Tag
 } from '@tmtsoftware/esw-ts'
 //#param-from-key
@@ -66,19 +61,6 @@ const weekDayParam = weekDaysKey.set('Mon', 'Wed')
 // weekDayParam === Parameter('weekDaysKey', 'ChoiceKey', ['Mon', 'Wed'], 'NoUnits')
 
 // -------------
-
-// example for struct key
-// leaf parameters
-const ra: Parameter<StringKey> = stringKey('ra').set(['12:13:14.1'])
-const dec = stringKey('dec').set(['32:33:34.4'])
-const epoch = doubleKey('epoch').set([1970.0])
-
-// initialise struct key
-const struct = new Struct().add(ra)
-struct.madd([dec, epoch])
-
-// create struct Parameter using structKey
-const structParameter = structKey('my struct').set([struct])
 
 //#domain-key
 

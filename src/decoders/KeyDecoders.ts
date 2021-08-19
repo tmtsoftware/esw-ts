@@ -3,7 +3,6 @@ import * as C from '../decoders/CoordDecoders'
 import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey, Units } from '../models'
 
 import { char, ciLiteral, Decoder } from './Decoder'
-import { StructD } from './StructDecoder'
 import { UnitsD } from './UnitsDecoder'
 
 type KeyType<L extends string, T> = {
@@ -90,7 +89,6 @@ const CometCoordKeyD = mkRawKeyD(C.CometCoordD)('CometCoordKey')
 const AltAzCoordKeyD = mkRawKeyD(C.AltAzCoordD)('AltAzCoordKey')
 const CoordKeyD = mkRawKeyD(C.CoordD)('CoordKey')
 
-const StructKeyD = mkRawKeyD(StructD)('StructKey')
 const ChoiceKeyD = mkRawKeyD(D.string)('ChoiceKey')
 
 // -----------------------------------------------------------

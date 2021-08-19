@@ -1,7 +1,6 @@
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, SolarSystemCoord } from './Coord'
-import type { Struct } from './Struct'
 import { Units } from './Units'
 
 /**
@@ -72,10 +71,6 @@ export interface StringKey extends BaseStringKey<'StringKey'> {}
  * @internal
  */
 export interface CharKey extends BaseStringKey<'CharKey'> {}
-/**
- * @internal
- */
-export interface StructKey extends mkRawKey<'StructKey', Struct> {}
 /**
  * @internal
  */
@@ -178,7 +173,6 @@ export type Key =
   | ByteKey
   | StringKey
   | CharKey
-  | StructKey
   | ChoiceKey
   | IntMatrixKey
   | ByteMatrixKey
@@ -280,12 +274,7 @@ export const floatArrayKey: (name: string, units?: Units) => BaseKey<FloatArrayK
 export const doubleArrayKey: (name: string, units?: Units) => BaseKey<DoubleArrayKey> =
   keyFactory<DoubleArrayKey>('DoubleArrayKey')
 
-// Time, Choice and Struct Keys
-/**
- * Helper function to create struct parameter
- */
-export const structKey: (name: string, units?: Units) => BaseKey<StructKey> = keyFactory<StructKey>('StructKey')
-
+// Time, Choice Keys
 export const utcTimeKey: (name: string, units?: Units) => BaseKey<UTCTimeKey> = keyFactory<UTCTimeKey>(
   'UTCTimeKey',
   Units.utc

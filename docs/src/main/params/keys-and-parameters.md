@@ -59,14 +59,12 @@ Typescript
 ### Domain Specific Types
 
 - choice : A key for a choice item similar to an enumeration
-- struct : Structs can be used to create a hierarchy of parameters
 
 | Primitive | Typescript Key Type | Helper functions |
 | --------- | ------------------- | ---------------- |
 | Choice    | ChoiceKey           | choiceKey        |
-| Struct    | StructKey           | Struct           |
 
-#### Example snippets for creating choice and struct parameters
+#### Example snippets for creating choice parameters
 
 Typescript
 :   @@snip[domain specific keys](../../../../example/src/documentation/params/ParameterExample.ts) { #domain-key }

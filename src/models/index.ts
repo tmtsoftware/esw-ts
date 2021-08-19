@@ -75,7 +75,6 @@
  *       | DoubleMatrix | DoubleMatrixKey | doubleMatrixKey     |
  *       | ----------   | ----------      | ------------------- |
  *       | Choice       | ChoiceKey       | choiceKey           |
- *       | Struct       | StructKey       | structKey           |
  *       +--------------+-----------------+---------------------+
  *
  * }}}
@@ -106,7 +105,6 @@ export * from './params/BaseKeyType'
 export * from './params/Parameter'
 export * from './params/Prefix'
 export * from './params/Result'
-export * from './params/Struct'
 export * from './params/Subsystem'
 export * from './params/Units'
 export * from './ServiceError'
