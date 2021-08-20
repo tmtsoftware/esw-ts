@@ -15,11 +15,5 @@ module.exports = {
       statements: 90
     }
   },
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    'test/helpers/',
-    '/integration/',
-    'index.ts',
-    'src/models/params/Angle.ts'
-  ]
+  coveragePathIgnorePatterns: ['/node_modules/', 'test/helpers/', '/integration/', 'index.ts']
 }
