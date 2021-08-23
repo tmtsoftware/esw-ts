@@ -30,7 +30,7 @@ This project provide following typescript clients for various TMT services, whic
 * Login
 * Logout
 
-See [here](http://tmtsoftware.github.io/esw-ts/0.1.0) for a detailed description of the ESW-TS.
+See [here](http://tmtsoftware.github.io/esw-ts/0.2.0-RC1) for a detailed description of the ESW-TS.
 
 ### Example App
 
@@ -58,7 +58,7 @@ Make sure you have following CSW services up and running:
 
 Note: Simple way to start all these services is to run `csw-services` using `coursier (aka cs)` from `csw` github repository.
 
-Refer [here](http://tmtsoftware.github.io/csw/3.0.1/apps/cswservices.html) to learn how to start csw-services.
+Refer [here](http://tmtsoftware.github.io/csw/4.0.0-RC1/apps/cswservices.html) to learn how to start csw-services.
 
 ```bash
 cs install csw-services:<version | SHA>
@@ -179,6 +179,8 @@ Document automatically gets released using release pipeline.
 
 | esw-ts | esw | csw |
 |--------|-----|-----|
+| v0.2.0-RC1 | v0.3.0-RC1 | v4.0.0-RC1 |
+| v0.2.0-M1 | v0.3.0-M1 | v4.0.0-M1 |
 | v0.1.0 | v0.2.1 | v0.3.1 |
 | v0.1.0-RC1 | v0.2.0-RC1 | v0.3.0-RC1 |
 | v0.1.0-M1 | v0.2.0-M1 | v0.3.0-M1 |
@@ -193,5 +195,7 @@ Document automatically gets released using release pipeline.
 
 | Date | Tag | Source | Docs | Assets |
 |-----|-----|-----|-----|-----|
+| 2021-08-23 | v0.2.0-RC1 | [esw-0.2.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0-RC1) | [esw-0.2.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.2.0-RC1/) | [esw-0.2.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-RC1) |
+| 2021-07-08 | v0.2.0-M1 | [esw-0.2.0-M1](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0-M1) | [esw-0.2.0-M1 docs](https://tmtsoftware.github.io/esw-ts/0.2.0-M1/) | [esw-0.2.0-M1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-M1) |
 | 2020-11-11 | v0.1.0-RC1 | [esw-0.1.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.1.0-RC1) | [esw-0.1.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.1.0-RC1/) | [esw-0.1.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.1.0-RC1) |
 | 2020-09-28 | v0.1.0-M1 | [esw-0.1.0-M1](https://github.com/tmtsoftware/esw-ts/tree/v0.1.0-M1) | [esw-0.1.0-M1 docs](https://tmtsoftware.github.io/esw-ts/0.1.0-M1/) | [esw-0.1.0-M1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.1.0-M1) |

@@ -6,10 +6,22 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 
 ## [UPCOMING CHANGES]
 
-* Move of `getAgentStatus` api from SequenceManager service to AgentService
+* Movement of `getAgentStatus` api from SequenceManager service to AgentService
 * Add `getSequencerState` api in SequencerService
-* Add `subscribeSequencerState` api in SequencerService
+* Add `subscribeSequencerState` api in SequenceManager Service
+* Add `getObsModesDetails` & `getResources` api in SequenceManager Service
 * Removed `Struct` from `Key`. It was mentioned in the earlier release that `Struct` will be removed.
+* Added provision for providing locationUrl through configuration file `config.js` in the static server.
+* Added UTC & TAI entries in units list.
+* Changed default unit for `UTCTimeKey` & `TAITimeKey` from `second` to `utc` & `tai` respectively.
+* Added Component & Container level actions in Admin Service.
+* Add support for setting AppName for metrics using `setAppName`.
+* Removed `RaDec` from `KeyType`. Alternatively user can use `Coord` special KeyType to capture original use cases for RaDec.
+* Subsystem list got updated as per [document](https://docushare.tmt.org/docushare/dsweb/Services/Document-4780).
+
+### Supporting Releases
+
+<a name="0-2-0-1"></a>1: [ESW-TS v0.2.0-RC1](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-RC1) - 2021-08-23<br>
 
 ## [ESW-TS v0.1.0] - 2021-02-01
 
