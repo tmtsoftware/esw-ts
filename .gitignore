@@ -22,7 +22,8 @@ yarn.lock
 **/web_modules/*
 src/**/*.js
 integration/jsons
-RTM/testStoryMapping.txt
+RTM/*.txt
+RTM/*.html
 .bsp
 
 .local-pack
