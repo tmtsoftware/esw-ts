@@ -107,7 +107,7 @@ export interface CommandService {
  * Instantiate command service to enable interaction with the component.
  *
  * @param componentId         Component id for which command service is to be instantiated.
- * @param tokenFactory        a function that returns a valid token which has correct access roles and permissions for the specified componentId.
+ * @param authData            a record which contains tokenFoctory and username
  * @return                    CommandService as Promise
  * @constructor
  */

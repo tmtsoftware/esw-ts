@@ -20,7 +20,14 @@ export type Option<T> = T | undefined
 export type TokenFactory = () => string | undefined
 
 export type AuthData = {
+  /**
+   * a function that returns a valid token which has correct access roles and permissions for the specified componentId.
+   */
   tokenFactory?: TokenFactory
+
+  /**
+   * username of login user
+   */
   username?: string
 }
 

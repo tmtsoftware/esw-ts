@@ -1,5 +1,12 @@
 import { GATEWAY_CONNECTION } from '../../config/Connections'
-import type { ComponentId, ContainerLifecycleState, Done, Prefix, SupervisorLifecycleState } from '../../models'
+import type {
+  ComponentId,
+  ContainerLifecycleState,
+  Done,
+  Prefix,
+  SupervisorLifecycleState,
+  AuthData
+} from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import type { Location } from '../location'
@@ -82,17 +89,18 @@ export interface AdminService {
 /**
  * Instantiate Admin service.
  *
+ * @param authData        a record which contains tokenFoctory and username
  * @return                AdminService as Promise
  * @constructor
  */
-export const AdminService = async (): Promise<AdminService> => {
+export const AdminService = async (authData?: AuthData): Promise<AdminService> => {
   const location = await resolve(GATEWAY_CONNECTION)
-  return createAdminService(location)
+  return createAdminService(location, authData)
 }
 
-export const createAdminService = (location: Location): AdminService => {
+export const createAdminService = (location: Location, authData?: AuthData): AdminService => {
   const { host, port } = extractHostPort(location.uri)
   const postEndpoint = getPostEndPoint({ host, port })
 
-  return new AdminServiceImpl(new HttpTransport(postEndpoint))
+  return new AdminServiceImpl(new HttpTransport(postEndpoint, authData))
 }

@@ -7,12 +7,19 @@ import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(30000)
 
+let adminServiceWithToken: AdminService
+let adminServiceWithoutToken: AdminService
+
 beforeAll(async () => {
   //todo: fix this console.error for jsdom errors
   console.error = jest.fn()
   // setup location service and gateway
   setAppName('test-app')
-  await startServices(['Gateway'])
+  await startServices(['AAS', 'Gateway'])
+  adminServiceWithToken = await AdminService({
+    tokenFactory: () => 'validToken'
+  })
+  adminServiceWithoutToken = await AdminService()
 })
 
 afterAll(async () => {
@@ -24,17 +31,13 @@ describe('Admin Client', () => {
   const trombonePrefix = new Prefix('NFIRAOS', 'trombone')
   const componentId = new ComponentId(trombonePrefix, 'HCD')
   test('set setLogLevel | ESW-372', async () => {
-    const adminService = await AdminService()
-
-    const response = await adminService.setLogLevel(componentId, 'DEBUG')
+    const response = await adminServiceWithToken.setLogLevel(componentId, 'DEBUG')
 
     expect(response).toEqual('Done')
   })
 
   test('set getLogMetadata | ESW-372', async () => {
-    const adminService = await AdminService()
-
-    const response: LogMetadata = await adminService.getLogMetadata(componentId)
+    const response: LogMetadata = await adminServiceWithToken.getLogMetadata(componentId)
 
     expect(response.akkaLevel).toEqual('DEBUG')
     expect(response.componentLevel).toEqual('ERROR')
@@ -43,51 +46,50 @@ describe('Admin Client', () => {
   })
 
   test('restart | ESW-433', async () => {
-    const adminService = await AdminService()
-
-    const response: Done = await adminService.restart(componentId)
+    const response: Done = await adminServiceWithToken.restart(componentId)
 
     expect(response).toEqual('Done')
   })
 
   test('shutdown | ESW-433', async () => {
-    const adminService = await AdminService()
-
-    const response: Done = await adminService.shutdown(componentId)
+    const response: Done = await adminServiceWithToken.shutdown(componentId)
 
     expect(response).toEqual('Done')
   })
 
   test('goOffline | ESW-433', async () => {
-    const adminService = await AdminService()
-
-    const response: Done = await adminService.goOffline(componentId)
+    const response: Done = await adminServiceWithToken.goOffline(componentId)
 
     expect(response).toEqual('Done')
   })
 
   test('goOnline | ESW-433', async () => {
-    const adminService = await AdminService()
-
-    const response: Done = await adminService.goOnline(componentId)
+    const response: Done = await adminServiceWithToken.goOnline(componentId)
 
     expect(response).toEqual('Done')
   })
 
   test('get containerLifecycleState | ESW-433', async () => {
-    const adminService = await AdminService()
     const prefix: Prefix = Prefix.fromString('ESW.test_container')
 
-    const response: ContainerLifecycleState = await adminService.getContainerLifecycleState(prefix)
+    const response: ContainerLifecycleState = await adminServiceWithToken.getContainerLifecycleState(prefix)
 
     expect(response).toEqual('Idle')
   })
 
   test('get getComponentLifecycleState | ESW-433', async () => {
-    const adminService = await AdminService()
-
-    const response: SupervisorLifecycleState = await adminService.getComponentLifecycleState(componentId)
+    const response: SupervisorLifecycleState = await adminServiceWithToken.getComponentLifecycleState(componentId)
 
     expect(response).toEqual('Idle')
+  })
+
+  test('should get unauthorized error when invalid token is provided | ESW-538', async () => {
+    expect.assertions(4)
+    await adminServiceWithoutToken.goOffline(componentId).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
+      expect(e.status).toBe(401)
+      expect(e.statusText).toBe('Unauthorized')
+      expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
+    })
   })
 })
