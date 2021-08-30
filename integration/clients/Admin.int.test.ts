@@ -16,9 +16,7 @@ beforeAll(async () => {
   // setup location service and gateway
   setAppName('test-app')
   await startServices(['AAS', 'Gateway'])
-  adminServiceWithToken = await AdminService({
-    tokenFactory: () => 'validToken'
-  })
+  adminServiceWithToken = await AdminService({ tokenFactory: () => 'validToken' })
   adminServiceWithoutToken = await AdminService()
 })
 

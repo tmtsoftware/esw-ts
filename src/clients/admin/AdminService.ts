@@ -89,7 +89,7 @@ export interface AdminService {
 /**
  * Instantiate Admin service.
  *
- * @param authData        a record which contains tokenFoctory and username
+ * @param authData        A record which contains tokenFactory and username
  * @return                AdminService as Promise
  * @constructor
  */

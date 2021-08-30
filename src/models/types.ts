@@ -13,20 +13,21 @@ export type Unhandled = {
 }
 
 export type Option<T> = T | undefined
+
 /**
- * A function which return valid AAS token when called.
+ * A function which returns valid auth token
  * @function
  */
 export type TokenFactory = () => string | undefined
 
 export type AuthData = {
   /**
-   * a function that returns a valid token which has correct access roles and permissions for the specified componentId.
+   * a function that returns a valid auth token which has correct access roles and permissions
    */
   tokenFactory?: TokenFactory
 
   /**
-   * username of login user
+   * username of the logged in user
    */
   username?: string
 }
@@ -34,6 +35,7 @@ export type AuthData = {
 export type AppConfig = {
   applicationName: string
 }
+
 /**
  * Shape for Application config module
  */
