@@ -8,6 +8,7 @@ import { startServices, stopServices } from '../utils/backend'
 jest.setTimeout(30000)
 
 let adminServiceWithToken: AdminService
+let adminServiceWithInvalidToken: AdminService
 let adminServiceWithoutToken: AdminService
 
 beforeAll(async () => {
@@ -17,6 +18,7 @@ beforeAll(async () => {
   setAppName('test-app')
   await startServices(['AAS', 'Gateway'])
   adminServiceWithToken = await AdminService({ tokenFactory: () => 'validToken' })
+  adminServiceWithInvalidToken = await AdminService({ tokenFactory: () => 'invalidToken' })
   adminServiceWithoutToken = await AdminService()
 })
 
@@ -81,13 +83,23 @@ describe('Admin Client', () => {
     expect(response).toEqual('Idle')
   })
 
-  test('should get unauthorized error when invalid token is provided | ESW-538', async () => {
+  test('should get unauthorized error when no token is provided | ESW-538', async () => {
     expect.assertions(4)
     await adminServiceWithoutToken.goOffline(componentId).catch((e) => {
       expect(e.errorType).toBe('TransportError')
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')
       expect(e.message).toBe('The resource requires authentication, which was not supplied with the request')
+    })
+  })
+
+  test('should get unauthorized error when invalid token is provided | ESW-538', async () => {
+    expect.assertions(4)
+    await adminServiceWithInvalidToken.goOffline(componentId).catch((e) => {
+      expect(e.errorType).toBe('TransportError')
+      expect(e.status).toBe(401)
+      expect(e.statusText).toBe('Unauthorized')
+      expect(e.message).toBe('The supplied authentication is invalid')
     })
   })
 })
