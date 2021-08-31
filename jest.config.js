@@ -15,5 +15,5 @@ module.exports = {
       statements: 90
     }
   },
-  coveragePathIgnorePatterns: ['/node_modules/', 'test/helpers/', '/integration/', 'index.ts']
+  coveragePathIgnorePatterns: ['/node_modules/', 'test/helpers/', '/integration/', 'index.ts', 'src/utils/TestUtils.ts']
 }
