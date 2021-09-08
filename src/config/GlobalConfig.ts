@@ -12,7 +12,7 @@ export type LocationInfo = {
   port: number
 }
 
-const DefaultConfig: Config = { locationUrl: 'localhost:7654', taiOffset: 37 }
+const DefaultConfig: Config = { locationUrl: 'http://localhost:7654', taiOffset: 37 }
 
 // eslint-disable-next-line import/no-mutable-exports
 export let GlobalConfig: Config = DefaultConfig
