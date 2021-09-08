@@ -3,9 +3,9 @@ import { resolve } from '../../src/clients/location/LocationUtils'
 import { BackendServices, ServiceName } from './backend'
 import { eventually } from './eventually'
 
-const locationServiceP = LocationService().then((r) => r)
+const locationServiceP = LocationService()
 
-const waitForLocationToUp = () => eventually(async () => (await locationServiceP).list())
+const waitForLocationToUp = () => eventually(async () => locationServiceP.list())
 
 export const waitForServicesToUp = async (serviceNames: ServiceName[]) => {
   await waitForLocationToUp()
