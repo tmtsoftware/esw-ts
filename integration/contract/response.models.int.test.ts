@@ -45,8 +45,10 @@ import {
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
 import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
+import { UTCTimeD, TAITimeD } from '../../src/decoders/TimeDecoders'
 import { UnitsD } from '../../src/decoders/UnitsDecoder'
 import { Units } from '../../src/models/params/Units'
+import { TAITime, UTCTime } from '../../src/models/TMTTime'
 import { getOrThrow } from '../../src/utils/Utils'
 import { delay } from '../utils/eventually'
 import { executeCswContract, executeEswContract } from '../utils/shell'
@@ -70,14 +72,14 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  fs.rmdirSync(sourceDir, { recursive: true })
+  fs.rmSync(sourceDir, { recursive: true })
   return await delay(200)
 })
 
 const parseModels = (file: string) => JSON.parse(fs.readFileSync(file, 'utf-8'))
 
 describe('models contract test', () => {
-  test('Command Models | ESW-305, ESW-343, ESW-348, ESW-526, CSW-152, CSW-92', () => {
+  test('Command Models | ESW-305, ESW-343, ESW-348, ESW-526, CSW-152, CSW-92, ESW-542', () => {
     verifyContract(commandModelsJsonPath, commandDecoders)
   })
 
@@ -117,7 +119,17 @@ const verifyContract = (inputJsonFile: string, decoders: Record<string, Decoder<
 const testRoundTrip = (scalaJsonModel: unknown, decoder: Decoder<any>) => {
   const decodedModel = getOrThrow(decoder.decode(scalaJsonModel)) // typescript side of decoding
   const tsJsonModel = JSON.parse(JSON.stringify(decodedModel)) // encoding
-  expect(scalaJsonModel).toEqual(tsJsonModel)
+  /**
+   * The next step is required
+   * `new Date()` precision is only in milliseconds.
+   * "2021-09-07T08:04:07.745274Z" => "2021-09-07T08:04:07.745Z"
+   */
+  if (decodedModel instanceof UTCTime || decodedModel instanceof TAITime) {
+    const expectedScala = new Date(scalaJsonModel as string).toISOString()
+    expect(expectedScala).toEqual(tsJsonModel)
+  } else {
+    expect(scalaJsonModel).toEqual(tsJsonModel)
+  }
 }
 
 const UnitsMapD = D.struct(
@@ -140,7 +152,9 @@ const commandDecoders: Record<string, Decoder<any>> = {
   ValidateResponse: ValidateResponseD,
   ControlCommand: ControlCommandD,
   Result: ResultD,
-  KeyType: keyTagDecoder
+  KeyType: keyTagDecoder,
+  UTCTime: UTCTimeD,
+  TAITime: TAITimeD
 }
 
 const locationDecoders: Record<string, Decoder<any>> = {
