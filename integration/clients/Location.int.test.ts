@@ -53,13 +53,13 @@ afterAll(async () => {
 })
 
 describe('LocationService', () => {
-  test('should be able to resolve a location for given connection | ESW-343, ESW-308', async () => {
+  test('should be able to resolve a location for given connection | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
     const gatewayLocation = getValueFromOption(await locationService.resolve(GATEWAY_CONNECTION, 10, 'seconds'))
     expect(gatewayLocation._type).toBe('HttpLocation')
   })
 
-  test('should be able to list all the registered location | ESW-343, ESW-308', async () => {
+  test('should be able to list all the registered location | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
     const locations = await locationService.list()
 
@@ -75,8 +75,8 @@ describe('LocationService', () => {
     })
   })
 
-  test('should be able to list all the registered location for given componentType | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+  test('should be able to list all the registered location for given componentType | ESW-343, ESW-308, ESW-416', async () => {
+    locationService = LocationService()
     const locations = await locationService.listByComponentType('Service')
     const allExpectedConnections = [GATEWAY_CONNECTION]
 
@@ -90,7 +90,7 @@ describe('LocationService', () => {
     })
   })
 
-  test('should be able to list all the registered location for given connectionType | ESW-343, ESW-308', async () => {
+  test('should be able to list all the registered location for given connectionType | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
     const locations = await locationService.listByConnectionType('akka')
 
@@ -98,7 +98,7 @@ describe('LocationService', () => {
     expect(locations[0].connection).toEqual(akkaHcdConnection)
   })
 
-  test('should be able to list all the registered location for given prefix | ESW-343, ESW-308', async () => {
+  test('should be able to list all the registered location for given prefix | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
     const locations = await locationService.listByPrefix(hcdPrefix)
 
@@ -107,7 +107,7 @@ describe('LocationService', () => {
     expect(locations.map((x) => x.connection)).toContainEqual(httpHcdConnection)
   })
 
-  test('should be able to list all the registered location for given hostname | ESW-343, ESW-308', async () => {
+  test('should be able to list all the registered location for given hostname | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
     const locations = await locationService.listByHostname(publicIPv4Address())
 
@@ -122,7 +122,7 @@ describe('LocationService', () => {
     })
   })
 
-  test('should be able to find the location of given connection | ESW-343, ESW-308', async () => {
+  test('should be able to find the location of given connection | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
     const location = getValueFromOption(await locationService.find(akkaHcdConnection))
     expect(location._type).toBe('AkkaLocation')
@@ -151,7 +151,7 @@ describe('LocationService', () => {
     })
   })
 
-  test('should be able to unregister a location from location server | ESW-343, ESW-308', async () => {
+  test('should be able to unregister a location from location server | ESW-343, ESW-308, ESW-416', async () => {
     const hcdPrefix = new Prefix('WFOS', 'testHcd')
     const connection = HttpConnection(hcdPrefix, 'HCD')
     await startComponent(hcdPrefix, 'HCD', 'wfosHcd.conf')
@@ -167,7 +167,7 @@ describe('LocationService', () => {
     expect(location).toBeUndefined()
   })
 
-  test('should return Unauthorized when unregister called without token to auth protected location service instance | ESW-343, ESW-308', async () => {
+  test('should return Unauthorized when unregister called without token to auth protected location service instance | ESW-343, ESW-308, ESW-416', async () => {
     const locationServiceWithInvalidToken = LocationServiceInternal(undefined, LocationConfigWithAuth)
     expect.assertions(4)
     await locationServiceWithInvalidToken.unregister(httpHcdConnection).catch((e) => {

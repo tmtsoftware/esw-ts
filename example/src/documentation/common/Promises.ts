@@ -93,7 +93,7 @@ const ddd = async () => {
       const queryRes = commandService.query(lastResponse.runId)
     }
   } catch (err) {
-    handleError(err)
+    handleError(err as Error)
   }
   //#async-await
 }

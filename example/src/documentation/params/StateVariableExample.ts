@@ -11,6 +11,7 @@ import {
   Units,
   utcTimeKey
 } from '@tmtsoftware/esw-ts'
+import { UTCTime } from '@tmtsoftware/esw-ts/dist/src/models/TMTTime'
 //#state-variable
 //prefix
 
@@ -27,7 +28,7 @@ const notUsedKey = stringKey('notUsed')
 const charParam = charKey1.set(['A', 'B', 'C'])
 const intParam = intKey1.set([1, 2, 3])
 const booleanParam = booleanKey1.set([true, false])
-const utcTime = utcTimeKey1.set([new Date().toUTCString()])
+const utcTime = utcTimeKey1.set([UTCTime.now()])
 
 //create CurrentState and use sequential add
 const cs1 = new CurrentState(prefix, 'testStateName').add(charParam).add(intParam)
@@ -52,5 +53,5 @@ const cs4 = cs3.remove(utcTimeKey1)
 //update existing keys - set it back by an hour
 var today = new Date()
 today.setHours(today.getHours() - 1)
-const cs5 = cs3.add(utcTimeKey1.set([today.toUTCString()]))
+const cs5 = cs3.add(utcTimeKey1.set([new UTCTime(today)]))
 //#state-variable

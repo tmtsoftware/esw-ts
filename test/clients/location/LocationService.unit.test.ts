@@ -28,7 +28,7 @@ const locationServiceImplWithAuth = new LocationServiceImpl(
 const locationServiceImpl = new LocationServiceImpl(new HttpTransport(postEndpoint), () => new Ws(wsEndpoint))
 
 describe('Location Service Factory', () => {
-  test('create location service with auth | ESW-311', async () => {
+  test('create location service with auth | ESW-311, ESW-416', async () => {
     extractHostPortMock.mockReturnValue({ host: 'localhost', port: 7655 })
     const uriWithAuth = { host: 'localhost', port: 7655 }
 
@@ -40,7 +40,7 @@ describe('Location Service Factory', () => {
     expect(wsMockEndpoint).toBeCalledWith(uriWithAuth)
   })
 
-  test('create location service without auth | ESW-311', async () => {
+  test('create location service without auth | ESW-311, ESW-416', async () => {
     const config = { host: 'localhost', port: 7654 }
     extractHostPortMock.mockReturnValue({ host: 'localhost', port: 7654 })
     mockImpl.mockReturnValue(locationServiceImpl)
