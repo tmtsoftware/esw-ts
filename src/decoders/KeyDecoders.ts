@@ -1,8 +1,9 @@
 import * as D from 'io-ts/lib/Decoder'
 import * as C from '../decoders/CoordDecoders'
-import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey, Units } from '../models'
+import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey, TAITime, Units, UTCTime } from '../models'
 
 import { char, ciLiteral, Decoder } from './Decoder'
+import { TAITimeD, UTCTimeD } from './TimeDecoders'
 import { UnitsD } from './UnitsDecoder'
 
 type KeyType<L extends string, T> = {
@@ -60,8 +61,8 @@ const CharKeyD = mkRawKeyD(char)('CharKey')
 const mkRawStringKeyD = mkRawKeyD(D.string)
 const StringKeyD = mkRawStringKeyD('StringKey')
 
-const UTCTimeKeyD = mkRawStringKeyD('UTCTimeKey') // todo: Maybe in future if we implement Time models, use those here
-const TAITimeKeyD = mkRawStringKeyD('TAITimeKey') // todo: Maybe in future if we implement Time models, use those here
+const UTCTimeKeyD = mkRawKeyD(UTCTimeD)('UTCTime')
+const TAITimeKeyD = mkRawKeyD(TAITimeD)('TAITime')
 
 // Array Keys
 const mkArrayNumberKeyD = mkRawKeyD(D.array(D.number))
