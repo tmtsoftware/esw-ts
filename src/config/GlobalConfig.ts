@@ -24,8 +24,10 @@ const loadConfig = async (): Promise<Config> => {
 
 export const loadGlobalConfig = async () => {
   if (process.env.NODE_ENV == 'production') {
+    console.log('Loading global config from file')
     GlobalConfig = { ...(await loadConfig()) }
   } else {
+    console.log('Loading default config')
     GlobalConfig = DefaultConfig
   }
 }
