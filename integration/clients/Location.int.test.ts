@@ -54,13 +54,13 @@ afterAll(async () => {
 
 describe('LocationService', () => {
   test('should be able to resolve a location for given connection | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+    locationService = LocationService()
     const gatewayLocation = getValueFromOption(await locationService.resolve(GATEWAY_CONNECTION, 10, 'seconds'))
     expect(gatewayLocation._type).toBe('HttpLocation')
   })
 
   test('should be able to list all the registered location | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+    locationService = LocationService()
     const locations = await locationService.list()
 
     expect(locations.length).toBe(3)
@@ -91,7 +91,7 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given connectionType | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+    locationService = LocationService()
     const locations = await locationService.listByConnectionType('akka')
 
     expect(locations.length).toBe(1)
@@ -99,7 +99,7 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given prefix | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+    locationService = LocationService()
     const locations = await locationService.listByPrefix(hcdPrefix)
 
     expect(locations.length).toBe(2)
@@ -108,7 +108,7 @@ describe('LocationService', () => {
   })
 
   test('should be able to list all the registered location for given hostname | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+    locationService = LocationService()
     const locations = await locationService.listByHostname(publicIPv4Address())
 
     const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, akkaHcdConnection]
@@ -123,7 +123,7 @@ describe('LocationService', () => {
   })
 
   test('should be able to find the location of given connection | ESW-343, ESW-308', async () => {
-    locationService = await LocationService()
+    locationService = LocationService()
     const location = getValueFromOption(await locationService.find(akkaHcdConnection))
     expect(location._type).toBe('AkkaLocation')
     expect(location.connection).toEqual(akkaHcdConnection)
@@ -131,7 +131,7 @@ describe('LocationService', () => {
 
   test('should be able to track a location from location server | ESW-343, ESW-308', () => {
     return new Promise<void>(async (done) => {
-      locationService = await LocationService()
+      locationService = LocationService()
       const expectedTrackingEvent: LocationRemoved = {
         _type: 'LocationRemoved',
         connection: GATEWAY_CONNECTION
@@ -156,7 +156,7 @@ describe('LocationService', () => {
     const connection = HttpConnection(hcdPrefix, 'HCD')
     await startComponent(hcdPrefix, 'HCD', 'wfosHcd.conf')
     // mockedLocationConfig.mockResolvedValue({ host: 'localhost', port: 7655 })
-    const locationServiceWithToken = await LocationServiceInternal({
+    const locationServiceWithToken = LocationServiceInternal({
       tokenFactory: () => 'validToken'
     })
 
@@ -168,7 +168,7 @@ describe('LocationService', () => {
   })
 
   test('should return Unauthorized when unregister called without token to auth protected location service instance | ESW-343, ESW-308', async () => {
-    const locationServiceWithInvalidToken = await LocationServiceInternal(undefined, LocationConfigWithAuth)
+    const locationServiceWithInvalidToken = LocationServiceInternal(undefined, LocationConfigWithAuth)
     expect.assertions(4)
     await locationServiceWithInvalidToken.unregister(httpHcdConnection).catch((e) => {
       expect(e.errorType).toBe('TransportError')
