@@ -61,8 +61,8 @@ const CharKeyD = mkRawKeyD(char)('CharKey')
 const mkRawStringKeyD = mkRawKeyD(D.string)
 const StringKeyD = mkRawStringKeyD('StringKey')
 
-const UTCTimeKeyD = mkRawKeyD(UTCTimeD)('UTCTime')
-const TAITimeKeyD = mkRawKeyD(TAITimeD)('TAITime')
+const UTCTimeKeyD = mkRawKeyD(UTCTimeD)('UTCTimeKey')
+const TAITimeKeyD = mkRawKeyD(TAITimeD)('TAITimeKey')
 
 // Array Keys
 const mkArrayNumberKeyD = mkRawKeyD(D.array(D.number))
