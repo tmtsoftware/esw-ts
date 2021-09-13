@@ -8,10 +8,11 @@ import {
   Parameter,
   Prefix,
   stringKey,
+  taiTimeKey,
   Units,
   utcTimeKey
 } from '@tmtsoftware/esw-ts'
-import { UTCTime } from '@tmtsoftware/esw-ts/dist/src/models/TMTTime'
+import { TAITime, UTCTime } from '@tmtsoftware/esw-ts/dist/src/models/TMTTime'
 //#state-variable
 //prefix
 
@@ -55,3 +56,15 @@ var today = new Date()
 today.setHours(today.getHours() - 1)
 const cs5 = cs3.add(utcTimeKey1.set([new UTCTime(today)]))
 //#state-variable
+
+// #tmt-time
+const utcTime1 = UTCTime.now()
+const taiFromUTC = utcTime1.toTAI()
+const utcTimeParam = utcTimeKey('utcTimeKey1')
+utcTimeParam.set([utcTime1])
+
+const taiTimeParam = taiTimeKey('taiTimeKey1')
+const taiTime1 = TAITime.now()
+const utcFromTaiTime = taiTime1.toUTC()
+taiTimeParam.set([taiTime1])
+// #tmt-time

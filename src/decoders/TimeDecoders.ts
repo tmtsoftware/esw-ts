@@ -12,6 +12,6 @@ const dateDecoder = <T>(timeConstructor: new (date: Date) => T) =>
     })
   )
 
-export const UTCTimeD: Decoder<TAITime> = dateDecoder(TAITime)
+export const TAITimeD: Decoder<TAITime> = dateDecoder(TAITime)
 
-export const TAITimeD: Decoder<UTCTime> = dateDecoder(UTCTime)
+export const UTCTimeD: Decoder<UTCTime> = dateDecoder(UTCTime)

@@ -31,8 +31,24 @@ Typescript
 | String    | StringKey           | stringKey        |
 | Char      | CharKey             | charKey          |
 | Boolean   | BooleanKey          | booleanKey       |
+
+### TMT Time types
+
+| Primitive | Typescript Key Type | Helper functions |
+| --------- | ------------------- | ---------------- |
 | UTCTime   | UTCTimeKey          | utcTimeKey       |
 | TAITime   | TAITimeKey          | taiTimeKey       |
+
+This data types are based on TMT Time models `UTCTime` & `TAITime`.
+
+Example usage of Time models:
+
+Typescript
+:   @@snip[paramater key](../../../../example/src/documentation/params/StateVariableExample.ts) { #tmt-time }
+
+@@@note
+  The precision date at javascript is only in  milliseconds. However, at backend server date precision is in microseconds. ("2021-09-07T08:04:07.745274Z"). The following in browser javascript `new Date("2021-09-07T08:04:07.745274Z")` truncates the last 3 digits of milliseconds `2021-09-07T08:04:07.745Z`.
+@@@
 
 ### Array Data types
 
