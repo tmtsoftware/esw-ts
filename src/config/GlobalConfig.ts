@@ -49,5 +49,5 @@ const loadConfig = async (): Promise<Config> => {
 export const loadGlobalConfig = async () => {
   GlobalConfig = process.env.NODE_ENV === 'production' ? await loadConfig() : DefaultConfig
   console.log('Config loaded successfully in', process.env.NODE_ENV, 'mode')
-  console.table(GlobalConfig)
+  console.log(GlobalConfig)
 }

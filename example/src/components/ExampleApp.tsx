@@ -42,7 +42,8 @@ const ExampleApp = () => {
                     {/*// #realmRole-component-usage */}
                     <RealmRole
                       realmRole='example-admin-role'
-                      error={<RoleError message={'User do not have role : example-admin-role'} />}>
+                      error={<RoleError message={'User do not have role : example-admin-role'} />}
+                    >
                       <div>Example admin role specific functionality</div>
                     </RealmRole>
                     {/*// #realmRole-component-usage */}
@@ -56,7 +57,8 @@ const ExampleApp = () => {
                   <CheckLogin error={<LoginError />}>
                     <RealmRole
                       realmRole='person-role'
-                      error={<RoleError message={'User do not have role : person-role'} />}>
+                      error={<RoleError message={'User do not have role : person-role'} />}
+                    >
                       <div>Person role specific functionality</div>
                     </RealmRole>
                   </CheckLogin>
