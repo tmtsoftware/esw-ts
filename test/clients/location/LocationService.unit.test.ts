@@ -1,8 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 import { LocationService } from '../../../src/clients/location/LocationService'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
-import { GlobalConfig } from '../../../src/config/GlobalConfig'
-// import { loadGlobalConfig } from '../../../src/config/GlobalConfig'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../../src/utils/Utils'
 import { Ws } from '../../../src/utils/Ws'
