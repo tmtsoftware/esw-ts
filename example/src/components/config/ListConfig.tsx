@@ -6,7 +6,7 @@ function ListConfig() {
   const [response, setResponse] = useState('')
   const configService = useContext(ConfigContext)
   const listConfig = async () => {
-    const list = await configService.list()
+    const list = await configService?.list()
     setResponse(JSON.stringify(list))
   }
 

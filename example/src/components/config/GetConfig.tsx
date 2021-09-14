@@ -8,7 +8,7 @@ function GetConfig() {
   const configService = useContext(ConfigContext)
 
   const getConfig = async (input: string) => {
-    const config: Option<ConfigData> = await configService.getLatest(input)
+    const config: Option<ConfigData> = await configService?.getLatest(input)
     if (config) download(config.toBlob(), input)
     else setErr('Config not found')
   }

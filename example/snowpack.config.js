@@ -8,7 +8,7 @@ export default {
   buildOptions: {
     clean: true,
     out: AppConfig.applicationName,
-    sourcemap: true,
+    sourcemap: 'inline',
     baseUrl: '.'
   },
   optimize: {
