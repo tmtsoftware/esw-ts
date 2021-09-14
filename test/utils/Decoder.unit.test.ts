@@ -1,4 +1,4 @@
-import { Parameter, TAITime, taiTimeKey, TAITimeKey, Units, UTCTime, utcTimeKey } from '../../src'
+import { TAITime, taiTimeKey, Units, UTCTime, utcTimeKey } from '../../src'
 import { char } from '../../src/decoders/Decoder'
 import { ParameterD } from '../../src/decoders/ParameterDecoder'
 import { getOrThrow } from '../../src/utils/Utils'

@@ -10,8 +10,8 @@ template which uses ESW-TS library. You can use this as a starting point for you
 
 ## Create a Starter Project
 
-It is recommended to use Giter8 template `esw-ui-template.g8` to get started with building web application.
-Follow @link:[readme.md](https://github.com/tmtsoftware/esw-ui-template.g8/blob/master/README.md) for more details on how to
+It is recommended to use Giter8 template `esw-gateway-ui-template.g8` to get started with building web application.
+Follow @link:[readme.md](https://github.com/tmtsoftware/esw-gateway-ui-template.g8) for more details on how to
 use the template to create starter project. `ESW-TS` comes pre-packaged as a dependency in the template.
 
 If you already have a UI application and want to add ESW-TS dependency, then
@@ -26,7 +26,7 @@ Or, to install a specific version
 
 ## UI App Configuration for ESW-TS
 
-If you have used `esw-ui-template.g8` template for generating the application source code. Template generates a `AppConfig.js` file in `src/config/AppConfig.js`. It has applicationName that you provided while creating template. if you wish to change your application name this is the place where you can change it. Note that this change effects metrics & the deployment time folder name.
+If you have used `esw-gateway-ui-template.g8` template for generating the application source code. Template generates a `AppConfig.js` file in `src/config/AppConfig.js`. It has applicationName that you provided while creating template. if you wish to change your application name this is the place where you can change it. Note that this change effects metrics & the deployment time folder name.
 
 Note: ESW-TS library will try to load this `applicationName` before making any backend service calls.
 @extref[AppConfig](ts-docs:modules/models.html#appconfig).
