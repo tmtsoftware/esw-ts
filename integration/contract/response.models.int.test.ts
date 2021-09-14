@@ -6,8 +6,6 @@ import path from 'path'
 import { ContainerLifecycleStateD, SupervisorLifecycleStateD } from '../../src/decoders/AdminDecoders'
 import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../src/decoders/AgentDecoders'
 import { AlarmKeyD, AlarmSeverityD } from '../../src/decoders/AlarmDecoders'
-// eslint-disable-next-line
-import * as Seq from '../../src/decoders/SequencerDecoders'
 import {
   CommandIssueD,
   CommandResponseD,
@@ -44,7 +42,10 @@ import {
   ShutdownSequencersOrSeqCompResponseD,
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
+// eslint-disable-next-line
+import * as Seq from '../../src/decoders/SequencerDecoders'
 import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
+import { TAITimeD, UTCTimeD } from '../../src/decoders/TimeDecoders'
 import { UnitsD } from '../../src/decoders/UnitsDecoder'
 import { Units } from '../../src/models/params/Units'
 import { getOrThrow } from '../../src/utils/Utils'
@@ -70,14 +71,29 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  fs.rmdirSync(sourceDir, { recursive: true })
+  fs.rmSync(sourceDir, { recursive: true })
   return await delay(200)
 })
 
-const parseModels = (file: string) => JSON.parse(fs.readFileSync(file, 'utf-8'))
+function replacer(_: string, p1: any, p2: any) {
+  const str = p2 === undefined ? [p1, '000'].join('.') : [p1, p2].join('')
+  return str.concat('Z')
+}
+/**
+ * This regex truncates the instances of date in the generated contract json file having milliseconds more than 3 digits.
+ * for ex. if backend json file generates => 2021-09-07T08:04:07.745274Z or 2021-09-07T08:04:07.745274425Z
+ * this regex used by replacer function outputs => 2021-09-07T08:04:07.745Z or 2021-09-07T08:04:07.745Z
+ * We have to handle this because javacript native date function precision is only till milliseconds.
+ */
+const dateReg = new RegExp(/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(\.\d{0,3})?(\d{0,3})?(\d{0,3})?Z/, 'g')
+
+const parseModels = (file: string): any => {
+  const rawJson = JSON.parse(fs.readFileSync(file, 'utf-8'))
+  return JSON.parse(JSON.stringify(rawJson).replace(dateReg, replacer))
+}
 
 describe('models contract test', () => {
-  test('Command Models | ESW-305, ESW-343, ESW-348, ESW-526, CSW-152, CSW-92', () => {
+  test('Command Models | ESW-305, ESW-343, ESW-348, ESW-526, CSW-152, CSW-92, ESW-542', () => {
     verifyContract(commandModelsJsonPath, commandDecoders)
   })
 
@@ -140,7 +156,9 @@ const commandDecoders: Record<string, Decoder<any>> = {
   ValidateResponse: ValidateResponseD,
   ControlCommand: ControlCommandD,
   Result: ResultD,
-  KeyType: keyTagDecoder
+  KeyType: keyTagDecoder,
+  UTCTime: UTCTimeD,
+  TAITime: TAITimeD
 }
 
 const locationDecoders: Record<string, Decoder<any>> = {

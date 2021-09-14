@@ -1,4 +1,4 @@
-import { Units } from '../../src'
+import { Parameter, TAITime, taiTimeKey, TAITimeKey, Units, UTCTime, utcTimeKey } from '../../src'
 import { char } from '../../src/decoders/Decoder'
 import { ParameterD } from '../../src/decoders/ParameterDecoder'
 import { getOrThrow } from '../../src/utils/Utils'
@@ -30,5 +30,29 @@ describe('Decode', () => {
     }
 
     expect(getOrThrow(ParameterD.decode(intParam))).toEqual(expectedIntParam)
+  })
+
+  test('Time models in parameter | ESW-542', () => {
+    const utcTime = UTCTime.now()
+    const utcTimeParam: unknown = {
+      UTCTimeKey: {
+        keyName: 'utcTime',
+        values: [utcTime.toJSON()],
+        units: 'UTC'
+      }
+    }
+    const expectedTimeParam = utcTimeKey('utcTime').set([utcTime])
+    expect(getOrThrow(ParameterD.decode(utcTimeParam))).toEqual(expectedTimeParam)
+
+    const taiTime = TAITime.now()
+    const taiTimeParam: unknown = {
+      TAITimeKey: {
+        keyName: 'taiTime',
+        values: [taiTime.toJSON()],
+        units: 'tai'
+      }
+    }
+    const expectedTAITimeParam = taiTimeKey('taiTime').set([taiTime])
+    expect(getOrThrow(ParameterD.decode(taiTimeParam))).toEqual(expectedTAITimeParam)
   })
 })

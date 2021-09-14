@@ -78,7 +78,7 @@ const d = async () => {
         break
     }
   } catch (err) {
-    handleError(err)
+    handleError(err as Error)
   }
   //#response-handling-spawn
 }

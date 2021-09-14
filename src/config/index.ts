@@ -1,5 +1,5 @@
 export { AASConfig } from './AASConfig'
-export { LocationConfig } from './LocationConfig'
+export { LocationInfo, Config, GlobalConfig, loadGlobalConfig } from './GlobalConfig'
 export {
   AGENT_SERVICE_CONNECTION,
   AUTH_CONNECTION,

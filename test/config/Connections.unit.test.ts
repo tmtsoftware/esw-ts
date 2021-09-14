@@ -1,18 +1,16 @@
 import { mocked } from 'ts-jest/utils'
+import { GlobalConfig } from '../../src'
 import { GATEWAY_CONNECTION, resolveConnection } from '../../src/config/Connections'
-import { LocationConfig } from '../../src/config/LocationConfig'
 import { post } from '../../src/utils/Http'
 jest.mock('../../src/utils/Http')
-jest.mock('../../src/config/LocationConfig')
 const postMockFn = mocked(post, true)
-const mockedLocationConfig = mocked(LocationConfig)
 afterEach(() => {
   jest.clearAllMocks()
 })
 
 describe('Connection util', () => {
   test('should resolve location uri of given connection', async () => {
-    mockedLocationConfig.mockResolvedValue({ host: 'localhost', port: 8080 })
+    GlobalConfig.locationUrl = 'https://localhost:8080'
     postMockFn.mockResolvedValueOnce([
       {
         _type: 'HttpLocation',

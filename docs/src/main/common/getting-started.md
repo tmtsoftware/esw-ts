@@ -41,13 +41,11 @@ this folder will contain all tmt ui applications which can be together deployed 
 
 ESW-TS assumes that static server contains a `config.js` file which has configuration related to all applications.
 
-As of now, ESW-TS loads `locationUrl` using this file to create LocationService instance. In future if needed, other configuration can be added here which are applicable to all tmt applications.
+Refer @extref:[this](ts-docs:modules/config.html#ConfigModule) for the structure of config module.
 
-`config.js file looks like this.`
+In future if needed, other configuration can be added here which are applicable to all tmt applications.
 
-```ts
-export const config = { locationUrl: 'https://locationService.tmt.org' }
-```
+Refer @extref:[this](ts-docs:modules/config.html#Config) for the structure of config.
 
 Note:
 

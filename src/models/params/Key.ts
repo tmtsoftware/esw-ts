@@ -1,3 +1,4 @@
+import type { TAITime, UTCTime } from '../TMTTime'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, SolarSystemCoord } from './Coord'
@@ -130,11 +131,11 @@ export interface BooleanKey extends mkRawKey<'BooleanKey', boolean> {}
 /**
  * @internal
  */
-export interface UTCTimeKey extends BaseStringKey<'UTCTimeKey'> {}
+export interface UTCTimeKey extends mkRawKey<'UTCTimeKey', UTCTime> {}
 /**
  * @internal
  */
-export interface TAITimeKey extends BaseStringKey<'TAITimeKey'> {}
+export interface TAITimeKey extends mkRawKey<'TAITimeKey', TAITime> {}
 /**
  * @internal
  */

@@ -1,9 +1,8 @@
 import type { AuthData, Option, Subscription } from '../..'
-import { LocationConfig } from '../../config/LocationConfig'
-import type { LocationInfo } from '../../config/LocationConfig'
+import { GlobalConfig, LocationInfo } from '../../config/GlobalConfig'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
-import { getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
+import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
 import { LocationServiceImpl } from './LocationServiceImpl'
 import type { Connection, ConnectionType } from './models/Connection'
@@ -107,11 +106,8 @@ export interface LocationService {
  * this constructor is used in testing & will get deleted eventually.
  * @constructor
  */
-export const LocationServiceInternal = async (
-  authData?: AuthData,
-  locationConfig?: LocationInfo
-): Promise<LocationService> => {
-  const config: LocationInfo = locationConfig ? locationConfig : await LocationConfig()
+export const LocationServiceInternal = (authData?: AuthData, locationConfig?: LocationInfo): LocationService => {
+  const config: LocationInfo = locationConfig ? locationConfig : extractHostPort(GlobalConfig.locationUrl)
 
   return makeLocationService(config, authData)
 }
@@ -122,8 +118,8 @@ export const LocationServiceInternal = async (
  * @param tokenFactory          a function that returns a valid token which has correct access roles and permissions
  * @constructor
  */
-export const LocationService = async (authData?: AuthData): Promise<LocationService> => {
-  const config: LocationInfo = await LocationConfig()
+export const LocationService = (authData?: AuthData): LocationService => {
+  const config: LocationInfo = extractHostPort(GlobalConfig.locationUrl)
 
   return makeLocationService(config, authData)
 }
