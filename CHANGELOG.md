@@ -18,6 +18,8 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 * Add support for setting AppName for metrics using `setAppName`.
 * Removed `RaDec` from `KeyType`. Alternatively user can use `Coord` special KeyType to capture original use cases for RaDec.
 * Subsystem list got updated as per [document](https://docushare.tmt.org/docushare/dsweb/Services/Document-4780).
+* Added `UTCTime` & `TAITime` models.
+* Added `loadGlobalConfig()` helper to load GlobalConfig.
 
 ### Supporting Releases
 
