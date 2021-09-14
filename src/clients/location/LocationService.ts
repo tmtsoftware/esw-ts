@@ -124,7 +124,7 @@ export const LocationService = (authData?: AuthData): LocationService => {
   return makeLocationService(config, authData)
 }
 
-const makeLocationService = (config: LocationInfo, authData: AuthData | undefined) => {
+const makeLocationService = (config: LocationInfo, authData?: AuthData) => {
   const webSocketEndpoint = getWebSocketEndPoint({
     host: config.host,
     port: config.port
