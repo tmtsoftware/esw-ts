@@ -13,7 +13,7 @@
 1. Update `<****>` with the version in `release.yml` NPM publish step.
     For ex: If you are publishing `1.0.0`
             Replace `<****>` with the corresponding tag i.e v1.0.0.
-1. Commit and push the changes to `branch-<major>.<minor>.x` branch. Ensure that pipeline is green.
+1. Commit and push the changes to `branch-<major>.<minor>.x` branch. Ensure that pipeline is green for dev and paradox link check.
 1. Run `release.sh $VERSION$` script by providing version number argument (This triggers release workflow)
     Note: `PROD=true` environment variable needs to be set before running `release.sh`
 
