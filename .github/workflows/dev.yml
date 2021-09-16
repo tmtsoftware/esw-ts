@@ -43,9 +43,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Paradox Validate Links
-        run: sbtn paradoxValidateLinks
-
       - name: Unit tests
         run: npm run test:unit:ci
 

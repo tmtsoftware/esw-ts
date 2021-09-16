@@ -1,0 +1,29 @@
+name: Master Link Check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 22 * * *" # run at 04:00 AM IST
+
+jobs:
+  paradox:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: laughedelic/coursier-setup@v1
+        with:
+          jvm: 11
+      - uses: coursier/cache-action@v5
+
+      - name: Paradox Validate Links
+        run: sbtn paradoxValidateLinks
+
+      - name: Notify slack
+        if: always()
+        continue-on-error: true
+        uses: kpritam/slack-job-status-action@v1
+        with:
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: ci-linkcheck
