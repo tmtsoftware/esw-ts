@@ -11,8 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      with:
-        ref: branch-0.2.x
+        with:
+          ref: branch-0.2.x
       - uses: laughedelic/coursier-setup@v1
         with:
           jvm: 11
