@@ -19,7 +19,7 @@ jobs:
       - uses: coursier/cache-action@v5
 
       - name: Paradox Validate Links
-        run: sbtn docs/paradoxValidateLinks
+        run: sbtn paradoxValidateLinks
 
       - name: Notify slack
         if: always()
