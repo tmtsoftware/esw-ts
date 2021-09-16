@@ -61,7 +61,7 @@ Note: Simple way to start all these services is to run `csw-services` using `cou
 Refer [here](http://tmtsoftware.github.io/csw/4.0.0-RC1/apps/cswservices.html) to learn how to start csw-services.
 
 ```bash
-cs install csw-services:<version | SHA>
+cs install csw-services
 csw-services start -c -k -v $SHA_OF_CSW
 ```
 
