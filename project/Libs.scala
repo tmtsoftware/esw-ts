@@ -7,12 +7,12 @@ object Libs {
   val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "3.141.59"
   val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "0.5.0"
   val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "4.4.3"
-  val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"               % "0.1.0"
+  val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"               % "0.2.0"
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-3-141"    % "3.2.9.0"
 }
 
 object ESW {
-  private val defaultESWVersion = "0.3.0-RC1"
+  private val defaultESWVersion = "0.3.0-RC2"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>
@@ -22,7 +22,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "4.0.0-RC1"
+  private val defaultCswVersion = "4.0.0-RC2"
 
   val Version: Option[String] = sys.props.get("prod.publish").collect {
     case "true" =>

@@ -8,5 +8,5 @@ This version is compatible with `CSW` version v4.0.0-RC1
 
 ## Documentation
 
-Paradox documentation can be found [here](https://tmtsoftware.github.io/esw/0.2.0-RC1/)
-The API documentation can be found [here](https://tmtsoftware.github.io/esw/0.2.0-RC1/common/tsdocs.html)
+Paradox documentation can be found [here](https://tmtsoftware.github.io/esw-ts/0.2.0-RC1/)
+The API documentation can be found [here](https://tmtsoftware.github.io/esw-ts/0.2.0-RC1/common/ts-docs.html)
