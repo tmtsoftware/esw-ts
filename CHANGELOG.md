@@ -4,7 +4,7 @@ ESW-TS is a Javascript/Typescript wrapper for TMT backend services.
 This source code is in github repository: [ESW-TS](https://github.com/tmtsoftware/esw-ts)
 Npm module published for ESW-TS can be found [here](https://www.npmjs.com/package/@tmtsoftware/esw-ts)
 
-## [UPCOMING CHANGES]
+## [ESW-TS v0.2.0] - 2021-09-23
 
 * Movement of `getAgentStatus` api from SequenceManager service to AgentService
 * Add `getSequencerState` api in SequencerService
