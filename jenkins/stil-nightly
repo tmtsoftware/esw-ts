@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Checkout latest version
                 sh "git checkout $VERSION"
-                sh "git pull"
+                sh "git pull origin $VERSION"
             }
         }
 
