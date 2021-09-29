@@ -11,6 +11,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // Clean before build
+                cleanWs()
                 // Checkout latest version
                 sh "git checkout $VERSION"
                 sh "git pull origin $VERSION"
@@ -100,7 +102,7 @@ def sendNotification(String buildStatus = 'STARTED') {
     buildStatus = buildStatus ?: 'SUCCESS'
 
     def colorCode = '#FF0000'
-    def subject = "${buildStatus}: Job '${env.JOB_NAME}' [${env.BUILD_NUMBER}]'"
+    def subject = "${buildStatus}: Job '${env.JOB_NAME}' [${VERSION}] [${env.BUILD_NUMBER}]"
     def summary = "${subject} (${env.BUILD_URL})"
 
     // override default values based on build status
