@@ -15,7 +15,7 @@ export const ObsModeD: Decoder<ObsMode> = pipe(
 
 const SequenceComponentNotAvailableD: Decoder<T.SequenceComponentNotAvailable> = D.struct({
   _type: ciLiteral('SequenceComponentNotAvailable'),
-  subsystems: D.array(SubsystemD),
+  sequencerPrefixes: D.array(PrefixD),
   msg: D.string
 })
 
@@ -77,7 +77,7 @@ const ConfigurableD: Decoder<T.Configurable> = D.struct({
 
 const NonConfigurableD: Decoder<T.NonConfigurable> = D.struct({
   _type: ciLiteral('NonConfigurable'),
-  missingSequenceComponents: D.array(SubsystemD)
+  missingSequenceComponents: D.array(PrefixD)
 })
 
 export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.sum('_type')({
@@ -89,7 +89,7 @@ export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.sum('_type')({
 export const ObsModeDetailsD: Decoder<T.ObsModeDetails> = D.struct({
   obsMode: ObsModeD,
   status: ObsModeStatusD,
-  sequencers: D.array(SubsystemD),
+  sequencers: D.array(PrefixD),
   resources: D.array(SubsystemD)
 })
 

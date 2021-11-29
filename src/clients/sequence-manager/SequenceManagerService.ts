@@ -50,29 +50,26 @@ export interface SequenceManagerService {
    * starts a sequencer for given subsystem and observing mode.
    * It starts a sequencer on an available sequence component for given subsystem.
    *
-   * @param subsystem   The subsystem.
-   * @param obsMode     The observation mode.
+   * @param prefix      The prefix of the sequencer to be started.
    * @returns           StartSequencerResponse as Promise.
    */
-  startSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<StartSequencerResponse>
+  startSequencer(prefix: Prefix): Promise<StartSequencerResponse>
 
   /**
    * re-start the existing running sequencer for given subsystem and observing mode.
    *
-   * @param subsystem   The subsystem.
-   * @param obsMode     The observation mode.
+   * @param prefix      The prefix of the sequencer to be started.
    * @returns           RestartSequencerResponse as Promise.
    */
-  restartSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<RestartSequencerResponse>
+  restartSequencer(prefix: Prefix): Promise<RestartSequencerResponse>
 
   /**
    * shutdowns the running sequencer found for given subsystem and observing mode.
    *
-   * @param subsystem   The subsystem.
-   * @param obsMode     The observation mode.
+   * @param prefix      The prefix of the sequencer to be started.
    * @returns           ShutdownSequencersResponse as Promise.
    */
-  shutdownSequencer(subsystem: Subsystem, obsMode: ObsMode): Promise<ShutdownSequencersResponse>
+  shutdownSequencer(prefix: Prefix): Promise<ShutdownSequencersResponse>
 
   /**
    * shutdowns all the running sequencers found for given subsystem.

@@ -73,11 +73,11 @@ describe('Sequence manager', function () {
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.startSequencer(subsystem, obsMode)
+    const response = await sequenceManager.startSequencer(masterSequencerComponentId.prefix)
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.StartSequencer(subsystem, obsMode),
+      new Req.StartSequencer(masterSequencerComponentId.prefix),
       Res.StartSequencerResponseD
     )
   })
@@ -90,11 +90,11 @@ describe('Sequence manager', function () {
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.restartSequencer(subsystem, obsMode)
+    const response = await sequenceManager.restartSequencer(masterSequencerComponentId.prefix)
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.RestartSequencer(subsystem, obsMode),
+      new Req.RestartSequencer(masterSequencerComponentId.prefix),
       Res.RestartSequencerResponseD
     )
   })
@@ -106,11 +106,11 @@ describe('Sequence manager', function () {
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.shutdownSequencer(subsystem, obsMode)
+    const response = await sequenceManager.shutdownSequencer(masterSequencerComponentId.prefix)
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.ShutdownSequencer(subsystem, obsMode),
+      new Req.ShutdownSequencer(masterSequencerComponentId.prefix),
       Res.ShutdownSequencersOrSeqCompResponseD
     )
   })

@@ -21,19 +21,19 @@ export class GetObsModesDetails {
 export class StartSequencer {
   readonly _type: 'StartSequencer' = 'StartSequencer'
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
+  constructor(readonly prefix: Prefix) {}
 }
 
 export class RestartSequencer {
   readonly _type: 'RestartSequencer' = 'RestartSequencer'
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
+  constructor(readonly prefix: Prefix) {}
 }
 
 export class ShutdownSequencer {
   readonly _type: 'ShutdownSequencer' = 'ShutdownSequencer'
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
+  constructor(readonly prefix: Prefix) {}
 }
 
 export class ShutdownSubsystemSequencers {
