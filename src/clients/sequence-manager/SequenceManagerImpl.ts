@@ -5,6 +5,7 @@ import type { ObsMode } from './models/ObsMode'
 import * as Req from './models/PostCommand'
 import type { ProvisionConfig } from './models/ProvisionConfig'
 import type * as T from './models/SequenceManagerRes'
+import type { Variation } from './models/Variation'
 import type { SequenceManagerService } from './SequenceManagerService'
 
 export class SequenceManagerImpl implements SequenceManagerService {
@@ -22,16 +23,29 @@ export class SequenceManagerImpl implements SequenceManagerService {
     return this.httpTransport.requestRes(new Req.GetObsModesDetails(), Res.ObsModesDetailsResponseD)
   }
 
-  startSequencer(prefix: Prefix): Promise<T.StartSequencerResponse> {
-    return this.httpTransport.requestRes(new Req.StartSequencer(prefix), Res.StartSequencerResponseD)
+  startSequencer(subsystem: Subsystem, obsMode: ObsMode, variation?: Variation): Promise<T.StartSequencerResponse> {
+    return this.httpTransport.requestRes(
+      new Req.StartSequencer(subsystem, obsMode, variation ? [variation] : []),
+      Res.StartSequencerResponseD
+    )
   }
 
-  restartSequencer(prefix: Prefix): Promise<T.RestartSequencerResponse> {
-    return this.httpTransport.requestRes(new Req.RestartSequencer(prefix), Res.RestartSequencerResponseD)
+  restartSequencer(subsystem: Subsystem, obsMode: ObsMode, variation?: Variation): Promise<T.RestartSequencerResponse> {
+    return this.httpTransport.requestRes(
+      new Req.RestartSequencer(subsystem, obsMode, variation ? [variation] : []),
+      Res.RestartSequencerResponseD
+    )
   }
 
-  shutdownSequencer(prefix: Prefix): Promise<T.ShutdownSequencersResponse> {
-    return this.httpTransport.requestRes(new Req.ShutdownSequencer(prefix), Res.ShutdownSequencersOrSeqCompResponseD)
+  shutdownSequencer(
+    subsystem: Subsystem,
+    obsMode: ObsMode,
+    variation?: Variation
+  ): Promise<T.ShutdownSequencersResponse> {
+    return this.httpTransport.requestRes(
+      new Req.ShutdownSequencer(subsystem, obsMode, variation ? [variation] : []),
+      Res.ShutdownSequencersOrSeqCompResponseD
+    )
   }
 
   shutdownSubsystemSequencers(subsystem: Subsystem): Promise<T.ShutdownSequencersResponse> {

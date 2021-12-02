@@ -15,6 +15,7 @@ import type {
   ShutdownSequencersResponse,
   StartSequencerResponse
 } from './models/SequenceManagerRes'
+import type { Variation } from './models/Variation'
 import { SequenceManagerImpl } from './SequenceManagerImpl'
 
 /**
@@ -50,26 +51,32 @@ export interface SequenceManagerService {
    * starts a sequencer for given subsystem and observing mode.
    * It starts a sequencer on an available sequence component for given subsystem.
    *
-   * @param prefix      The prefix of the sequencer to be started.
+   * @param subsystem      The subsystem of the sequencer to be started.
+   * @param obsMode        The obsMode of the sequencer to be started.
+   * @param variation      The optional variation part of the sequencer to be started.
    * @returns           StartSequencerResponse as Promise.
    */
-  startSequencer(prefix: Prefix): Promise<StartSequencerResponse>
+  startSequencer(subsystem: Subsystem, obsMode: ObsMode, variation?: Variation): Promise<StartSequencerResponse>
 
   /**
    * re-start the existing running sequencer for given subsystem and observing mode.
    *
-   * @param prefix      The prefix of the sequencer to be started.
+   * @param subsystem      The subsystem of the sequencer to be started.
+   * @param obsMode        The obsMode of the sequencer to be started.
+   * @param variation      The optional variation part of the sequencer to be started.
    * @returns           RestartSequencerResponse as Promise.
    */
-  restartSequencer(prefix: Prefix): Promise<RestartSequencerResponse>
+  restartSequencer(subsystem: Subsystem, obsMode: ObsMode, variation?: Variation): Promise<RestartSequencerResponse>
 
   /**
    * shutdowns the running sequencer found for given subsystem and observing mode.
    *
-   * @param prefix      The prefix of the sequencer to be started.
+   * @param subsystem      The subsystem of the sequencer to be started.
+   * @param obsMode        The obsMode of the sequencer to be started.
+   * @param variation      The optional variation part of the sequencer to be started.
    * @returns           ShutdownSequencersResponse as Promise.
    */
-  shutdownSequencer(prefix: Prefix): Promise<ShutdownSequencersResponse>
+  shutdownSequencer(subsystem: Subsystem, obsMode: ObsMode, variation?: Variation): Promise<ShutdownSequencersResponse>
 
   /**
    * shutdowns all the running sequencers found for given subsystem.

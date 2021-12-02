@@ -92,7 +92,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('startSequencer | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.startSequencer(Prefix.fromString('ESW.darknight'))
+    const response = await sequenceManagerServiceWithValidToken.startSequencer('ESW', new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Started',
@@ -101,7 +101,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('restartSequencer | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.restartSequencer(Prefix.fromString('ESW.darknight'))
+    const response = await sequenceManagerServiceWithValidToken.restartSequencer('ESW', new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Success',
@@ -110,7 +110,7 @@ describe('Sequence Manager Client', () => {
   })
 
   test('shutdownSequencer | ESW-365', async () => {
-    const response = await sequenceManagerServiceWithValidToken.shutdownSequencer(Prefix.fromString('ESW.darknight'))
+    const response = await sequenceManagerServiceWithValidToken.shutdownSequencer('ESW', new ObsMode('darknight'))
 
     expect(response).toEqual({
       _type: 'Success'

@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, Subsystem } from '../../../src'
+import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, Subsystem, Variation } from '../../../src'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
 import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
 import { SequenceManagerImpl } from '../../../src/clients/sequence-manager/SequenceManagerImpl'
@@ -18,6 +18,7 @@ const sequenceManager = new SequenceManagerImpl(httpTransport)
 const obsMode = new ObsMode('darknight')
 const subsystem: Subsystem = 'ESW'
 const prefix: Prefix = new Prefix('ESW', 'sequencer1')
+const variation = new Variation('red')
 const masterSequencerComponentId = new ComponentId(prefix, 'Sequencer')
 
 describe('Sequence manager', function () {
@@ -65,7 +66,7 @@ describe('Sequence manager', function () {
     verify(mockHttpTransport.requestRes).toBeCalledWith(new Req.GetObsModesDetails(), Res.ObsModesDetailsResponseD)
   })
 
-  test('should call start sequencer | ESW-365', async () => {
+  test('should call start sequencer without variation| ESW-365', async () => {
     const expectedRes: T.StartSequencerResponse = {
       _type: 'Started',
       componentId: masterSequencerComponentId
@@ -73,16 +74,33 @@ describe('Sequence manager', function () {
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.startSequencer(masterSequencerComponentId.prefix)
+    const response = await sequenceManager.startSequencer(subsystem, obsMode)
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.StartSequencer(masterSequencerComponentId.prefix),
+      new Req.StartSequencer(subsystem, obsMode, []),
       Res.StartSequencerResponseD
     )
   })
 
-  test('should call restart sequencer | ESW-365', async () => {
+  test('should call start sequencer with variation | ESW-565', async () => {
+    const expectedRes: T.StartSequencerResponse = {
+      _type: 'Started',
+      componentId: masterSequencerComponentId
+    }
+
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
+    const response = await sequenceManager.startSequencer(subsystem, obsMode, variation)
+
+    expect(response).toEqual(expectedRes)
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
+      new Req.StartSequencer(subsystem, obsMode, [variation]),
+      Res.StartSequencerResponseD
+    )
+  })
+
+  test('should call restart sequencer with variation | ESW-365', async () => {
     const expectedRes: T.RestartSequencerResponse = {
       _type: 'Success',
       componentId: masterSequencerComponentId
@@ -90,27 +108,60 @@ describe('Sequence manager', function () {
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.restartSequencer(masterSequencerComponentId.prefix)
+    const response = await sequenceManager.restartSequencer(subsystem, obsMode, variation)
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.RestartSequencer(masterSequencerComponentId.prefix),
+      new Req.RestartSequencer(subsystem, obsMode, [variation]),
       Res.RestartSequencerResponseD
     )
   })
 
-  test('should call shutdown sequencer | ESW-365', async () => {
+  test('should call restart sequencer without variation | ESW-565', async () => {
+    const expectedRes: T.RestartSequencerResponse = {
+      _type: 'Success',
+      componentId: masterSequencerComponentId
+    }
+
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
+    const response = await sequenceManager.restartSequencer(subsystem, obsMode)
+
+    expect(response).toEqual(expectedRes)
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
+      new Req.RestartSequencer(subsystem, obsMode, []),
+      Res.RestartSequencerResponseD
+    )
+  })
+
+  test('should call shutdown sequencer with variation | ESW-365', async () => {
     const expectedRes: T.ShutdownSequencersResponse = {
       _type: 'Success'
     }
 
     mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
 
-    const response = await sequenceManager.shutdownSequencer(masterSequencerComponentId.prefix)
+    const response = await sequenceManager.shutdownSequencer(subsystem, obsMode, variation)
 
     expect(response).toEqual(expectedRes)
     verify(mockHttpTransport.requestRes).toBeCalledWith(
-      new Req.ShutdownSequencer(masterSequencerComponentId.prefix),
+      new Req.ShutdownSequencer(subsystem, obsMode, [variation]),
+      Res.ShutdownSequencersOrSeqCompResponseD
+    )
+  })
+
+  test('should call shutdown sequencer without variation | ESW-365', async () => {
+    const expectedRes: T.ShutdownSequencersResponse = {
+      _type: 'Success'
+    }
+
+    mockHttpTransport.requestRes.mockResolvedValueOnce(expectedRes)
+
+    const response = await sequenceManager.shutdownSequencer(subsystem, obsMode)
+
+    expect(response).toEqual(expectedRes)
+    verify(mockHttpTransport.requestRes).toBeCalledWith(
+      new Req.ShutdownSequencer(subsystem, obsMode, []),
       Res.ShutdownSequencersOrSeqCompResponseD
     )
   })
