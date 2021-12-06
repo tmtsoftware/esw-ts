@@ -1,8 +1,15 @@
 import 'whatwg-fetch'
-import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService, Variation } from '../../src'
+import {
+  AgentProvisionConfig,
+  ComponentId,
+  ObsMode,
+  Prefix,
+  ProvisionConfig,
+  SequenceManagerService,
+  Variation
+} from '../../src'
 import { VariationInfo } from '../../src/clients/sequence-manager/models/VariationInfo'
 import { setAppName } from '../../src/config/AppName'
-import { VariationInfoD } from '../../src/decoders/VariationInfoDecoder'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
