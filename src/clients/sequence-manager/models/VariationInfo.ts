@@ -1,4 +1,5 @@
-import type { Subsystem } from '../../../models'
+import type { ObsMode } from '..'
+import { Prefix, Subsystem } from '../../../models'
 import { splitSubsystemComponentName, parseSubsystemStr } from '../../../utils/Utils'
 import { Variation } from './Variation'
 
@@ -16,7 +17,11 @@ export class VariationInfo {
     return new VariationInfo(parseSubsystemStr(sub), new Variation(variation))
   }
 
+  prefix(obsMode: ObsMode) {
+    return new Prefix(this.subsystem, this.variation ? obsMode.name + SEPARATOR + this.variation.name : obsMode.name)
+  }
+
   toJSON(): string {
-    return this.variation ? this.subsystem + '.' + this.variation.name : this.subsystem
+    return this.variation ? this.subsystem + SEPARATOR + this.variation.name : this.subsystem
   }
 }
