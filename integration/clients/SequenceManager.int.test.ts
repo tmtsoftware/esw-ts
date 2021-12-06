@@ -1,6 +1,8 @@
 import 'whatwg-fetch'
-import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService } from '../../src'
+import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService, Variation } from '../../src'
+import { VariationInfo } from '../../src/clients/sequence-manager/models/VariationInfo'
 import { setAppName } from '../../src/config/AppName'
+import { VariationInfoD } from '../../src/decoders/VariationInfoDecoder'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -65,7 +67,7 @@ describe('Sequence Manager Client', () => {
         {
           obsMode: new ObsMode('DarkNight_1'),
           resources: ['ESW', 'IRIS'],
-          sequencers: [Prefix.fromString('ESW.DarkNight_1'), Prefix.fromString('TCS.DarkNight_1')],
+          sequencers: [VariationInfo.fromString('ESW.DarkNight_1'), VariationInfo.fromString('TCS.DarkNight_1')],
           status: {
             _type: 'Configured'
           }
@@ -73,7 +75,10 @@ describe('Sequence Manager Client', () => {
         {
           obsMode: new ObsMode('DarkNight_2'),
           resources: ['IRIS', 'TCS'],
-          sequencers: [Prefix.fromString('ESW.DarkNight_2'), Prefix.fromString('IRIS.DarkNight_2.IRIS_IMAGER')],
+          sequencers: [
+            VariationInfo.fromString('ESW.DarkNight_2'),
+            VariationInfo.fromString('IRIS.DarkNight_2.IRIS_IMAGER')
+          ],
           status: {
             _type: 'Configurable'
           }
@@ -81,10 +86,10 @@ describe('Sequence Manager Client', () => {
         {
           obsMode: new ObsMode('DarkNight_3'),
           resources: ['TCS'],
-          sequencers: [Prefix.fromString('TCS.DarkNight_3')],
+          sequencers: [VariationInfo.fromString('TCS.DarkNight_3')],
           status: {
             _type: 'NonConfigurable',
-            missingSequenceComponents: [new Prefix('TCS', 'DarkNight_3')]
+            missingSequenceComponentsFor: [new VariationInfo('TCS', new Variation('DarkNight_3'))]
           }
         }
       ]

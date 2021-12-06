@@ -7,6 +7,7 @@ import { ComponentIdD } from './ComponentIdDecoder'
 import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
 import { SubsystemD } from './SubsystemDecoder'
+import { VariationInfoD } from './VariationInfoDecoder'
 
 export const ObsModeD: Decoder<ObsMode> = pipe(
   D.string,
@@ -15,7 +16,7 @@ export const ObsModeD: Decoder<ObsMode> = pipe(
 
 const SequenceComponentNotAvailableD: Decoder<T.SequenceComponentNotAvailable> = D.struct({
   _type: ciLiteral('SequenceComponentNotAvailable'),
-  sequencerPrefixes: D.array(PrefixD),
+  variationInfos: D.array(VariationInfoD),
   msg: D.string
 })
 
@@ -77,7 +78,7 @@ const ConfigurableD: Decoder<T.Configurable> = D.struct({
 
 const NonConfigurableD: Decoder<T.NonConfigurable> = D.struct({
   _type: ciLiteral('NonConfigurable'),
-  missingSequenceComponents: D.array(PrefixD)
+  missingSequenceComponentsFor: D.array(VariationInfoD)
 })
 
 export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.sum('_type')({
@@ -89,7 +90,7 @@ export const ObsModeStatusD: Decoder<T.ObsModeStatus> = D.sum('_type')({
 export const ObsModeDetailsD: Decoder<T.ObsModeDetails> = D.struct({
   obsMode: ObsModeD,
   status: ObsModeStatusD,
-  sequencers: D.array(PrefixD),
+  sequencers: D.array(VariationInfoD),
   resources: D.array(SubsystemD)
 })
 
