@@ -1,12 +1,10 @@
-import type { ComponentId } from '../../../models/ComponentId'
-import type { Prefix } from '../../../models/params/Prefix'
-import type { Subsystem } from '../../../models/params/Subsystem'
-import type { Failed, LocationServiceError, Unhandled } from '../../../models/types'
+import type { ComponentId, Prefix, Subsystem, Failed, LocationServiceError, Unhandled } from '../../../models'
 import type { ObsMode } from './ObsMode'
+import type { VariationInfo } from './VariationInfo'
 
 export type SequenceComponentNotAvailable = {
   _type: 'SequenceComponentNotAvailable'
-  subsystems: Subsystem[]
+  variationInfos: VariationInfo[]
   msg: string
 }
 
@@ -60,7 +58,7 @@ export type RestartSequencerSuccess = {
 
 export type NonConfigurable = {
   _type: 'NonConfigurable'
-  missingSequenceComponents: Subsystem[]
+  missingSequenceComponentsFor: VariationInfo[]
 }
 
 export type Configurable = {
@@ -77,7 +75,7 @@ export type ObsModeDetails = {
   obsMode: ObsMode
   status: ObsModeStatus
   resources: Subsystem[]
-  sequencers: Subsystem[]
+  sequencers: VariationInfo[]
 }
 
 export type ObsModesDetailsResponseSuccess = {

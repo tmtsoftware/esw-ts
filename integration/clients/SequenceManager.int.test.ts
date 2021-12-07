@@ -1,5 +1,14 @@
 import 'whatwg-fetch'
-import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, SequenceManagerService } from '../../src'
+import {
+  AgentProvisionConfig,
+  ComponentId,
+  ObsMode,
+  Prefix,
+  ProvisionConfig,
+  SequenceManagerService,
+  Variation
+} from '../../src'
+import { VariationInfo } from '../../src/clients/sequence-manager/models/VariationInfo'
 import { setAppName } from '../../src/config/AppName'
 import { startServices, stopServices } from '../utils/backend'
 
@@ -59,39 +68,32 @@ describe('Sequence Manager Client', () => {
 
   test('getObsModeDetails | ESW-469', async () => {
     const response = await sequenceManagerServiceWithValidToken.getObsModesDetails()
-
     expect(response).toEqual({
       _type: 'Success',
       obsModes: [
         {
-          obsMode: {
-            name: 'DarkNight_1'
-          },
+          obsMode: new ObsMode('DarkNight_1'),
           resources: ['ESW', 'IRIS'],
-          sequencers: ['ESW', 'TCS'],
+          sequencers: [VariationInfo.fromString('ESW.red'), VariationInfo.fromString('TCS.red')],
           status: {
             _type: 'Configured'
           }
         },
         {
-          obsMode: {
-            name: 'DarkNight_2'
-          },
+          obsMode: new ObsMode('DarkNight_2'),
           resources: ['IRIS', 'TCS'],
-          sequencers: ['ESW', 'IRIS'],
+          sequencers: [VariationInfo.fromString('ESW.red'), VariationInfo.fromString('IRIS.red')],
           status: {
             _type: 'Configurable'
           }
         },
         {
-          obsMode: {
-            name: 'DarkNight_3'
-          },
+          obsMode: new ObsMode('DarkNight_3'),
           resources: ['TCS'],
-          sequencers: ['TCS'],
+          sequencers: [VariationInfo.fromString('TCS.red')],
           status: {
             _type: 'NonConfigurable',
-            missingSequenceComponents: ['TCS']
+            missingSequenceComponentsFor: [new VariationInfo('TCS', new Variation('red'))]
           }
         }
       ]

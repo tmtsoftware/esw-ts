@@ -1,6 +1,7 @@
 import * as E from 'fp-ts/lib/Either'
 import * as D from 'io-ts/lib/Decoder'
-import type { Option } from '../models'
+import { SubsystemD } from '../decoders/SubsystemDecoder'
+import type { Option, Subsystem } from '../models'
 
 export const requirement = (assertion: boolean, msg: string) => {
   if (!assertion) throw Error(`Requirement failed - ${msg}`)
@@ -24,3 +25,16 @@ export const getPostEndPoint = (uri: { port: number; host: string }): string =>
 
 export const getWebSocketEndPoint = (uri: { port: number; host: string }): string =>
   uri.port ? `ws://${uri.host}:${uri.port}/websocket-endpoint` : `ws://${uri.host}/websocket-endpoint`
+
+export const parseSubsystemStr = (subsystem: string): Subsystem => {
+  const s = SubsystemD.decode(subsystem)
+  if (E.isLeft(s)) throw Error(`Subsystem: ${subsystem} is invalid`)
+  return s.right
+}
+
+export const splitSubsystemComponentName = (prefixStr: string, separator: string) => {
+  const stringParts = prefixStr.split(separator)
+  const sub = stringParts[0]
+  const componentName = stringParts.slice(1).join(separator)
+  return [sub, componentName]
+}

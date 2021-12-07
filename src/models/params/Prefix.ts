@@ -1,6 +1,4 @@
-import * as E from 'fp-ts/lib/Either'
-import { SubsystemD } from '../../decoders/SubsystemDecoder'
-import { requirement } from '../../utils/Utils'
+import { requirement, splitSubsystemComponentName, parseSubsystemStr } from '../../utils/Utils'
 import type { Subsystem } from './Subsystem'
 
 const SEPARATOR = '.'
@@ -8,19 +6,6 @@ const SEPARATOR = '.'
 const validateComponentName = (name: string) => {
   requirement(name === name.trim(), `component name ${name} has leading/trailing whitespace`)
   requirement(!name.includes('-'), `component name ${name} has '-'`)
-}
-
-const parseSubsystemStr = (subsystem: string): Subsystem => {
-  const s = SubsystemD.decode(subsystem)
-  if (E.isLeft(s)) throw Error(`Subsystem: ${subsystem} is invalid`)
-  return s.right
-}
-
-const splitSubsystemComponentName = (prefixStr: string) => {
-  const stringParts = prefixStr.split(SEPARATOR)
-  const sub = stringParts[0]
-  const componentName = stringParts.slice(1).join(SEPARATOR)
-  return [sub, componentName]
 }
 
 /**
@@ -50,7 +35,7 @@ export class Prefix {
    * @return a Prefix instance
    */
   static fromString = (prefixStr: string): Prefix => {
-    const [sub, componentName] = splitSubsystemComponentName(prefixStr)
+    const [sub, componentName] = splitSubsystemComponentName(prefixStr, SEPARATOR)
     validateComponentName(componentName)
     return new Prefix(parseSubsystemStr(sub), componentName)
   }

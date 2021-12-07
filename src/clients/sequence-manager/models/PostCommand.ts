@@ -1,6 +1,7 @@
 import type { Prefix, Subsystem } from '../../../models'
 import type { ObsMode } from './ObsMode'
 import type { ProvisionConfig } from './ProvisionConfig'
+import type { Variation } from './Variation'
 
 export class Configure {
   readonly _type: 'Configure' = 'Configure'
@@ -21,19 +22,19 @@ export class GetObsModesDetails {
 export class StartSequencer {
   readonly _type: 'StartSequencer' = 'StartSequencer'
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
+  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode, readonly variation: Variation[]) {} //optional representation on wire
 }
 
 export class RestartSequencer {
   readonly _type: 'RestartSequencer' = 'RestartSequencer'
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
+  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode, readonly variation: Variation[]) {} //optional representation on wire
 }
 
 export class ShutdownSequencer {
   readonly _type: 'ShutdownSequencer' = 'ShutdownSequencer'
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode) {}
+  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode, readonly variation: Variation[]) {} //optional representation on wire
 }
 
 export class ShutdownSubsystemSequencers {
