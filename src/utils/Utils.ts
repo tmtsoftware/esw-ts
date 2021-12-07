@@ -3,8 +3,6 @@ import * as D from 'io-ts/lib/Decoder'
 import { SubsystemD } from '../decoders/SubsystemDecoder'
 import type { Option, Subsystem } from '../models'
 
-const SEPARATOR = '.'
-
 export const requirement = (assertion: boolean, msg: string) => {
   if (!assertion) throw Error(`Requirement failed - ${msg}`)
 }
