@@ -74,7 +74,7 @@ describe('Sequence Manager Client', () => {
         {
           obsMode: new ObsMode('DarkNight_1'),
           resources: ['ESW', 'IRIS'],
-          sequencers: [VariationInfo.fromString('ESW.DarkNight_1'), VariationInfo.fromString('TCS.DarkNight_1')],
+          sequencers: [VariationInfo.fromString('ESW.red'), VariationInfo.fromString('TCS.red')],
           status: {
             _type: 'Configured'
           }
@@ -82,10 +82,7 @@ describe('Sequence Manager Client', () => {
         {
           obsMode: new ObsMode('DarkNight_2'),
           resources: ['IRIS', 'TCS'],
-          sequencers: [
-            VariationInfo.fromString('ESW.DarkNight_2'),
-            VariationInfo.fromString('IRIS.DarkNight_2.IRIS_IMAGER')
-          ],
+          sequencers: [VariationInfo.fromString('ESW.red'), VariationInfo.fromString('IRIS.red')],
           status: {
             _type: 'Configurable'
           }
@@ -93,10 +90,10 @@ describe('Sequence Manager Client', () => {
         {
           obsMode: new ObsMode('DarkNight_3'),
           resources: ['TCS'],
-          sequencers: [VariationInfo.fromString('TCS.DarkNight_3')],
+          sequencers: [VariationInfo.fromString('TCS.red')],
           status: {
             _type: 'NonConfigurable',
-            missingSequenceComponentsFor: [new VariationInfo('TCS', new Variation('DarkNight_3'))]
+            missingSequenceComponentsFor: [new VariationInfo('TCS', new Variation('red'))]
           }
         }
       ]
