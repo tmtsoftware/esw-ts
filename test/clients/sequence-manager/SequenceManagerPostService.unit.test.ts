@@ -100,7 +100,7 @@ describe('Sequence manager', function () {
     )
   })
 
-  test('should call restart sequencer with variation | ESW-365', async () => {
+  test('should call restart sequencer with variation | ESW-565', async () => {
     const expectedRes: T.RestartSequencerResponse = {
       _type: 'Success',
       componentId: masterSequencerComponentId
@@ -134,7 +134,7 @@ describe('Sequence manager', function () {
     )
   })
 
-  test('should call shutdown sequencer with variation | ESW-365', async () => {
+  test('should call shutdown sequencer with variation | ESW-565', async () => {
     const expectedRes: T.ShutdownSequencersResponse = {
       _type: 'Success'
     }
