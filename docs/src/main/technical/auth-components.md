@@ -18,7 +18,7 @@ Core implementation of Auth Components of `ESW-TS`, uses
 In order for web application utilize keycloak following steps are needed:
 
 - Registered web application as a public keycloak client
-Please refer to [keycloak documentation](https://www.keycloak.org/docs/latest/getting_started/index.html)
+Please refer to [keycloak documentation](https://www.keycloak.org/getting-started/getting-started-zip)
 for details.
 
 - Create new Keycloak client instance
