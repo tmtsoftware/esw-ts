@@ -68,7 +68,7 @@ Typescript
 ## Starting a Sequencer
 
 To start a Sequencer, `SequenceManagerService` provides `startSequencer` method.
-This method starts the sequencer for given subsystem and observation mode.
+This method starts the sequencer for given subsystem, observation mode and variation(optional parameter). Variation can be used when users whats to run multiple sequencers of the same susbystem and observation mode.
 It uses the subsystem's sequence component, if not available, fallbacks to ESW sequence component.
 
 Type definitions of `startSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#startsequencer)
@@ -81,7 +81,7 @@ Typescript
 ### Restarting a Sequencer
 
 To restart a Sequencer, `SequenceManagerService` provides `restartSequencer` method.
-This method restarts the existing running sequencer of given subsystem and observing mode.
+This method restarts the existing running sequencer of given subsystem, observation mode  and variation(optional parameter). Variation can be used when users whats to restart multiple sequencers of the same susbystem and observation mode.
 
 Type definitions of `restartSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#restartsequencer)
 
@@ -94,7 +94,7 @@ Typescript
 
 To shut down one or more Sequencer, `SequenceManagerService` provides following methods:
 
-- **shutdownSequencer** - This method shuts down the running sequencer of given subsystem and observation mode.
+- **shutdownSequencer** - This method shuts down the running sequencer of given subsystem,  observation mode  and variation(optional parameter). Variation can be used when users whats to shutdown multiple sequencers of the same susbystem and observation mode.
 
 Typescript
 : @@snip [shutdownSequencer](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#shutdownSequencer}

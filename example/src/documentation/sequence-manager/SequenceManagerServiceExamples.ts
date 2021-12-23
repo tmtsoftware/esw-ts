@@ -12,7 +12,8 @@ import {
   ShutdownSequencersResponse,
   StartSequencerResponse,
   ObsModesDetailsResponse,
-  ResourcesStatusResponse
+  ResourcesStatusResponse,
+  Variation
 } from '@tmtsoftware/esw-ts'
 
 const auth = { token: '' }
@@ -26,6 +27,7 @@ const sequenceManagerService: SequenceManagerService = await SequenceManagerServ
 
 //#configure
 const obsMode = new ObsMode('IRIS_DarkNight')
+const variation = new Variation('red')
 const configureResponse: ConfigureResponse = await sequenceManagerService.configure(obsMode)
 //#configure
 
@@ -44,20 +46,22 @@ const obsModesDetailsResponse: ObsModesDetailsResponse = await sequenceManagerSe
 //#getObsModesDetails
 
 //#startSequencer
-const startSequencerResponse: StartSequencerResponse = await sequenceManagerService.startSequencer('IRIS', obsMode)
+const startSequencerResponse: StartSequencerResponse = await sequenceManagerService.startSequencer('IRIS', obsMode, variation)
 //#startSequencer
 
 //#restartSequencer
 const restartSequencerResponse: RestartSequencerResponse = await sequenceManagerService.restartSequencer(
   'IRIS',
-  obsMode
+  obsMode, 
+  variation
 )
 //#restartSequencer
 
 //#shutdownSequencer
 const shutdownSequencerResponse: ShutdownSequencersResponse = await sequenceManagerService.shutdownSequencer(
   'IRIS',
-  obsMode
+  obsMode, 
+  variation
 )
 
 //#shutdownSequencer
