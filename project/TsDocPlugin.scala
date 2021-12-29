@@ -33,7 +33,7 @@ object TsDocPlugin extends AutoPlugin {
     Def.setting {
       sys.props.get("prod.publish") match {
         case Some("true") => s"https://tmtsoftware.github.io/esw-ts/${version.value}/$tsDocParentDir/%s"
-        case _            => s"file://${new File(target.value.getParent).getParent}/target/site/esw-ts/${version.value}/ts-docs/%s"
+        case _            => s"https://tmtsoftware.github.io/esw-ts/0.1.0-SNAPSHOT/$tsDocParentDir/%s"
       }
     }
 }

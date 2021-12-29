@@ -57,7 +57,7 @@ There are two ways to get/fetch a location information of a connection:
 1. Using resolve API
 1. Using find API
 
-Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/models.html#connection-1) a component to
+Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/models.html#connection) a component to
 resolve the location within some timeout duration.
 However, `find` API does not wait to resolve location. If the location is not present, it returns `undefined`.
 
