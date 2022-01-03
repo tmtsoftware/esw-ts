@@ -50,13 +50,13 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Command Service
 
-Type definitions of all Command Service methods can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html)
+Type definitions of all Command Service methods can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html)
 
 ## Validating command
 
 A `validate` message is used to ask a destination component to validate a command and determine if the command can be executed. It does not execute the command and only returns the result of validation. In some scenarios, it may be useful to test and see if a command can be executed prior to trying to execute the command.
 
-Type definitions of `validate` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#validate)
+Type definitions of `validate` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#validate)
 
 Typescript
 :   @@snip [validate](../../../../example/src/documentation/command/CommandExamples.ts) { #validate }
@@ -65,16 +65,16 @@ Typescript
 
 A `submit` message can be used when the sender of a command needs to do additional work before long-running actions are completed. For instance, send another command to execute in parallel. If commands are short, `submit` and `submitAndWait` behave the same way. When the actions started by submit are long-running, the caller can wait for the actions to complete if needed using the @ref[queryFinal](#querying-for-final-result) call.
 
-Type definitions of `submit` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submit)
+Type definitions of `submit` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#submit)
 
 Typescript
 :   @@snip [submit](../../../../example/src/documentation/command/CommandExamples.ts) { #submit }
 
 ## Submit And Wait for Response
 
-This is a convenience method which sends a `submit` message and if the command is long-running, it waits for final completion. Sending `submit` message with a command returns a @extref:[SubmitResponse](ts-docs:modules/models.html#submitresponse) as a Future.
+This is a convenience method which sends a `submit` message and if the command is long-running, it waits for final completion. Sending `submit` message with a command returns a @extref:[SubmitResponse](ts-docs:modules/models.html#SubmitResponse) as a Future.
 
-Type definitions of `submitAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submitandwait)
+Type definitions of `submitAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#submitandwait)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #submit-and-wait }
@@ -83,7 +83,7 @@ Typescript
 
 Similar to @ref[SubmitAndWait](#submit-and-wait-for-response), `submitAllAndWait` method can be used to send multiple commands sequentially to the same component. This could be used to send initialization commands to an HCD, for instance.
 
-Type definitions of `submitAllAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#submitallandwait)
+Type definitions of `submitAllAndWait` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#submitallandwait)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #submit-all-and-wait }
@@ -92,7 +92,7 @@ Typescript
 
 Oneway is useful when Command Service needs to send commands to an HCD as quickly as possible. The command gets validated on the destination and the validation response is returned, but no other responses are provided.
 
-Type definitions of `oneway` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#oneway)
+Type definitions of `oneway` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#oneway)
 
 Typescript
 :   @@snip [oneway](../../../../example/src/documentation/command/CommandExamples.ts) { #oneway }
@@ -101,7 +101,7 @@ Typescript
 
 This method is useful to get the result of a submitted command which returns a `Started` response if the command has triggered a long-running action, The caller can then determine that the actions have started properly, or wishes to poll the destination component for the final response using `queryFinal` method.
 
-Type definitions of `query` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#query)
+Type definitions of `query` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#query)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #query }
@@ -110,16 +110,16 @@ Typescript
 
 Similar to @ref[query](#querying-result), `queryFinal` uses the Id returned by `Started`. However, in this case rather than returning immediately like `query`, it waits and only returns when the final `SubmitResponse` is sent. The `queryFinal` method is useful exclusively with `submit` in the case where some other activity must be done before the actions started by the `submit` complete.
 
-Type definitions of `queryFinal` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#queryfinal)
+Type definitions of `queryFinal` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#queryfinal)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #query-final }
 
 ## SubscribeCurrentState
 
-This method can be used to subscribe to the @extref:[CurrentState](ts-docs:classes/models.currentstate.html) of a component by providing a callback that is called with the arrival of every `CurrentState` item.
+This method can be used to subscribe to the @extref:[CurrentState](ts-docs:classes/models.CurrentState.html) of a component by providing a callback that is called with the arrival of every `CurrentState` item.
 
-Type definitions of `subscribeCurrentState` method can be found @extref:[here](ts-docs:interfaces/clients.commandservice.html#subscribecurrentstate)
+Type definitions of `subscribeCurrentState` method can be found @extref:[here](ts-docs:interfaces/clients.CommandService.html#subscribecurrentstate)
 
 Typescript
 :   @@snip [query](../../../../example/src/documentation/command/CommandExamples.ts) { #subscribe-current-state }

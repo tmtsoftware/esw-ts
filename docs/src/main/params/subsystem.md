@@ -5,7 +5,7 @@ They are identified using an abbreviation typically of 3 or 4 letters.
 
 **Subsystem** values are used to construct **[Prefix](commands.html#Prefix)** and are used in communication vehicles such as Commands, Events and States.
 
-Type definition for Subsystem can be found @extref[here](ts-docs:modules/models.html#subsystem)
+Type definition for Subsystem can be found @extref[here](ts-docs:modules/models.html#Subsystem)
 
 ## List of Subsystems
 

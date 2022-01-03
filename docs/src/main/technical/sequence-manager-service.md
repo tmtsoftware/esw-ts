@@ -32,7 +32,7 @@ containing `Success` as `ConfigureResponse` after successful start of all requir
 
 The following example shows how to call `configure` method. Here machines will be setup for `'IRIS_DarkNight'` observation mode.
 
-Type definitions of `configure` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#configure)
+Type definitions of `configure` method can be found @extref:[here](ts-docs:interfaces/clients.SequenceManagerService.html#configure)
 
 Typescript
 : @@snip [configure](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#configure}
@@ -48,7 +48,7 @@ spawning of components.
 In following example, three sequence components will be spawned on `'ESW.agent-machine'` agent machine and two sequence
 component will be spawned on `'IRIS.agent-machine'` agent machine.
 
-Type definitions of `provision` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#provision)
+Type definitions of `provision` method can be found @extref:[here](ts-docs:interfaces/clients.SequenceManagerService.html#provision)
 
 Typescript
 : @@snip [provision](../../../../example/src/documentation/sequence-manager/SequenceManagerServiceExamples.ts){#provision}
@@ -58,7 +58,7 @@ Typescript
 To get all obsModes details, `SequenceManagerService` provides `getObsModesDetails` method.
 This method returns all the observation modes with their status.
 
-Type definitions of `getObsModesDetails` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getObsModesDetails)
+Type definitions of `getObsModesDetails` method can be found @extref:[here](ts-docs:interfaces/clients.SequenceManagerService.html#getObsModesDetails)
 
 The following example shows how to call `getObsModesDetails` method:
 
@@ -71,7 +71,7 @@ To start a Sequencer, `SequenceManagerService` provides `startSequencer` method.
 This method starts the sequencer for given subsystem, observation mode and variation(optional parameter). Variation can be used when users whats to run multiple sequencers of the same susbystem and observation mode.
 It uses the subsystem's sequence component, if not available, fallbacks to ESW sequence component.
 
-Type definitions of `startSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#startsequencer)
+Type definitions of `startSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.SequenceManagerService.html#startsequencer)
 
 The following example shows how to call `startSequencer` method:
 
@@ -83,7 +83,7 @@ Typescript
 To restart a Sequencer, `SequenceManagerService` provides `restartSequencer` method.
 This method restarts the existing running sequencer of given subsystem, observation mode  and variation(optional parameter). Variation can be used when users whats to restart multiple sequencers of the same susbystem and observation mode.
 
-Type definitions of `restartSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#restartsequencer)
+Type definitions of `restartSequencer` method can be found @extref:[here](ts-docs:interfaces/clients.SequenceManagerService.html#restartsequencer)
 
 The following example shows how to call `restartSequencer` method:
 
@@ -116,10 +116,10 @@ Typescript
 
 Type definitions of these methods are below:
 
-- @extref:[shutdownSequencer](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsequencer)
-- @extref:[shutdownSubsystemSequencers](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsubsystemsequencers)
-- @extref:[shutdownObsModeSequencers](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownobsmodesequencers)
-- @extref:[shutdownAllSequencers](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownallsequencers)
+- @extref:[shutdownSequencer](ts-docs:interfaces/clients.SequenceManagerService.html#shutdownsequencer)
+- @extref:[shutdownSubsystemSequencers](ts-docs:interfaces/clients.SequenceManagerService.html#shutdownsubsystemsequencers)
+- @extref:[shutdownObsModeSequencers](ts-docs:interfaces/clients.SequenceManagerService.html#shutdownobsmodesequencers)
+- @extref:[shutdownAllSequencers](ts-docs:interfaces/clients.SequenceManagerService.html#shutdownallsequencers)
 
 ## Shutting down Sequence Components
 
@@ -137,15 +137,15 @@ Typescript
 
 Type definitions of these methods are below:
 
-- @extref:[shutdownSequenceComponent](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownsequencecomponent)
-- @extref:[shutdownAllSequenceComponents](ts-docs:interfaces/clients.sequencemanagerservice.html#shutdownallsequencecomponents)
+- @extref:[shutdownSequenceComponent](ts-docs:interfaces/clients.SequenceManagerService.html#shutdownsequencecomponent)
+- @extref:[shutdownAllSequenceComponents](ts-docs:interfaces/clients.SequenceManagerService.html#shutdownallsequencecomponents)
 
 ## Getting Resources Status
 
 To get all Resources Status, `SequenceManagerService` provides `getResources` method.
 This method returns all the resources with their status(Available | InUse), if resource is in use it will also send obsMode along with it.
 
-Type definations of `getResources` method can be found @extref:[here](ts-docs:interfaces/clients.sequencemanagerservice.html#getResources)
+Type definations of `getResources` method can be found @extref:[here](ts-docs:interfaces/clients.SequenceManagerService.html#getResources)
 
 The following example shows how to call `getResources` method:
 

@@ -5,7 +5,7 @@ distributed TMT software system.
 
 A component’s location information can be used by other components and services to connect to it and use it.
 
-Type definition for location model can be found @extref[here](ts-docs:modules/models.html#location).
+Type definition for location model can be found @extref[here](ts-docs:modules/models.html#Location).
 
 ## Creation of Location Service
 
@@ -31,7 +31,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Location Service
 
-Type definitions for all methods can be found @extref[here](ts-docs:interfaces/clients.locationservice.html).
+Type definitions for all methods can be found @extref[here](ts-docs:interfaces/clients.LocationService.html).
 
 ## Listing & Filtering Locations
 
@@ -39,11 +39,11 @@ Location Service provides multiple ways to get list of locations registered in t
 
 Type definitions for relevant listings methods can be found by following links:
 
-1. @extref:[list](ts-docs:interfaces/clients.locationservice.html#list).
-1. @extref:[listByPrefix](ts-docs:interfaces/clients.locationservice.html#listbyprefix).
-1. @extref:[listByHostname](ts-docs:interfaces/clients.locationservice.html#listbyhostname).
-1. @extref:[listByComponentType](ts-docs:interfaces/clients.locationservice.html#listbycomponenttype).
-1. @extref:[listByConnectionType](ts-docs:interfaces/clients.locationservice.html#listbyconnectiontype).
+1. @extref:[list](ts-docs:interfaces/clients.LocationService.html#list).
+1. @extref:[listByPrefix](ts-docs:interfaces/clients.LocationService.html#listbyprefix).
+1. @extref:[listByHostname](ts-docs:interfaces/clients.LocationService.html#listbyhostname).
+1. @extref:[listByComponentType](ts-docs:interfaces/clients.LocationService.html#listbycomponenttype).
+1. @extref:[listByConnectionType](ts-docs:interfaces/clients.LocationService.html#listbyconnectiontype).
 
 Following example showcases the listByComponentType api usage
 
@@ -57,14 +57,14 @@ There are two ways to get/fetch a location information of a connection:
 1. Using resolve API
 1. Using find API
 
-Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/models.html#connection-1) a component to
+Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/models.html#Connection) a component to
 resolve the location within some timeout duration.
 However, `find` API does not wait to resolve location. If the location is not present, it returns `undefined`.
 
 Type definitions for both methods can be found by following links:
 
-1. @extref:[find](ts-docs:interfaces/clients.locationservice.html#find).
-1. @extref:[resolve](ts-docs:interfaces/clients.locationservice.html#resolve).
+1. @extref:[find](ts-docs:interfaces/clients.LocationService.html#find).
+1. @extref:[resolve](ts-docs:interfaces/clients.LocationService.html#resolve).
 
 Typescript
 : @@snip [Location-Service](../../../../example/src/documentation/location/LocationExample.ts) { #resolve }
@@ -74,7 +74,7 @@ Typescript
 This is a secure API and takes a type of Connection as an input argument to be unregistered from the Location Service
 and returns Done once unregistered.
 
-Type definitions for `unregister` method can be found @extref[here](ts-docs:interfaces/clients.locationservice.html#unregister)
+Type definitions for `unregister` method can be found @extref[here](ts-docs:interfaces/clients.LocationService.html#unregister)
 
 The following example shows `unregister` method can be called:
 
@@ -87,7 +87,7 @@ The lifecycle of a connection of interest can be followed using either the `trac
 will be received by the callback provided to this method. This method returns a subscription which can be used to cancel the
 tracking subscription.
 
-Type definitions for `track` method can be found @extref[here](ts-docs:interfaces/clients.locationservice.html#track)
+Type definitions for `track` method can be found @extref[here](ts-docs:interfaces/clients.LocationService.html#track)
 
 The following example shows `track` method can be called:
 

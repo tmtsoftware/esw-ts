@@ -25,4 +25,4 @@ A Web application specifically created for sending Control Command to a HCD comp
 1. Gateway Server on receiving correct payload, processes it and sends the Control Command to the destined HCD component.
 1. On successfully handling of command by HCD component, Gateway Server returns a `SuccessResponse`.
 1. ESW-TS handles the response and returns it, as it was received to the caller Web-UI component
-   or in case of error throws @extref:[ServiceError](ts-docs:classes/models.serviceerror.html).
+   or in case of error throws @extref:[ServiceError](ts-docs:classes/models.ServiceError.html).

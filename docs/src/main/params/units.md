@@ -3,7 +3,7 @@
 Listed below are Units of Measurement, supported by TMT observatory framework and are available as Enumerated values.
 `Units` are optionally attached to `Parameter` Keys.
 
-Type definition for Units can be found @extref[here](ts-docs:modules/models.html#units)
+Type definition for Units can be found @extref[here](ts-docs:classes/models.Units.html)
 
 @@@ note
 

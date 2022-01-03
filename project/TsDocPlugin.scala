@@ -18,7 +18,7 @@ object TsDocPlugin extends AutoPlugin {
     Seq(
       typeDocs := typeDocsTask.value,
       makeSite := makeSite.dependsOn(typeDocs).value,
-      makeSite / mappings  := {
+      makeSite / mappings := {
         val tsDocs = Path.allSubpaths(new File(target.value, tsDocParentDir))
         (makeSite / mappings).value ++ tsDocs.map { case (file, output) => (file, s"/$tsDocParentDir/$output") }
       }
@@ -31,9 +31,6 @@ object TsDocPlugin extends AutoPlugin {
 
   def tsDocPath: Def.Initialize[String] =
     Def.setting {
-      sys.props.get("prod.publish") match {
-        case Some("true") => s"https://tmtsoftware.github.io/esw-ts/${version.value}/$tsDocParentDir/%s"
-        case _            => s"file://${new File(target.value.getParent).getParent}/target/site/esw-ts/${version.value}/ts-docs/%s"
-      }
+      s"https://tmtsoftware.github.io/esw-ts/${version.value}/$tsDocParentDir/%s"
     }
 }
