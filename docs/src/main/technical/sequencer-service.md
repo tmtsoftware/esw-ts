@@ -38,7 +38,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 @@@
 
-Type Definitions for Sequencer Service can be found @extref:[here](ts-docs:interfaces/clients.sequencerservice.html)
+Type Definitions for Sequencer Service can be found @extref:[here](ts-docs:interfaces/clients.SequencerService.html)
 
 ### Loading and Starting a Sequence into a Sequencer
 
@@ -55,10 +55,10 @@ and a `Started` response gets returned. Otherwise, a negative SubmitResponse get
 
 Type definitions for methods used in the given example are :
 
-1. @extref[loadSequence](ts-docs:interfaces/clients.sequencerservice.html#loadsequence)
-1. @extref[startSequence](ts-docs:interfaces/clients.sequencerservice.html#startsequence)
-1. @extref[query](ts-docs:interfaces/clients.sequencerservice.html#query)
-1. @extref[queryFinal](ts-docs:interfaces/clients.sequencerservice.html#queryfinal)
+1. @extref[loadSequence](ts-docs:interfaces/clients.SequencerService.html#loadsequence)
+1. @extref[startSequence](ts-docs:interfaces/clients.SequencerService.html#startsequence)
+1. @extref[query](ts-docs:interfaces/clients.SequencerService.html#query)
+1. @extref[queryFinal](ts-docs:interfaces/clients.SequencerService.html#queryfinal)
 
 Typescript
 : @@snip [loadSequence](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #loadSequence }
@@ -70,7 +70,7 @@ which takes list of `SequenceCommands` and returns `Promise<OkOrUnhandledRespons
 If Sequencer is still in execution, then given list of `SequenceCommands` gets added into the sequence after all the pending steps
 and a `Ok` response gets returned. Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `add` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#add)
+Type definitions for `add` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#add)
 
 Typescript
 : @@snip [add](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #add }
@@ -82,7 +82,7 @@ which takes list of `SequenceCommands` and returns `Promise<OkOrUnhandledRespons
 If Sequencer is still in execution, then given list of `SequenceCommands` gets added into the sequence before all the pending steps
 and a `Ok` response gets returned. Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `prepend` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#prepend)
+Type definitions for `prepend` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#prepend)
 
 Typescript
 : @@snip [prepend](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #prepend }
@@ -96,7 +96,7 @@ Or if the command is already finished or in flight, then a `CannotOperateOnAnInF
 In case, if the command is still pending, then it gets replaced with the given list of `SequenceCommands`.
 Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `replace` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#replace)
+Type definitions for `replace` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#replace)
 
 Typescript
 : @@snip [replace](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #replace }
@@ -110,7 +110,7 @@ Or if the command is already finished or in flight, then a `CannotOperateOnAnInF
 In case, if the command is still pending, then the given list of `SequenceCommands` gets inserted after it.
 Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `insertAfter` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#insertafter)
+Type definitions for `insertAfter` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#insertafter)
 
 Typescript
 : @@snip [insertAfter](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #insertAfter }
@@ -124,7 +124,7 @@ Or if the command of the given `Id`, is not present in sequence, then `IdDoesNot
 Or if the command is still pending, then it gets deleted and `Ok` response gets returned.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
 
-Type definitions for `delete` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#delete)
+Type definitions for `delete` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#delete)
 
 Typescript
 : @@snip [delete](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #delete }
@@ -138,7 +138,7 @@ Or if the command of the given `Id`, is not present in sequence, then `IdDoesNot
 Or if the command is still pending, then breakpoint gets added and `Ok` response gets returned.
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
 
-Type definitions for `addBreakpoint` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#addbreakpoint)
+Type definitions for `addBreakpoint` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#addbreakpoint)
 
 Typescript
 : @@snip [addBreakpoint](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #addBreakpoint }
@@ -151,7 +151,7 @@ If sequencer is not in `Running` state, then `Unhandled` response gets returned.
 Or if the command of the given `Id`, is not present in sequence, then `IdDoesNotExist` response gets returned.
 Otherwise, breakpoint gets removed and `Ok` response gets returned.
 
-Type definitions for `removeBreakpoint` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#removebreakpoint)
+Type definitions for `removeBreakpoint` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#removebreakpoint)
 
 Typescript
 : @@snip [removeBreakpoint](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #removeBreakpoint }
@@ -163,7 +163,7 @@ If sequencer is in `Running` state, then an `Ok` response gets returned if there
 Otherwise, a `CannotOperateOnAnInFlightOrFinishedStep` response gets returned.
 Or if sequencer is not in `Running` state, then `Unhandled` response gets returned.
 
-Type definitions for `pause` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#pause)
+Type definitions for `pause` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#pause)
 
 Typescript
 : @@snip [pause](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #pause }
@@ -174,7 +174,7 @@ To resume a paused sequence, `SequencerService` provides `resume` method which r
 If sequencer is in `Running` state, an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `resume` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#resume)
+Type definitions for `resume` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#resume)
 
 Typescript
 : @@snip [resume](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #resume }
@@ -185,7 +185,7 @@ To get the sequence from the Sequencer, `SequencerService` provides `getSequence
 which returns the `StepList` (runtime representation of the sequence).
 if there is no sequence executing in the Sequencer, an `undefined` response gets returned.
 
-Type definitions for `getSequence` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#getsequence)
+Type definitions for `getSequence` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#getsequence)
 
 Typescript
 : @@snip [getSequence](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #getSequence }
@@ -196,7 +196,7 @@ To check if Sequencer is available, `SequencerService` provides `isAvailable` me
 which returns `Promise<boolean>`.
 If Sequencer is in `Idle` state, then a `true` gets returned. Otherwise, `false` response gets returned.
 
-Type definitions for `isAvailable` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#isavailable)
+Type definitions for `isAvailable` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#isavailable)
 
 Typescript
 : @@snip [isAvailable](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #isAvailable }
@@ -207,7 +207,7 @@ To check if Sequencer is online, `SequencerService` provides `isOnline` method
 which returns `Promise<boolean>`.
 If Sequencer is in `Idle` state, then a `true` gets returned. Otherwise, `false` gets returned.
 
-Type definitions for `isOnline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#isonline)
+Type definitions for `isOnline` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#isonline)
 
 Typescript
 : @@snip [isOnline](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #isOnline }
@@ -219,7 +219,7 @@ which returns `Promise<OkOrUnhandledResponse>`.
 If Sequencer is in `Running` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `reset` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#reset)
+Type definitions for `reset` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#reset)
 
 Typescript
 : @@snip [reset](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #reset }
@@ -231,7 +231,7 @@ To discard all the pending `Steps` and call the onAbortSequence handler of the s
 If Sequencer is in `Running` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `abortSequence` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#abortsequence)
+Type definitions for `abortSequence` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#abortsequence)
 
 Typescript
 : @@snip [abortSequence](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #abortSequence }
@@ -243,7 +243,7 @@ To discard all the pending `Steps` and call the onStop handler of the script,
 If Sequencer is in `Running` state, then an `Ok` response gets returned.
 Otherwise, an `Unhandled` response gets returned.
 
-Type definitions for `stop` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#stop)
+Type definitions for `stop` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#stop)
 
 Typescript
 : @@snip [stop](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #stop }
@@ -257,7 +257,7 @@ then an `Ok` response gets returned (if `goOnline` handler gets executed success
 Otherwise, a `GoOnlineHookFailed` response gets returned.
 Although, if Sequencer is in `Running` state, then an `Unhandled` response gets returned.
 
-Type definitions for `goOnline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#goonline)
+Type definitions for `goOnline` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#goonline)
 
 Typescript
 : @@snip [goOnline](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #goOnline }
@@ -271,7 +271,7 @@ then an `Ok` response gets returned (if `goOffline` handler gets executed succes
 Otherwise, a `GoOfflineHookFailed` response gets returned.
 Although, if Sequencer is in `Running` state, then an `Unhandled` response gets returned.
 
-Type definitions for `goOffline` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#gooffline)
+Type definitions for `goOffline` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#gooffline)
 
 Typescript
 : @@snip [goOffline](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #goOffline }
@@ -283,7 +283,7 @@ which returns `Promise<DiagnosticModeResponse>`.
 If diagnosticMode handler of the script successfully executes, then an `Ok` response gets returned.
 Otherwise, a `DiagnosticHookFailed` gets returned.
 
-Type definitions for `diagnosticMode` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#diagnosticmode)
+Type definitions for `diagnosticMode` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#diagnosticmode)
 
 Typescript
 : @@snip [diagnosticMode](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #diagnosticMode }
@@ -295,7 +295,7 @@ which returns `Promise<OperationsModeResponse>`.
 If operationsMode handler of the script successfully executes, then an `Ok` response gets returned.
 Otherwise, a `OperationsHookFailed` gets returned.
 
-Type definitions for `operationsMode` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#operationsmode)
+Type definitions for `operationsMode` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#operationsmode)
 
 Typescript
 : @@snip [operationsMode](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #operationsMode }
@@ -324,10 +324,10 @@ Typescript
 
 Type definitions for APIs used in the given example are :
 
-1. @extref[submit](ts-docs:interfaces/clients.sequencerservice.html#submit)
-1. @extref[submitAndWait](ts-docs:interfaces/clients.sequencerservice.html#submitandwait)
-1. @extref[query](ts-docs:interfaces/clients.sequencerservice.html#query)
-1. @extref[queryFinal](ts-docs:interfaces/clients.sequencerservice.html#queryFinal)
+1. @extref[submit](ts-docs:interfaces/clients.SequencerService.html#submit)
+1. @extref[submitAndWait](ts-docs:interfaces/clients.SequencerService.html#submitandwait)
+1. @extref[query](ts-docs:interfaces/clients.SequencerService.html#query)
+1. @extref[queryFinal](ts-docs:interfaces/clients.SequencerService.html#queryFinal)
 
 ### Getting Status of Sequencer
 
@@ -335,7 +335,7 @@ To get Sequencer's State, `SequenceService` provides `getSequencerState` method.
 This method returns `Promise<SequencerState>`
 the state of sequencer can be Idle, Processing, Loaded, Offline, Running
 
-Type definitions for `getSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#getSequencerState)
+Type definitions for `getSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#getSequencerState)
 
 Typescript
 : @@snip [getSequencerState](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #getSequencerState }
@@ -343,9 +343,9 @@ Typescript
 ### Subscribing to Sequencer State
 
 To subscribe to state of Sequencer, `subscribeSequencerState` method can be used. This method invokes the given `callback` on every state change with newly received `SequencerStateResponse`.
-`SequencerStateResponse` contains the current `SequencerState` and `StepList`. This method returns a `Subscription` which can be used to unsubscribe, as shown in example. 
+`SequencerStateResponse` contains the current `SequencerState` and `StepList`. This method returns a `Subscription` which can be used to unsubscribe, as shown in example.
 
-Type definitions for `subscribeSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.sequencerservice.html#subscribeSequencerState)
+Type definitions for `subscribeSequencerState` method used can be found @extref[here](ts-docs:interfaces/clients.SequencerService.html#subscribeSequencerState)
 
 Typescript
 : @@snip [subscribeSequencerState](../../../../example/src/documentation/sequencer/SequencerExamples.ts) { #subscribeSequencerState }

@@ -18,7 +18,7 @@ A prefix can be constructed with a string, but must start with a valid subsystem
 A component developer should supply a valid prefix string and the subsystem will be automatically parsed from it.
 An example of a valid string prefix is "nfiraos.ncc.trombone".
 
-Type definition can be found @[here](ts-docs:classes/models.prefix.html)
+Type definition can be found @[here](ts-docs:classes/models.Prefix.html)
 
 See below examples:
 
@@ -39,7 +39,7 @@ following arguments to create a `Setup` command.
 * ObsId: an optional observation id.
 * paramSet: Optional Set of Parameters. Default is empty.
 
-Type definition for Setup Command can be found @extref[here](ts-docs:classes/models.setup.html)
+Type definition for Setup Command can be found @extref[here](ts-docs:classes/models.Setup.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #setup }
@@ -48,7 +48,7 @@ Typescript
 
 This command describes a science observation. It is intended to be sent only to Science Detector Assemblies and Sequencers.
 
-Type definition for Observe Command can be found @extref[here](ts-docs:classes/models.observe.html)
+Type definition for Observe Command can be found @extref[here](ts-docs:classes/models.Observe.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #observe }
@@ -57,7 +57,7 @@ Typescript
 
 This command causes a Sequencer to wait until notified. It can only be sent to Sequencers.
 
-Type definition for Wait Command can be found @extref[here](ts-docs:classes/models.wait.html)
+Type definition for Wait Command can be found @extref[here](ts-docs:classes/models.Wait.html)
 
 Typescript
 :   @@snip [CommandsTest.scala](../../../../example/src/documentation/params/CommandExample.ts) { #wait }

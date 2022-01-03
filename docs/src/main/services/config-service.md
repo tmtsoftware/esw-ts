@@ -56,7 +56,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Config Service
 
-Type Definitions of all methods can be found @extref:[here](ts-docs:interfaces/clients.configservice.html)
+Type Definitions of all methods can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html)
 
 ## Creating File
 
@@ -64,7 +64,7 @@ This method takes `path` at which `configData` needs to be saved in the Config S
 whether to be saved as `annex` or `normal` file and comment. After saving, it returns `ConfigId` which can be used to
 access the saved file in the future using query methods.
 
-Type definitions of `create` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#create)
+Type definitions of `create` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#create)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #create }
@@ -74,7 +74,7 @@ Typescript
 This method takes `path` at which `configData` needs to be updated in the Config Service along with comment.
 After updating, it returns `ConfigId` which can be used to access the updated file in future using query methods.
 
-Type definitions of `update` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#update)
+Type definitions of `update` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#update)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #update }
@@ -94,21 +94,21 @@ Examples for each of the methods are as follows:
 
 - **getActive** : This method return the `ConfigData` of the active version for that file if it exists otherwise returns undefined.
 
-Type definitions of `getActive` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getactive)
+Type definitions of `getActive` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getactive)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-active }
 
 - **getLatest** : This method returns the `ConfigData` of the latest revision for that file if it exists otherwise returns undefined.
 
-Type definitions of `getLatest` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getlatest)
+Type definitions of `getLatest` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getlatest)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-latest }
 
 - **getById** : This method returns `ConfigData` based on the given `ConfigId` if it exists otherwise returns undefined.
 
-Type definitions of `getById` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getbyid)
+Type definitions of `getById` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getbyid)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-by-id }
@@ -119,7 +119,7 @@ Note:
 -If time-instance is before the file was created, the initial version is returned.
 -If time-instance is after the last change, the most recent version is returned.
 
-Type definitions of `getByTime` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getbytime)
+Type definitions of `getByTime` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getbytime)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-by-time }
@@ -129,7 +129,7 @@ Typescript
 This method checks whether file exists at the given `path` and optional specific `configId` in the repository and returns
 true if it does exist or else false.
 
-Type definitions of `exists` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#exists)
+Type definitions of `exists` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#exists)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #exists }
@@ -138,7 +138,7 @@ Typescript
 
 This method deletes a file located at specified `path` in the repository.
 
-Type definitions of `delete` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#delete)
+Type definitions of `delete` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#delete)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #delete }
@@ -150,7 +150,7 @@ files with the file path matching the given pattern.
 
 Some pattern examples are: `“/path/hcd/*.*”`, `“a/b/c/d.*”`, `“.*.conf”`, `“.*hcd.*”`
 
-Type definitions of `list` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#list)
+Type definitions of `list` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#list)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #list }
@@ -162,7 +162,7 @@ and `to`.
 
 The size of the list can be restricted using `maxResults`.
 
-Type definitions of `history` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#history)
+Type definitions of `history` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#history)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #history }
@@ -177,7 +177,7 @@ It includes:
 - min annex file size
 - max config file size
 
-Type definitions of `getMetadata` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getmetadata)
+Type definitions of `getMetadata` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getmetadata)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-metadata }
@@ -193,7 +193,7 @@ This method returns the history of `active` revisions of the file at the given `
 `from` and `to`.
 The size of the list can be restricted using `maxResults`.
 
-Type definitions of `historyActive` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#historyactive)
+Type definitions of `historyActive` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#historyactive)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #history-active }
@@ -204,7 +204,7 @@ This method sets the "active version" to be the version provided for the file at
 If this method is never called in a Config’s lifetime, the active version will always be the version returned by create
 function.
 
-Type definitions of `setActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#setactiveversion)
+Type definitions of `setActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#setactiveversion)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #set-active-version }
@@ -213,7 +213,7 @@ Typescript
 
 This method resets the "active version" of the file at the given path to the latest version.
 
-Type definitions of `resetActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#resetactiveversion)
+Type definitions of `resetActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#resetactiveversion)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #reset-active-version }
@@ -222,7 +222,7 @@ Typescript
 
 This method returns the revision ID which represents the "active version" of the file at the given path.
 
-Type definitions of `getActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getactiveversion)
+Type definitions of `getActiveVersion` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getactiveversion)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-active-version }
@@ -231,7 +231,7 @@ Typescript
 
 This method returns the content of `active` version of the file existed at given instant of `Time`
 
-Type definitions of `getActiveByTime` method can be found @extref:[here](ts-docs:interfaces/clients.configservice.html#getactivebytime)
+Type definitions of `getActiveByTime` method can be found @extref:[here](ts-docs:interfaces/clients.ConfigService.html#getactivebytime)
 
 Typescript
 : @@snip [Config-Service](../../../../example/src/documentation/config/ConfigExample.ts) { #get-active-by-time }

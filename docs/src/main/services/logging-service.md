@@ -26,7 +26,7 @@ Note that the examples are using async/await which makes handling of promises mo
 
 ## Usages of Logging Service
 
-Type Definition for the Logging Service interface can be found @extref[here](ts-docs:interfaces/clients.loggingservice.html)
+Type Definition for the Logging Service interface can be found @extref[here](ts-docs:interfaces/clients.LoggingService.html)
 
 ## Creating Log for an incident
 
@@ -36,7 +36,7 @@ I.e. when a user submits a setup command for a component using Command Service.
 
 User may want to create explicit log entry based on success or failure scenario.
 
-Type definition can be found - @extref:[here](ts-docs:interfaces/clients.loggingservice.html#log).
+Type definition can be found - @extref:[here](ts-docs:interfaces/clients.LoggingService.html#log).
 
 Typescript
 :   @@snip [LoggingService](../../../../example/src/documentation/log/LoggingServiceExamples.ts) { #logentry }

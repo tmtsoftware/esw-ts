@@ -29,7 +29,7 @@ Or, to install a specific version
 If you have used `esw-gateway-ui-template.g8` template for generating the application source code. Template generates a `AppConfig.js` file in `src/config/AppConfig.js`. It has applicationName that you provided while creating template. if you wish to change your application name this is the place where you can change it. Note that this change effects metrics & the deployment time folder name.
 
 Note: ESW-TS library will try to load this `applicationName` before making any backend service calls.
-@extref[AppConfig](ts-docs:modules/models.html#appconfig).
+@extref[AppConfig](ts-docs:modules/models.html#AppConfig).
 
 Typescript
 :   @@snip [settingpath](../../../../example/src/documentation/common/AppPath.tsx) { #set-app-name }

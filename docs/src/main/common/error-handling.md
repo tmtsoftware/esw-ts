@@ -8,7 +8,7 @@ To read more on exception handling, refer this [document](https://www.sitepoint.
 
 ### Service Error
 
-In TMT Architecture, @extref:[Service error](ts-docs:classes/models.serviceerror.html) captures all/most of the Service/Network level errors and exceptions.
+In TMT Architecture, @extref:[Service error](ts-docs:classes/models.ServiceError.html) captures all/most of the Service/Network level errors and exceptions.
 A runtime error which gets thrown **after** making Service's API and gets caught in the Service call's scaffolding snippet falls into this category.
 
 For example:
@@ -22,14 +22,14 @@ Using `CommandService` to submit a command for a non-existing component will res
 - **status**: 500
 - **statusText**: Internal Server error
 
-Type definition for Service Error can be found @extref:[here](ts-docs:classes/models.serviceerror.html)
+Type definition for Service Error can be found @extref:[here](ts-docs:classes/models.ServiceError.html)
 
 ### Client Side Error
 
 Any runtime error which gets thrown **before** making Service's API call falls into this category. The Errors and Exception caught at validation or at data creation time will be thrown before making API calls.
 
 For Example:
-@extref:[Prefix](ts-docs:classes/models.prefix.html) has a validation that it cannot have `-` or space in the componentName field.
+@extref:[Prefix](ts-docs:classes/models.Prefix.html) has a validation that it cannot have `-` or space in the componentName field.
 
 Following snippet will result into runtime error :
 it is a native browser's Error object with the message field and stacktrace. `message` field will contain the reason for which the validation failed.
