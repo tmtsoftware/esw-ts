@@ -1,5 +1,4 @@
 package csw.aas.js.config
-import akka.actor.ActorSystem
 import akka.stream.scaladsl.{RestartSource, Sink, Source}
 import akka.stream.{Materializer, RestartSettings}
 import os.Inherit
@@ -14,7 +13,7 @@ trait JsConfigServer {
   private val jsDir        = os.pwd / os.up / "example"
   private val configScript = jsDir / "config.sh"
 
-  def startNodeConfigServer()(implicit actorSystem: ActorSystem, ec: ExecutionContext, mat: Materializer): Future[Boolean] =
+  def startNodeConfigServer()(implicit ec: ExecutionContext, mat: Materializer): Future[Boolean] =
     if (run("start")) healthCheck("http://localhost:3000/")
     else Future.successful(false)
 
@@ -27,7 +26,7 @@ trait JsConfigServer {
 
   private def healthCheck(
       url: String
-  )(implicit actorSystem: ActorSystem, ec: ExecutionContext, mat: Materializer): Future[Boolean] =
+  )(implicit ec: ExecutionContext, mat: Materializer): Future[Boolean] =
     RestartSource
       .withBackoff(
         RestartSettings(minBackoff = 100.millis, maxBackoff = 500.millis, randomFactor = 0.2)
