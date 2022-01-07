@@ -4,14 +4,13 @@ import type {
   AltAzCoord,
   CometCoord,
   Coord,
-  EqCoord,
   EqFrame,
   MinorPlanetCoord,
   ProperMotion,
   SolarSystemCoord,
   SolarSystemObject
 } from '../models'
-import { Tag } from '../models'
+import { Tag, EqCoord } from '../models'
 import { Angle } from '../models/params/Angle'
 import { ciLiteral, Decoder } from './Decoder'
 
@@ -23,6 +22,16 @@ export const TagD: Decoder<Tag> = pipe(
 export const AngleD: Decoder<Angle> = pipe(
   D.number,
   D.parse((value) => D.success(new Angle(value)))
+)
+
+export const RaD: Decoder<Angle> = pipe(
+  D.string,
+  D.parse((value) => D.success(Angle.parseRaFromString(value)))
+)
+
+export const DecD: Decoder<Angle> = pipe(
+  D.string,
+  D.parse((value) => D.success(Angle.parseDeFromString(value)))
 )
 
 export const SolarSystemObjectD: Decoder<SolarSystemObject> = ciLiteral(
@@ -44,15 +53,18 @@ export const ProperMotionD: Decoder<ProperMotion> = D.struct({
   pmy: D.number
 })
 
-export const EqCoordD: Decoder<EqCoord> = D.struct({
-  _type: ciLiteral('EqCoord'),
-  tag: TagD,
-  ra: AngleD,
-  dec: AngleD,
-  frame: EqFrameD,
-  catalogName: D.string,
-  pm: ProperMotionD
-})
+export const EqCoordD: Decoder<EqCoord> = pipe(
+  D.struct({
+    _type: ciLiteral('EqCoord'),
+    tag: TagD,
+    ra: RaD,
+    dec: DecD,
+    frame: EqFrameD,
+    catalogName: D.string,
+    pm: ProperMotionD
+  }),
+  D.parse((value) => D.success(new EqCoord(value.tag, value.ra, value.dec, value.frame, value.catalogName, value.pm)))
+)
 
 export const MinorPlanetCoordD: Decoder<MinorPlanetCoord> = D.struct({
   _type: ciLiteral('MinorPlanetCoord'),
