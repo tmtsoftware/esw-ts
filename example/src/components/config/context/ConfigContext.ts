@@ -1,5 +1,8 @@
 import { ConfigService } from '@tmtsoftware/esw-ts'
 import { createContext } from 'react'
+import { setAppName } from '@tmtsoftware/esw-ts'
+import { AppConfig } from '../../../config/AppConfig'
+setAppName(AppConfig.applicationName)
 
 export let defaultConfigServiceState: ConfigService
 export let ConfigContext = createContext<ConfigService | undefined>(undefined)

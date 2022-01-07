@@ -46,13 +46,17 @@ const obsModesDetailsResponse: ObsModesDetailsResponse = await sequenceManagerSe
 //#getObsModesDetails
 
 //#startSequencer
-const startSequencerResponse: StartSequencerResponse = await sequenceManagerService.startSequencer('IRIS', obsMode, variation)
+const startSequencerResponse: StartSequencerResponse = await sequenceManagerService.startSequencer(
+  'IRIS',
+  obsMode,
+  variation
+)
 //#startSequencer
 
 //#restartSequencer
 const restartSequencerResponse: RestartSequencerResponse = await sequenceManagerService.restartSequencer(
   'IRIS',
-  obsMode, 
+  obsMode,
   variation
 )
 //#restartSequencer
@@ -60,7 +64,7 @@ const restartSequencerResponse: RestartSequencerResponse = await sequenceManager
 //#shutdownSequencer
 const shutdownSequencerResponse: ShutdownSequencersResponse = await sequenceManagerService.shutdownSequencer(
   'IRIS',
-  obsMode, 
+  obsMode,
   variation
 )
 

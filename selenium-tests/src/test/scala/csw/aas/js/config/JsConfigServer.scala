@@ -1,9 +1,7 @@
 package csw.aas.js.config
 import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{HttpRequest, StatusCodes}
-import akka.stream.Materializer
 import akka.stream.scaladsl.{RestartSource, Sink, Source}
+import akka.stream.{Materializer, RestartSettings}
 import os.Inherit
 
 import scala.concurrent.duration.DurationDouble
@@ -32,15 +30,13 @@ trait JsConfigServer {
   )(implicit actorSystem: ActorSystem, ec: ExecutionContext, mat: Materializer): Future[Boolean] =
     RestartSource
       .withBackoff(
-        minBackoff = 100.millis,
-        maxBackoff = 5.seconds,
-        randomFactor = 0.2,
-        maxRestarts = 20
+        RestartSettings(minBackoff = 100.millis, maxBackoff = 500.millis, randomFactor = 0.2)
+          .withMaxRestarts(count = 20, 10.seconds)
       ) { () =>
-        val statusF = Http().singleRequest(HttpRequest(uri = url)).map(_.status)
+        val statusF: Future[Int] = Future { requests.get(url).statusCode }
         Source
           .future(statusF)
-          .collect { case StatusCodes.OK => println(s"==== Server is up at: [$url] ===="); true }
+          .collect { case 200 => println(s"==== Server is up at: [$url] ===="); true }
           .recover { case x => println("RETRY: probing config node server"); throw x }
       }
       .runWith(Sink.head)

@@ -12,12 +12,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      # https://www.pika.dev/npm/snowpack/discuss/444
-      # following step is needed because snowpack is watching files from node_modules as well
-      - name: increase file watchers
-        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-
-      - uses: actions/checkout@v2
       - uses: laughedelic/coursier-setup@v1
         with:
           jvm: 11

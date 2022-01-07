@@ -14,20 +14,18 @@ object Libs {
 object ESW {
   private val defaultESWVersion = "cd601b9"
 
-  val Version: Option[String] = sys.props.get("prod.publish").collect {
-    case "true" =>
-      val env = sys.env ++ sys.props
-      env.getOrElse("ESW_VERSION", defaultESWVersion)
+  val Version: Option[String] = sys.props.get("prod.publish").collect { case "true" =>
+    val env = sys.env ++ sys.props
+    env.getOrElse("ESW_VERSION", defaultESWVersion)
   }
 }
 
 object CSW {
-  private val defaultCswVersion = "4.0.0"
+  private val defaultCswVersion = "bad08b0"
 
-  val Version: Option[String] = sys.props.get("prod.publish").collect {
-    case "true" =>
-      val env = sys.env ++ sys.props
-      env.getOrElse("CSW_VERSION", defaultCswVersion)
+  val Version: Option[String] = sys.props.get("prod.publish").collect { case "true" =>
+    val env = sys.env ++ sys.props
+    env.getOrElse("CSW_VERSION", defaultCswVersion)
   }
 
   private val _version      = Version.getOrElse(defaultCswVersion)

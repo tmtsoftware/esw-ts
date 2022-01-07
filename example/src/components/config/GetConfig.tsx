@@ -1,4 +1,5 @@
-import { download, ConfigData, Option } from '@tmtsoftware/esw-ts'
+import { download, ConfigData } from '@tmtsoftware/esw-ts'
+import type { Option } from '@tmtsoftware/esw-ts'
 import React, { useContext, useState } from 'react'
 import { ConfigContext } from './context/ConfigContext'
 import IOOperationComponent from './IOOperationComponent'
