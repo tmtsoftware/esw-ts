@@ -38,11 +38,8 @@ jobs:
           sbtn -Dprod.publish=true makeSite
           npm run build
 
-      - name: Unit tests
-        run: npm run test:unit:ci
-
-      - name: Integration tests
-        run: npm run test:integration:ci
+      - name: Tests
+        run: npm run test:ci
 
       - name: Build - Example App
         working-directory: ./example
