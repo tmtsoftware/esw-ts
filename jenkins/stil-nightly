@@ -36,15 +36,9 @@ pipeline {
             }
         }
 
-        stage('Unit tests') {
+        stage('Tests') {
             steps {
-                sh "JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:unit:ci"
-            }
-        }
-
-        stage('Integration tests') {
-            steps {
-                sh "JEST_JUNIT_OUTPUT_FILE=junit-int.xml npm run test:integration:ci"
+                sh "JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:ci"
             }
         }
 
