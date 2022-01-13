@@ -1,4 +1,4 @@
-import { Angle } from './Angle'
+import type { Angle } from './Angle'
 
 export type ProperMotion = {
   pmx: number
@@ -51,18 +51,6 @@ export class EqCoord {
     readonly catalogName: string,
     readonly pm: ProperMotion
   ) {}
-
-  toJSON() {
-    return {
-      _type: this._type,
-      tag: this.tag.toJSON(),
-      ra: Angle.raToString(this.ra.toRadian()),
-      dec: Angle.deToString(this.dec.toRadian()),
-      frame: this.frame,
-      catalogName: this.catalogName,
-      pm: this.pm
-    }
-  }
 }
 
 export class MinorPlanetCoord {

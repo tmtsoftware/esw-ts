@@ -152,8 +152,10 @@ export class Angle {
 
   private static formatSecs(sec: number, withLeadingZero: boolean): string {
     if (withLeadingZero) {
-      if (sec >= 10) return `${sec.toFixed(3)}`
-      else return `0${sec.toFixed(3)}`
+      if (sec >= 10)
+        return `${sec.toFixed(3)}`
+      else
+        return `0${sec.toFixed(3)}`
     } else {
       if (Angle.isNear(sec, 1)) return `${Math.round(sec)}`
       else if (Angle.isNear(sec, 0.1)) return `${sec.toFixed(1)}`
@@ -174,23 +176,29 @@ export class Angle {
    * @param withColon if true format as hh:mm:ss.sss, otherwise XXh XXm XXs
    * @return ra in string form
    */
-  static raToString(ra: number, withColon = true): string {
+  static raToString(ra: number, withColon: boolean = true): string {
     if (Angle.isNear(ra, Angle.H2R)) {
       const hour = Math.round(ra * Angle.R2H)
-      if (withColon) return `${Angle.zeroPad(hour)}:00:00.000`
-      else return `${hour}h`
+      if (withColon)
+        return `${Angle.zeroPad(hour)}:00:00.000`
+      else
+        return `${hour}h`
     } else if (Angle.isNear(ra, Angle.H2R / 60.0)) {
       const hour = Math.trunc(ra * Angle.R2H)
       const min = Math.round((ra - Angle.H2R * hour) * Angle.R2H * 60)
-      if (withColon) return `${Angle.zeroPad(hour)}:${Angle.zeroPad(min)}:00.000`
-      else return `${hour}h ${min}m`
+      if (withColon)
+        return `${Angle.zeroPad(hour)}:${Angle.zeroPad(min)}:00.000`
+      else
+        return `${hour}h ${min}m`
     } else {
       const hour = Math.trunc(ra * Angle.R2H)
       const min = Math.trunc((ra - Angle.H2R * hour) * Angle.R2H * 60)
       const sec = (ra - Angle.H2R * hour - (min * Angle.H2R) / 60) * Angle.R2H * 3600
       const s = Angle.formatSecs(sec, withColon)
-      if (withColon) return `${Angle.zeroPad(hour)}:${Angle.zeroPad(min)}:${s}`
-      else return `${hour}h ${min}m ${s}s`
+      if (withColon)
+        return `${Angle.zeroPad(hour)}:${Angle.zeroPad(min)}:${s}`
+      else
+        return `${hour}h ${min}m ${s}s`
     }
   }
 
@@ -202,25 +210,31 @@ export class Angle {
    * @param withColon if true format as hh:mm:ss.sss, otherwise XXh XXm XXs
    * @return de in string form
    */
-  static deToString(de2: number, withColon = true): string {
+  static deToString(de2: number, withColon: boolean = true): string {
     const [de, sign] = de2 < 0 ? [-de2, '-'] : [de2, '']
 
     if (Angle.isNear(de, Angle.D2R)) {
       const deg = Math.trunc(Math.round(de * Angle.R2D))
-      if (withColon) return `${sign}${Angle.zeroPad(deg)}:00:00.000`
-      else return sign + deg + Angle.DEGREE_SIGN
+      if (withColon)
+        return `${sign}${Angle.zeroPad(deg)}:00:00.000`
+      else
+        return sign + deg + Angle.DEGREE_SIGN
     } else if (Angle.isNear(de, Angle.M2R)) {
       const deg = Math.trunc(de * Angle.R2D)
       const min = Math.trunc((de - Angle.D2R * deg) * Angle.R2M)
-      if (withColon) return `${sign}${Angle.zeroPad(deg)}:${Angle.zeroPad(min)}:00.000`
-      else return sign + deg + Angle.DEGREE_SIGN + min + "'"
+      if (withColon)
+        return `${sign}${Angle.zeroPad(deg)}:${Angle.zeroPad(min)}:00.000`
+      else
+        return sign + deg + Angle.DEGREE_SIGN + min + "'"
     } else {
       const deg = Math.trunc(de * Angle.R2D)
       const min = Math.trunc((de - Angle.D2R * deg) * Angle.R2D * 60)
       const sec = (de - Angle.D2R * deg - (min * Angle.D2R) / 60) * Angle.R2D * 3600
       const s = Angle.formatSecs(sec, withColon)
-      if (withColon) return `${sign}${Angle.zeroPad(deg)}:${Angle.zeroPad(min)}:${s}`
-      else return sign + deg + Angle.DEGREE_SIGN + min + "'" + s + '"'
+      if (withColon)
+        return `${sign}${Angle.zeroPad(deg)}:${Angle.zeroPad(min)}:${s}`
+      else
+        return sign + deg + Angle.DEGREE_SIGN + min + "'" + s + '"'
     }
   }
 
