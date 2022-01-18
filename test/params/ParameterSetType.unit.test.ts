@@ -12,7 +12,9 @@ class ParameterSetTypeTest extends ParameterSetType<ParameterSetTypeTest> {
 describe('ParameterSetType', () => {
   const intParam: Parameter<Key> = intKey('number').set([1, 2, 3])
   const stringParam: Parameter<Key> = stringKey('string').set(['abc', 'def'])
-  const rgbKey = choiceKey('RGB', ['Red', 'Green', 'Blue'])
+  type Color = 'Red' | 'Green' | 'Blue'
+  const colors: Color[] = ['Red', 'Green', 'Blue']
+  const rgbKey = choiceKey('RGB', colors)
   const rgbParam = rgbKey.set('Green')
   const intArrayParam = intArrayKey('array_key').set([
     [1, 2],
@@ -135,5 +137,12 @@ describe('ParameterSetType', () => {
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.remove(rgbKey)
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
     expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
+  })
+
+  test('get - choiceKey | ESW-380', () => {
+    const parameterSetType = new ParameterSetTypeTest([rgbParam, stringParam, intArrayParam])
+    const actualParameterSet = parameterSetType.get(rgbKey)
+    const expectedColors: Color[] = ['Green']
+    expect(actualParameterSet?.values).toEqual(expectedColors)
   })
 })

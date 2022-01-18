@@ -75,7 +75,7 @@ export interface CharKey extends BaseStringKey<'CharKey'> {}
 /**
  * @internal
  */
-export interface ChoiceKey extends mkRawKey<'ChoiceKey', ChoiceKey> {}
+export interface ChoiceKey<T extends string = string> extends mkRawKey<'ChoiceKey', T> {}
 /**
  * @internal
  */
@@ -295,7 +295,7 @@ export const taiTimeKey: (name: string, units?: Units) => BaseKey<TAITimeKey> = 
  * @return an instance of ChoiceKey for the given name, choices and units
  */
 export const choiceKey = <L extends string>(name: string, choices: readonly L[], units: Units = Units.NoUnits) =>
-  new ChoiceKeyFactory<ChoiceKey, readonly L[]>(name, 'ChoiceKey', choices, units)
+  new ChoiceKeyFactory<ChoiceKey<L>, readonly L[]>(name, 'ChoiceKey', choices, units)
 
 // Coord Keys
 
