@@ -84,7 +84,7 @@ describe('Positions to String', () => {
     expect('11:12:00.000').toEqual(Angle.raToString(Angle.H2R * 11 + (Angle.H2R * 12) / 60.0))
 
     expect('11h 12m 13s').toEqual(
-      Angle.raToString(Angle.H2R * 11 + (Angle.H2R * 12) / 60.0 + (Angle.H2R * 13) / 3600.0, false),
+      Angle.raToString(Angle.H2R * 11 + (Angle.H2R * 12) / 60.0 + (Angle.H2R * 13) / 3600.0, false)
     )
     expect('11:12:13.000').toEqual(
       Angle.raToString(Angle.H2R * 11 + (Angle.H2R * 12) / 60.0 + (Angle.H2R * 13) / 3600.0)
@@ -97,9 +97,7 @@ describe('Positions to String', () => {
       Angle.raToString(Angle.H2R * 11 + (Angle.H2R * 12) / 60.0 + (Angle.H2R * 13.3) / 3600.0)
     )
 
-    expect('01:02:03.330').toEqual(
-      Angle.raToString(Angle.parseRaFromString("01:02:03.33").toRadian())
-    )
+    expect('01:02:03.330').toEqual(Angle.raToString(Angle.parseRaFromString('01:02:03.33').toRadian()))
   })
 
   test('should convert Dec to string | ESW-526', () => {
@@ -112,21 +110,17 @@ describe('Positions to String', () => {
     expect('11' + Angle.DEGREE_SIGN + '12\'13"').toEqual(
       Angle.deToString(Angle.D2R * 11 + Angle.M2R * 12 + Angle.S2R * 13, false)
     )
-    expect('11:12:13.000').toEqual(
-      Angle.deToString(Angle.D2R * 11 + Angle.M2R * 12 + Angle.S2R * 13)
-    )
+    expect('11:12:13.000').toEqual(Angle.deToString(Angle.D2R * 11 + Angle.M2R * 12 + Angle.S2R * 13))
 
     expect('11' + Angle.DEGREE_SIGN + '12\'13.3"').toEqual(
       Angle.deToString(Angle.D2R * 11 + Angle.M2R * 12 + Angle.S2R * 13.3, false)
     )
-    expect('11:12:13.300').toEqual(
-      Angle.deToString(Angle.D2R * 11 + Angle.M2R * 12 + Angle.S2R * 13.3)
-    )
+    expect('11:12:13.300').toEqual(Angle.deToString(Angle.D2R * 11 + Angle.M2R * 12 + Angle.S2R * 13.3))
 
     expect('-11' + Angle.DEGREE_SIGN + "12'").toEqual(Angle.deToString(-(Angle.D2R * 11 + Angle.M2R * 12), false))
     expect('-11:12:00.000').toEqual(Angle.deToString(-(Angle.D2R * 11 + Angle.M2R * 12)))
 
-    expect('01:02:03.330').toEqual(Angle.deToString(Angle.parseDeFromString("01:02:03.33").toRadian()))
+    expect('01:02:03.330').toEqual(Angle.deToString(Angle.parseDeFromString('01:02:03.33').toRadian()))
   })
 })
 

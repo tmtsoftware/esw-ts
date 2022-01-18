@@ -19,8 +19,7 @@ const ConfigApp = () => {
             {/*// #create-config-component*/}
             <RealmRole
               realmRole='config-admin'
-              error={<RoleError message={"User do not have role 'config-admin' to create config"} />}
-            >
+              error={<RoleError message={"User do not have role 'config-admin' to create config"} />}>
               <CreateConfig />
             </RealmRole>
             {/*// #create-config-component*/}
