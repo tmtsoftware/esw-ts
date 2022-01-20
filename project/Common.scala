@@ -41,19 +41,13 @@ object Common {
       "-Ywarn-dead-code"
     ),
     Compile / doc / javacOptions ++= Seq("-Xdoclint:none"),
-    version := {
-      sys.props.get("prod.publish") match {
-        case Some("true") => version.value
-        case _            => "0.1.0-SNAPSHOT"
-      }
-    },
+    version := sys.env.getOrElse("JITPACK_VERSION", "0.1.0-SNAPSHOT"),
     commands += Command.command("openSite") { (state) =>
       val uri = s"file://${Project.extract(state).get(siteDirectory)}/${docsParentDir.value}/${version.value}/index.html"
       state.log.info(s"Opening browser at $uri ...")
       java.awt.Desktop.getDesktop.browse(new java.net.URI(uri))
       state
     },
-    isSnapshot := !sys.props.get("prod.publish").contains("true"),
     fork := true,
     detectCycles := true,
     autoCompilerPlugins := true,
