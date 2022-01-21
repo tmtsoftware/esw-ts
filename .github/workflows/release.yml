@@ -45,7 +45,7 @@ jobs:
         run: |
           sbtn scalafmtCheck
           sbtn clean
-          sbtn makeSite
+          sbtn -Dprod.publish=true makeSite
           npm run build
 
       - name: Tests
@@ -117,7 +117,7 @@ jobs:
           chmod +x /tmp/.git-askpass
           git config --global user.email "actions@github.com"
           git config --global user.name "Github Action"
-          sbt clean makeSite ghpagesPushSite
+          sbt -Dprod.publish=true clean makeSite ghpagesPushSite
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           GIT_ASKPASS: /tmp/.git-askpass

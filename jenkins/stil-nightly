@@ -53,7 +53,7 @@ pipeline {
 
         stage('Selenium Test') {
             steps {
-              sh "sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
+              sh "sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
             }
         }
     }
