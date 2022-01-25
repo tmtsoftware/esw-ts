@@ -8,8 +8,6 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 
 ### Changes
 
-- Add `nanometers` to Units
-
 ## [ESW-TS v0.2.0] - 2021-09-23
 
 * Movement of `getAgentStatus` api from SequenceManager service to AgentService
