@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { GATEWAY_CONNECTION } from '../../../src'
 import { AlarmService } from '../../../src/clients/alarm'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
@@ -7,8 +6,8 @@ import { HttpTransport } from '../../../src/utils/HttpTransport'
 
 jest.mock('../../../src/clients/alarm/AlarmServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockResolveGateway = mocked(resolve)
-const mockImpl = mocked(AlarmServiceImpl)
+const mockResolveGateway = jest.mocked(resolve)
+const mockImpl = jest.mocked(AlarmServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 mockResolveGateway.mockResolvedValue({

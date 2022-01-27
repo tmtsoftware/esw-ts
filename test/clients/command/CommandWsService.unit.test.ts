@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import type { CommandServicePostMessage } from '../../../src/clients/command/models/PostCommand'
 import * as WsReq from '../../../src/clients/command/models/WsCommand'
@@ -20,7 +19,7 @@ const onClose = noop
 const httpTransport: HttpTransport<GatewayComponentCommand<CommandServicePostMessage>> = new HttpTransport('')
 const ws = new Ws('')
 
-const mockedWsTransport = mocked(ws)
+const mockedWsTransport = jest.mocked(ws)
 
 const client = new CommandServiceImpl(compId, httpTransport, () => ws)
 

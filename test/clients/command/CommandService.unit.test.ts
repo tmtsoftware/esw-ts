@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { CommandService, ComponentId, GATEWAY_CONNECTION, Prefix } from '../../../src'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'
@@ -7,8 +6,8 @@ import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/command/CommandServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockResolveGateway = mocked(resolve)
-const mockImpl = mocked(CommandServiceImpl)
+const mockResolveGateway = jest.mocked(resolve)
+const mockImpl = jest.mocked(CommandServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'

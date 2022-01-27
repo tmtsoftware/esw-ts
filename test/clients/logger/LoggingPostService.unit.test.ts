@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { Prefix } from '../../../src'
 import type { GatewayLoggingPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
@@ -12,7 +11,7 @@ jest.mock('../../../src/utils/HttpTransport')
 
 const mockResponse = 'Done'
 const httpTransport: HttpTransport<GatewayLoggingPostRequest> = new HttpTransport('someUrl')
-const mockHttpTransport = mocked(httpTransport)
+const mockHttpTransport = jest.mocked(httpTransport)
 const loggingServiceImpl = new LoggingServiceImpl(httpTransport)
 
 describe('Logging Service', () => {

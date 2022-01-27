@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { AlarmKey } from '../../../src/clients/alarm'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
 import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'
@@ -11,7 +10,7 @@ jest.mock('../../../src/utils/HttpTransport')
 
 const httpTransport: HttpTransport<SetAlarmSeverity> = new HttpTransport('')
 const alarmService = new AlarmServiceImpl(httpTransport)
-const mockedHttpTransport = mocked(httpTransport)
+const mockedHttpTransport = jest.mocked(httpTransport)
 
 describe('Alarm service', () => {
   test('should set alarm severity for a given prefix | ESW-314', async () => {

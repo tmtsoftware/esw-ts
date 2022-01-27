@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'
 import { ConfigData, ConfigService } from '../../../src/clients/config-service'
@@ -11,11 +10,11 @@ import { del, get, head, post, put } from '../../../src/utils/Http'
 import { verify } from '../../helpers/JestMockHelpers'
 
 jest.mock('../../../src/utils/Http')
-const getMockFn = mocked(get)
-const postMockFn = mocked(post)
-const headMockFn = mocked(head)
-const putMockFn = mocked(put)
-const deleteMockFn = mocked(del)
+const getMockFn = jest.mocked(get)
+const postMockFn = jest.mocked(post)
+const headMockFn = jest.mocked(head)
+const putMockFn = jest.mocked(put)
+const deleteMockFn = jest.mocked(del)
 
 const uri = 'http://localhost:8080'
 const configLocation: HttpLocation = {

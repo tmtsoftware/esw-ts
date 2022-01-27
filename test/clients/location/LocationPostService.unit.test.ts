@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { AkkaLocation, Duration, HttpConnection } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
@@ -31,7 +30,7 @@ const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
 
 const httpTransport: HttpTransport<LocationHttpMessage> = new HttpTransport('someUrl')
-const mockHttpTransport = mocked(httpTransport)
+const mockHttpTransport = jest.mocked(httpTransport)
 
 const ws: Ws<LocationWebSocketMessage> = new Ws('someUrl')
 const locationService = new LocationServiceImpl(httpTransport, () => ws)

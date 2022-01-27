@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import {
   GetComponentLifecycleState,
@@ -22,7 +21,7 @@ import { verify } from '../../helpers/JestMockHelpers'
 jest.mock('../../../src/utils/HttpTransport')
 
 const httpTransport: HttpTransport<GatewayAdminPostRequest> = new HttpTransport('')
-const mockedHttpTransport = mocked(httpTransport)
+const mockedHttpTransport = jest.mocked(httpTransport)
 const adminServiceImpl = new AdminServiceImpl(httpTransport)
 const componentId = new ComponentId(new Prefix('ESW', 'filter'), 'HCD')
 

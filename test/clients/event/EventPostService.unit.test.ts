@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { EventKey, EventName, ObserveEvent, SystemEvent } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { GetEvent, PublishEvent } from '../../../src/clients/event/models/PostCommand'
@@ -15,7 +14,7 @@ jest.mock('../../../src/utils/HttpTransport')
 const mockResponse = 'Done'
 
 const httpTransport: HttpTransport<GatewayEventPostRequest> = new HttpTransport('someUrl')
-const mockHttpTransport = mocked(httpTransport)
+const mockHttpTransport = jest.mocked(httpTransport)
 
 const ws: Ws<GatewayEventWsRequest> = new Ws('someUrl')
 const client = new EventServiceImpl(httpTransport, () => ws)

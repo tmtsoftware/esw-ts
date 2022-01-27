@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { mocked } from 'jest-mock'
+
 import {
   ComponentId,
   intKey,
@@ -40,10 +40,10 @@ const mockResponse = Math.random().toString()
 const httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequest>> = new HttpTransport('someUrl', {
   tokenFactory: jest.fn()
 })
-const mockHttpTransport = mocked(httpTransport)
+const mockHttpTransport = jest.mocked(httpTransport)
 
 const ws: Ws<GatewaySequencerCommand<SequencerWebsocketRequest>> = new Ws('someUrl')
-const mockWs = mocked(ws)
+const mockWs = jest.mocked(ws)
 const sequencer = new SequencerServiceImpl(componentId, httpTransport, () => ws)
 
 const getGatewaySequencerCommand = (

@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { CONFIG_CONNECTION, TokenFactory } from '../../../src'
 import { ConfigService } from '../../../src/clients/config-service'
 import { ConfigServiceImpl } from '../../../src/clients/config-service/ConfigServiceImpl'
@@ -6,8 +5,8 @@ import { resolve } from '../../../src/clients/location/LocationUtils'
 
 jest.mock('../../../src/clients/config-service/ConfigServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockResolveConfigServer = mocked(resolve)
-const mockImpl = mocked(ConfigServiceImpl)
+const mockResolveConfigServer = jest.mocked(resolve)
+const mockImpl = jest.mocked(ConfigServiceImpl)
 
 const uri = { host: '123', port: 1234 }
 const tokenFactory: TokenFactory = () => 'validToken'

@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { ComponentId, Prefix } from '../../../src'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import type * as Req from '../../../src/clients/sequencer/models/PostCommand'
@@ -23,7 +22,7 @@ const httpTransport: HttpTransport<GatewaySequencerCommand<Req.SequencerPostRequ
 })
 
 const ws: Ws<GatewaySequencerCommand<SequencerWebsocketRequest>> = new Ws('someUrl')
-const mockWs = mocked(ws)
+const mockWs = jest.mocked(ws)
 const sequencer = new SequencerServiceImpl(componentId, httpTransport, () => ws)
 
 test('SequencerService should receive submit response on query final using websocket | ESW-307', async () => {
@@ -39,7 +38,8 @@ test('SequencerService should receive sequencer state response on subscribe sequ
   const onError = noop
   const onClose = noop
   sequencer.subscribeSequencerState()(callback, onError, onClose)
-
+  // MockedObject<Ws<GatewaySequencerCommand<SequencerWebsocketRequest>>>
+  // MockedObject<Ws<GatewaySequencerCommand<SequencerWebsocketRequest>>>
   verify(mockWs.subscribe).toBeCalledWith(
     new GatewaySequencerCommand(componentId, new SubscribeSequencerState()),
     callback,
