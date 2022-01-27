@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // #import-components-example
 import { AuthContextProvider, CheckLogin, RealmRole } from '@tmtsoftware/esw-ts'
 // #import-components-example
@@ -20,12 +20,11 @@ const ExampleApp = () => {
         // #AuthContextProvider-component-usage
         <AuthContextProvider config={{ realm: 'TMT', clientId: 'tmt-frontend-app' }}>
           <BrowserRouter basename={basename}>
-            <div>
-              <NavComponent />
+            <NavComponent />
+            <Routes>
               <Route
-                exact
                 path='/secured'
-                render={() => (
+                element={() => (
                   // #checkLogin-component-usage
                   <CheckLogin error={<LoginError />}>
                     <Write />
@@ -33,17 +32,15 @@ const ExampleApp = () => {
                   // #checkLogin-component-usage
                 )}
               />
-              <Route exact path='/config' render={() => <ConfigApp />} />
+              <Route path='/config' element={() => <ConfigApp />} />
               <Route
-                exact
                 path='/example_admin'
-                render={() => (
+                element={() => (
                   <CheckLogin error={<LoginError />}>
                     {/*// #realmRole-component-usage */}
                     <RealmRole
                       realmRole='example-admin-role'
-                      error={<RoleError message={'User do not have role : example-admin-role'} />}
-                    >
+                      error={<RoleError message={'User do not have role : example-admin-role'} />}>
                       <div>Example admin role specific functionality</div>
                     </RealmRole>
                     {/*// #realmRole-component-usage */}
@@ -51,21 +48,19 @@ const ExampleApp = () => {
                 )}
               />
               <Route
-                exact
                 path='/example_user'
-                render={() => (
+                element={() => (
                   <CheckLogin error={<LoginError />}>
                     <RealmRole
                       realmRole='person-role'
-                      error={<RoleError message={'User do not have role : person-role'} />}
-                    >
+                      error={<RoleError message={'User do not have role : person-role'} />}>
                       <div>Person role specific functionality</div>
                     </RealmRole>
                   </CheckLogin>
                 )}
               />
-              <Route exact path='/public' component={Read} />
-            </div>
+              <Route path='/public' element={<Read />} />
+            </Routes>
           </BrowserRouter>
         </AuthContextProvider>
         // #AuthContextProvider-component-usage
