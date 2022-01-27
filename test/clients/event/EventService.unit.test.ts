@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { GATEWAY_CONNECTION } from '../../../src'
 import { EventService } from '../../../src/clients/event/EventService'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'

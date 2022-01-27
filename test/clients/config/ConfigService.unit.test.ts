@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { CONFIG_CONNECTION, TokenFactory } from '../../../src'
 import { ConfigService } from '../../../src/clients/config-service'
 import { ConfigServiceImpl } from '../../../src/clients/config-service/ConfigServiceImpl'

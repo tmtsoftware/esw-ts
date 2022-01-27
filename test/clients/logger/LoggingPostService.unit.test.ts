@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { Prefix } from '../../../src'
 import type { GatewayLoggingPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'

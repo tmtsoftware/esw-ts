@@ -1,5 +1,5 @@
 import * as D from 'io-ts/lib/Decoder'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import {
   ComponentId,
   intKey,

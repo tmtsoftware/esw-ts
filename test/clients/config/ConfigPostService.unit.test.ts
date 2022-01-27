@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'
 import { ConfigData, ConfigService } from '../../../src/clients/config-service'

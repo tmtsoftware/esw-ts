@@ -1,5 +1,5 @@
 import Keycloak from 'keycloak-js'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { AuthStore } from '../../../src/clients/aas'
 import { HttpConnection, HttpLocation } from '../../../src/clients/location'
 import { resolve } from '../../../src/clients/location/LocationUtils'

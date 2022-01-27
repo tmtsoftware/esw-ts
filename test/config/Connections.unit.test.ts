@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { GlobalConfig } from '../../src'
 import { GATEWAY_CONNECTION, resolveConnection } from '../../src/config/Connections'
 import { post } from '../../src/utils/Http'

@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { HttpConnection, Prefix } from '../../../src'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'

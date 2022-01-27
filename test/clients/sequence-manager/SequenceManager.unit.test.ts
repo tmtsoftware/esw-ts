@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { SEQUENCE_MANAGER_CONNECTION } from '../../../src'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { SequenceManagerService } from '../../../src/clients/sequence-manager'

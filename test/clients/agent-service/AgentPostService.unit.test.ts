@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import type { Killed, Spawned, AgentStatusResponse } from '../../../src'
 import { ComponentId } from '../../../src'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'

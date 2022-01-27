@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, Subsystem, Variation } from '../../../src'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
 import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'

@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { AdminService } from '../../../src/clients/admin'
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'

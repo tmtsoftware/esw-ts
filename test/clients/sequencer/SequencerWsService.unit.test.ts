@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { ComponentId, Prefix } from '../../../src'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import type * as Req from '../../../src/clients/sequencer/models/PostCommand'

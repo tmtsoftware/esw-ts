@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { AkkaLocation, Duration, HttpConnection } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'

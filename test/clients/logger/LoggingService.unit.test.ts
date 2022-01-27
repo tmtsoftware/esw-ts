@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { LoggingService } from '../../../src/clients/logger'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'

@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { AGENT_SERVICE_CONNECTION, AuthData } from '../../../src'
 import { AgentService } from '../../../src/clients/agent-service'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'

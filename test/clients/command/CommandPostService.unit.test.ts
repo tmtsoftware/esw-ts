@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import type { CommandServicePostMessage, Submit } from '../../../src/clients/command/models/PostCommand'
 import * as Req from '../../../src/clients/command/models/PostCommand'

@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { CommandService, ComponentId, GATEWAY_CONNECTION, Prefix } from '../../../src'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'
