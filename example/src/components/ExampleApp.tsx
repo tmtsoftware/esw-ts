@@ -32,7 +32,7 @@ const ExampleApp = () => {
                   // #checkLogin-component-usage
                 )}
               />
-              <Route path='/config' element={() => <ConfigApp />} />
+              <Route path='/config' element={<ConfigApp />} />
               <Route
                 path='/example_admin'
                 element={() => (
