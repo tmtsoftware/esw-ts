@@ -27,7 +27,7 @@ const sequenceManagerService: SequenceManagerService = await SequenceManagerServ
 
 //#configure
 const obsMode = new ObsMode('IRIS_DarkNight')
-const variation = new Variation('red')
+const variation = new Variation('IRIS_Ifs')
 const configureResponse: ConfigureResponse = await sequenceManagerService.configure(obsMode)
 //#configure
 
