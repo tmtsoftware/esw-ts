@@ -158,7 +158,8 @@ const commandDecoders: Record<string, Decoder<any>> = {
   Result: ResultD,
   KeyType: keyTagDecoder,
   UTCTime: UTCTimeD,
-  TAITime: TAITimeD
+  TAITime: TAITimeD,
+  OperationalState: D.id()
 }
 
 const locationDecoders: Record<string, Decoder<any>> = {
