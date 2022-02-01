@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, Subsystem, Variation } from '../../../src'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
 import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'
@@ -11,7 +10,7 @@ jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
 
 const httpTransport = new HttpTransport('url', { tokenFactory: jest.fn() })
-const mockHttpTransport = mocked(httpTransport)
+const mockHttpTransport = jest.mocked(httpTransport)
 
 const sequenceManager = new SequenceManagerImpl(httpTransport)
 

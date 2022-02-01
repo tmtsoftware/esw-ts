@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { GATEWAY_CONNECTION } from '../../../src'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { SequencerService } from '../../../src/clients/sequencer'
@@ -9,8 +8,8 @@ import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/sequencer/SequencerServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockResolveGateway = mocked(resolve)
-const mockImpl = mocked(SequencerServiceImpl)
+const mockResolveGateway = jest.mocked(resolve)
+const mockImpl = jest.mocked(SequencerServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'

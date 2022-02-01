@@ -20,5 +20,4 @@
 After release pipeline is green:
 
 1. Verify ESW-TS is published on npm registry successfully with the expected version.
-1. Update the version back with `<****>` in `release.yml` NPM publish step on `branch-<major>.<minor>.x` branch.
 1. Merge this release branch to master.

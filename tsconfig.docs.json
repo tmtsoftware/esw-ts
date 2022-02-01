@@ -33,7 +33,7 @@
     ],
     "out": "./docs/target/ts-docs",
     "exclude": [
-      "**/*+(**Impl|**PostCommand|**WsCommand|**index).ts",
+      "**/*+(**Impl|**PostCommand|**WsCommand).ts",
       "**/decoders/*",
       "**/utils/*",
       "**/clients/gateway/**",
@@ -41,9 +41,12 @@
     ],
     "excludePrivate": true,
     "excludeInternal": true,
-    "plugin" : "typedoc-plugin-external-module-map",
-    "external-modulemap" : ".*\/(clients|components|models|config)\/",
+    "plugin" : ["typedoc-plugin-external-module-map", "typedoc-plugin-missing-exports"],
+    "external-modulemap" : ".*\/(clients|components|models|config)[\\w\\-_]+\/",
     "categorizeByGroup": true,
+    "validation": {
+      "notExported": false
+    },
     "categoryOrder": [
       "Service",
       "Common",

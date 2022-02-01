@@ -7,13 +7,13 @@ on:
 
 jobs:
   paradox:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: branch-0.2.x
-      - uses: laughedelic/coursier-setup@v1
+          ref: branch-0.3.x
+      - uses: coursier/setup-action@v1
         with:
           jvm: 11
       - uses: coursier/cache-action@v5

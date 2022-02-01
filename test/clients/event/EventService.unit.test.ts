@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { GATEWAY_CONNECTION } from '../../../src'
 import { EventService } from '../../../src/clients/event/EventService'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
@@ -8,8 +7,8 @@ import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/event/EventServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockResolveGateway = mocked(resolve)
-const mockImpl = mocked(EventServiceImpl)
+const mockResolveGateway = jest.mocked(resolve)
+const mockImpl = jest.mocked(EventServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'

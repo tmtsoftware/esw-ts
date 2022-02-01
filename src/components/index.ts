@@ -8,5 +8,5 @@ import Logout from './aas/Logout'
 // #export-components
 export { Logout, Login, CheckLogin, RealmRole, AuthContextProvider, Consumer, AuthContext }
 
-export type { AuthContextType }
 // #export-components
+export type { AuthContextType }

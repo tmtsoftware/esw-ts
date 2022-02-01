@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import type { CommandServicePostMessage, Submit } from '../../../src/clients/command/models/PostCommand'
 import * as Req from '../../../src/clients/command/models/PostCommand'
@@ -19,8 +18,8 @@ const eswTestPrefix = new M.Prefix('ESW', 'test')
 
 const httpTransport: HttpTransport<GatewayComponentCommand<Req.CommandServicePostMessage>> = new HttpTransport('')
 const ws = new Ws('')
-const mockedHttpTransport = mocked(httpTransport)
-const mockedWsTransport = mocked(ws)
+const mockedHttpTransport = jest.mocked(httpTransport)
+const mockedWsTransport = jest.mocked(ws)
 const client = new CommandServiceImpl(compId, httpTransport, () => ws)
 
 describe('CommandService', () => {

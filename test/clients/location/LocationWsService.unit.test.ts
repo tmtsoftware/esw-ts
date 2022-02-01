@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { HttpConnection, Prefix } from '../../../src'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
@@ -15,7 +14,7 @@ const prefix = new Prefix('ESW', 'MoonNight')
 const httpConnection = HttpConnection(prefix, 'Sequencer')
 
 const ws: Ws<LocationWebSocketMessage> = new Ws('someUrl')
-const mockWs = mocked(ws)
+const mockWs = jest.mocked(ws)
 
 const httpTransport: HttpTransport<LocationHttpMessage> = new HttpTransport('someUrl')
 const locationService = new LocationServiceImpl(httpTransport, () => ws)

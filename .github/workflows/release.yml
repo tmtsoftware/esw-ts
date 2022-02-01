@@ -8,16 +8,12 @@ on:
 jobs:
   release:
     env:
-      CSW_VERSION: "4.0.0" # Change before releasing (before tagging repo)
-      ESW_VERSION: "0.3.0"
-    runs-on: ubuntu-18.04
+      CSW_VERSION: "4.0.1-RC1" # Change before releasing (before tagging repo)
+      ESW_VERSION: "0.4.0-RC1"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: increase file watchers
-        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-
-      - uses: actions/checkout@v2
-      - uses: laughedelic/coursier-setup@v1
+      - uses: coursier/setup-action@v1
         with:
           jvm: 11
           apps: sbt sbtn
@@ -29,6 +25,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Get tag
+        id: tag
         uses: dawidd6/action-get-tag@v1
         with:
           #strip `v` prefix
@@ -45,7 +42,7 @@ jobs:
         run: |
           sbtn scalafmtCheck
           sbtn clean
-          sbtn -Dprod.publish=true makeSite
+          sbt -Dprod.publish=true makeSite
           npm run build
 
       - name: Tests
@@ -58,7 +55,7 @@ jobs:
           npm run build
 
       - name: Selenium Test
-        run: sbt -DgenerateStoryReport=true -DRTM_PATH=./RTM clean test
+        run: sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM clean test
 
       - name: Generate RTM
         if: always()
@@ -84,7 +81,7 @@ jobs:
 
       - name: NPM Publish
         run: |
-          npm version v0.2.0 --allow-same-version --no-git-tag-version
+          npm version v0.3.0-RC1 --allow-same-version --no-git-tag-version
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

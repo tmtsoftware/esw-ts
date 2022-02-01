@@ -1,9 +1,8 @@
-import { mocked } from 'ts-jest/utils'
 import { GlobalConfig } from '../../src'
 import { GATEWAY_CONNECTION, resolveConnection } from '../../src/config/Connections'
 import { post } from '../../src/utils/Http'
 jest.mock('../../src/utils/Http')
-const postMockFn = mocked(post, true)
+const postMockFn = jest.mocked(post, true)
 afterEach(() => {
   jest.clearAllMocks()
 })

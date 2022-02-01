@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { LocationService } from '../../../src/clients/location/LocationService'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import { HttpTransport } from '../../../src/utils/HttpTransport'
@@ -7,10 +6,10 @@ import { Ws } from '../../../src/utils/Ws'
 
 jest.mock('../../../src/clients/location/LocationServiceImpl')
 jest.mock('../../../src/utils/Utils')
-const postMockEndpoint = mocked(getPostEndPoint)
-const wsMockEndpoint = mocked(getWebSocketEndPoint)
-const extractHostPortMock = mocked(extractHostPort)
-const mockImpl = mocked(LocationServiceImpl)
+const postMockEndpoint = jest.mocked(getPostEndPoint)
+const wsMockEndpoint = jest.mocked(getWebSocketEndPoint)
+const extractHostPortMock = jest.mocked(extractHostPort)
+const mockImpl = jest.mocked(LocationServiceImpl)
 const postEndpoint = 'postEndpoint'
 const wsEndpoint = 'wsEndpoint'
 const tokenFactory = () => 'validtoken'

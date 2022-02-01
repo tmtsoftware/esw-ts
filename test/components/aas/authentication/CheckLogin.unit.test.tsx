@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import Keycloak from 'keycloak-js'
 import * as React from 'react'
-import { mocked } from 'ts-jest/utils'
+
 import CheckLogin from '../../../../src/components/aas/authentication/CheckLogin'
 import { Provider } from '../../../../src/components/aas/context/AuthContext'
 import { mockAuth, mockedKeyCloakInstance } from '../../../helpers/MockHelpers'
@@ -13,7 +13,7 @@ describe('<CheckLogin />', () => {
     jest.resetAllMocks()
   })
 
-  const mockFn = mocked(Keycloak, true)
+  const mockFn = jest.mocked(Keycloak, true)
   const keycloakInstance = mockedKeyCloakInstance()
   mockFn.mockReturnValue(keycloakInstance)
 

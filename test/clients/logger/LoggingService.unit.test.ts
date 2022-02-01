@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { LoggingService } from '../../../src/clients/logger'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'
@@ -7,8 +6,8 @@ import { HttpTransport } from '../../../src/utils/HttpTransport'
 
 jest.mock('../../../src/clients/logger/LoggingServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockResolveGateway = mocked(resolve)
-const mockImpl = mocked(LoggingServiceImpl)
+const mockResolveGateway = jest.mocked(resolve)
+const mockImpl = jest.mocked(LoggingServiceImpl)
 
 const postEndpoint = 'postEndpoint'
 mockResolveGateway.mockResolvedValue({

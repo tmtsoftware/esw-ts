@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { AGENT_SERVICE_CONNECTION, AuthData } from '../../../src'
 import { AgentService } from '../../../src/clients/agent-service'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
@@ -7,8 +6,8 @@ import { HttpTransport } from '../../../src/utils/HttpTransport'
 
 jest.mock('../../../src/clients/location/LocationUtils')
 jest.mock('../../../src/clients/agent-service/AgentServiceImpl')
-const mockResolveAgent = mocked(resolve)
-const mockImpl = mocked(AgentServiceImpl)
+const mockResolveAgent = jest.mocked(resolve)
+const mockImpl = jest.mocked(AgentServiceImpl)
 
 describe('Agent Service Factory', () => {
   test('create agent service | ESW-314', async () => {
