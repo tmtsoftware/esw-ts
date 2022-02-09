@@ -1,0 +1,12 @@
+# ESW-TS - v0.3.0
+
+This is a pre release of the ESW-TS npm module version v0.3.0
+See [CHANGELOG.md](CHANGELOG.md) for details of all releases.
+
+This version is compatible with `ESW` version v0.4.0
+This version is compatible with `CSW` version v4.0.1
+
+## Documentation
+
+Paradox documentation can be found [here](https://tmtsoftware.github.io/esw-ts/0.3.0/)
+The API documentation can be found [here](https://tmtsoftware.github.io/esw-ts/0.3.0/common/ts-docs.html)

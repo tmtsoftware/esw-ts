@@ -4,9 +4,9 @@ ESW-TS is a Javascript/Typescript wrapper for TMT backend services.
 This source code is in github repository: [ESW-TS](https://github.com/tmtsoftware/esw-ts)
 Npm module published for ESW-TS can be found [here](https://www.npmjs.com/package/@tmtsoftware/esw-ts)
 
-## [ESW-TS v0.3.0-RC1] - 2022-02-01
+## [ESW-TS v0.3.0] - 2022-02-09
 
-This release contians minor fixes.
+This release contains minor fixes.
 
 ### Supporting Releases
 
