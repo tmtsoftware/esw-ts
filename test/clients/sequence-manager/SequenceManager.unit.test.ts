@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { SEQUENCE_MANAGER_CONNECTION } from '../../../src'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { SequenceManagerService } from '../../../src/clients/sequence-manager'
@@ -8,8 +7,8 @@ import { HttpTransport } from '../../../src/utils/HttpTransport'
 jest.mock('../../../src/clients/sequence-manager/SequenceManagerImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
 
-const mockResolveSm = mocked(resolve)
-const mockSMImpl = mocked(SequenceManagerImpl)
+const mockResolveSm = jest.mocked(resolve)
+const mockSMImpl = jest.mocked(SequenceManagerImpl)
 
 const tokenFactory = jest.fn()
 

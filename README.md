@@ -30,7 +30,7 @@ This project provide following typescript clients for various TMT services, whic
 * Login
 * Logout
 
-See [here](http://tmtsoftware.github.io/esw-ts/0.2.0) for a detailed description of the ESW-TS.
+See [here](http://tmtsoftware.github.io/esw-ts/0.3.0) for a detailed description of the ESW-TS.
 
 ### Example App
 
@@ -58,7 +58,7 @@ Make sure you have following CSW services up and running:
 
 Note: Simple way to start all these services is to run `csw-services` using `coursier (aka cs)` from `csw` github repository.
 
-Refer [here](http://tmtsoftware.github.io/csw/4.0.0/apps/cswservices.html) to learn how to start csw-services.
+Refer [here](http://tmtsoftware.github.io/csw/4.0.1/apps/cswservices.html) to learn how to start csw-services.
 
 ```bash
 cs install csw-services
@@ -177,20 +177,23 @@ Document automatically gets released using release pipeline.
 
 ## Version compatibility
 
-| esw-ts | esw | csw |
-|--------|-----|-----|
-| v0.2.0 | v0.3.0 | v4.0.0 |
+| esw-ts     | esw | csw |
+|------------|-----|-----|
+| v0.3.0     | v0.4.0 | v4.0.1 |
+| v0.3.0-RC1 | v0.4.0-RC1 | v4.0.1-RC1 |
+| v0.2.0     | v0.3.0 | v4.0.0 |
 | v0.2.0-RC2 | v0.3.0-RC2 | v4.0.0-RC2 |
 | v0.2.0-RC1 | v0.3.0-RC1 | v4.0.0-RC1 |
-| v0.2.0-M1 | v0.3.0-M1 | v4.0.0-M1 |
-| v0.1.0 | v0.2.1 | v0.3.1 |
+| v0.2.0-M1  | v0.3.0-M1 | v4.0.0-M1 |
+| v0.1.0     | v0.2.1 | v0.3.1 |
 | v0.1.0-RC1 | v0.2.0-RC1 | v0.3.0-RC1 |
-| v0.1.0-M1 | v0.2.0-M1 | v0.3.0-M1 |
+| v0.1.0-M1  | v0.2.0-M1 | v0.3.0-M1 |
 
 ## Public Release History
 
-| Date | Tag | Source | Docs | Assets |
-|-----|-----|-----|-----|-----|
+| Date       | Tag    | Source                                                         | Docs                                                          | Assets                                                                        |
+|------------|--------|----------------------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------|
+| 2022-02-09 | v0.3.0 | [esw-0.3.0](https://github.com/tmtsoftware/esw-ts/tree/v0.3.0) | [esw-0.3.0 docs](https://tmtsoftware.github.io/esw-ts/0.3.0/) | [esw-0.3.0 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.3.0) |
 | 2021-09-23 | v0.2.0 | [esw-0.2.0](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0) | [esw-0.2.0 docs](https://tmtsoftware.github.io/esw-ts/0.2.0/) | [esw-0.2.0 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0) |
 | 2021-02-01 | v0.1.0 | [esw-0.1.0](https://github.com/tmtsoftware/esw-ts/tree/v0.1.0) | [esw-0.1.0 docs](https://tmtsoftware.github.io/esw-ts/0.1.0/) | [esw-0.1.0 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.1.0) |
 
@@ -198,6 +201,7 @@ Document automatically gets released using release pipeline.
 
 | Date | Tag | Source | Docs | Assets |
 |-----|-----|-----|-----|-----|
+| 2022-02-01 | v0.3.0-RC1 | [esw-0.3.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.3.0-RC1) | [esw-0.3.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.3.0-RC1/) | [esw-0.3.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.3.0-RC1) |
 | 2021-09-17 | v0.2.0-RC2 | [esw-0.2.0-RC2](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0-RC2) | [esw-0.2.0-RC2 docs](https://tmtsoftware.github.io/esw-ts/0.2.0-RC2/) | [esw-0.2.0-RC2 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-RC2) |
 | 2021-08-23 | v0.2.0-RC1 | [esw-0.2.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0-RC1) | [esw-0.2.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.2.0-RC1/) | [esw-0.2.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-RC1) |
 | 2021-07-08 | v0.2.0-M1 | [esw-0.2.0-M1](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0-M1) | [esw-0.2.0-M1 docs](https://tmtsoftware.github.io/esw-ts/0.2.0-M1/) | [esw-0.2.0-M1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-M1) |

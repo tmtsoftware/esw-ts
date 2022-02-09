@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
@@ -22,7 +21,7 @@ const onClose = noop
 
 const httpTransport: HttpTransport<GatewayEventPostRequest> = new HttpTransport('someUrl')
 const ws: Ws<GatewayEventWsRequest> = new Ws('someUrl')
-const mockWs = mocked(ws)
+const mockWs = jest.mocked(ws)
 const eventServiceImpl = new EventServiceImpl(httpTransport, () => ws)
 
 describe('Event Service', () => {

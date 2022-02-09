@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import type { Killed, Spawned, AgentStatusResponse } from '../../../src'
 import { ComponentId } from '../../../src'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'
@@ -22,7 +21,7 @@ const agentPrefix = new Prefix('ESW', 'agent1')
 const componentName = 'Seqcomp_1'
 const version = '1.0.0'
 
-const mockedHttpTransport = mocked(httpTransport)
+const mockedHttpTransport = jest.mocked(httpTransport)
 
 const expectedRes: Spawned = {
   _type: 'Spawned'

@@ -1,4 +1,3 @@
-import { mocked } from 'ts-jest/utils'
 import { AdminService } from '../../../src/clients/admin'
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'
@@ -7,8 +6,8 @@ import { HttpTransport } from '../../../src/utils/HttpTransport'
 
 jest.mock('../../../src/clients/admin/AdminServiceImpl')
 jest.mock('../../../src/clients/location/LocationUtils')
-const mockImpl = mocked(AdminServiceImpl)
-const mockResolveGateway = mocked(resolve)
+const mockImpl = jest.mocked(AdminServiceImpl)
+const mockResolveGateway = jest.mocked(resolve)
 const postEndpoint = 'postEndpoint'
 mockResolveGateway.mockResolvedValue({
   _type: 'HttpLocation',
