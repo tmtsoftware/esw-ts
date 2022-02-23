@@ -20,7 +20,7 @@ export const startServices = (serviceNames: ServiceName[]) => {
 }
 
 export const startComponent = (prefix: Prefix, compType: ComponentType, componentConf: string) => {
-  sh.executeComponentScript(['--local', componentConf, '--standalone'])
+  sh.executeComponentScript(['--local', componentConf])
   return resolve(HttpConnection(prefix, compType))
 }
 
