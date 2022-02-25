@@ -5,6 +5,11 @@ This source code is in github repository: [ESW-TS](https://github.com/tmtsoftwar
 Npm module published for ESW-TS can be found [here](https://www.npmjs.com/package/@tmtsoftware/esw-ts)
 
 
+## Upcoming Changes
+
+* Added `subscribeObserveEvents` Api in EventService
+* Added `ObserveEventNames` helper class related to Observe Events
+
 ## [ESW-TS v0.3.0] - 2022-02-09
 
 This release contains minor fixes.

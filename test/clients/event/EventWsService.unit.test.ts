@@ -1,6 +1,6 @@
 import { EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
-import { Subscribe, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
+import { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
 import type { GatewayEventPostRequest, GatewayEventWsRequest } from '../../../src/clients/gateway/models/Gateway'
 import { EventD } from '../../../src/decoders/EventDecoders'
 import { Prefix, Subsystem } from '../../../src/models'
@@ -59,6 +59,11 @@ describe('Event Service', () => {
       undefined,
       undefined
     )
+  })
+  test('should subscribe observe events using websocket | ESW-582', () => {
+    eventServiceImpl.subscribeObserveEvents()(callback)
+
+    verify(mockWs.subscribe).toBeCalledWith(new SubscribeObserveEvents(0), callback, EventD, undefined, undefined)
   })
 })
 afterEach(() => jest.clearAllMocks())

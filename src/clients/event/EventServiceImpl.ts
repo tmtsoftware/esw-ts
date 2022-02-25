@@ -9,7 +9,7 @@ import type { EventService } from './EventService'
 import type { Event } from './models/Event'
 import type { EventKey } from './models/EventKey'
 import { GetEvent, PublishEvent } from './models/PostCommand'
-import { Subscribe, SubscribeWithPattern } from './models/WsCommand'
+import { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from './models/WsCommand'
 
 export class EventServiceImpl implements EventService {
   constructor(
@@ -61,6 +61,16 @@ export class EventServiceImpl implements EventService {
           return response.cancel()
         }
       }
+    }
+  }
+
+  subscribeObserveEvents(maxFrequency = 0) {
+    return (
+      onEvent: (event: Event) => void,
+      onError?: (error: ServiceError) => void,
+      onClose?: () => void
+    ): Subscription => {
+      return this.ws().subscribe(new SubscribeObserveEvents(maxFrequency), onEvent, EventD, onError, onClose)
     }
   }
 

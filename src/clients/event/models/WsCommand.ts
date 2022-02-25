@@ -12,3 +12,9 @@ export class SubscribeWithPattern {
 
   constructor(readonly subsystem: Subsystem, readonly maxFrequency: number, readonly pattern: string) {}
 }
+
+export class SubscribeObserveEvents {
+  readonly _type: 'SubscribeObserveEvents' = 'SubscribeObserveEvents'
+
+  constructor(readonly maxFrequency: number) {}
+}

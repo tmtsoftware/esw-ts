@@ -12,7 +12,7 @@ import type {
 import type { CommandServicePostMessage } from '../../command/models/PostCommand'
 import type { CommandServiceWsMessage } from '../../command/models/WsCommand'
 import type { GetEvent, PublishEvent } from '../../event/models/PostCommand'
-import type { Subscribe, SubscribeWithPattern } from '../../event/models/WsCommand'
+import type { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from '../../event/models/WsCommand'
 import type { Log } from '../../logger/models/PostCommand'
 import type { SequencerPostRequest } from '../../sequencer/models/PostCommand'
 import type { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
@@ -30,7 +30,7 @@ export class GatewaySequencerCommand<T extends SequencerPostRequest | SequencerW
 }
 
 export type GatewayEventPostRequest = PublishEvent | GetEvent
-export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern
+export type GatewayEventWsRequest = Subscribe | SubscribeWithPattern | SubscribeObserveEvents
 
 export type GatewayLoggingPostRequest = Log
 

@@ -77,6 +77,23 @@ export interface EventService {
     maxFrequency: number,
     pattern: string
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
+
+  /**
+   * This API subscribes to all observe events
+   * It takes callback function which gets triggered when ever the events are received.
+   * The latest events available for the given Event Keys will be received first.
+   *
+   * @param maxFrequency    the duration which determines the frequency with which events are received
+   *
+   * @param onEvent         the function which gets triggered on receiving an Observe Event
+   * @param onError         a optional error callback which gets called on receiving error.
+   *                        it can be Parsing error or a Runtime error [for ex. Gateway exception]
+   * @param onClose         a optional close callback which gets called when the connection is closed.
+   * @return                Subscription
+   */
+  subscribeObserveEvents(
+    maxFrequency: number
+  ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 }
 
 /**
