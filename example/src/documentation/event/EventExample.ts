@@ -7,6 +7,7 @@ import {
   IntKey,
   intKey,
   ObserveEvent,
+  ObserveEventNames,
   Parameter,
   Prefix,
   ServiceError,
@@ -104,4 +105,43 @@ const dddd = async () => {
   //To cancel the subscription
   subscription.cancel()
   //#p-subscribe
+}
+
+const dddddd = async () => {
+  //#subscribeObserveEvents
+  const onEventCallback = (event: Event) => {
+    // make use of ${event} inside this callback function
+    console.log(event)
+    // do filter specific observe events
+    switch(event.eventName) {
+      case ObserveEventNames.ObservationStart: /*<do something> */ break;
+      case ObserveEventNames.ObserveStart:  /*<do something> */ break;
+      case ObserveEventNames.ObservePaused: /*<do something> */ break;
+      case ObserveEventNames.ObserveResumed: /*<do something> */ break;
+      case ObserveEventNames.ObserveEnd :
+      case ObserveEventNames.ObservationEnd: /*<do something same here when ObserveEnd or ObservationEnd> */ break;
+      default : /* handleError() / noop */ 
+    }
+  }
+  //optional
+  const onErrorCallback = (error: ServiceError) => {
+    // do something when error occurs
+    // for ex : close connection / cleanup resources
+    console.log(error)
+  }
+  //optional
+  const onCloseCallback = () => {
+    // do something when connection is closed
+    // for ex : reset client-side state
+  }
+  // subscribe to all observe events
+  const observeEventSubscription: Subscription = eventService.subscribeObserveEvents(1)(
+    onEventCallback,
+    onErrorCallback,
+    onCloseCallback
+  )
+
+  //To cancel the subscription
+  observeEventSubscription.cancel()
+  //#subscribeObserveEvents
 }

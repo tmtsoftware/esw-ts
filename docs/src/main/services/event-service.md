@@ -65,3 +65,17 @@ Example for subscribing events with given subsystem:
 
 Typescript
 : @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #p-subscribe }
+
+## Subscribe to all Observe Events
+
+This method can be used to subscribe all observe events which are getting published during an observation.
+
+When you subscribe to Observe Events, events are received at `every` frequency.
+The methods take callback function which gets triggered whenever the events are received.
+
+Type definitions of this method can be found @extref:[here](ts-docs:interfaces/clients.EventService.html#subscribeObserveEvents).
+
+Example for subscribing Observe Events and how to filter them by @extref:[ObserveEventNames](ts-docs:modules/models.html#ObserveEventNames):
+
+Typescript
+: @@snip [Event-Service](../../../../example/src/documentation/event/EventExample.ts) { #subscribeObserveEvents }

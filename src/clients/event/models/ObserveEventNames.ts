@@ -4,7 +4,6 @@ const eventName = (name: string) => new EventName(`ObserveEvent.${name}`)
 
 /**
  * @category Event Service
- * @category Common
  */
 export const ObserveEventNames = {
   // common
