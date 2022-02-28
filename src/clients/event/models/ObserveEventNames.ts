@@ -43,6 +43,10 @@ export const ObserveEventNames = {
   ObservePaused: eventName('ObservePaused'),
   ObserveResumed: eventName('ObserveResumed'),
   DowntimeStart: eventName('DowntimeStart'),
+  OffsetStart: eventName('OffsetStart'),
+  OffsetEnd: eventName('OffsetEnd'),
+  InputRequestStart: eventName('InputRequestStart'),
+  InputRequestEnd: eventName('InputRequestEnd'),
 
   // DMS specific
   MetadataAvailable: eventName('MetadataAvailable'),
