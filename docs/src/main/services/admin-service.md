@@ -15,7 +15,7 @@ Type definitions for all Admin Service methods can be found @extref:[here](ts-do
 
 ## Fetching LogMetadata & Setting log level
 
-For instance, we need logging configuration to be known before setting log level of a component if it is not set to desired @extref:[log level](ts-docs:modules/models.html#Level).
+For instance, we need logging configuration to be known before setting log level of a component if it is not set to desired @extref:[log level](ts-docs:modules/clients.html#Level).
 
 Type definitions for `getLogMetadata` can be found @extref:[here](ts-docs:interfaces/clients.AdminService.html#getlogmetadata).
 Type definitions for `setLogLevel` can be found @extref:[here](ts-docs:interfaces/clients.AdminService.html#setloglevel).

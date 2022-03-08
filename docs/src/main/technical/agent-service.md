@@ -54,7 +54,7 @@ Typescript
 
 ## Kill a Sequence Component
 
-Agent service kills any process running on the agent machine using the process id ([pid](https://www.computerhope.com/jargon/p/pid.htm)) of that component. it uses location service to find the process id from the metadata field of @extref:[location information.](ts-docs:modules/models.html#Location)
+Agent service kills any process running on the agent machine using the process id ([pid](https://www.computerhope.com/jargon/p/pid.htm)) of that component. it uses location service to find the process id from the metadata field of @extref:[location information.](ts-docs:modules/clients.html#Location)
 
 Type definitions for `killComponent` can be found @extref:[here](ts-docs:interfaces/clients.AgentService.html#killcomponent)
 
