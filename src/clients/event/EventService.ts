@@ -48,7 +48,7 @@ export interface EventService {
    */
   subscribe(
     eventKeys: Set<EventKey>,
-    maxFrequency: number
+    maxFrequency?: number
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 
   /**
@@ -74,8 +74,8 @@ export interface EventService {
    */
   pSubscribe(
     subsystem: Subsystem,
-    maxFrequency: number,
-    pattern: string
+    maxFrequency?: number,
+    pattern?: string
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 
   /**
@@ -92,7 +92,7 @@ export interface EventService {
    * @return                Subscription
    */
   subscribeObserveEvents(
-    maxFrequency: number
+    maxFrequency?: number
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 }
 

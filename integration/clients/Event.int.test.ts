@@ -93,4 +93,22 @@ describe('Event Client', () => {
       await eventService.publish(observeEvent)
     })
   })
+
+  test('should subscribe to publish observe events without frequency | ESW-582', () => {
+    return new Promise<void>(async (jestDoneCallback) => {
+      const prefix = new Prefix('CSW', 'sequencer')
+      const eventName = ObserveEventNames.ObservationStart
+      const observeEvent = ObserveEvent.make(prefix, eventName, [])
+      expect.assertions(1)
+
+      const callback = (event: Event) => {
+        expect(event).toEqual(observeEvent)
+        subscription.cancel()
+        jestDoneCallback()
+      }
+
+      const subscription = eventService.subscribeObserveEvents()(callback)
+      await eventService.publish(observeEvent)
+    })
+  })
 })
