@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import Keycloak, { KeycloakInstance } from 'keycloak-js'
 import { AASConfig } from '../../config'
 import { Prefix } from '../../models'

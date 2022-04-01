@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { AGENT_SERVICE_CONNECTION, AuthData } from '../../../src'
 import { AgentService } from '../../../src/clients/agent-service'
 import { AgentServiceImpl } from '../../../src/clients/agent-service/AgentServiceImpl'

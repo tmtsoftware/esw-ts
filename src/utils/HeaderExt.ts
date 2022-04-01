@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UNKNOWN_USERNAME, USERNAME_HEADER_NAME } from './Constants'
 
 export class HeaderExt extends Headers {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import type { CommandServicePostMessage, Submit } from '../../../src/clients/command/models/PostCommand'
 import * as Req from '../../../src/clients/command/models/PostCommand'

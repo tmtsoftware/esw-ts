@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { CONFIG_CONNECTION, TokenFactory } from '../../../src'
 import { ConfigService } from '../../../src/clients/config-service'
 import { ConfigServiceImpl } from '../../../src/clients/config-service/ConfigServiceImpl'

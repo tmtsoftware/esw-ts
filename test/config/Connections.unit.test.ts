@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { GlobalConfig } from '../../src'
 import { GATEWAY_CONNECTION, resolveConnection } from '../../src/config/Connections'
 import { post } from '../../src/utils/Http'

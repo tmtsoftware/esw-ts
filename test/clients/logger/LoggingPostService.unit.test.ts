@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Prefix } from '../../../src'
 import type { GatewayLoggingPostRequest } from '../../../src/clients/gateway/models/Gateway'
 import { LoggingServiceImpl } from '../../../src/clients/logger/LoggingServiceImpl'

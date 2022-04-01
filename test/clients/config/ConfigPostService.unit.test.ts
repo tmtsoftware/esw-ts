@@ -1,3 +1,168 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import type { Option } from '../../../src'
+import { ConfigId } from '../../../src'
+import { ConfigData, ConfigService } from '../../../src/clients/config-service'
+
+import type { HttpLocation } from '../../../src/clients/location'
+import { CONFIG_CONNECTION } from '../../../src/config/Connections'
+import { ServiceError } from '../../../src/models'
+import { HeaderExt } from '../../../src/utils/HeaderExt'
+import { del, get, head, post, put } from '../../../src/utils/Http'
+import { verify } from '../../helpers/JestMockHelpers'
+
+jest.mock('../../../src/utils/Http')
+const getMockFn = jest.mocked(get)
+const postMockFn = jest.mocked(post)
+const headMockFn = jest.mocked(head)
+const putMockFn = jest.mocked(put)
+const deleteMockFn = jest.mocked(del)
+
+const uri = 'http://localhost:8080'
+const configLocation: HttpLocation = {
+  _type: 'HttpLocation',
+  connection: CONFIG_CONNECTION,
+  uri,
+  metadata: {}
+}
+
+const token = 'validToken'
+let configService: ConfigService
+
+const configEndpoint = (path: string) => `http://localhost:8080/config/${path}`
+const listEndpoint = () => `http://localhost:8080/list`
+const activeConfigEndpoint = (path: string) => `http://localhost:8080/active-config/${path}`
+const activeVersionEndpoint = (path: string) => `http://localhost:8080/active-version/${path}`
+const blob = new Blob(['foo: bar'])
+const configDataValue = ConfigData.from(blob)
+
+beforeAll(async () => {
+  postMockFn.mockResolvedValueOnce([configLocation])
+  configService = await ConfigService(() => token)
+})
+
+afterEach(() => {
+  jest.clearAllMocks()
+})
+
+describe('ConfigService', () => {
+  test('should get the latest conf of given path from the config server | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const url = configEndpoint(confPath)
+
+    getMockFn.mockResolvedValueOnce(blob)
+
+    const confData: Option<ConfigData> = await configService.getLatest(confPath)
+    expect(confData).toEqual(configDataValue)
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+  })
+
+  test('should get the conf of given path and given id from the config server | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
+
+    getMockFn.mockResolvedValueOnce(blob)
+
+    const confData = await configService.getById(confPath, configId)
+    expect(confData).toEqual(configDataValue)
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+  })
+
+  test('should get undefined if config is not present for the given id | ESW-320, ESW-321', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
+
+    getMockFn.mockRejectedValueOnce(new ServiceError('TransportError', '', 404, 'Not Found'))
+
+    const confData = await configService.getById(confPath, configId)
+    expect(confData).toBeUndefined()
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+  })
+
+  test('should throw generic error if bad request is received on getById | ESW-320, ESW-321', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+
+    getMockFn.mockRejectedValueOnce(new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error'))
+
+    expect.assertions(4)
+    await configService.getById(confPath, configId).catch((e) => {
+      expect(e.errorType).toBe('ArithmeticException')
+      expect(e.message).toBe('/ by 0')
+      expect(e.status).toBe(500)
+      expect(e.statusText).toBe('Internal server error')
+    })
+  })
+
+  test('should get the conf of given path and given time from the config server | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const date = new Date()
+    const url = configEndpoint(`${confPath}?date=${date.toISOString()}`)
+
+    getMockFn.mockResolvedValueOnce(blob)
+
+    const confData = await configService.getByTime(confPath, date)
+    expect(confData).toEqual(configDataValue)
+    verify(getMockFn).toBeCalledWith({ url, responseMapper: expect.any(Function) })
+  })
+
+  test('should check if the given conf is present | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const url = configEndpoint(confPath)
+
+    headMockFn.mockResolvedValueOnce(true)
+
+    const actualRes = await configService.exists(confPath)
+    expect(actualRes).toBe(true)
+    expect(headMockFn).toHaveBeenCalledWith({ url, decoder: expect.anything() })
+  })
+
+  test('should check if the given conf with given id is present | ESW-320', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
+
+    headMockFn.mockResolvedValueOnce(true)
+
+    const actualRes = await configService.exists(confPath, configId)
+    expect(actualRes).toBe(true)
+    verify(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
+  })
+
+  test('should return false if the given conf is not present | ESW-320, ESW-321', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+    const url = configEndpoint(`${confPath}?id=${configId.id}`)
+
+    headMockFn.mockRejectedValueOnce(new ServiceError('TransportError', '', 404, 'Not Found'))
+
+    const actualRes = await configService.exists(confPath, configId)
+    expect(actualRes).toBe(false)
+    verify(headMockFn).toBeCalledWith({ url, decoder: expect.anything() })
+  })
+
+  test('should throw error if internal server error is received on check of config exists| ESW-320, ESW-321', async () => {
+    const confPath = 'tmt/assembly.conf'
+    const configId = new ConfigId('configId123')
+
+    headMockFn.mockRejectedValueOnce(new ServiceError('ArithmeticException', '/ by 0', 500, 'Internal server error'))
+
+    expect.assertions(4)
+    await configService.exists(confPath, configId).catch((e) => {
+      expect(e.errorType).toBe('ArithmeticException')
+      expect(e.message).toBe('/ by 0')
+      expect(e.status).toBe(500)
+      expect(e.statusText).toBe('Internal server error')
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Option } from '../../../src'
 import { ConfigId } from '../../../src'
 import { ConfigData, ConfigService } from '../../../src/clients/config-service'

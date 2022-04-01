@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type * as E from 'fp-ts/lib/Either'
 import * as D from 'io-ts/lib/Decoder'
 import {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { TAITime, taiTimeKey, Units, UTCTime, utcTimeKey } from '../../src'
 import { char } from '../../src/decoders/Decoder'
 import { ParameterD } from '../../src/decoders/ParameterDecoder'

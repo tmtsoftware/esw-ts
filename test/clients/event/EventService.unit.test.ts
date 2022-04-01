@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { GATEWAY_CONNECTION } from '../../../src'
 import { EventService } from '../../../src/clients/event/EventService'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'

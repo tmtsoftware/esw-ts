@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { ObsMode, Prefix, Variation } from '../../../../src'
 import { VariationInfo } from '../../../../src/clients/sequence-manager/models/VariationInfo'
 
