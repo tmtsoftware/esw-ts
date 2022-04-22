@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { AdminService } from '../../../src/clients/admin'
 import { AdminServiceImpl } from '../../../src/clients/admin/AdminServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'

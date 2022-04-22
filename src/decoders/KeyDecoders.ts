@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import * as D from 'io-ts/lib/Decoder'
 import * as C from '../decoders/CoordDecoders'
 import type { ByteKey, DoubleKey, FloatKey, IntKey, LongKey, ShortKey, Units } from '../models'

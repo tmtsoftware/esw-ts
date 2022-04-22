@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { render } from '@testing-library/react'
 import Keycloak from 'keycloak-js'
 import * as React from 'react'

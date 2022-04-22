@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { AkkaLocation, Duration, HttpConnection } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'

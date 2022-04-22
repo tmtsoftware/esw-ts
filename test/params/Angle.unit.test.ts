@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Angle } from '../../src/models/params/Angle'
 
 describe('Basic parsing of radec as strings', () => {

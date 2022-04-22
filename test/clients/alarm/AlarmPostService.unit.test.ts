@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { AlarmKey } from '../../../src/clients/alarm'
 import { AlarmServiceImpl } from '../../../src/clients/alarm/AlarmServiceImpl'
 import { SetAlarmSeverity } from '../../../src/clients/alarm/models/PostCommand'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { BaseReporter } from '@jest/reporters'
 import type { Context, Test } from '@jest/reporters/build/types'
 import type { AggregatedResult, TestResult } from '@jest/test-result'

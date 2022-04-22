@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { AgentProvisionConfig, ComponentId, ObsMode, Prefix, ProvisionConfig, Subsystem, Variation } from '../../../src'
 import * as Req from '../../../src/clients/sequence-manager/models/PostCommand'
 import type * as T from '../../../src/clients/sequence-manager/models/SequenceManagerRes'

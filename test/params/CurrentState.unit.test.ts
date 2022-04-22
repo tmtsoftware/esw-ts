@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { CurrentState, intArrayKey, intKey, Key, Parameter, Prefix, stringKey } from '../../src/models'
 
 const stringParam: Parameter<Key> = stringKey('string').set(['abc', 'def'])

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Done } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import type { HttpTransport } from '../../utils/HttpTransport'

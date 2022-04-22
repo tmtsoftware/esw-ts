@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { choiceKey, intArrayKey, intKey, Key, Parameter, stringKey } from '../../src/models'
 import { ParameterSetType } from '../../src/models/params/ParameterSetType'
 

@@ -41,11 +41,11 @@ this folder will contain all tmt ui applications which can be together deployed 
 
 ESW-TS assumes that static server contains a `config.js` file which has configuration related to all applications.
 
-Refer @extref:[this](ts-docs:modules/config.html#ConfigModule) for the structure of config module.
+Refer @extref:[this](ts-docs:modules/models.html#AppConfigModule) for the structure of config module.
 
 In future if needed, other configuration can be added here which are applicable to all tmt applications.
 
-Refer @extref:[this](ts-docs:modules/config.html#Config) for the structure of config.
+Refer @extref:[this](ts-docs:modules/models.html#AppConfig) for the structure of config.
 
 Note:
 

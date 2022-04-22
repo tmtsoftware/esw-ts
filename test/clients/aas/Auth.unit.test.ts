@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import Keycloak from 'keycloak-js'
 import { AuthStore } from '../../../src/clients/aas'
 import { HttpConnection, HttpLocation } from '../../../src/clients/location'

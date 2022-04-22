@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { ComponentId, Prefix } from '../../../src'
 import { GatewaySequencerCommand } from '../../../src/clients/gateway/models/Gateway'
 import type * as Req from '../../../src/clients/sequencer/models/PostCommand'

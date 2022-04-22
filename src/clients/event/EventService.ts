@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { AuthData, Subscription } from '../..'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { Done, ServiceError, Subsystem } from '../../models'
@@ -48,7 +53,7 @@ export interface EventService {
    */
   subscribe(
     eventKeys: Set<EventKey>,
-    maxFrequency: number
+    maxFrequency?: number
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 
   /**
@@ -74,8 +79,8 @@ export interface EventService {
    */
   pSubscribe(
     subsystem: Subsystem,
-    maxFrequency: number,
-    pattern: string
+    maxFrequency?: number,
+    pattern?: string
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 
   /**
@@ -92,7 +97,7 @@ export interface EventService {
    * @return                Subscription
    */
   subscribeObserveEvents(
-    maxFrequency: number
+    maxFrequency?: number
   ): (onEvent: (event: Event) => void, onError?: (error: ServiceError) => void, onClose?: () => void) => Subscription
 }
 

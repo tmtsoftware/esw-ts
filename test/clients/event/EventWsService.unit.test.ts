@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EventKey, EventName } from '../../../src/clients/event'
 import { EventServiceImpl } from '../../../src/clients/event/EventServiceImpl'
 import { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from '../../../src/clients/event/models/WsCommand'
@@ -34,14 +39,14 @@ describe('Event Service', () => {
   test('should subscribe event with default parameters using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.subscribe(eventKeys)(callback)
 
-    verify(mockWs.subscribe).toBeCalledWith(new Subscribe([...eventKeys], 0), callback, EventD, undefined, undefined)
+    verify(mockWs.subscribe).toBeCalledWith(new Subscribe([...eventKeys]), callback, EventD, undefined, undefined)
   })
 
   test('should pattern subscribe event using websocket | ESW-318, ESW-510', () => {
     eventServiceImpl.pSubscribe(subsystem, 1, '.*')(callback, onError, onClose)
 
     verify(mockWs.subscribe).toBeCalledWith(
-      new SubscribeWithPattern(subsystem, 1, '.*'),
+      new SubscribeWithPattern(subsystem, '.*', 1),
       callback,
       EventD,
       onError,
@@ -53,7 +58,7 @@ describe('Event Service', () => {
     eventServiceImpl.pSubscribe(subsystem)(callback)
 
     verify(mockWs.subscribe).toBeCalledWith(
-      new SubscribeWithPattern(subsystem, 0, '.*'),
+      new SubscribeWithPattern(subsystem, '.*'),
       callback,
       EventD,
       undefined,
@@ -63,7 +68,7 @@ describe('Event Service', () => {
   test('should subscribe observe events using websocket | ESW-582', () => {
     eventServiceImpl.subscribeObserveEvents()(callback)
 
-    verify(mockWs.subscribe).toBeCalledWith(new SubscribeObserveEvents(0), callback, EventD, undefined, undefined)
+    verify(mockWs.subscribe).toBeCalledWith(new SubscribeObserveEvents(), callback, EventD, undefined, undefined)
   })
 })
 afterEach(() => jest.clearAllMocks())

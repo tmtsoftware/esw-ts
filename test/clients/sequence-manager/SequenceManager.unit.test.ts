@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { SEQUENCE_MANAGER_CONNECTION } from '../../../src'
 import { resolve } from '../../../src/clients/location/LocationUtils'
 import { SequenceManagerService } from '../../../src/clients/sequence-manager'

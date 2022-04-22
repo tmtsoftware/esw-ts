@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { CommandService, ComponentId, GATEWAY_CONNECTION, Prefix } from '../../../src'
 import { CommandServiceImpl } from '../../../src/clients/command/CommandServiceImpl'
 import { resolve } from '../../../src/clients/location/LocationUtils'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import CheckLogin from './aas/authentication/CheckLogin'
 import RealmRole from './aas/authorization/RealmRole'
 import { AuthContext, Consumer, AuthContextType } from './aas/context/AuthContext'

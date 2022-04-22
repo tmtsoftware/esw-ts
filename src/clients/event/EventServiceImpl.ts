@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Subscription } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import { EventD, EventsD } from '../../decoders/EventDecoders'
@@ -25,13 +30,13 @@ export class EventServiceImpl implements EventService {
     return this.httpTransport.requestRes(new GetEvent([...eventKeys]), EventsD)
   }
 
-  subscribe(eventKeys: Set<EventKey>, maxFrequency = 0) {
+  subscribe(eventKeys: Set<EventKey>, maxFrequency?: number) {
     return (
       onEvent: (event: Event) => void,
       onError?: (error: ServiceError) => void,
       onClose?: () => void
     ): Subscription => {
-      const subscriptionResponse = this.resolveAndSubscribe(eventKeys, maxFrequency, onEvent, onError, onClose)
+      const subscriptionResponse = this.resolveAndSubscribe(eventKeys, onEvent, onError, onClose, maxFrequency)
       return {
         cancel: async () => {
           const response = await subscriptionResponse
@@ -41,7 +46,7 @@ export class EventServiceImpl implements EventService {
     }
   }
 
-  pSubscribe(subsystem: Subsystem, maxFrequency = 0, pattern = '.*') {
+  pSubscribe(subsystem: Subsystem, maxFrequency?: number, pattern = '.*') {
     return (
       onEvent: (event: Event) => void,
       onError?: (error: ServiceError) => void,
@@ -49,11 +54,11 @@ export class EventServiceImpl implements EventService {
     ): Subscription => {
       const subscriptionResponse = this.resolveAndpSubscribe(
         subsystem,
-        maxFrequency,
         pattern,
         onEvent,
         onError,
-        onClose
+        onClose,
+        maxFrequency
       )
       return {
         cancel: async () => {
@@ -64,7 +69,7 @@ export class EventServiceImpl implements EventService {
     }
   }
 
-  subscribeObserveEvents(maxFrequency = 0) {
+  subscribeObserveEvents(maxFrequency?: number) {
     return (
       onEvent: (event: Event) => void,
       onError?: (error: ServiceError) => void,
@@ -76,24 +81,24 @@ export class EventServiceImpl implements EventService {
 
   private async resolveAndSubscribe(
     eventKeys: Set<EventKey>,
-    maxFrequency: number,
     onEvent: (event: Event) => void,
     onError?: (error: ServiceError) => void,
-    onClose?: () => void
+    onClose?: () => void,
+    maxFrequency?: number
   ) {
     return this.ws().subscribe(new Subscribe([...eventKeys], maxFrequency), onEvent, EventD, onError, onClose)
   }
 
   private async resolveAndpSubscribe(
     subsystem: Subsystem,
-    maxFrequency: number,
     pattern: string,
     onEvent: (event: Event) => void,
     onError?: (error: ServiceError) => void,
-    onClose?: () => void
+    onClose?: () => void,
+    maxFrequency?: number
   ) {
     return this.ws().subscribe(
-      new SubscribeWithPattern(subsystem, maxFrequency, pattern),
+      new SubscribeWithPattern(subsystem, pattern, maxFrequency),
       onEvent,
       EventD,
       onError,

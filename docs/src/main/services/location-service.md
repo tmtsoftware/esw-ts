@@ -5,7 +5,7 @@ distributed TMT software system.
 
 A component’s location information can be used by other components and services to connect to it and use it.
 
-Type definition for location model can be found @extref[here](ts-docs:modules/models.html#Location).
+Type definition for location model can be found @extref[here](ts-docs:modules/clients.html#Location).
 
 ## Creation of Location Service
 
@@ -57,7 +57,7 @@ There are two ways to get/fetch a location information of a connection:
 1. Using resolve API
 1. Using find API
 
-Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/models.html#Connection) a component to
+Location Service's `resolve` API uses @extref[Connection](ts-docs:modules/clients.html#Connection) a component to
 resolve the location within some timeout duration.
 However, `find` API does not wait to resolve location. If the location is not present, it returns `undefined`.
 

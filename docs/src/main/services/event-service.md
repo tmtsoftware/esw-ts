@@ -21,7 +21,7 @@ Type definitions for all Event Service methods can be found @extref:[here](ts-do
 
 ## Publishing an Event
 
-Event Service allows you to publish an @extref:[Event](ts-docs:modules/models.html#Event) to the event server.
+Event Service allows you to publish an @extref:[Event](ts-docs:modules/clients.html#Event) to the event server.
 
 Type definitions for `publish` method can be found @extref:[here](ts-docs:interfaces/clients.EventService.html#publish).
 

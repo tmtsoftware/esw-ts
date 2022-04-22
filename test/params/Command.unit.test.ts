@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2025 Thirty Meter Telescope International Observatory
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { intArrayKey, intKey, Key, Observe, Parameter, Prefix, Setup, stringKey, Wait } from '../../src/models'
 
 const intParam: Parameter<Key> = intKey('number').set([5, 2, 3])
