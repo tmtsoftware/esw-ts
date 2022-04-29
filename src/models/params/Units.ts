@@ -33,7 +33,7 @@ export class Units {
   static readonly lm: Units = new Units('lm', 'lumen')
   static readonly lsun: Units = new Units('lsun','solar luminosity')
   static readonly lx: Units = new Units('lx','lux')
-  static readonly mas: Units = new Units('mas','milli arc second',)
+  static readonly mas: Units = new Units('mas','milli arc second')
   static readonly me: Units = new Units('me','electron mass')
   static readonly meter: Units = new Units('meter', 'm')
   static readonly microarcsec: Units = new Units('microarcsec', 'µas')
