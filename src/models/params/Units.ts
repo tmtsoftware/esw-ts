@@ -17,7 +17,7 @@ export class Units {
   static readonly candela: Units = new Units('candela', 'candela')
   static readonly day: Units = new Units('day', 'd')
   static readonly degree: Units = new Units('degree', 'deg')
-  static readonly degC: Units = new Units('degree Celsius', 'degC')
+  static readonly degC: Units = new Units('degC', 'degC')
   static readonly degF: Units = new Units('Fahrenheit', 'degF')
   static readonly elvolt: Units = new Units('elvolt', 'eV')
   static readonly gauss: Units = new Units('gauss', 'gauss')
