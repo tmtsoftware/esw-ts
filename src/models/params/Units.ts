@@ -82,7 +82,7 @@ export class Units {
   static readonly e: Units = new Units('e','electron charge')
   static readonly earth: Units = new Units('earth','earth unit')
   static readonly F: Units = new Units('F', 'Farad')
-  static readonly G: Units = new Units('G', 'gravitation constant)
+  static readonly G: Units = new Units('G', 'gravitation constant')
   static readonly geoMass: Units = new Units('geoMass', 'earth mass')
   static readonly hm: Units = new Units('hm','hour minutes')
   static readonly hms: Units = new Units('hms','hour minutes seconds')
