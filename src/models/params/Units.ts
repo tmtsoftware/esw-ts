@@ -89,7 +89,7 @@ export class Units {
   static readonly hhmmss: Units = new Units('hhmmss', 'HH:MM:SS')
   static readonly jansky: Units = new Units('jansky', 'Jy')
   static readonly jd: Units = new Units('jd', 'jd')
-  static readonly jovMass: Units = new Units('jovMass', 'jovMass')
+  static readonly jovmass: Units = new Units('jovmass', 'jovMass')
   static readonly lightyear: Units = new Units('lightyear', 'lyr')
   static readonly mag: Units = new Units('mag', 'mag')
   static readonly mjup: Units = new Units('mjup', 'Mjup')
