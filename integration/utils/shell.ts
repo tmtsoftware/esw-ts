@@ -37,7 +37,7 @@ const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
 // This consistency avoids multiple jitpack triggers for same commit
 
 //const csw_sha = '5088284'
-const csw_sha = 'd4c12d7'
+const csw_sha = 'a24934e'
 //const esw_sha = '06a6bf1'
 const esw_sha = '1ea12a9'
 
