@@ -44,8 +44,8 @@ export interface EventService {
    * The latest events available for the given Event Keys will be received first.
    *
    * @param eventKeys     Set of event keys to be subscribed.
-   * @param maxFrequency  the duration which determines the frequency with which events are received
-   * @param onEvent      the function which gets triggered on receiving an event
+   * @param maxFrequency  the frequency with which events are to be received (in Hz)
+   * @param onEvent       the function which gets triggered on receiving an event
    * @param onError       a optional error callback which gets called on receiving error.
    *                      it can be Parsing error or a Runtime error [for ex. Gateway exception]
    * @param onClose       a optional close callback which gets called when the connection is closed.
@@ -64,7 +64,7 @@ export interface EventService {
    * The latest events available for the given Event Keys will be received first.
    *
    * @param subsystem       subscription to be made under the subsystem
-   * @param maxFrequency    the duration which determines the frequency with which events are received
+   * @param maxFrequency    the frequency with which events are to be received (in Hz)
    * @param pattern         optional pattern to match against the event key.supported glob-style patterns
    *
    *                        - h?llo subscribes to hello, hallo and hxllo
@@ -88,7 +88,7 @@ export interface EventService {
    * It takes callback function which gets triggered when ever the events are received.
    * The latest events available for the given Event Keys will be received first.
    *
-   * @param maxFrequency    the duration which determines the frequency with which events are received
+   * @param maxFrequency    the frequency with which events are to be received (in Hz)
    *
    * @param onEvent         the function which gets triggered on receiving an Observe Event
    * @param onError         a optional error callback which gets called on receiving error.
