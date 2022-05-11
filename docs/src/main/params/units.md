@@ -19,7 +19,7 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 
 | Name        | Abbreviation | Description                                                                          |
 | ----------- | ------------ | ------------------------------------------------------------------------------------ |
-| angstrom    | Angstrom          | unit of length  |
+| angstrom    | Angstrom          | unit of length (10^-10 m) |
 | alpha       | alpha             | fine structure constant      |
 | ampere       | A                | unit of electrical current     |
 | arcmin      | arcmin            | arc minute; angular measurement |
@@ -36,13 +36,13 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 | hertz       | Hz                | SI unit of frequency |
 | henry       | henry             | unit of electrical inductance  |
 | hour        | h                 | unit of time  |
-| joule       | J                 | derived unit of energy |
+| joule       | J                 | SI unit of energy |
 | kelvin      | K                 | Kelvin: temperature with a null point at absolute zero |
 | kilogram    | kg                | base unit of mass in SI |
 | kilometer   | km                | unit of length equal to 1,000 metres |
 | liter       | l                 | liter, metric unit of volume |
 | lm          | lm                | unit of luminous flux, or amount of light  |
-| lsun        | lsun              | solar luminosity  |
+| lsun        | Lsun              | solar luminosity  |
 | lx          | lx                | SI derived unit of illuminance measuring luminous flux per unit area   |
 | meter       | m                 | meter: base unit of length in SI |
 | mas         | mas               | milli arc second: angular measurement |
@@ -61,9 +61,9 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 | mu0         | mu0               | magnetic constant |
 | muB         | muB               | moment of electrons is bohr magneton |
 | nanometer   | nm                | nanometers |
-| newton      | N                 | Newton: force |
-| ohm         | ohm               | ohm - unit of electric resistance |
-| pascal      | Pa                | Pascal: pressure |
+| newton      | N                 | SI unit of force |
+| ohm         | ohm               | unit of electric resistance |
+| pascal      | Pa                | SI unit of pressure |
 | pi          | pi                | pi is the ratio of the circumference of a circle to its diameter |
 | pc          | pc                | unit for expressing distances to stars and galaxies |
 | ppm         | ppm               | part per million |
@@ -84,8 +84,8 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 | coulomb    | C                  | coulomb: electric charge |
 | centimeter | cm                 | centimeter |
 | D          | D                  | Debye(dipole) - electric dipole moments of molecules |
-| dyn        | dyn                | dyne is unit of force |
-| erg        | erg                | erg: CGS unit of energy |
+| dyn        | dyn                | CGS unit of force |
+| erg        | erg                | CGS unit of energy |
 
 ## Astrophysical Units
 
@@ -118,7 +118,7 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 | rgeo       | Rgeo               | Earth radius |
 | rjup       | Rjup               | Jupiter radius |
 | rsun       | Rsun               | solar radius |
-| rydberg    | Rydberg            | unit of energy, Ry |
+| rydberg    | Rydberg            | ionization energy of hydrogen in its ground state (~13.6 eV) |
 | seimens    | seimens            | derived unit of electric conductance |
 | tesla      | tesla              | unit of magnetic induction |
 | u          | u                  | atomic mass unit |
@@ -127,7 +127,7 @@ The default unit for `UTCTimeKey` and `TAITimeKey` is `second`. For all the rema
 
 | Name  | Abbreviation | Description                                          |
 | ----- | ------------ | ---------------------------------------------------- |
-| barn       | barn               |  metric unit of area |
+| barn       | barn               | unit of area for cross section of scattering (10^28 m^2) |
 | cal        | cal                | thermochemical calorie: pre-SI metric unit of energy |
 | foot       | ft                 | international foot |
 | inch       | inch               | international inch |
