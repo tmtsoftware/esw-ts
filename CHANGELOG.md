@@ -7,8 +7,15 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 
 ## Upcoming Changes
 
+## [ESW-TS v0.4.0] - 2022-09-15
+
+* Added missing standard units
 * Added `subscribeObserveEvents` Api in EventService
 * Added `ObserveEventNames` helper class related to Observe Events
+
+### Supporting Releases
+
+<a name="0-3-0-1"></a>1: [ESW-TS v0.4.0-RC1](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.0-RC1) - 2022-09-15<br>
 
 ## [ESW-TS v0.3.0] - 2022-02-09
 
