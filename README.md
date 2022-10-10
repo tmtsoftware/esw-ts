@@ -177,17 +177,19 @@ Document automatically gets released using release pipeline.
 
 ## Version compatibility
 
-| esw-ts     | esw | csw |
-|------------|-----|-----|
-| v0.3.0     | v0.4.0 | v4.0.1 |
+| esw-ts     | esw        | csw        |
+|------------|------------|------------|
+| v0.4.0-RC2 | v0.5.0-RC2 | v5.0.0-RC2 |
+| v0.4.0-RC1 | v0.5.0-RC1 | v5.0.0-RC1 |
+| v0.3.0     | v0.4.0     | v4.0.1     |
 | v0.3.0-RC1 | v0.4.0-RC1 | v4.0.1-RC1 |
-| v0.2.0     | v0.3.0 | v4.0.0 |
+| v0.2.0     | v0.3.0     | v4.0.0     |
 | v0.2.0-RC2 | v0.3.0-RC2 | v4.0.0-RC2 |
 | v0.2.0-RC1 | v0.3.0-RC1 | v4.0.0-RC1 |
-| v0.2.0-M1  | v0.3.0-M1 | v4.0.0-M1 |
-| v0.1.0     | v0.2.1 | v0.3.1 |
+| v0.2.0-M1  | v0.3.0-M1  | v4.0.0-M1  |
+| v0.1.0     | v0.2.1     | v0.3.1     |
 | v0.1.0-RC1 | v0.2.0-RC1 | v0.3.0-RC1 |
-| v0.1.0-M1  | v0.2.0-M1 | v0.3.0-M1 |
+| v0.1.0-M1  | v0.2.0-M1  | v0.3.0-M1  |
 
 ## Public Release History
 
@@ -201,6 +203,7 @@ Document automatically gets released using release pipeline.
 
 | Date       | Tag        | Source                                                                 | Docs                                                                  | Assets                                                                                |
 |------------|------------|------------------------------------------------------------------------|-----------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| 2022-10-10 | v0.4.0-RC2 | [esw-0.4.0-RC2](https://github.com/tmtsoftware/esw-ts/tree/v0.4.0-RC2) | [esw-0.4.0-RC2 docs](https://tmtsoftware.github.io/esw-ts/0.4.0-RC2/) | [esw-0.4.0-RC2 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.0-RC2) |
 | 2022-09-15 | v0.4.0-RC1 | [esw-0.4.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.4.0-RC1) | [esw-0.4.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.4.0-RC1/) | [esw-0.4.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.0-RC1) |
 | 2022-02-01 | v0.3.0-RC1 | [esw-0.3.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.3.0-RC1) | [esw-0.3.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.3.0-RC1/) | [esw-0.3.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.3.0-RC1) |
 | 2021-09-17 | v0.2.0-RC2 | [esw-0.2.0-RC2](https://github.com/tmtsoftware/esw-ts/tree/v0.2.0-RC2) | [esw-0.2.0-RC2 docs](https://tmtsoftware.github.io/esw-ts/0.2.0-RC2/) | [esw-0.2.0-RC2 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.2.0-RC2) |

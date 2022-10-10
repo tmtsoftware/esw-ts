@@ -38,9 +38,9 @@ const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
 
 //const csw_sha = '5088284'
 //const csw_sha = 'a24934e'
-const csw_sha = '5.0.0-RC1'
+const csw_sha = '5.0.0-RC2'
 //const esw_sha = '06a6bf1'
-const esw_sha = '0.5.0-RC1'
+const esw_sha = '0.5.0-RC2'
 
 export const executeServicesScript = appLauncher('backend-testkit-services', esw_sha)
 export const executeComponentScript = appLauncher('backend-testkit-component', esw_sha)

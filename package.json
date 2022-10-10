@@ -1,6 +1,6 @@
 {
   "name": "@tmtsoftware/esw-ts",
-  "version": "0.4.0-RC1",
+  "version": "0.4.0-RC2",
   "description": "Typescript client for gateway",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
