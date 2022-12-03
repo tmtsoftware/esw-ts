@@ -113,14 +113,19 @@ const dddddd = async () => {
     // make use of ${event} inside this callback function
     console.log(event)
     // do filter specific observe events
-    switch(event.eventName) {
-      case ObserveEventNames.ObservationStart: /*<do something> */ break;
-      case ObserveEventNames.ObserveStart:  /*<do something> */ break;
-      case ObserveEventNames.ObservePaused: /*<do something> */ break;
-      case ObserveEventNames.ObserveResumed: /*<do something> */ break;
-      case ObserveEventNames.ObserveEnd :
-      case ObserveEventNames.ObservationEnd: /*<do something same here when ObserveEnd or ObservationEnd> */ break;
-      default : /* handleError() / noop */ 
+    switch (event.eventName) {
+      case ObserveEventNames.ObservationStart:
+        /*<do something> */ break
+      case ObserveEventNames.ObserveStart:
+        /*<do something> */ break
+      case ObserveEventNames.ObservePaused:
+        /*<do something> */ break
+      case ObserveEventNames.ObserveResumed:
+        /*<do something> */ break
+      case ObserveEventNames.ObserveEnd:
+      case ObserveEventNames.ObservationEnd:
+        /*<do something same here when ObserveEnd or ObservationEnd> */ break
+      default: /* handleError() / noop */
     }
   }
   //optional
