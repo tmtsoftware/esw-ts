@@ -42,7 +42,7 @@ Typescript
 
 ### AuthContextProvider
 
-`AuthContextProvider` is wrapper over a React [Context.Provider](https://reactjs.org/docs/context.html#contextprovider).
+`AuthContextProvider` is wrapper over a React [Context.Provider](https://legacy.reactjs.org/docs/context.html).
 A JSON configuration must be passed in that contains the application specific AAS server configuration
 (e.g. clientId, realm). When a user logs in, an AAS Server is instantiated, with the UI application specific
 configuration overriding the predefined configuration.
@@ -58,7 +58,7 @@ Typescript
 
 ### Consumer
 
-`Consumer` is similar to a React [Context.Consumer](https://reactjs.org/docs/context.html#contextconsumer).
+`Consumer` is similar to a React [Context.Consumer](https://legacy.reactjs.org/docs/context.html).
 The shared `auth` object from the `AuthContextProvider` can be accessed using a `Consumer` component.
 
 Typescript

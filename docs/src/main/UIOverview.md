@@ -81,7 +81,7 @@ CSW domain models like (Prefix, ComponentId, etc) that are provided in the ESW-T
 At this point in UISTD development, some choices must be made to create a complete UI. At this time we recommend using the
 following additional tools and libraries to make a TypeScript based UI.
 
-* @link:[React](https://reactjs.org)
+* @link:[React](https://react.dev/)
 * @link:[Ant Design](https://ant.design)
 * @link:[Vite](https://vitejs.dev/)
 * @link:[Jest](https://jestjs.io/)

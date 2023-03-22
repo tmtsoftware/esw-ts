@@ -9,7 +9,7 @@ which is JavaScript adapter provided by Keycloak.
 Core implementation of Auth Components of `ESW-TS`, uses
 
 - [keycloak-js](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter) - keycloak JavaScript adapter
-- [React](https://reactjs.org/) - JavaScript library for building user interfaces
+- [React](https://react.dev/) - JavaScript library for building user interfaces
 - [Typescript](https://www.typescriptlang.org/) - Types superset of JavaScript which compiles to JavaScript
 - @extref[csw-location-service](csw:services/location) - resolve keycloak using Location Service HTTP endpoint
 
