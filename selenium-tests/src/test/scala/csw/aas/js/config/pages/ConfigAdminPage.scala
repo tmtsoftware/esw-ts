@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.ui.WebDriverWait
 import org.scalatestplus.selenium.WebBrowser
 
+import java.time.Duration
+
 class ConfigAdminPage(implicit driver: WebDriver) extends WebBrowser {
 
   private val filePathTxt        = id("file-path-txt-area")
@@ -21,7 +23,7 @@ class ConfigAdminPage(implicit driver: WebDriver) extends WebBrowser {
   }
 
   def outputText: String = {
-    new WebDriverWait(driver, 10)
+    new WebDriverWait(driver, Duration.ofSeconds(10))
       .until[Boolean](_ => find(createConfigOutput).map(_.text).exists(_.length != 0))
 
     find(createConfigOutput).map(_.text).getOrElse("")
