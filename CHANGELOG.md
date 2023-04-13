@@ -8,7 +8,7 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 ## Upcoming Changes
 n/a
 
-## [ESW-TS v0.4.1] - 2023-03-28
+## [ESW-TS v0.4.1] - 2023-04-12
 
 * Updated release instructions
 
