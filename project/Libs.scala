@@ -4,7 +4,7 @@ object Libs {
   val ScalaVersion = "2.13.8"
 
   val `scalaTest`         = "org.scalatest"                            %% "scalatest"         % "3.2.11" //Apache License 2.0
-  val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.1.1"
+  val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.8.3"
   val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "0.6.0"
   val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.0.3"
   val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"               % "0.3.0"
@@ -12,7 +12,7 @@ object Libs {
 }
 
 object ESW {
-  private val defaultESWVersion = "0.5.0"
+  private val defaultESWVersion = "0.5.1"
 
   val Version: String = sys.props.get("prod.publish") match {
     case Some("true") => sys.env.getOrElse("ESW_VERSION", defaultESWVersion)
@@ -21,7 +21,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "5.0.0"
+  private val defaultCswVersion = "5.0.1"
 
   val Version: String = sys.props.get("prod.publish") match {
     case Some("true") => sys.env.getOrElse("CSW_VERSION", defaultCswVersion)
