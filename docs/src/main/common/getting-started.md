@@ -1,6 +1,6 @@
 # Getting Started with ESW-TS
 
-In this tutorial, you’ll see how to create a UI starter project using a [giter8](http://www.foundweekends.org/giter8/)
+In this tutorial, you’ll see how to create a UI starter project using a [giter8](https://www.foundweekends.org/giter8/)
 template which uses ESW-TS library. You can use this as a starting point for your own UI applications.
 
 ## Installation
