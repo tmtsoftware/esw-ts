@@ -32,7 +32,10 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install
-        run: npm ci
+        run: |
+          rm -rf package-lock.json node_modules
+          npm install
+          npm ci
 
       - name: Build
         run: npm run build
