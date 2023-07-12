@@ -32,6 +32,8 @@ pipeline {
                 sh "which node && node --version"
                 sh "which npm && npm --version"
                 sh "npm ci"
+                // Allan: Fix for nested dependency issue with word-wrap
+                sh "rm -rf package-lock.json node_modules"
                 sh "npm run build"
             }
         }
@@ -53,7 +55,7 @@ pipeline {
 
         stage('Selenium Test') {
             steps {
-              sh "sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
+              sh "sbt -Dsbt.log.noformat=true -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
             }
         }
     }
