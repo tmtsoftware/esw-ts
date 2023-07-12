@@ -32,11 +32,6 @@ pipeline {
                 sh "which node && node --version"
                 sh "which npm && npm --version"
                 sh "npm ci"
-
-                // Allan: Fix for nested dependency issue with word-wrap
-                sh "rm -rf package-lock.json node_modules"
-                sh "npm install"
-
                 sh "npm run build"
             }
         }
