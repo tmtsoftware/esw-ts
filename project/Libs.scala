@@ -3,12 +3,12 @@ import sbt._
 object Libs {
   val ScalaVersion = "3.3.0"
 
-  val `scalaTest`         = "org.scalatest"                            %% "scalatest"         % "3.2.16" //Apache License 2.0
-  val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.11.0"
-  val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "590c5e7"
-  val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.4.1"
-  val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"               % "f922171"
-  val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-3-141"    % "3.3.0.0-SNAP3"
+  val `scalaTest`         = "org.scalatest"                            %% "scalatest"               % "3.2.16" // Apache License 2.0
+  val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"           % "4.11.0"
+  val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak"       % "590c5e7"
+  val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"        % "5.4.1"
+  val `tmt-test-reporter` = "com.github.tmtsoftware"                   %% "rtm"                     % "f922171"
+  val scalaTestPlus       = "org.scalatestplus"                         % "selenium-3-141_3.0.0-M2" % "3.3.0.0-SNAP3"
 }
 
 object ESW {
