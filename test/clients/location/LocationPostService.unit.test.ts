@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AkkaLocation, Duration, HttpConnection } from '../../../src/clients/location'
+import { PekkoLocation, Duration, HttpConnection } from '../../../src/clients/location'
 import { LocationServiceImpl } from '../../../src/clients/location/LocationServiceImpl'
 import type { LocationHttpMessage } from '../../../src/clients/location/models/PostCommand'
 import * as Req from '../../../src/clients/location/models/PostCommand'
@@ -19,12 +19,12 @@ jest.mock('../../../src/utils/Ws')
 jest.mock('../../../src/utils/HttpTransport')
 
 const mockDoneResponse = 'Done'
-const mockLocationResponse: AkkaLocation = {
-  _type: 'AkkaLocation',
+const mockLocationResponse: PekkoLocation = {
+  _type: 'PekkoLocation',
   connection: {
     prefix: new Prefix('ESW', 'comp1'),
     componentType: 'HCD',
-    connectionType: 'akka'
+    connectionType: 'pekko'
   },
   uri: 'path',
   metadata: {

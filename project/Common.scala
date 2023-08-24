@@ -25,7 +25,8 @@ object Common {
     scalaVersion := Libs.ScalaVersion,
     Global / concurrentRestrictions += Tags.limit(Tags.All, 1),
     homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
-    resolvers ++= Seq("jitpack" at "https://jitpack.io"),
+    resolvers += "jitpack" at "https://jitpack.io",
+    resolvers += "Apache Pekko Staging".at("https://repository.apache.org/content/groups/staging"),
     scmInfo := Some(
       ScmInfo(url("https://github.com/tmtsoftware/esw-ts"), "git@github.com:tmtsoftware/esw-ts.git")
     ),

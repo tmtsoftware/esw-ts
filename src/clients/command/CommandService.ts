@@ -72,7 +72,7 @@ export interface CommandService {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 
   /**
-   * Subscribe to the current state of a component corresponding to the AkkaLocation of the component
+   * Subscribe to the current state of a component corresponding to the PekkoLocation of the component
    *
    * @param stateNames        Subscribe to the set of currentStates. If no states are provided, all the current states will be received.
    * @param onStateChange     a callback which gets called on change of any of the subscribed currentState

@@ -5,8 +5,8 @@
 
 import * as D from 'io-ts/lib/Decoder'
 import type {
-  AkkaConnection,
-  AkkaLocation,
+  PekkoConnection,
+  PekkoLocation,
   Connection,
   ConnectionType,
   HttpConnection,
@@ -36,19 +36,19 @@ const mkConnectionD = <L extends ConnectionType>(connectionType: L): ConnectionD
     componentType: ComponentTypeD
   })
 
-export const ConnectionTypeD: Decoder<ConnectionType> = D.literal('akka', 'http', 'tcp')
+export const ConnectionTypeD: Decoder<ConnectionType> = D.literal('pekko', 'http', 'tcp')
 
-export const AkkaConnectionD: Decoder<AkkaConnection> = mkConnectionD('akka')
+export const PekkoConnectionD: Decoder<PekkoConnection> = mkConnectionD('pekko')
 export const HttpConnectionD: Decoder<HttpConnection> = mkConnectionD('http')
 export const TcpConnectionD: Decoder<TcpConnection> = mkConnectionD('tcp')
 
 export const ConnectionD: Decoder<Connection> = D.sum('connectionType')({
-  akka: AkkaConnectionD,
+  pekko: PekkoConnectionD,
   http: HttpConnectionD,
   tcp: TcpConnectionD
 })
 
-type LocationType = 'AkkaLocation' | 'HttpLocation' | 'TcpLocation'
+type LocationType = 'PekkoLocation' | 'HttpLocation' | 'TcpLocation'
 
 type LocationDecoder<L extends LocationType, C extends Connection> = Decoder<{
   _type: L
@@ -68,12 +68,12 @@ const mkLocationD = <L extends LocationType, C extends Connection>(
     metadata: D.record(D.string)
   })
 
-export const AkkaLocationD: Decoder<AkkaLocation> = mkLocationD('AkkaLocation', AkkaConnectionD)
+export const PekkoLocationD: Decoder<PekkoLocation> = mkLocationD('PekkoLocation', PekkoConnectionD)
 export const HttpLocationD: Decoder<HttpLocation> = mkLocationD('HttpLocation', HttpConnectionD)
 export const TcpLocationD: Decoder<TcpLocation> = mkLocationD('TcpLocation', TcpConnectionD)
 
 export const LocationD: Decoder<Location> = D.sum('_type')({
-  AkkaLocation: AkkaLocationD,
+  PekkoLocation: PekkoLocationD,
   HttpLocation: HttpLocationD,
   TcpLocation: TcpLocationD
 })

@@ -4,7 +4,7 @@
  */
 
 import type { ComponentId, Failed, Unhandled, LocationServiceError } from '../../../models'
-import type { AkkaLocation } from '../../location'
+import type { PekkoLocation } from '../../location'
 
 /**
  *@category Agent Service
@@ -23,7 +23,7 @@ export type Killed = {
  */
 export type SequenceComponentStatus = {
   seqCompId: ComponentId
-  sequencerLocation: AkkaLocation[]
+  sequencerLocation: PekkoLocation[]
 }
 /**
  *@category Agent Service

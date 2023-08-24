@@ -200,7 +200,7 @@ const configDecoders: Record<string, Decoder<any>> = {
 
 const sequencerDecoders: Record<string, Decoder<any>> = {
   SequenceCommand: SequenceCommandD,
-  AkkaLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
+  PekkoLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
   GenericResponse: Seq.GenericResponseD,
   PauseResponse: Seq.PauseResponseD,
   SubmitResponse: SubmitResponseD,

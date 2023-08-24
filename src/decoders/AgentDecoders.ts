@@ -17,7 +17,7 @@ import type {
 import { FailedD, LocationServiceErrorD, UnhandledD } from './CommonDecoders'
 import { ComponentIdD } from './ComponentIdDecoder'
 import { ciLiteral, Decoder } from './Decoder'
-import { AkkaLocationD } from './LocationDecoders'
+import { PekkoLocationD } from './LocationDecoders'
 
 const SpawnedD: Decoder<Spawned> = D.struct({
   _type: ciLiteral('Spawned')
@@ -29,7 +29,7 @@ const KilledD: Decoder<Killed> = D.struct({
 
 export const SequenceComponentStatusD: Decoder<SequenceComponentStatus> = D.struct({
   seqCompId: ComponentIdD,
-  sequencerLocation: D.array(AkkaLocationD)
+  sequencerLocation: D.array(PekkoLocationD)
 })
 
 const AgentStatusD: Decoder<AgentStatus> = D.struct({

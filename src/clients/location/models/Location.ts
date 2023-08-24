@@ -6,11 +6,11 @@
 import type { Connection } from './Connection'
 
 /**
- * Represents a live Akka connection of a component
+ * Represents a live Pekko connection of a component
  * @category Location Service
  */
-export type AkkaLocation = {
-  _type: 'AkkaLocation'
+export type PekkoLocation = {
+  _type: 'PekkoLocation'
   connection: Connection
   uri: string
   metadata: Record<string, string>
@@ -39,4 +39,4 @@ export type TcpLocation = {
  * Location represents a live Connection along with its URI
  * @category Location Service
  */
-export type Location = AkkaLocation | TcpLocation | HttpLocation
+export type Location = PekkoLocation | TcpLocation | HttpLocation

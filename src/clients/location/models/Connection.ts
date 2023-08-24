@@ -14,12 +14,12 @@ const mkConnection =
 /**
  * @category Location Service
  */
-export type ConnectionType = 'akka' | 'tcp' | 'http'
+export type ConnectionType = 'pekko' | 'tcp' | 'http'
 /**
  * @category Location Service
  */
-export type AkkaConnection = {
-  connectionType: 'akka'
+export type PekkoConnection = {
+  connectionType: 'pekko'
   prefix: Prefix
   componentType: ComponentType
 }
@@ -42,12 +42,12 @@ export type TcpConnection = {
 /**
  * @category Location Service
  */
-export type Connection = AkkaConnection | HttpConnection | TcpConnection
+export type Connection = PekkoConnection | HttpConnection | TcpConnection
 /**
- * A helper function to create Akka Connection
+ * A helper function to create Pekko Connection
  * @category Location Service
  */
-export const AkkaConnection: (prefix: Prefix, componentType: ComponentType) => AkkaConnection = mkConnection('akka')
+export const PekkoConnection: (prefix: Prefix, componentType: ComponentType) => PekkoConnection = mkConnection('pekko')
 /**
  * A helper function to create Http Connection
  * @category Location Service

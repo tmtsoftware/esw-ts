@@ -39,7 +39,7 @@ describe('Admin Client', () => {
   test('set getLogMetadata | ESW-372', async () => {
     const response: LogMetadata = await adminServiceWithToken.getLogMetadata(componentId)
 
-    expect(response.akkaLevel).toEqual('DEBUG')
+    expect(response.pekkoLevel).toEqual('DEBUG')
     expect(response.componentLevel).toEqual('ERROR')
     expect(response.defaultLevel).toEqual('INFO')
     expect(response.slf4jLevel).toEqual('INFO')

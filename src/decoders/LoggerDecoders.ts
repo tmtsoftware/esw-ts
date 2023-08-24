@@ -12,7 +12,7 @@ export const LevelD: Decoder<Level> = ciLiteral('TRACE', 'DEBUG', 'INFO', 'WARN'
 
 export const LogMetadataD: Decoder<LogMetadata> = D.struct({
   defaultLevel: LevelD,
-  akkaLevel: LevelD,
+  pekkoLevel: LevelD,
   slf4jLevel: LevelD,
   componentLevel: LevelD
 })
