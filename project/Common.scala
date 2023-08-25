@@ -14,15 +14,15 @@ object Common {
     else Seq(Tests.Argument("-oDF"))
 
   lazy val DocsSettings = Seq(
-    docsRepo := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
-    docsParentDir := "esw-ts",
+    docsRepo       := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
+    docsParentDir  := "esw-ts",
     gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts"
   )
 
   lazy val CommonSettings: Seq[Setting[_]] = DocsSettings ++ Seq(
-    organization := "com.github.tmtsoftware.esw-ts",
+    organization     := "com.github.tmtsoftware.esw-ts",
     organizationName := "TMT Org",
-    scalaVersion := Libs.ScalaVersion,
+    scalaVersion     := Libs.ScalaVersion,
     Global / concurrentRestrictions += Tags.limit(Tags.All, 1),
     homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
     resolvers += "jitpack" at "https://jitpack.io",
@@ -36,10 +36,7 @@ object Common {
       "UTF-8",
       "-feature",
       "-unchecked",
-      "-deprecation",
-      "-Xlint",
-      //      "-Yno-adapted-args",
-      "-Ywarn-dead-code"
+      "-deprecation"
     ),
     Compile / doc / javacOptions ++= Seq("-Xdoclint:none"),
     version := sys.env.getOrElse("JITPACK_VERSION", "0.1.0-SNAPSHOT"),
@@ -49,8 +46,8 @@ object Common {
       java.awt.Desktop.getDesktop.browse(new java.net.URI(uri))
       state
     },
-    fork := true,
-    detectCycles := true,
+    fork                := true,
+    detectCycles        := true,
     autoCompilerPlugins := true,
     Global / cancelable := true, // allow ongoing test(or any task) to cancel with ctrl + c and still remain inside sbt
     if (formatOnCompile) scalafmtOnCompile := true else scalafmtOnCompile := false,

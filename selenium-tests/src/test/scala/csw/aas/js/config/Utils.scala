@@ -2,8 +2,8 @@ package csw.aas.js.config
 
 import java.io.File
 
-import pekko.http.scaladsl.Http
-import pekko.http.scaladsl.Http.ServerBinding
+import org.apache.pekko.http.scaladsl.Http
+import org.apache.pekko.http.scaladsl.Http.ServerBinding
 
 import scala.concurrent.duration.{DurationDouble, FiniteDuration}
 import scala.concurrent.{Await, Future}

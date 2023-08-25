@@ -1,6 +1,6 @@
 package csw.aas.js.config
-import pekko.stream.scaladsl.{RestartSource, Sink, Source}
-import pekko.stream.{Materializer, RestartSettings}
+import org.apache.pekko.stream.scaladsl.{RestartSource, Sink, Source}
+import org.apache.pekko.stream.{Materializer, RestartSettings}
 import os.Inherit
 
 import scala.concurrent.duration.DurationDouble

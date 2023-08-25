@@ -2,10 +2,10 @@ package csw.aas.js.config
 
 import java.nio.file.Paths
 
-import pekko.actor
-import pekko.actor.typed.scaladsl.adapter.TypedActorSystemOps
-import pekko.actor.typed.{ActorSystem, SpawnProtocol}
-import pekko.http.scaladsl.Http
+import org.apache.pekko.actor
+import org.apache.pekko.actor.typed.scaladsl.adapter.TypedActorSystemOps
+import org.apache.pekko.actor.typed.{ActorSystem, SpawnProtocol}
+import org.apache.pekko.http.scaladsl.Http
 import csw.aas.core.deployment.AuthServiceLocation
 import csw.aas.js.config.Utils.{await, terminateHttpServerBinding}
 import csw.config.server.{Settings, ServerWiring => ConfigServerWiring}
