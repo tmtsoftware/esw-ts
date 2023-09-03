@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { requirement, splitSubsystemComponentName, parseSubsystemStr } from '../../utils/Utils'
 import type { Subsystem } from './Subsystem'
+import { requirement, splitSubsystemComponentName, parseSubsystemStr } from '../../utils/Utils'
 
 const SEPARATOR = '.'
 
@@ -28,7 +28,10 @@ export class Prefix {
    * @param componentName component name - filter.wheel, prog.cloudcover
    * @constructor
    */
-  constructor(readonly subsystem: Subsystem, readonly componentName: string) {
+  constructor(
+    readonly subsystem: Subsystem,
+    readonly componentName: string
+  ) {
     validateComponentName(componentName)
   }
 

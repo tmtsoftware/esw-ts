@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { TAITime, UTCTime } from '../TMTTime'
 import { BaseKey } from './BaseKey'
 import { ChoiceKeyFactory } from './ChoiceKeyFactory'
 import type { AltAzCoord, CometCoord, Coord, EqCoord, MinorPlanetCoord, SolarSystemCoord } from './Coord'
 import { Units } from './Units'
+import type { TAITime, UTCTime } from '../TMTTime'
 
 /**
  * Generic marker type for creating various types of Keys.

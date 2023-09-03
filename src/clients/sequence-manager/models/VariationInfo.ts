@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Variation } from './Variation'
 import type { ObsMode } from '..'
 import { Prefix, Subsystem } from '../../../models'
 import { splitSubsystemComponentName, parseSubsystemStr } from '../../../utils/Utils'
-import { Variation } from './Variation'
 
 const SEPARATOR = '.'
 
@@ -14,7 +14,10 @@ const SEPARATOR = '.'
  * @category Sequence Manager Service
  */
 export class VariationInfo {
-  constructor(readonly subsystem: Subsystem, readonly variation?: Variation) {}
+  constructor(
+    readonly subsystem: Subsystem,
+    readonly variation?: Variation
+  ) {}
 
   static fromString(str: string) {
     const [sub, variation] = splitSubsystemComponentName(str, SEPARATOR)

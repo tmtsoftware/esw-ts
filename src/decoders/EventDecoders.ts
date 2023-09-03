@@ -5,12 +5,12 @@
 
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import type { EventKey } from '../clients/event'
-import { Event, EventName, ObserveEvent, SystemEvent } from '../clients/event'
-import type { Key, Parameter, Prefix } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
 import { ParameterD } from './ParameterDecoder'
 import { PrefixD } from './PrefixDecoder'
+import type { EventKey } from '../clients/event'
+import { Event, EventName, ObserveEvent, SystemEvent } from '../clients/event'
+import type { Key, Parameter, Prefix } from '../models'
 
 export const EventNameD: Decoder<EventName> = pipe(
   D.string,

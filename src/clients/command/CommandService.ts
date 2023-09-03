@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { CommandServiceImpl } from './CommandServiceImpl'
 import type {
   ComponentId,
   ControlCommand,
@@ -21,7 +22,6 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
 import { resolve } from '../location/LocationUtils'
-import { CommandServiceImpl } from './CommandServiceImpl'
 
 /**
  *  A Command Service API of a CSW component. This model provides method based APIs for command interactions with a component.

@@ -6,7 +6,7 @@
 export type CommandServiceWsMessage = QueryFinal | SubscribeCurrentState
 
 export class SubscribeCurrentState {
-  readonly _type: 'SubscribeCurrentState' = 'SubscribeCurrentState'
+  _type: 'SubscribeCurrentState' = 'SubscribeCurrentState' as const
   readonly names: string[]
 
   constructor(stateNames: Set<string>) {
@@ -15,7 +15,10 @@ export class SubscribeCurrentState {
 }
 
 export class QueryFinal {
-  readonly _type: 'QueryFinal' = 'QueryFinal'
+  _type: 'QueryFinal' = 'QueryFinal' as const
 
-  constructor(readonly runId: string, readonly timeoutInSeconds: number) {}
+  constructor(
+    readonly runId: string,
+    readonly timeoutInSeconds: number
+  ) {}
 }

@@ -364,7 +364,7 @@ describe('SequencerService', () => {
       getGatewaySequencerCommand(new Req.Submit(sequence)),
       SubmitResponseD
     )
-    expect(mockWs.singleResponse).toBeCalledTimes(0)
+    expect(mockWs.singleResponse).toHaveBeenCalledTimes(0)
   })
 
   test('should query to sequencer | ESW-307 , ESW-344', async () => {

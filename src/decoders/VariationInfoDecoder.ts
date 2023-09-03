@@ -6,8 +6,8 @@
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { VariationInfo } from '../clients/sequence-manager/models/VariationInfo'
 import type { Decoder } from './Decoder'
+import { VariationInfo } from '../clients/sequence-manager/models/VariationInfo'
 
 const parseVariationInfo = (variationInfo: string): E.Either<Error, VariationInfo> =>
   E.tryCatch(

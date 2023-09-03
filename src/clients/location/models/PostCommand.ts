@@ -3,54 +3,57 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { ComponentType, Prefix } from '../../../models'
 import type { Connection, ConnectionType } from './Connection'
 import type { Duration } from './Duration'
+import type { ComponentType, Prefix } from '../../../models'
 
 export class ListEntries {
-  readonly _type: 'ListEntries' = 'ListEntries'
+  _type: 'ListEntries' = 'ListEntries' as const
 }
 
 export class ListByComponentType {
-  readonly _type: 'ListByComponentType' = 'ListByComponentType'
+  _type: 'ListByComponentType' = 'ListByComponentType' as const
 
   constructor(readonly componentType: ComponentType) {}
 }
 
 export class ListByHostname {
-  readonly _type: 'ListByHostname' = 'ListByHostname'
+  _type: 'ListByHostname' = 'ListByHostname' as const
 
   constructor(readonly hostname: string) {}
 }
 
 export class ListByConnectionType {
-  readonly _type: 'ListByConnectionType' = 'ListByConnectionType'
+  _type: 'ListByConnectionType' = 'ListByConnectionType' as const
 
   constructor(readonly connectionType: ConnectionType) {}
 }
 
 export class ListByPrefix {
-  readonly _type: 'ListByPrefix' = 'ListByPrefix'
+  _type: 'ListByPrefix' = 'ListByPrefix' as const
 
   constructor(readonly prefix: Prefix) {}
 }
 
 export class Find {
-  readonly _type: 'Find' = 'Find'
+  _type: 'Find' = 'Find' as const
 
   constructor(readonly connection: Connection) {}
 }
 
 export class Unregister {
-  readonly _type: 'Unregister' = 'Unregister'
+  _type: 'Unregister' = 'Unregister' as const
 
   constructor(readonly connection: Connection) {}
 }
 
 export class Resolve {
-  readonly _type: 'Resolve' = 'Resolve'
+  _type: 'Resolve' = 'Resolve' as const
 
-  constructor(readonly connection: Connection, readonly within: Duration) {}
+  constructor(
+    readonly connection: Connection,
+    readonly within: Duration
+  ) {}
 }
 
 export type LocationHttpMessage =

@@ -6,7 +6,7 @@
 import type { Connection } from './Connection'
 
 export class Track {
-  readonly _type: 'Track' = 'Track'
+  _type: 'Track' = 'Track' as const
 
   constructor(readonly connection: Connection) {}
 }

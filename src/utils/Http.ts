@@ -4,10 +4,10 @@
  */
 
 import { identity } from 'fp-ts/lib/function'
-import { getAppName } from '../config/AppName'
-import { ServiceError } from '../models'
 import { APP_NAME_HEADER_NAME } from './Constants'
 import { HeaderExt } from './HeaderExt'
+import { getAppName } from '../config/AppName'
+import { ServiceError } from '../models'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE'
 

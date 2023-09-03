@@ -44,4 +44,4 @@ export const subsystems = [
  * A union type representing TMT Subsystems
  * @category Params
  */
-export type Subsystem = typeof subsystems[number]
+export type Subsystem = (typeof subsystems)[number]

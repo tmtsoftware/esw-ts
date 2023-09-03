@@ -4,7 +4,10 @@
  */
 
 export class Duration {
-  constructor(readonly value: number, readonly unit: TimeUnit) {}
+  constructor(
+    readonly value: number,
+    readonly unit: TimeUnit
+  ) {}
 
   toJSON() {
     return `${this.value} ${this.unit}`

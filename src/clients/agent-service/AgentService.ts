@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { AgentServiceImpl } from './AgentServiceImpl'
+import type { KillResponse, SpawnResponse } from './models/AgentRes'
 import type { AgentStatusResponse, AuthData, ComponentId, Location } from '../..'
 import { AGENT_SERVICE_CONNECTION } from '../../config'
 import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
-import { AgentServiceImpl } from './AgentServiceImpl'
-import type { KillResponse, SpawnResponse } from './models/AgentRes'
 
 /**
  *  Agent Service provides method based API related to spawn sequence manager and sequence component,

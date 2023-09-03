@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { ContainerLifecycleState, SupervisorLifecycleState } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
+import type { ContainerLifecycleState, SupervisorLifecycleState } from '../models'
 
 export const SupervisorLifecycleStateD: Decoder<SupervisorLifecycleState> = ciLiteral(
   'Idle',

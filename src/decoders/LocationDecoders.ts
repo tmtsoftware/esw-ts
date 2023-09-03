@@ -4,6 +4,9 @@
  */
 
 import * as D from 'io-ts/lib/Decoder'
+import { ComponentTypeD } from './ComponentTypeDecoder'
+import { ciLiteral, Decoder } from './Decoder'
+import { PrefixD } from './PrefixDecoder'
 import type {
   PekkoConnection,
   PekkoLocation,
@@ -19,9 +22,6 @@ import type {
   TrackingEvent
 } from '../clients/location'
 import type { ComponentType, Prefix } from '../models'
-import { ComponentTypeD } from './ComponentTypeDecoder'
-import { ciLiteral, Decoder } from './Decoder'
-import { PrefixD } from './PrefixDecoder'
 
 type ConnectionDecoder<L extends ConnectionType> = Decoder<{
   connectionType: L

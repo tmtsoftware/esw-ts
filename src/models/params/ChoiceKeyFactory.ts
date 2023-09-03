@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { requirement } from '../../utils/Utils'
 import type { Key, KTag } from './Key'
 import { Parameter } from './Parameter'
 import type { Units } from './Units'
+import { requirement } from '../../utils/Utils'
 
 /**
  * A Factory for creating Choice key
@@ -23,7 +23,12 @@ export class ChoiceKeyFactory<T extends Key, L extends readonly string[]> {
    * @param units the unit for the choice key
    * @return Instance of ChoiceKeyFactory
    */
-  constructor(readonly keyName: string, readonly keyTag: KTag<T>, readonly choices: L, readonly units: Units) {}
+  constructor(
+    readonly keyName: string,
+    readonly keyTag: KTag<T>,
+    readonly choices: L,
+    readonly units: Units
+  ) {}
 
   /**
    * Sets the values for the key using a variable number of arguments

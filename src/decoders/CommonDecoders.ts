@@ -4,8 +4,8 @@
  */
 
 import * as D from 'io-ts/lib/Decoder'
-import type { Failed, LocationServiceError, Unhandled } from '../models'
 import { ciLiteral, Decoder } from './Decoder'
+import type { Failed, LocationServiceError, Unhandled } from '../models'
 
 export const BooleanD = D.boolean
 export const StringD = D.string

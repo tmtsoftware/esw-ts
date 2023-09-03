@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Prefix } from '../../../models'
 import type { Level } from './Level'
+import type { Prefix } from '../../../models'
 
 export class Log {
-  readonly _type: 'Log' = 'Log'
+  _type: 'Log' = 'Log' as const
 
   constructor(
     readonly prefix: Prefix,

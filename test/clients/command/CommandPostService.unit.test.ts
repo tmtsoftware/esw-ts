@@ -134,7 +134,7 @@ describe('CommandService', () => {
       SubmitResponseD
     )
     // assert that query final is not needed as submit itself returns completed response (NOT started response)
-    expect(mockedWsTransport.singleResponse).toBeCalledTimes(0)
+    expect(mockedWsTransport.singleResponse).toHaveBeenCalledTimes(0)
   })
 
   test('should submit all commands and wait for final response | ESW-344', async () => {
@@ -165,8 +165,8 @@ describe('CommandService', () => {
       new GatewayComponentCommand(compId, new WsReq.QueryFinal(mockSubmitResponse.runId, 10)),
       SubmitResponseD
     )
-    expect(mockedHttpTransport.requestRes).toBeCalledTimes(2)
-    expect(mockedWsTransport.singleResponse).toBeCalledTimes(2)
+    expect(mockedHttpTransport.requestRes).toHaveBeenCalledTimes(2)
+    expect(mockedWsTransport.singleResponse).toHaveBeenCalledTimes(2)
   })
 
   test('should submit commands till each command response is Non negative | ESW-344', async () => {
@@ -212,7 +212,7 @@ describe('CommandService', () => {
       new GatewayComponentCommand(compId, new Req.Submit(setupCommand1)),
       SubmitResponseD
     )
-    expect(mockedHttpTransport.requestRes).toBeCalledTimes(2)
+    expect(mockedHttpTransport.requestRes).toHaveBeenCalledTimes(2)
     expect(response).toEqual(expectedResponse)
   })
 })

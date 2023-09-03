@@ -3,72 +3,84 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Prefix, Subsystem } from '../../../models'
 import type { ObsMode } from './ObsMode'
 import type { ProvisionConfig } from './ProvisionConfig'
 import type { Variation } from './Variation'
+import type { Prefix, Subsystem } from '../../../models'
 
 export class Configure {
-  readonly _type: 'Configure' = 'Configure'
+  _type: 'Configure' = 'Configure' as const
 
   constructor(readonly obsMode: ObsMode) {}
 }
 
 export class Provision {
-  readonly _type: 'Provision' = 'Provision'
+  _type: 'Provision' = 'Provision' as const
 
   constructor(readonly config: ProvisionConfig) {}
 }
 
 export class GetObsModesDetails {
-  readonly _type: 'GetObsModesDetails' = 'GetObsModesDetails'
+  _type: 'GetObsModesDetails' = 'GetObsModesDetails' as const
 }
 
 export class StartSequencer {
-  readonly _type: 'StartSequencer' = 'StartSequencer'
+  _type: 'StartSequencer' = 'StartSequencer' as const
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode, readonly variation: Variation[]) {} //optional representation on wire
+  constructor(
+    readonly subsystem: Subsystem,
+    readonly obsMode: ObsMode,
+    readonly variation: Variation[]
+  ) {} //optional representation on wire
 }
 
 export class RestartSequencer {
-  readonly _type: 'RestartSequencer' = 'RestartSequencer'
+  _type: 'RestartSequencer' = 'RestartSequencer' as const
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode, readonly variation: Variation[]) {} //optional representation on wire
+  constructor(
+    readonly subsystem: Subsystem,
+    readonly obsMode: ObsMode,
+    readonly variation: Variation[]
+  ) {} //optional representation on wire
 }
 
 export class ShutdownSequencer {
-  readonly _type: 'ShutdownSequencer' = 'ShutdownSequencer'
+  _type: 'ShutdownSequencer' = 'ShutdownSequencer' as const
 
-  constructor(readonly subsystem: Subsystem, readonly obsMode: ObsMode, readonly variation: Variation[]) {} //optional representation on wire
+  constructor(
+    readonly subsystem: Subsystem,
+    readonly obsMode: ObsMode,
+    readonly variation: Variation[]
+  ) {} //optional representation on wire
 }
 
 export class ShutdownSubsystemSequencers {
-  readonly _type: 'ShutdownSubsystemSequencers' = 'ShutdownSubsystemSequencers'
+  _type: 'ShutdownSubsystemSequencers' = 'ShutdownSubsystemSequencers' as const
 
   constructor(readonly subsystem: Subsystem) {}
 }
 
 export class ShutdownObsModeSequencers {
-  readonly _type: 'ShutdownObsModeSequencers' = 'ShutdownObsModeSequencers'
+  _type: 'ShutdownObsModeSequencers' = 'ShutdownObsModeSequencers' as const
 
   constructor(readonly obsMode: ObsMode) {}
 }
 
 export class ShutdownAllSequencers {
-  readonly _type: 'ShutdownAllSequencers' = 'ShutdownAllSequencers'
+  _type: 'ShutdownAllSequencers' = 'ShutdownAllSequencers' as const
 }
 
 export class ShutdownSequenceComponent {
-  readonly _type: 'ShutdownSequenceComponent' = 'ShutdownSequenceComponent'
+  _type: 'ShutdownSequenceComponent' = 'ShutdownSequenceComponent' as const
 
   constructor(readonly prefix: Prefix) {}
 }
 
 export class ShutdownAllSequenceComponents {
-  readonly _type: 'ShutdownAllSequenceComponents' = 'ShutdownAllSequenceComponents'
+  _type: 'ShutdownAllSequenceComponents' = 'ShutdownAllSequenceComponents' as const
 }
 export class GetResources {
-  readonly _type: 'GetResources' = 'GetResources'
+  _type: 'GetResources' = 'GetResources' as const
 }
 
 export type SequenceManagerPostRequest =

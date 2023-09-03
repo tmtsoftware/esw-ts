@@ -39,7 +39,7 @@ describe('Sequencer Service Factory', () => {
     const a = await SequencerService(componentId, { tokenFactory })
 
     expect(a).toEqual(seqServiceImpl)
-    expect(mockResolveGateway).toBeCalledTimes(1)
+    expect(mockResolveGateway).toHaveBeenCalledTimes(1)
     // expect(postMockEndpoint).toBeCalledWith(uri)
     // expect(wsMockEndpoint).toBeCalledWith(uri)
   })

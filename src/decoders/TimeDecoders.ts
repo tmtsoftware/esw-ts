@@ -5,8 +5,8 @@
 
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { TAITime, TMTTime, UTCTime } from '../models/TMTTime'
 import type { Decoder } from './Decoder'
+import { TAITime, TMTTime, UTCTime } from '../models/TMTTime'
 
 const dateDecoder = <T extends TMTTime>(timeConstructor: new (date: Date) => T) =>
   pipe(

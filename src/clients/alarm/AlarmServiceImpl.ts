@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Done } from '../..'
-import { DoneD } from '../../decoders/CommonDecoders'
-import type { HttpTransport } from '../../utils/HttpTransport'
 import type { AlarmService } from './AlarmService'
 import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 import { SetAlarmSeverity } from './models/PostCommand'
+import type { Done } from '../..'
+import { DoneD } from '../../decoders/CommonDecoders'
+import type { HttpTransport } from '../../utils/HttpTransport'
 
 export class AlarmServiceImpl implements AlarmService {
   constructor(private readonly httpTransport: HttpTransport<SetAlarmSeverity>) {}

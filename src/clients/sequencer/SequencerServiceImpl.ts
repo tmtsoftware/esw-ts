@@ -3,6 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import * as Req from './models/PostCommand'
+import type { SequencerState, SequencerStateResponse } from './models/SequencerRes'
+import type { StepList } from './models/StepList'
+import { QueryFinal, SequencerWebsocketRequest, SubscribeSequencerState } from './models/WsCommand'
+import type { SequencerService } from './SequencerService'
 import type {
   DiagnosticModeResponse,
   GenericResponse,
@@ -26,11 +31,6 @@ import type { HttpTransport } from '../../utils/HttpTransport'
 import { headOption } from '../../utils/Utils'
 import type { Ws } from '../../utils/Ws'
 import { GatewaySequencerCommand } from '../gateway/models/Gateway'
-import * as Req from './models/PostCommand'
-import type { SequencerState, SequencerStateResponse } from './models/SequencerRes'
-import type { StepList } from './models/StepList'
-import { QueryFinal, SequencerWebsocketRequest, SubscribeSequencerState } from './models/WsCommand'
-import type { SequencerService } from './SequencerService'
 
 export class SequencerServiceImpl implements SequencerService {
   constructor(

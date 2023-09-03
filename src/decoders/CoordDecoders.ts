@@ -5,6 +5,7 @@
 
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
+import { ciLiteral, Decoder } from './Decoder'
 import type {
   AltAzCoord,
   CometCoord,
@@ -18,7 +19,6 @@ import type {
 } from '../models'
 import { Tag } from '../models'
 import { Angle } from '../models/params/Angle'
-import { ciLiteral, Decoder } from './Decoder'
 
 export const TagD: Decoder<Tag> = pipe(
   D.string,

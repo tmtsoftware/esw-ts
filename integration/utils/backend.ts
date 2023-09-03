@@ -1,3 +1,5 @@
+import { waitForLocationToStop, waitForServicesToUp } from './healthCheck'
+import * as sh from './shell'
 import { HttpConnection } from '../../src/clients/location'
 import { resolve } from '../../src/clients/location/LocationUtils'
 import {
@@ -9,8 +11,6 @@ import {
   AGENT_SERVICE_CONNECTION
 } from '../../src/config/Connections'
 import { ComponentType, Prefix, Subsystem } from '../../src/models'
-import { waitForLocationToStop, waitForServicesToUp } from './healthCheck'
-import * as sh from './shell'
 
 const joinWithPrefix = (serviceNames: ServiceName[]) => serviceNames.flatMap((name) => ['-s', name])
 

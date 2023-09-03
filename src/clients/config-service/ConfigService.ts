@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { ConfigServiceImpl } from './ConfigServiceImpl'
+import type { ConfigData } from './models/ConfigData'
+import type * as M from './models/ConfigModels'
 import type { Location, Option, TokenFactory } from '../..'
 import { CONFIG_CONNECTION } from '../../config'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
-import { ConfigServiceImpl } from './ConfigServiceImpl'
-import type { ConfigData } from './models/ConfigData'
-import type * as M from './models/ConfigModels'
 
 /**
  * A Config Service API which provides client side methods to manage configuration files residing in config server repository.

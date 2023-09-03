@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Unhandled } from '../../../models'
 import type { StepList } from './StepList'
+import type { Unhandled } from '../../../models'
 
 export type Ok = {
   _type: 'Ok'

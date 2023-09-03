@@ -23,15 +23,21 @@ import type { SequencerPostRequest } from '../../sequencer/models/PostCommand'
 import type { SequencerWebsocketRequest } from '../../sequencer/models/WsCommand'
 
 export class GatewayComponentCommand<T extends CommandServicePostMessage | CommandServiceWsMessage> {
-  readonly _type: 'ComponentCommand' = 'ComponentCommand'
+  _type: 'ComponentCommand' = 'ComponentCommand' as const
 
-  constructor(readonly componentId: ComponentId, readonly command: T) {}
+  constructor(
+    readonly componentId: ComponentId,
+    readonly command: T
+  ) {}
 }
 
 export class GatewaySequencerCommand<T extends SequencerPostRequest | SequencerWebsocketRequest> {
-  readonly _type: 'SequencerCommand' = 'SequencerCommand'
+  _type: 'SequencerCommand' = 'SequencerCommand' as const
 
-  constructor(readonly componentId: ComponentId, readonly command: T) {}
+  constructor(
+    readonly componentId: ComponentId,
+    readonly command: T
+  ) {}
 }
 
 export type GatewayEventPostRequest = PublishEvent | GetEvent

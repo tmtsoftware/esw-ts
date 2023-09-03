@@ -3,14 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Decoder } from '../decoders/Decoder'
-import type { AuthData } from '../models'
 import { HeaderExt } from './HeaderExt'
 import { post } from './Http'
 import { getOrThrow } from './Utils'
+import type { Decoder } from '../decoders/Decoder'
+import type { AuthData } from '../models'
 
 export class HttpTransport<Req> {
-  constructor(readonly url: string, readonly authData?: AuthData) {}
+  constructor(
+    readonly url: string,
+    readonly authData?: AuthData
+  ) {}
 
   async requestRes<Res>(request: Req, decoder: Decoder<Res>, timeoutInMillis?: number): Promise<Res> {
     const token = this.authData?.tokenFactory?.()

@@ -30,7 +30,7 @@ describe('Config Service Factory', () => {
     const a = await ConfigService(tokenFactory)
 
     expect(a).toEqual(configServiceImpl)
-    expect(mockResolveConfigServer).toBeCalledTimes(1)
+    expect(mockResolveConfigServer).toHaveBeenCalledTimes(1)
   })
 })
 

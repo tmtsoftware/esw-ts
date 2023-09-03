@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { ComponentType } from '..'
 import { ciLiteral, Decoder } from './Decoder'
+import type { ComponentType } from '..'
 
 export const ComponentTypeD: Decoder<ComponentType> = ciLiteral(
   'HCD',

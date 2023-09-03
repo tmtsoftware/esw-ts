@@ -30,7 +30,7 @@ describe('Alarm Service Factory', () => {
     const a = await AlarmService()
 
     expect(a).toEqual(alarmServiceImpl)
-    expect(mockResolveGateway).toBeCalledTimes(1)
+    expect(mockResolveGateway).toHaveBeenCalledTimes(1)
   })
 })
 

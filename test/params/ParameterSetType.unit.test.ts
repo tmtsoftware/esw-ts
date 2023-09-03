@@ -59,7 +59,7 @@ describe('ParameterSetType', () => {
 
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.add(stringParam)
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
-    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
+    expect(parameterSetType.create).toHaveBeenCalledWith(expectedParameterSet)
   })
 
   test('add should replace parameter when same key exists | ESW-380', () => {
@@ -71,7 +71,7 @@ describe('ParameterSetType', () => {
 
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.add(stringParam2)
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
-    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
+    expect(parameterSetType.create).toHaveBeenCalledWith(expectedParameterSet)
   })
 
   test('madd should add parameters when there is no overlap of keys | ESW-380', () => {
@@ -84,7 +84,7 @@ describe('ParameterSetType', () => {
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([stringParam, intArrayParam])
 
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
-    expect(parameterSetType.create).toBeCalledTimes(2)
+    expect(parameterSetType.create).toHaveBeenCalledTimes(2)
     expect(parameterSetType.create).toHaveBeenNthCalledWith(1, [intParam, stringParam])
     expect(parameterSetType.create).toHaveBeenNthCalledWith(2, expectedParameterSet)
   })
@@ -103,7 +103,7 @@ describe('ParameterSetType', () => {
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.madd([stringParam2, intArrayParam])
 
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
-    expect(parameterSetType.create).toBeCalledTimes(2)
+    expect(parameterSetType.create).toHaveBeenCalledTimes(2)
     expect(parameterSetType.create).toHaveBeenNthCalledWith(1, [intParam, stringParam2])
     expect(parameterSetType.create).toHaveBeenNthCalledWith(2, expectedParameterSet)
   })
@@ -130,7 +130,7 @@ describe('ParameterSetType', () => {
 
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.remove(intKey('number'))
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
-    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
+    expect(parameterSetType.create).toHaveBeenCalledWith(expectedParameterSet)
   })
 
   test('remove - choiceKey | ESW-380', () => {
@@ -141,7 +141,7 @@ describe('ParameterSetType', () => {
 
     const actualParameterSet: ParameterSetTypeTest = parameterSetType.remove(rgbKey)
     expect(actualParameterSet.paramSet).toEqual(expectedParameterSet)
-    expect(parameterSetType.create).toBeCalledWith(expectedParameterSet)
+    expect(parameterSetType.create).toHaveBeenCalledWith(expectedParameterSet)
   })
 
   test('get - choiceKey | ESW-380', () => {

@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EventServiceImpl } from './EventServiceImpl'
+import type { Event } from './models/Event'
+import type { EventKey } from './models/EventKey'
 import type { AuthData, Subscription } from '../..'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { Done, ServiceError, Subsystem } from '../../models'
@@ -11,9 +14,6 @@ import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../ut
 import { Ws } from '../../utils/Ws'
 import type { Location } from '../location'
 import { resolve } from '../location/LocationUtils'
-import { EventServiceImpl } from './EventServiceImpl'
-import type { Event } from './models/Event'
-import type { EventKey } from './models/EventKey'
 
 /**
  * A Event Service API provides client side methods to interact with the event server.

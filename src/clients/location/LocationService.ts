@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { LocationServiceImpl } from './LocationServiceImpl'
+import type { Connection, ConnectionType } from './models/Connection'
+import type { TimeUnit } from './models/Duration'
+import type { Location } from './models/Location'
+import type { TrackingEvent } from './models/TrackingEvent'
 import type { AuthData, Option, Subscription } from '../..'
 import { GlobalConfig, LocationInfo } from '../../config/GlobalConfig'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
-import { LocationServiceImpl } from './LocationServiceImpl'
-import type { Connection, ConnectionType } from './models/Connection'
-import type { TimeUnit } from './models/Duration'
-import type { Location } from './models/Location'
-import type { TrackingEvent } from './models/TrackingEvent'
 
 /**
  *  A Location Service Client API. This model provides promise based APIs for managing service registrations.

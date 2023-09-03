@@ -37,7 +37,7 @@ describe('Command Service Factory', () => {
     const a = await CommandService(componentId, { tokenFactory })
 
     expect(a).toEqual(commandServiceImpl)
-    expect(mockResolveGateway).toBeCalledTimes(1)
+    expect(mockResolveGateway).toHaveBeenCalledTimes(1)
   })
 })
 

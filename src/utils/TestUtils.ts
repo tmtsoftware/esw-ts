@@ -3,12 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type {
-  KeycloakProfile,
-  KeycloakResourceAccess,
-  KeycloakRoles,
-  KeycloakTokenParsed
-} from 'keycloak-js'
+export type { KeycloakProfile, KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js'
 export { AgentServiceImpl } from '../clients/agent-service/AgentServiceImpl'
 export { ConfigServiceImpl } from '../clients/config-service/ConfigServiceImpl'
 export { SequenceManagerImpl } from '../clients/sequence-manager/SequenceManagerImpl'

@@ -20,7 +20,10 @@ export class AlarmKey {
    * @param prefix this alarm belongs to e.g. tcs.filter.wheel
    * @param name represents the name of the alarm unique to the component e.g tromboneAxisLowLimitAlarm
    */
-  constructor(readonly prefix: Prefix, readonly name: string) {
+  constructor(
+    readonly prefix: Prefix,
+    readonly name: string
+  ) {
     requirement(!prefix.componentName.match(invalidChars), 'key contains invalid characters')
     requirement(!name.match(invalidChars), 'key contains invalid characters')
   }

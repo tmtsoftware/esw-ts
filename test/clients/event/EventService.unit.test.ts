@@ -31,7 +31,7 @@ describe('Event Service Factory', () => {
     const a = await EventService()
 
     expect(a).toEqual(eventServiceImpl)
-    expect(mockResolveGateway).toBeCalledTimes(1)
+    expect(mockResolveGateway).toHaveBeenCalledTimes(1)
   })
 })
 

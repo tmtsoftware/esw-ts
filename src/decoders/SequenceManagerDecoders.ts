@@ -5,14 +5,14 @@
 
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
-import { ObsMode } from '../clients/sequence-manager'
-import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 import { FailedD, LocationServiceErrorD, UnhandledD } from './CommonDecoders'
 import { ComponentIdD } from './ComponentIdDecoder'
 import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
 import { SubsystemD } from './SubsystemDecoder'
 import { VariationInfoD } from './VariationInfoDecoder'
+import { ObsMode } from '../clients/sequence-manager'
+import type * as T from '../clients/sequence-manager/models/SequenceManagerRes'
 
 export const ObsModeD: Decoder<ObsMode> = pipe(
   D.string,

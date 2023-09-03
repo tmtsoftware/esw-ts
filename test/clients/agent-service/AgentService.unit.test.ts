@@ -33,7 +33,7 @@ describe('Agent Service Factory', () => {
     const response = await AgentService(authData)
 
     expect(response).toEqual(agentServiceImpl)
-    expect(mockResolveAgent).toBeCalledTimes(1)
+    expect(mockResolveAgent).toHaveBeenCalledTimes(1)
   })
 })
 
