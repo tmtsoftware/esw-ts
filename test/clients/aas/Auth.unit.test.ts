@@ -41,7 +41,7 @@ describe('Auth', () => {
   })
 
   test('Initialise keycloak on authenticate | ESW-330', async () => {
-    const mockFn = jest.mocked(Keycloak, true)
+    const mockFn = jest.mocked(Keycloak, { shallow: true })
     const keycloakInstance = mockedKeyCloakInstance()
     mockFn.mockReturnValue(keycloakInstance)
 
@@ -53,29 +53,29 @@ describe('Auth', () => {
       url
     }
 
-    expect(keycloakInstance.init).toBeCalledWith({
+    expect(keycloakInstance.init).toHaveBeenCalledWith({
       onLoad: 'login-required',
       flow: 'standard'
     })
-    expect(mockFn).toBeCalledWith(expectedConfig)
+    expect(mockFn).toHaveBeenCalledWith(expectedConfig)
     expect(await authenticatedPromise).toEqual(true)
   })
 
   test('Initialise keycloak on authenticate with redirect false | ESW-330', async () => {
-    const mockFn = jest.mocked(Keycloak, true)
+    const mockFn = jest.mocked(Keycloak, { shallow: true })
     const keycloakInstance = mockedKeyCloakInstance()
     mockFn.mockReturnValue(keycloakInstance)
 
     await AuthStore.authenticate(conf, url, false)
 
-    expect(keycloakInstance.init).toBeCalledWith({
+    expect(keycloakInstance.init).toHaveBeenCalledWith({
       onLoad: 'check-sso',
       flow: 'standard'
     })
   })
 
   test('fetch AAS url | ESW-330', async () => {
-    const mockedResolve = jest.mocked(resolve, true)
+    const mockedResolve = jest.mocked(resolve, { shallow: true })
     const authLocation: HttpLocation = {
       _type: 'HttpLocation',
       connection: HttpConnection(new Prefix('CSW', 'AAS'), 'Service'),
@@ -89,7 +89,7 @@ describe('Auth', () => {
   })
 
   test('fail to fetch AAS url | ESW-330', async () => {
-    const mockedResolve = jest.mocked(resolve, true)
+    const mockedResolve = jest.mocked(resolve, { shallow: true })
     mockedResolve.mockRejectedValueOnce(Error('CSW.AAS not found'))
 
     await expect(() => AuthStore.getAASUrl()).rejects.toThrow('CSW.AAS not found')

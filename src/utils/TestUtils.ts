@@ -5,7 +5,6 @@
 
 export type {
   KeycloakProfile,
-  KeycloakPromise,
   KeycloakResourceAccess,
   KeycloakRoles,
   KeycloakTokenParsed

@@ -94,7 +94,7 @@ describe('Web socket util', () => {
 
       const onerror = (error: ServiceError) => {
         expect(error.status).toBe(SERVER_ERROR.code)
-        expect(error.message).toBe('Unexpected number in JSON at position 1')
+        expect(error.message).toBe("Expected property name or '}' in JSON at position 1")
         done()
       }
 

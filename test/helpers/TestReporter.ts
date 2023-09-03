@@ -4,8 +4,8 @@
  */
 
 import type { BaseReporter } from '@jest/reporters'
-import type { Context, Test } from '@jest/reporters/build/types'
-import type { AggregatedResult, TestResult } from '@jest/test-result'
+// import type { Context, Test } from '@jest/reporters/build/types'
+import type { AggregatedResult, Test, TestContext, TestResult } from '@jest/test-result'
 // eslint-disable-next-line import/no-nodejs-modules
 import fs from 'fs'
 // eslint-disable-next-line import/no-nodejs-modules
@@ -86,7 +86,7 @@ class TestReporter implements CustomReporter {
     return this.results.push(`${storyId.trim() + PIPE_WITH_SPACES + name.trim() + PIPE_WITH_SPACES + status}`)
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async onRunComplete(_context?: Set<Context>, _results?: AggregatedResult) {
+  async onRunComplete(_context?: Set<TestContext>, _results?: AggregatedResult) {
     if (!append && fs.existsSync(OUTPUT_PATH)) {
       deleteFile(OUTPUT_PATH)
     }

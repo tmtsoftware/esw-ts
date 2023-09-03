@@ -28,7 +28,11 @@
     /* Additional Checks from jest*/
     "jsx": "react",
     "esModuleInterop": true,
+
+    // XXX TODO FIXME!
+    "ignoreDeprecations": "5.0",
     "importsNotUsedAsValues": "error",
+
     "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,

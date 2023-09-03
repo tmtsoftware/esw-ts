@@ -67,7 +67,7 @@ export class AuthStore {
   public static authenticate(config: AuthContextConfig, url: string, redirect: boolean): AuthenticateResult {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
-    const keycloak: KeycloakInstance = Keycloak(keycloakConfig)
+    const keycloak: KeycloakInstance = new Keycloak(keycloakConfig)
 
     keycloak.onTokenExpired = () => this.onTokenExpired(keycloak)
 

@@ -3,23 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type KC from 'keycloak-js'
+import Keycloak from 'keycloak-js'
 
 export interface Auth {
-  logout: (options?: KC.KeycloakLogoutOptions) => KC.KeycloakPromise<void, void>
+  logout: (options?: Keycloak.KeycloakLogoutOptions) => Promise<void>
   token: () => string | undefined
-  tokenParsed: () => (KC.KeycloakTokenParsed & { preferred_username?: string }) | undefined
-  realmAccess: () => KC.KeycloakRoles | undefined
-  resourceAccess: () => KC.KeycloakResourceAccess | undefined
-  loadUserProfile: () => KC.KeycloakPromise<KC.KeycloakProfile, void>
+  tokenParsed: () => (Keycloak.KeycloakTokenParsed & { preferred_username?: string }) | undefined
+  realmAccess: () => Keycloak.KeycloakRoles | undefined
+  resourceAccess: () => Keycloak.KeycloakResourceAccess | undefined
+  loadUserProfile: () => Promise<Keycloak.KeycloakProfile>
   isAuthenticated: () => boolean | undefined
   hasRealmRole: (role: string) => boolean
   hasResourceRole: (role: string, resource?: string) => boolean
 }
 
 export interface AuthenticateResult {
-  keycloak: KC.KeycloakInstance
-  authenticatedPromise: KC.KeycloakPromise<boolean, KC.KeycloakError>
+  keycloak: Keycloak.KeycloakInstance
+  authenticatedPromise: Promise<boolean>
 }
 
 export interface AuthContextConfig {
