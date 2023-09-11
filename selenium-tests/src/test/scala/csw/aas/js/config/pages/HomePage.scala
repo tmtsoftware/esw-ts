@@ -5,7 +5,7 @@ import org.scalatestplus.selenium.{Page, WebBrowser}
 
 class HomePage(implicit driver: WebDriver) extends WebBrowser with Page {
 
-  override val url: String = "http://localhost:3000/"
+  override val url: String = "http://127.0.0.1:3000/"
 
   private val aasLoginBtn = id("keycloak-login")
 
