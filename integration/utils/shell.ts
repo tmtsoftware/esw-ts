@@ -36,8 +36,8 @@ const appLauncherSync = (name: string, version = 'master-SNAPSHOT') =>
 // Put SHA of 10 characters to make it consistent with Git api for latest SHA
 // This consistency avoids multiple jitpack triggers for same commit
 
-const csw_sha = '8413578'
-const esw_sha = '6f4c9eb'
+const csw_sha = '57260453cd034c1bbe15ad6bf50fcad24a3bf81c'
+const esw_sha = '0c1837b801bb853ac0bae347e68a4aa47180faa6'
 
 export const executeServicesScript = appLauncher('backend-testkit-services', esw_sha)
 export const executeComponentScript = appLauncher('backend-testkit-component', esw_sha)
