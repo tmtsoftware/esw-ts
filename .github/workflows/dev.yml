@@ -47,7 +47,7 @@ jobs:
           npm run build
 
       - name: Selenium Test
-        run: sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=./testStoryMapping.txt clean test
+        run: sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test
 
       - name: Generate RTM
         if: always()
