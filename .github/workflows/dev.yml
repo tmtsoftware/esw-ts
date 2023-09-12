@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: valeriangalliat/action-sshd-cloudflared@v1
       - uses: coursier/setup-action@v1
         with:
           jvm: temurin:1.17
@@ -20,7 +21,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: "20.x"
+          node-version: "20.6.1"
           registry-url: "https://registry.npmjs.org"
 
       - name: Cache ~/.npm
