@@ -7,6 +7,7 @@ import sbt._
 object Common {
 
   private val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
+    .withRank(KeyRanks.Invisible)
 
   private val storyReport: Boolean = sys.props.get("generateStoryReport").contains("true")
   private val reporterOptions: Seq[Tests.Argument] =
