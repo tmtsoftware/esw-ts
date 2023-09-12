@@ -1,5 +1,0 @@
-Note: Temporarilly removed 'audit' from this line in package.json so that build would succeed:
-
-    "prebuild": "npm run clean && npm-run-all --parallel fix audit",
-
-The dependencies need to be updated at some point.

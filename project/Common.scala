@@ -6,7 +6,7 @@ import sbt._
 
 object Common {
 
-  val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
+  private val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
 
   private val storyReport: Boolean = sys.props.get("generateStoryReport").contains("true")
   private val reporterOptions: Seq[Tests.Argument] =
