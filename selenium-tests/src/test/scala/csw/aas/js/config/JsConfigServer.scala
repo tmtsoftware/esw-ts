@@ -14,7 +14,7 @@ trait JsConfigServer {
   private val configScript = jsDir / "config.sh"
 
   def startNodeConfigServer()(implicit ec: ExecutionContext, mat: Materializer): Future[Boolean] =
-    if (run("start")) healthCheck("http://127.0.0.1:3000/")
+    if (run("start")) healthCheck("http://localhost:3000/")
     else Future.successful(false)
 
   def stopNodeConfigServer(): Boolean = run("stop")

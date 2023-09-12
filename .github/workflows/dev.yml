@@ -72,7 +72,7 @@ jobs:
           path: ./coverage
 
       - name: Notify slack
-        if: always()
+        if: false
         continue-on-error: true
         uses: kpritam/slack-job-status-action@v1
         with:
