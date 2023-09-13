@@ -22,7 +22,6 @@
     "last 1 chrome version"
   ],
   "devDependencies": {
-    "@pm2/io": "^5.0.0",
     "@types/node": "20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
