@@ -16,7 +16,7 @@
     "fix": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
     "build": "npm run fix && vite build",
     "startConfig": "BROWSER=none pm2 start npm --name example -- start",
-    "stopConfig": "pm2 delete example"
+    "stopConfig": "pm2 delete example && pm2 logs --nostream"
   },
   "browserslist": [
     "last 1 chrome version"
