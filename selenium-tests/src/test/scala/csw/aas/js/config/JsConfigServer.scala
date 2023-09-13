@@ -3,7 +3,6 @@ import org.apache.pekko.stream.scaladsl.{RestartSource, Sink, Source}
 import org.apache.pekko.stream.{Materializer, RestartSettings}
 import os.Inherit
 
-import java.io.File
 import scala.concurrent.duration.DurationDouble
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -14,13 +13,9 @@ trait JsConfigServer {
   private val jsDir        = os.pwd / os.up / "example"
   private val configScript = jsDir / "config.sh"
 
-  def startNodeConfigServer()(implicit ec: ExecutionContext, mat: Materializer): Future[Boolean] = {
-    val xxxExists1 = new File(jsDir.toString).exists()
-    val xxxExists2 = new File(configScript.toString).exists()
-    println(s"XXX jsDir = $jsDir, exists = $xxxExists1, $xxxExists2")
+  def startNodeConfigServer()(implicit ec: ExecutionContext, mat: Materializer): Future[Boolean] =
     if (run("start")) healthCheck("http://localhost:3000/")
     else Future.successful(false)
-  }
 
   def stopNodeConfigServer(): Boolean = run("stop")
 
