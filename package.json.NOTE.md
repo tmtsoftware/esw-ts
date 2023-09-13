@@ -1,10 +1,5 @@
 # Notes
 
-* Temporarilly removed 'audit' from this line in package.json so that build would succeed:
-```
-    "prebuild": "npm run clean && npm-run-all --parallel fix audit",
-```
-
   * In example/package.json, set
 ```
     "@types/node": "20.5.9",
