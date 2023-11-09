@@ -10,3 +10,4 @@ instead of newer version due to https://github.com/babel/babel/issues/15927
 * Issue with old version of uuid not currently solvable using public dependencies.
   See https://github.com/keymetrics/pm2-io-apm/issues/285 (opencensus indirect dependency is EOL)
 
+* In example/vite.config.js, changed server.host to true (0.0.0.0) instead of default "localhost", since localhost fails in GitHub action
