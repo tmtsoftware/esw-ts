@@ -32,8 +32,8 @@ export class ServiceError extends Error {
       (status == 500 || status == SERVER_ERROR.code) && responseBody.error_message
         ? responseBody.error_message
         : responseBody.message
-        ? responseBody.message
-        : responseBody
+          ? responseBody.message
+          : responseBody
 
     return new ServiceError(errorType, message, status, statusText)
   }
