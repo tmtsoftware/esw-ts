@@ -5,6 +5,7 @@ import { Task } from '@lit/task'
 import litLogo from './assets/lit.svg'
 import viteLogo from '/vite.svg'
 import '../../src/components/aas/context/AuthContextProviderLit.ts'
+import './tab-bar.ts'
 
 /**
  * This is the top level example application element
@@ -42,6 +43,7 @@ export class ExampleApp extends LitElement {
 
   renderMain() {
     return html`
+      <tab-bar></tab-bar>
       <auth-context-provider realm="TMT" client-id="tmt-frontend-app">
         <div>
           <a href="https://vitejs.dev" target="_blank">
