@@ -4,7 +4,8 @@
  */
 
 import React, { useContext } from 'react'
-import { AuthContext, AuthContextType } from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
+import type { AuthContextType } from '../context/AuthContextType'
 
 export interface CheckLoginProps {
   children: React.ReactNode

@@ -25,7 +25,7 @@ const defaultAuthConfig = {
  * children - react component or html element which can have consumer to access
  * context provided
  */
-const AuthContextProvider = (props: AuthContextProps) => {
+const AuthContextProvider = (props: AuthContextProps): React.JSX.Element => {
   const [auth, setAuth] = useState<Auth | null>(null)
 
   /**

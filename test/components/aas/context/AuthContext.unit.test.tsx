@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AuthContextDefaultState } from '../../../../src/components/aas/context/AuthContext'
+import { AuthContextDefaultState } from '../../../../src/components/aas/context/AuthContextType'
 
 describe('<AuthContext />', () => {
   test('should have correct default state | ESW-330', () => {

@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    // Recommended for Lit
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+
     /* Basic Options */
     "incremental": true,
     /* Emit typings for js files*/
