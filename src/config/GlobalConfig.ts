@@ -2,8 +2,6 @@
  * Copyright (C) 2023 Thirty Meter Telescope International Observatory
  * SPDX-License-Identifier: Apache-2.0
  */
-
-const CONFIG_PATH = '/config.js'
 /**
  * Represents the shape of configuration Module `config.js`.
  * @Category Configuration
@@ -42,7 +40,8 @@ const DefaultConfig: Config = { locationUrl: 'http://localhost:7654', taiOffset:
 export let GlobalConfig: Config = DefaultConfig
 
 const loadConfig = async (): Promise<Config> => {
-  const module = <ConfigModule>await import(CONFIG_PATH)
+  const path = 'config'
+  const module = <ConfigModule>await import(`./config/${path}.js`)
   return module.config
 }
 /**
