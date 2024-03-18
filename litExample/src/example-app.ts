@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { Task } from '@lit/task'
 import litLogo from './assets/lit.svg'
 import viteLogo from '/vite.svg'
+import '../../src/components/aas/context/AuthContextProviderLit.ts'
 
 /**
  * This is the top level example application element
@@ -41,19 +42,21 @@ export class ExampleApp extends LitElement {
 
   renderMain() {
     return html`
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src=${viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://lit.dev" target="_blank">
-          <img src=${litLogo} class="logo lit" alt="Lit logo" />
-        </a>
-      </div>
-      <slot></slot>
-      <div class="card">
-        <button @click=${this._onClick} part="button">count is ${this.count}</button>
-      </div>
-      <p class="read-the-docs">${this.docsHint}</p>
+      <auth-context-provider realm="TMT" client-id="tmt-frontend-app">
+        <div>
+          <a href="https://vitejs.dev" target="_blank">
+            <img src=${viteLogo} class="logo" alt="Vite logo" />
+          </a>
+          <a href="https://lit.dev" target="_blank">
+            <img src=${litLogo} class="logo lit" alt="Lit logo" />
+          </a>
+        </div>
+        <slot></slot>
+        <div class="card">
+          <button @click=${this._onClick} part="button">count is ${this.count}</button>
+        </div>
+        <p class="read-the-docs">${this.docsHint}</p>
+      </auth-context-provider>
     `
   }
 

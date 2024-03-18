@@ -8,9 +8,9 @@ import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { type Auth, type AuthContextConfig, AuthStore } from '../../../clients/aas'
 
-export const authContext = createContext<Auth | null>('auth')
+const authContext = createContext<Auth | null>('auth')
 
-@customElement('auth-provider')
+@customElement('auth-context-provider')
 export class AuthContextProviderLit extends LitElement {
   @provide({ context: authContext })
   @property({ attribute: false })
@@ -19,7 +19,7 @@ export class AuthContextProviderLit extends LitElement {
   @property({ type: String })
   realm: string = 'TMT'
 
-  @property({ type: String })
+  @property({ attribute: 'client-id', type: String })
   clientId: string = 'tmt-frontend-app'
 
   /**
@@ -68,6 +68,14 @@ export class AuthContextProviderLit extends LitElement {
   }
 
   render() {
-    return html` <div class="container" /> `
+    return html` <div class="container">
+      <slot></slot>
+    </div>`
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'auth-context-provider': AuthContextProviderLit
   }
 }

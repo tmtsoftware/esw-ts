@@ -4,7 +4,8 @@
  */
 
 export { AASConfig } from './AASConfig'
-export { LocationInfo, Config, GlobalConfig, loadGlobalConfig } from './GlobalConfig'
+export { GlobalConfig, loadGlobalConfig } from './GlobalConfig'
+export type { LocationInfo, Config } from './GlobalConfig'
 export {
   AGENT_SERVICE_CONNECTION,
   AUTH_CONNECTION,
