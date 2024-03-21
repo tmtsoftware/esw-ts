@@ -27,7 +27,9 @@ export class ExampleApp extends LitElement {
 
   private initTask = new Task(this, {
     task: async () => {
-      return await loadGlobalConfig()
+      return await loadGlobalConfig().catch(() => {
+        console.log('Config.js not found. Failed to Load Global Configuration.')
+      })
     },
     args: () => []
   })
