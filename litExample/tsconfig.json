@@ -22,7 +22,13 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitReturns": true,
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "ts-lit-plugin",
+        "strict": true
+      }
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
