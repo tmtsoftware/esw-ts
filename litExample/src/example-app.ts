@@ -39,7 +39,12 @@ export class ExampleApp extends LitElement {
           <sl-tab slot="nav" panel="user-app">User App</sl-tab>
 
           <sl-tab-panel name="public">This is the public tab panel.</sl-tab-panel>
-          <sl-tab-panel name="secured">This is the secured tab panel.</sl-tab-panel>
+          <sl-tab-panel name="secured">
+            <check-login>
+              <div slot="ok">This is the secured tab panel.</div>
+              <div slot="error">Please login to proceed.</div>
+            </check-login>
+          </sl-tab-panel>
           <sl-tab-panel name="config-link">This is the config app tab panel.</sl-tab-panel>
           <sl-tab-panel name="admin-app">This is a admin app tab panel.</sl-tab-panel>
           <sl-tab-panel name="user-app">This is a user app tab panel.</sl-tab-panel>
