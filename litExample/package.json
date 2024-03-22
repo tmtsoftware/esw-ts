@@ -13,7 +13,8 @@
     "keycloak-js": "^23.0.6",
     "lit": "^3.1.2",
     "@lit/context": "^1.1.0",
-    "@lit/task": "^1.0.0"
+    "@lit/task": "^1.0.0",
+    "@shoelace-style/shoelace": "^2.14.0"
   },
   "devDependencies": {
     "typescript": "^5.2.2",

@@ -1,10 +1,10 @@
-import { Auth, loadGlobalConfig } from '@tmtsoftware/esw-ts'
-import { LitElement, html, css } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { loadGlobalConfig } from '@tmtsoftware/esw-ts'
+import { LitElement, html } from 'lit'
+import { customElement } from 'lit/decorators.js'
 import { Task } from '@lit/task'
-import litLogo from './assets/lit.svg'
-import viteLogo from '/vite.svg'
 import '../../src/components/aas/context/AuthContextProviderLit.ts'
+import '@shoelace-style/shoelace'
+
 
 /**
  * This is the top level example application element
@@ -32,29 +32,21 @@ export class ExampleApp extends LitElement {
     return html`
       <auth-context-provider realm="TMT" client-id="tmt-frontend-app">
         <sl-tab-group>
-          <sl-tab slot="nav" panel="general">General</sl-tab>
-          <sl-tab slot="nav" panel="custom">Custom</sl-tab>
-          <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
-          <sl-tab slot="nav" panel="disabled" disabled>Disabled</sl-tab>
+          <sl-tab slot="nav" panel="public">Public</sl-tab>
+          <sl-tab slot="nav" panel="secured">Secured</sl-tab>
+          <sl-tab slot="nav" panel="config-link">Config App</sl-tab>
+          <sl-tab slot="nav" panel="admin-app">Admin App</sl-tab>
+          <sl-tab slot="nav" panel="user-app">User App</sl-tab>
 
-          <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
-          <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-          <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-          <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
+          <sl-tab-panel name="public">This is the public tab panel.</sl-tab-panel>
+          <sl-tab-panel name="secured">This is the secured tab panel.</sl-tab-panel>
+          <sl-tab-panel name="config-link">This is the config app tab panel.</sl-tab-panel>
+          <sl-tab-panel name="admin-app">This is a admin app tab panel.</sl-tab-panel>
+          <sl-tab-panel name="user-app">This is a user app tab panel.</sl-tab-panel>
         </sl-tab-group>
       </auth-context-provider>
-    `;
+    `
   }
-
-  // static styles = css`
-  //   h1 {
-  //     font-size: var(--lumo-font-size-l);
-  //     left: var(--lumo-space-l);
-  //     margin: 0;
-  //     position: absolute;
-  //   }
-  //
-  // `
 }
 
 declare global {
