@@ -5,9 +5,6 @@ import { Task } from '@lit/task'
 import litLogo from './assets/lit.svg'
 import viteLogo from '/vite.svg'
 import '../../src/components/aas/context/AuthContextProviderLit.ts'
-import '@shoelace-style/shoelace/dist/components/tab-group/tab-group.js'
-import '@shoelace-style/shoelace/dist/components/tab/tab.js'
-import '@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js'
 
 /**
  * This is the top level example application element

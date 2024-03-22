@@ -23,14 +23,8 @@
     "noImplicitReturns": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "plugins": [
-      {
-        "name": "ts-lit-plugin",
-        "strict": true
-      }
-    ]
   },
-  "include": ["src"],
+  "include": ["src", "config"],
   "exclude": ["node_modules", "dist"]
 
 }
