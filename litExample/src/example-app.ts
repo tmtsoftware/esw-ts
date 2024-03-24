@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js'
 import { Task } from '@lit/task'
 import '../../src/components/aas/context/AuthContextProviderLit.ts'
 import '@shoelace-style/shoelace'
-
+import './check-login.ts'
 
 /**
  * This is the top level example application element
