@@ -67,6 +67,10 @@ export class AuthContextProviderLit extends LitElement {
     }
   }
 
+  // @provide({ context: this.login })
+  // @property({ attribute: false })
+  // loginProp = this.login
+
   render() {
     return html` <div class="container">
       <slot></slot>
