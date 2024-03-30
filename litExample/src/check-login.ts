@@ -1,17 +1,18 @@
 import { consume } from '@lit/context'
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import type { Auth } from '../../src'
-import { authContext } from '../../src/components/aas/context/AuthContextProviderLit';
+import type { AuthContextType } from '../../src'
+import { litAuthContext } from '@tmtsoftware/esw-ts'
+// import { litAuthContext } from '../../src/components/aas/context/AuthContextProviderLit.ts'
 
 @customElement('check-login')
 export class CheckLogin extends LitElement {
-  @consume({ context: authContext })
+  @consume({ context: litAuthContext })
   @property({ attribute: false })
-  private auth: Auth | null = null
+  private authContext: AuthContextType = AuthContextDefaultState
 
   render() {
-    if (this.auth && this.auth.isAuthenticated && this.auth.isAuthenticated()) {
+    if (this.authContext.auth && this.authContext.auth.isAuthenticated()) {
       return html`<div><slot name="ok"></slot></div>`
     } else {
       return html`<div><slot name="error"></slot></div>`

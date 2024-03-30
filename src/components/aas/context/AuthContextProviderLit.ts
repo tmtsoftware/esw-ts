@@ -7,12 +7,12 @@ import { createContext, provide } from '@lit/context'
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { type Auth, type AuthContextConfig, AuthStore } from '../../../clients/aas'
+import type { AuthContextType } from './AuthContextType'
 
-export const authContext = createContext<Auth | null>('auth')
+const litAuthContext = createContext<AuthContextType>('authContext')
 
 @customElement('auth-context-provider')
 export class AuthContextProviderLit extends LitElement {
-  @provide({ context: authContext })
   @property({ attribute: false })
   auth: Auth | null = null
 
@@ -67,9 +67,9 @@ export class AuthContextProviderLit extends LitElement {
     }
   }
 
-  // @provide({ context: this.login })
-  // @property({ attribute: false })
-  // loginProp = this.login
+  @provide({ context: litAuthContext })
+  @property({ attribute: false })
+  authContext: AuthContextType = { auth: this.auth, login: this.login, logout: this.logout }
 
   render() {
     return html` <div class="container">
@@ -83,3 +83,5 @@ declare global {
     'auth-context-provider': AuthContextProviderLit
   }
 }
+
+export default litAuthContext

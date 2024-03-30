@@ -1,13 +1,12 @@
-import { consume } from '@lit/context'
 import { Task } from '@lit/task'
 import { loadGlobalConfig } from '@tmtsoftware/esw-ts'
 import { LitElement, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement } from 'lit/decorators.js'
 // eslint-disable-next-line import/no-unresolved
 import '@shoelace-style/shoelace'
 import './check-login.ts'
-import type { Auth } from '../../src'
-import { authContext } from '../../src/components/aas/context/AuthContextProviderLit.ts'
+import './login-button.ts'
+
 
 /**
  * This is the top level example application element
@@ -28,14 +27,6 @@ export class ExampleApp extends LitElement {
       error: (e) => html`<p>Error loading global config: ${e}</p>`,
       complete: () => this.renderMain()
     })
-  }
-
-  @consume({ context: authContext })
-  @property({ attribute: false })
-  private auth: Auth | null = null
-
-  private handleLogin() {
-    console.log('XXX Handle login')
   }
 
   renderMain() {
@@ -59,7 +50,7 @@ export class ExampleApp extends LitElement {
           <sl-tab-panel name="config-link">This is the config app tab panel.</sl-tab-panel>
           <sl-tab-panel name="admin-app">This is a admin app tab panel.</sl-tab-panel>
           <sl-tab-panel name="user-app">This is a user app tab panel.</sl-tab-panel>
-          <sl-tab-panel name="login"><sl-button @click=${this.handleLogin}>Login</sl-button></sl-tab-panel>
+          <sl-tab-panel name="login"><login-button></login-button></sl-tab-panel>
         </sl-tab-group>
       </auth-context-provider>
     `

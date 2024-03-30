@@ -7,9 +7,12 @@ import CheckLogin from './aas/authentication/CheckLogin'
 import RealmRole from './aas/authorization/RealmRole'
 import { AuthContext, Consumer } from './aas/context/AuthContext'
 import AuthContextProvider from './aas/context/AuthContextProvider'
+import type { litAuthContext } from './aas/context/AuthContextProviderLit'
 import type { AuthContextType } from './aas/context/AuthContextType'
 import Login from './aas/Login'
 import Logout from './aas/Logout'
+
+export { litAuthContext }
 
 // #export-components
 export { Logout, Login, CheckLogin, RealmRole, AuthContextProvider, Consumer, AuthContext }
