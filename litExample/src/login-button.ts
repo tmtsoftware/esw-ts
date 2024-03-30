@@ -1,7 +1,8 @@
 import { consume } from '@lit/context'
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { AuthContextLit, litAuthContext, setAppName } from '@tmtsoftware/esw-ts'
+import { AuthContextLit, litAuthContext, loadGlobalConfig, setAppName } from '@tmtsoftware/esw-ts'
+import { Task } from '@lit/task'
 
 setAppName('example')
 
@@ -11,14 +12,14 @@ export class LoginButton extends LitElement {
   @property({ attribute: false })
   private authContext?: AuthContextLit
 
-  private handleLogin() {
+  private async handleLogin() {
     console.log('XXX Handle login authContext = ', this.authContext)
-    this.authContext?.login()
+    await this.authContext?.login()
   }
 
-  private handleLogout() {
+  private async handleLogout() {
     console.log('XXX Handle logout')
-    this.authContext?.logout()
+    await this.authContext?.logout()
   }
 
   render() {
