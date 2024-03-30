@@ -6,7 +6,10 @@
 import { type Auth, type AuthContextConfig, AuthStore } from '../../../clients/aas'
 
 export class AuthContextLit {
+
   auth: Auth | null = null
+
+  // XXX TODO FIXME: pass these as args
   realm: string = 'TMT'
   clientId: string = 'tmt-frontend-app'
 
@@ -23,7 +26,7 @@ export class AuthContextLit {
       const _auth = AuthStore.from(keycloak)
       this.auth = _auth
     } catch (e) {
-      console.error(e)
+      console.error('instantiateAAS: login error: ', e)
       this.auth = null
     }
   }

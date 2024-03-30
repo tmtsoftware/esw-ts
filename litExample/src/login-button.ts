@@ -22,6 +22,7 @@ export class LoginButton extends LitElement {
   }
 
   render() {
+    console.log('XXX authContext = ', this.authContext)
     if (this.authContext?.auth && this.authContext.auth.isAuthenticated()) {
       return html`
         <sl-button @click=${this.handleLogout}>Logout</sl-button>`
