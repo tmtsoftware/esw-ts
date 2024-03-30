@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tmtsoftware/esw-ts": "file:..",
+    "@tmtsoftware/esw-ts": "github:tmtsoftware/esw-ts#3885296",
     "keycloak-js": "^23.0.6",
     "lit": "^3.1.2",
     "@lit/context": "^1.1.0",

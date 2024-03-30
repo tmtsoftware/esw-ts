@@ -9,7 +9,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { type Auth, type AuthContextConfig, AuthStore } from '../../../clients/aas'
 import type { AuthContextType } from './AuthContextType'
 
-const litAuthContext = createContext<AuthContextType>('authContext')
+export const litAuthContext = createContext<AuthContextType>('authContext')
 
 @customElement('auth-context-provider')
 export class AuthContextProviderLit extends LitElement {
@@ -83,5 +83,3 @@ declare global {
     'auth-context-provider': AuthContextProviderLit
   }
 }
-
-export default litAuthContext
