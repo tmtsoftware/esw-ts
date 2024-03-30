@@ -42,7 +42,7 @@ const DefaultConfig: Config = { locationUrl: 'http://localhost:7654', taiOffset:
 export let GlobalConfig: Config = DefaultConfig
 
 const loadConfig = async (): Promise<Config> => {
-  const module = <ConfigModule>await import( /* @vite-ignore */ CONFIG_PATH)
+  const module = <ConfigModule>await import(/* @vite-ignore */ CONFIG_PATH)
   return module.config
 }
 /**

@@ -5,7 +5,7 @@ import { AuthContextLit, litAuthContext } from '@tmtsoftware/esw-ts'
 
 @customElement('check-login')
 export class CheckLogin extends LitElement {
-  @consume({ context: litAuthContext })
+  @consume({ context: litAuthContext, subscribe: true })
   @property({ attribute: false })
   private authContext?: AuthContextLit
 

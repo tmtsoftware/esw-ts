@@ -7,7 +7,6 @@ import '@shoelace-style/shoelace'
 import './check-login.ts'
 import './login-button.ts'
 
-
 /**
  * This is the top level example application element
  */

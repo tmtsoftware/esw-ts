@@ -6,12 +6,17 @@
 import { type Auth, type AuthContextConfig, AuthStore } from '../../../clients/aas'
 
 export class AuthContextLit {
-
-  auth: Auth | null = null
-
-  // XXX TODO FIXME: pass these as args
   realm: string = 'TMT'
   clientId: string = 'tmt-frontend-app'
+  auth: Auth | null = null
+  setAuth: (auth: Auth | null) => void
+
+  constructor(realm: string, clientId: string, auth: Auth | null, setAuth: (auth: Auth | null) => void) {
+    this.realm = realm
+    this.clientId = clientId
+    this.auth = auth
+    this.setAuth = setAuth
+  }
 
   /**
    * Instantiate keycloak and sets AuthStore instance in state. This state can be provided
@@ -24,10 +29,10 @@ export class AuthContextLit {
     try {
       await authenticatedPromise
       const _auth = AuthStore.from(keycloak)
-      this.auth = _auth
+      this.setAuth(_auth)
     } catch (e) {
       console.error('instantiateAAS: login error: ', e)
-      this.auth = null
+      this.setAuth(null)
     }
   }
 
@@ -52,7 +57,7 @@ export class AuthContextLit {
     if (this.auth && this.auth.logout) {
       const logoutPromise = this.auth.logout()
       logoutPromise.then(() => {
-        this.auth = null
+        this.setAuth(null)
       })
       await this.auth.logout()
     }
