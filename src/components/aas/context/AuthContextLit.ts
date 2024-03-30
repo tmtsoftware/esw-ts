@@ -3,23 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {createContext, provide} from '@lit/context'
-import {LitElement, html} from 'lit'
-import {customElement, property} from 'lit/decorators.js'
-import {type Auth, type AuthContextConfig, AuthStore} from '../../../clients/aas'
-import {AuthContextLit} from "./AuthContextLit"
+import { type Auth, type AuthContextConfig, AuthStore } from '../../../clients/aas'
 
-export const litAuthContext = createContext<AuthContextLit>('authContext')
-
-@customElement('auth-context-provider')
-export class AuthContextProviderLit extends LitElement {
-  @property({attribute: false})
+export class AuthContextLit {
   auth: Auth | null = null
-
-  @property({type: String})
   realm: string = 'TMT'
-
-  @property({attribute: 'client-id', type: String})
   clientId: string = 'tmt-frontend-app'
 
   /**
@@ -43,7 +31,7 @@ export class AuthContextProviderLit extends LitElement {
   /**
    * Resolves AAS server and instantiate keycloak in check-sso mode
    */
-  private async loginWithoutRedirect() {
+  async loginWithoutRedirect() {
     const url = await AuthStore.getAASUrl()
     await this.instantiateAAS(url, false)
   }
@@ -51,13 +39,13 @@ export class AuthContextProviderLit extends LitElement {
   /**
    * Resolves AAS server and instantiate keycloak in login-required mode
    */
-  private async login() {
+  async login() {
     const url = await AuthStore.getAASUrl()
     console.log(url)
     await this.instantiateAAS(url, true)
   }
 
-  private async logout() {
+  async logout() {
     if (this.auth && this.auth.logout) {
       const logoutPromise = this.auth.logout()
       logoutPromise.then(() => {
@@ -65,22 +53,5 @@ export class AuthContextProviderLit extends LitElement {
       })
       await this.auth.logout()
     }
-  }
-
-  @provide({context: litAuthContext})
-  @property({attribute: false})
-  authContext: AuthContextLit = new AuthContextLit()
-
-  render() {
-    return html`
-      <div class="container">
-        <slot></slot>
-      </div>`
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'auth-context-provider': AuthContextProviderLit
   }
 }

@@ -4,7 +4,7 @@
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
-    "@tmtsoftware/esw-ts": "github:tmtsoftware/esw-ts#3885296",
+    "@tmtsoftware/esw-ts": "file:..",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
