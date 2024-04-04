@@ -12,17 +12,14 @@ export class LoginButton extends LitElement {
   private authContext?: AuthContextLit
 
   private async handleLogin() {
-    console.log('XXX Handle login authContext = ', this.authContext)
     await this.authContext?.login()
   }
 
   private async handleLogout() {
-    console.log('XXX Handle logout')
     await this.authContext?.logout()
   }
 
   render() {
-    console.log('XXX LoginButton render authContext = ', this.authContext)
     if (this.authContext?.auth && this.authContext.auth.isAuthenticated()) {
       return html` <sl-button @click=${this.handleLogout}>Logout</sl-button>`
     } else {

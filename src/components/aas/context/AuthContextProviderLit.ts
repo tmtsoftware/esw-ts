@@ -31,7 +31,6 @@ export class AuthContextProviderLit extends LitElement {
   // Doing it this way to keep AuthContextLit immutable so that property changes are tracked.
   setAuth(auth: Auth | null) {
     this.auth = auth
-    console.log('XXX setAuth this.authContext = ', new AuthContextLit(this.realm, this.clientId, auth, this.setAuth))
     this.authContext = new AuthContextLit(this.realm, this.clientId, auth, this.setAuth)
   }
 

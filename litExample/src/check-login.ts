@@ -10,7 +10,6 @@ export class CheckLogin extends LitElement {
   private authContext?: AuthContextLit
 
   render() {
-    console.log('XXX CheckLogin render authContext = ', this.authContext)
     if (this.authContext?.auth && this.authContext.auth.isAuthenticated()) {
       return html`<div><slot name="ok"></slot></div>`
     } else {
