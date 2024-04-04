@@ -1,8 +1,7 @@
 import { consume } from '@lit/context'
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { AuthContextLit, litAuthContext, loadGlobalConfig, setAppName } from '@tmtsoftware/esw-ts'
-import { Task } from '@lit/task'
+import { AuthContextLit, litAuthContext, setAppName } from '@tmtsoftware/esw-ts'
 
 setAppName('example')
 
@@ -23,7 +22,7 @@ export class LoginButton extends LitElement {
   }
 
   render() {
-    console.log('XXX render authContext = ', this.authContext)
+    console.log('XXX LoginButton render authContext = ', this.authContext)
     if (this.authContext?.auth && this.authContext.auth.isAuthenticated()) {
       return html` <sl-button @click=${this.handleLogout}>Logout</sl-button>`
     } else {
