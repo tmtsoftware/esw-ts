@@ -11,20 +11,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: coursier/setup-action@v1
         with:
           jvm: temurin:1.17
-          apps: sbt sbtn
+          apps: sbt
       - uses: coursier/cache-action@v6
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           node-version: "20.14.0"
           registry-url: "https://registry.npmjs.org"
 
       - name: Cache ~/.npm
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -58,7 +58,7 @@ jobs:
       - name: Upload RTM
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: RTM
           path: ./RTM
@@ -66,13 +66,13 @@ jobs:
       - name: Upload Coverage
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Coverage
           path: ./coverage
 
       - name: Notify slack
-        if: always()
+        if: never()
         continue-on-error: true
         uses: kpritam/slack-job-status-action@v1
         with:
