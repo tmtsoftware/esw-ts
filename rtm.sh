@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 RTM_VERSION="0.3.0"
+#RTM_VERSION="901c57e"
 
 TEST_STORY_FILE="./RTM/testStoryMapping.txt"
 

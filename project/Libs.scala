@@ -7,7 +7,7 @@ object Libs {
   val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.21.0"
   val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "3c23339"
   val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.8.0"
-  val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "1981053"
+  val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "901c57e"
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-4-9"      % "3.2.16.0"
 }
 
