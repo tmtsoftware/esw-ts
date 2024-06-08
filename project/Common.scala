@@ -38,9 +38,9 @@ object Common {
       "-feature",
       "-unchecked",
       "-deprecation",
-      "-rewrite",
-      "-source",
-      "3.4-migration"
+//      "-rewrite",
+//      "-source",
+//      "3.4-migration"
     ),
     Compile / doc / javacOptions ++= Seq("-Xdoclint:none"),
     version := sys.env.getOrElse("JITPACK_VERSION", "0.1.0-SNAPSHOT"),
