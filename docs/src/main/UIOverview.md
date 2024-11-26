@@ -83,6 +83,6 @@ following additional tools and libraries to make a TypeScript based UI.
 
 * @link:[React](https://react.dev/)
 * @link:[Ant Design](https://ant.design)
-* @link:[Vite](https://vitejs.dev/)
+* @link:[Vite](https://vite.dev/)
 * @link:[Jest](https://jestjs.io/)
 * @link:[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
