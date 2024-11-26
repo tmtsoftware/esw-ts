@@ -1,14 +1,14 @@
 # Auth Components
 
 `esw-ts` exposes react components to enable authentication and authorization.
-It is built in TypeScript on top of [keycloak-js](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter)
+It is built in TypeScript on top of [keycloak-js](https://www.keycloak.org/securing-apps/javascript-adapter)
 which is JavaScript adapter provided by Keycloak.
 
 ## Implementation
 
 Core implementation of Auth Components of `ESW-TS`, uses
 
-- [keycloak-js](https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter) - keycloak JavaScript adapter
+- [keycloak-js](https://www.keycloak.org/securing-apps/javascript-adapter) - keycloak JavaScript adapter
 - [React](https://react.dev/) - JavaScript library for building user interfaces
 - [Typescript](https://www.typescriptlang.org/) - Types superset of JavaScript which compiles to JavaScript
 - @extref[csw-location-service](csw:services/location) - resolve keycloak using Location Service HTTP endpoint
