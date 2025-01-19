@@ -8,9 +8,8 @@ object Libs {
   val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "6b52e4e"
   val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.9.2"
   val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "b7997a9"
-  val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-4-9"      % "3.2.16.0"
+  val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-4-21"      % "3.2.19.0"
 }
-
 object ESW {
   private val defaultESWVersion = "d27789a"
 

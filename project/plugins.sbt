@@ -9,3 +9,5 @@ resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "com.github.tmtsoftware" % "sbt-docs" % "2bf7f34"
 
 classpathTypes += "maven-plugin"
+
+addDependencyTreePlugin

@@ -24,18 +24,18 @@ const ExampleApp = () => {
             <Routes>
               <Route
                 path='/secured'
-                element={() => (
+                element={
                   // #checkLogin-component-usage
                   <CheckLogin error={<LoginError />}>
                     <Write />
                   </CheckLogin>
                   // #checkLogin-component-usage
-                )}
+                }
               />
               <Route path='/config' element={<ConfigApp />} />
               <Route
                 path='/example_admin'
-                element={() => (
+                element={
                   <CheckLogin error={<LoginError />}>
                     {/*// #realmRole-component-usage */}
                     <RealmRole
@@ -45,11 +45,11 @@ const ExampleApp = () => {
                     </RealmRole>
                     {/*// #realmRole-component-usage */}
                   </CheckLogin>
-                )}
+                }
               />
               <Route
                 path='/example_user'
-                element={() => (
+                element={
                   <CheckLogin error={<LoginError />}>
                     <RealmRole
                       realmRole='person-role'
@@ -57,7 +57,7 @@ const ExampleApp = () => {
                       <div>Person role specific functionality</div>
                     </RealmRole>
                   </CheckLogin>
-                )}
+                }
               />
               <Route path='/public' element={<Read />} />
             </Routes>
