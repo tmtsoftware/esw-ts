@@ -4,8 +4,8 @@
  */
 
 import { AgentServiceImpl } from './AgentServiceImpl'
-import type { KillResponse, SpawnResponse } from './models/AgentRes'
 import type { AgentStatusResponse, AuthData, ComponentId, Location } from '../..'
+import type { KillResponse, SpawnResponse } from './models/AgentRes'
 import { AGENT_SERVICE_CONNECTION } from '../../config'
 import type { Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'

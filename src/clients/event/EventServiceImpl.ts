@@ -4,11 +4,11 @@
  */
 
 import type { EventService } from './EventService'
+import type { Subscription } from '../..'
 import type { Event } from './models/Event'
 import type { EventKey } from './models/EventKey'
 import { GetEvent, PublishEvent } from './models/PostCommand'
 import { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from './models/WsCommand'
-import type { Subscription } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import { EventD, EventsD } from '../../decoders/EventDecoders'
 import type { Done, ServiceError, Subsystem } from '../../models'

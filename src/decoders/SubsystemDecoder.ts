@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ciLiteral, Decoder } from './Decoder'
 import type { Subsystem } from '..'
+import { ciLiteral, Decoder } from './Decoder'
 
 export const SubsystemD: Decoder<Subsystem> = ciLiteral(
   'AOESW',

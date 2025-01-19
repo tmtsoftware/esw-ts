@@ -31,7 +31,6 @@
 
     // XXX TODO FIXME!
     "ignoreDeprecations": "5.0",
-    "importsNotUsedAsValues": "error",
 
     "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,

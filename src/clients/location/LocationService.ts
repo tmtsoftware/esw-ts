@@ -4,11 +4,11 @@
  */
 
 import { LocationServiceImpl } from './LocationServiceImpl'
+import type { AuthData, Option, Subscription } from '../..'
 import type { Connection, ConnectionType } from './models/Connection'
 import type { TimeUnit } from './models/Duration'
 import type { Location } from './models/Location'
 import type { TrackingEvent } from './models/TrackingEvent'
-import type { AuthData, Option, Subscription } from '../..'
 import { GlobalConfig, LocationInfo } from '../../config/GlobalConfig'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'

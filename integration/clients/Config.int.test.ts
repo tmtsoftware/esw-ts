@@ -38,7 +38,7 @@ beforeEach(async () => {
   try {
     // deleting file which was created in test
     await configService.delete(path, 'deleting file')
-  } catch (e) {}
+  } catch (_e) {}
 })
 
 describe('Config Client', () => {

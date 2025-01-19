@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ConfigData } from './models/ConfigData'
 import type { ConfigFileRevision, Option } from '../..'
 import { ServiceError } from '../..'
+import { ConfigData } from './models/ConfigData'
 import { StringD } from '../../decoders/CommonDecoders'
 import { ConfigFileRevisionsD, ConfigIdD } from '../../decoders/ConfigDecoders'
 import type { Decoder } from '../../decoders/Decoder'

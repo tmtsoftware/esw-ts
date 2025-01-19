@@ -42,7 +42,7 @@ import {
   ShutdownSequencersOrSeqCompResponseD,
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
-// eslint-disable-next-line
+
 import * as Seq from '../../src/decoders/SequencerDecoders'
 import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
 import { TAITimeD, UTCTimeD } from '../../src/decoders/TimeDecoders'

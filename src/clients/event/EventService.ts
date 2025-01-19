@@ -4,9 +4,9 @@
  */
 
 import { EventServiceImpl } from './EventServiceImpl'
+import type { AuthData, Subscription } from '../..'
 import type { Event } from './models/Event'
 import type { EventKey } from './models/EventKey'
-import type { AuthData, Subscription } from '../..'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { Done, ServiceError, Subsystem } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'

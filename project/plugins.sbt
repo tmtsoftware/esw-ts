@@ -6,6 +6,6 @@ addSbtPlugin("ohnosequences"    % "sbt-github-release" % "0.7.0")
 libraryDependencies += "com.sun.activation" % "javax.activation" % "1.2.0"
 
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.tmtsoftware" % "sbt-docs" % "ac4d094"
+libraryDependencies += "com.github.tmtsoftware" % "sbt-docs" % "2bf7f34"
 
 classpathTypes += "maven-plugin"

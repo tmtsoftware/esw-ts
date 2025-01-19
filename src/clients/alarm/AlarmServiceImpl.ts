@@ -4,9 +4,9 @@
  */
 
 import type { AlarmService } from './AlarmService'
+import type { Done } from '../..'
 import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 import { SetAlarmSeverity } from './models/PostCommand'
-import type { Done } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import type { HttpTransport } from '../../utils/HttpTransport'
 

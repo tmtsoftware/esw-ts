@@ -13,7 +13,7 @@ export const eventually = async <T>(task: Task<T>): Promise<T> => {
     else {
       try {
         return await task()
-      } catch (error) {
+      } catch (_error) {
         return delayedLoop(currentRetryCount, 500)
       }
     }

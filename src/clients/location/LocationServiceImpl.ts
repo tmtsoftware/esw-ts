@@ -4,13 +4,13 @@
  */
 
 import type { LocationService } from './LocationService'
+import type { Option, Subscription } from '../..'
 import type { Connection, ConnectionType } from './models/Connection'
 import { Duration, TimeUnit } from './models/Duration'
 import type { Location } from './models/Location'
 import * as Req from './models/PostCommand'
 import type { TrackingEvent } from './models/TrackingEvent'
 import { LocationWebSocketMessage, Track } from './models/WsCommand'
-import type { Option, Subscription } from '../..'
 import { DoneD } from '../../decoders/CommonDecoders'
 import { LocationListD, TrackingEventD } from '../../decoders/LocationDecoders'
 import type { ComponentType, Done, Prefix, ServiceError } from '../../models'

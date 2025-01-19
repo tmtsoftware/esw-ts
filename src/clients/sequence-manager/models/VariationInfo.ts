@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Variation } from './Variation'
 import type { ObsMode } from '..'
+import { Variation } from './Variation'
 import { Prefix, Subsystem } from '../../../models'
 import { splitSubsystemComponentName, parseSubsystemStr } from '../../../utils/Utils'
 

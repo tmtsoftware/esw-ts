@@ -21,7 +21,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react",
-    "importsNotUsedAsValues": "error",
     "strictNullChecks": true,
     "noEmit": true
   },

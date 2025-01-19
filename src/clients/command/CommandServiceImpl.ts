@@ -4,9 +4,9 @@
  */
 
 import type { CommandService } from './CommandService'
+import type { Subscription } from '../..'
 import * as Req from './models/PostCommand'
 import * as WsReq from './models/WsCommand'
-import type { Subscription } from '../..'
 import { OnewayResponseD, SubmitResponseD, ValidateResponseD } from '../../decoders/CommandDecoders'
 import { CurrentStateD } from '../../decoders/CurrentStateDecoder'
 import type { Decoder } from '../../decoders/Decoder'

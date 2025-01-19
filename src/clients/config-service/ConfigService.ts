@@ -4,9 +4,9 @@
  */
 
 import { ConfigServiceImpl } from './ConfigServiceImpl'
+import type { Location, Option, TokenFactory } from '../..'
 import type { ConfigData } from './models/ConfigData'
 import type * as M from './models/ConfigModels'
-import type { Location, Option, TokenFactory } from '../..'
 import { CONFIG_CONNECTION } from '../../config'
 import { extractHostPort } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'

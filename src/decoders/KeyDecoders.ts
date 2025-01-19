@@ -101,4 +101,3 @@ const ChoiceKeyD = mkRawKeyD(D.string)('ChoiceKey')
 // -----------------------------------------------------------
 const keys = Object.keys(paramDecoders)
 export const keyTagDecoder = ciLiteral(keys[0], ...keys.slice(1))
-/* eslint-disable  @typescript-eslint/no-unused-vars */
