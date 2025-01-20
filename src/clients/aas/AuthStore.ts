@@ -75,7 +75,7 @@ export class AuthStore {
       onLoad: redirect ? 'login-required' : 'check-sso',
       redirectUri: window.origin,
       pkceMethod: 'S256',
-      checkLoginIframe: true,
+      checkLoginIframe: false,
       flow: 'standard'
     })
     return { keycloak, authenticatedPromise }
