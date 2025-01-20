@@ -18,7 +18,7 @@ export interface Auth {
 }
 
 export interface AuthenticateResult {
-  keycloak: Keycloak.KeycloakInstance
+  keycloak: Keycloak
   authenticatedPromise: Promise<boolean>
 }
 

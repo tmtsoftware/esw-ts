@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Keycloak, { KeycloakInstance } from 'keycloak-js'
+import Keycloak from 'keycloak-js'
 import type { Auth, AuthContextConfig, AuthenticateResult } from './Models'
 import { AASConfig } from '../../config'
 import { Prefix } from '../../models'
@@ -19,7 +19,7 @@ export class AuthStore {
    *
    * @param keycloak keycloak instance instantiated using keycloak-js
    */
-  public static from(keycloak: KeycloakInstance): Auth {
+  public static from(keycloak: Keycloak): Auth {
     return {
       logout: keycloak.logout,
       token: () => keycloak.token,
@@ -33,7 +33,7 @@ export class AuthStore {
     }
   }
 
-  static onTokenExpired(keycloak: KeycloakInstance): void {
+  static onTokenExpired(keycloak: Keycloak): void {
     keycloak
       .updateToken(0)
       .then((refreshed) => {
@@ -67,15 +67,12 @@ export class AuthStore {
   public static authenticate(config: AuthContextConfig, url: string, redirect: boolean): AuthenticateResult {
     console.info('instantiating AAS')
     const keycloakConfig = { ...AASConfig, ...config, url }
-    const keycloak: KeycloakInstance = new Keycloak(keycloakConfig)
+    const keycloak: Keycloak = new Keycloak(keycloakConfig)
 
     keycloak.onTokenExpired = () => this.onTokenExpired(keycloak)
 
     const authenticatedPromise = keycloak.init({
       onLoad: redirect ? 'login-required' : 'check-sso',
-      redirectUri: window.origin,
-      pkceMethod: 'S256',
-      checkLoginIframe: false,
       flow: 'standard'
     })
     return { keycloak, authenticatedPromise }
