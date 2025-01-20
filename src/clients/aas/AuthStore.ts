@@ -75,6 +75,7 @@ export class AuthStore {
     const authenticatedPromise = keycloak.init({
       onLoad: redirect ? 'login-required' : 'check-sso',
       checkLoginIframe: true, // XXX TODO FIXME
+      redirectUri: window.origin, // XXX TODO FIXME
       flow: 'standard'
     })
     return { keycloak, authenticatedPromise }
