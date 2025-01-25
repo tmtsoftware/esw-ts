@@ -36,17 +36,17 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^9.19.0",
     "@jest/reporters": "^29.7.0",
     "@jest/test-result": "^29.7.0",
-    "@testing-library/react": "^14.2.1",
-    "@types/jest": "^29.5.12",
-    "@types/react": "^18.2.52",
-    "@types/react-dom": "^18.2.18",
-    "@types/uuid": "^9.0.8",
+    "@testing-library/react": "^16.2.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.21.0",
     "@typescript-eslint/parser": "^8.21.0",
-    "eslint": "^9.18.0",
+    "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",
@@ -59,23 +59,23 @@
     "mock-socket": "^9.3.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "ts-jest": "^29.1.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "ts-jest": "^29.2.5",
     "typedoc": "^0.27.6",
     "typedoc-plugin-external-module-map": "^2.1.0",
     "typedoc-plugin-missing-exports": "^3.1.0",
-    "typescript": "^5.3.3",
+    "typescript": "^5.7.3",
     "whatwg-fetch": "^3.6.20"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^19.0.0"
   },
   "dependencies": {
-    "fp-ts": "^2.16.2",
-    "io-ts": "^2.2.21",
-    "keycloak-js": "^23.0.7",
-    "uuid": "^9.0.1"
+    "fp-ts": "^2.16.9",
+    "io-ts": "^2.2.22",
+    "keycloak-js": "^25.0.6",
+    "uuid": "^11.0.5"
   },
   "files": [
     "dist/src"

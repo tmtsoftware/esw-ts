@@ -8,7 +8,7 @@
     "checkJs": true,
     "sourceMap": true,
     "rootDir": ".",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "strict": true,
     "baseUrl": "./",

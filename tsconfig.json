@@ -16,7 +16,7 @@
     /* Redirect output structure to the directory. */
     "rootDir": ".",
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     /* Specify library files to be included in the compilation. */
     "resolveJsonModule": true,
     /* Strict Type-Checking Options */

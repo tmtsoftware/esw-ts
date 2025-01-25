@@ -4,7 +4,7 @@
     "module": "ESNext",
     "allowJs": true,
     /* Report errors in .js files. */
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "strict": true,
     "baseUrl": "..",
