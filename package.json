@@ -74,7 +74,7 @@
   "dependencies": {
     "fp-ts": "^2.16.2",
     "io-ts": "^2.2.21",
-    "keycloak-js": "^24.0.4",
+    "keycloak-js": "^23.0.7",
     "uuid": "^9.0.1"
   },
   "files": [
