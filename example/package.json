@@ -4,7 +4,7 @@
   "license": "Apache License, Version 2.0",
   "private": true,
   "dependencies": {
-    "@tmtsoftware/esw-ts": "github:tmtsoftware/esw-ts#09f058b",
+    "@tmtsoftware/esw-ts": "github:tmtsoftware/esw-ts#035b7cb",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.3",
@@ -19,7 +19,7 @@
     "stopConfig": "pm2 delete example"
   },
   "browserslist": [
-    "last 1 firefox version"
+    "last 1 chrome version"
   ],
   "devDependencies": {
     "@types/node": "^22.10.10",

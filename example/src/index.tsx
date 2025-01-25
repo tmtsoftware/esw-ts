@@ -9,7 +9,8 @@ setAppName(AppConfig.applicationName)
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // Note: commented out StrictMode to fix error with keycloak redirect to No routes matched location "/#error=login_require...
+  // <React.StrictMode>
+  <App />
+  // </React.StrictMode>
 )

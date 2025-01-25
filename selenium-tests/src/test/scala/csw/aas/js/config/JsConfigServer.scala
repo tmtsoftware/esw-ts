@@ -42,7 +42,7 @@ trait JsConfigServer {
         Source
           .future(statusF)
           .collect { case 200 => println(s"==== Server is up at: [$url] ===="); true }
-          .recover { case x => println(s"RETRY: probing config node server: status = $x"); throw x }
+          .recover { case x => println(s"RETRY: probing config node server"); throw x }
       }
       .runWith(Sink.head)
       .recover { case _ => throw StreamFailedAfterMaxRetriesException(s"could not connect to: [$url]") }
