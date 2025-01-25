@@ -71,7 +71,6 @@ export class AuthStore {
 
     keycloak.onTokenExpired = () => this.onTokenExpired(keycloak)
 
-    console.log('XXX AuthStore: redirect = ', redirect)
     const authenticatedPromise = keycloak.init({
       onLoad: redirect ? 'login-required' : 'check-sso',
       flow: 'standard'
