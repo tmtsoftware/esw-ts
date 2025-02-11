@@ -23,6 +23,7 @@
     "test:integration:ci": "npm-run-all build:reporter test:integration:reporter",
     "test:watch": "jest --watchAll",
     "fix": "npm-run-all --parallel clean fix:eslint fix:prettier",
+    "eslint:check": "eslint --config eslint.config.mjs './{src,test}/**/*.{ts,tsx}'",
     "fix:eslint": "eslint --fix --config eslint.config.mjs  './{integration,src,test}/**/*{.*.,.}{ts,tsx}' --max-warnings 0",
     "fix:prettier": "prettier --write --config ./.prettierrc './**/*.{ts,tsx}' ",
     "all": "npm-run-all --parallel fix build test ",
@@ -41,8 +42,8 @@
     "@jest/test-result": "^29.7.0",
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.21.0",
     "@typescript-eslint/parser": "^8.21.0",
@@ -59,8 +60,8 @@
     "mock-socket": "^9.3.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "ts-jest": "^29.2.5",
     "typedoc": "^0.27.6",
     "typedoc-plugin-external-module-map": "^2.1.0",
@@ -69,9 +70,10 @@
     "whatwg-fetch": "^3.6.20"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^18.3.1"
   },
   "dependencies": {
+    "eslint-plugin-react-hooks": "^5.1.0",
     "fp-ts": "^2.16.9",
     "io-ts": "^2.2.22",
     "keycloak-js": "^25.0.6",

@@ -7,6 +7,7 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 import js from "@eslint/js";
 import {FlatCompat} from "@eslint/eslintrc";
+import reactHookPlugin from "eslint-plugin-react-hooks";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,6 +33,7 @@ export default [{
     prettier: fixupPluginRules(prettier),
     jest: fixupPluginRules(jest),
     import: fixupPluginRules(_import),
+    'react-hooks': fixupPluginRules(reactHookPlugin),
   },
 
   languageOptions: {
