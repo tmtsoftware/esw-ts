@@ -33,7 +33,6 @@ jobs:
 
       - name: Install
         run: |
-          rm -rf node_modules
           npm ci
 
       - name: Build
