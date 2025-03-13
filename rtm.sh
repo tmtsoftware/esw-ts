@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RTM_VERSION="0.3.0"
+RTM_VERSION="b7997a9"
 
 TEST_STORY_FILE="./RTM/testStoryMapping.txt"
 
@@ -9,7 +9,7 @@ STORY_REQUIREMENT_FILE="./RTM/storyRequirementMapping.csv"
 OUTPUT_PATH="./RTM/testRequirementsMapping.txt"
 
 #APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/master/apps.json"
-APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/Allan/pekko-scala3-update/apps.json"
+APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/branch-6.0.x/apps.json"
 
 STORY_REQUIREMENT_FILE_PATH="https://raw.githubusercontent.com/tmtsoftware/esw/master/tools/RTM/storyRequirementMapping.csv"
 

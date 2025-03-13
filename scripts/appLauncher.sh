@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/master/apps.json"
-APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/Allan/pekko-scala3-update/apps.json"
+APPS_PATH="https://raw.githubusercontent.com/tmtsoftware/osw-apps/branch-6.0.x/apps.json"
 
 APP_NAME="$1"
 APP_VERSION="$2"

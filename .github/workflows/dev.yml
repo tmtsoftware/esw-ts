@@ -11,14 +11,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: coursier/setup-action@v1
+      - uses: actions/checkout@v4
+      - uses: coursier/setup-action@v1.2.0
         with:
           jvm: temurin:1.21
           apps: sbt
       - uses: coursier/cache-action@v6
 
-      - uses: actions/setup-node@v4.1.0
+      - uses: actions/setup-node@v4.2.0
         with:
           node-version: "22.13.0"
           registry-url: "https://registry.npmjs.org"
@@ -58,7 +58,7 @@ jobs:
       - name: Upload RTM
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4.6.0
+        uses: actions/upload-artifact@v4
         with:
           name: RTM
           path: ./RTM
@@ -66,7 +66,7 @@ jobs:
       - name: Upload Coverage
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4.6.0
+        uses: actions/upload-artifact@v4
         with:
           name: Coverage
           path: ./coverage
