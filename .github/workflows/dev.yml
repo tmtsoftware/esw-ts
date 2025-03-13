@@ -16,23 +16,25 @@ jobs:
         with:
           jvm: temurin:1.21
           apps: sbt
-      - uses: coursier/cache-action@v6
 
       - uses: actions/setup-node@v4.2.0
         with:
           node-version: "22.13.0"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Cache ~/.npm
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#      - uses: coursier/cache-action@v6
+#      - name: Cache ~/.npm
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.npm
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-node-
 
       - name: Install
-        run: npm ci
+        run: |
+          rm -rf node_modules
+          npm ci
 
       - name: Build
         run: npm run build
