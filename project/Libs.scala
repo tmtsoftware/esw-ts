@@ -1,17 +1,17 @@
 import sbt._
 
 object Libs {
-  val ScalaVersion = "3.6.2"
+  val ScalaVersion = "3.6.4"
 
   val `scalaTest`         = "org.scalatest"                            %% "scalatest"         % "3.2.19" // Apache License 2.0
-  val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.28.1"
+  val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.29.0"
   val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "8285bb5"
-  val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.9.2"
-  val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "b7997a9"
+  val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.9.3"
+  val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "d45709a"
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-4-21"      % "3.2.19.0"
 }
 object ESW {
-  private val defaultESWVersion = "4d97ed9"
+  private val defaultESWVersion = "16442e4"
 
   val Version: String = sys.props.get("prod.publish") match {
     case Some("true") => sys.env.getOrElse("ESW_VERSION", defaultESWVersion)
@@ -20,7 +20,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "2f05249"
+  private val defaultCswVersion = "0f7c569"
 
   val Version: String = sys.props.get("prod.publish") match {
     case Some("true") => sys.env.getOrElse("CSW_VERSION", defaultCswVersion)
