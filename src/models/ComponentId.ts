@@ -17,5 +17,8 @@ export class ComponentId {
    *  @param componentType represents a type of the Component e.g. Assembly, HCD, Sequencer etc
    *  @constructor
    */
-  constructor(readonly prefix: Prefix, readonly componentType: ComponentType) {}
+  constructor(
+    readonly prefix: Prefix,
+    readonly componentType: ComponentType
+  ) {}
 }

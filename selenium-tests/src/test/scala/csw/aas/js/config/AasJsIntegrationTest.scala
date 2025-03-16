@@ -4,7 +4,7 @@ import csw.aas.js.config.pages.HomePage
 class AasJsIntegrationTest extends BaseTestSuite {
 
   // DEOPSCSW-656: SPIKE: Spike out selenium and cucumber test for testing integration between
-  // AAS-JS - Keycloak - Location Service - AkkaHttpServer
+  // AAS-JS - Keycloak - Location Service - PekkoHttpServer
   test("should create config file through config admin UI | ESW-330,ESW-354") {
     val homePage = new HomePage
     go to homePage

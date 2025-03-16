@@ -3,13 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ContainerLifecycleStateD, SupervisorLifecycleStateD } from '../../decoders/AdminDecoders'
-import { DoneD } from '../../decoders/CommonDecoders'
-import { LogMetadataD } from '../../decoders/LoggerDecoders'
-import type { ComponentId, ContainerLifecycleState, Done, Prefix, SupervisorLifecycleState } from '../../models'
-import type { HttpTransport } from '../../utils/HttpTransport'
-import type { GatewayAdminPostRequest } from '../gateway/models/Gateway'
-import type { Level, LogMetadata } from '../logger'
 import type { AdminService } from './AdminService'
 import {
   GetComponentLifecycleState,
@@ -21,6 +14,13 @@ import {
   SetLogLevel,
   Shutdown
 } from './models/PostCommand'
+import { ContainerLifecycleStateD, SupervisorLifecycleStateD } from '../../decoders/AdminDecoders'
+import { DoneD } from '../../decoders/CommonDecoders'
+import { LogMetadataD } from '../../decoders/LoggerDecoders'
+import type { ComponentId, ContainerLifecycleState, Done, Prefix, SupervisorLifecycleState } from '../../models'
+import type { HttpTransport } from '../../utils/HttpTransport'
+import type { GatewayAdminPostRequest } from '../gateway/models/Gateway'
+import type { Level, LogMetadata } from '../logger'
 
 export class AdminServiceImpl implements AdminService {
   constructor(private readonly httpTransport: HttpTransport<GatewayAdminPostRequest>) {}

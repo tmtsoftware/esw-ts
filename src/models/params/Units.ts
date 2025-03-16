@@ -130,7 +130,10 @@ export class Units {
   static readonly percent: Units = new Units('percent', 'percent')
   static readonly pix: Units = new Units('pix', 'pix')
 
-  private constructor(private readonly _type: string, readonly name: string) {
+  private constructor(
+    private readonly _type: string,
+    readonly name: string
+  ) {
     this.setUnits(_type, this)
   }
 

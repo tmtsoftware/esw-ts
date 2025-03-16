@@ -6,11 +6,11 @@ import org.scalatestplus.selenium.{Driver, WebBrowser}
 trait Chrome extends WebBrowser with Driver {
   import Settings._
 
-  implicit lazy val webDriver: ChromeDriver = {
+  implicit val webDriver: ChromeDriver = {
     WebDriverManager.chromedriver().setup()
 
     val chromeOptions = new ChromeOptions()
-      .setHeadless(Headless)
+      .addArguments("--headless=new")
       .addArguments("--window-size=1920,1080") // this is required in headless mode
       .addArguments("--start-maximized")
       .addArguments("--no-sandbox")

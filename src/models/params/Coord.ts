@@ -46,7 +46,7 @@ export type Coord = EqCoord | MinorPlanetCoord | SolarSystemCoord | CometCoord |
  *  Equatorial coordinates.
  */
 export class EqCoord {
-  readonly _type: 'EqCoord' = 'EqCoord'
+  _type: 'EqCoord' = 'EqCoord' as const
 
   constructor(
     readonly tag: Tag,
@@ -59,7 +59,7 @@ export class EqCoord {
 }
 
 export class MinorPlanetCoord {
-  readonly _type: 'MinorPlanetCoord' = 'MinorPlanetCoord'
+  _type: 'MinorPlanetCoord' = 'MinorPlanetCoord' as const
 
   constructor(
     readonly tag: Tag,
@@ -74,13 +74,16 @@ export class MinorPlanetCoord {
 }
 
 export class SolarSystemCoord {
-  readonly _type: 'SolarSystemCoord' = 'SolarSystemCoord'
+  _type: 'SolarSystemCoord' = 'SolarSystemCoord' as const
 
-  constructor(readonly tag: Tag, readonly body: SolarSystemObject) {}
+  constructor(
+    readonly tag: Tag,
+    readonly body: SolarSystemObject
+  ) {}
 }
 
 export class CometCoord {
-  readonly _type: 'CometCoord' = 'CometCoord'
+  _type: 'CometCoord' = 'CometCoord' as const
 
   constructor(
     readonly tag: Tag,
@@ -97,7 +100,11 @@ export class CometCoord {
  *  Altitude Azimuth Coordinates
  */
 export class AltAzCoord {
-  readonly _type: 'AltAzCoord' = 'AltAzCoord'
+  _type: 'AltAzCoord' = 'AltAzCoord' as const
 
-  constructor(readonly tag: Tag, readonly alt: Angle, readonly az: Angle) {}
+  constructor(
+    readonly tag: Tag,
+    readonly alt: Angle,
+    readonly az: Angle
+  ) {}
 }

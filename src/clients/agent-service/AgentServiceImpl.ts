@@ -3,10 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
-import type { ComponentId, Prefix } from '../../models'
-
-import type { HttpTransport } from '../../utils/HttpTransport'
 import type { AgentService } from './AgentService'
 import type { KillResponse, SpawnResponse, AgentStatusResponse } from './models/AgentRes'
 import {
@@ -16,6 +12,10 @@ import {
   SpawnSequenceComponent,
   SpawnSequenceManager
 } from './models/PostCommand'
+import { AgentStatusResponseD, KillResponseD, SpawnResponseD } from '../../decoders/AgentDecoders'
+import type { ComponentId, Prefix } from '../../models'
+
+import type { HttpTransport } from '../../utils/HttpTransport'
 
 export class AgentServiceImpl implements AgentService {
   constructor(private readonly httpTransport: HttpTransport<AgentServiceRequest>) {}

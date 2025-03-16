@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Option } from '../..'
 import type { BaseKeyType } from './BaseKeyType'
 import type { Key } from './Key'
 import type { Parameter } from './Parameter'
+import type { Option } from '../..'
 
 /**
  * Abstract class for various parameter set types (commands or events)

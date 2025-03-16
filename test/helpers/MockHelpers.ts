@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { KeycloakInstance, KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js'
+import Keycloak, { KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js'
 import type { Server } from 'mock-socket'
 import type { Auth } from '../../src/clients/aas'
 
@@ -14,7 +14,7 @@ export const closeServer = (mockServer: Server) => {
   mockServer.close()
 }
 
-export const mockedKeyCloakInstance = (isAuthenticated = true): KeycloakInstance => {
+export const mockedKeyCloakInstance = (isAuthenticated = true): Keycloak => {
   return {
     authenticated: isAuthenticated,
     accountManagement: jest.fn(),

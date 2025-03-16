@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import * as ConfigUtils from './ConfigUtils'
+import { tryGetConfigBlob } from './ConfigUtils'
 import type {
   ConfigFileInfo,
   ConfigFileRevision,
@@ -13,15 +15,17 @@ import type {
   Option,
   TokenFactory
 } from '../..'
+import type { ConfigData } from './models/ConfigData'
 import { ConfigFileInfosD, ConfigIdD, ConfigMetadataD } from '../../decoders/ConfigDecoders'
 import { HeaderExt } from '../../utils/HeaderExt'
 import { del, get, post, put, RequestResponse } from '../../utils/Http'
-import * as ConfigUtils from './ConfigUtils'
-import { tryGetConfigBlob } from './ConfigUtils'
-import type { ConfigData } from './models/ConfigData'
 
 export class ConfigServiceImpl implements ConfigService {
-  constructor(private readonly host: string, private readonly port: number, readonly tokenFactory: TokenFactory) {}
+  constructor(
+    private readonly host: string,
+    private readonly port: number,
+    readonly tokenFactory: TokenFactory
+  ) {}
 
   getAuthHeader(): HeaderExt {
     return new HeaderExt().withAuthorization(this.tokenFactory())

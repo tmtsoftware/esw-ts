@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { CommandService } from './CommandService'
 import type { Subscription } from '../..'
+import * as Req from './models/PostCommand'
+import * as WsReq from './models/WsCommand'
 import { OnewayResponseD, SubmitResponseD, ValidateResponseD } from '../../decoders/CommandDecoders'
 import { CurrentStateD } from '../../decoders/CurrentStateDecoder'
 import type { Decoder } from '../../decoders/Decoder'
@@ -12,9 +15,6 @@ import { isNegative, ServiceError } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Ws } from '../../utils/Ws'
 import { GatewayComponentCommand } from '../gateway/models/Gateway'
-import type { CommandService } from './CommandService'
-import * as Req from './models/PostCommand'
-import * as WsReq from './models/WsCommand'
 
 export class CommandServiceImpl implements CommandService {
   constructor(

@@ -7,48 +7,51 @@ import type { ComponentId, Prefix } from '../../../models'
 import type { Level } from '../../logger'
 
 export class GetLogMetadata {
-  readonly _type: 'GetLogMetadata' = 'GetLogMetadata'
+  _type: 'GetLogMetadata' = 'GetLogMetadata' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 
 export class SetLogLevel {
-  readonly _type: 'SetLogLevel' = 'SetLogLevel'
+  _type: 'SetLogLevel' = 'SetLogLevel' as const
 
-  constructor(readonly componentId: ComponentId, readonly level: Level) {}
+  constructor(
+    readonly componentId: ComponentId,
+    readonly level: Level
+  ) {}
 }
 
 export class Restart {
-  readonly _type: 'Restart' = 'Restart'
+  _type: 'Restart' = 'Restart' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 
 export class GoOffline {
-  readonly _type: 'GoOffline' = 'GoOffline'
+  _type: 'GoOffline' = 'GoOffline' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 
 export class GoOnline {
-  readonly _type: 'GoOnline' = 'GoOnline'
+  _type: 'GoOnline' = 'GoOnline' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 
 export class Shutdown {
-  readonly _type: 'Shutdown' = 'Shutdown'
+  _type: 'Shutdown' = 'Shutdown' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 
 export class GetComponentLifecycleState {
-  readonly _type: 'GetComponentLifecycleState' = 'GetComponentLifecycleState'
+  _type: 'GetComponentLifecycleState' = 'GetComponentLifecycleState' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 export class GetContainerLifecycleState {
-  readonly _type: 'GetContainerLifecycleState' = 'GetContainerLifecycleState'
+  _type: 'GetContainerLifecycleState' = 'GetContainerLifecycleState' as const
 
   constructor(readonly prefix: Prefix) {}
 }

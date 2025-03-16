@@ -10,7 +10,10 @@ import { requirement } from '../../../utils/Utils'
  * @category Sequence Manager Service
  */
 export class AgentProvisionConfig {
-  constructor(readonly agentPrefix: Prefix, readonly countOfSeqComps: number) {
+  constructor(
+    readonly agentPrefix: Prefix,
+    readonly countOfSeqComps: number
+  ) {
     requirement(
       countOfSeqComps >= 0,
       'Invalid sequence component count: Count of sequence components must be greater than or equal to Zero'

@@ -30,7 +30,7 @@ describe('Logging Service Factory', () => {
     const actualLoggingService = await LoggingService()
 
     expect(actualLoggingService).toEqual(loggingServiceImpl)
-    expect(mockResolveGateway).toBeCalledTimes(1)
+    expect(mockResolveGateway).toHaveBeenCalledTimes(1)
   })
 })
 

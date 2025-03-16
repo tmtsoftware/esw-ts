@@ -5,12 +5,12 @@
 
 import type { ConfigFileRevision, Option } from '../..'
 import { ServiceError } from '../..'
+import { ConfigData } from './models/ConfigData'
 import { StringD } from '../../decoders/CommonDecoders'
 import { ConfigFileRevisionsD, ConfigIdD } from '../../decoders/ConfigDecoders'
 import type { Decoder } from '../../decoders/Decoder'
 import { get, head } from '../../utils/Http'
 import { getOrThrow } from '../../utils/Utils'
-import { ConfigData } from './models/ConfigData'
 
 export const decodeUsing =
   <T>(decoder: Decoder<T>) =>

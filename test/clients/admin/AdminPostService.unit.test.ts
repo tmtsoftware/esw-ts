@@ -33,7 +33,7 @@ const componentId = new ComponentId(new Prefix('ESW', 'filter'), 'HCD')
 describe('Admin Service', () => {
   test('should call getLogMetadata api with correct arguments | ESW-372', async () => {
     const expectedLogMetadata: LogMetadata = {
-      akkaLevel: 'DEBUG',
+      pekkoLevel: 'DEBUG',
       componentLevel: 'TRACE',
       defaultLevel: 'INFO',
       slf4jLevel: 'WARN'

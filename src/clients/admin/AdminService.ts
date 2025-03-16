@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { AdminServiceImpl } from './AdminServiceImpl'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type {
   ComponentId,
@@ -17,7 +18,6 @@ import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import type { Location } from '../location'
 import { resolve } from '../location/LocationUtils'
 import type { Level, LogMetadata } from '../logger'
-import { AdminServiceImpl } from './AdminServiceImpl'
 
 /**
  * Admin service provides admin related APIs which includes logging APIs

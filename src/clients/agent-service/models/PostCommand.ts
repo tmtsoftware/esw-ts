@@ -7,7 +7,7 @@ import type { ComponentId } from '../../..'
 import type { Prefix } from '../../../models'
 
 export class SpawnSequenceComponent {
-  readonly _type: 'SpawnSequenceComponent' = 'SpawnSequenceComponent'
+  _type: 'SpawnSequenceComponent' = 'SpawnSequenceComponent' as const
 
   constructor(
     readonly agentPrefix: Prefix,
@@ -17,7 +17,7 @@ export class SpawnSequenceComponent {
 }
 
 export class SpawnSequenceManager {
-  readonly _type: 'SpawnSequenceManager' = 'SpawnSequenceManager'
+  _type: 'SpawnSequenceManager' = 'SpawnSequenceManager' as const
 
   constructor(
     readonly agentPrefix: Prefix,
@@ -28,13 +28,13 @@ export class SpawnSequenceManager {
 }
 
 export class KillComponent {
-  readonly _type: 'KillComponent' = 'KillComponent'
+  _type: 'KillComponent' = 'KillComponent' as const
 
   constructor(readonly componentId: ComponentId) {}
 }
 
 export class GetAgentStatus {
-  readonly _type: 'GetAgentStatus' = 'GetAgentStatus'
+  _type: 'GetAgentStatus' = 'GetAgentStatus' as const
 }
 
 export type AgentServiceRequest = SpawnSequenceComponent | SpawnSequenceManager | KillComponent | GetAgentStatus

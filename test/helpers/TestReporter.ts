@@ -4,8 +4,8 @@
  */
 
 import type { BaseReporter } from '@jest/reporters'
-import type { Context, Test } from '@jest/reporters/build/types'
-import type { AggregatedResult, TestResult } from '@jest/test-result'
+// import type { Context, Test } from '@jest/reporters/build/types'
+import type { AggregatedResult, Test, TestContext, TestResult } from '@jest/test-result'
 // eslint-disable-next-line import/no-nodejs-modules
 import fs from 'fs'
 // eslint-disable-next-line import/no-nodejs-modules
@@ -68,7 +68,7 @@ const append = appendArg ?? true
 
 class TestReporter implements CustomReporter {
   private results: string[] = []
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   async onTestResult(_test?: Test, testResult?: TestResult) {
     if (testResult) {
       testResult.testResults.forEach((test) => {
@@ -85,8 +85,8 @@ class TestReporter implements CustomReporter {
   addResult(storyId: string, name: string, status: string) {
     return this.results.push(`${storyId.trim() + PIPE_WITH_SPACES + name.trim() + PIPE_WITH_SPACES + status}`)
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async onRunComplete(_context?: Set<Context>, _results?: AggregatedResult) {
+
+  async onRunComplete(_context?: Set<TestContext>, _results?: AggregatedResult) {
     if (!append && fs.existsSync(OUTPUT_PATH)) {
       deleteFile(OUTPUT_PATH)
     }

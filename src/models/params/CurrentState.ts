@@ -18,7 +18,11 @@ export class CurrentState extends ParameterSetType<CurrentState> {
    * @param stateName identifies the name of the state
    * @param paramSet  an optional initial set of items (keys with values)
    */
-  constructor(readonly prefix: Prefix, readonly stateName: string, readonly paramSet: Parameter<Key>[] = []) {
+  constructor(
+    readonly prefix: Prefix,
+    readonly stateName: string,
+    readonly paramSet: Parameter<Key>[] = []
+  ) {
     super()
   }
 

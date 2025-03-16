@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { EventService } from './EventService'
 import type { Subscription } from '../..'
+import type { Event } from './models/Event'
+import type { EventKey } from './models/EventKey'
+import { GetEvent, PublishEvent } from './models/PostCommand'
+import { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from './models/WsCommand'
 import { DoneD } from '../../decoders/CommonDecoders'
 import { EventD, EventsD } from '../../decoders/EventDecoders'
 import type { Done, ServiceError, Subsystem } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { Ws } from '../../utils/Ws'
 import type { GatewayEventPostRequest, GatewayEventWsRequest } from '../gateway/models/Gateway'
-import type { EventService } from './EventService'
-import type { Event } from './models/Event'
-import type { EventKey } from './models/EventKey'
-import { GetEvent, PublishEvent } from './models/PostCommand'
-import { Subscribe, SubscribeObserveEvents, SubscribeWithPattern } from './models/WsCommand'
 
 export class EventServiceImpl implements EventService {
   constructor(

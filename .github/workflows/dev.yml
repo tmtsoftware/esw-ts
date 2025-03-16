@@ -5,26 +5,26 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [master, 'branch-*']
+    branches: [master, 'branch-0.6.x']
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: coursier/setup-action@v1.2.0-M2
+      - uses: coursier/setup-action@v1.2.0
         with:
-          jvm: temurin:1.17
-          apps: sbt sbtn
-      - uses: coursier/cache-action@v6
+          jvm: temurin:1.21
+          apps: sbt
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4.2.0
         with:
-          node-version: "16.x"
+          node-version: "22.14.0"
           registry-url: "https://registry.npmjs.org"
 
+      - uses: coursier/cache-action@v6
       - name: Cache ~/.npm
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -32,7 +32,8 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install
-        run: npm ci
+        run: |
+          npm ci
 
       - name: Build
         run: npm run build
@@ -47,7 +48,7 @@ jobs:
           npm run build
 
       - name: Selenium Test
-        run: sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=./testStoryMapping.txt clean test
+        run: sbt -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test
 
       - name: Generate RTM
         if: always()

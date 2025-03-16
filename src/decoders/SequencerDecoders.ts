@@ -5,6 +5,9 @@
 
 import { pipe } from 'fp-ts/lib/function'
 import * as D from 'io-ts/lib/Decoder'
+import { SequenceCommandD } from './CommandDecoders'
+import { UnhandledD } from './CommonDecoders'
+import { ciLiteral, Decoder } from './Decoder'
 import type * as T from '../clients/sequencer/models/SequencerRes'
 import type {
   Step,
@@ -15,9 +18,6 @@ import type {
   StepStatusSuccess
 } from '../clients/sequencer/models/StepList'
 import { StepList } from '../clients/sequencer/models/StepList'
-import { SequenceCommandD } from './CommandDecoders'
-import { UnhandledD } from './CommonDecoders'
-import { ciLiteral, Decoder } from './Decoder'
 
 const OkD: Decoder<T.Ok> = D.struct({
   _type: ciLiteral('Ok')

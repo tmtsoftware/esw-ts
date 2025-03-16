@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { AlarmServiceImpl } from './AlarmServiceImpl'
 import type { Done, Location } from '../..'
+import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import { resolve } from '../location/LocationUtils'
-import { AlarmServiceImpl } from './AlarmServiceImpl'
-import type { AlarmKey, AlarmSeverity } from './models/AlarmModels'
 
 /**
  * Alarm Service client API.

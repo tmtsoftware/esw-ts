@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { LoggingServiceImpl } from './LoggingServiceImpl'
+import type { Level } from './models/Level'
 import { GATEWAY_CONNECTION } from '../../config/Connections'
 import type { AuthData, Done, Prefix } from '../../models'
 import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
 import type { Location } from '../location'
 import { resolve } from '../location/LocationUtils'
-import { LoggingServiceImpl } from './LoggingServiceImpl'
-import type { Level } from './models/Level'
 
 /**
  * Logging service client API.

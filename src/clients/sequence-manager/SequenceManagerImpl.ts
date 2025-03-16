@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as Res from '../../decoders/SequenceManagerDecoders'
-import type { Prefix, Subsystem } from '../../models'
-import type { HttpTransport } from '../../utils/HttpTransport'
 import type { ObsMode } from './models/ObsMode'
 import * as Req from './models/PostCommand'
 import type { ProvisionConfig } from './models/ProvisionConfig'
 import type * as T from './models/SequenceManagerRes'
 import type { Variation } from './models/Variation'
 import type { SequenceManagerService } from './SequenceManagerService'
+import * as Res from '../../decoders/SequenceManagerDecoders'
+import type { Prefix, Subsystem } from '../../models'
+import type { HttpTransport } from '../../utils/HttpTransport'
 
 export class SequenceManagerImpl implements SequenceManagerService {
   constructor(private readonly httpTransport: HttpTransport<Req.SequenceManagerPostRequest>) {}

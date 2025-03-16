@@ -76,9 +76,8 @@ const shutdownSubsystemSeqResponse: ShutdownSequencersResponse =
 //#shutdownSubsystemSequencers
 
 //#shutdownObsModeSequencers
-const shutdownObsModeSeqResponse: ShutdownSequencersResponse = await sequenceManagerService.shutdownObsModeSequencers(
-  obsMode
-)
+const shutdownObsModeSeqResponse: ShutdownSequencersResponse =
+  await sequenceManagerService.shutdownObsModeSequencers(obsMode)
 //#shutdownObsModeSequencers
 
 //#shutdownAllSequencers

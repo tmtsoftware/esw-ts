@@ -5,8 +5,8 @@
 
 import { pipe } from 'fp-ts/function'
 import * as D from 'io-ts/lib/Decoder'
-import { Units } from '../models/params/Units'
 import { ciLiteral, Decoder } from './Decoder'
+import { Units } from '../models/params/Units'
 
 const allUnits = Units.values()
 const unitsKeys = Object.keys(allUnits)

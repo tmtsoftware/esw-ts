@@ -19,7 +19,12 @@ export class Parameter<T extends Key> {
    * @param values an Array of values of type S
    * @param units applicable units
    */
-  constructor(readonly keyName: string, readonly keyTag: KTag<T>, readonly values: KType<T>[], readonly units: Units) {}
+  constructor(
+    readonly keyName: string,
+    readonly keyTag: KTag<T>,
+    readonly values: KType<T>[],
+    readonly units: Units
+  ) {}
 
   toJSON() {
     return {

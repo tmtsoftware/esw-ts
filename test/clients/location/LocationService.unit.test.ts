@@ -38,8 +38,8 @@ describe('Location Service Factory', () => {
     const actualLocationService = LocationService({ tokenFactory })
 
     expect(actualLocationService).toEqual(locationServiceImplWithAuth)
-    expect(postMockEndpoint).toBeCalledWith(uriWithAuth)
-    expect(wsMockEndpoint).toBeCalledWith(uriWithAuth)
+    expect(postMockEndpoint).toHaveBeenCalledWith(uriWithAuth)
+    expect(wsMockEndpoint).toHaveBeenCalledWith(uriWithAuth)
   })
 
   test('create location service without auth | ESW-311, ESW-416', async () => {
@@ -49,8 +49,8 @@ describe('Location Service Factory', () => {
     const actualLocationService = LocationService()
 
     expect(actualLocationService).toEqual(locationServiceImpl)
-    expect(postMockEndpoint).toBeCalledWith(config)
-    expect(wsMockEndpoint).toBeCalledWith(config)
+    expect(postMockEndpoint).toHaveBeenCalledWith(config)
+    expect(wsMockEndpoint).toHaveBeenCalledWith(config)
   })
 })
 

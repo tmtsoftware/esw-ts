@@ -42,7 +42,7 @@ import {
   ShutdownSequencersOrSeqCompResponseD,
   StartSequencerResponseD
 } from '../../src/decoders/SequenceManagerDecoders'
-// eslint-disable-next-line
+
 import * as Seq from '../../src/decoders/SequencerDecoders'
 import { SubsystemD } from '../../src/decoders/SubsystemDecoder'
 import { TAITimeD, UTCTimeD } from '../../src/decoders/TimeDecoders'
@@ -200,7 +200,7 @@ const configDecoders: Record<string, Decoder<any>> = {
 
 const sequencerDecoders: Record<string, Decoder<any>> = {
   SequenceCommand: SequenceCommandD,
-  AkkaLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
+  PekkoLocation: D.id(), //Using identity decoder  since the backend api(getSequenceComp) which returns this model is not provided in typescript
   GenericResponse: Seq.GenericResponseD,
   PauseResponse: Seq.PauseResponseD,
   SubmitResponse: SubmitResponseD,

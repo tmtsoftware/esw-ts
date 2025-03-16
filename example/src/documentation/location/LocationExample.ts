@@ -1,5 +1,5 @@
 import {
-  AkkaConnection,
+  PekkoConnection,
   Done,
   HttpConnection,
   Location,
@@ -43,8 +43,8 @@ const assemblyLocations: Location[] = await locationService.listByComponentType(
 //#list-by-component-type
 
 //#list-by-connection-type
-// valid Connection types: akka, http and tcp
-const akkaLocations: Location[] = await locationService.listByConnectionType('akka')
+// valid Connection types: pekko, http and tcp
+const pekkoLocations: Location[] = await locationService.listByConnectionType('pekko')
 
 const httpLocations: Location[] = await locationService.listByConnectionType('http')
 
@@ -67,7 +67,7 @@ const eswComponentLocations: Option<Location> = await locationService.find(
 
 //#find
 // Find the location of Hcd with esw.component prefix
-// ConnectionTypes : HttpConnection, AkkaConnection & TcpConnection
+// ConnectionTypes : HttpConnection, PekkoConnection & TcpConnection
 const maybeLocation: Option<Location> = await locationService.find(
   HttpConnection(new Prefix('ESW', 'component'), 'HCD')
 )
@@ -79,13 +79,13 @@ if (maybeLocation) {
 //#find
 
 //#unregister
-// ConnectionTypes : HttpConnection, AkkaConnection & TcpConnection
+// ConnectionTypes : HttpConnection, PekkoConnection & TcpConnection
 const done: Done = await locationServiceWithToken.unregister(HttpConnection(new Prefix('ESW', 'component'), 'HCD'))
 
 //#unregister
 
 //#resolve
-// ConnectionTypes : HttpConnection, AkkaConnection & TcpConnection
+// ConnectionTypes : HttpConnection, PekkoConnection & TcpConnection
 // Time unit : seconds, milliseconds, nanoseconds, microseconds, minutes, hours, days
 
 const connection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
@@ -127,7 +127,7 @@ locationService.track(httpConnection)(onTrackingEvent, onErrorCallback, onCloseC
 const g = () => {
   //#connections
   const httpConnection: HttpConnection = HttpConnection(new Prefix('ESW', 'component'), 'HCD')
-  const akkaConnection: AkkaConnection = AkkaConnection(new Prefix('ESW', 'component'), 'HCD')
+  const pekkoConnection: PekkoConnection = PekkoConnection(new Prefix('ESW', 'component'), 'HCD')
   const tcpConnection: TcpConnection = TcpConnection(new Prefix('ESW', 'component'), 'HCD')
   //#connections
 }

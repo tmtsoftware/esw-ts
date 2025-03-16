@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Option } from '../..'
 import type { Key } from './Key'
 import type { Parameter } from './Parameter'
 import { ParameterSetType } from './ParameterSetType'
 import type { Prefix } from './Prefix'
+import type { Option } from '../..'
 
 /**
  * @internal

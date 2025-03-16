@@ -179,6 +179,7 @@ Document automatically gets released using release pipeline.
 
 | esw-ts | esw    | csw    |
 |--------|--------|--------|
+| v0.5.x | v0.6.x | v6.0.x |
 | v0.4.1 | v0.5.1 | v5.0.1 |
 | v0.4.1-RC1 | v0.5.1-RC1 | v5.0.1-RC1 |
 | v0.4.0 | v0.5.0 | v5.0.0 |

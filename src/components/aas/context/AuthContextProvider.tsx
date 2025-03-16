@@ -4,8 +4,8 @@
  */
 
 import React, { useEffect, useState } from 'react'
-import { Auth, AuthContextConfig, AuthStore } from '../../../clients/aas'
 import { Provider } from './AuthContext'
+import { Auth, AuthContextConfig, AuthStore } from '../../../clients/aas'
 
 export interface AuthContextProps {
   config?: AuthContextConfig

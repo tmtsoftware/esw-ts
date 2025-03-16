@@ -49,7 +49,7 @@ describe('Http transport', () => {
       headers: headers
     }
 
-    expect(postMockFn).toBeCalledWith(url, expectedReq)
+    expect(postMockFn).toHaveBeenCalledWith(url, expectedReq)
   })
 
   test('sends request without auth headers when no token is provided | ESW-531', async () => {
@@ -67,6 +67,6 @@ describe('Http transport', () => {
         .withUsername('osw-user')
         .withHeader('X-TMT-App-Name', 'test-app')
     }
-    expect(postMockFn).toBeCalledWith(url, expectedReq)
+    expect(postMockFn).toHaveBeenCalledWith(url, expectedReq)
   })
 })

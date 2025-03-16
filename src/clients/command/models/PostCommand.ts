@@ -8,25 +8,25 @@ import type { ControlCommand } from '../../../models'
 export type CommandServicePostMessage = Submit | Validate | Oneway | Query
 
 export class Validate {
-  readonly _type: 'Validate' = 'Validate'
+  _type: 'Validate' = 'Validate' as const
 
   constructor(readonly controlCommand: ControlCommand) {}
 }
 
 export class Submit {
-  readonly _type: 'Submit' = 'Submit'
+  _type: 'Submit' = 'Submit' as const
 
   constructor(readonly controlCommand: ControlCommand) {}
 }
 
 export class Oneway {
-  readonly _type: 'Oneway' = 'Oneway'
+  _type: 'Oneway' = 'Oneway' as const
 
   constructor(readonly controlCommand: ControlCommand) {}
 }
 
 export class Query {
-  readonly _type: 'Query' = 'Query'
+  _type: 'Query' = 'Query' as const
 
   constructor(readonly runId: string) {}
 }

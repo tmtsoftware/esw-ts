@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import {
-  AkkaConnection,
+  PekkoConnection,
   GATEWAY_CONNECTION,
   HttpConnection,
   LocationRemoved,
@@ -24,10 +24,10 @@ const getValueFromOption = <T>(value: Option<T>): T => {
   return value
 }
 
-const akkaHcdConnection: AkkaConnection = {
+const pekkoHcdConnection: PekkoConnection = {
   prefix: hcdPrefix,
   componentType: 'HCD',
-  connectionType: 'akka'
+  connectionType: 'pekko'
 }
 
 const httpHcdConnection: HttpConnection = {
@@ -65,8 +65,8 @@ describe('LocationService', () => {
 
     expect(locations.length).toBe(3)
 
-    const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, akkaHcdConnection]
-    const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
+    const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, pekkoHcdConnection]
+    const allExpectedTypes = ['PekkoLocation', 'HttpLocation']
 
     locations.forEach((loc) => {
       expect(allExpectedTypes).toContainEqual(loc._type)
@@ -92,10 +92,10 @@ describe('LocationService', () => {
 
   test('should be able to list all the registered location for given connectionType | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
-    const locations = await locationService.listByConnectionType('akka')
+    const locations = await locationService.listByConnectionType('pekko')
 
     expect(locations.length).toBe(1)
-    expect(locations[0].connection).toEqual(akkaHcdConnection)
+    expect(locations[0].connection).toEqual(pekkoHcdConnection)
   })
 
   test('should be able to list all the registered location for given prefix | ESW-343, ESW-308, ESW-416', async () => {
@@ -103,7 +103,7 @@ describe('LocationService', () => {
     const locations = await locationService.listByPrefix(hcdPrefix)
 
     expect(locations.length).toBe(2)
-    expect(locations.map((x) => x.connection)).toContainEqual(akkaHcdConnection)
+    expect(locations.map((x) => x.connection)).toContainEqual(pekkoHcdConnection)
     expect(locations.map((x) => x.connection)).toContainEqual(httpHcdConnection)
   })
 
@@ -111,8 +111,8 @@ describe('LocationService', () => {
     locationService = LocationService()
     const locations = await locationService.listByHostname(publicIPv4Address())
 
-    const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, akkaHcdConnection]
-    const allExpectedTypes = ['AkkaLocation', 'HttpLocation']
+    const allExpectedConnections = [GATEWAY_CONNECTION, httpHcdConnection, pekkoHcdConnection]
+    const allExpectedTypes = ['PekkoLocation', 'HttpLocation']
 
     expect(locations.length).toBe(3)
     locations.forEach((loc) => {
@@ -124,9 +124,9 @@ describe('LocationService', () => {
 
   test('should be able to find the location of given connection | ESW-343, ESW-308, ESW-416', async () => {
     locationService = LocationService()
-    const location = getValueFromOption(await locationService.find(akkaHcdConnection))
-    expect(location._type).toBe('AkkaLocation')
-    expect(location.connection).toEqual(akkaHcdConnection)
+    const location = getValueFromOption(await locationService.find(pekkoHcdConnection))
+    expect(location._type).toBe('PekkoLocation')
+    expect(location.connection).toEqual(pekkoHcdConnection)
   })
 
   test('should be able to track a location from location server | ESW-343, ESW-308', () => {

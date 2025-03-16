@@ -6,11 +6,14 @@
 export type SequencerWebsocketRequest = QueryFinal | SubscribeSequencerState
 
 export class QueryFinal {
-  readonly _type: 'QueryFinal' = 'QueryFinal'
+  _type: 'QueryFinal' = 'QueryFinal' as const
 
-  constructor(readonly runId: string, readonly timeout: number) {}
+  constructor(
+    readonly runId: string,
+    readonly timeout: number
+  ) {}
 }
 
 export class SubscribeSequencerState {
-  readonly _type: 'SubscribeSequencerState' = 'SubscribeSequencerState'
+  _type: 'SubscribeSequencerState' = 'SubscribeSequencerState' as const
 }

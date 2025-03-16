@@ -25,11 +25,11 @@ describe('Download', () => {
     download(blob, 'file1')
 
     // verification
-    expect(createElementMock).toBeCalledWith('a')
-    expect(mockCreateObj).toBeCalledWith(blob)
+    expect(createElementMock).toHaveBeenCalledWith('a')
+    expect(mockCreateObj).toHaveBeenCalledWith(blob)
     expect(anchorEle.download).toBe('file1')
     expect(anchorEle.href).toBe('http://localhost/url')
-    expect(listener).toBeCalledTimes(1)
+    expect(listener).toHaveBeenCalledTimes(1)
 
     //verify element removed
     const elementRemoved = window.document.querySelector('a')

@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { SequencerState, SequencerStateResponse } from './models/SequencerRes'
+import type { StepList } from './models/StepList'
+import { SequencerServiceImpl } from './SequencerServiceImpl'
 import type {
   AuthData,
   DiagnosticModeResponse,
@@ -24,9 +27,6 @@ import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../ut
 import { Ws } from '../../utils/Ws'
 import type { Location } from '../location'
 import { resolve } from '../location/LocationUtils'
-import type { SequencerState, SequencerStateResponse } from './models/SequencerRes'
-import type { StepList } from './models/StepList'
-import { SequencerServiceImpl } from './SequencerServiceImpl'
 
 /**
  * @category Service

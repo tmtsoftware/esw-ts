@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { ComponentId, Prefix, Subsystem, Failed, LocationServiceError, Unhandled } from '../../../models'
 import type { ObsMode } from './ObsMode'
 import type { VariationInfo } from './VariationInfo'
+import type { ComponentId, Prefix, Subsystem, Failed, LocationServiceError, Unhandled } from '../../../models'
 
 export type SequenceComponentNotAvailable = {
   _type: 'SequenceComponentNotAvailable'

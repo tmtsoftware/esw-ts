@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { AgentService, AkkaConnection, ComponentId, KillResponse, Prefix, setAppName, SpawnResponse } from '../../src'
+import { AgentService, PekkoConnection, ComponentId, KillResponse, Prefix, setAppName, SpawnResponse } from '../../src'
 import { startServices, stopServices } from '../utils/backend'
 
 jest.setTimeout(80000)
@@ -93,8 +93,8 @@ describe('Agent Service client', () => {
               seqCompId: new ComponentId(new Prefix('ESW', 'seqcomp1'), 'SequenceComponent'),
               sequencerLocation: [
                 {
-                  _type: 'AkkaLocation',
-                  connection: AkkaConnection(Prefix.fromString('ESW.IRIS_DARKNIGHT'), 'Sequencer'),
+                  _type: 'PekkoLocation',
+                  connection: PekkoConnection(Prefix.fromString('ESW.IRIS_DARKNIGHT'), 'Sequencer'),
                   metadata: {
                     sequenceComponentPrefix: 'ESW.seqcomp1'
                   },

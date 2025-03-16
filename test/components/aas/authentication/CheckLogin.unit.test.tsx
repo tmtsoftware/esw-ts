@@ -18,7 +18,7 @@ describe('<CheckLogin />', () => {
     jest.resetAllMocks()
   })
 
-  const mockFn = jest.mocked(Keycloak, true)
+  const mockFn = jest.mocked(Keycloak, { shallow: true })
   const keycloakInstance = mockedKeyCloakInstance()
   mockFn.mockReturnValue(keycloakInstance)
 

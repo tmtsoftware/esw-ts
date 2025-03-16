@@ -22,7 +22,11 @@ export class BaseKey<T extends Key> {
    * @param units applicable units
    * @return an instance of BaseKey<T>
    */
-  constructor(readonly keyName: string, readonly keyTag: KTag<T>, readonly units: Units) {}
+  constructor(
+    readonly keyName: string,
+    readonly keyTag: KTag<T>,
+    readonly units: Units
+  ) {}
 
   /**
    * Sets the values for the key using a set of KeyType<T>

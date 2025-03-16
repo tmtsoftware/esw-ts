@@ -3,13 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { AuthData, ObsModesDetailsResponse, Prefix, ResourcesStatusResponse } from '../..'
-import { SEQUENCE_MANAGER_CONNECTION } from '../../config/Connections'
-import type { Subsystem } from '../../models'
-import { HttpTransport } from '../../utils/HttpTransport'
-import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
-import type { Location } from '../location'
-import { resolve } from '../location/LocationUtils'
 import type { ObsMode } from './models/ObsMode'
 import type { ProvisionConfig } from './models/ProvisionConfig'
 import type {
@@ -22,6 +15,13 @@ import type {
 } from './models/SequenceManagerRes'
 import type { Variation } from './models/Variation'
 import { SequenceManagerImpl } from './SequenceManagerImpl'
+import type { AuthData, ObsModesDetailsResponse, Prefix, ResourcesStatusResponse } from '../..'
+import { SEQUENCE_MANAGER_CONNECTION } from '../../config/Connections'
+import type { Subsystem } from '../../models'
+import { HttpTransport } from '../../utils/HttpTransport'
+import { extractHostPort, getPostEndPoint } from '../../utils/Utils'
+import type { Location } from '../location'
+import { resolve } from '../location/LocationUtils'
 
 /**
  * @category Service

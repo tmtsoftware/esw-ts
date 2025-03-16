@@ -6,7 +6,10 @@
 import type { AlarmKey, AlarmSeverity } from './AlarmModels'
 
 export class SetAlarmSeverity {
-  readonly _type: 'SetAlarmSeverity' = 'SetAlarmSeverity'
+  _type: 'SetAlarmSeverity' = 'SetAlarmSeverity' as const
 
-  constructor(readonly alarmKey: AlarmKey, readonly severity: AlarmSeverity) {}
+  constructor(
+    readonly alarmKey: AlarmKey,
+    readonly severity: AlarmSeverity
+  ) {}
 }

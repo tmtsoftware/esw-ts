@@ -12,11 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: branch-0.3.x
-      - uses: coursier/setup-action@v1.2.0-M2
+          ref: branch-0.6.x
+      - uses: coursier/setup-action@v1.2.0
         with:
-          jvm: temurin:1.17
-          apps: sbt sbtn
+          jvm: temurin:1.21
       - uses: coursier/cache-action@v6
 
       - name: Paradox Validate Links

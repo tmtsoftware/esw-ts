@@ -1,14 +1,17 @@
 # Auth Components
 
 `esw-ts` exposes react components to enable authentication and authorization.
-It is built in TypeScript on top of [keycloak-js](https://www.keycloak.org/securing-apps/javascript-adapter)
+It is built in TypeScript on top of [keycloak-js](https://www.keycloak.org/guides.html#securing-apps)
 which is JavaScript adapter provided by Keycloak.
+
+*Note: The Keycloak JavaScript adapters have been deprecated and removed after Keycloak-25.x, which we are still using.
+Before upgrading to newer versions of Keycloak, the code based on these adapters will need to be rewritten.*
 
 ## Implementation
 
 Core implementation of Auth Components of `ESW-TS`, uses
 
-- [keycloak-js](https://www.keycloak.org/securing-apps/javascript-adapter) - keycloak JavaScript adapter
+- [keycloak-js](https://www.keycloak.org/guides.html#securing-apps) - keycloak JavaScript adapter (Note: Deprecated/removed after Keycloak-25.x)
 - [React](https://react.dev/) - JavaScript library for building user interfaces
 - [Typescript](https://www.typescriptlang.org/) - Types superset of JavaScript which compiles to JavaScript
 - @extref[csw-location-service](csw:services/location) - resolve keycloak using Location Service HTTP endpoint
@@ -39,7 +42,7 @@ token. This gives seamless user experience as user will not have to login again.
 
 Keycloak adapter supports three authorization flows e.g. authorization code flow, implicit flow and hybrid flow.
 Auth components in `ESW-TS`, uses hybrid flow as it has better performance than authorization code flow and unlike implicit flow,
-hybrid flow makes refresh token available to application. For more information please refer [keycloak documentaion for authorization flows](https://www.keycloak.org/securing-apps/javascript-adapter).
+hybrid flow makes refresh token available to application. For more information please refer [keycloak documentaion for authorization flows](https://www.keycloak.org/guides.html#securing-apps).
 
 ## Working of Auth Components
 

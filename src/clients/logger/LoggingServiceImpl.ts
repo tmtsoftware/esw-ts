@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { LoggingService } from './LoggingService'
+import type { Level } from './models/Level'
+import { Log } from './models/PostCommand'
 import { DoneD } from '../../decoders/CommonDecoders'
 import type { Done, Prefix } from '../../models'
 import type { HttpTransport } from '../../utils/HttpTransport'
 import type { GatewayLoggingPostRequest } from '../gateway/models/Gateway'
-import type { LoggingService } from './LoggingService'
-import type { Level } from './models/Level'
-import { Log } from './models/PostCommand'
 
 export class LoggingServiceImpl implements LoggingService {
   constructor(private readonly httpTransport: HttpTransport<GatewayLoggingPostRequest>) {}

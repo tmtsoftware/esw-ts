@@ -4,10 +4,10 @@
  */
 
 import * as D from 'io-ts/lib/Decoder'
-import type { ComponentId } from '../models'
 import { ComponentTypeD } from './ComponentTypeDecoder'
 import type { Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
+import type { ComponentId } from '../models'
 
 export const ComponentIdD: Decoder<ComponentId> = D.struct({
   prefix: PrefixD,

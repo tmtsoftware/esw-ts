@@ -29,12 +29,18 @@ object Keycloak {
     val configUser = ApplicationUser(
       configUserName,
       configPassword,
+      firstName = configUserName,
+      lastName = configUserName,
+      email = s"$configUserName@tmt.org",
       realmRoles = Set(configRole)
     )
 
     val exampleUser = ApplicationUser(
       exampleUserName,
       examplePassword,
+      firstName = exampleUserName,
+      lastName = exampleUserName,
+      email = s"$exampleUserName@tmt.org",
       realmRoles = Set(personRole, exampleAdminRole)
     )
 

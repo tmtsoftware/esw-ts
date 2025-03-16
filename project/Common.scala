@@ -6,7 +6,8 @@ import sbt._
 
 object Common {
 
-  val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
+  private val detectCycles: SettingKey[Boolean] = settingKey[Boolean]("is cyclic check enabled?")
+    .withRank(KeyRanks.Invisible)
 
   private val storyReport: Boolean = sys.props.get("generateStoryReport").contains("true")
   private val reporterOptions: Seq[Tests.Argument] =
@@ -14,18 +15,19 @@ object Common {
     else Seq(Tests.Argument("-oDF"))
 
   lazy val DocsSettings = Seq(
-    docsRepo := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
-    docsParentDir := "esw-ts",
+    docsRepo       := "https://github.com/tmtsoftware/tmtsoftware.github.io.git",
+    docsParentDir  := "esw-ts",
     gitCurrentRepo := "https://github.com/tmtsoftware/esw-ts"
   )
 
   lazy val CommonSettings: Seq[Setting[_]] = DocsSettings ++ Seq(
-    organization := "com.github.tmtsoftware.esw-ts",
+    organization     := "com.github.tmtsoftware.esw-ts",
     organizationName := "TMT Org",
-    scalaVersion := Libs.ScalaVersion,
+    scalaVersion     := Libs.ScalaVersion,
     Global / concurrentRestrictions += Tags.limit(Tags.All, 1),
     homepage := Some(url("https://github.com/tmtsoftware/esw-ts")),
-    resolvers ++= Seq("jitpack" at "https://jitpack.io"),
+    resolvers += "jitpack" at "https://jitpack.io",
+    resolvers += "Apache Pekko Staging".at("https://repository.apache.org/content/groups/staging"),
     scmInfo := Some(
       ScmInfo(url("https://github.com/tmtsoftware/esw-ts"), "git@github.com:tmtsoftware/esw-ts.git")
     ),
@@ -36,9 +38,9 @@ object Common {
       "-feature",
       "-unchecked",
       "-deprecation",
-      "-Xlint",
-      //      "-Yno-adapted-args",
-      "-Ywarn-dead-code"
+//      "-rewrite",
+//      "-source",
+//      "3.4-migration"
     ),
     Compile / doc / javacOptions ++= Seq("-Xdoclint:none"),
     version := sys.env.getOrElse("JITPACK_VERSION", "0.1.0-SNAPSHOT"),
@@ -48,8 +50,8 @@ object Common {
       java.awt.Desktop.getDesktop.browse(new java.net.URI(uri))
       state
     },
-    fork := true,
-    detectCycles := true,
+    fork                := true,
+    detectCycles        := true,
     autoCompilerPlugins := true,
     Global / cancelable := true, // allow ongoing test(or any task) to cancel with ctrl + c and still remain inside sbt
     if (formatOnCompile) scalafmtOnCompile := true else scalafmtOnCompile := false,

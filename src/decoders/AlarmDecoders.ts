@@ -4,9 +4,9 @@
  */
 
 import * as D from 'io-ts/lib/Decoder'
-import type { AlarmKey, AlarmSeverity } from '../clients/alarm'
 import { ciLiteral, Decoder } from './Decoder'
 import { PrefixD } from './PrefixDecoder'
+import type { AlarmKey, AlarmSeverity } from '../clients/alarm'
 
 export const AlarmKeyD: Decoder<AlarmKey> = D.struct({
   prefix: PrefixD,

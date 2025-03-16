@@ -44,7 +44,7 @@ describe('Http util', () => {
       expect(e.statusText).toBe('Internal Server Error')
     })
 
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toHaveBeenCalledWith(url, makeRequest(payload))
   })
 
   test.each([
@@ -61,7 +61,7 @@ describe('Http util', () => {
       expect(e.status).toBe(404)
       expect(e.statusText).toBe('bad request')
     })
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toHaveBeenCalledWith(url, makeRequest(payload))
   })
 
   test('Post request', async () => {
@@ -70,7 +70,7 @@ describe('Http util', () => {
     const payload = 'hello'
     const response = await post({ url, payload })
 
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toHaveBeenCalledWith(url, makeRequest(payload))
     expect(response).toEqual(expectedValue)
   })
 
@@ -101,7 +101,7 @@ describe('Http util', () => {
     const payload = 'hello'
     const response = await post({ url, payload, headers })
 
-    expect(window.fetch).toBeCalledWith(url, {
+    expect(window.fetch).toHaveBeenCalledWith(url, {
       method: 'POST',
       headers: new HeaderExt({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -117,7 +117,7 @@ describe('Http util', () => {
     const payload = 'hello'
 
     await expect(post({ url, payload })).rejects.toThrow(Error)
-    expect(window.fetch).toBeCalledWith(url, makeRequest(payload))
+    expect(window.fetch).toHaveBeenCalledWith(url, makeRequest(payload))
   })
 
   test('should be able to make url with query params | ESW-531', async () => {
@@ -130,7 +130,7 @@ describe('Http util', () => {
 
     await post({ url, payload, queryParams })
 
-    expect(window.fetch).toBeCalledWith(`${url}?a=b`, makeRequest(payload))
+    expect(window.fetch).toHaveBeenCalledWith(`${url}?a=b`, makeRequest(payload))
   })
 })
 

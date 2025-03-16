@@ -5,8 +5,10 @@ import org.scalatest.concurrent.Eventually
 import org.scalatest.funsuite.AnyFunSuiteLike
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.SpanSugar.convertFloatToGrainOfTime
-import org.scalatest.{BeforeAndAfterAll}
+import org.scalatest.BeforeAndAfterAll
 import org.tmt.embedded_keycloak.impl.StopHandle
+
+import scala.compiletime.uninitialized
 
 trait BaseTestSuite
     extends JsConfigServer
@@ -17,7 +19,7 @@ trait BaseTestSuite
     with Matchers
     with Eventually {
 
-  private var stopKeycloak: StopHandle = _
+  private var stopKeycloak: StopHandle = uninitialized
 
   override protected def beforeAll(): Unit = {
     stopKeycloak = startAndRegisterKeycloak()._2

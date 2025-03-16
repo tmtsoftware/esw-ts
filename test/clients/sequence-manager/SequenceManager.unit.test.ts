@@ -31,6 +31,6 @@ describe('Sequence manager factory', () => {
     const response = await SequenceManagerService({ tokenFactory })
 
     expect(response).toEqual(sequenceManagerImpl)
-    expect(mockResolveSm).toBeCalledTimes(1)
+    expect(mockResolveSm).toHaveBeenCalledTimes(1)
   })
 })

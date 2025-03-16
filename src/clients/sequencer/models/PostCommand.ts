@@ -3,128 +3,137 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { SequenceCommand } from '../../../models'
 import type { Sequence } from './Sequence'
+import type { SequenceCommand } from '../../../models'
 
 export class LoadSequence {
-  readonly _type: 'LoadSequence' = 'LoadSequence'
+  _type: 'LoadSequence' = 'LoadSequence' as const
 
   constructor(readonly sequence: Sequence) {}
 }
 
 export class StartSequence {
-  readonly _type: 'StartSequence' = 'StartSequence'
+  _type: 'StartSequence' = 'StartSequence' as const
 }
 
 export class Resume {
-  readonly _type: 'Resume' = 'Resume'
+  _type: 'Resume' = 'Resume' as const
 }
 
 export class Pause {
-  readonly _type: 'Pause' = 'Pause'
+  _type: 'Pause' = 'Pause' as const
 }
 
 export class Reset {
-  readonly _type: 'Reset' = 'Reset'
+  _type: 'Reset' = 'Reset' as const
 }
 
 export class GetSequence {
-  readonly _type: 'GetSequence' = 'GetSequence'
+  _type: 'GetSequence' = 'GetSequence' as const
 }
 
 export class IsAvailable {
-  readonly _type: 'IsAvailable' = 'IsAvailable'
+  _type: 'IsAvailable' = 'IsAvailable' as const
 }
 
 export class IsOnline {
-  readonly _type: 'IsOnline' = 'IsOnline'
+  _type: 'IsOnline' = 'IsOnline' as const
 }
 
 export class GoOnline {
-  readonly _type: 'GoOnline' = 'GoOnline'
+  _type: 'GoOnline' = 'GoOnline' as const
 }
 
 export class GoOffline {
-  readonly _type: 'GoOffline' = 'GoOffline'
+  _type: 'GoOffline' = 'GoOffline' as const
 }
 
 export class AbortSequence {
-  readonly _type: 'AbortSequence' = 'AbortSequence'
+  _type: 'AbortSequence' = 'AbortSequence' as const
 }
 
 export class Stop {
-  readonly _type: 'Stop' = 'Stop'
+  _type: 'Stop' = 'Stop' as const
 }
 
 export class OperationsMode {
-  readonly _type: 'OperationsMode' = 'OperationsMode'
+  _type: 'OperationsMode' = 'OperationsMode' as const
 }
 
 export class Add {
-  readonly _type: 'Add' = 'Add'
+  _type: 'Add' = 'Add' as const
 
   constructor(readonly commands: SequenceCommand[]) {}
 }
 
 export class Prepend {
-  readonly _type: 'Prepend' = 'Prepend'
+  _type: 'Prepend' = 'Prepend' as const
 
   constructor(readonly commands: SequenceCommand[]) {}
 }
 
 export class Replace {
-  readonly _type: 'Replace' = 'Replace'
+  _type: 'Replace' = 'Replace' as const
 
-  constructor(readonly id: string, readonly commands: SequenceCommand[]) {}
+  constructor(
+    readonly id: string,
+    readonly commands: SequenceCommand[]
+  ) {}
 }
 
 export class InsertAfter {
-  readonly _type: 'InsertAfter' = 'InsertAfter'
+  _type: 'InsertAfter' = 'InsertAfter' as const
 
-  constructor(readonly id: string, readonly commands: SequenceCommand[]) {}
+  constructor(
+    readonly id: string,
+    readonly commands: SequenceCommand[]
+  ) {}
 }
 
 export class Delete {
-  readonly _type: 'Delete' = 'Delete'
+  _type: 'Delete' = 'Delete' as const
 
   constructor(readonly id: string) {}
 }
 
 export class AddBreakpoint {
-  readonly _type: 'AddBreakpoint' = 'AddBreakpoint'
+  _type: 'AddBreakpoint' = 'AddBreakpoint' as const
 
   constructor(readonly id: string) {}
 }
 
 export class RemoveBreakpoint {
-  readonly _type: 'RemoveBreakpoint' = 'RemoveBreakpoint'
+  _type: 'RemoveBreakpoint' = 'RemoveBreakpoint' as const
 
   constructor(readonly id: string) {}
 }
 
 export class DiagnosticMode {
-  readonly _type: 'DiagnosticMode' = 'DiagnosticMode'
+  _type: 'DiagnosticMode' = 'DiagnosticMode' as const
   readonly startTime: string
 
-  constructor(startTime: Date, readonly hint: string) {
+  constructor(
+    startTime: Date,
+    readonly hint: string
+  ) {
     this.startTime = startTime.toJSON()
   }
 }
 
 export class Submit {
-  readonly _type: 'Submit' = 'Submit'
+  _type: 'Submit' = 'Submit' as const
 
   constructor(readonly sequence: Sequence) {}
 }
 
 export class Query {
-  readonly _type: 'Query' = 'Query'
+  _type: 'Query' = 'Query' as const
 
   constructor(readonly runId: string) {}
 }
 
 export class GetSequencerState {
-  readonly _type: 'GetSequencerState' = 'GetSequencerState'
+  _type: 'GetSequencerState' = 'GetSequencerState' as const
 }
 
 export type SequencerPostRequest =

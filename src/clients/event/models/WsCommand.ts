@@ -3,13 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Subsystem } from '../../../models'
 import type { EventKey } from './EventKey'
+import type { Subsystem } from '../../../models'
 
 export class Subscribe {
-  readonly _type: 'Subscribe' = 'Subscribe'
+  _type: 'Subscribe' = 'Subscribe' as const
 
-  constructor(readonly eventKeys: EventKey[], readonly maxFrequency?: number) {}
+  constructor(
+    readonly eventKeys: EventKey[],
+    readonly maxFrequency?: number
+  ) {}
 
   toJSON() {
     return this.maxFrequency
@@ -19,9 +22,13 @@ export class Subscribe {
 }
 
 export class SubscribeWithPattern {
-  readonly _type: 'SubscribeWithPattern' = 'SubscribeWithPattern'
+  _type: 'SubscribeWithPattern' = 'SubscribeWithPattern' as const
 
-  constructor(readonly subsystem: Subsystem, readonly pattern: string, readonly maxFrequency?: number) {}
+  constructor(
+    readonly subsystem: Subsystem,
+    readonly pattern: string,
+    readonly maxFrequency?: number
+  ) {}
 
   toJSON() {
     return this.maxFrequency
@@ -31,7 +38,7 @@ export class SubscribeWithPattern {
 }
 
 export class SubscribeObserveEvents {
-  readonly _type: 'SubscribeObserveEvents' = 'SubscribeObserveEvents'
+  _type: 'SubscribeObserveEvents' = 'SubscribeObserveEvents' as const
 
   constructor(readonly maxFrequency?: number) {}
 

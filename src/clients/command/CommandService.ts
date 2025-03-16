@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { CommandServiceImpl } from './CommandServiceImpl'
 import type {
   ComponentId,
   ControlCommand,
@@ -21,7 +22,6 @@ import { HttpTransport } from '../../utils/HttpTransport'
 import { extractHostPort, getPostEndPoint, getWebSocketEndPoint } from '../../utils/Utils'
 import { Ws } from '../../utils/Ws'
 import { resolve } from '../location/LocationUtils'
-import { CommandServiceImpl } from './CommandServiceImpl'
 
 /**
  *  A Command Service API of a CSW component. This model provides method based APIs for command interactions with a component.
@@ -72,7 +72,7 @@ export interface CommandService {
   queryFinal(runId: string, timeoutInSeconds: number): Promise<SubmitResponse>
 
   /**
-   * Subscribe to the current state of a component corresponding to the AkkaLocation of the component
+   * Subscribe to the current state of a component corresponding to the PekkoLocation of the component
    *
    * @param stateNames        Subscribe to the set of currentStates. If no states are provided, all the current states will be received.
    * @param onStateChange     a callback which gets called on change of any of the subscribed currentState

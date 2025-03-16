@@ -6,6 +6,4 @@ object Settings {
 
   private val config         = ConfigFactory.load()
   private val seleniumConfig = config.getConfig("selenium")
-
-  val Headless: Boolean = seleniumConfig.getBoolean("headless")
 }

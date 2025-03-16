@@ -11,7 +11,7 @@ export type MockOf<T> = { [K in keyof Required<T>]: jest.MockedFunction<MethodTy
 
 export const verify = <T extends AnyFunc>(func: jest.MockedFunction<T>) => {
   return {
-    toBeCalledWith: (...args: jest.ArgsType<T>) => expect(func).toBeCalledWith(...args)
+    toBeCalledWith: (...args: jest.ArgsType<T>) => expect(func).toHaveBeenCalledWith(...args)
   }
 }
 

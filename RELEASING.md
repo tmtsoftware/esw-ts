@@ -9,7 +9,8 @@
 1. Update `CSW_VERSION`, `ESW_VERSION` in `.github/workflows/release.yml`
 1. Update `embedded-keycloak`, `csw`, `rtm` and `esw` version in `Libs.scala`
 1. Update `version` number in `package.json`
-1. Update CSW and ESW versions in `integration/utils/shell.ts`
+1. Update CSW and ESW versions in `integration/utils/shell.ts` and in osw-apps repo
+1. Update osw-apps branch name in rtm.sh, scripts/appLauncher.sh
 1. Update `<****>` with the version in `release.yml` "NPM publish" step.
     Example: If you are publishing `1.0.0`
             Replace `<****>` with the corresponding tag i.e v1.0.0.

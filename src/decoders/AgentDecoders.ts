@@ -4,6 +4,10 @@
  */
 
 import * as D from 'io-ts/lib/Decoder'
+import { FailedD, LocationServiceErrorD, UnhandledD } from './CommonDecoders'
+import { ComponentIdD } from './ComponentIdDecoder'
+import { ciLiteral, Decoder } from './Decoder'
+import { PekkoLocationD } from './LocationDecoders'
 import type {
   AgentStatus,
   AgentStatusResponse,
@@ -14,10 +18,6 @@ import type {
   Spawned,
   SpawnResponse
 } from '../clients/agent-service'
-import { FailedD, LocationServiceErrorD, UnhandledD } from './CommonDecoders'
-import { ComponentIdD } from './ComponentIdDecoder'
-import { ciLiteral, Decoder } from './Decoder'
-import { AkkaLocationD } from './LocationDecoders'
 
 const SpawnedD: Decoder<Spawned> = D.struct({
   _type: ciLiteral('Spawned')
@@ -29,7 +29,7 @@ const KilledD: Decoder<Killed> = D.struct({
 
 export const SequenceComponentStatusD: Decoder<SequenceComponentStatus> = D.struct({
   seqCompId: ComponentIdD,
-  sequencerLocation: D.array(AkkaLocationD)
+  sequencerLocation: D.array(PekkoLocationD)
 })
 
 const AgentStatusD: Decoder<AgentStatus> = D.struct({
