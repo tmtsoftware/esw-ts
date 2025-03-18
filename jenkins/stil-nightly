@@ -19,11 +19,22 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh "which sbt && sbt --version"
-                sh "which jps && jps -v"
-                sh "which java && java --version"
+                sh "npm install -g npm@11.2.0"
+                sh "cs update cs"
+                sh "cs version"
+                sh "echo $HOME"
+                sh "echo $PATH"
+                sh "which cs"
+                sh "cs java --jvm temurin:1.21.0 --setup"
+                sh "java -version"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && java -version"
+                sh "./scripts/install_kotlin.sh"
+                sh "kotlin -version"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which sbt && sbt --version"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which jps && jps -v"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which java && java --version"
                 sh "which cs && cs --version"
-                sh "sbt clean"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && sbt clean"
             }
         }
 
