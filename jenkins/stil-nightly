@@ -19,7 +19,7 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh "./scripts/install_node.sh"
+                //sh "./scripts/install_node.sh"
                 sh "cs update cs"
                 sh "cs version"
                 sh "echo $HOME"
@@ -28,7 +28,7 @@ pipeline {
                 sh "cs java --jvm temurin:1.21.0 --setup"
                 sh "java -version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && java -version"
-                sh "./scripts/install_kotlin.sh"
+                //sh "./scripts/install_kotlin.sh"
                 sh "kotlin -version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which sbt && sbt --version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which jps && jps -v"
@@ -40,31 +40,31 @@ pipeline {
 
         stage('Build library') {
             steps {
-                sh "which node && node --version"
-                sh "which npm && npm --version"
-                sh "npm ci"
-                sh "npm run build"
+                sh ". $HOME/.nvm/nvm.sh && which node && node --version"
+                sh ". $HOME/.nvm/nvm.sh && which npm && npm --version"
+                sh ". $HOME/.nvm/nvm.sh && npm ci"
+                sh ". $HOME/.nvm/nvm.sh && npm run build"
             }
         }
 
         stage('Tests') {
             steps {
-                sh "JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:ci"
+                sh ". $HOME/.nvm/nvm.sh && JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:ci"
             }
         }
 
         stage('Build Example App') {
             steps {
                 dir('example') {
-                    sh "npm ci"
-                    sh "npm run build"
+                    sh ". $HOME/.nvm/nvm.sh && npm ci"
+                    sh ". $HOME/.nvm/nvm.sh && npm run build"
                 }
             }
         }
 
         stage('Selenium Test') {
             steps {
-              sh "sbt -Dsbt.log.noformat=true -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
+              sh "eval \$(cs java --jvm temurin:1.21.0 --env) && sbt -Dsbt.log.noformat=true -Dprod.publish=true -DgenerateStoryReport=true -DRTM_PATH=./RTM -DOUTPUT_FILE=/testStoryMapping.txt clean test"
             }
         }
     }
