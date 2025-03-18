@@ -7,3 +7,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 nvm install v22.14.0
 . .nvm/nvm.sh
 npm install -g npm@11.2.0
+which npm
+which node
+npm --version
+node --version
