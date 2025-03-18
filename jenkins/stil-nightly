@@ -40,24 +40,24 @@ pipeline {
 
         stage('Build library') {
             steps {
-                sh ". $HOME/.nvm/nvm.sh && which node && node --version"
-                sh ". $HOME/.nvm/nvm.sh && which npm && npm --version"
-                sh ". $HOME/.nvm/nvm.sh && npm ci"
-                sh ". $HOME/.nvm/nvm.sh && npm run build"
+                sh 'bash -c ". $HOME/.nvm/nvm.sh;  which node && node --version"'
+                sh 'bash -c ". $HOME/.nvm/nvm.sh;  which npm && npm --version"'
+                sh 'bash -c ". $HOME/.nvm/nvm.sh;  npm ci"'
+                sh 'bash -c ". $HOME/.nvm/nvm.sh;  npm run build"'
             }
         }
 
         stage('Tests') {
             steps {
-                sh ". $HOME/.nvm/nvm.sh && JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:ci"
+                sh 'bash -c ". $HOME/.nvm/nvm.sh;  JEST_JUNIT_OUTPUT_FILE=junit.xml npm run test:ci"'
             }
         }
 
         stage('Build Example App') {
             steps {
                 dir('example') {
-                    sh ". $HOME/.nvm/nvm.sh && npm ci"
-                    sh ". $HOME/.nvm/nvm.sh && npm run build"
+                    sh 'bash -c ". $HOME/.nvm/nvm.sh;  npm ci"'
+                    sh 'bash -c ". $HOME/.nvm/nvm.sh;  npm run build"'
                 }
             }
         }
