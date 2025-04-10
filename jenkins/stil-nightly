@@ -20,21 +20,21 @@ pipeline {
         stage('Install') {
             steps {
                 //sh "./scripts/install_node.sh"
-                sh "cs update cs"
-                sh "cs version"
-                sh "echo $HOME"
-                sh "echo $PATH"
-                sh "which cs"
                 sh "cs java --jvm temurin:1.21.0 --setup"
-                sh "java -version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && java -version"
                 //sh "./scripts/install_kotlin.sh"
                 sh "kotlin -version"
-                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which sbt && sbt --version"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which sbt && sbt -Dsbt.log.noformat=true --version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which jps && jps -v"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which java && java --version"
                 sh "which cs && cs --version"
-                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && sbt clean"
+                sh "eval \$(cs java --jvm temurin:1.21.0 --env) && sbt -Dsbt.log.noformat=true clean"
+                // See https://developer.chrome.com/blog/chrome-for-testing/
+                sh "npx @puppeteer/browsers install chrome@stable"
+                sh "npx @puppeteer/browsers install chrome@116.0.5793.0"
+                sh "npx @puppeteer/browsers install chromedriver@canary"
+                sh "npx @puppeteer/browsers install chromedriver@116.0.5793.0"
+
             }
         }
 
