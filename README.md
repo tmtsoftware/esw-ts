@@ -58,7 +58,7 @@ Make sure you have following CSW services up and running:
 
 Note: Simple way to start all these services is to run `csw-services` using `coursier (aka cs)` from `csw` github repository.
 
-Refer [here](http://tmtsoftware.github.io/csw/4.0.1/apps/cswservices.html) to learn how to start csw-services.
+Refer [here](http://tmtsoftware.github.io/csw/6.0.0-RC1/apps/cswservices.html) to learn how to start csw-services.
 
 ```bash
 cs install csw-services
@@ -179,7 +179,7 @@ Document automatically gets released using release pipeline.
 
 | esw-ts | esw    | csw    |
 |--------|--------|--------|
-| v0.5.x | v0.6.x | v6.0.x |
+| v1.0.0-RC1 | v1.0.0-RC1 | v6.0.0-RC1 |
 | v0.4.1 | v0.5.1 | v5.0.1 |
 | v0.4.1-RC1 | v0.5.1-RC1 | v5.0.1-RC1 |
 | v0.4.0 | v0.5.0 | v5.0.0 |
@@ -209,6 +209,7 @@ Document automatically gets released using release pipeline.
 
 | Date       | Tag        | Source                                                                    | Docs                                                                     | Assets                                                                                   |
 |------------|------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| 2025-04-14 | v1.0.0-RC1 | [esw-ts-1.0.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v1.0.0-RC1) | [esw-ts-1.0.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/1.0.0-RC1/) | [esw-ts-1.0.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v1.0.0-RC1) |
 | 2023-03-28 | v0.4.1-RC1 | [esw-ts-0.4.1-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.4.1-RC1) | [esw-ts-0.4.1-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.4.1-RC1/) | [esw-ts-0.4.1-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.1-RC1) |
 | 2022-10-10 | v0.4.0-RC2 | [esw-ts-0.4.0-RC2](https://github.com/tmtsoftware/esw-ts/tree/v0.4.0-RC2) | [esw-ts-0.4.0-RC2 docs](https://tmtsoftware.github.io/esw-ts/0.4.0-RC2/) | [esw-ts-0.4.0-RC2 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.0-RC2) |
 | 2022-09-15 | v0.4.0-RC1 | [esw-ts-0.4.0-RC1](https://github.com/tmtsoftware/esw-ts/tree/v0.4.0-RC1) | [esw-ts-0.4.0-RC1 docs](https://tmtsoftware.github.io/esw-ts/0.4.0-RC1/) | [esw-ts-0.4.0-RC1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.0-RC1) |
