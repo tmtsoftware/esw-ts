@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: branch-0.6.x
+          ref: branch-1.0.x
       - uses: coursier/setup-action@v1.2.0
         with:
           jvm: temurin:1.21
