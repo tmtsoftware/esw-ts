@@ -5,9 +5,9 @@ object Libs {
 
   val `scalaTest`         = "org.scalatest"                            %% "scalatest"         % "3.2.19" // Apache License 2.0
   val `selenium-java`     = "org.seleniumhq.selenium"                   % "selenium-java"     % "4.29.0"
-  val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "8285bb5"
+  val `embedded-keycloak` = "com.github.tmtsoftware.embedded-keycloak" %% "embedded-keycloak" % "0.7.3"
   val `webdriverManager`  = "io.github.bonigarcia"                      % "webdrivermanager"  % "5.9.3"
-  val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "d45709a"
+  val `tmt-test-reporter` = "com.github.tmtsoftware.rtm"               %% "rtm"               % "0.4.0"
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-4-21"      % "3.2.19.0"
 }
 object ESW {
