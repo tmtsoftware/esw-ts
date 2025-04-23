@@ -8,8 +8,8 @@ on:
 jobs:
   release:
     env:
-      CSW_VERSION: "6.0.0-RC1" # Change before releasing (before tagging repo)
-      ESW_VERSION: "1.0.0-RC1"
+      CSW_VERSION: "6.0.0-RC5" # Change before releasing (before tagging repo)
+      ESW_VERSION: "1.0.0-RC7"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
