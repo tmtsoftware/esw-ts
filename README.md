@@ -58,7 +58,7 @@ Make sure you have following CSW services up and running:
 
 Note: Simple way to start all these services is to run `csw-services` using `coursier (aka cs)` from `csw` github repository.
 
-Refer [here](http://tmtsoftware.github.io/csw/6.0.0-RC1/apps/cswservices.html) to learn how to start csw-services.
+Refer [here](http://tmtsoftware.github.io/csw/6.0.0/apps/cswservices.html) to learn how to start csw-services.
 
 ```bash
 cs install csw-services
@@ -179,7 +179,7 @@ Document automatically gets released using release pipeline.
 
 | esw-ts | esw    | csw    |
 |--------|--------|--------|
-| v1.0.1 | v1.0.0 | v6.0.0 |
+| v1.0.2 | v1.0.0 | v6.0.0 |
 | v1.0.0-RC1 | v1.0.0-RC1 | v6.0.0-RC1 |
 | v0.4.1 | v0.5.1 | v5.0.1 |
 | v0.4.1-RC1 | v0.5.1-RC1 | v5.0.1-RC1 |
@@ -200,7 +200,7 @@ Document automatically gets released using release pipeline.
 
 | Date       | Tag    | Source                                                            | Docs                                                             | Assets                                                                           |
 |------------|--------|-------------------------------------------------------------------|------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| 2025-05-07 | v1.0.1 | [esw-ts-1.0.1](https://github.com/tmtsoftware/esw-ts/tree/v1.0.1) | [esw-ts-1.0.1 docs](https://tmtsoftware.github.io/esw-ts/1.0.1/) | [esw-ts-1.0.1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v1.0.1) |
+| 2025-05-07 | v1.0.1 | [esw-ts-1.0.2](https://github.com/tmtsoftware/esw-ts/tree/v1.0.1) | [esw-ts-1.0.2 docs](https://tmtsoftware.github.io/esw-ts/1.0.1/) | [esw-ts-1.0.2 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v1.0.1) |
 | 2023-04-12 | v0.4.1 | [esw-ts-0.4.1](https://github.com/tmtsoftware/esw-ts/tree/v0.4.1) | [esw-ts-0.4.1 docs](https://tmtsoftware.github.io/esw-ts/0.4.1/) | [esw-ts-0.4.1 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.1) |
 | 2022-11-15 | v0.4.0 | [esw-ts-0.4.0](https://github.com/tmtsoftware/esw-ts/tree/v0.4.0) | [esw-ts-0.4.0 docs](https://tmtsoftware.github.io/esw-ts/0.4.0/) | [esw-ts-0.4.0 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.4.0) |
 | 2022-02-09 | v0.3.0 | [esw-ts-0.3.0](https://github.com/tmtsoftware/esw-ts/tree/v0.3.0) | [esw-ts-0.3.0 docs](https://tmtsoftware.github.io/esw-ts/0.3.0/) | [esw-ts-0.3.0 assets](https://github.com/tmtsoftware/esw-ts/releases/tag/v0.3.0) |

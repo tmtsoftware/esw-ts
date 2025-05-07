@@ -20,7 +20,7 @@ object ESW {
 }
 
 object CSW {
-  private val defaultCswVersion = "6.0.0-RC4"
+  private val defaultCswVersion = "6.0.0"
 
   val Version: String = sys.props.get("prod.publish") match {
     case Some("true") => sys.env.getOrElse("CSW_VERSION", defaultCswVersion)
