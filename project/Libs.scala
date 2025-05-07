@@ -11,7 +11,7 @@ object Libs {
   val scalaTestPlus       = "org.scalatestplus"                        %% "selenium-4-21"      % "3.2.19.0"
 }
 object ESW {
-  private val defaultESWVersion = "1.0.0-RC7"
+  private val defaultESWVersion = "v1.0.0"
 
   val Version: String = sys.props.get("prod.publish") match {
     case Some("true") => sys.env.getOrElse("ESW_VERSION", defaultESWVersion)

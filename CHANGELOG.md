@@ -8,7 +8,7 @@ Npm module published for ESW-TS can be found [here](https://www.npmjs.com/packag
 ## Upcoming Changes
 n/a
 
-## [ESW-TS v1.0.0-RC1] - 2025-04-14
+## [ESW-TS v1.0.0] - 2025-05-07
 
 * Updated for csw-6.0.0 and esw-1.0.0, based on pekko and scala3
 * Updated Scala and JS dependencies
