@@ -30,7 +30,7 @@ This project provide following typescript clients for various TMT services, whic
 * Login
 * Logout
 
-See [here](http://tmtsoftware.github.io/esw-ts/0.3.0) for a detailed description of the ESW-TS.
+See [here](http://tmtsoftware.github.io/esw-ts/) for a detailed description of the ESW-TS.
 
 ### Example App
 
