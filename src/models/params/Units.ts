@@ -131,7 +131,7 @@ export class Units {
   static readonly pix: Units = new Units('pix', 'pix')
 
   // Flow and pressure units
-  static readonly psi: Units = new Units('psi', 'psw')
+  static readonly psi: Units = new Units('psi', 'psi')
   static readonly lpm: Units = new Units('lpm', 'lpm')
 
   private constructor(
