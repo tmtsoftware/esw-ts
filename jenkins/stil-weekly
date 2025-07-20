@@ -21,7 +21,6 @@ pipeline {
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which sbt && sbt --version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which jps && jps -v"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && which java && java --version"
-                sh "which cs && cs --version"
                 sh "eval \$(cs java --jvm temurin:1.21.0 --env) && sbt clean"
             }
         }
